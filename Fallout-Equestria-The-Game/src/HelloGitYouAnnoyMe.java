@@ -1,4 +1,4 @@
 
 public class HelloGitYouAnnoyMe {
-	private int hello;
+	private int helloworld;
 }
