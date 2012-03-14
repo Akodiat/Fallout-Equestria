@@ -2,5 +2,5 @@
 public class HelloGitYouAnnoyMe {
 	private int helloworld;
 	private String yesWeCan;
-	private HelloGitYouAnnoyMe self;
+	private HelloGitYouAnnoyMe self=this;
 }
