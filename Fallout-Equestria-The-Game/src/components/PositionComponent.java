@@ -3,11 +3,13 @@ package components;
 import math.Vector2;
 import entityFramework.IComponent;
 
-public class positionComponent implements IComponent{
+public class PositionComponent implements IComponent{
 	private Vector2 position;
 	
 	public Object clone(){
-		return null;
+		PositionComponent comp = new PositionComponent();
+		comp.setPosition(position);
+		return comp;
 	}
 
 	/**
