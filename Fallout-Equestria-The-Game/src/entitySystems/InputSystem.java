@@ -14,9 +14,8 @@ import components.InputComponent;
  */
 public class InputSystem extends EntitySingleProcessingSystem{
 
-	protected InputSystem(IEntityWorld world,
-			Class<? extends IComponent>[] componentsClasses) {
-		super(world, componentsClasses);
+	protected InputSystem(IEntityWorld world) {
+		super(world, InputComponent.class);
 		// TODO Auto-generated constructor stub
 	}
 	private ComponentMapper<InputComponent> CM;
