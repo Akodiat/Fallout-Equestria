@@ -8,8 +8,6 @@ import org.junit.Test;
 
 public class Vector2Tests {
 	
-	
-	
 	@Test
 	public void testAddition() {
 	
