@@ -21,11 +21,14 @@ import math.Vector2;
 
 public class Graphics {
 
-	private final FloatBuffer buffer = BufferUtils.createFloatBuffer(8);
+	private final FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
 	private int vertexBufferObject;
 	private int vertexArrayObject;
 	private int shaderProgram;
+	private int colorLocation;
+	int samplerLocation;
 	private Matrix4 projectionMatrix;
+	private Vector2 viewPort;
 	
 	private float[] vertexData  = {
 		-0.5f, -.5f,
@@ -46,6 +49,9 @@ public class Graphics {
 		this.vertexArrayObject = glGenVertexArrays();
 		glBindVertexArray(this.vertexArrayObject);
 		
+		buffer.put(this.vertexData);
+		buffer.flip();
+		
 		glBindBuffer(GL_ARRAY_BUFFER, this.vertexBufferObject);
 		glBufferData(GL_ARRAY_BUFFER, this.buffer, GL_DYNAMIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -60,7 +66,7 @@ public class Graphics {
 		glBindVertexArray(0);
 		
 		
-		
+		this.viewPort = new Vector2(screen.getWidth() / 2.0f, screen.getHeight() / 2.0f);
 		
 		
 		
@@ -68,9 +74,15 @@ public class Graphics {
 		shaders.add(ShaderLoader.loadShader(GL_VERTEX_SHADER, "MVP.vert"));
 		shaders.add(ShaderLoader.loadShader(GL_FRAGMENT_SHADER, "TextureShader.frag"));
 	
+		
 		this.shaderProgram = ShaderLoader.createProgram(shaders);
+		
+		this.samplerLocation = glGetUniformLocation(shaderProgram, "matrix");
+		this.colorLocation = glGetUniformLocation(shaderProgram, "color");
+		
 		this.projectionMatrix = Matrix4.createOrthogonalProjection(screen.getLeft(), screen.getRight(), 
 												screen.getBottom(), screen.getTop(), 1, -1);
+		
 		
 	}
 	
@@ -80,17 +92,42 @@ public class Graphics {
 		glClear(GL_COLOR_BUFFER_BIT);	 
 	}
 	
+	FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+	
 	public void draw(Texture2D texture, Vector2 position, Color color) {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
 		glBindVertexArray(this.vertexArrayObject);
 		
+		glUseProgram(this.shaderProgram);
 		
-		Matrix4 scaleMatrix = Matrix4.createScale(1f);
-		Matrix4 translationMatrix = Matrix4.createtranslation(position);
+		Matrix4 scaleMatrix = Matrix4.createScale(100f);
+		Matrix4 translationMatrix = Matrix4.createtranslation(Vector2.subtract(position, this.viewPort));
 		
-		Matrix4 tmp = Matrix4.mul(projectionMatrix, scaleMatrix);
-		tmp = Matrix4.mul(tmp, translationMatrix);
+		Matrix4 tmp = Matrix4.mul(scaleMatrix, translationMatrix);
+		tmp = Matrix4.mul(tmp , this.projectionMatrix);
 		
 		
+		glUniformMatrix4(this.samplerLocation, false, tmp.toFlippedFloatBuffer(this.matrixBuffer));	
+		glUniform4f(colorLocation, color.getRed() / 256.0f,
+								   color.getGreen() / 256.0f ,
+								   color.getBlue() / 256.0f, 
+								   color.getAlpha() / 256.0f);
+		
+		int samplerLoaction = glGetUniformLocation(this.shaderProgram, "textureTest");
+		glUniform1i(samplerLoaction, 0);
+		
+	
+		
+		
+		
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture.getOpenGLID());
+		
+		glDrawArrays(GL_QUADS, 0, 4);
+		
+		glUseProgram(0);
 		glBindVertexArray(0);
 	}
 	
@@ -104,7 +141,4 @@ public class Graphics {
 		
 	}
 	
-	private void InternalRender() {
-		
-	}
  }

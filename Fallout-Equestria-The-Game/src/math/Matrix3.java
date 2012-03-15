@@ -77,5 +77,4 @@ public final class Matrix3 {
 				 		   m02, m12, m22);
 	}
 	
-	//TODO more functions should be done.
-}
+	}

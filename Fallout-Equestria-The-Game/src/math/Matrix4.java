@@ -1,5 +1,9 @@
 package math;
 
+import java.nio.FloatBuffer;
+
+import org.lwjgl.BufferUtils;
+
 public final class Matrix4 {
 
 	public final float m00;
@@ -61,10 +65,10 @@ public final class Matrix4 {
 	}
 	
 	public static Matrix4 createtranslation(Vector2 offset) {
-		return new Matrix4(0, 0, 0, offset.X,
-						   0, 0, 0, offset.Y,
+		return new Matrix4(1, 0, 0, 0,
+						   0, 1, 0, 0,
 						   0, 0, 1, 0,
-						   0, 0, 0, 1);
+						   offset.X, offset.Y, 0, 1);
 	}
 	
 	public static Matrix4 createOrthogonalProjection(float left, float right, float bottom, float top, 
@@ -89,17 +93,17 @@ public final class Matrix4 {
 		float m02 = left.m00 * right.m02 + left.m01 * right.m12 + left.m02 * right.m22 + left.m03 * right.m32;
 		float m03 = left.m00 * right.m03 + left.m01 * right.m13 + left.m02 * right.m23 + left.m03 * right.m33;
 		
-		float m10 = left.m10 * right.m03 + left.m11 * right.m13 + left.m12 * right.m23 + left.m13 * right.m33;
+		float m10 = left.m10 * right.m00 + left.m11 * right.m10 + left.m12 * right.m20 + left.m13 * right.m30;
 		float m11 = left.m10 * right.m01 + left.m11 * right.m11 + left.m12 * right.m21 + left.m13 * right.m31;
 		float m12 = left.m10 * right.m02 + left.m11 * right.m12 + left.m12 * right.m22 + left.m13 * right.m32;
 		float m13 = left.m10 * right.m03 + left.m11 * right.m13 + left.m12 * right.m23 + left.m13 * right.m33;
 		
-		float m20 = left.m20 * right.m03 + left.m21 * right.m13 + left.m22 * right.m23 + left.m23 * right.m33;
+		float m20 = left.m20 * right.m00 + left.m21 * right.m10 + left.m22 * right.m20 + left.m23 * right.m30;
 		float m21 = left.m20 * right.m01 + left.m21 * right.m11 + left.m22 * right.m21 + left.m23 * right.m31;
 		float m22 = left.m20 * right.m02 + left.m21 * right.m12 + left.m22 * right.m22 + left.m23 * right.m32;
 		float m23 = left.m20 * right.m03 + left.m21 * right.m13 + left.m22 * right.m23 + left.m23 * right.m33;
 		
-		float m30 = left.m30 * right.m03 + left.m31 * right.m13 + left.m32 * right.m23 + left.m33 * right.m33;
+		float m30 = left.m30 * right.m00 + left.m31 * right.m10 + left.m32 * right.m20 + left.m33 * right.m30;
 		float m31 = left.m30 * right.m01 + left.m31 * right.m11 + left.m32 * right.m21 + left.m33 * right.m31;
 		float m32 = left.m30 * right.m02 + left.m31 * right.m12 + left.m32 * right.m22 + left.m33 * right.m32;
 		float m33 = left.m30 * right.m03 + left.m31 * right.m13 + left.m32 * right.m23 + left.m33 * right.m33;
@@ -116,5 +120,15 @@ public final class Matrix4 {
 						   left.m20 + right.m20, left.m21 + right.m21, left.m22 + right.m22, left.m23 + right.m23,
 						   left.m30 + right.m30, left.m31 + right.m31, left.m32 + right.m32, left.m33 + right.m33);
 		
+	}
+
+	public FloatBuffer toFlippedFloatBuffer(FloatBuffer buffer) {
+		buffer.clear();
+		buffer.put(m00); buffer.put(m01); buffer.put(m02); buffer.put(m03);
+		buffer.put(m10); buffer.put(m11); buffer.put(m12); buffer.put(m13);
+		buffer.put(m20); buffer.put(m21); buffer.put(m22); buffer.put(m23);
+		buffer.put(m30); buffer.put(m31); buffer.put(m32); buffer.put(m33);
+		buffer.flip();
+		return buffer;
 	}
 }
