@@ -12,9 +12,7 @@ import org.junit.Test;
  *
  */
 public class Vector2Tests {
-	
-<<<<<<< HEAD
-=======
+
 	private static float x1 = (float)Math.random() * 10;
 	private static float x2 = (float)Math.random() * 10;
 	private static float y1 = (float)Math.random() * 10;
@@ -23,7 +21,6 @@ public class Vector2Tests {
 	private static Vector2 vector1 = new Vector2(x1, y1);
 	private static Vector2 vector2 = new Vector2(x2, y2);
 	
->>>>>>> Finished test for Vector2
 	@Test
 	public void testAddition() {
 		Vector2 result = Vector2.add(vector1, vector2);
