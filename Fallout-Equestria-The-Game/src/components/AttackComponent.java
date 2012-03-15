@@ -11,12 +11,10 @@ public class AttackComponent implements IComponent {
 
 	private Rectangle bounds;
 	private int damage;
-	private List<Entity> targets;
 	
-	public AttackComponent(Rectangle bounds, int damage, List<Entity> targets) {
+	public AttackComponent(Rectangle bounds, int damage) {
 		this.bounds = bounds;
 		this.damage = damage;
-		this.targets = targets;
 	}
 
 	/**
@@ -24,7 +22,7 @@ public class AttackComponent implements IComponent {
 	 * @param objectToCopy
 	 */
 	public AttackComponent(AttackComponent objectToCopy) {
-		this(objectToCopy.bounds, objectToCopy.damage, objectToCopy.targets);
+		this(objectToCopy.bounds, objectToCopy.damage);
 	}
 	
 	public Rectangle getBounds() {
@@ -41,14 +39,6 @@ public class AttackComponent implements IComponent {
 
 	public void setDamage(int damage) {
 		this.damage = damage;
-	}
-
-	public List<Entity> getTargets() {
-		return targets;
-	}
-
-	public void setTargets(List<Entity> targets) {
-		this.targets = targets;
 	}
 
 	public Object clone(){

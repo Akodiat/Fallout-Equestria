@@ -2,6 +2,8 @@ package components;
 
 import org.lwjgl.util.Rectangle;
 
+import utils.Circle;
+
 import entityFramework.IComponent;
 
 /**
@@ -10,35 +12,29 @@ import entityFramework.IComponent;
  * @author Gustav
  *
  */
-public class HurtboxComponent implements IComponent {
+public class SpatialComponent implements IComponent {
 
-	private Rectangle bounds;
+	private Circle bounds;
 	
-	public HurtboxComponent(HurtboxComponent toBeCloned) {
+	public SpatialComponent(SpatialComponent toBeCloned) {
 		super();
 		this.bounds = toBeCloned.bounds;
 	}
 	
-	public HurtboxComponent(Rectangle bounds) {
+	public SpatialComponent(Circle bounds) {
 		super();
 		this.bounds = bounds;
 	}
 
-
-	public Rectangle getBounds() {
+	public Circle getBounds() {
 		return bounds;
 	}
 
-
-	public void setBounds(Rectangle bounds) {
+	public void setBounds(Circle bounds) {
 		this.bounds = bounds;
 	}
-
-
-
-	
 	
 	public Object clone(){
-		return new HurtboxComponent(this);
+		return new SpatialComponent(this);
 	}
 }
