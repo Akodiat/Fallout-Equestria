@@ -1,5 +1,9 @@
 package utils;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class Key {
 	private final int keyID;
 	private boolean pressed;

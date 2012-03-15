@@ -6,7 +6,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import components.InputComponent;
-
+/**
+ * 
+ * @author Joakim
+ *
+ */
 public class InputIntegrationTest {
 	
 	public static void main(String[] args) throws LWJGLException{

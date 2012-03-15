@@ -7,7 +7,11 @@ import org.lwjgl.opengl.Display;
 
 import entityFramework.*;
 import components.InputComponent;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class InputSystem extends EntitySingleProcessingSystem{
 
 	protected InputSystem(IEntityWorld world,

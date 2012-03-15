@@ -3,7 +3,11 @@ import math.Vector2;
 
 import entityFramework.IComponent;
 import utils.Key;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class InputComponent implements IComponent{
 	private Vector2 mousePosition;
 	private boolean leftMouseButtonDown;

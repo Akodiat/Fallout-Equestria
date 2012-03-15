@@ -2,7 +2,11 @@ package components;
 
 import math.Vector2;
 import entityFramework.IComponent;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class PositionComponent implements IComponent{
 	private Vector2 position;
 	
