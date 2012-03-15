@@ -8,4 +8,8 @@ public interface IEntityWorld {
 
 	public abstract IEntityDatabase getDatabase();
 
+	public abstract void render();
+
+	public abstract void update(float deltha);
+
 }

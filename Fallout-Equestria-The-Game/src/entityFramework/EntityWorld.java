@@ -37,4 +37,15 @@ public class EntityWorld implements IEntityWorld {
 		this.systemManager = systemManager;
 		this.database = database;
 	}
+
+	@Override
+	public void render() {
+		this.systemManager.render();
+		
+	}
+
+	@Override
+	public void update(float deltha) {
+		this.systemManager.logic();
+	}
 }
