@@ -94,9 +94,9 @@ public final class Vector2 {
 	public static Vector2 orthogonalProjection(Vector2 toProject, Vector2 toBeProjectedOn) {
 		
 		float numerator = Vector2.dot(toBeProjectedOn, toProject);
-		float denumerator = Vector2.dot(toBeProjectedOn, toBeProjectedOn);
+		float denominator = Vector2.dot(toBeProjectedOn, toBeProjectedOn);
 		
-		return Vector2.mul(numerator / denumerator, toBeProjectedOn);
+		return Vector2.mul(numerator / denominator, toBeProjectedOn);
 	}
 	
 	/**
@@ -107,10 +107,8 @@ public final class Vector2 {
 	 */
 	public static float angle(Vector2 vector0, Vector2 vector1) {
 		float numerator = Vector2.dot(vector0, vector1);
-		float denumerator = vector0.length() * vector1.length();
+		float denominator = vector0.length() * vector1.length();
 		
-		return (float)Math.acos(numerator / denumerator);
+		return (float)Math.acos(numerator / denominator);
 	}
-	
-	
 }
