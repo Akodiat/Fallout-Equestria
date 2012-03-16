@@ -64,14 +64,20 @@ public final class Matrix3 {
 	 */
 	public Matrix3 transpose() {
 		return new Matrix3(a, b, c,
-				d, e, f,
-				g, h, i);
+				           d, e, f,
+				           g, h, i);
+	}
+	
+	public Matrix3 add(Matrix3 m1, Matrix3 m2) {
+		return new Matrix3(m1.a+m2.a, m1.d+m2.d, m1.g + m2.g,
+				           m1.b+m2.b, m1.e+m2.e, m1.h + m2.h,
+				           m1.c+m2.c, m1.f+m2.f, m1.i + m2.i);
 	}
 
 	public Matrix3 mul(float k, Matrix3 m) {
 		return new Matrix3(k*m.a, k*m.d, k*m.g,
-				k*m.b, k*m.e, k*m.h,
-				k*m.c, k*m.f, k*m.i);
+				           k*m.b, k*m.e, k*m.h,
+				           k*m.c, k*m.f, k*m.i);
 	}
 
 	public Matrix3 rotate(float angle) {
@@ -79,14 +85,20 @@ public final class Matrix3 {
 		float sinAngle = (float)Math.sin(angle);
 
 		return new Matrix3(cosAngle, -sinAngle, 0, 
-				sinAngle, cosAngle,  0, 
-				0,        0,         1);
+				           sinAngle, cosAngle,  0, 
+				           0,        0,         1);
 	}
 
 	public static Matrix3 createScale(float scale) {
 		return new Matrix3(scale, 0, 0,
-				0, scale, 0,
-				0, 0,     1);
+				           0, scale, 0,
+				           0, 0,     1);
+	}
+	
+	public static Matrix3 createScale(float xscale, float yscale) {
+		return new Matrix3(xscale, 0, 0,
+						   0, yscale, 0,
+						   0, 0,      1);
 	}
 
 	public static Matrix3 mul(Matrix3 l, Matrix3 r) {
