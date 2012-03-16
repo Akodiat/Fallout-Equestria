@@ -31,7 +31,7 @@ public class Circle {
 	}
 	
 	
-	private float distanceSquared(Circle other){
+	public float distanceSquared(Circle other){
 		float dx = this.position.X - other.position.X;
 		float dy = this.position.Y - other.position.Y;
 		return (dx*dx + dy*dy);

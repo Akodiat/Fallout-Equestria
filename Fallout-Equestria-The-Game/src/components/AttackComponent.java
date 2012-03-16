@@ -2,19 +2,31 @@ package components;
 
 import java.util.List;
 
-import org.lwjgl.util.Rectangle;
+import utils.Circle;
+
+import com.google.common.collect.ImmutableList;
 
 import entityFramework.Entity;
 import entityFramework.IComponent;
 
 public class AttackComponent implements IComponent {
 
-	private Rectangle bounds;
+	private Circle bounds;
 	private int damage;
+	private ImmutableList<Entity> targets;
 	
-	public AttackComponent(Rectangle bounds, int damage) {
+	public AttackComponent(Circle bounds, int damage, ImmutableList<Entity> targets) {
 		this.bounds = bounds;
 		this.damage = damage;
+		this.targets = targets;
+	}
+
+	public ImmutableList<Entity> getTargets() {
+		return targets;
+	}
+
+	public void setTargets(ImmutableList<Entity> targets) {
+		this.targets = targets;
 	}
 
 	/**
@@ -22,14 +34,14 @@ public class AttackComponent implements IComponent {
 	 * @param objectToCopy
 	 */
 	public AttackComponent(AttackComponent objectToCopy) {
-		this(objectToCopy.bounds, objectToCopy.damage);
+		this(objectToCopy.bounds, objectToCopy.damage, objectToCopy.targets);
 	}
 	
-	public Rectangle getBounds() {
+	public Circle getBounds() {
 		return bounds;
 	}
 
-	public void setBounds(Rectangle bounds) {
+	public void setBounds(Circle bounds) {
 		this.bounds = bounds;
 	}
 
