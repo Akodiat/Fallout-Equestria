@@ -69,7 +69,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		SpatialComponent spatC = new SpatialComponent(new Circle(new Vector2(0,0), 30));
+		SpatialComponent spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
 		player1.addComponent(rendC);
 		player1.addComponent(inpC);
@@ -106,7 +106,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 			e.printStackTrace();
 		}
 		
-		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 30));
+		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
 		player2.addComponent(player2rendC);
 		player2.addComponent(player2inpC);

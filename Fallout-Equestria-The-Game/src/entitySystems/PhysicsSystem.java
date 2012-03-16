@@ -1,5 +1,9 @@
 package entitySystems;
 
+import org.lwjgl.opengl.Display;
+
+import utils.Circle;
+
 import com.google.common.collect.ImmutableSet;
 
 import math.Vector2;
@@ -42,14 +46,43 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 		SpatialComponent spatComp = spatCM.getComponent(entity);
 		boolean collision=false;
 		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComponent.class);
-		for(IEntity i:collidableEntities){
-			if(Vector2.distance((i.getComponent(PositionComponent.class).getPosition()),posComp.getPosition())<20);
-				collision=true;
-		}
-		if(!collision)
-			physComp.setVelocity(Vector2.mul(-0.5f, physComp.getVelocity()));
+
 		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
 		
+		
+		if(checkIfCollides(entity))
+			posComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(-1,physComp.getVelocity())));
+		
+	}
+	private boolean checkIfCollides(IEntity entity){
+		PositionComponent posComp = posCM.getComponent(entity);
+		PhysicsComponent physComp = physCM.getComponent(entity);
+		SpatialComponent spatComp = spatCM.getComponent(entity);
+		
+		boolean collision=false;
+		float r=spatComp.getBounds().getRadius();
+		if(posComp.getPosition().X-r<0 || 
+				posComp.getPosition().X+r>Display.getWidth() ||
+				posComp.getPosition().Y-r<0 ||
+				posComp.getPosition().Y+r>Display.getHeight()){
+			return true;
+		}
+		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComponent.class);
+
+		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
+		
+		
+		for(IEntity i:collidableEntities){
+			if(!i.equals(entity) && Circle.intersects(
+					i.getComponent(SpatialComponent.class).getBounds(),
+					i.getComponent(PositionComponent.class).getPosition(),
+					spatComp.getBounds(),
+					posComp.getPosition())){
+				collision=true;
+				i.getComponent(PositionComponent.class).setPosition(Vector2.add(i.getComponent(PositionComponent.class).getPosition(), Vector2.mul(1,physComp.getVelocity())));
+			}
+		}
+		return collision;
 	}
 
 }
