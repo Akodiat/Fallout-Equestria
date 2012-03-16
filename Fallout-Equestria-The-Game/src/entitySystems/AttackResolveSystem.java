@@ -47,6 +47,7 @@ public class AttackResolveSystem extends EntitySystem {
 
 	@Override
 	public void process() {
+		
 
 	}
 
