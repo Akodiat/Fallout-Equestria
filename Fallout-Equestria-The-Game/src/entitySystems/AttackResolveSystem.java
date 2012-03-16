@@ -2,6 +2,7 @@ package entitySystems;
 
 import math.Vector2;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import components.AttackComponent;
@@ -28,33 +29,35 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 		super(world, componentsClasses);
 	}
 
-	private ComponentMapper<AttackComponent> ACM;
-	private ComponentMapper<SpatialComponent> SCM;
-	private ComponentMapper<PositionComponent> PCM;
-	private ComponentMapper<HealthComponent> HCM;
+	private ComponentMapper<AttackComponent> aCM;
+	private ComponentMapper<SpatialComponent> sCM;
+	private ComponentMapper<PositionComponent> pCM;
+	private ComponentMapper<HealthComponent> hCM;
 
 	@Override
 	public void initialize() {
-		ACM = ComponentMapper.create(this.getWorld().getDatabase(),
+		aCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				AttackComponent.class);
-		PCM = ComponentMapper.create(this.getWorld().getDatabase(),
+		pCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				PositionComponent.class);
-		SCM = ComponentMapper.create(this.getWorld().getDatabase(),
+		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				SpatialComponent.class);
-		HCM = ComponentMapper.create(this.getWorld().getDatabase(),
+		hCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				HealthComponent.class);
 	}
 
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
-
+/*
+		ImmutableList<IEntity> gEntities = this.getWorld().getEntityManager().getEntityGroup();
+		
 		for (IEntity entity : entities) {
-			AttackComponent attaCom = ACM.getComponent(entity);
-			PositionComponent posiCom = PCM.getComponent(entity);
+			AttackComponent attaCom = aCM.getComponent(entity);
+			PositionComponent posiCom = pCM.getComponent(entity);
 			
 			for (IEntity targetEntity : attaCom.getTargets()){
-				SpatialComponent targetSpatiCom = SCM.getComponent(targetEntity);
-				PositionComponent targetPosiCom = PCM.getComponent(targetEntity);
+				SpatialComponent targetSpatiCom = sCM.getComponent(targetEntity);
+				PositionComponent targetPosiCom = pCM.getComponent(targetEntity);
 				
 				float distanceSquared = Vector2.distanceSquared(Vector2.add(posiCom.getPosition(), attaCom.getBounds().getPosition()),
 																Vector2.add(targetPosiCom.getPosition(), targetSpatiCom.getBounds().getPosition()));
@@ -62,13 +65,13 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				Boolean didItHit = distanceSquared<combinedRadiusSquared;
 				
 				if(didItHit){
-					HealthComponent healCom = HCM.getComponent(targetEntity);
+					HealthComponent healCom = hCM.getComponent(targetEntity);
 					healCom.addHealthPoints(-attaCom.getDamage());
 					System.out.println("Someone got hit for " + attaCom.getDamage() + " damage!");
 				}
 			}
 			
-		}
+		}*/
 
 	}
 

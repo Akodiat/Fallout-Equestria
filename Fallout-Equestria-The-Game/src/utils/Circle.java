@@ -25,15 +25,15 @@ public class Circle {
 		this.radius = radius;
 	}
 
-	public Boolean intersects(Circle other){
-		float comboRadius = this.radius + other.getRadius();
-		return comboRadius*comboRadius>distanceSquared(other); //Don't need no sqrt. This is perfectly sufficient.
+	public static Boolean intersects(Circle circle1, Circle circle2){
+		float comboRadius = circle1.radius + circle2.getRadius();
+		return comboRadius*comboRadius>distanceSquared(circle1,circle2); //Don't need no sqrt. This is perfectly sufficient.
 	}
 	
 	
-	public float distanceSquared(Circle other){
-		float dx = this.position.X - other.position.X;
-		float dy = this.position.Y - other.position.Y;
+	public static float distanceSquared(Circle circle1, Circle circle2){
+		float dx = circle1.position.X - circle2.position.X;
+		float dy = circle1.position.Y - circle2.position.Y;
 		return (dx*dx + dy*dy);
 	}
 }

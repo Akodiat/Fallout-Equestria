@@ -31,7 +31,7 @@ public class CircleTests {
 	
 	@Test
 	public void testDistanceSquared(){
-		float d1 = circle1.distanceSquared(circle2);
+		float d1 = Circle.distanceSquared(circle1,circle2);
 		float dx = x1 - x2;
 		float dy = y1 - y2;
 		
@@ -46,6 +46,6 @@ public class CircleTests {
 		float distance = (float) Math.sqrt(dx*dx + dy*dy);
 		float combinedRadius = circle1.getRadius() + circle2.getRadius();
 		
-		assertTrue(distance < combinedRadius == circle1.intersects(circle2));
+		assertTrue(distance < combinedRadius == Circle.intersects(circle1,circle2));
 	}
 }
