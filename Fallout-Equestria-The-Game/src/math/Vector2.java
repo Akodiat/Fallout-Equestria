@@ -111,4 +111,13 @@ public final class Vector2 {
 		
 		return (float)Math.acos(numerator / denominator);
 	}
+	
+	/**
+	 * Normalizes the 2-vector v
+	 * @param v
+	 * @return the normalized vector.
+	 */
+	public static Vector2 norm(Vector2 v) {
+		return Vector2.mul(1/v.length(), v);
+	}
 }

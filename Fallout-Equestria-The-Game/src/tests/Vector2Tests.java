@@ -103,4 +103,13 @@ public class Vector2Tests {
 		
 		assertTrue(result == (float)Math.acos(numerator / denominator));
 	}
+	
+	@Test
+	public void testNorm() {
+		Vector2 result = Vector2.norm(vector1);
+		
+		assertTrue(result.X == Vector2.mul(1/vector1.length(), vector1).X);
+		assertTrue(result.Y == Vector2.mul(1/vector1.length(), vector1).Y);
+		assertTrue(result.length() == 1.0);
+	}
 }
