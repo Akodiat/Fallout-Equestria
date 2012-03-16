@@ -57,7 +57,7 @@ public class CharacterMovementIntegrationTest {
 		inpComp.setGallopButton(Keyboard.KEY_LSHIFT);
 		inpComp.setPipBuckButton(Keyboard.KEY_TAB);
 
-		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) || !Display.isCloseRequested()){
+		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Display.isCloseRequested()){
 			
 			graphics.clearScreen(new Color(255,255,234, 235));
 			//Set buttons (from InputSystem)
@@ -69,9 +69,9 @@ public class CharacterMovementIntegrationTest {
 			inpComp.setRightButtonPressed(Keyboard.isKeyDown(inpComp.getRightButton().getKeyID()));
 
 			//Move accordingly (from CharacterControllerSystem)
-			int speedFactor = 1;
+			float speedFactor = 0.5f;
 			if(inpComp.isGallopButtonPressed())
-				speedFactor=2;
+				speedFactor=1;
 			
 			Vector2 velocity = new Vector2(0,0);
 			if (inpComp.isBackButtonPressed())
@@ -82,7 +82,7 @@ public class CharacterMovementIntegrationTest {
 				velocity=Vector2.add(velocity, new Vector2(-1,0));
 			if (inpComp.isRightButtonPressed())
 				velocity=Vector2.add(velocity, new Vector2(1,0));
-				
+			Vector2.mul((1/Vector2.distance(new Vector2(0,0), velocity)), velocity); //TODO: Create norm method in Vector2	
 			velocity = Vector2.mul(speedFactor, velocity);
 			physComp.setVelocity(velocity);
 			
@@ -90,6 +90,7 @@ public class CharacterMovementIntegrationTest {
 			posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
 			
 			//Render texture
+			rendComp.setColor(new Color((int) (Math.random()*255),(int) (Math.random()*255),(int) (Math.random()*255), (int) (Math.random()*255)));
 			graphics.draw(rendComp.getTexture(), posComp.getPosition(),  rendComp.getColor());
 			
 			//Update
