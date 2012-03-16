@@ -11,6 +11,19 @@ public class Circle {
 		this.position = position;
 		this.radius = radius;
 	}
+	/**
+	 * Defaultconstructor
+	 */
+	public Circle() {
+		this.position = new Vector2(0,0);
+		this.radius = 1;
+	}
+	/**
+	 * Copyconstructor
+	 */
+	public Circle(Circle other) {
+		this(other.position, other.radius);
+	}
 
 	public Vector2 getPosition() {
 		return position;

@@ -1,6 +1,6 @@
 package entitySystems;
 
-import math.Vector2;
+import utils.Circle;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -11,7 +11,6 @@ import components.PositionComponent;
 import components.SpatialComponent;
 
 import entityFramework.ComponentMapper;
-import entityFramework.Entity;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
@@ -48,11 +47,11 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
-/*		for (IEntity entity : entities) {
+		for (IEntity entity : entities) {
 			AttackComponent attaCom = aCM.getComponent(entity);
 			PositionComponent posiCom = pCM.getComponent(entity);
 
-			ImmutableList<IEntity> gEntities = ImmutableList.;
+			ImmutableList<IEntity> gEntities = ImmutableList.of();
 			for (int i = 0; i < attaCom.getTargetGroups().size(); i++) {
 				gEntities.addAll(this.getWorld().getEntityManager()
 						.getEntityGroup(attaCom.getTargetGroups().get(i)));
@@ -64,17 +63,11 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				PositionComponent targetPosiCom = pCM
 						.getComponent(targetEntity);
 
-				float distanceSquared = Vector2.distanceSquared(Vector2.add(
-						posiCom.getPosition(), attaCom.getBounds()
-								.getPosition()), Vector2.add(targetPosiCom
-						.getPosition(), targetSpatiCom.getBounds()
-						.getPosition()));
-				float combinedRadiusSquared = (float) Math.pow(attaCom
-						.getBounds().getRadius()
-						+ targetSpatiCom.getBounds().getRadius(), 2);
-				Boolean didItHit = distanceSquared < combinedRadiusSquared;
+				Boolean itGotHit = Circle.intersects(attaCom.getBounds(),
+						posiCom.getPosition(), targetSpatiCom.getBounds(),
+						targetPosiCom.getPosition());
 
-				if (didItHit) {
+				if (itGotHit) {
 					HealthComponent healCom = hCM.getComponent(targetEntity);
 					healCom.addHealthPoints(-attaCom.getDamage());
 					System.out.println("Someone got hit for "
@@ -82,8 +75,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				}
 			}
 
-		}*/
+		}
 
 	}
-
 }
