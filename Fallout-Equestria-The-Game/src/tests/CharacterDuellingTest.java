@@ -9,12 +9,14 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Color;
 
+import utils.Circle;
 import utils.Rectangle;
 
 import components.InputComponent;
 import components.PhysicsComponent;
 import components.PositionComponent;
 import components.RenderingComponent;
+import components.SpatialComponent;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -45,7 +47,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		IEntity player1 = manager.createEmptyEntity();
 
 		PositionComponent posC = new PositionComponent();
-		posC.setPosition(new Vector2(Display.getWidth()/2,Display.getHeight()/2));
+		posC.setPosition(new Vector2(Display.getWidth()/2-200,Display.getHeight()/2));
 
 		PhysicsComponent physC = new PhysicsComponent();
 		physC.setVelocity(new Vector2(0,0));
@@ -67,11 +69,13 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		SpatialComponent spatC = new SpatialComponent(new Circle(new Vector2(0,0), 30));
 
 		player1.addComponent(rendC);
 		player1.addComponent(inpC);
 		player1.addComponent(physC);
 		player1.addComponent(posC);
+		player1.addComponent(spatC);
 		
 		player1.refresh();
 		
@@ -79,7 +83,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		IEntity player2 = manager.createEmptyEntity();
 
 		PositionComponent player2posC = new PositionComponent();
-		player2posC.setPosition(new Vector2(Display.getWidth()/2+20,Display.getHeight()/2));
+		player2posC.setPosition(new Vector2(Display.getWidth()/2+200,Display.getHeight()/2));
 
 		PhysicsComponent player2physC = new PhysicsComponent();
 		player2physC.setVelocity(new Vector2(0,0));
@@ -101,11 +105,14 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 30));
 
 		player2.addComponent(player2rendC);
 		player2.addComponent(player2inpC);
 		player2.addComponent(player2physC);
 		player2.addComponent(player2posC);
+		player2.addComponent(player2spatC);
 		
 		player2.refresh();
 	}
