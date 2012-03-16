@@ -48,7 +48,6 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
-/*
 		ImmutableList<IEntity> gEntities = this.getWorld().getEntityManager().getEntityGroup();
 		
 		for (IEntity entity : entities) {
@@ -71,7 +70,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				}
 			}
 			
-		}*/
+		}
 
 	}
 
