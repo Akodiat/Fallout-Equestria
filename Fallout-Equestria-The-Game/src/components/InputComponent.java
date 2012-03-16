@@ -20,6 +20,9 @@ public class InputComponent implements IComponent{
 	private Key	gallopButton; //Meaning sprint
 
 	private Key forwardButton;
+	
+	
+	
 	/**
 	 * @return the forwardButton
 	 */

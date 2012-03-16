@@ -16,7 +16,7 @@ import entityFramework.IEntityWorld;
  */
 public class PhysicsSystem extends EntitySingleProcessingSystem {
 
-	protected PhysicsSystem(IEntityWorld world) {
+	public PhysicsSystem(IEntityWorld world) {
 		super(world, PhysicsComponent.class, PositionComponent.class);
 		// TODO Auto-generated constructor stub
 	}

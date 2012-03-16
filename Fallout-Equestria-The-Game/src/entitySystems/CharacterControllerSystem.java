@@ -15,7 +15,7 @@ import entityFramework.IEntityWorld;
  */
 public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
-	protected CharacterControllerSystem(IEntityWorld world) {
+	public CharacterControllerSystem(IEntityWorld world) {
 		super(world, InputComponent.class, PhysicsComponent.class);
 	}
 	private ComponentMapper<PhysicsComponent> CMPhys;
@@ -44,6 +44,9 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			velocity=Vector2.add(velocity, new Vector2(-1,0));
 		if (inpComp.isRightButtonPressed())
 			velocity=Vector2.add(velocity, new Vector2(1,0));
+		
+		if(velocity.length()!=0)
+			velocity=Vector2.norm(velocity);
 			
 		velocity = Vector2.mul(speedFactor, velocity);
 		physComp.setVelocity(velocity);

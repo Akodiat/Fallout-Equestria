@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.google.inject.Inject;
+
 public class EntitySystemManager implements IEntitySystemManager{
 	
 	private final List<IEntitySystem> logicSystems;
@@ -12,7 +14,7 @@ public class EntitySystemManager implements IEntitySystemManager{
 	private final IEntityManager entityManager;
 	private boolean initialized;
 	
-	
+	@Inject
 	public EntitySystemManager(IEntityManager entityManager) {
 		this.logicSystems = new ArrayList<IEntitySystem>();
 		this.renderSystems = new ArrayList<IEntitySystem>();
@@ -22,6 +24,7 @@ public class EntitySystemManager implements IEntitySystemManager{
 	
 	@Override
 	public void addLogicEntitySystem(IEntitySystem logicSystem) {
+
 		this.logicSystems.add(logicSystem);
 		this.entityManager.addEntityChangedListener(logicSystem);
 		this.entityManager.addEntityDestoryedListener(logicSystem);
@@ -41,6 +44,7 @@ public class EntitySystemManager implements IEntitySystemManager{
 
 	@Override
 	public void addRenderEntitySystem(IEntitySystem renderSystem) {
+
 		this.renderSystems.add(renderSystem);
 		this.entityManager.addEntityChangedListener(renderSystem);
 		this.entityManager.addEntityDestoryedListener(renderSystem);
@@ -75,6 +79,8 @@ public class EntitySystemManager implements IEntitySystemManager{
 
 	@Override
 	public void logic() {
+		
+		
 		for (IEntitySystem entitySystem : this.logicSystems) {
 			entitySystem.process();
 		}

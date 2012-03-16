@@ -32,6 +32,7 @@ public class CharacterMovementIntegrationTest {
 	
 	public static void main(String[] args) throws IOException, LWJGLException{
 		//Display.setDisplayMode(new DisplayMode(800,400));
+		//Display.setFullscreen(true);
 		Display.create();
 		
 		graphics = new Graphics(new Rectangle(0, 0, 1280, 720));
@@ -59,7 +60,7 @@ public class CharacterMovementIntegrationTest {
 
 		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Display.isCloseRequested()){
 			
-			graphics.clearScreen(new Color(255,255,234, 235));
+			//graphics.clearScreen(new Color(255,255,234, 235));
 			//Set buttons (from InputSystem)
 			inpComp.setPipBuckButtonPressed(Keyboard.isKeyDown(inpComp.getPipBuckButton().getKeyID()));
 			inpComp.setBackButtonPressed(Keyboard.isKeyDown(inpComp.getBackButton().getKeyID()));
@@ -82,8 +83,14 @@ public class CharacterMovementIntegrationTest {
 				velocity=Vector2.add(velocity, new Vector2(-1,0));
 			if (inpComp.isRightButtonPressed())
 				velocity=Vector2.add(velocity, new Vector2(1,0));
-			Vector2.mul((1/Vector2.distance(new Vector2(0,0), velocity)), velocity); //TODO: Create norm method in Vector2	
+			
+			if(velocity.length()!=0)
+				velocity=Vector2.mul((1/velocity.length()), velocity); //TODO: Create norm method in Vector2
+			
 			velocity = Vector2.mul(speedFactor, velocity);
+			
+			System.out.println(velocity.length());
+			
 			physComp.setVelocity(velocity);
 			
 			//Update position (from PhysicsSystem)
