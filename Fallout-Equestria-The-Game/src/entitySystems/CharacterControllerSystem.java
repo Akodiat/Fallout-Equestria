@@ -31,9 +31,9 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		PhysicsComponent	physComp = CMPhys.getComponent(entity);
 		InputComponent 		inpComp = CMInp.getComponent(entity);
 		
-		int speedFactor = 1;
+		int speedFactor = 2;
 		if(inpComp.isGallopButtonPressed())
-			speedFactor=2;
+			speedFactor=4;
 		
 		Vector2 velocity = new Vector2(0,0);
 		if (inpComp.isBackButtonPressed())

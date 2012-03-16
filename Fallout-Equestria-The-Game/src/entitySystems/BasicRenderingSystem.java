@@ -39,7 +39,6 @@ public class BasicRenderingSystem extends EntitySingleProcessingSystem {
 	protected void processEntity(IEntity entity) {
 		RenderingComponent renderC = this.renderCM.getComponent(entity);
 		PositionComponent positionC = this.posCM.getComponent(entity);
-		System.out.println("Ahahahahah");
 		graphics.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor());
 	}
 
