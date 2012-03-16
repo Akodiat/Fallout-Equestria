@@ -32,7 +32,7 @@ public class AttackComponent implements IComponent {
 	}
 	
 	public AttackComponent(){
-		this(new Circle(new Vector2(0.0f,0.0f), 1), 1, ImmutableList.builder().build(String));
+		this(new Circle(new Vector2(0.0f,0.0f), 1), 1, ImmutableList.of(""));
 	}
 
 	public ImmutableList<String> getTargetGroups() {

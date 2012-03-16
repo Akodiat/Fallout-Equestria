@@ -48,29 +48,41 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
-		ImmutableList<IEntity> gEntities = this.getWorld().getEntityManager().getEntityGroup();
-		
-		for (IEntity entity : entities) {
+/*		for (IEntity entity : entities) {
 			AttackComponent attaCom = aCM.getComponent(entity);
 			PositionComponent posiCom = pCM.getComponent(entity);
-			
-			for (IEntity targetEntity : attaCom.getTargets()){
-				SpatialComponent targetSpatiCom = sCM.getComponent(targetEntity);
-				PositionComponent targetPosiCom = pCM.getComponent(targetEntity);
-				
-				float distanceSquared = Vector2.distanceSquared(Vector2.add(posiCom.getPosition(), attaCom.getBounds().getPosition()),
-																Vector2.add(targetPosiCom.getPosition(), targetSpatiCom.getBounds().getPosition()));
-				float combinedRadiusSquared = (float)Math.pow(attaCom.getBounds().getRadius() + targetSpatiCom.getBounds().getRadius(),2);				
-				Boolean didItHit = distanceSquared<combinedRadiusSquared;
-				
-				if(didItHit){
+
+			ImmutableList<IEntity> gEntities = ImmutableList.;
+			for (int i = 0; i < attaCom.getTargetGroups().size(); i++) {
+				gEntities.addAll(this.getWorld().getEntityManager()
+						.getEntityGroup(attaCom.getTargetGroups().get(i)));
+			}
+
+			for (IEntity targetEntity : gEntities) {
+				SpatialComponent targetSpatiCom = sCM
+						.getComponent(targetEntity);
+				PositionComponent targetPosiCom = pCM
+						.getComponent(targetEntity);
+
+				float distanceSquared = Vector2.distanceSquared(Vector2.add(
+						posiCom.getPosition(), attaCom.getBounds()
+								.getPosition()), Vector2.add(targetPosiCom
+						.getPosition(), targetSpatiCom.getBounds()
+						.getPosition()));
+				float combinedRadiusSquared = (float) Math.pow(attaCom
+						.getBounds().getRadius()
+						+ targetSpatiCom.getBounds().getRadius(), 2);
+				Boolean didItHit = distanceSquared < combinedRadiusSquared;
+
+				if (didItHit) {
 					HealthComponent healCom = hCM.getComponent(targetEntity);
 					healCom.addHealthPoints(-attaCom.getDamage());
-					System.out.println("Someone got hit for " + attaCom.getDamage() + " damage!");
+					System.out.println("Someone got hit for "
+							+ attaCom.getDamage() + " damage!");
 				}
 			}
-			
-		}
+
+		}*/
 
 	}
 
