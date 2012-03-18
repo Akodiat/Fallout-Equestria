@@ -1,4 +1,6 @@
 package components;
+import org.lwjgl.input.Keyboard;
+
 import math.Vector2;
 
 import entityFramework.IComponent;
@@ -21,7 +23,25 @@ public class InputComponent implements IComponent{
 
 	private Key forwardButton;
 	
-	
+	public InputComponent(){
+		this.setBackButton(Keyboard.KEY_S);
+		this.setLeftButton(Keyboard.KEY_A);
+		this.setForwardButton(Keyboard.KEY_W);
+		this.setRightButton(Keyboard.KEY_D);
+		this.setGallopButton(Keyboard.KEY_LSHIFT);
+		this.setPipBuckButton(Keyboard.KEY_TAB);
+	}
+	public InputComponent(int backButtonID, int leftButtonID, int forwardButtonID, int rightButtonID, int gallopButtonID, int pipBuckButtonID){
+		new InputComponent(new Key(backButtonID), new Key(leftButtonID), new Key(forwardButtonID), new Key(rightButtonID), new Key(gallopButtonID), new Key(pipBuckButtonID)); //TODO: Check if correct
+	}
+	public InputComponent(Key backButton, Key leftButton, Key forwardButton, Key rightButton, Key gallopButton, Key pipBuckButton){
+		this.backButton=backButton;
+		this.leftButton=leftButton;
+		this.rightButton=rightButton;
+		this.forwardButton=forwardButton;
+		this.gallopButton=gallopButton;
+		this.pipBuckButton=pipBuckButton;
+	}
 	
 	/**
 	 * @return the forwardButton

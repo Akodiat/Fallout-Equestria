@@ -34,7 +34,7 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 	
 	@Override
 	public void initialize() {
-		posCM = ComponentMapper.create(this.getWorld().getDatabase(), PositionComponent.class);
+		posCM  = ComponentMapper.create(this.getWorld().getDatabase(), PositionComponent.class);
 		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
 		spatCM = ComponentMapper.create(this.getWorld().getDatabase(), SpatialComponent.class);
 	}
