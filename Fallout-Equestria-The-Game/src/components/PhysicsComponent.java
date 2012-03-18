@@ -6,11 +6,20 @@ import entityFramework.IComponent;
 public class PhysicsComponent implements IComponent{
 	private Vector2 velocity;
 	
+	public PhysicsComponent(){
+		this.velocity = new Vector2(0,0);
+	}
+	
+	public PhysicsComponent(Vector2 velocity){
+		this.velocity=velocity;
+	}
+	
+	private PhysicsComponent(PhysicsComponent physComp){
+		this.velocity=physComp.velocity;
+	}
 	
 	public Object clone(){
-		PhysicsComponent comp = new PhysicsComponent();
-		comp.setVelocity(velocity);
-		return comp;
+		return new PhysicsComponent(this);
 	}
 
 

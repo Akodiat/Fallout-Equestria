@@ -15,11 +15,22 @@ public class RenderingComponent implements IComponent {
 	private Texture2D 	texture;
 	private Color		color;
 	
+	public RenderingComponent(){
+		//TODO: Add default values to the default constructor.
+	}
+	
+	public RenderingComponent(Texture2D texture, Color color){
+		this.texture = texture;
+		this.color = color;
+	}
+	
+	private RenderingComponent(RenderingComponent rendComp){
+		this.texture = rendComp.texture;
+		this.color = rendComp.color;
+	}
+	
 	public Object clone(){
-		RenderingComponent comp = new RenderingComponent();
-		comp.setColor(color);
-		comp.setTexture(texture);
-		return comp;
+		return new RenderingComponent(this);
 	}
 
 	/**

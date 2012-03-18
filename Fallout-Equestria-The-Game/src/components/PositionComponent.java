@@ -10,10 +10,19 @@ import entityFramework.IComponent;
 public class PositionComponent implements IComponent{
 	private Vector2 position;
 	
+	public PositionComponent(){
+		this.position = new Vector2(0,0); //TODO: Change to center of screen?
+	}
+	
+	public PositionComponent(Vector2 position){
+		this.position = position;
+	}
+	
+	private PositionComponent(PositionComponent posComp){
+		this.position = posComp.position;
+	}
 	public Object clone(){
-		PositionComponent comp = new PositionComponent();
-		comp.setPosition(position);
-		return comp;
+		return new PositionComponent(this);
 	}
 
 	/**
