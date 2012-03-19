@@ -38,8 +38,9 @@ public abstract class AbstractSystemTest {
 			tester.updateWorld(1.0f / 60f);
 			
 			graphics.clearScreen(new Color(240, 104, 255, 255));
-			
+			graphics.begin();
 			tester.renderWorld();
+			graphics.end();
 			Display.update();
 			Display.sync(60);
 		}

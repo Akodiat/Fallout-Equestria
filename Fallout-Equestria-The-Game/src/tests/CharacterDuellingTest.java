@@ -44,7 +44,8 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 	@Override
 	public void initializeEntities(IEntityManager manager) {
 		IEntity player1 = manager.createEmptyEntity();
-
+		player1.addToGroup("All");
+		
 		PositionComponent posC = new PositionComponent();
 		posC.setPosition(new Vector2(Display.getWidth()/2-200,Display.getHeight()/2));
 
@@ -63,7 +64,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		RenderingComponent rendC = new RenderingComponent();
 		rendC.setColor(new Color(42,200,255, 255));
 		try {
-			rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
+			rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,7 +81,8 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		
 		//Player2:
 		IEntity player2 = manager.createEmptyEntity();
-
+		player1.addToGroup("All");
+		
 		PositionComponent player2posC = new PositionComponent();
 		player2posC.setPosition(new Vector2(Display.getWidth()/2+200,Display.getHeight()/2));
 
@@ -95,11 +97,12 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player2inpC.setRightButton(Keyboard.KEY_RIGHT);
 		player2inpC.setGallopButton(Keyboard.KEY_RCONTROL);
 		player2inpC.setPipBuckButton(Keyboard.KEY_M);
+		//player2inpC.setl(Keyboard.KEY_L);
 
 		RenderingComponent player2rendC = new RenderingComponent();
 		player2rendC.setColor(new Color(42,255,42, 255));
 		try {
-			player2rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
+			player2rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

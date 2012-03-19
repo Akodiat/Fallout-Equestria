@@ -1,12 +1,24 @@
 package entitySystems;
 
+import java.io.IOException;
+
+import com.google.common.collect.ImmutableList;
+
+import tests.TextureTest;
+import utils.Circle;
 import math.Vector2;
+import components.AttackComponent;
 import components.InputComponent;
 import components.PhysicsComponent;
+import components.PositionComponent;
+import components.RenderingComponent;
+import components.SpatialComponent;
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import graphics.Color;
+import graphics.TextureLoader;
 
 /**
  * 
@@ -16,20 +28,52 @@ import entityFramework.IEntityWorld;
 public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 	public CharacterControllerSystem(IEntityWorld world) {
-		super(world, InputComponent.class, PhysicsComponent.class);
+		super(world, InputComponent.class, PhysicsComponent.class, PositionComponent.class);
 	}
-	private ComponentMapper<PhysicsComponent> CMPhys;
-	private ComponentMapper<InputComponent> CMInp;
+	private ComponentMapper<PhysicsComponent> physCM;
+	private ComponentMapper<InputComponent> inpCM;
+	private ComponentMapper<PositionComponent> posCM;
 	@Override
 	public void initialize() {
-		CMPhys = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
-		CMInp = ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
+		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
+		inpCM = ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
+		posCM = ComponentMapper.create(this.getWorld().getDatabase(), PositionComponent.class);
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		PhysicsComponent	physComp = CMPhys.getComponent(entity);
-		InputComponent 		inpComp = CMInp.getComponent(entity);
+		PhysicsComponent	physComp = physCM.getComponent(entity);
+		InputComponent 		inpComp = inpCM.getComponent(entity);
+		PositionComponent	posComp = posCM.getComponent(entity);
+		
+		
+		if(inpComp.isLeftMouseButtonDown()){
+			IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();
+			AttackComponent attackComp = new AttackComponent(new Circle(new Vector2(0,0),20f),20, ImmutableList.of("All"));
+			Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());
+			attackSpeed = Vector2.norm(attackSpeed);
+			PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
+			PositionComponent attackPosComp = (PositionComponent) posComp.clone();
+			RenderingComponent attackRendComp = new RenderingComponent();
+			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(posComp.getPosition(),30f)); 
+			
+			attackRendComp.setColor(new Color(255,255,255, 255));
+			try {
+				attackRendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			attack.addComponent(attackPosComp);
+			attack.addComponent(attackPhysComp);
+			attack.addComponent(attackComp);
+			attack.addComponent(attackRendComp);
+			attack.addComponent(attackSpatComp);
+			
+			attack.refresh();
+			System.out.println("Attack!");
+		}
 		
 		int speedFactor = 2;
 		if(inpComp.isGallopButtonPressed())

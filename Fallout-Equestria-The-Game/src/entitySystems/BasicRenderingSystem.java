@@ -40,7 +40,6 @@ public class BasicRenderingSystem extends EntitySingleProcessingSystem {
 		RenderingComponent renderC = this.renderCM.getComponent(entity);
 		PositionComponent positionC = this.posCM.getComponent(entity);
 
-		System.out.println("Ahahahahah");
 		this.spriteBatch.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor());
 	}
 

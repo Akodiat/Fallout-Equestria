@@ -22,7 +22,7 @@ public class InputComponent implements IComponent{
 	private Key	gallopButton; //Meaning sprint
 
 	private Key forwardButton;
-	
+
 	public InputComponent(){
 		this.setBackButton(Keyboard.KEY_S);
 		this.setLeftButton(Keyboard.KEY_A);
