@@ -1,9 +1,8 @@
 package entitySystems;
 
-import com.google.common.collect.ImmutableList;
+
 import com.google.common.collect.ImmutableSet;
 
-import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
