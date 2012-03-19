@@ -23,7 +23,7 @@ import entityFramework.IEntityWorld;
 public class AttackResolveSystem extends EntityProcessingSystem {
 
 	@SuppressWarnings("unchecked")
-	protected AttackResolveSystem(IEntityWorld world) {
+	public AttackResolveSystem(IEntityWorld world) {
 		super(world, PositionComponent.class, AttackComponent.class);
 	}
 
