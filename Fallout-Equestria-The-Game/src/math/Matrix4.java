@@ -60,7 +60,15 @@ public final class Matrix4 {
 						   0, 0, 0, 1);
 	}
 	
-	public static Matrix4 createtranslation(Vector2 offset) {
+	public static Matrix4 createScale(Vector2 scale) {
+		return new Matrix4(scale.X, 0, 0, 0,
+						   0, scale.Y, 0 ,0,
+						   0, 0, 1 ,0, 
+						   0, 0, 0, 1);
+	}
+	
+	
+	public static Matrix4 createTranslation(Vector2 offset) {
 		return new Matrix4(1, 0, 0, 0,
 						   0, 1, 0, 0,
 						   0, 0, 1, 0,
@@ -127,6 +135,9 @@ public final class Matrix4 {
 		buffer.flip();
 		return buffer;
 	}
+	
+	
+	
 	
 	public static final Matrix4 Identity = new Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
 													   0.0f, 1.0f, 0.0f, 0.0f,

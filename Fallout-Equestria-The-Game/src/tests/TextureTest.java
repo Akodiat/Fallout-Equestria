@@ -1,6 +1,7 @@
 package tests;
 
 import graphics.Color;
+import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import graphics.TextureLoader;
@@ -8,19 +9,23 @@ import graphics.TextureLoader;
 import java.io.IOException;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import math.Matrix4;
 import math.Vector2;
 
+import utils.Camera2D;
 import utils.Rectangle;
 
 public class TextureTest {
 
 	
 	private static SpriteBatch graphics;
+	public static Camera2D camera;
 	private static Texture2D texture;
+	private static ShaderEffect effect;
 	static DisplayMode mode;
 	
 	public static void main(String[] args) throws IOException, LWJGLException {
@@ -30,22 +35,19 @@ public class TextureTest {
 		
 		graphics = new SpriteBatch(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
 		texture = TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png"));
+		camera = new Camera2D(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
+		camera.setPosition(new Vector2(mode.getWidth() / 2, mode.getHeight() / 2));
+		camera.setZoom(new Vector2(0.5f, 0.5f));
 		
+		effect = ShaderEffect.fromFile("Standard.vert", "GrayScale.frag");
 		
-		Matrix4 screenOffset = Matrix4.createtranslation(new Vector2(-mode.getWidth() / 2, -mode.getHeight() / 2));
-		Matrix4 scaleMatrix = Matrix4.createScale(.5f);
-		Matrix4 translationMatrix = Matrix4.createtranslation(new Vector2(mode.getWidth() / 2, mode.getHeight() / 2));
-		
-		float angle = 0.1f;
+		float angle = 0.01f;
 		while(!Display.isCloseRequested()) {
-			graphics.clearScreen(new Color(Color.Black, 0.0f));
+			graphics.clearScreen(new Color(Color.Teal, 0.0f));
+			camera.addRotation(angle);
 			
-			Matrix4 combined = Matrix4.mul(screenOffset, scaleMatrix);
-			combined = Matrix4.mul(combined, Matrix4.createRotationZ(angle));
-			combined = Matrix4.mul(combined, translationMatrix);
+			graphics.begin(effect, camera.getTransformation());
 			
-			graphics.begin(null, combined);
-			angle += 0.01f;
 			for (int i = 0; i < 10000; i++) {
 				float x = (float)Math.random() * mode.getWidth();
 				float y = (float)Math.random() * mode.getHeight();
@@ -55,6 +57,20 @@ public class TextureTest {
 				graphics.draw(texture, new Vector2(x,y), new Color(r,0.5f, b, 1.0f));
 			}
 			graphics.end();
+			
+			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+				camera.move(new Vector2(5, 0));
+			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+				camera.move(new Vector2(-5, 0));
+			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+				camera.move(new Vector2(0, -5));
+			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+				camera.move(new Vector2(0, 5));
+			} 
+			
 			
 			Display.update();
 			Display.sync(60);
