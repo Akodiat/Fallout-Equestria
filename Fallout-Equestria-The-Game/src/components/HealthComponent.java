@@ -30,14 +30,13 @@ public class HealthComponent implements IComponent {
 	 * @param other
 	 */
 	public HealthComponent(HealthComponent other) {
-		this.maxHealth = other.maxHealth;
-		this.regenSpeed = other.regenSpeed;
-		this.healthPoints = other.healthPoints;
+		this.maxHealth = other.getMaxHealth();
+		this.regenSpeed = other.getRegenSpeed();
+		this.healthPoints = other.getHealthPoints();
 	}
 
 	public Object clone() {
-		return new HealthComponent(this.maxHealth, this.regenSpeed,
-				this.healthPoints);
+		return new HealthComponent(this);
 	}
 
 	public float getHealthPoints() {

@@ -1,14 +1,11 @@
 package components;
 
-import java.util.List;
-
 import math.Vector2;
 
 import utils.Circle;
 
 import com.google.common.collect.ImmutableList;
 
-import entityFramework.Entity;
 import entityFramework.IComponent;
 
 public class AttackComponent implements IComponent {
@@ -16,23 +13,25 @@ public class AttackComponent implements IComponent {
 	private Circle bounds;
 	private int damage;
 	private ImmutableList<String> targetGroups;
-	
-	public AttackComponent(Circle bounds, int damage, ImmutableList<String> targetGroups) {
+
+	public AttackComponent(Circle bounds, int damage,
+			ImmutableList<String> targetGroups) {
 		this.bounds = bounds;
 		this.damage = damage;
 		this.targetGroups = targetGroups;
 	}
-	
+
 	/**
 	 * Copyconstructor
 	 * @param objectToCopy
 	 */
 	public AttackComponent(AttackComponent objectToCopy) {
-		this(objectToCopy.bounds, objectToCopy.damage, objectToCopy.targetGroups);
+		this(objectToCopy.getBounds(), objectToCopy.getDamage(), objectToCopy
+				.getTargetGroups());
 	}
-	
-	public AttackComponent(){
-		this(new Circle(new Vector2(0.0f,0.0f), 1), 1, ImmutableList.of(""));
+
+	public AttackComponent() {
+		this(new Circle(new Vector2(0.0f, 0.0f), 1), 1, ImmutableList.of(""));
 	}
 
 	public ImmutableList<String> getTargetGroups() {
@@ -42,7 +41,7 @@ public class AttackComponent implements IComponent {
 	public void setTargetGroups(ImmutableList<String> targetGroups) {
 		this.targetGroups = targetGroups;
 	}
-	
+
 	public Circle getBounds() {
 		return bounds;
 	}
@@ -59,8 +58,8 @@ public class AttackComponent implements IComponent {
 		this.damage = damage;
 	}
 
-	public Object clone(){
+	public Object clone() {
 		return new AttackComponent(this);
 	}
-	
+
 }

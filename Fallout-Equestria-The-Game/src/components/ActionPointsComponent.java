@@ -19,9 +19,9 @@ public class ActionPointsComponent implements IComponent {
 	 * @param other
 	 */
 	public ActionPointsComponent(ActionPointsComponent other) {
-		this.maxAbilityPoints = other.maxAbilityPoints;
-		this.abilityPoints = other.abilityPoints;
-		this.regenerationSpeed = other.regenerationSpeed;
+		this.maxAbilityPoints = other.getMaxAbilityPoints();
+		this.abilityPoints = other.getAbilityPoints();
+		this.regenerationSpeed = other.getRegenerationSpeed();
 	}
 
 	public ActionPointsComponent(int maxAbilityPoints, float abilityPoints,

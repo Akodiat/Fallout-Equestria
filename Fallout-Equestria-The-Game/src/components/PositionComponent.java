@@ -19,7 +19,7 @@ public class PositionComponent implements IComponent{
 	}
 	
 	private PositionComponent(PositionComponent posComp){
-		this.position = posComp.position;
+		this.position = posComp.getPosition();
 	}
 	public Object clone(){
 		return new PositionComponent(this);

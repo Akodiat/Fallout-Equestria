@@ -18,7 +18,7 @@ public class SpatialComponent implements IComponent {
 	private Circle bounds;
 	
 	public SpatialComponent(SpatialComponent toBeCloned) {
-		this.bounds = toBeCloned.bounds;
+		this.bounds = toBeCloned.getBounds();
 	}
 	
 	public SpatialComponent(Circle bounds) {

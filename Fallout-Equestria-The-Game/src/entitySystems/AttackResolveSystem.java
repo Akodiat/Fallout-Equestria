@@ -5,17 +5,15 @@ import java.util.List;
 
 import utils.Circle;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import components.AttackComponent;
-import components.HealthComponent;
 import components.PositionComponent;
 import components.SpatialComponent;
+import components.StatusChangeComponent;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 
@@ -33,7 +31,6 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 	private ComponentMapper<AttackComponent> aCM;
 	private ComponentMapper<SpatialComponent> sCM;
 	private ComponentMapper<PositionComponent> pCM;
-	private ComponentMapper<HealthComponent> hCM;
 
 	@Override
 	public void initialize() {
@@ -43,8 +40,6 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				PositionComponent.class);
 		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				SpatialComponent.class);
-		hCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				HealthComponent.class);
 	}
 
 	@Override
@@ -70,13 +65,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 						targetPosiCom.getPosition());
 
 				if (itGotHit) {
-					System.out.println("Someone got hit!");
-					HealthComponent healCom = hCM.getComponent(targetEntity);
-					if (healCom != null) {
-						healCom.addHealthPoints(-attaCom.getDamage());
-						System.out.println("Someone got hit for "
-								+ attaCom.getDamage() + " damage!");
-					}
+					targetEntity.addComponent(new StatusChangeComponent(attaCom.getDamage(),""));
 				}
 			}
 
