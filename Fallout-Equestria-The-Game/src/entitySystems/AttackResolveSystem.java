@@ -19,13 +19,13 @@ import entityFramework.IEntityWorld;
 /**
  * 
  * @author Gustav
- * 
  */
 public class AttackResolveSystem extends EntityProcessingSystem {
 
+	@SuppressWarnings("unchecked")
 	protected AttackResolveSystem(IEntityWorld world,
 			Class<? extends IComponent>[] componentsClasses) {
-		super(world, componentsClasses);
+		super(world, PositionComponent.class, AttackComponent.class);
 	}
 
 	private ComponentMapper<AttackComponent> aCM;
