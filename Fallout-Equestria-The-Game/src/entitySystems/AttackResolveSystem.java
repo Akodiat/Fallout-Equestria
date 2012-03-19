@@ -1,5 +1,8 @@
 package entitySystems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import utils.Circle;
 
 import com.google.common.collect.ImmutableList;
@@ -50,7 +53,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 			AttackComponent attaCom = aCM.getComponent(entity);
 			PositionComponent posiCom = pCM.getComponent(entity);
 
-			ImmutableList<IEntity> gEntities = ImmutableList.of();
+			List<IEntity> gEntities = new ArrayList<IEntity>();
 			for (int i = 0; i < attaCom.getTargetGroups().size(); i++) {
 				gEntities.addAll(this.getWorld().getEntityManager()
 						.getEntityGroup(attaCom.getTargetGroups().get(i)));
@@ -67,10 +70,13 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 						targetPosiCom.getPosition());
 
 				if (itGotHit) {
+					System.out.println("Someone got hit!");
 					HealthComponent healCom = hCM.getComponent(targetEntity);
-					healCom.addHealthPoints(-attaCom.getDamage());
-					System.out.println("Someone got hit for "
-							+ attaCom.getDamage() + " damage!");
+					if (healCom != null) {
+						healCom.addHealthPoints(-attaCom.getDamage());
+						System.out.println("Someone got hit for "
+								+ attaCom.getDamage() + " damage!");
+					}
 				}
 			}
 
