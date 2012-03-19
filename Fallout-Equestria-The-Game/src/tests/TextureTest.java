@@ -35,16 +35,14 @@ public class TextureTest {
 		
 		graphics = new SpriteBatch(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
 		texture = TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png"));
-		camera = new Camera2D(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
+		camera = new Camera2D(new Rectangle(-mode.getWidth(), 0, (int)(mode.getWidth() * 3), (int)(mode.getHeight() * 1.1f)), new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
 		camera.setPosition(new Vector2(mode.getWidth() / 2, mode.getHeight() / 2));
-		camera.setZoom(new Vector2(0.5f, 0.5f));
+		//camera.setZoom(new Vector2(1.1f, 1.1f));
 		
 		effect = ShaderEffect.fromFile("Standard.vert", "GrayScale.frag");
 		
-		float angle = 0.01f;
 		while(!Display.isCloseRequested()) {
 			graphics.clearScreen(new Color(Color.Teal, 0.0f));
-			camera.addRotation(angle);
 			
 			graphics.begin(effect, camera.getTransformation());
 			
