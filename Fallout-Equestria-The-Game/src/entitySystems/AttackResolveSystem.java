@@ -13,6 +13,7 @@ import components.SpatialComponent;
 import components.StatusChangeComponent;
 
 import entityFramework.ComponentMapper;
+import entityFramework.EntityManager;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
@@ -65,7 +66,11 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 						targetPosiCom.getPosition());
 
 				if (itGotHit) {
-					targetEntity.addComponent(new StatusChangeComponent(attaCom.getDamage(),""));
+					System.out
+							.println("THIS PONY IS HURT! CALL AN AMBULANCE etc. osv.");
+					targetEntity.addComponent(new StatusChangeComponent(attaCom
+							.getDamage(), ""));
+					entity.kill();
 				}
 			}
 
