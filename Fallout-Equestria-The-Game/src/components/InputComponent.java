@@ -32,8 +32,9 @@ public class InputComponent implements IComponent{
 		this.setPipBuckButton(Keyboard.KEY_TAB);
 	}
 	public InputComponent(int backButtonID, int leftButtonID, int forwardButtonID, int rightButtonID, int gallopButtonID, int pipBuckButtonID){
-		new InputComponent(new Key(backButtonID), new Key(leftButtonID), new Key(forwardButtonID), new Key(rightButtonID), new Key(gallopButtonID), new Key(pipBuckButtonID)); //TODO: Check if correct
+		this(new Key(backButtonID), new Key(leftButtonID), new Key(forwardButtonID), new Key(rightButtonID), new Key(gallopButtonID), new Key(pipBuckButtonID));
 	}
+	
 	public InputComponent(Key backButton, Key leftButton, Key forwardButton, Key rightButton, Key gallopButton, Key pipBuckButton){
 		this.backButton=backButton;
 		this.leftButton=leftButton;
