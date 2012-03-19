@@ -43,19 +43,23 @@ public class InputComponent implements IComponent{
 		this.gallopButton=gallopButton;
 		this.pipBuckButton=pipBuckButton;
 	}
+	private InputComponent(InputComponent inpComp){
+		this.mousePosition = inpComp.mousePosition;
+		this.leftMouseButtonDown = inpComp.leftMouseButtonDown;
+		this.rightMouseButtonDown = inpComp.leftMouseButtonDown;
+		
+		this.backButton 	= new Key(inpComp.backButton.getKeyID());
+		this.leftButton 	= new Key(inpComp.leftButton.getKeyID());
+		this.rightButton	= new Key(inpComp.rightButton.getKeyID());
+		this.pipBuckButton	= new Key(inpComp.pipBuckButton.getKeyID());
+		this.gallopButton	= new Key(inpComp.gallopButton.getKeyID());
+	}
 	
 	/**
 	 * @return the forwardButton
 	 */
 	public Object clone(){
-		InputComponent component = new InputComponent();
-		component.backButton 	= new Key(this.backButton.getKeyID());
-		component.leftButton 	= new Key(this.leftButton.getKeyID());
-		component.rightButton	= new Key(this.rightButton.getKeyID());
-		component.pipBuckButton	= new Key(this.pipBuckButton.getKeyID());
-		component.gallopButton	= new Key(this.gallopButton.getKeyID());
-		
-		return component;
+		return new InputComponent(this);
 	}
 
 	public Key getForwardButton() {
