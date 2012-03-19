@@ -36,8 +36,8 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 	@Override
 	public void initialize() {
 		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
-		inpCM = ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
-		posCM = ComponentMapper.create(this.getWorld().getDatabase(), PositionComponent.class);
+		inpCM =  ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
+		posCM =  ComponentMapper.create(this.getWorld().getDatabase(), PositionComponent.class);
 	}
 
 	@Override
@@ -72,7 +72,6 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			attack.addComponent(attackSpatComp);
 			
 			attack.refresh();
-			System.out.println("Attack!");
 		}
 		
 		int speedFactor = 2;

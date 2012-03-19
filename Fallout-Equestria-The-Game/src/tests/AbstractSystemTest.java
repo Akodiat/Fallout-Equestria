@@ -41,6 +41,8 @@ public abstract class AbstractSystemTest {
 			graphics.begin();
 			tester.renderWorld();
 			graphics.end();
+			
+			tester.getWorld().getEntityManager().destoryKilledEntities();
 			Display.update();
 			Display.sync(60);
 		}
