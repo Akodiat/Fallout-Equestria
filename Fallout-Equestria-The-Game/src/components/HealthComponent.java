@@ -17,12 +17,18 @@ public class HealthComponent implements IComponent {
 	public HealthComponent(int maxHealth, float regenSpeed, float healthPoints) {
 		this.maxHealth = maxHealth;
 		this.regenSpeed = regenSpeed;
-		this.healthPoints = healthPoints;
+		if (healthPoints <= this.maxHealth) {
+			this.healthPoints = healthPoints;
+		} else {
+			this.healthPoints = this.maxHealth;
+		}
 	}
-/**
- * CopyConstructor
- * @param other
- */
+
+	/**
+	 * CopyConstructor
+	 * 
+	 * @param other
+	 */
 	public HealthComponent(HealthComponent other) {
 		this.maxHealth = other.maxHealth;
 		this.regenSpeed = other.regenSpeed;
@@ -38,12 +44,23 @@ public class HealthComponent implements IComponent {
 		return healthPoints;
 	}
 
-	public void setHealthPoints(int healthPoints) {
-		this.healthPoints = healthPoints;
+	public void setHealthPoints(float healthPoints) {
+		if (healthPoints <= this.maxHealth) {
+			this.healthPoints = healthPoints;
+		} else {
+			this.healthPoints = this.maxHealth;
+		}
 	}
 
-	public void addHealthPoints(int healthPointsToAdd) {
-		this.healthPoints += healthPointsToAdd;
+	public void addHealthPoints(float healthPointsToAdd) {
+		float temp = this.healthPoints + healthPointsToAdd;
+		if (temp <= this.maxHealth) {
+			this.healthPoints = temp;
+		}
+	}
+
+	public void regenHealthPoints() {
+		this.addHealthPoints(this.regenSpeed);
 	}
 
 	public int getMaxHealth() {

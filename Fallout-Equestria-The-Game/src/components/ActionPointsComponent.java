@@ -50,6 +50,17 @@ public class ActionPointsComponent implements IComponent {
 	public void setAbilityPoints(float abilityPoints) {
 		this.abilityPoints = abilityPoints;
 	}
+	
+	public void addAbilityPoints(float abilityPoints) {
+		float temp = this.abilityPoints + abilityPoints;
+		if (temp <= this.maxAbilityPoints) {
+			this.abilityPoints = temp;
+		}
+	}
+	
+	public void regenAbilityPoints() {
+		this.addAbilityPoints(this.regenerationSpeed);
+	}
 
 	public float getRegenerationSpeed() {
 		return regenerationSpeed;

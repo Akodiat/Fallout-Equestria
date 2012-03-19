@@ -1,7 +1,12 @@
 package entitySystems;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import components.ActionPointsComponent;
+import components.HealthComponent;
+
+import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
@@ -12,19 +17,22 @@ public class HealthRegenSubsystem extends EntityProcessingSystem {
 	protected HealthRegenSubsystem(IEntityWorld world,
 			Class<? extends IComponent>[] componentsClasses) {
 		super(world, componentsClasses);
-		// TODO Auto-generated constructor stub
 	}
 
+	private ComponentMapper<HealthComponent> hCM;
+	
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
-		
+		hCM = ComponentMapper.create(this.getWorld().getDatabase(),
+				HealthComponent.class);
 	}
 
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
-		// TODO Auto-generated method stub
-		
+		for (IEntity entity : entities) {
+			HealthComponent healCom = hCM.getComponent(entity);
+			healCom.regenHealthPoints();
+		}
 	}
 
 }
