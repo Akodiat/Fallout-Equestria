@@ -25,7 +25,9 @@ public class EntityFactory implements IEntityFactory{
 	public IEntity createEmptyEntity(IEntityManager manager,
 			IEntityDatabase database) {
 		if(!this.recyclableEntities.isEmpty()) {
-			return this.recyclableEntities.remove();
+			IEntity entity = this.recyclableEntities.remove();
+			database.addEntity(entity);
+			return entity;
 		}
 		
 		IEntity entity = new Entity(nextAvalibleID, manager, database);

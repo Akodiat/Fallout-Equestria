@@ -62,6 +62,7 @@ public abstract class EntitySystem implements IEntitySystem{
 	public void entityChanged(IEntity entity) {
 		BitSet changedSet = (BitSet)this.componentBits.clone();
 		changedSet.and(entity.getComponentBits());
+
 		
 		if(changedSet.equals(this.componentBits)) {
 			if(!this.entities.containsKey(entity.getUniqueID())) {

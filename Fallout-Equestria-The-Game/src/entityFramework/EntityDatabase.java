@@ -121,6 +121,7 @@ public class EntityDatabase implements IEntityDatabase{
 
 	@Override
 	public void removeEntity(int entityID) {
+
 		this.entityMap.get(entityID).clearBits();
 		this.entityMap.remove(entityID);
 		this.componentGrid.clearRow(entityID);
