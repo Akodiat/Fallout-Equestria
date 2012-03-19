@@ -3,17 +3,17 @@ package tests;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.util.Color;
 
 import entityFramework.IEntityManager;
 import utils.Rectangle;
-import graphics.Graphics;
+import graphics.Color;
+import graphics.SpriteBatch;
 
 public abstract class AbstractSystemTest {
 	
 	
 	protected SystemTester tester;
-	protected Graphics graphics;
+	protected SpriteBatch graphics;
 	private final Rectangle screenDim;
 	private final boolean isFullScreen;
 	
@@ -23,10 +23,10 @@ public abstract class AbstractSystemTest {
 	}
 	
 	public final void start() throws LWJGLException {
-		Display.setDisplayMode(new DisplayMode(screenDim.getWidth(),screenDim.getHeight()));
+		Display.setDisplayMode(new DisplayMode(screenDim.Width,screenDim.Height));
 		Display.setFullscreen(isFullScreen);
 		Display.create();
-		this.graphics = new Graphics(this.screenDim);	
+		this.graphics = new SpriteBatch(this.screenDim);	
 		this.tester = new SystemTester();
 		
 		initializeSystems();

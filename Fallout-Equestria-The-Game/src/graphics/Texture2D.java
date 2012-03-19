@@ -1,27 +1,27 @@
 package graphics;
 
-public class Texture2D {
+import utils.Rectangle;
 
-	private final int openGLID;
-	private final int width;
-	private final int height;
+import static org.lwjgl.opengl.GL11.*;
+
+public final class Texture2D {
+
+	public final int OpenGLID;	
+	public final int Width;
+	public final int Height;
 	
 	
 	protected Texture2D(int openGLID, int width, int height) {
-		this.openGLID = openGLID;
-		this.width = width;
-		this.height = height;
+		this.OpenGLID = openGLID;
+		this.Width = width;
+		this.Height = height;
 	}
 	
-	public int getOpenGLID() {
-		return this.openGLID;
+	public Rectangle getBounds() {	
+		return new Rectangle(0, 0, Width, Height);
 	}
-	
-	public int getWidth() {
-		return this.width;
+
+	public void bindGL() {
+		glBindTexture(GL_TEXTURE_2D, OpenGLID);
 	}
-	
-	public int getHeight() {
-		return this.height;
-	}	
 }

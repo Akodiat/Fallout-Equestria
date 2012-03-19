@@ -120,4 +120,15 @@ public final class Vector2 {
 	public static Vector2 norm(Vector2 v) {
 		return Vector2.mul(1/v.length(), v);
 	}
+	
+	/**
+	 * A vector with both elements set to Zero.
+	 */
+	public final static Vector2 Zero = new Vector2(0.0f,0.0f);
+	
+	/**
+	 * A vector with both elements set to One.
+	 */
+	public final static Vector2 One = new Vector2(1.0f,1.0f);
+	
 }

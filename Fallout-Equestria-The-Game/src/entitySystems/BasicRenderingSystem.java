@@ -8,15 +8,15 @@ import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
-import graphics.Graphics;
+import graphics.SpriteBatch;
 
 public class BasicRenderingSystem extends EntitySingleProcessingSystem {
 
-	private Graphics graphics;
+	private SpriteBatch spriteBatch;
 	
-	public BasicRenderingSystem(IEntityWorld world, Graphics graphics) {
+	public BasicRenderingSystem(IEntityWorld world, SpriteBatch graphics) {
 		super(world, PositionComponent.class, RenderingComponent.class);
-		this.graphics = graphics;
+		this.spriteBatch = graphics;
 	}
 
 	
@@ -39,7 +39,9 @@ public class BasicRenderingSystem extends EntitySingleProcessingSystem {
 	protected void processEntity(IEntity entity) {
 		RenderingComponent renderC = this.renderCM.getComponent(entity);
 		PositionComponent positionC = this.posCM.getComponent(entity);
-		graphics.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor());
+
+		System.out.println("Ahahahahah");
+		this.spriteBatch.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor());
 	}
 
 }

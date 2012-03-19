@@ -2,8 +2,11 @@ package math;
 
 import java.nio.FloatBuffer;
 
-import org.lwjgl.BufferUtils;
-
+/**
+ * 
+ * @author Lukas Kurtyan
+ *
+ */
 public final class Matrix4 {
 
 	public final float m00;
@@ -27,13 +30,6 @@ public final class Matrix4 {
 	public final float m33;
 	
 	
-	
-	public Matrix4() {
-		this(1, 0, 0, 0,
-		     0, 1, 0, 0,
-		     0, 0, 1, 0,
-		     0, 0, 0, 1);
-	}
 	
 	public Matrix4(float m00, float m01, float m02, float m03, 
 			   	   float m10, float m11, float m12, float m13,
@@ -131,4 +127,11 @@ public final class Matrix4 {
 		buffer.flip();
 		return buffer;
 	}
+	
+	public static final Matrix4 Identity = new Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
+													   0.0f, 1.0f, 0.0f, 0.0f,
+													   0.0f, 0.0f, 1.0f, 0.0f,
+													   0.0f, 0.0f, 0.0f, 1.0f);
+
 }
+

@@ -1,44 +1,33 @@
 package utils;
 
-import math.Vector2;
-
 public final class Rectangle {
 
-	private final int x, y, width, height;
-
+	public final int X;
+	public final int Y;
+	public final int Width;
+	public final int Height;
+	
+	
 	public Rectangle(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		this.X = x;
+		this.Y = y;
+		this.Width = width;
+		this.Height = height;
 	}
 	
 	public int getLeft() {
-		return this.x;
-	}
-	
-	public int getX() {
-		return this.x;
+		return this.X;
 	}
 	
 	public int getRight() {
-		return this.x + this.width;
+		return this.X + this.Width;
 	}
 	
 	public int getTop() {
-		return this.y;
+		return this.Y;
 	}
 	
 	public int getBottom() {
-		return this.y + this.height;
+		return this.Y + this.Height;
 	}
-	
-	public int getWidth() {
-		return this.width;
-	}
-	
-	public int getHeight() {
-		return this.height;
-	}
-	
 }

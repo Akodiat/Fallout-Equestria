@@ -1,5 +1,7 @@
 package math;
 
+import java.nio.FloatBuffer;
+
 public final class Matrix3 {
 
 	public final float a; public final float b; public final float c;
@@ -118,6 +120,15 @@ public final class Matrix3 {
 		return new Matrix3(m00, m01, m02,
 				           m10, m11, m12,
 				           m20, m21, m22);
+	}
+
+	public FloatBuffer toFlippedFloatBuffer(FloatBuffer buffer) {
+		buffer.clear();
+		buffer.put(a); buffer.put(d); buffer.put(g); 
+		buffer.put(b); buffer.put(e); buffer.put(h);
+		buffer.put(c); buffer.put(f); buffer.put(i); 
+		buffer.flip();
+		return buffer;
 	}	
 
 }

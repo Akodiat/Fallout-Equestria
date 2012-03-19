@@ -2,9 +2,9 @@ package tests;
 
 import java.io.IOException;
 
-import graphics.Graphics;
+import graphics.Color;
+import graphics.SpriteBatch;
 import graphics.TextureLoader;
-import graphics.TextureTest;
 
 import math.Vector2;
 
@@ -12,7 +12,6 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.util.Color;
 
 import utils.Rectangle;
 
@@ -28,17 +27,17 @@ import components.RenderingComponent;
  */
 public class CharacterMovementIntegrationTest {
 
-	private static Graphics graphics;
+	private static SpriteBatch graphics;
 	
 	public static void main(String[] args) throws IOException, LWJGLException{
 		//Display.setDisplayMode(new DisplayMode(800,400));
 		//Display.setFullscreen(true);
 		Display.create();
 		
-		graphics = new Graphics(new Rectangle(0, 0, 1280, 720));
+		graphics = new SpriteBatch(new Rectangle(0, 0, 1280, 720));
 		
 		RenderingComponent rendComp = new RenderingComponent();
-		rendComp.setColor(new Color(255,255,255));
+		rendComp.setColor(new Color(255,255,255, 255));
 		rendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
 
 		PositionComponent posComp = new PositionComponent();

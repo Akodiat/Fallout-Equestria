@@ -4,14 +4,12 @@ import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
-import com.google.common.io.Resources;
-
-public class ShaderLoader {
+ class ShaderLoader {
 	
-	  public static int loadShader(int shaderType, String path){
+	  private static int loadShader(int shaderType, String path){
 	        int shader = glCreateShader(shaderType);
 	       
 	        if (shader != 0) {
@@ -22,8 +20,16 @@ public class ShaderLoader {
 	                StringBuilder text = new StringBuilder();
 	                
 	                try {
+	                	
 	                	BufferedReader reader = new BufferedReader(new InputStreamReader(ShaderLoader.class.getResourceAsStream(path)));
+	                	
 	                	String line;
+	                	line = reader.readLine();
+	                	if(line == null) {
+	                		throw new IOException("File not found!" + path);
+	                	} else {
+	                		text.append(line).append("\n");
+	                	}
 	                	
 	                	while ((line = reader.readLine()) != null) {
 	                		text.append(line).append("\n");
@@ -63,25 +69,29 @@ public class ShaderLoader {
 	        
 	        return shader;
 	    }
-	    
-	    
-		public static int createProgram(List<Integer> shaderList) {		
-		    int program = glCreateProgram();
 
-		    if (program != 0) {
-			    for (Integer shader : shaderList) {
-			    	glAttachShader(program, shader);
-				}
+	  private static int loadVerexShader(String path) {
+		  return loadShader(GL_VERTEX_SHADER, path);
+	  }
+	  
+	  private static int loadFragmentShader(String path) {
+		  return loadShader(GL_FRAGMENT_SHADER, path);
+	  }
+	  
+	  public static ShaderEffect loadShader(String vertexShaderPath, String pixelShaderPath) {
+		  int vertexShader = loadVerexShader(vertexShaderPath);
+		  int fragmentShader = loadFragmentShader(pixelShaderPath);
+		  int program = glCreateProgram();
+		  
+		  glAttachShader(program, vertexShader);
+		  glAttachShader(program, fragmentShader);
+		  
+		  glLinkProgram(program);
+		  glValidateProgram(program);
+		  
+		  glDetachShader(program, vertexShader);
+		  glDetachShader(program, fragmentShader);
 
-			    glLinkProgram(program);
-		        glValidateProgram(program);
-
-			    for (Integer shader : shaderList) {
-			    	glDetachShader(program, shader);
-				}
-		    }
-
-		    return program;
-		}
-
+		  return new ShaderEffect(program);
+	  }
 }

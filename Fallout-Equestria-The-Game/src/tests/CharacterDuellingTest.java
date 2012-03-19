@@ -7,7 +7,7 @@ import math.Vector2;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Color;
+import graphics.Color;
 
 import utils.Circle;
 import utils.Rectangle;
@@ -25,7 +25,6 @@ import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
 import graphics.TextureLoader;
-import graphics.TextureTest;
 
 public class CharacterDuellingTest extends AbstractSystemTest{
 
@@ -62,7 +61,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		inpC.setPipBuckButton(Keyboard.KEY_TAB);
 
 		RenderingComponent rendC = new RenderingComponent();
-		rendC.setColor(new Color(42,200,255));
+		rendC.setColor(new Color(42,200,255, 255));
 		try {
 			rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
 		} catch (IOException e) {
@@ -98,7 +97,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player2inpC.setPipBuckButton(Keyboard.KEY_M);
 
 		RenderingComponent player2rendC = new RenderingComponent();
-		player2rendC.setColor(new Color(42,255,42));
+		player2rendC.setColor(new Color(42,255,42, 255));
 		try {
 			player2rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
 		} catch (IOException e) {

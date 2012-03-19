@@ -6,7 +6,7 @@ import math.Vector2;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.Color;
+import graphics.Color;
 
 import components.InputComponent;
 import components.PhysicsComponent;
@@ -21,7 +21,6 @@ import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
 import graphics.TextureLoader;
-import graphics.TextureTest;
 /**
  * 
  * @author Lukas
@@ -62,7 +61,7 @@ public class CharacterMovementTest extends AbstractSystemTest{
 		inpC.setPipBuckButton(Keyboard.KEY_TAB);
 		
 		RenderingComponent rendC = new RenderingComponent();
-		rendC.setColor(new Color(255,255,255));
+		rendC.setColor(new Color(255,255,255,255));
 		try {
 			rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
 		} catch (IOException e) {

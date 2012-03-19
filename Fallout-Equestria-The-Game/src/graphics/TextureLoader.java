@@ -20,7 +20,7 @@ public final class TextureLoader {
 		ByteBuffer buffer =
 				ByteBuffer.allocateDirect(4 * decoder.getWidth() * decoder.getHeight());
 		
-		decoder.decode(buffer, 4 * decoder.getWidth(), Format.RGBA);
+		decoder.decodeFlipped(buffer, 4 * decoder.getWidth(), Format.RGBA);
 		buffer.flip();
 		
 		int openGLID = glGenTextures();
@@ -37,8 +37,11 @@ public final class TextureLoader {
 					 GL_UNSIGNED_BYTE, 
 					 buffer);
 		
+		
 		glBindTexture(GL_TEXTURE_2D, 0);
 		
+		buffer.clear();
+		buffer = null;
 		
 		return new Texture2D(openGLID, decoder.getWidth(), decoder.getHeight());
 	}

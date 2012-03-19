@@ -1,8 +1,7 @@
 package components;
 
-import org.lwjgl.util.Color;
-
 import entityFramework.IComponent;
+import graphics.Color;
 import graphics.Texture2D;
 
 /**
