@@ -47,7 +47,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 	@Override
 	public void initializeEntities(IEntityManager manager) {
 		IEntity player1 = manager.createEmptyEntity();
-		player1.addToGroup("The rest");
+		player1.addToGroup("Allies");
 		
 		PositionComponent posC = new PositionComponent();
 		posC.setPosition(new Vector2(Display.getWidth()/2-200,Display.getHeight()/2));
@@ -74,6 +74,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		rendC.setOrigin(new Vector2(rendC.getTexture().Width/2,rendC.getTexture().Height/2));
 		SpatialComponent spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
 		player1.addComponent(rendC);
@@ -87,7 +88,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		
 		//Player2:
 		IEntity player2 = manager.createEmptyEntity();
-		player1.addToGroup("All");
+		player1.addToGroup("Enemies");
 		
 		PositionComponent player2posC = new PositionComponent();
 		player2posC.setPosition(new Vector2(Display.getWidth()/2+200,Display.getHeight()/2));
@@ -97,9 +98,9 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 
 		HealthComponent player2healthC = new HealthComponent(100,20f,100f);
 		
-	/*	InputComponent player2inpC = new InputComponent();
+		InputComponent player2inpC = new InputComponent();
 
-		player2inpC.setBackButton(Keyboard.KEY_DOWN);
+/*		player2inpC.setBackButton(Keyboard.KEY_DOWN);
 		player2inpC.setLeftButton(Keyboard.KEY_LEFT);
 		player2inpC.setForwardButton(Keyboard.KEY_UP);
 		player2inpC.setRightButton(Keyboard.KEY_RIGHT);
@@ -114,6 +115,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		player2rendC.setOrigin(new Vector2(player2rendC.getTexture().Width/2,player2rendC.getTexture().Height/2));
 		
 		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
@@ -122,7 +124,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player2.addComponent(player2physC);
 		player2.addComponent(player2posC);
 		player2.addComponent(player2spatC);
-		player2.addComponent(player2healthC);
+		player2.addComponent(player2healthC); 
 		
 		player2.refresh();
 	}

@@ -1,5 +1,6 @@
 package entitySystems;
 
+import math.Vector2;
 import components.PositionComponent;
 import components.RenderingComponent;
 
@@ -40,7 +41,8 @@ public class BasicRenderingSystem extends EntitySingleProcessingSystem {
 		RenderingComponent renderC = this.renderCM.getComponent(entity);
 		PositionComponent positionC = this.posCM.getComponent(entity);
 
-		this.spriteBatch.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor());
+		this.spriteBatch.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor(), null,
+							  renderC.getOrigin(), Vector2.One, positionC.getRotation(), false);
 	}
 
 }

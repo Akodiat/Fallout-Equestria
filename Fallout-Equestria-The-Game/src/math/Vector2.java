@@ -106,12 +106,18 @@ public final class Vector2 {
 	 * @return the result of the calculation (in radians).
 	 */
 	public static float angle(Vector2 vector0, Vector2 vector1) {
+
 		float numerator = Vector2.dot(vector0, vector1);
 		float denominator = vector0.length() * vector1.length();
 		
 		return (float)Math.acos(numerator / denominator);
 	}
 	
+	public static float twoPiAngle(Vector2 vector0, Vector2 vector1){
+		float temp = (float) Math.atan2(vector0.Y - vector1.Y, vector0.X - vector1.X);
+		System.out.println(temp);
+		return temp;
+	}
 	/**
 	 * Normalizes the 2-vector v
 	 * @param v

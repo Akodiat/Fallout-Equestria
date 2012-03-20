@@ -1,5 +1,6 @@
 package components;
 
+import math.Vector2;
 import entityFramework.IComponent;
 import graphics.Color;
 import graphics.Texture2D;
@@ -13,19 +14,24 @@ public class RenderingComponent implements IComponent {
 	
 	private Texture2D 	texture;
 	private Color		color;
+	private Vector2 	origin;
+	
 	
 	public RenderingComponent(){
-		//TODO: Add default values to the default constructor.
+		this.color = Color.White;
+		this.origin = Vector2.Zero;
 	}
 	
-	public RenderingComponent(Texture2D texture, Color color){
+	public RenderingComponent(Texture2D texture, Color color, Vector2 origin){
 		this.texture = texture;
 		this.color = color;
+		this.origin = origin;
 	}
 	
 	private RenderingComponent(RenderingComponent rendComp){
 		this.texture = rendComp.texture;
 		this.color = rendComp.color;
+		this.origin = rendComp.origin;
 	}
 	
 	public Object clone(){
@@ -58,6 +64,19 @@ public class RenderingComponent implements IComponent {
 	 */
 	public void setTexture(Texture2D texture) {
 		this.texture = texture;
+	}
+	/**
+	 * @return the origin
+	 */
+	public Vector2 getOrigin() {
+		return origin;
+	}
+
+	/**
+	 * @param origin the origin to set
+	 */
+	public void setOrigin(Vector2 origin) {
+		this.origin = origin;
 	}
 
 }

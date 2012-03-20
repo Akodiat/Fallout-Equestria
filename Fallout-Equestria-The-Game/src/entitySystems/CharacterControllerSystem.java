@@ -49,17 +49,18 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		
 		if(inpComp.isLeftMouseButtonDown()){
 			IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();
-			AttackComponent attackComp = new AttackComponent(new Circle(new Vector2(0,0),20f),20, ImmutableList.of("All"));
+			AttackComponent attackComp = new AttackComponent(new Circle(new Vector2(0,0),20f),20, ImmutableList.of("Enemies"));
 			Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());
 			attackSpeed = Vector2.norm(attackSpeed);
 			PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
-			PositionComponent attackPosComp = (PositionComponent) posComp.clone();
+			PositionComponent attackPosComp = new PositionComponent(posComp.getPosition(),Vector2.twoPiAngle(attackSpeed, new Vector2(0,1)));
+			attackPosComp.setPosition(Vector2.add(attackPosComp.getPosition(), Vector2.mul(60, attackSpeed)));
 			RenderingComponent attackRendComp = new RenderingComponent();
-			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(posComp.getPosition(),30f)); 
+			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(((PositionComponent) posComp.clone()).getPosition(),30f)); 
 			
 			attackRendComp.setColor(new Color(255,255,255, 255));
 			try {
-				attackRendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
+				attackRendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("pinksplosion rocket.png")));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
