@@ -3,7 +3,6 @@ package tests;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import entityFramework.EntityWorld;
 import entityFramework.IEntitySystem;
 import entityFramework.IEntityWorld;
 

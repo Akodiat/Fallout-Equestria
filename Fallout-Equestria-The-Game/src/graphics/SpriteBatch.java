@@ -154,7 +154,6 @@ public class SpriteBatch {
 		//Stop using the active shader.
 		this.activeEffect.unbindShaderProgram();
 	}
-
 	
 	/** Fixes the spritebatch to render to the new screen dimensions.
 	 * 
@@ -218,14 +217,16 @@ public class SpriteBatch {
 			this.activeEffect = effect;	
 		}
 		
+		
+		this.betweenBeginAndEnd = true;
 		this.setupUniforms(view);
 	}
-	
 	
 	/** Ends the batch drawing, Draws the batched items to the current renderTarget.
 	 */
 	public void end() {
 		this.renderBatch();
+		this.betweenBeginAndEnd = false;
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -295,11 +296,11 @@ public class SpriteBatch {
 	
 	/**Adds a sprite to the batch with the specified arguments.
 	 * 
-	 * @param texture
-	 * @param position
-	 * @param color
-	 * @param sorceRectangle
-	 * @param origin
+	 * @param texture the texture.
+	 * @param position the top-left position.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 * @param origin the origin (rendering offset)
 	 */
 	public void draw(Texture2D texture, Vector2 position,  Color color, Rectangle sorceRectangle, Vector2 origin) {
 		this.internalDraw(texture, position, color, sorceRectangle, origin, Vector2.One, 0.0f, false);
@@ -307,14 +308,14 @@ public class SpriteBatch {
 	
 	/**Adds a sprite to the batch with the specified arguments.
 	 * 
-	 * @param texture
-	 * @param position
-	 * @param color
-	 * @param sorceRectangle
-	 * @param origin
-	 * @param scale
-	 * @param rotation
-	 * @param mirror
+	 * @param texture the texture.
+	 * @param position the top-left position.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 * @param origin the origin (rendering offset)
+	 * @param scale the scale.
+	 * @param rotation the rotation in a counterclockwise system Range 0 to 2Pi
+	 * @param mirror a flag indicating if the texture should be horizontally flipped.
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 			 float scale, float rotation, boolean mirror) {
@@ -323,14 +324,14 @@ public class SpriteBatch {
 	
 	/**Adds a sprite to the batch with the specified arguments.
 	 * 
-	 * @param texture
-	 * @param position
-	 * @param color
-	 * @param sorceRectangle
-	 * @param origin
-	 * @param scale
-	 * @param rotation
-	 * @param mirror
+	 * @param texture the texture.
+	 * @param position the top-left position.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 * @param origin the origin (rendering offset)
+	 * @param scale the scale.
+	 * @param rotation the rotation in a counterclockwise system Range 0 to 2Pi
+	 * @param mirror a flag indicating if the texture should be horizontally flipped.
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 					 Vector2 scale, float rotation, boolean mirror) {

@@ -1,9 +1,6 @@
 package tests;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Binder;
-import com.google.inject.Module;
-
 import entityFramework.*;
 
 public class EntityModule extends AbstractModule {
