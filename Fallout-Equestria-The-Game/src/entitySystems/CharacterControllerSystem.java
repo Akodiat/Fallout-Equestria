@@ -53,7 +53,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());
 			attackSpeed = Vector2.norm(attackSpeed);
 			PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
-			PositionComponent attackPosComp = new PositionComponent(posComp.getPosition(),Vector2.twoPiAngle(attackSpeed, new Vector2(0,1)));
+			PositionComponent attackPosComp = new PositionComponent(posComp.getPosition(),attackSpeed.angle());
 			attackPosComp.setPosition(Vector2.add(attackPosComp.getPosition(), Vector2.mul(60, attackSpeed)));
 			RenderingComponent attackRendComp = new RenderingComponent();
 			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(((PositionComponent) posComp.clone()).getPosition(),30f)); 
