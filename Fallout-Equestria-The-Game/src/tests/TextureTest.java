@@ -13,7 +13,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import math.Matrix4;
 import math.Vector2;
 
 import utils.Camera2D;
@@ -36,8 +35,8 @@ public class TextureTest {
 		graphics = new SpriteBatch(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
 		texture = TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png"));
 		camera = new Camera2D(new Rectangle(-mode.getWidth(), 0, (int)(mode.getWidth() * 3), (int)(mode.getHeight() * 1.1f)), new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
-		camera.setPosition(new Vector2(mode.getWidth() / 2, mode.getHeight() / 2));
-		//camera.setZoom(new Vector2(1.1f, 1.1f));
+		
+		camera.setZoom(new Vector2(2f, 1.1f));
 		
 		effect = ShaderEffect.fromFile("Standard.vert", "GrayScale.frag");
 		
@@ -68,6 +67,11 @@ public class TextureTest {
 			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
 				camera.move(new Vector2(0, 5));
 			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+				camera.zoomIn(0.001f);
+			} 
+			
+			
 			
 			
 			Display.update();

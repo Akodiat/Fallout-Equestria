@@ -10,12 +10,22 @@ import math.Vector2;
  */
 public class Camera2D {
 
+	//Properties of the Camera
 	private Vector2 position;
-	private Vector2 screenOffset;
 	private Vector2 zoom;
+	
+	//Used to center the screen.
+	private Vector2 screenOffset;
+	
+	//The boundy of the world. The camera cannot move outside of this.
 	public Rectangle worldBounds;
 	
 	
+	/**Creates a new Camera2D instance.
+	 * 
+	 * @param worldBounds the bounds of the world.
+	 * @param screen
+	 */
 	public Camera2D(Rectangle worldBounds, Rectangle screen) {
 		this(worldBounds, screen, Vector2.Zero);
 	}
@@ -35,7 +45,7 @@ public class Camera2D {
 	public Matrix4 getTransformation() {
 		Matrix4 screenOff = Matrix4.createTranslation(screenOffset);
 		Matrix4 scale = Matrix4.createScale(this.zoom);
-		Matrix4 translation = Matrix4.createTranslation(new Vector2(-position.X, -position.Y));
+		Matrix4 translation = Matrix4.createTranslation(new Vector2(-position.X - screenOffset.X, -position.Y - screenOffset.Y));
 		Matrix4 combinedMatrix = Matrix4.mul(screenOff, scale);
 		combinedMatrix = Matrix4.mul(combinedMatrix, translation);
 		
@@ -52,23 +62,23 @@ public class Camera2D {
 		
 		
 		float x = this.position.X, y = this.position.Y;
-		float left = this.worldBounds.getLeft() + this.screenOffset.X * this.zoom.X;
-		float right = this.worldBounds.getRight() + this.screenOffset.X  * 3 *  this.zoom.X;
+		float left = this.worldBounds.getLeft() * this.zoom.X;
+		float right = this.worldBounds.getRight() * this.zoom.X + this.screenOffset.X  * 2 *  this.zoom.X;
 		
-		float top = this.worldBounds.getTop() + this.screenOffset.Y * this.zoom.Y;
-		float bottom = this.worldBounds.getBottom() + this.screenOffset.Y * 3 * this.zoom.Y;
+		float top = this.worldBounds.getTop();
+		float bottom = this.worldBounds.getBottom() + this.screenOffset.Y * 2 * this.zoom.Y;
 		System.out.println("Top: " + top + " Bottom " + bottom);
 		
-		if(x * zoom.X < left) {
-			x = left / zoom.Y;
-		} else if(x * zoom.X> right) {
-			x =  right / zoom.Y;
+		if(x < left) {
+			x = left;
+		} else if(x > right) {
+			x =  right;
 		}
 		
-		if(y * zoom.Y < top) {
-			y = top / zoom.Y;
-		} else if(y * zoom.Y> bottom) {
-			y = bottom / zoom.Y;
+		if(y < top) {
+			y = top ;
+		} else if(y > bottom) {
+			y = bottom ;
 		}
 		this.position = new Vector2(x,y);
 
