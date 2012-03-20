@@ -40,8 +40,10 @@ public final class TextureLoader {
 		
 		glBindTexture(GL_TEXTURE_2D, 0);
 		
+
 		buffer.clear();
 		buffer = null;
+		stream.close();
 		
 		return new Texture2D(openGLID, decoder.getWidth(), decoder.getHeight());
 	}

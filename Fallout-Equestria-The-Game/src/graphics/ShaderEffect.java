@@ -33,7 +33,7 @@ public class ShaderEffect {
 	public int getUniformLocation(String uniform) {
 		int uniformLoc = glGetUniformLocation(this.ShaderProgramOpenGLID, uniform);
 		if(uniformLoc == -1) {
-			throw new ShaderException("The uniform " + uniform + "does not exists!");
+			throw new GraphicsException("The uniform " + uniform + "does not exists!");
 		}
 		return uniformLoc;
 	}

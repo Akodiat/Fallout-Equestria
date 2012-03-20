@@ -10,7 +10,10 @@ import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
-/**
+/** A class used to do batched 2D rendering.
+ * The design is heavily influenced by the class
+ * with the same name SpriteBatch in the XNA framework. 
+ * However this used OpenGL 3 instead of DirectX 9
  * 
  * @author Lukas Kurtyan
  *
@@ -56,13 +59,14 @@ public class SpriteBatch {
 	
 	//SpriteEffects
 	private static ShaderEffect basicEffect;
-	ShaderEffect activeEffect;
+	private ShaderEffect activeEffect;
 	
-	
+	//A flag indicating if we are inside of a begin-call sequence.
+	private boolean betweenBeginAndEnd;
 	
 	/**Creates a new SpriteBatch.
 	 * 
-	 * @param viewport the location in the screen the sprite batch draws to.
+	 * @param viewport the dimensions of the screen rendered to.
 	 */
 	public SpriteBatch(Rectangle viewport) {
 		//Create the buffers with the correct length. 
@@ -70,6 +74,8 @@ public class SpriteBatch {
 		this.textureBuffer = new DynamicVertexBuffer(this.maxSpriteCount * 8);
 		this.colorBuffer = new DynamicVertexBuffer(this.maxSpriteCount * 16);
 		this.indexBuffer = new IndexBuffer(this.maxSpriteCount * 12);
+		
+		
 		this.viewport = viewport;
 		
 		this.initializeBuffers();
@@ -84,15 +90,19 @@ public class SpriteBatch {
 		this.vertexArrayObject = glGenVertexArrays();
 		glBindVertexArray(this.vertexArrayObject);
 		
+		//Bind the position buffer and prepare the VOA for positional input.
 		this.vertexBuffer.bindGL();
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, false, 0, 0);
 		
+
+		//Bind the textureCoords buffer and prepare the VOA for textureCoord input.
 		this.textureBuffer.bindGL();
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
 		
-		
+
+		//Bind the color buffer and prepare the VOA for colored input.
 		this.colorBuffer.bindGL();
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 4, GL_FLOAT, false, 0, 0);
@@ -104,31 +114,32 @@ public class SpriteBatch {
 	}
 	
 	private void setupIndexBuffer() {
-		short[] array = new short[this.indexBuffer.capacity()];
+		short[] indecies = new short[this.indexBuffer.capacity()];
 		for (int i = 0; i < this.maxSpriteCount; i++)
 		{
-			array[i * 6] = (short)(i * 4);
-			array[i * 6 + 1] = (short)(i * 4 + 1);
-			array[i * 6 + 2] = (short)(i * 4 + 2);
-			array[i * 6 + 3] = (short)(i * 4);
-			array[i * 6 + 4] = (short)(i * 4 + 2);
-			array[i * 6 + 5] = (short)(i * 4 + 3);
+			indecies[i * 6] = (short)(i * 4);
+			indecies[i * 6 + 1] = (short)(i * 4 + 1);
+			indecies[i * 6 + 2] = (short)(i * 4 + 2);
+			indecies[i * 6 + 3] = (short)(i * 4);
+			indecies[i * 6 + 4] = (short)(i * 4 + 2);
+			indecies[i * 6 + 5] = (short)(i * 4 + 3);
 		}
+		//Bind the indexbuffer and buffer the data on the graphics-card. 
 		this.indexBuffer.bindGL();
-		this.indexBuffer.setData(array);
+		this.indexBuffer.setData(indecies);
 		this.indexBuffer.flushGL();
 	}
 
 	private void initializeShaders() {
-		
+		//Load a shader.
 		basicEffect = ShaderLoader.loadShader("Standard.vert", "Standard.frag");
-
 	}
 
 	private void setupUniforms(Matrix4 view) {
-		
+		//Start using the active shader. This has to be done so we can set the uniforms.
 		this.activeEffect.bindShaderProgram();
 		
+		//Set the shader uniforms.
 		this.activeEffect.setUniform("viewport", viewport.Width, viewport.Height);
 		this.activeEffect.setUniformSampler("colorTexture", 0);
 		this.activeEffect.setUniform("view", view);
@@ -140,37 +151,61 @@ public class SpriteBatch {
 												   viewport.getTop(), 1, -1);
 		
 		this.activeEffect.setUniform("projection", projectionMatrix);
-		
-		glUseProgram(0);
-		
+		//Stop using the active shader.
+		this.activeEffect.unbindShaderProgram();
 	}
 
+	
 	/** Fixes the spritebatch to render to the new screen dimensions.
 	 * 
 	 * @param newViewport the screen viewport.
 	 */
-	public void screenChanged(Rectangle newViewport) {
+	public void setViewport(Rectangle newViewport) {
 		this.viewport = newViewport;
 	}
 	
-	/**
+	/**Gets the dimensions of the screen rendered to.
 	 * 
-	 * @param color
+	 * @return a rectangle containing screen dimensions.
+	 */
+	public Rectangle getViewport() {
+		return this.viewport;
+	}
+	
+	/**Clear the screen with the specified color.
+	 * 
+	 * @param color the color to clear the screen with.
 	 */
 	public void clearScreen(Color color) {
+		
 		glClearColor(color.R, color.G, color.B, color.A); 
 		glClear(GL_COLOR_BUFFER_BIT);	 
 	}	
-
+	
+	/**Prepares the spritebatch for rendering. 
+	 * This overload uses the standard shadereffect and the identity view.
+	 * (note* begin must be called befoure draw or end can be called)
+	 */
 	public void begin() {
 		this.begin(null);
 	}
 	
+	/**Prepares the spritebatch for rendering.
+	 * This overload uses the provided effect and the identity view.
+	 * (note* begin must be called before draw or end can be called)
+	 * @param effect the custom effect used.
+	 */
 	public void begin(ShaderEffect effect) {
 	
 		this.begin(effect, Matrix4.Identity);
 	}
 	
+	/**Prepares the spritebatch for rendering.
+	 * This overload uses the provided effect and the provided view.
+	 * (note* begin must be called before draw or end can be called)
+	 * @param effect the custom effect used.
+	 * @param view the custom view used.
+	 */
 	public void begin(ShaderEffect effect, Matrix4 view) {
 	
 		glEnable(GL_BLEND);
@@ -187,33 +222,116 @@ public class SpriteBatch {
 	}
 	
 	
-	
+	/** Ends the batch drawing, Draws the batched items to the current renderTarget.
+	 */
 	public void end() {
 		this.renderBatch();
 	}
 	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture the texture.
+	 * @param position the top-left position.
+	 * @param color the tint.
+	 */
 	public void draw(Texture2D texture, Vector2 position, Color color) {
-		
 		this.internalDraw(texture, position, color, null, Vector2.Zero, Vector2.One, 0.0f, false);
 	}
 	
+	/**Adds a sprite to the batch with the specified arguments.
+	 *  
+	 * @param texture the texture.
+	 * @param destRectangle the bounds of the sprite.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 */
+	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle) {
+		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
+		Vector2 scale = new Vector2(texture.Width / destRectangle.Width, 
+									texture.Height / destRectangle.Height);
+		
+		this.internalDraw(activeTexture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false);
+	}
+	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture the texture.
+	 * @param destRectangle the bounds of the sprite.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 * @param origin the origin (rendering offset)
+	 * @param rotation the rotation in a counterclockwise system Range 0 to 2Pi
+	 * @param mirror a flag indicating if the texture should be horizontally flipped.
+	 */
+	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle, Vector2 origin,
+					 float rotation, boolean mirror) {
+		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
+		Vector2 scale = new Vector2(texture.Width / destRectangle.Width, 
+									texture.Height / destRectangle.Height);
+		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror);
+	}
+	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture the texture.
+	 * @param position the top-left position.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle) {
 		this.internalDraw(texture, position, color, sorceRectangle, Vector2.Zero, Vector2.One, 0.0f, false);
 	}
 	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture the texture.
+	 * @param position the top-left position.
+	 * @param color the tint.
+	 * @param origin the origin (rendering offset)
+	 */
 	public void draw(Texture2D texture, Vector2 position,  Color color, Vector2 origin) {
 		this.internalDraw(texture, position, color, null, origin, Vector2.One, 0.0f, false);
 	}
 	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture
+	 * @param position
+	 * @param color
+	 * @param sorceRectangle
+	 * @param origin
+	 */
 	public void draw(Texture2D texture, Vector2 position,  Color color, Rectangle sorceRectangle, Vector2 origin) {
 		this.internalDraw(texture, position, color, sorceRectangle, origin, Vector2.One, 0.0f, false);
 	}
 	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture
+	 * @param position
+	 * @param color
+	 * @param sorceRectangle
+	 * @param origin
+	 * @param scale
+	 * @param rotation
+	 * @param mirror
+	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 			 float scale, float rotation, boolean mirror) {
 		this.internalDraw(texture, position, color, sorceRectangle, origin, new Vector2(scale, scale), rotation, mirror);
 	}
 	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture
+	 * @param position
+	 * @param color
+	 * @param sorceRectangle
+	 * @param origin
+	 * @param scale
+	 * @param rotation
+	 * @param mirror
+	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 					 Vector2 scale, float rotation, boolean mirror) {
 		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror);
@@ -225,6 +343,8 @@ public class SpriteBatch {
 			//Make sure the texture is not null.
 			if(texture == null) {
 				throw new NullPointerException("Texture cannot be null!");
+			} else if(!this.betweenBeginAndEnd) {
+				throw new GraphicsException("You cannot draw befoure begin is called!");
 			}
 			
 			//If the texture is not the active texture render the current batch.
@@ -300,21 +420,7 @@ public class SpriteBatch {
 		
 		glBindVertexArray(this.vertexArrayObject);
 		
-		this.vertexBuffer.bindGL();
-		this.vertexBuffer.flushGL();
-		
-		this.textureBuffer.bindGL();
-		
-		this.textureBuffer.flushGL();
-		
-		this.colorBuffer.bindGL();
-		this.colorBuffer.flushGL();
-		
-		
-		
-		
-		
-		
+		flushBuffers();
 		
 		this.activeEffect.bindShaderProgram();
 		
@@ -323,11 +429,22 @@ public class SpriteBatch {
 		
 		glDrawElements(GL_TRIANGLES, this.spriteCount * 6, GL_UNSIGNED_SHORT, 0);
 		
-
 		this.activeEffect.unbindShaderProgram();
-		//glBindVertexArray(0);
+		
+		glBindVertexArray(0);
 		
 		this.spriteCount = 0;
 		this.activeTexture = null;
+	}
+
+	private void flushBuffers() {
+		this.vertexBuffer.bindGL();
+		this.vertexBuffer.flushGL();
+		
+		this.textureBuffer.bindGL();	
+		this.textureBuffer.flushGL();
+		
+		this.colorBuffer.bindGL();
+		this.colorBuffer.flushGL();
 	}
 }
