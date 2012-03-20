@@ -1,9 +1,7 @@
 package entitySystems;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import components.ActionPointsComponent;
-import components.HealthComponent;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
@@ -15,7 +13,7 @@ public class ActionPointsRegenSubsystem extends EntityProcessingSystem {
 
 	protected ActionPointsRegenSubsystem(IEntityWorld world,
 			Class<? extends IComponent>[] componentsClasses) {
-		super(world, componentsClasses);
+		super(world, ActionPointsComponent.class);
 	}
 	
 	private ComponentMapper<ActionPointsComponent> aPCM;

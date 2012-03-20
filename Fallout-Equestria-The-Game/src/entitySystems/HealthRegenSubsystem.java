@@ -1,9 +1,7 @@
 package entitySystems;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import components.ActionPointsComponent;
 import components.HealthComponent;
 
 import entityFramework.ComponentMapper;
@@ -14,9 +12,9 @@ import entityFramework.IEntityWorld;
 
 public class HealthRegenSubsystem extends EntityProcessingSystem {
 
-	protected HealthRegenSubsystem(IEntityWorld world,
+	public HealthRegenSubsystem(IEntityWorld world,
 			Class<? extends IComponent>[] componentsClasses) {
-		super(world, componentsClasses);
+		super(world, HealthComponent.class);
 	}
 
 	private ComponentMapper<HealthComponent> hCM;
