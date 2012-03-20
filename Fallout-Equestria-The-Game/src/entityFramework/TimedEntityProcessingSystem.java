@@ -7,8 +7,8 @@ public abstract class TimedEntityProcessingSystem extends EntitySystem {
 	private int delta;
 	private int counter;
 
-	protected TimedEntityProcessingSystem(IEntityWorld world,
-			Class<? extends IComponent>[] componentsClasses, int delta) {
+	protected TimedEntityProcessingSystem(IEntityWorld world, int delta,
+			Class<? extends IComponent> ... componentsClasses) {
 		super(world, componentsClasses);
 		this.delta = delta;
 		this.counter = 0;

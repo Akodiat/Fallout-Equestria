@@ -4,25 +4,24 @@ import com.google.common.collect.ImmutableSet;
 import components.ActionPointsComponent;
 
 import entityFramework.ComponentMapper;
-import entityFramework.EntityProcessingSystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import entityFramework.TimedEntityProcessingSystem;
 
-public class ActionPointsRegenSubsystem extends EntityProcessingSystem {
+public class ActionPointsRegenSubsystem extends TimedEntityProcessingSystem {
 
-	protected ActionPointsRegenSubsystem(IEntityWorld world,
-			Class<? extends IComponent>[] componentsClasses) {
-		super(world, ActionPointsComponent.class);
+	@SuppressWarnings("unchecked")
+	protected ActionPointsRegenSubsystem(IEntityWorld world) {
+		super(world, 60, ActionPointsComponent.class);
 	}
-	
+
 	private ComponentMapper<ActionPointsComponent> aPCM;
-	
+
 	@Override
 	public void initialize() {
 		aPCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				ActionPointsComponent.class);
-		
+
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class ActionPointsRegenSubsystem extends EntityProcessingSystem {
 			ActionPointsComponent actiRegCom = aPCM.getComponent(entity);
 			actiRegCom.regenAbilityPoints();
 		}
-		
+
 	}
 
 }

@@ -5,20 +5,19 @@ import com.google.common.collect.ImmutableSet;
 import components.HealthComponent;
 
 import entityFramework.ComponentMapper;
-import entityFramework.EntityProcessingSystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import entityFramework.TimedEntityProcessingSystem;
 
-public class HealthRegenSubsystem extends EntityProcessingSystem {
+public class HealthRegenSubsystem extends TimedEntityProcessingSystem {
 
-	public HealthRegenSubsystem(IEntityWorld world,
-			Class<? extends IComponent>[] componentsClasses) {
-		super(world, HealthComponent.class);
+	@SuppressWarnings("unchecked")
+	public HealthRegenSubsystem(IEntityWorld world) {
+		super(world, 60, HealthComponent.class);
 	}
 
 	private ComponentMapper<HealthComponent> hCM;
-	
+
 	@Override
 	public void initialize() {
 		hCM = ComponentMapper.create(this.getWorld().getDatabase(),
