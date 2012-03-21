@@ -39,9 +39,11 @@ public class DynamicVertexBuffer {
 	}
 	
 	public void flushGL() {
-		this.floatBuffer.flip();
-		glBufferData(GL_ARRAY_BUFFER, this.floatBuffer, GL_STREAM_DRAW);
-		this.floatBuffer.clear();
+		if(this.floatBuffer.position() != 0) {
+			this.floatBuffer.flip();
+			glBufferData(GL_ARRAY_BUFFER, this.floatBuffer, GL_STREAM_DRAW);
+			this.floatBuffer.clear();
+		}
 	}
 
 

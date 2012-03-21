@@ -40,9 +40,19 @@ public class BasicRenderingSystem extends EntitySingleProcessingSystem {
 	protected void processEntity(IEntity entity) {
 		RenderingComponent renderC = this.renderCM.getComponent(entity);
 		PositionComponent positionC = this.posCM.getComponent(entity);
+		
+		
+		if(renderC.getEffect() != null) {
+			this.spriteBatch.end();
+			this.spriteBatch.begin(renderC.getEffect(),this.spriteBatch.getView());
+		}
 
 		this.spriteBatch.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor(), null,
 							  renderC.getOrigin(), Vector2.One, positionC.getRotation(), false);
+		
+		if(renderC.getEffect() != null) {
+			
+		}
 	}
 
 }

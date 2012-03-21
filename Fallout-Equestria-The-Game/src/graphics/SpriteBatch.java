@@ -64,6 +64,8 @@ public class SpriteBatch {
 	//A flag indicating if we are inside of a begin-call sequence.
 	private boolean betweenBeginAndEnd;
 	
+	private Matrix4 view;
+	
 	/**Creates a new SpriteBatch.
 	 * 
 	 * @param viewport the dimensions of the screen rendered to.
@@ -135,14 +137,14 @@ public class SpriteBatch {
 		basicEffect = ShaderLoader.loadShader("Standard.vert", "Standard.frag");
 	}
 
-	private void setupUniforms(Matrix4 view) {
+	private void setupUniforms() {
 		//Start using the active shader. This has to be done so we can set the uniforms.
 		this.activeEffect.bindShaderProgram();
 		
 		//Set the shader uniforms.
 		this.activeEffect.setUniform("viewport", viewport.Width, viewport.Height);
 		this.activeEffect.setUniformSampler("colorTexture", 0);
-		this.activeEffect.setUniform("view", view);
+		this.activeEffect.setUniform("view", this.view);
 		
 		Matrix4 projectionMatrix =
 				Matrix4.createOrthogonalProjection(viewport.getLeft(),
@@ -169,6 +171,14 @@ public class SpriteBatch {
 	 */
 	public Rectangle getViewport() {
 		return this.viewport;
+	}
+	
+	public Matrix4 getView() {
+		return this.view;
+	}
+	
+	public ShaderEffect getActiveEffect() {
+		return activeEffect;
 	}
 	
 	/**Clear the screen with the specified color.
@@ -219,7 +229,8 @@ public class SpriteBatch {
 		
 		
 		this.betweenBeginAndEnd = true;
-		this.setupUniforms(view);
+		this.view = view;
+		this.setupUniforms();
 	}
 	
 	/** Ends the batch drawing, Draws the batched items to the current renderTarget.
