@@ -11,7 +11,7 @@ import components.RenderingComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.AttackResolveSystem;
-import entitySystems.BasicRenderingSystem;
+import entitySystems.RenderingSystem;
 import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
@@ -34,7 +34,7 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addRenderSubSystem(new BasicRenderingSystem(this.tester.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 
 	@Override

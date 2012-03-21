@@ -7,7 +7,6 @@ import components.RenderingComponent;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 import graphics.ShaderEffect;

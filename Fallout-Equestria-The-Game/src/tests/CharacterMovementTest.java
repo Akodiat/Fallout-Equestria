@@ -16,7 +16,7 @@ import components.RenderingComponent;
 import utils.Rectangle;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
-import entitySystems.BasicRenderingSystem;
+import entitySystems.RenderingSystem;
 import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
@@ -38,7 +38,7 @@ public class CharacterMovementTest extends AbstractSystemTest{
 		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addRenderSubSystem(new BasicRenderingSystem(this.tester.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 
 	@Override
