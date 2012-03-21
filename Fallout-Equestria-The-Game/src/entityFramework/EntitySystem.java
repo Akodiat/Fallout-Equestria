@@ -76,7 +76,6 @@ public abstract class EntitySystem implements IEntitySystem{
 
 	@Override
 	public void entityDestroyed(IEntity entity) {
-		System.out.println("Entity was removed." + entity.getUniqueID());
 		this.entities.remove(entity);
 	}
 	

@@ -22,10 +22,10 @@ import components.SpatialComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.AttackResolveSystem;
-import entitySystems.BasicRenderingSystem;
 import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
+import entitySystems.RenderingSystem;
 import graphics.TextureLoader;
 
 public class CharacterDuellingTest extends AbstractSystemTest{
@@ -40,7 +40,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		tester.addRenderSubSystem(new BasicRenderingSystem(this.tester.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 
 	@Override
