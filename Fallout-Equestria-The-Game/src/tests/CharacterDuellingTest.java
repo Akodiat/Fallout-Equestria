@@ -73,7 +73,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		rendC.setOrigin(new Vector2(rendC.getTexture().Width/2,rendC.getTexture().Height/2));
+		posC.setOrigin(new Vector2(rendC.getTexture().Width/2,rendC.getTexture().Height/2));
 		SpatialComponent spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
 		player1.addComponent(rendC);
@@ -111,10 +111,9 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		try {
 			player2rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		player2rendC.setOrigin(new Vector2(player2rendC.getTexture().Width/2,player2rendC.getTexture().Height/2));
+		player2posC.setOrigin(new Vector2(player2rendC.getTexture().Width/2,player2rendC.getTexture().Height/2));
 		
 		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 

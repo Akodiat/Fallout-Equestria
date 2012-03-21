@@ -10,6 +10,7 @@ import math.Vector2;
 import components.*;
 import entityFramework.*;
 import graphics.Color;
+import graphics.Texture2D;
 import graphics.TextureLoader;
 
 /**
@@ -25,11 +26,19 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 	private ComponentMapper<PhysicsComponent> physCM;
 	private ComponentMapper<InputComponent> inpCM;
 	private ComponentMapper<TransformationComp> transCM;
+	
+	private Texture2D attackTexture;
 	@Override
 	public void initialize() {
 		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
 		inpCM =  ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
 		transCM =  ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
+		
+		try {
+			attackTexture = TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("pinksplosion rocket.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -57,11 +66,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			
 			RenderingComponent attackRendComp = new RenderingComponent();
 			attackRendComp.setColor(new Color(255,255,255, 255));
-			try {
-				attackRendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("pinksplosion rocket.png")));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			attackRendComp.setTexture(attackTexture);
 			
 			attack.addComponent(attackPosComp);
 			attack.addComponent(attackPhysComp);
