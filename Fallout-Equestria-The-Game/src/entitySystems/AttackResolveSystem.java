@@ -13,7 +13,6 @@ import components.StatusChangeComponent;
 import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
-import entityFramework.EntityManager;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
@@ -24,7 +23,6 @@ import entityFramework.IEntityWorld;
  */
 public class AttackResolveSystem extends EntityProcessingSystem {
 
-	@SuppressWarnings("unchecked")
 	public AttackResolveSystem(IEntityWorld world) {
 		super(world, TransformationComp.class, AttackComponent.class);
 	}

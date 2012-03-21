@@ -23,12 +23,14 @@ public abstract class AbstractSystemTest {
 	}
 	
 	public final void start()  {
-		
-		try {
-		
-			Display.setDisplayMode(new DisplayMode(screenDim.Width,screenDim.Height));
-			Display.setFullscreen(isFullScreen);
-			Display.create();
+			try {
+				Display.setDisplayMode(new DisplayMode(screenDim.Width,screenDim.Height));
+				Display.setFullscreen(isFullScreen);
+				Display.create();
+			} catch (LWJGLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			this.graphics = new SpriteBatch(this.screenDim);	
 			this.tester = new SystemTester();
 			
@@ -51,11 +53,6 @@ public abstract class AbstractSystemTest {
 			}
 			
 			Display.destroy(); 
-		} catch(Exception ex) {
-			
-			System.out.println("The system crashed." + ex.getStackTrace());
-			Display.destroy();
-		} 
 	}
 	
 	public abstract void initializeSystems();

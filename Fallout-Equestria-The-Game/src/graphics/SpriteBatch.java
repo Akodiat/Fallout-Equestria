@@ -265,10 +265,10 @@ public class SpriteBatch {
 	 */
 	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle) {
 		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
-		Vector2 scale = new Vector2(texture.Width / destRectangle.Width, 
-									texture.Height / destRectangle.Height);
+		Vector2 scale = new Vector2(destRectangle.Width / texture.Width, 
+									destRectangle.Height / texture.Height);
 		
-		this.internalDraw(activeTexture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false);
+		this.internalDraw(texture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.

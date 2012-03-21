@@ -7,6 +7,7 @@ import math.Vector2;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
+import components.HealthComponent;
 import components.InputComponent;
 import components.PhysicsComponent;
 import components.RenderingComponent;
@@ -16,6 +17,7 @@ import components.TransformationComp;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.AttackResolveSystem;
+import entitySystems.HealthBarRenderSystem;
 import entitySystems.RenderingSystem;
 import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
@@ -41,6 +43,7 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
+		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 
@@ -54,7 +57,8 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
 		SpatialComponent spatComp = new SpatialComponent(new Circle(posComp.getPosition(),30f));
 		RenderingComponent rendComp = new RenderingComponent();
-
+		HealthComponent healthComp = new HealthComponent(100, 2, 89);
+		
 		rendComp.setColor(new Color(42,200,255, 255));
 		try {
 			rendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
@@ -68,6 +72,7 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		player.addComponent(physComp);
 		player.addComponent(posComp);
 		player.addComponent(spatComp);
+		player.addComponent(healthComp);
 		
 		player.refresh();
 	}

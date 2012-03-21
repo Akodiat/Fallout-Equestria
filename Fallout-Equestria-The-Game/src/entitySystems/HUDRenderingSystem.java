@@ -21,11 +21,9 @@ public class HUDRenderingSystem extends EntitySystem {
 	protected HUDRenderingSystem(IEntityWorld world, SpriteBatch batch, String playerLabel) {
 		super(world);
 		this.batch = batch;
-		this.playerLabel = playerLabel;
-		
+		this.playerLabel = playerLabel;		
 	}
 
-	
 	private ComponentMapper<HealthComponent> healthCM;
 	
 	@Override
