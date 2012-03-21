@@ -43,13 +43,9 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 	protected void processEntity(IEntity entity) {
 		PositionComponent posComp = posCM.getComponent(entity);
 		PhysicsComponent physComp = physCM.getComponent(entity);
-		SpatialComponent spatComp = spatCM.getComponent(entity);
-		boolean collision=false;
-		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComponent.class);
-
+		
 		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
-		
-		
+				
 		if(checkIfCollides(entity))
 			posComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(-1,physComp.getVelocity())));
 		
@@ -61,7 +57,7 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 		
 		boolean collision=false;
 		float r=spatComp.getBounds().getRadius();
-		if(posComp.getPosition().X<0 || 
+		if(posComp.getPosition().X<0 || 							//Checking collision with display edge
 				posComp.getPosition().X+2*r>Display.getWidth() ||
 				posComp.getPosition().Y<0 ||
 				posComp.getPosition().Y+2*r>Display.getHeight()){
@@ -72,7 +68,7 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
 		
 		
-		for(IEntity i:collidableEntities){
+		for(IEntity i:collidableEntities){							//Checking collision with other entities
 			if(!i.equals(entity) && Circle.intersects(
 					i.getComponent(SpatialComponent.class).getBounds(),
 					i.getComponent(PositionComponent.class).getPosition(),

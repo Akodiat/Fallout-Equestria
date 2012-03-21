@@ -32,7 +32,6 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 
 	public CharacterDuellingTest(Rectangle screenDim, boolean fullScreen) {
 		super(screenDim, fullScreen);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 	@Override
 	public void initializeEntities(IEntityManager manager) {
 		IEntity player1 = manager.createEmptyEntity();
-		player1.addToGroup("Allies");
+		player1.addToGroup("Enemies");
 		
 		PositionComponent posC = new PositionComponent();
 		posC.setPosition(new Vector2(Display.getWidth()/2-200,Display.getHeight()/2));
@@ -88,7 +87,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		
 		//Player2:
 		IEntity player2 = manager.createEmptyEntity();
-		player1.addToGroup("Enemies");
+		player2.addToGroup("Enemies");
 		
 		PositionComponent player2posC = new PositionComponent();
 		player2posC.setPosition(new Vector2(Display.getWidth()/2+200,Display.getHeight()/2));
@@ -100,12 +99,12 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		
 		InputComponent player2inpC = new InputComponent();
 
-/*		player2inpC.setBackButton(Keyboard.KEY_DOWN);
+		player2inpC.setBackButton(Keyboard.KEY_DOWN);
 		player2inpC.setLeftButton(Keyboard.KEY_LEFT);
 		player2inpC.setForwardButton(Keyboard.KEY_UP);
 		player2inpC.setRightButton(Keyboard.KEY_RIGHT);
 		player2inpC.setGallopButton(Keyboard.KEY_RCONTROL);
-		player2inpC.setPipBuckButton(Keyboard.KEY_M); */
+		player2inpC.setPipBuckButton(Keyboard.KEY_M);
 		
 		RenderingComponent player2rendC = new RenderingComponent();
 		player2rendC.setColor(new Color(42,255,42, 255));
@@ -120,7 +119,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
 		player2.addComponent(player2rendC);
-	//	player2.addComponent(player2inpC);
+		player2.addComponent(player2inpC);
 		player2.addComponent(player2physC);
 		player2.addComponent(player2posC);
 		player2.addComponent(player2spatC);

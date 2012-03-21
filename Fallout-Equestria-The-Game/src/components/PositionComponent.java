@@ -13,16 +13,16 @@ public class PositionComponent implements IComponent{
 	
 	public PositionComponent(){
 		this.position = new Vector2(0,0); //TODO: Change to center of screen?
-		this.setRotation(0);
+		this.rotation = 0;
 	}
 	
 	public PositionComponent(Vector2 position){
 		this.position = position;	
-		this.setRotation(0);
+		this.rotation = 0;
 	}
 	public PositionComponent(Vector2 position, float rotation){
 		this.position = position;
-		this.setRotation(rotation);
+		this.rotation = rotation;
 	}
 	
 	private PositionComponent(PositionComponent posComp){
@@ -37,7 +37,7 @@ public class PositionComponent implements IComponent{
 	 * @return the position
 	 */
 	public Vector2 getPosition() {
-		return position;
+		return new Vector2(position.X,position.Y);
 	}
 
 	/**

@@ -49,15 +49,21 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		
 		if(inpComp.isLeftMouseButtonDown()){
 			IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();
-			AttackComponent attackComp = new AttackComponent(new Circle(new Vector2(0,0),20f),20, ImmutableList.of("Enemies"));
+			
+			AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,20f),20, ImmutableList.of("Enemies"));
+			
 			Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());
 			attackSpeed = Vector2.norm(attackSpeed);
-			PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
-			PositionComponent attackPosComp = new PositionComponent(posComp.getPosition(),attackSpeed.angle());
-			attackPosComp.setPosition(Vector2.add(attackPosComp.getPosition(), Vector2.mul(60, attackSpeed)));
-			RenderingComponent attackRendComp = new RenderingComponent();
-			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(((PositionComponent) posComp.clone()).getPosition(),30f)); 
 			
+			PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
+			
+			PositionComponent attackPosComp = new PositionComponent();
+			attackPosComp.setRotation(attackSpeed.angle());
+			attackPosComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(60, attackSpeed)));
+			
+			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(attackPosComp.getPosition(),30f)); 
+			
+			RenderingComponent attackRendComp = new RenderingComponent();
 			attackRendComp.setColor(new Color(255,255,255, 255));
 			try {
 				attackRendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("pinksplosion rocket.png")));
