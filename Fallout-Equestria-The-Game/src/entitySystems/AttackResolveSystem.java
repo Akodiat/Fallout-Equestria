@@ -71,6 +71,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 							.println("THIS PONY IS HURT! CALL AN AMBULANCE etc. osv.");
 					targetEntity.addComponent(new StatusChangeComponent(attaCom
 							.getDamage(), ""));
+					targetEntity.refresh();
 				}
 			}
 			
