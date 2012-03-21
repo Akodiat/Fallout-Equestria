@@ -4,30 +4,33 @@ import com.google.common.collect.ImmutableSet;
 
 public abstract class TimedEntityProcessingSystem extends EntitySystem {
 
-	private int delta;
-	private int counter;
+	private float elapsedTime;
+	private final float delayTime;
 
-	protected TimedEntityProcessingSystem(IEntityWorld world, int delta,
+	@SafeVarargs
+	protected TimedEntityProcessingSystem(IEntityWorld world, float delayTime,
 			Class<? extends IComponent> ... componentsClasses) {
 		super(world, componentsClasses);
-		this.delta = delta;
-		this.counter = 0;
-	}
-
-	@Override
-	public void initialize() {
-
+		this.delayTime = delayTime;
+		this.elapsedTime = 0.0f;
 	}
 
 	@Override
 	public final void process() {
-		this.counter++;
-		if(this.counter >= this.delta){
+		if(this.shouldProcess()){
 			ImmutableSet<IEntity> entities = ImmutableSet.copyOf(this.getEntities().values());
 			this.processEntitys(entities);
-			this.counter = 0;
 		}
 	}
 	
+	private boolean shouldProcess() {
+		this.elapsedTime += this.getWorld().getDelta();
+		if(this.elapsedTime >= this.delayTime) {
+			this.elapsedTime -= this.delayTime;
+			return true;
+		}
+		return false;
+	}
+
 	protected abstract void processEntitys(ImmutableSet<IEntity> entities);
 }

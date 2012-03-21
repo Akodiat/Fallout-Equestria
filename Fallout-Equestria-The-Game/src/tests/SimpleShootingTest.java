@@ -16,12 +16,7 @@ import components.TransformationComp;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
-import entitySystems.AttackResolveSystem;
-import entitySystems.HealthBarRenderSystem;
-import entitySystems.RenderingSystem;
-import entitySystems.CharacterControllerSystem;
-import entitySystems.InputSystem;
-import entitySystems.PhysicsSystem;
+import entitySystems.*;
 import graphics.Color;
 import graphics.TextureLoader;
 import utils.Circle;
@@ -45,12 +40,14 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
 	}
 
 	@Override
 	public void initializeEntities(IEntityManager manager) {
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");
+		player.setLabel("Player");
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
 		TransformationComp posComp = new TransformationComp();
