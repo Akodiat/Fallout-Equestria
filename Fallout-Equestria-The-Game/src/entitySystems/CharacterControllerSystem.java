@@ -7,16 +7,8 @@ import com.google.common.collect.ImmutableList;
 import tests.TextureTest;
 import utils.Circle;
 import math.Vector2;
-import components.AttackComponent;
-import components.InputComponent;
-import components.PhysicsComponent;
-import components.PositionComponent;
-import components.RenderingComponent;
-import components.SpatialComponent;
-import entityFramework.ComponentMapper;
-import entityFramework.EntitySingleProcessingSystem;
-import entityFramework.IEntity;
-import entityFramework.IEntityWorld;
+import components.*;
+import entityFramework.*;
 import graphics.Color;
 import graphics.TextureLoader;
 
@@ -28,23 +20,23 @@ import graphics.TextureLoader;
 public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 	public CharacterControllerSystem(IEntityWorld world) {
-		super(world, InputComponent.class, PhysicsComponent.class, PositionComponent.class);
+		super(world, InputComponent.class, InputComponent.class, TransformationComp.class);
 	}
 	private ComponentMapper<PhysicsComponent> physCM;
 	private ComponentMapper<InputComponent> inpCM;
-	private ComponentMapper<PositionComponent> posCM;
+	private ComponentMapper<TransformationComp> transCM;
 	@Override
 	public void initialize() {
 		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
 		inpCM =  ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
-		posCM =  ComponentMapper.create(this.getWorld().getDatabase(), PositionComponent.class);
+		transCM =  ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
 		PhysicsComponent	physComp = physCM.getComponent(entity);
 		InputComponent 		inpComp = inpCM.getComponent(entity);
-		PositionComponent	posComp = posCM.getComponent(entity);
+		TransformationComp	posComp = transCM.getComponent(entity);
 		
 		
 		if(inpComp.isLeftMouseButtonDown()){
@@ -57,18 +49,17 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			
 			PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
 			
-			PositionComponent attackPosComp = new PositionComponent();
+			TransformationComp attackPosComp = new TransformationComp();
 			attackPosComp.setRotation(attackSpeed.angle());
 			attackPosComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(60, attackSpeed)));
 			
-			//SpatialComponent attackSpatComp = new SpatialComponent(new Circle(attackPosComp.getPosition(),30f)); 
+			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(attackPosComp.getPosition(),30f)); 
 			
 			RenderingComponent attackRendComp = new RenderingComponent();
 			attackRendComp.setColor(new Color(255,255,255, 255));
 			try {
 				attackRendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("pinksplosion rocket.png")));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -76,7 +67,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			attack.addComponent(attackPhysComp);
 			attack.addComponent(attackComp);
 			attack.addComponent(attackRendComp);
-			//attack.addComponent(attackSpatComp);
+			attack.addComponent(attackSpatComp);
 			
 			attack.refresh();
 		}

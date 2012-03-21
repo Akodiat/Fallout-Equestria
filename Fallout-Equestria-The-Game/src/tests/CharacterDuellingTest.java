@@ -15,9 +15,9 @@ import utils.Rectangle;
 import components.HealthComponent;
 import components.InputComponent;
 import components.PhysicsComponent;
-import components.PositionComponent;
 import components.RenderingComponent;
 import components.SpatialComponent;
+import components.TransformationComp;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -48,7 +48,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		IEntity player1 = manager.createEmptyEntity();
 		player1.addToGroup("Enemies");
 		
-		PositionComponent posC = new PositionComponent();
+		TransformationComp posC = new TransformationComp();
 		posC.setPosition(new Vector2(Display.getWidth()/2-200,Display.getHeight()/2));
 
 		PhysicsComponent physC = new PhysicsComponent();
@@ -89,7 +89,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		IEntity player2 = manager.createEmptyEntity();
 		player2.addToGroup("Enemies");
 		
-		PositionComponent player2posC = new PositionComponent();
+		TransformationComp player2posC = new TransformationComp();
 		player2posC.setPosition(new Vector2(Display.getWidth()/2+200,Display.getHeight()/2));
 
 		PhysicsComponent player2physC = new PhysicsComponent();

@@ -8,9 +8,9 @@ import utils.Circle;
 import com.google.common.collect.ImmutableSet;
 
 import components.AttackComponent;
-import components.PositionComponent;
 import components.SpatialComponent;
 import components.StatusChangeComponent;
+import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityManager;
@@ -26,19 +26,19 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 	@SuppressWarnings("unchecked")
 	public AttackResolveSystem(IEntityWorld world) {
-		super(world, PositionComponent.class, AttackComponent.class);
+		super(world, TransformationComp.class, AttackComponent.class);
 	}
 
 	private ComponentMapper<AttackComponent> aCM;
 	private ComponentMapper<SpatialComponent> sCM;
-	private ComponentMapper<PositionComponent> pCM;
+	private ComponentMapper<TransformationComp> tCM;
 
 	@Override
 	public void initialize() {
 		aCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				AttackComponent.class);
-		pCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				PositionComponent.class);
+		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
+				TransformationComp.class);
 		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				SpatialComponent.class);
 	}
@@ -47,7 +47,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
 			AttackComponent attaCom = aCM.getComponent(entity);
-			PositionComponent posiCom = pCM.getComponent(entity);
+			TransformationComp posiCom = tCM.getComponent(entity);
 
 			List<IEntity> gEntities = new ArrayList<IEntity>();
 			for (int i = 0; i < attaCom.getTargetGroups().size(); i++) {
@@ -58,7 +58,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 			for (IEntity targetEntity : gEntities) {
 				SpatialComponent targetSpatiCom = sCM
 						.getComponent(targetEntity);
-				PositionComponent targetPosiCom = pCM
+				TransformationComp targetPosiCom = tCM
 						.getComponent(targetEntity);
 
 				Boolean itGotHit = Circle.intersects(attaCom.getBounds(),

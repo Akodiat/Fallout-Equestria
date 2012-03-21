@@ -2,8 +2,8 @@ package entitySystems;
 
 import math.Matrix4;
 import math.Vector2;
-import components.PositionComponent;
 import components.RenderingComponent;
+import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
@@ -17,12 +17,12 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 	private SpriteBatch spriteBatch;
 	
 	public RenderingSystem(IEntityWorld world, SpriteBatch graphics) {
-		super(world, PositionComponent.class, RenderingComponent.class);
+		super(world, TransformationComp.class, RenderingComponent.class);
 		this.spriteBatch = graphics;
 	}
 
 	
-	private ComponentMapper<PositionComponent> posCM;
+	private ComponentMapper<TransformationComp> posCM;
 	private ComponentMapper<RenderingComponent> renderCM; 
 	
 	
@@ -31,7 +31,7 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 	public void initialize() {
 		// TODO Auto-generated method stub
 		posCM = ComponentMapper.create(
-				this.getWorld().getDatabase(), PositionComponent.class);
+				this.getWorld().getDatabase(), TransformationComp.class);
 		
 		renderCM = ComponentMapper.create(
 				this.getWorld().getDatabase(), RenderingComponent.class);
@@ -40,7 +40,7 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 	@Override
 	protected void processEntity(IEntity entity) {
 		RenderingComponent renderC = this.renderCM.getComponent(entity);
-		PositionComponent positionC = this.posCM.getComponent(entity);
+		TransformationComp positionC = this.posCM.getComponent(entity);
 		
 		
 		if(renderC.getEffect() != null) {
@@ -60,9 +60,9 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 		}
 	}
 
-	private void draw(RenderingComponent renderC, PositionComponent positionC) {
-		this.spriteBatch.draw(renderC.getTexture(), positionC.getPosition(), renderC.getColor(), null,
-							  renderC.getOrigin(), Vector2.One, positionC.getRotation(), false);
+	private void draw(RenderingComponent renderC, TransformationComp transformation) {
+		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), null,
+							  renderC.getOrigin(), transformation.getScale(), transformation.getRotation(), false);
 	}
 
 }

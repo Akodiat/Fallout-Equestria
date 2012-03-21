@@ -10,8 +10,8 @@ public class TransformationComp implements IComponent {
 	private float rotation;
 	
 	public TransformationComp() {
-		this.position = new Vector2(0,0);
-		this.scale = new Vector2(1,1);
+		this.position = Vector2.Zero;
+		this.scale = Vector2.One;
 		this.rotation = 0;
 	}
 	

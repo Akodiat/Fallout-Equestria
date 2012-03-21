@@ -9,9 +9,9 @@ import org.lwjgl.opengl.Display;
 
 import components.InputComponent;
 import components.PhysicsComponent;
-import components.PositionComponent;
 import components.RenderingComponent;
 import components.SpatialComponent;
+import components.TransformationComp;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -40,16 +40,18 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 
 	@Override
 	public void initializeEntities(IEntityManager manager) {
 		IEntity player = manager.createEmptyEntity();
-		
+		player.addToGroup("Enemies");
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
-		PositionComponent posComp = new PositionComponent(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
+		TransformationComp posComp = new TransformationComp();
+		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
 		SpatialComponent spatComp = new SpatialComponent(new Circle(posComp.getPosition(),30f));
 		RenderingComponent rendComp = new RenderingComponent();
 

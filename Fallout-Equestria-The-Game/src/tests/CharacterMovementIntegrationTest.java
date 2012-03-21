@@ -16,8 +16,8 @@ import utils.Rectangle;
 
 import components.InputComponent;
 import components.PhysicsComponent;
-import components.PositionComponent;
 import components.RenderingComponent;
+import components.TransformationComp;
 
 /**
  * 
@@ -39,7 +39,7 @@ public class CharacterMovementIntegrationTest {
 		rendComp.setColor(new Color(255,255,255, 255));
 		rendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
 
-		PositionComponent posComp = new PositionComponent();
+		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getWidth()/2,Display.getHeight()/2));
 
 		PhysicsComponent physComp = new PhysicsComponent();

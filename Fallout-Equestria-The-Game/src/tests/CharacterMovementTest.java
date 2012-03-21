@@ -10,8 +10,8 @@ import graphics.Color;
 
 import components.InputComponent;
 import components.PhysicsComponent;
-import components.PositionComponent;
 import components.RenderingComponent;
+import components.TransformationComp;
 
 import utils.Rectangle;
 import entityFramework.IEntity;
@@ -45,7 +45,7 @@ public class CharacterMovementTest extends AbstractSystemTest{
 	public void initializeEntities(IEntityManager manager) {
 		IEntity entity = manager.createEmptyEntity();
 		
-		PositionComponent posC = new PositionComponent();
+		TransformationComp posC = new TransformationComp();
 		posC.setPosition(new Vector2(0,0));
 		
 		PhysicsComponent physC = new PhysicsComponent();

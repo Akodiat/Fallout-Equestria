@@ -7,7 +7,6 @@ import math.Vector2;
 import com.google.common.collect.ImmutableSet;
 import components.ActionPointsComponent;
 import components.HealthComponent;
-import components.PositionComponent;
 import components.RenderingComponent;
 import components.TransformationComp;
 

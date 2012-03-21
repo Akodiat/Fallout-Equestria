@@ -22,30 +22,40 @@ public abstract class AbstractSystemTest {
 		this.isFullScreen = fullScreen;
 	}
 	
-	public final void start() throws LWJGLException {
-		Display.setDisplayMode(new DisplayMode(screenDim.Width,screenDim.Height));
-		Display.setFullscreen(isFullScreen);
-		Display.create();
-		this.graphics = new SpriteBatch(this.screenDim);	
-		this.tester = new SystemTester();
+	public final void start()  {
 		
-		initializeSystems();
-		initializeEntities(this.tester.getWorld().getEntityManager());
+		try {
 		
-		tester.startTesting();
-		
-		while(!Display.isCloseRequested()) {
-			tester.updateWorld(1.0f / 60f);
+			Display.setDisplayMode(new DisplayMode(screenDim.Width,screenDim.Height));
+			Display.setFullscreen(isFullScreen);
+			Display.create();
+			this.graphics = new SpriteBatch(this.screenDim);	
+			this.tester = new SystemTester();
 			
-			graphics.clearScreen(new Color(157, 150, 101, 255));
-			graphics.begin();
-			tester.renderWorld();
-			graphics.end();
+			initializeSystems();
+			initializeEntities(this.tester.getWorld().getEntityManager());
 			
-			tester.getWorld().getEntityManager().destoryKilledEntities();
-			Display.update();
-			Display.sync(60);
-		}
+			tester.startTesting();
+			
+			while(!Display.isCloseRequested()) {
+				tester.updateWorld(1.0f / 60f);
+				
+				graphics.clearScreen(new Color(157, 150, 101, 255));
+				graphics.begin();
+				tester.renderWorld();
+				graphics.end();
+				
+				tester.getWorld().getEntityManager().destoryKilledEntities();
+				Display.update();
+				Display.sync(60);
+			}
+			
+			Display.destroy(); 
+		} catch(Exception ex) {
+			
+			System.out.println("The system crashed." + ex.getStackTrace());
+			Display.destroy();
+		} 
 	}
 	
 	public abstract void initializeSystems();
