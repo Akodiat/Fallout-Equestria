@@ -236,7 +236,13 @@ public class SpriteBatch {
 	/** Ends the batch drawing, Draws the batched items to the current renderTarget.
 	 */
 	public void end() {
-		this.renderBatch();
+		if(!this.betweenBeginAndEnd) {
+			throw new GraphicsException("Cannot end before you begin...");
+		}
+		
+		if(this.activeTexture != null) {
+			this.renderBatch();
+		}
 		this.betweenBeginAndEnd = false;
 	}
 	

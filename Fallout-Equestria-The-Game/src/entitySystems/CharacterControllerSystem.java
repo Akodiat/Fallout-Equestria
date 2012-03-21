@@ -61,7 +61,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			attackPosComp.setRotation(attackSpeed.angle());
 			attackPosComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(60, attackSpeed)));
 			
-			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(attackPosComp.getPosition(),30f)); 
+			//SpatialComponent attackSpatComp = new SpatialComponent(new Circle(attackPosComp.getPosition(),30f)); 
 			
 			RenderingComponent attackRendComp = new RenderingComponent();
 			attackRendComp.setColor(new Color(255,255,255, 255));
@@ -76,7 +76,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			attack.addComponent(attackPhysComp);
 			attack.addComponent(attackComp);
 			attack.addComponent(attackRendComp);
-			attack.addComponent(attackSpatComp);
+			//attack.addComponent(attackSpatComp);
 			
 			attack.refresh();
 		}

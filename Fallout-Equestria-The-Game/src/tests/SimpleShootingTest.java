@@ -2,11 +2,16 @@ package tests;
 
 import java.io.IOException;
 
+import math.Vector2;
+
 import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 
 import components.InputComponent;
 import components.PhysicsComponent;
+import components.PositionComponent;
 import components.RenderingComponent;
+import components.SpatialComponent;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -17,12 +22,13 @@ import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
 import graphics.Color;
 import graphics.TextureLoader;
+import utils.Circle;
 import utils.Rectangle;
 
 public class SimpleShootingTest extends AbstractSystemTest{
 	
 	public static void main(String[] args) throws LWJGLException{
-		new SimpleShootingTest(new Rectangle(0,0, 1366, 768), true).start();
+		new SimpleShootingTest(new Rectangle(0,0, 800, 600), false).start();
 	}
 
 	public SimpleShootingTest(Rectangle screenDim, boolean fullScreen) {
@@ -43,8 +49,10 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
+		PositionComponent posComp = new PositionComponent(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
+		SpatialComponent spatComp = new SpatialComponent(new Circle(posComp.getPosition(),30f));
 		RenderingComponent rendComp = new RenderingComponent();
-		
+
 		rendComp.setColor(new Color(42,200,255, 255));
 		try {
 			rendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
@@ -56,6 +64,8 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		player.addComponent(rendComp);
 		player.addComponent(inpComp);
 		player.addComponent(physComp);
+		player.addComponent(posComp);
+		player.addComponent(spatComp);
 		
 		player.refresh();
 	}
