@@ -3,6 +3,7 @@ package components;
 import math.Vector2;
 import entityFramework.IComponent;
 import graphics.Color;
+import graphics.ShaderEffect;
 import graphics.Texture2D;
 
 /**
@@ -12,9 +13,10 @@ import graphics.Texture2D;
  */
 public class RenderingComponent implements IComponent {
 	
-	private Texture2D 	texture;
-	private Color		color;
-	private Vector2 	origin;
+	private Texture2D 	 texture;
+	private Color		 color;
+	private Vector2 	 origin;
+	private ShaderEffect effect;
 	
 	
 	public RenderingComponent(){
@@ -22,10 +24,11 @@ public class RenderingComponent implements IComponent {
 		this.origin = Vector2.Zero;
 	}
 	
-	public RenderingComponent(Texture2D texture, Color color, Vector2 origin){
+	public RenderingComponent(Texture2D texture, Color color, Vector2 origin, ShaderEffect effect){
 		this.texture = texture;
 		this.color = color;
 		this.origin = origin;
+		this.effect = effect;
 	}
 	
 	private RenderingComponent(RenderingComponent rendComp){
@@ -77,6 +80,14 @@ public class RenderingComponent implements IComponent {
 	 */
 	public void setOrigin(Vector2 origin) {
 		this.origin = origin;
+	}
+
+	public ShaderEffect getEffect() {
+		return effect;
+	}
+
+	public void setEffect(ShaderEffect effect) {
+		this.effect = effect;
 	}
 
 }
