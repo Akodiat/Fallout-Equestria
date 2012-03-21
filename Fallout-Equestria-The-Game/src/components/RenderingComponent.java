@@ -1,6 +1,6 @@
 package components;
 
-import math.Vector2;
+
 import entityFramework.IComponent;
 import graphics.Color;
 import graphics.ShaderEffect;

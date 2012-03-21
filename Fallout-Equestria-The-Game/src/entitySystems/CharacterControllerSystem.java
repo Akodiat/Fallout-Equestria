@@ -49,8 +49,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		
 		
 		if(inpComp.isLeftMouseButtonDown()){
-			IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();
-			
+			IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
 			AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,20f),20, ImmutableList.of("Enemies"));
 			
 			Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());

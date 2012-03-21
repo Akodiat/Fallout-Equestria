@@ -1,11 +1,7 @@
 package components;
 
 import math.Vector2;
-
-import org.lwjgl.util.Rectangle;
-
 import utils.Circle;
-
 import entityFramework.IComponent;
 
 /**
