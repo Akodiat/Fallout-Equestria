@@ -54,6 +54,8 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				gEntities.addAll(this.getWorld().getEntityManager()
 						.getEntityGroup(attaCom.getTargetGroups().get(i)));
 			}
+			
+			Boolean hitSomething = false;
 
 			for (IEntity targetEntity : gEntities) {
 				SpatialComponent targetSpatiCom = sCM
@@ -66,12 +68,16 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 						targetPosiCom.getPosition());
 
 				if (itGotHit) {
+					hitSomething = true;
 					System.out
 							.println("THIS PONY IS HURT! CALL AN AMBULANCE etc. osv.");
 					targetEntity.addComponent(new StatusChangeComponent(attaCom
 							.getDamage(), ""));
-					entity.kill();
 				}
+			}
+			
+			if (hitSomething){
+				entity.kill();
 			}
 
 		}
