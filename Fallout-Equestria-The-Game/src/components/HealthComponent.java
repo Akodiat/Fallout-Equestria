@@ -53,9 +53,7 @@ public class HealthComponent implements IComponent {
 
 	public void addHealthPoints(float healthPointsToAdd) {
 		float temp = this.healthPoints + healthPointsToAdd;
-		if (temp <= this.maxHealth) {
-			this.healthPoints = temp;
-		}
+		this.setHealthPoints(temp);
 	}
 
 	public void regenHealthPoints() {
