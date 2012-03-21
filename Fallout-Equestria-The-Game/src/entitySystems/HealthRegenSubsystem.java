@@ -13,7 +13,7 @@ public class HealthRegenSubsystem extends TimedEntityProcessingSystem {
 
 	@SuppressWarnings("unchecked")
 	public HealthRegenSubsystem(IEntityWorld world) {
-		super(world, 60, HealthComponent.class);
+		super(world, 1, HealthComponent.class);
 	}
 
 	private ComponentMapper<HealthComponent> hCM;

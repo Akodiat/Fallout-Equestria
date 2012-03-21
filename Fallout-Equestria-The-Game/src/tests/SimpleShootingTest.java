@@ -34,14 +34,16 @@ public class SimpleShootingTest extends AbstractSystemTest{
 
 	@Override
 	public void initializeSystems() {
-		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
-		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
-		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
-		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
+		this.tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		this.tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
+		this.tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
+		this.tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
+		this.tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
+		this.tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
+		this.tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
+		this.tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
+		this.tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
+
 	}
 
 	@Override
@@ -74,5 +76,4 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		
 		player.refresh();
 	}
-
 }
