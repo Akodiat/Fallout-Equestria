@@ -50,7 +50,6 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 			Rectangle healthBar = new Rectangle((int)-healthC.getHealthPoints()/2,(int)(renderC.getTexture().Height*positionC.getScale().Y)/2 + 30,(int)healthC.getHealthPoints(), 10 );		
 			
 			Texture2D texture = Texture2D.getPixel();
-			
 			this.spriteBatch.draw(texture, healthBar, renderC.getColor(), null);
 		}
 	}

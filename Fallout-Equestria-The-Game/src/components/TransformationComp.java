@@ -4,27 +4,30 @@ import entityFramework.IComponent;
 import math.Vector2;
 
 public class TransformationComp implements IComponent {
-
-	private Vector2 position;
-	private Vector2 scale;
-	private float rotation;
+	private Vector2 	 position;
+	private Vector2 	 scale;
+	private Vector2 	 origin;
+	private float 		 rotation;
 	
 	public TransformationComp() {
 		this.position = Vector2.Zero;
 		this.scale = Vector2.One;
+		this.origin = Vector2.Zero;
 		this.rotation = 0;
 	}
 	
-	public TransformationComp(Vector2 position, Vector2 scale, float rotation) {
+	public TransformationComp(Vector2 position, Vector2 scale, float rotation, Vector2 origin) {
 		this.position = position;
 		this.scale = scale;
 		this.rotation = rotation;
+		this.origin = origin;
 	}
 	
-	public TransformationComp(TransformationComp other) {
-		this.position = other.getPosition();
-		this.scale = other.getScale();
-		this.rotation = other.getRotation();
+	private TransformationComp(TransformationComp other) {
+		this.position = other.position;
+		this.scale = other.scale;
+		this.rotation = other.rotation;
+		this.origin = other.origin;
 	}
 	
 	public TransformationComp clone(){
@@ -62,6 +65,12 @@ public class TransformationComp implements IComponent {
 	public void setRotation(float rotation) {
 		this.rotation = rotation;
 	}
-	
-	
+
+	public Vector2 getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(Vector2 origin) {
+		this.origin = origin;
+	}
 }

@@ -15,26 +15,25 @@ public class RenderingComponent implements IComponent {
 	
 	private Texture2D 	 texture;
 	private Color		 color;
-	private Vector2 	 origin;
 	private ShaderEffect effect;
 	
 	
 	public RenderingComponent(){
-		this.color = Color.White;
-		this.origin = Vector2.Zero;
+		this.color   = Color.White;
+		this.texture = null;
+		this.effect  = null; 
 	}
 	
-	public RenderingComponent(Texture2D texture, Color color, Vector2 origin, ShaderEffect effect){
+	public RenderingComponent(Texture2D texture, Color color, ShaderEffect effect){
 		this.texture = texture;
 		this.color = color;
-		this.origin = origin;
 		this.effect = effect;
 	}
 	
 	private RenderingComponent(RenderingComponent rendComp){
 		this.texture = rendComp.texture;
+		this.effect = rendComp.effect;
 		this.color = rendComp.color;
-		this.origin = rendComp.origin;
 	}
 	
 	public Object clone(){
@@ -67,19 +66,6 @@ public class RenderingComponent implements IComponent {
 	 */
 	public void setTexture(Texture2D texture) {
 		this.texture = texture;
-	}
-	/**
-	 * @return the origin
-	 */
-	public Vector2 getOrigin() {
-		return origin;
-	}
-
-	/**
-	 * @param origin the origin to set
-	 */
-	public void setOrigin(Vector2 origin) {
-		this.origin = origin;
 	}
 
 	public ShaderEffect getEffect() {
