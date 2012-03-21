@@ -265,8 +265,8 @@ public class SpriteBatch {
 	 */
 	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle) {
 		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
-		Vector2 scale = new Vector2(destRectangle.Width / texture.Width, 
-									destRectangle.Height / texture.Height);
+		Vector2 scale = new Vector2((float)destRectangle.Width / texture.Width, 
+									(float)destRectangle.Height / texture.Height);
 		
 		this.internalDraw(texture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false);
 	}
