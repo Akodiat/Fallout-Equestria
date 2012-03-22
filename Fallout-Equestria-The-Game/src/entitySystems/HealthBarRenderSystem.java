@@ -1,6 +1,5 @@
 package entitySystems;
 
-import java.io.IOException;
 
 import com.google.common.collect.ImmutableSet;
 import components.HealthComponent;
@@ -20,6 +19,7 @@ import utils.Rectangle;
 public class HealthBarRenderSystem extends EntityProcessingSystem {
 
 	private SpriteBatch spriteBatch;
+	private Texture2D healthBarTexture;
 
 	public HealthBarRenderSystem(IEntityWorld world, SpriteBatch graphics) {
 		super(world, HealthComponent.class, RenderingComponent.class,
@@ -39,6 +39,8 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 				RenderingComponent.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
+		
+		healthBarTexture = ContentManager.loadTexture("HealthBarUnit.png");
 	}
 
 	@Override
@@ -61,20 +63,12 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 
 			float healthPercentage = healthC.getHealthPoints()
 					/ healthC.getMaxHealth();
-
-			try {
-				Texture2D texture = ContentManager
-						.loadTexture("HealthBarUnit.png");
-				if (healthPercentage >= 0.5) {
-					this.spriteBatch
-							.draw(texture, healthBar, new Color(1 -2*(healthPercentage -0.5f), 1,0,1), null);
-				}else {
-					this.spriteBatch.draw(texture, healthBar, new Color(1, 2*healthPercentage,0,1), null);
-				}
-			} catch (IOException e) {
-				throw new Error("Fuck you. (HealthBarUnit.png is missing)");
+			
+			if (healthPercentage >= 0.5) {
+				this.spriteBatch.draw(this.healthBarTexture, healthBar, new Color(1 -2*(healthPercentage -0.5f), 1,0,1), null);
+			} else {
+				this.spriteBatch.draw(this.healthBarTexture, healthBar, new Color(1, 2*healthPercentage,0,1), null);
 			}
-
 		}
 	}
 }

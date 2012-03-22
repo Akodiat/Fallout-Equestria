@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
+import utils.ContentManager;
+
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import graphics.TextureLoader;
@@ -24,7 +26,7 @@ public class MapTester {
 	}
 	
 	public MapTester() throws IOException{
-		this.textureForAllTiles =  TextureLoader.loadTexture(MapTester.class.getResourceAsStream("ground.png"));
+		this.textureForAllTiles =  ContentManager.loadTexture("ground.png");
 		this.spriteBatch = new SpriteBatch(new utils.Rectangle(0, 0, Display.getWidth(), Display.getHeight()));
 
 		

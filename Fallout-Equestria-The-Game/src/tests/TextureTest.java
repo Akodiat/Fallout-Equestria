@@ -4,7 +4,6 @@ import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import graphics.TextureLoader;
 
 import java.io.IOException;
 
@@ -16,6 +15,7 @@ import org.lwjgl.opengl.DisplayMode;
 import math.Vector2;
 
 import utils.Camera2D;
+import utils.ContentManager;
 import utils.Rectangle;
 
 public class TextureTest {
@@ -33,12 +33,12 @@ public class TextureTest {
 		mode = Display.getDisplayMode();
 		
 		graphics = new SpriteBatch(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
-		texture = TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png"));
+		texture = ContentManager.loadTexture("HEJHEJ.png");
 		camera = new Camera2D(new Rectangle(-mode.getWidth(), 0, (int)(mode.getWidth() * 3), (int)(mode.getHeight() * 1.1f)), new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
 		
 		camera.setZoom(new Vector2(2f, 1.1f));
 		
-		effect = ShaderEffect.fromFile("Standard.vert", "GrayScale.frag");
+		effect = ContentManager.loadShaderEffect("Standard.vert", "GrayScale.frag");
 		
 		while(!Display.isCloseRequested()) {
 			graphics.clearScreen(new Color(Color.Teal, 0.0f));
@@ -70,8 +70,7 @@ public class TextureTest {
 			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 				camera.zoomIn(0.001f);
 			} 
-			
-			
+
 			
 			
 			Display.update();

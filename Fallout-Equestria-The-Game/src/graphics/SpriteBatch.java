@@ -1,4 +1,5 @@
 package graphics;
+import utils.ContentManager;
 import utils.Rectangle;
 
 import math.Matrix4;
@@ -134,7 +135,7 @@ public class SpriteBatch {
 
 	private void initializeShaders() {
 		//Load a shader.
-		basicEffect = ShaderLoader.loadShader("Standard.vert", "Standard.frag");
+		basicEffect = ContentManager.loadShaderEffect("Standard.vert", "Standard.frag");
 	}
 
 	private void setupUniforms() {

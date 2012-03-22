@@ -5,11 +5,12 @@ import static org.lwjgl.opengl.GL20.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
- class ShaderLoader {
+ public class ShaderLoader {
 	
-	  private static int loadShader(int shaderType, String path){
+	  private static int loadShader(int shaderType, InputStream stream) throws IOException{
 	        int shader = glCreateShader(shaderType);
 	       
 	        if (shader != 0) {
@@ -19,27 +20,17 @@ import java.io.InputStreamReader;
 	        		// Load file as a string
 	                StringBuilder text = new StringBuilder();
 	                
-	                try {
 	                	
-	                	BufferedReader reader = new BufferedReader(new InputStreamReader(ShaderLoader.class.getResourceAsStream(path)));
-	                	
-	                	String line;
-	                	line = reader.readLine();
-	                	if(line == null) {
-	                		throw new IOException("File not found!" + path);
-	                	} else {
-	                		text.append(line).append("\n");
-	                	}
-	                	
-	                	while ((line = reader.readLine()) != null) {
-	                		text.append(line).append("\n");
-	                	}
-	                	
-	                	reader.close();
-	                } catch (Exception e){
-	                	System.err.println("Fail reading " + path + ": " + e.getMessage());
-	                }
-	                
+                	BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                	
+                	String line;
+                	line = reader.readLine();
+                	
+                	while ((line = reader.readLine()) != null) {
+                		text.append(line).append("\n");
+                	}
+                	
+                	reader.close();
 	                shaderCode = text.toString();
 	        	}
 	            
@@ -70,17 +61,17 @@ import java.io.InputStreamReader;
 	        return shader;
 	    }
 
-	  private static int loadVerexShader(String path) {
-		  return loadShader(GL_VERTEX_SHADER, path);
+	  private static int loadVerexShader(InputStream stream) throws IOException {
+		  return loadShader(GL_VERTEX_SHADER, stream);
 	  }
 	  
-	  private static int loadFragmentShader(String path) {
-		  return loadShader(GL_FRAGMENT_SHADER, path);
+	  private static int loadFragmentShader(InputStream stream) throws IOException {
+		  return loadShader(GL_FRAGMENT_SHADER, stream);
 	  }
 	  
-	  public static ShaderEffect loadShader(String vertexShaderPath, String pixelShaderPath) {
-		  int vertexShader = loadVerexShader(vertexShaderPath);
-		  int fragmentShader = loadFragmentShader(pixelShaderPath);
+	  public static ShaderEffect loadShader(InputStream vertexStream, InputStream fragmentStream) throws IOException {		  
+		  int vertexShader = loadVerexShader(vertexStream);
+		  int fragmentShader = loadFragmentShader(fragmentStream);
 		  int program = glCreateProgram();
 		  
 		  glAttachShader(program, vertexShader);
@@ -91,7 +82,7 @@ import java.io.InputStreamReader;
 		  
 		  glDetachShader(program, vertexShader);
 		  glDetachShader(program, fragmentShader);
-
+		  
 		  return new ShaderEffect(program);
 	  }
 }

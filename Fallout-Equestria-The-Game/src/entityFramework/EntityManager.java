@@ -1,35 +1,40 @@
 package entityFramework;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.*;
 
+/**
+ * 
+ * @author Lukas Kurtyan
+ *
+ */
 public class EntityManager implements IEntityManager{
 
-	private final List<EntityChangedListener> changedEvent;
-	private final List<EntityDestroyedListener> destroyedEvent;
+	//Events 
+	private final Set<EntityChangedListener> 	changedEvent;
+	private final Set<EntityDestroyedListener> destroyedEvent;
 	
-	private final IEntityLabelManager labelManager;
-	private final List<IEntity> toBeRemoved;
-	private final IEntityGroupManager groupManager;
-	private final IEntityFactory factory;
-	private final IEntityDatabase database;
+	private final IEntityLabelManager 	labelManager;
+	private final Set<IEntity> 			toBeRemoved;
+	private final IEntityGroupManager   groupManager;
+	private final IEntityFactory 		factory;
+	private final IEntityDatabase	    database;
 	
 	@Inject
 	public EntityManager(IEntityLabelManager labelManager,
 						 IEntityGroupManager groupManager, 
 						 IEntityFactory factory, 
 						 IEntityDatabase database) {
-		this.changedEvent = new ArrayList<EntityChangedListener>();
-		this.destroyedEvent = new ArrayList<EntityDestroyedListener>();
-		this.toBeRemoved = new LinkedList<IEntity>();
-		this.labelManager = labelManager;
-		this.groupManager = groupManager;
-		this.factory = factory;
-		this.database = database;
+		this.changedEvent   = new HashSet<>();
+		this.destroyedEvent = new HashSet<>();
+		this.toBeRemoved    = new HashSet<>();
+		this.labelManager   = labelManager;
+		this.groupManager   = groupManager;
+		this.factory 		= factory;
+		this.database 	    = database;
 	}
 	
 	@Override
@@ -67,19 +72,17 @@ public class EntityManager implements IEntityManager{
 
 	@Override
 	public void destoryKilledEntities() {
-		for (int i = this.toBeRemoved.size() - 1; i >= 0; i--) {
-			IEntity entity = toBeRemoved.get(i);
+		for (IEntity entity : this.toBeRemoved) {
 			this.onRemoved(entity);
 			
 			this.removeFromGroups(entity);
 			this.removeLabel(entity);
 			this.removeFromDatabase(entity);
 			this.refreshEntity(entity);
-			this.toBeRemoved.remove(i);
 			this.giveBackToFactory(entity);
-						
 			entity = null;
 		}
+		this.toBeRemoved.clear();
 	}
 	
 

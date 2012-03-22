@@ -1,7 +1,5 @@
 package tests;
 
-import java.io.IOException;
-
 import math.Vector2;
 
 import org.lwjgl.LWJGLException;
@@ -18,7 +16,6 @@ import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
 import graphics.Color;
-import graphics.TextureLoader;
 import utils.Circle;
 import utils.ContentManager;
 import utils.Rectangle;
@@ -61,12 +58,7 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 		
 		rendComp.setColor(new Color(42,200,255, 255));
-		try {
-			rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 		
 		player.addComponent(rendComp);
 		player.addComponent(inpComp);

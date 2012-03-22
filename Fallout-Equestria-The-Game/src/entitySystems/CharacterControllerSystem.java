@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 
 import tests.TextureTest;
 import utils.Circle;
+import utils.ContentManager;
 import math.Vector2;
 import components.*;
 import entityFramework.*;
@@ -33,12 +34,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
 		inpCM =  ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
 		transCM =  ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
-		
-		try {
-			attackTexture = TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("pinksplosion rocket.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		attackTexture = ContentManager.loadTexture("pinksplosion rocket.png");
 	}
 
 	@Override

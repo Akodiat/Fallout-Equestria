@@ -87,9 +87,5 @@ public class ShaderEffect {
 	public void setUniformSampler(String unifrom, int sampler) {
 		glUniform1i(this.getUniformLocation(unifrom), sampler);
 	}
-
-	public static ShaderEffect fromFile(String vertexShader, String fragmentShader) {
-		return ShaderLoader.loadShader(vertexShader, fragmentShader);
-	}
 	
 }

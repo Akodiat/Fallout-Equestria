@@ -1,5 +1,7 @@
 package entitySystems;
 
+import components.DeathComp;
+
 import entityFramework.EntitySystem;
 import entityFramework.IEntityWorld;
 
