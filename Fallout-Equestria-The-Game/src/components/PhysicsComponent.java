@@ -45,4 +45,8 @@ public class PhysicsComponent implements IComponent{
 	public void setVelocity(Vector2 velocity) {
 		this.velocity = velocity;
 	}
+	
+	public String toString(){
+		return "PhysicsComponent\nVelocity: "+this.velocity+"\nMass: "+this.mass;
+	}
 }
