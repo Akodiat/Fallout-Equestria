@@ -33,5 +33,8 @@ public class Key {
 		this.pressed = pressed;
 	}
 	
-	
+	public String toString() {
+		return "KeyID: " + this.keyID +
+			   "Pressed: " + this.pressed;	
+	}
 }

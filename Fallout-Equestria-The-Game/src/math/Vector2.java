@@ -150,4 +150,8 @@ public final class Vector2 {
 	 */
 	public final static Vector2 One = new Vector2(1.0f,1.0f);
 	
+	
+	public String toString() {
+		return "|  X = " + this.X + " Y = " + this.Y + " |";
+	}
 }

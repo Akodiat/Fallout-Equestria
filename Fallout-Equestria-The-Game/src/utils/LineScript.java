@@ -16,7 +16,6 @@ public class LineScript implements ILineScript{
 		this.currentLine = 0;
 	}
 	
-	
 	@Override
 	public String getCurrentLine() {
 		return lines[currentLine];
@@ -37,4 +36,14 @@ public class LineScript implements ILineScript{
 		return this.lines.clone();
 	}
 
+	public String toString() {
+		String script = "";
+		for (String line : this.lines) {
+			script += line + "\n";
+		}
+		
+		return "Script: " + "\n"
+			+  "CurrentLin: " + this.currentLine + "\n"
+			+  "Script: \n" + script;
+	}
 }

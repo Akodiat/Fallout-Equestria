@@ -66,4 +66,9 @@ public class Circle {
 				- (circle2.position.Y + offset2.Y);
 		return (dx * dx + dy * dy);
 	}
+	
+	public String toString() {
+		return "Center Postion: " + this.position.toString() + "\n"
+			+  "Radius: " + this.radius;
+	}
 }

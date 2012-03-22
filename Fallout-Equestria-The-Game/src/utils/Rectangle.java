@@ -30,4 +30,8 @@ public final class Rectangle {
 	public int getBottom() {
 		return this.Y + this.Height;
 	}
+	
+	public String toString() {
+		return "| X = " + this.X + " Y = " + this.Y + " Width = " + this.Width + " Height = " + this.Height + " |";
+	}
 }

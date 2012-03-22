@@ -4,7 +4,6 @@ import entityFramework.IComponent;
 
 public class StatusChangeComponent implements IComponent {
 
-
 	private float damageToTake;
 	private String statusEffectChange;
 	
@@ -44,4 +43,9 @@ public class StatusChangeComponent implements IComponent {
 		this.statusEffectChange = statusEffectChange;
 	}
 	
+	public String toString() {
+		return "Status Changed Comp: \n"
+			+  "Damage to take: " + this.damageToTake 
+			+  "Status Changed Effect:" + this.statusEffectChange;
+	}
 }

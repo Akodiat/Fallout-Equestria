@@ -106,5 +106,12 @@ public class Camera2D {
 		this.zoom = Vector2.subtract(this.zoom, new Vector2(zoom, zoom));
 	}
 	
+	public String toString() {
+		return "Camera :" 
+			+  "Screen Offset:   " + this.screenOffset.toString() + "\n"
+			+  "Center Position: " + this.position.toString() + "\n"
+			+  "Zoom:            " + this.zoom.toString() + "\n"
+			+  "World Bounds:    " + this.worldBounds.toString();
+	}
 	
 }

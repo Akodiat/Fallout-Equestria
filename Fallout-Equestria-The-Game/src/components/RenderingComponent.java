@@ -75,5 +75,13 @@ public class RenderingComponent implements IComponent {
 	public void setEffect(ShaderEffect effect) {
 		this.effect = effect;
 	}
+	
+	public String toString() {
+		return "Rendering Comp: \n" 
+			+  "Texture: " + this.texture.toString() + "\n"
+			+  "Color: " + this.color.toString() + "\n" 
+			+  "Shader Effect: " + this.effect.toString();
+		
+	}
 
 }

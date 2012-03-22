@@ -82,5 +82,12 @@ public class HealthComponent implements IComponent {
 	public void setRegenSpeed(float regenSpeed) {
 		this.regenSpeed = regenSpeed;
 	}
+	
+	public String toString() {
+		return "Health Comp: \n"
+			 + "Current Health: " + this.healthPoints + "\n"
+			 + "Max Health: " + this.maxHealth + "\n" 
+			 + "Regen Speed: " + this.regenSpeed;
+	}
 
 }

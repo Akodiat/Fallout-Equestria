@@ -73,4 +73,12 @@ public class TransformationComp implements IComponent {
 	public void setOrigin(Vector2 origin) {
 		this.origin = origin;
 	}
+	
+	public String toString() {
+		return "Transformation Comp" 
+			+  "Position: " + this.position.toString() + "\n" 
+			+  "Scale:    " + this.scale.toString() + "\n"
+			+  "Origin:   "	+ this.origin.toString() + "n"
+			+  "Rotation: " + this.rotation;
+	}
 }
