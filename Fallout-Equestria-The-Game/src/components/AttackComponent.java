@@ -61,5 +61,12 @@ public class AttackComponent implements IComponent {
 	public Object clone() {
 		return new AttackComponent(this);
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Attack Comp: \n" +
+			   "Damage: " + this.damage +
+			   "Circle Bounds: " + this.bounds.toString() +
+			   "Group target lists: " + this.targetGroups.toString();
+	}
 }

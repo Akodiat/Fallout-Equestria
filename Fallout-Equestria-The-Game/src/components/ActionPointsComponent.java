@@ -69,5 +69,12 @@ public class ActionPointsComponent implements IComponent {
 	public void setRegenerationSpeed(float regenerationSpeed) {
 		this.regenerationSpeed = regenerationSpeed;
 	}
+	
+	public String toString() {
+		return "ActionComp: \n" + 
+			   "Current ability points: " + this.abilityPoints +
+			   "\nMax abtility points: " + this.maxAbilityPoints +
+			   "\nRegen speed: " + this.regenerationSpeed;
+	}
 
 }

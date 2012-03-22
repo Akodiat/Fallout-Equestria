@@ -29,4 +29,10 @@ public class DeathComp implements IComponent{
 	public Object clone() {
 		return new DeathComp(this);
 	}
+	
+	public String toString() {
+		return "Death Comp: " +
+			   "\n Script: \n" + this.deathScript.toString();
+		
+	}
 }

@@ -56,13 +56,6 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 		SpatialComponent spatComp = spatCM.getComponent(entity);
 		
 		boolean collision=false;
-//		float r=spatComp.getBounds().getRadius();
-//		if(posComp.getPosition().X<0 || 							//Checking collision with display edge
-//				posComp.getPosition().X+2*r>Display.getWidth() ||
-//				posComp.getPosition().Y<0 ||
-//				posComp.getPosition().Y+2*r>Display.getHeight()){
-//			return true;
-//		}
 		
 		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComponent.class);
 		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
