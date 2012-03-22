@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableSet;
  * a bunch of helper methods making it easy to work with.
  * @author Lukas Kurtyan
  */
-public final class Entity implements IEntity {
+public final class Entity extends IEntity {
 
 	//The unique identification of this entity
 	private final int uniqueID;
@@ -66,7 +66,7 @@ public final class Entity implements IEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BitSet getComponentBits() {
+	protected BitSet getComponentBits() {
 		return this.componentBits;
 	}
 
@@ -138,7 +138,7 @@ public final class Entity implements IEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addComponentBit(BitSet componentBit) {
+	protected void addComponentBit(BitSet componentBit) {
 		this.componentBits.or(componentBit);
 	}
 	
@@ -146,7 +146,7 @@ public final class Entity implements IEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void removeComponentBit(BitSet componentBit) {
+	protected void removeComponentBit(BitSet componentBit) {
 		this.componentBits.andNot(componentBit);
 	}
 	
@@ -154,7 +154,7 @@ public final class Entity implements IEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void clearBits() {
+	protected void clearBits() {
 		this.componentBits.clear();
 	}
 

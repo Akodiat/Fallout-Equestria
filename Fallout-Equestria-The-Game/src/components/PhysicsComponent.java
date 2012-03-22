@@ -11,7 +11,6 @@ public class PhysicsComponent implements IComponent{
 		this.velocity = Vector2.Zero;
 		this.mass = 1f;
 	}
-	
 	public PhysicsComponent(Vector2 velocity){
 		this.velocity = velocity;
 		this.mass = 1f;
@@ -19,8 +18,7 @@ public class PhysicsComponent implements IComponent{
 	public PhysicsComponent(Vector2 velocity, float mass){
 		this.velocity = velocity;
 		this.mass = mass;
-	}
-	
+	}	
 	private PhysicsComponent(PhysicsComponent physComp){
 		this.velocity = physComp.velocity;
 		this.mass = physComp.mass;
@@ -30,14 +28,12 @@ public class PhysicsComponent implements IComponent{
 		return new PhysicsComponent(this);
 	}
 
-
 	/**
 	 * @return the velocity
 	 */
 	public Vector2 getVelocity() {
 		return velocity;
 	}
-
 
 	/**
 	 * @param velocity the velocity to set

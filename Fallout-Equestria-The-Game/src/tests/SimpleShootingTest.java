@@ -47,6 +47,8 @@ public class SimpleShootingTest extends AbstractSystemTest {
 				.getWorld(), this.graphics));
 		this.tester.addRenderSubSystem(new HUDRenderingSystem(this.tester
 				.getWorld(), this.graphics, "Player"));
+		
+		this.tester.addLogicubSystem(new DeathSystem(this.tester.getWorld()));
 
 		this.tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester
 				.getWorld(), this.graphics));

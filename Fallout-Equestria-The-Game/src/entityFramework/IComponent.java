@@ -14,4 +14,10 @@ public interface IComponent {
 	 * @return a copy of the component.
 	 */
 	public Object clone();
+	
+	/**Gets the string representation of the component.
+	 * 
+	 * @return the string representation of the component.
+	 */
+	public String toString();
 }

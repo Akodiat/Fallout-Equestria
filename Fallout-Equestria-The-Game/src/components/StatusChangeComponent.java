@@ -33,12 +33,15 @@ public class StatusChangeComponent implements IComponent {
 	public float getDamageToTake() {
 		return damageToTake;
 	}
+	
 	public void setDamageToTake(float damageToTake) {
 		this.damageToTake = damageToTake;
 	}
+	
 	public String getStatusEffectChange() {
 		return statusEffectChange;
 	}
+	
 	public void setStatusEffectChange(String statusEffectChange) {
 		this.statusEffectChange = statusEffectChange;
 	}

@@ -36,4 +36,9 @@ public class SpatialComponent implements IComponent {
 	public Object clone(){
 		return new SpatialComponent(this);
 	}
+	
+	public String toString() {
+		return "Spatial Component: \n" 
+			+  "Circle Bounds: " + this.bounds.toString();
+	}
 }

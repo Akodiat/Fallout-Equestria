@@ -74,8 +74,8 @@ public class EntityGroupManager implements IEntityGroupManager{
 	public void removeEntityFromAllGroups(IEntity entity) {
 		List<String> groups = this.entityToGroups.get(entity);
 		if(groups != null) {
-			for (String group : groups) {
-				this.removeEntityFromGroup(entity, group);
+			for (int i = groups.size() - 1; i >= 0; i--) {
+				this.removeEntityFromGroup(entity, groups.get(i));
 			}
 			this.entityToGroups.remove(groups);
 		}	

@@ -1,27 +1,34 @@
 package entitySystems;
 
-import components.DeathComp;
+import components.HealthComponent;
 
+import entityFramework.ComponentMapper;
+import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.EntitySystem;
+import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 
-public class DeathSystem extends EntitySystem{
+public class DeathSystem extends EntitySingleProcessingSystem{
 
 	public DeathSystem(IEntityWorld world) {
-		super(world, DeathComp.class);
+		super(world, HealthComponent.class);
 		// TODO Auto-generated constructor stub
 	}
 
+	private ComponentMapper<HealthComponent> healthCM;
+	
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
-		
+		healthCM = ComponentMapper.create(this.getWorld().getDatabase(), HealthComponent.class);
 	}
 
 	@Override
-	public void process() {
-		// TODO Auto-generated method stub
-		
+	protected void processEntity(IEntity entity) {
+		HealthComponent healthComp = healthCM.getComponent(entity);		
+		if(healthComp.getHealthPoints() <= 0.0f) {
+			entity.kill();
+		}
 	}
+
 
 }
