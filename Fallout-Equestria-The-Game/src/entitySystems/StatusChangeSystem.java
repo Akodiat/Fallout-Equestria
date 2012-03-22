@@ -31,7 +31,6 @@ public class StatusChangeSystem extends EntityProcessingSystem {
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
-			System.out.println("PROCESSING aLLll thE ENiTTIIETIES!!!!1 STATUS");
 			HealthComponent healthCom = hCM.getComponent(entity);
 			StatusChangeComponent staChaCom = sCCM.getComponent(entity);
 			healthCom.addHealthPoints(-staChaCom.getDamageToTake());

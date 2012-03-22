@@ -67,11 +67,11 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 				if (itGotHit) {
 					hitSomething = true;
-					System.out
-							.println("THIS PONY IS HURT! CALL AN AMBULANCE etc. osv.");
 					targetEntity.addComponent(new StatusChangeComponent(attaCom
 							.getDamage(), ""));
 					targetEntity.refresh();
+					
+					System.out.println(attaCom.getBounds().toString());
 				}
 			}
 			
