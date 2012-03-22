@@ -65,9 +65,9 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 			try {
 				Texture2D texture = ContentManager
 						.loadTexture("HealthBarUnit.png");
-				if (healthPercentage > 0.5) {
+				if (healthPercentage >= 0.5) {
 					this.spriteBatch
-							.draw(texture, healthBar, new Color(1 -healthPercentage, 1,0,1), null);
+							.draw(texture, healthBar, new Color(1 -2*(healthPercentage -0.5f), 1,0,1), null);
 				}else {
 					this.spriteBatch.draw(texture, healthBar, new Color(1, 2*healthPercentage,0,1), null);
 				}
