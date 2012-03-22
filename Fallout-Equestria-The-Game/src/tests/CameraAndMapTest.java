@@ -62,8 +62,10 @@ public class CameraAndMapTest {
 
 			graphics.clearScreen(new Color(157, 150, 101, 255));
 			graphics.begin(null, camera.getTransformation());
-			tester.renderWorld();
+			
 			mapTester.draw();
+			tester.renderWorld();
+			
 			graphics.end();
 
 			tester.getWorld().getEntityManager().destoryKilledEntities();
@@ -80,7 +82,7 @@ public class CameraAndMapTest {
 			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
 				camera.move(new Vector2(0, 5));
 			} 
-			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {
 				camera.zoomIn(0.001f);
 			} 
 			

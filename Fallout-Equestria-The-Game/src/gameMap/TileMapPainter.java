@@ -11,7 +11,7 @@ public class TileMapPainter {
 		this.map = map;
 	}
 	public void draw(SpriteBatch spriteBatch){
-		spriteBatch.begin();
+		//spriteBatch.begin();
 		
 		for(int i=0; i<map.width(); i++){
 			for(int j=0; j<map.height(); j++){
@@ -24,7 +24,7 @@ public class TileMapPainter {
 			}
 		}
 		
-		spriteBatch.end();
+	//	spriteBatch.end();
 	}
 
 }
