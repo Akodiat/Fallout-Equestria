@@ -52,7 +52,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				gEntities.addAll(this.getWorld().getEntityManager()
 						.getEntityGroup(attaCom.getTargetGroups().get(i)));
 			}
-			
+
 			Boolean hitSomething = false;
 
 			for (IEntity targetEntity : gEntities) {
@@ -70,12 +70,38 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 					targetEntity.addComponent(new StatusChangeComponent(attaCom
 							.getDamage(), ""));
 					targetEntity.refresh();
-					
-					System.out.println(attaCom.getBounds().toString());
+					/*
+					//DEBUG: PRINTING OUT EVERYTHING ABOUT TARGET AND ATTACK
+					// ATTACK
+					System.out.println(attaCom.getBounds().getRadius()
+							+ "ATTAR");
+					System.out.println(attaCom.getBounds().getPosition().X
+							+ "ATTAOFFX");
+
+					System.out.println(attaCom.getBounds().getPosition().Y
+							+ "ATTAOFFY");
+					System.out.println(posiCom.getPosition().X + "ATTAPOSX");
+					System.out.println(posiCom.getPosition().Y + "ATTAPOSY");
+
+					// TARGET
+					System.out.println(targetSpatiCom.getBounds().getRadius()
+							+ "TARGR");
+					System.out
+							.println(targetSpatiCom.getBounds().getPosition().X
+									+ "TARGOFFX");
+
+					System.out
+							.println(targetSpatiCom.getBounds().getPosition().Y
+									+ "TARGOFFY");
+					System.out.println(targetPosiCom.getPosition().X
+							+ "TARGPOSX");
+					System.out.println(targetPosiCom.getPosition().Y
+							+ "TARGPOSY");
+							*/
 				}
 			}
-			
-			if (hitSomething){
+
+			if (hitSomething) {
 				entity.kill();
 			}
 

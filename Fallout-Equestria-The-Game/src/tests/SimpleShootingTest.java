@@ -41,6 +41,9 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		this.tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		this.tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		this.tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
+		
+		this.tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(), this.graphics));
+		this.tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
 
 	}
 
@@ -53,7 +56,7 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		InputComponent inpComp = new InputComponent();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(posComp.getPosition(),30f));
+		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
 		RenderingComponent rendComp = new RenderingComponent();
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 		
