@@ -52,6 +52,7 @@ public class CameraAndMapTest {
 		this.tester = new SystemTester();
 		this.mapTester = new MapTester();
 		this.camera = new Camera2D(new Rectangle(0,0,1000,1000), screenDim);
+		initializeSystems();
 		initializeEntities(this.tester.getWorld().getEntityManager());
 
 		tester.startTesting();
@@ -60,14 +61,14 @@ public class CameraAndMapTest {
 			tester.updateWorld(1.0f / 60f);
 
 			graphics.clearScreen(new Color(157, 150, 101, 255));
-			graphics.begin();
+			graphics.begin(null, camera.getTransformation());
 			mapTester.draw();
 			tester.renderWorld();
 			graphics.end();
 
 			tester.getWorld().getEntityManager().destoryKilledEntities();
 			
-/*			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 				camera.move(new Vector2(5, 0));
 			} 
 			if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
@@ -82,7 +83,7 @@ public class CameraAndMapTest {
 			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 				camera.zoomIn(0.001f);
 			} 
-	*/		
+			
 			
 			Display.update();
 			Display.sync(60);
