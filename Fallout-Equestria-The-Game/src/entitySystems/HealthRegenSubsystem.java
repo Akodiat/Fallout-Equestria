@@ -11,7 +11,7 @@ import entityFramework.TimedEntityProcessingSystem;
 
 public class HealthRegenSubsystem extends TimedEntityProcessingSystem {
 
-	@SuppressWarnings("unchecked")
+	
 	public HealthRegenSubsystem(IEntityWorld world) {
 		super(world, 0.1f, HealthComponent.class);
 	}

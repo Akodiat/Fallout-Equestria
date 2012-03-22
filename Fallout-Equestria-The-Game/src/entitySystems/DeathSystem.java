@@ -4,7 +4,6 @@ import components.HealthComponent;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
-import entityFramework.EntitySystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 

@@ -1,7 +1,5 @@
 package entitySystems;
 
-import org.lwjgl.opengl.Display;
-
 import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
@@ -14,7 +12,6 @@ import components.TransformationComp;
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
-import entityFramework.IEntityDatabase;
 import entityFramework.IEntityWorld;
 
 /**

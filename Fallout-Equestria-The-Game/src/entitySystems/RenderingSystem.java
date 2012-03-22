@@ -1,7 +1,6 @@
 package entitySystems;
 
 import math.Matrix4;
-import math.Vector2;
 import components.RenderingComponent;
 import components.TransformationComp;
 

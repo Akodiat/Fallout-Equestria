@@ -1,7 +1,6 @@
 package gameMap;
 
 import utils.Rectangle;
-import math.Vector2;
 import graphics.SpriteBatch;
 
 public class TileMapPainter {

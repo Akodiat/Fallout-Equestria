@@ -10,7 +10,6 @@ import entityFramework.TimedEntityProcessingSystem;
 
 public class ActionPointsRegenSubsystem extends TimedEntityProcessingSystem {
 
-	@SuppressWarnings("unchecked")
 	protected ActionPointsRegenSubsystem(IEntityWorld world) {
 		super(world, 60, ActionPointsComponent.class);
 	}
