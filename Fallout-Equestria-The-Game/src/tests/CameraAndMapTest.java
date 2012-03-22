@@ -5,6 +5,7 @@ import java.io.IOException;
 import math.Vector2;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -13,7 +14,9 @@ import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
 
+import utils.Camera2D;
 import utils.Circle;
+import utils.ContentManager;
 import utils.Rectangle;
 
 import gameMap.*;
@@ -25,6 +28,8 @@ public class CameraAndMapTest {
 	private final Rectangle screenDim;
 	private final boolean isFullScreen;
 	private MapTester mapTester;
+	private Camera2D camera;
+	
 	public static void main(String[] args) throws IOException, LWJGLException{
 		new CameraAndMapTest(new Rectangle(0,0, 800, 600), false).start();
 	}
@@ -46,8 +51,7 @@ public class CameraAndMapTest {
 		this.graphics = new SpriteBatch(this.screenDim);	
 		this.tester = new SystemTester();
 		this.mapTester = new MapTester();
-
-		initializeSystems();
+		this.camera = new Camera2D(new Rectangle(0,0,1000,1000), screenDim);
 		initializeEntities(this.tester.getWorld().getEntityManager());
 
 		tester.startTesting();
@@ -62,6 +66,24 @@ public class CameraAndMapTest {
 			graphics.end();
 
 			tester.getWorld().getEntityManager().destoryKilledEntities();
+			
+/*			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+				camera.move(new Vector2(5, 0));
+			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+				camera.move(new Vector2(-5, 0));
+			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+				camera.move(new Vector2(0, -5));
+			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+				camera.move(new Vector2(0, 5));
+			} 
+			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+				camera.zoomIn(0.001f);
+			} 
+	*/		
+			
 			Display.update();
 			Display.sync(60);
 		}
@@ -93,11 +115,7 @@ public class CameraAndMapTest {
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 
 		rendComp.setColor(new Color(42,200,255, 255));
-		try {
-			rendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
 
 		player.addComponent(rendComp);
 		player.addComponent(inpComp);
