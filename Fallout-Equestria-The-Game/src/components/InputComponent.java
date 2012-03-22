@@ -269,4 +269,15 @@ public class InputComponent implements IComponent{
 	public void setGallopButtonPressed(boolean gallopButtonPressed) {
 		this.gallopButton.setPressed(gallopButtonPressed);
 	}
+	
+	public String toString() {
+		return "Input Component: \n" +
+			   "Mouse Pos: " + this.mousePosition.toString() + "\n" +
+			   "Keys: \n" + "Left = " + this.leftButton.toString() + "\n" 
+			   			  + "Right = " + this.rightButton.toString() + "\n"
+			   			  + "Forward = " + this.forwardButton.toString() + "\n"
+			   			  + "Back = " + this.backButton.toString() + "\n"
+			   			  + "Fast = " + this.gallopButton.toString() + "\n"
+			   			  + "PickBuck = " + this.pipBuckButton.toString();
+	}
 }
