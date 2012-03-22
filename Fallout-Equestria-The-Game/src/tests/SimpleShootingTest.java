@@ -20,6 +20,7 @@ import entitySystems.*;
 import graphics.Color;
 import graphics.TextureLoader;
 import utils.Circle;
+import utils.ContentManager;
 import utils.Rectangle;
 
 public class SimpleShootingTest extends AbstractSystemTest{
@@ -61,7 +62,7 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		
 		rendComp.setColor(new Color(42,200,255, 255));
 		try {
-			rendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
+			rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

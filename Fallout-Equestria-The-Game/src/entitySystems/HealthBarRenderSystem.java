@@ -1,5 +1,7 @@
 package entitySystems;
 
+import java.io.IOException;
+
 import com.google.common.collect.ImmutableSet;
 import components.HealthComponent;
 import components.RenderingComponent;
@@ -12,6 +14,7 @@ import entityFramework.IEntityWorld;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
+import utils.ContentManager;
 import utils.Rectangle;
 
 public class HealthBarRenderSystem extends EntityProcessingSystem {
@@ -52,9 +55,21 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 							.getScale().X) / 2), (int) (-10 + positionC
 							.getPosition().Y), (int) healthC.getHealthPoints(),
 					10);
-
-			Texture2D texture = Texture2D.getPixel();
+			Rectangle border = new Rectangle(healthBar.X - 1, healthBar.Y - 1, healthBar.Width + 2, healthBar.Height + 2);
+			this.spriteBatch.draw(Texture2D.getPixel(), border, Color.Black, null);
+			
+			
+			
+			 
+			try{
+			Texture2D texture = ContentManager.loadTexture("HealthBarUnit.png");
 			this.spriteBatch.draw(texture, healthBar, Color.Green, null);
+			}catch(IOException e){
+				throw new Error("Fuck you. (HealthBarUnit.png is missing)");
+			}
+			
+			
+			
 		}
 	}
 }
