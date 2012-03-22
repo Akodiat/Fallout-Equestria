@@ -110,7 +110,7 @@ public class CameraAndMapTest {
 		house.setLabel("House");
 		TransformationComp housePosComp = new TransformationComp();
 		housePosComp.setPosition(1337, 1337);
-		SpatialComponent houseSpatComp = new SpatialComponent(new Circle(housePosComp.getPosition(),30f));
+		SpatialComponent houseSpatComp = new SpatialComponent(new Circle(new Vector2(30,20),50f));
 		RenderingComponent houseRendComp = new RenderingComponent();
 		houseRendComp.setTexture(ContentManager.loadTexture("house.png"));
 		
@@ -127,7 +127,7 @@ public class CameraAndMapTest {
 		InputComponent inpComp = new InputComponent();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(posComp.getPosition(),30f));
+		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
 		RenderingComponent rendComp = new RenderingComponent();
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 

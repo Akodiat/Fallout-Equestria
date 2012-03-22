@@ -5,17 +5,25 @@ import entityFramework.IComponent;
 
 public class PhysicsComponent implements IComponent{
 	private Vector2 velocity;
+	private float mass;
 	
 	public PhysicsComponent(){
 		this.velocity = Vector2.Zero;
+		this.mass = 1f;
 	}
 	
 	public PhysicsComponent(Vector2 velocity){
-		this.velocity=velocity;
+		this.velocity = velocity;
+		this.mass = 1f;
+	}
+	public PhysicsComponent(Vector2 velocity, float mass){
+		this.velocity = velocity;
+		this.mass = mass;
 	}
 	
 	private PhysicsComponent(PhysicsComponent physComp){
-		this.velocity=physComp.velocity;
+		this.velocity = physComp.velocity;
+		this.mass = physComp.mass;
 	}
 	
 	public Object clone(){
