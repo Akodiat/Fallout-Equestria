@@ -47,7 +47,7 @@ public class DebugAttackRenderSystem extends EntityProcessingSystem {
 
 			// Rectangle source = new
 			// Rectangle((int)attaCom.getBounds().getPosition().X,(int)attaCom.getBounds().getPosition().Y,(int)attaCom.getBounds().getRadius()*2,(int)attaCom.getBounds().getRadius()*2);
-			float scale = attaCom.getBounds().getRadius() / 100;
+			float scale = 2*attaCom.getBounds().getRadius() / 100;
 			graphics.draw(circleTexture, transCom.getPosition(), Color.Red,
 					null, transCom.getOrigin(), scale, 0, false);
 
