@@ -65,14 +65,14 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 				Boolean itGotHit = Circle.intersects(attaCom.getBounds(),
 						Vector2.add(posiCom.getPosition(), posiCom.getOrigin()), targetSpatiCom.getBounds(),
-						Vector2.add(targetPosiCom.getPosition(), targetPosiCom.getOrigin()));
+						targetPosiCom.getPosition());
 
 				if (itGotHit) {
 					hitSomething = true;
 					targetEntity.addComponent(new StatusChangeComponent(attaCom
 							.getDamage(), ""));
 					targetEntity.refresh();
-					/*
+					
 					//DEBUG: PRINTING OUT EVERYTHING ABOUT TARGET AND ATTACK
 					// ATTACK
 					System.out.println(attaCom.getBounds().getRadius()
@@ -99,7 +99,7 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 							+ "TARGPOSX");
 					System.out.println(targetPosiCom.getPosition().Y
 							+ "TARGPOSY");
-							*/
+							
 				}
 			}
 

@@ -1,10 +1,8 @@
 package entitySystems;
 
-import java.io.IOException;
 
 import com.google.common.collect.ImmutableList;
 
-import tests.TextureTest;
 import utils.Circle;
 import utils.ContentManager;
 import math.Vector2;
@@ -12,7 +10,6 @@ import components.*;
 import entityFramework.*;
 import graphics.Color;
 import graphics.Texture2D;
-import graphics.TextureLoader;
 
 /**
  * 

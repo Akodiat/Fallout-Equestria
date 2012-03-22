@@ -1,6 +1,5 @@
 package entitySystems;
 
-
 import com.google.common.collect.ImmutableSet;
 import components.HealthComponent;
 import components.RenderingComponent;
@@ -28,18 +27,15 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 	}
 
 	private ComponentMapper<HealthComponent> hCM;
-	private ComponentMapper<RenderingComponent> rCM;
 	private ComponentMapper<TransformationComp> tCM;
 
 	@Override
 	public void initialize() {
 		hCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				HealthComponent.class);
-		rCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				RenderingComponent.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
-		
+
 		healthBarTexture = ContentManager.loadTexture("HealthBarUnit.png");
 	}
 
@@ -47,15 +43,14 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
 			HealthComponent healthC = this.hCM.getComponent(entity);
-			RenderingComponent renderC = this.rCM.getComponent(entity);
 			TransformationComp positionC = this.tCM.getComponent(entity);
 
 			Rectangle healthBar = new Rectangle(
-					(int) (-healthC.getHealthPoints() / 2
-							+ positionC.getPosition().X + (renderC.getTexture().Width * positionC
-							.getScale().X) / 2), (int) (-10 + positionC
-							.getPosition().Y), (int) healthC.getHealthPoints(),
-					10);
+					(int) (-healthC.getHealthPoints() / 2 + positionC
+							.getPosition().X),
+					(int) (-10 - positionC.getOrigin().Y
+							* positionC.getScale().Y + positionC.getPosition().Y),
+					(int) healthC.getHealthPoints(), 10);
 			Rectangle border = new Rectangle(healthBar.X - 1, healthBar.Y - 1,
 					healthBar.Width + 2, healthBar.Height + 2);
 			this.spriteBatch.draw(Texture2D.getPixel(), border, Color.Black,
@@ -63,12 +58,15 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 
 			float healthPercentage = healthC.getHealthPoints()
 					/ healthC.getMaxHealth();
-			
+			Color color;
 			if (healthPercentage >= 0.5) {
-				this.spriteBatch.draw(this.healthBarTexture, healthBar, new Color(1 -2*(healthPercentage -0.5f), 1,0,1), null);
+				color = new Color(1 - 2 * (healthPercentage - 0.5f), 1, 0, 1);
 			} else {
-				this.spriteBatch.draw(this.healthBarTexture, healthBar, new Color(1, 2*healthPercentage,0,1), null);
+				color = new Color(1, 2 * healthPercentage, 0, 1);
 			}
+
+			this.spriteBatch
+					.draw(this.healthBarTexture, healthBar, color, null);
 		}
 	}
 }
