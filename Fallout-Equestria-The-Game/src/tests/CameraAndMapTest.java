@@ -50,8 +50,8 @@ public class CameraAndMapTest {
 		}
 		this.graphics = new SpriteBatch(this.screenDim);	
 		this.tester = new SystemTester();
-		this.mapTester = new MapTester();
-		this.camera = new Camera2D(new Rectangle(0,0,1000,1000), screenDim);
+		this.mapTester = new MapTester(this.graphics);
+		this.camera = new Camera2D(new Rectangle(0,0,10000,10000), screenDim);
 		initializeSystems();
 		initializeEntities(this.tester.getWorld().getEntityManager());
 
@@ -62,8 +62,8 @@ public class CameraAndMapTest {
 
 			graphics.clearScreen(new Color(157, 150, 101, 255));
 			graphics.begin(null, camera.getTransformation());
-			mapTester.draw();
 			tester.renderWorld();
+			mapTester.draw();
 			graphics.end();
 
 			tester.getWorld().getEntityManager().destoryKilledEntities();

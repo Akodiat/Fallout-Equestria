@@ -9,7 +9,6 @@ import utils.ContentManager;
 
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import graphics.TextureLoader;
 
 public class MapTester {
 	private TileMap tileMap;
@@ -18,17 +17,16 @@ public class MapTester {
 	private SpriteBatch spriteBatch;	
 	public static void main(String[] args) throws IOException, LWJGLException{
 		Display.create();
-		MapTester tester = new MapTester();
+		MapTester tester = new MapTester(new SpriteBatch(new utils.Rectangle(0, 0, Display.getWidth(), Display.getHeight())));
 		while(!Display.isCloseRequested()){
 			tester.draw();
 			Display.update();
 		}
 	}
 	
-	public MapTester() throws IOException{
+	public MapTester(SpriteBatch graphics) throws IOException{
 		this.textureForAllTiles =  ContentManager.loadTexture("ground.png");
-		this.spriteBatch = new SpriteBatch(new utils.Rectangle(0, 0, Display.getWidth(), Display.getHeight()));
-
+		this.spriteBatch = graphics;
 		
 		int mapHeight = 100;
 		int mapWidth = 200;
