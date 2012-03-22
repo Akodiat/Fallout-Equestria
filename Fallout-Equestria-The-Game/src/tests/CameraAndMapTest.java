@@ -106,6 +106,20 @@ public class CameraAndMapTest {
 	}
 
 	public void initializeEntities(IEntityManager manager) {
+		IEntity house = manager.createEmptyEntity();
+		house.setLabel("House");
+		TransformationComp housePosComp = new TransformationComp();
+		housePosComp.setPosition(1337, 1337);
+		SpatialComponent houseSpatComp = new SpatialComponent(new Circle(housePosComp.getPosition(),30f));
+		RenderingComponent houseRendComp = new RenderingComponent();
+		houseRendComp.setTexture(ContentManager.loadTexture("house.png"));
+		
+		house.addComponent(houseRendComp);
+		house.addComponent(houseSpatComp);
+		house.addComponent(housePosComp);
+		
+		house.refresh();
+		
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");
 		player.setLabel("Player");
@@ -128,5 +142,7 @@ public class CameraAndMapTest {
 		player.addComponent(healthComp);
 
 		player.refresh();
+		
+		
 	}
 }
