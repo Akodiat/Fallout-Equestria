@@ -54,8 +54,6 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			
 			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(Vector2.Zero,30f)); 
 			
-
-			
 			RenderingComponent attackRendComp = new RenderingComponent();
 			attackRendComp.setColor(new Color(255,255,255, 255));
 			attackRendComp.setTexture(attackTexture);
