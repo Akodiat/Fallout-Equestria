@@ -16,13 +16,12 @@ public class LineScriptProcessor implements ILineScriptProcessor{
 	}
 	
 	@Override
-	public void registerScirptFunction(String scriptID, IScriptFunction function) {
-		
-		if(this.avalibleFunctions.containsKey(scriptID)) {
-			throw new RuntimeException("The key " + scriptID + "is already pressent.");
+	public void registerScriptFunction(IScriptFunction function) {
+		if(this.avalibleFunctions.containsKey(function.getFunctionName())) {
+			throw new RuntimeException("The key " + function.getFunctionName() + "is already pressent.");
 		}
 		
-		this.avalibleFunctions.put(scriptID, function);
+		this.avalibleFunctions.put(function.getFunctionName(), function);
 	}
 
 	@Override

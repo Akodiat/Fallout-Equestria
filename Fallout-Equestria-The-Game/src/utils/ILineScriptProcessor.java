@@ -9,10 +9,9 @@ public interface ILineScriptProcessor {
 
 	/**Registers a function this ScriptProcessor can process. 
 	 * 
-	 * @param scriptID the identifier that will be specified inside the scripts.
 	 * @param function the function(s) that can be executed by the script processor.
 	 */
-	public void registerScirptFunction(String scriptID, IScriptFunction function);
+	public void registerScriptFunction( IScriptFunction function);
 	
 	/**Removes the specified identifier from being able to execute from the script.
 	 * 

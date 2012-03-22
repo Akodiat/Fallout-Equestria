@@ -24,7 +24,8 @@ public class ScriptSystemTest {
 	public void testIfScriptFunctionGetsCalled() {
 		
 		IScriptFunction function = mock(IScriptFunction.class);
-		this.scriptProcessor.registerScirptFunction("clear", function);	
+		when(function.getFunctionName()).thenReturn("clear");
+		this.scriptProcessor.registerScriptFunction(function);	
 		
 		String[] testScript = new String[1];
 		testScript[0] = "clear";
@@ -38,8 +39,10 @@ public class ScriptSystemTest {
 	
 	@Test
 	public void testIfScriptSingleFunctionParamAreCorrect() {		
+
 		IScriptFunction function = mock(IScriptFunction.class);
-		this.scriptProcessor.registerScirptFunction("clear", function);	
+		when(function.getFunctionName()).thenReturn("clear");
+		this.scriptProcessor.registerScriptFunction(function);	
 		
 		String[] testScript = new String[1];
 		testScript[0] = "clear, 0xFFFF00FF";
@@ -54,7 +57,8 @@ public class ScriptSystemTest {
 	@Test
 	public void testIfScriptManyFunctionParamAreCorrect() {		
 		IScriptFunction function = mock(IScriptFunction.class);
-		this.scriptProcessor.registerScirptFunction("clear", function);	
+		when(function.getFunctionName()).thenReturn("clear");
+		this.scriptProcessor.registerScriptFunction(function);	
 		
 		String[] testScript = new String[1];
 		testScript[0] = "clear,0xFFFF00FF,hello,work harder!,birds in the sky!";
@@ -69,7 +73,9 @@ public class ScriptSystemTest {
 	@Test
 	public void testIfScriptWhiteSpaceParamsWork() {		
 		IScriptFunction function = mock(IScriptFunction.class);
-		this.scriptProcessor.registerScirptFunction("clear", function);	
+		when(function.getFunctionName()).thenReturn("clear");
+		this.scriptProcessor.registerScriptFunction(function);	
+		
 		
 		String[] testScript = new String[1];
 		testScript[0] = "clear,				0xFFFF00FF,			 	hallå";
@@ -86,8 +92,10 @@ public class ScriptSystemTest {
 		
 		IScriptFunction function1 = mock(IScriptFunction.class);
 		IScriptFunction function2 = mock(IScriptFunction.class);
-		this.scriptProcessor.registerScirptFunction("clear", function1);	
-		this.scriptProcessor.registerScirptFunction("deleate", function2);	
+		when(function1.getFunctionName()).thenReturn("clear");
+		when(function2.getFunctionName()).thenReturn("deleate");
+		this.scriptProcessor.registerScriptFunction(function1);	
+		this.scriptProcessor.registerScriptFunction(function2);	
 		
 		
 		String[] testScript = new String[2];
@@ -108,8 +116,10 @@ public class ScriptSystemTest {
 		
 		IScriptFunction function1 = mock(IScriptFunction.class);
 		IScriptFunction function2 = mock(IScriptFunction.class);
-		this.scriptProcessor.registerScirptFunction("clear", function1);	
-		this.scriptProcessor.registerScirptFunction("deleate", function2);	
+		when(function1.getFunctionName()).thenReturn("clear");
+		when(function2.getFunctionName()).thenReturn("deleate");
+		this.scriptProcessor.registerScriptFunction(function1);	
+		this.scriptProcessor.registerScriptFunction(function2);		
 				
 		String[] testScript = new String[2];
 		testScript[0] = "clear";
