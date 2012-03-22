@@ -15,6 +15,15 @@ public final class Vector2 {
 		this.Y = y;
 	}
 	
+	/**
+	 * Creates a new instance of a Vector2.
+ 	 * @param xy x and y coordinate.
+	 */
+	public Vector2(float xy) {
+		this.X = xy;
+		this.Y = xy;
+	}
+	
 	/**Adds 2 vectors together.
 	 * 
 	 * @param vector0 the first vector.

@@ -49,7 +49,7 @@ public class DebugAttackRenderSystem extends EntityProcessingSystem {
 			// Rectangle((int)attaCom.getBounds().getPosition().X,(int)attaCom.getBounds().getPosition().Y,(int)attaCom.getBounds().getRadius()*2,(int)attaCom.getBounds().getRadius()*2);
 			float scale = 2*attaCom.getBounds().getRadius() / 100;
 			graphics.draw(circleTexture, transCom.getPosition(), new Color(Color.Red, 0.5f),
-					null, Vector2.Zero, scale, 0, false);
+					null, new Vector2(attaCom.getBounds().getRadius(),attaCom.getBounds().getRadius()), scale, 0, false);
 
 		}
 	}
