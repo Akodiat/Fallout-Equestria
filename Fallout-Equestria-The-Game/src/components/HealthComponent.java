@@ -15,8 +15,12 @@ public class HealthComponent implements IComponent {
 	}
 
 	public HealthComponent(int maxHealth, float regenSpeed, float healthPoints) {
+		if (maxHealth <= 0) {
+			throw new RuntimeException("Tried to set maxhealth below or equal to zero");
+		}
 		this.maxHealth = maxHealth;
 		this.regenSpeed = regenSpeed;
+
 		if (healthPoints <= this.maxHealth) {
 			this.healthPoints = healthPoints;
 		} else {
@@ -65,6 +69,9 @@ public class HealthComponent implements IComponent {
 	}
 
 	public void setMaxHealth(int maxHealth) {
+		if (maxHealth <= 0) {
+			throw new RuntimeException("Tried to set maxhealth below or equal to zero");
+		}
 		this.maxHealth = maxHealth;
 	}
 

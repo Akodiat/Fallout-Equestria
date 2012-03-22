@@ -20,10 +20,10 @@ import utils.Circle;
 import utils.ContentManager;
 import utils.Rectangle;
 
-public class SimpleShootingTest extends AbstractSystemTest{
-	
-	public static void main(String[] args) throws LWJGLException{
-		new SimpleShootingTest(new Rectangle(0,0, 800, 600), false).start();
+public class SimpleShootingTest extends AbstractSystemTest {
+
+	public static void main(String[] args) throws LWJGLException {
+		new SimpleShootingTest(new Rectangle(0, 0, 800, 600), false).start();
 	}
 
 	public SimpleShootingTest(Rectangle screenDim, boolean fullScreen) {
@@ -32,18 +32,26 @@ public class SimpleShootingTest extends AbstractSystemTest{
 
 	@Override
 	public void initializeSystems() {
-		this.tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		this.tester.addLogicubSystem(new CharacterControllerSystem(this.tester
+				.getWorld()));
 		this.tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		this.tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		this.tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		this.tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
+		this.tester.addLogicubSystem(new AttackResolveSystem(this.tester
+				.getWorld()));
+		this.tester.addLogicubSystem(new StatusChangeSystem(this.tester
+				.getWorld()));
 		this.tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
-		this.tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
-		this.tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
-		this.tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
-		
-		this.tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(), this.graphics));
-		this.tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
+		this.tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester
+				.getWorld(), this.graphics));
+		this.tester.addRenderSubSystem(new RenderingSystem(this.tester
+				.getWorld(), this.graphics));
+		this.tester.addRenderSubSystem(new HUDRenderingSystem(this.tester
+				.getWorld(), this.graphics, "Player"));
+
+		this.tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester
+				.getWorld(), this.graphics));
+		this.tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester
+				.getWorld(), this.graphics));
 
 	}
 
@@ -54,22 +62,27 @@ public class SimpleShootingTest extends AbstractSystemTest{
 		player.setLabel("Player");
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
-		TransformationComp posComp = new TransformationComp();
-		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
+
+		SpatialComponent spatComp = new SpatialComponent(new Circle(
+				Vector2.Zero, 30f));
 		RenderingComponent rendComp = new RenderingComponent();
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
-		
-		rendComp.setColor(new Color(42,200,255, 255));
+
+		rendComp.setColor(new Color(42, 200, 255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
-		
+
+		TransformationComp posComp = new TransformationComp(new Vector2(
+				Display.getHeight() / 2, Display.getWidth() / 2), Vector2.One,
+				0, new Vector2(rendComp.getTexture().Width / 2,
+						rendComp.getTexture().Height / 2));
+
 		player.addComponent(rendComp);
 		player.addComponent(inpComp);
 		player.addComponent(physComp);
 		player.addComponent(posComp);
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
-		
+
 		player.refresh();
 	}
 }
