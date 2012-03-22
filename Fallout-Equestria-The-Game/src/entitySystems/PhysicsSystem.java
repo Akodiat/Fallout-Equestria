@@ -68,13 +68,15 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 		
 		
 		for(IEntity i:collidableEntities){							//Checking collision with other entities
+			SpatialComponent otherSpatiCom = i.getComponent(SpatialComponent.class);
+			TransformationComp otherTransCom = i.getComponent(TransformationComp.class);
 			if(!i.equals(entity) && Circle.intersects(
-					i.getComponent(SpatialComponent.class).getBounds(),
-					i.getComponent(TransformationComp.class).getPosition(),
+					otherSpatiCom.getBounds(),
+					otherTransCom.getPosition(),
 					spatComp.getBounds(),
 					posComp.getPosition())){
 				collision=true;
-				i.getComponent(TransformationComp.class).setPosition(Vector2.add(i.getComponent(TransformationComp.class).getPosition(), Vector2.mul(1,physComp.getVelocity())));
+				otherTransCom.setPosition(Vector2.add(otherTransCom.getPosition(), Vector2.mul(1,physComp.getVelocity())));
 			}
 		}
 		return collision;

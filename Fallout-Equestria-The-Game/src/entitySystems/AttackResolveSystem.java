@@ -3,6 +3,8 @@ package entitySystems;
 import java.util.ArrayList;
 import java.util.List;
 
+import math.Vector2;
+
 import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
@@ -62,8 +64,8 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 						.getComponent(targetEntity);
 
 				Boolean itGotHit = Circle.intersects(attaCom.getBounds(),
-						posiCom.getPosition(), targetSpatiCom.getBounds(),
-						targetPosiCom.getPosition());
+						Vector2.add(posiCom.getPosition(), posiCom.getOrigin()), targetSpatiCom.getBounds(),
+						Vector2.add(targetPosiCom.getPosition(), targetPosiCom.getOrigin()));
 
 				if (itGotHit) {
 					hitSomething = true;
