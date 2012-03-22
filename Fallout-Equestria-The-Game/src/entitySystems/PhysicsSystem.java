@@ -63,6 +63,7 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 //				posComp.getPosition().Y+2*r>Display.getHeight()){
 //			return true;
 //		}
+		
 		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComponent.class);
 		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
 		

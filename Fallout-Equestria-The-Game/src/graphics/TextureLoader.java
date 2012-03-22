@@ -12,6 +12,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public final class TextureLoader {
 	
+	
+	
 	public static Texture2D loadTexture(InputStream stream) throws IOException{
 		
 		PNGDecoder decoder = new PNGDecoder(stream);
