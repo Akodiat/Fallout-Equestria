@@ -21,7 +21,6 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 
 	private SpriteBatch spriteBatch;
 
-	
 	public HealthBarRenderSystem(IEntityWorld world, SpriteBatch graphics) {
 		super(world, HealthComponent.class, RenderingComponent.class,
 				TransformationComp.class);
@@ -55,21 +54,27 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 							.getScale().X) / 2), (int) (-10 + positionC
 							.getPosition().Y), (int) healthC.getHealthPoints(),
 					10);
-			Rectangle border = new Rectangle(healthBar.X - 1, healthBar.Y - 1, healthBar.Width + 2, healthBar.Height + 2);
-			this.spriteBatch.draw(Texture2D.getPixel(), border, Color.Black, null);
-			
-			
-			
-			 
-			try{
-			Texture2D texture = ContentManager.loadTexture("HealthBarUnit.png");
-			this.spriteBatch.draw(texture, healthBar, Color.Green, null);
-			}catch(IOException e){
+			Rectangle border = new Rectangle(healthBar.X - 1, healthBar.Y - 1,
+					healthBar.Width + 2, healthBar.Height + 2);
+			this.spriteBatch.draw(Texture2D.getPixel(), border, Color.Black,
+					null);
+
+			float healthPercentage = healthC.getHealthPoints()
+					/ healthC.getMaxHealth();
+
+			try {
+				Texture2D texture = ContentManager
+						.loadTexture("HealthBarUnit.png");
+				if (healthPercentage > 0.5) {
+					this.spriteBatch
+							.draw(texture, healthBar, new Color(1 -healthPercentage, 1,0,1), null);
+				}else {
+					this.spriteBatch.draw(texture, healthBar, new Color(1, 2*healthPercentage,0,1), null);
+				}
+			} catch (IOException e) {
 				throw new Error("Fuck you. (HealthBarUnit.png is missing)");
 			}
-			
-			
-			
+
 		}
 	}
 }
