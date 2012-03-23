@@ -5,6 +5,19 @@ import entityFramework.IComponent;
 
 public class PhysicsComponent implements IComponent{
 	private Vector2 velocity;
+	/**
+	 * @return the mass
+	 */
+	public float getMass() {
+		return mass;
+	}
+	/**
+	 * @param mass the mass to set
+	 */
+	public void setMass(float mass) {
+		this.mass = mass;
+	}
+
 	private float mass;
 	
 	public PhysicsComponent(){

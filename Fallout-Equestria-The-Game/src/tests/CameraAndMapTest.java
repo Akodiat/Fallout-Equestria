@@ -102,6 +102,8 @@ public class CameraAndMapTest {
 		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
 		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
 	}
 
@@ -113,10 +115,13 @@ public class CameraAndMapTest {
 		SpatialComponent houseSpatComp = new SpatialComponent(new Circle(new Vector2(30,20),50f));
 		RenderingComponent houseRendComp = new RenderingComponent();
 		houseRendComp.setTexture(ContentManager.loadTexture("house.png"));
+		PhysicsComponent housePhysComp = new PhysicsComponent();
+		housePhysComp.setMass(99999999);
 		
 		house.addComponent(houseRendComp);
 		house.addComponent(houseSpatComp);
 		house.addComponent(housePosComp);
+		house.addComponent(housePhysComp);
 		
 		house.refresh();
 		
