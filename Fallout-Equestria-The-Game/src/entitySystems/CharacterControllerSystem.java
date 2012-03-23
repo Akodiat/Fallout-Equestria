@@ -24,7 +24,9 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 	private ComponentMapper<PhysicsComponent> physCM;
 	private ComponentMapper<InputComponent> inpCM;
 	private ComponentMapper<TransformationComp> transCM;
-	
+
+	private int uglyHack;
+
 	private Texture2D attackTexture;
 	@Override
 	public void initialize() {
@@ -41,42 +43,47 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		TransformationComp	posComp = transCM.getComponent(entity);
 		//TODO Remove this is just a temp test!
 		ActionPointsComponent apComp = entity.getComponent(ActionPointsComponent.class);
-		
+
 		if(inpComp.isLeftMouseButtonDown() && apComp.getAbilityPoints() > 10){
-			apComp.setAbilityPoints(apComp.getAbilityPoints() - 10f);
-			IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
-			AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,20f),20, ImmutableList.of("Enemies"));
-			
-			Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());
-			attackSpeed = Vector2.norm(attackSpeed);
-			
-			PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
-			
-			TransformationComp attackPosComp = new TransformationComp();
-			
-			SpatialComponent attackSpatComp = new SpatialComponent(new Circle(Vector2.Zero,30f)); 
-			
-			RenderingComponent attackRendComp = new RenderingComponent();
-			attackRendComp.setColor(new Color(255,255,255, 255));
-			attackRendComp.setTexture(attackTexture);
-			
-			attackPosComp.setRotation(attackSpeed.angle());
-			attackPosComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(60, attackSpeed)));
-			attackPosComp.setOrigin(new Vector2(attackTexture.Width/2,attackTexture.Height/2));
-			
-			attack.addComponent(attackPosComp);
-			attack.addComponent(attackPhysComp);
-			attack.addComponent(attackComp);
-			attack.addComponent(attackRendComp);
-			attack.addComponent(attackSpatComp);
-			
-			attack.refresh();
+			this.uglyHack++;
+			if(uglyHack>30){
+				uglyHack = 0;
+
+				apComp.setAbilityPoints(apComp.getAbilityPoints() - 10f);
+				IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
+				AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,20f),20, ImmutableList.of("Enemies"));
+
+				Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());
+				attackSpeed = Vector2.norm(attackSpeed);
+
+				PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
+
+				TransformationComp attackPosComp = new TransformationComp();
+
+				SpatialComponent attackSpatComp = new SpatialComponent(new Circle(Vector2.Zero,30f)); 
+
+				RenderingComponent attackRendComp = new RenderingComponent();
+				attackRendComp.setColor(new Color(255,255,255, 255));
+				attackRendComp.setTexture(attackTexture);
+
+				attackPosComp.setRotation(attackSpeed.angle());
+				attackPosComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(60, attackSpeed)));
+				attackPosComp.setOrigin(new Vector2(attackTexture.Width/2,attackTexture.Height/2));
+
+				attack.addComponent(attackPosComp);
+				attack.addComponent(attackPhysComp);
+				attack.addComponent(attackComp);
+				attack.addComponent(attackRendComp);
+				attack.addComponent(attackSpatComp);
+
+				attack.refresh();
+			}
 		}
-		
+
 		int speedFactor = 2;
 		if(inpComp.isGallopButtonPressed())
 			speedFactor=4;
-		
+
 		Vector2 velocity = new Vector2(0,0);
 		if (inpComp.isBackButtonPressed())
 			velocity=Vector2.add(velocity, new Vector2(0,1));
@@ -86,14 +93,14 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			velocity=Vector2.add(velocity, new Vector2(-1,0));
 		if (inpComp.isRightButtonPressed())
 			velocity=Vector2.add(velocity, new Vector2(1,0));
-		
+
 		if(velocity.length()!=0)
 			velocity=Vector2.norm(velocity);
-			
+
 		velocity = Vector2.mul(speedFactor, velocity);
 		physComp.setVelocity(velocity);
-		
-		
+
+
 	}
 
 }
