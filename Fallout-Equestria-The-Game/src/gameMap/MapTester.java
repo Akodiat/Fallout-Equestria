@@ -28,9 +28,10 @@ public class MapTester {
 		this.textureForAllTiles =  ContentManager.loadTexture("ground.png");
 		this.spriteBatch = graphics;
 		
+		int tileSize = 400;
 		int mapHeight = 100;
 		int mapWidth = 200;
-		tileMap = new TileMap(new Tile[100][200], 400);
+		tileMap = new TileMap(new Tile[mapHeight][mapWidth], tileSize);
 		
 		for(int i=0; i<mapHeight; i++){
 			for (int j=0; j<mapWidth; j++){

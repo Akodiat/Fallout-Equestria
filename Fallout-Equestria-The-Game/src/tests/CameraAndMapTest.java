@@ -103,6 +103,7 @@ public class CameraAndMapTest {
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -119,7 +120,7 @@ public class CameraAndMapTest {
 		RenderingComponent houseRendComp = new RenderingComponent();
 		houseRendComp.setTexture(ContentManager.loadTexture("house.png"));
 		PhysicsComponent housePhysComp = new PhysicsComponent();
-		housePhysComp.setMass(99999999);
+		housePhysComp.setMass(1000);
 		
 		house.addComponent(houseRendComp);
 		house.addComponent(houseSpatComp);

@@ -39,12 +39,12 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			SpatialComponent spatiCom = sCM.getComponent(entity);
 			
 			//Check collision against north border
-			if (posiCom.getPosition().X + spatiCom.getBounds().getRadius()<0){
+			if (posiCom.getPosition().X - spatiCom.getBounds().getRadius()<0){
 				posiCom.setPosition(new Vector2(spatiCom.getBounds().getRadius(),posiCom.getPosition().Y ));
 			}
 			
 			//Check collision against west border
-			if (posiCom.getPosition().Y + spatiCom.getBounds().getRadius()<0){
+			if (posiCom.getPosition().Y - spatiCom.getBounds().getRadius()<0){
 				posiCom.setPosition(new Vector2(posiCom.getPosition().X,spatiCom.getBounds().getRadius()));
 			}
 			
