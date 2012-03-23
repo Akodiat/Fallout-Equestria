@@ -136,6 +136,26 @@ public final class Matrix4 {
 		return buffer;
 	}
 	
+	public float det(){
+		float det = m00*m11*m22*m33 + m00*m12*m23*m31 +	m00*m13*m21*m32
+				+	m01*m10*m23*m32 + m01*m12*m20*m33 +	m01*m13*m22*m30
+				+	m02*m10*m21*m33 + m02*m11*m23*m30 +	m02*m13*m20*m31
+				+	m03*m10*m22*m31 + m03*m11*m20*m32 + m03*m12*m21*m30
+				-	m00*m11*m23*m32 - m00*m12*m21*m33 - m00*m13*m22*m31
+				-	m01*m10*m22*m33 - m01*m12*m23*m30 - m01*m13*m20*m32
+				-	m02*m10*m23*m31 - m02*m11*m20*m33 - m02*m13*m21*m30
+				-	m03*m10*m21*m32 - m03*m11*m22*m30 - m03*m12*m20*m31;
+		return det;
+	}
+	
+	/*public  Matrix4 inverse(){
+		float det = this.det();
+		float b11 = m11*m22*m33 + m12*m23*m31 + m13*m21*m32 - m11*m23*m32 - m12*m21*m33 - m13*m22*m31;
+		float b12 = m01*m23*m32 + m02*m21*m33 + m03*m22*m31 - m01*m22*m33 - m02*m23*m31 - m03*m21*m32;
+		float b13 = m01*m12*m33 + m02*m13*m31 + m03*m11*m32 - m01*m13*m32 - m
+		
+	}*/
+	
 	
 	
 	
