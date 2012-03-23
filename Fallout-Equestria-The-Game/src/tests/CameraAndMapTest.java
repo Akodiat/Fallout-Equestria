@@ -100,6 +100,7 @@ public class CameraAndMapTest {
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -135,8 +136,9 @@ public class CameraAndMapTest {
 		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
 		RenderingComponent rendComp = new RenderingComponent();
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
+		ActionPointsComponent apComp = new ActionPointsComponent();
 
-		rendComp.setColor(new Color(42,200,255, 255));
+		//rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
 
 		player.addComponent(rendComp);
@@ -145,6 +147,7 @@ public class CameraAndMapTest {
 		player.addComponent(posComp);
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
+		player.addComponent(apComp);
 
 		player.refresh();
 		
