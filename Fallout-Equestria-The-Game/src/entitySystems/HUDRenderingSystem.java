@@ -16,7 +16,6 @@ import graphics.SpriteBatch;
 import graphics.Texture2D;
 
 public class HUDRenderingSystem extends EntitySystem {
-
 	private final String playerLabel;
 	private SpriteBatch batch;
 	private Vector2 healthPos;
@@ -33,7 +32,6 @@ public class HUDRenderingSystem extends EntitySystem {
 
 	private ComponentMapper<HealthComponent> healthCM;
 	private ComponentMapper<ActionPointsComponent> apCM;
-	
 
 	@Override
 	public void initialize() {
@@ -41,8 +39,6 @@ public class HUDRenderingSystem extends EntitySystem {
 				HealthComponent.class);
 		apCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				ActionPointsComponent.class);
-		
-
 	}
 
 	@Override
@@ -67,6 +63,7 @@ public class HUDRenderingSystem extends EntitySystem {
 			this.batch.draw(Texture2D.getPixel(), rectHealth, Color.White, null);
 
 			ActionPointsComponent actionComp = this.apCM.getComponent(entity);
+			
 			ratio = actionComp.getAbilityPoints() / actionComp.getMaxAbilityPoints();
 			
 			Rectangle rectAp = new Rectangle((int) this.apPos.X,
@@ -77,10 +74,6 @@ public class HUDRenderingSystem extends EntitySystem {
 			
 			this.batch.end();
 			this.batch.begin(effect, view);
-			
-			
-			
-
 		}
 
 	}
