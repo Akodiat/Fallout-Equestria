@@ -1,6 +1,7 @@
-package utils;
+package scripting;
 
 import java.util.Collection;
+
 
 public class LineScript implements ILineScript{
 

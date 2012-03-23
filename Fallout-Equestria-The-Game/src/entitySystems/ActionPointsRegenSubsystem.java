@@ -11,7 +11,7 @@ import entityFramework.TimedEntityProcessingSystem;
 public class ActionPointsRegenSubsystem extends TimedEntityProcessingSystem {
 
 	protected ActionPointsRegenSubsystem(IEntityWorld world) {
-		super(world, 60, ActionPointsComponent.class);
+		super(world, 0.5f, ActionPointsComponent.class);
 	}
 
 	private ComponentMapper<ActionPointsComponent> aPCM;

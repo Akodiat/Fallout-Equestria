@@ -1,6 +1,6 @@
 package entitySystems;
 
-import utils.ILineScriptProcessor;
+import scripting.ILineScriptProcessor;
 import components.DeathComp;
 
 import entityFramework.ComponentMapper;
@@ -12,7 +12,7 @@ public class DeathResolveSystem extends EntitySystem{
 	
 	ILineScriptProcessor processor;
 
-	protected DeathResolveSystem(IEntityWorld world, ILineScriptProcessor deathProcessor) {
+	public DeathResolveSystem(IEntityWorld world, ILineScriptProcessor deathProcessor) {
 		super(world, DeathComp.class);
 		this.processor = deathProcessor;
 	}

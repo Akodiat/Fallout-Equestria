@@ -1,9 +1,10 @@
-package utils;
+package scripting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import com.google.common.base.Splitter;
 
@@ -76,7 +77,12 @@ public class LineScriptProcessor implements ILineScriptProcessor{
 			String[] functionArgs = new String[function.size()];
 			function.toArray(functionArgs);
 			
-			this.avalibleFunctions.get(functionID).excecute(functionArgs);		
+			IScriptFunction scriptFunction = this.avalibleFunctions.get(functionID);	
+			if(scriptFunction == null) {
+				throw new ScriptException();
+			} else {
+				scriptFunction.excecute(functionArgs);
+			}
 		}
 	}
 

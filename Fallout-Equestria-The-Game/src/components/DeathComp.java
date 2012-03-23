@@ -1,7 +1,7 @@
 package components;
 
 import entityFramework.IComponent;
-import utils.LineScript;
+import scripting.LineScript;
 
 public class DeathComp implements IComponent{
 	LineScript deathScript;

@@ -31,7 +31,7 @@ public class CameraAndMapTest {
 	private Camera2D camera;
 	
 	public static void main(String[] args) throws IOException, LWJGLException{
-		new CameraAndMapTest(new Rectangle(0,0, 800, 600), false).start();
+		new CameraAndMapTest(new Rectangle(0,0, 1280, 720), true).start();
 	}
 
 	public CameraAndMapTest(Rectangle screenDim, boolean fullScreen) throws IOException{

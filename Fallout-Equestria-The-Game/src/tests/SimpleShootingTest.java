@@ -5,6 +5,8 @@ import math.Vector2;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
+import components.ActionPointsComponent;
+import components.DeathComp;
 import components.HealthComponent;
 import components.InputComponent;
 import components.PhysicsComponent;
@@ -16,6 +18,9 @@ import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
 import graphics.Color;
+import scripting.ConsoleScriptFunction;
+import scripting.LineScript;
+import scripting.LineScriptProcessor;
 import utils.Circle;
 import utils.ContentManager;
 import utils.Rectangle;
@@ -54,6 +59,11 @@ public class SimpleShootingTest extends AbstractSystemTest {
 				.getWorld(), this.graphics));
 		this.tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester
 				.getWorld(), this.graphics));
+		
+		LineScriptProcessor processor = new LineScriptProcessor();
+		processor.registerScriptFunction(new ConsoleScriptFunction());
+		
+		this.tester.addLogicubSystem(new DeathResolveSystem(this.tester.getWorld(), processor));
 
 	}
 
@@ -64,7 +74,10 @@ public class SimpleShootingTest extends AbstractSystemTest {
 		player.setLabel("Player");
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
-
+		DeathComp deathComp = new DeathComp();
+		deathComp.setDeathScript(new LineScript(new String[] { "cut, Hahahahahahahahahahahahahahaahahahahahahahahahahahahah" }));
+		ActionPointsComponent apComp = new ActionPointsComponent(100, 100, 10f);
+		
 		SpatialComponent spatComp = new SpatialComponent(new Circle(
 				Vector2.Zero, 30f));
 		RenderingComponent rendComp = new RenderingComponent();
@@ -84,6 +97,8 @@ public class SimpleShootingTest extends AbstractSystemTest {
 		player.addComponent(posComp);
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
+		player.addComponent(deathComp);
+		player.addComponent(apComp);
 
 		player.refresh();
 	}

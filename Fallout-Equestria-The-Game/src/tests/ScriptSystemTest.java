@@ -5,11 +5,11 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import utils.ILineScript;
-import utils.ILineScriptProcessor;
-import utils.IScriptFunction;
-import utils.LineScript;
-import utils.LineScriptProcessor;
+import scripting.ILineScript;
+import scripting.ILineScriptProcessor;
+import scripting.IScriptFunction;
+import scripting.LineScript;
+import scripting.LineScriptProcessor;
 
 public class ScriptSystemTest {
 

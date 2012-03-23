@@ -39,9 +39,11 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		PhysicsComponent	physComp = physCM.getComponent(entity);
 		InputComponent 		inpComp = inpCM.getComponent(entity);
 		TransformationComp	posComp = transCM.getComponent(entity);
+		//TODO Remove this is just a temp test!
+		ActionPointsComponent apComp = entity.getComponent(ActionPointsComponent.class);
 		
-		
-		if(inpComp.isLeftMouseButtonDown()){
+		if(inpComp.isLeftMouseButtonDown() && apComp.getAbilityPoints() > 10){
+			apComp.setAbilityPoints(apComp.getAbilityPoints() - 10f);
 			IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
 			AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,20f),20, ImmutableList.of("Enemies"));
 			
