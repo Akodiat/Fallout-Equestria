@@ -65,7 +65,6 @@ public class Camera2D {
 		
 		float top = this.worldBounds.getTop();
 		float bottom = this.worldBounds.getBottom() + this.screenOffset.Y * 2 * this.zoom.Y;
-		System.out.println("Top: " + top + " Bottom " + bottom);
 		
 		if(x < left) {
 			x = left;

@@ -82,7 +82,7 @@ public class CollisionSystem extends EntitySingleProcessingSystem{
 				Vector2 v2t = Vector2.mul(Vector2.dot(v2, Dt), Dt);
 
 				physComp.setVelocity(Vector2.mul(((m1 - m2) / M * v1n.length() + 2 * m2 / M * v2n.length()), Vector2.add(v1t, Dn)));
-				physComp.setVelocity(Vector2.mul(((m2 - m1) / M * v2n.length() + 2 * m1 / M * v1n.length()), Vector2.subtract(v2t, Dn)));
+				otherPhysComp.setVelocity(Vector2.mul(((m2 - m1) / M * v2n.length() + 2 * m1 / M * v1n.length()), Vector2.subtract(v2t, Dn)));
 
 			}
 		}

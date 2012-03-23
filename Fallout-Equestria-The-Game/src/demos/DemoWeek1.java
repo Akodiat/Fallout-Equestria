@@ -1,4 +1,4 @@
-package tests;
+package demos;
 
 import java.io.IOException;
 
@@ -9,20 +9,41 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import components.*;
-import entityFramework.IEntity;
-import entityFramework.IEntityManager;
-import entitySystems.*;
-
+import tests.CameraAndMapTest;
+import tests.SystemTester;
 import utils.Camera2D;
 import utils.Circle;
 import utils.ContentManager;
 import utils.Rectangle;
 
-import gameMap.*;
-import graphics.*;
+import components.ActionPointsComponent;
+import components.HealthComponent;
+import components.InputComponent;
+import components.PhysicsComponent;
+import components.RenderingComponent;
+import components.SpatialComponent;
+import components.TransformationComp;
 
-public class CameraAndMapTest {
+import entityFramework.IEntity;
+import entityFramework.IEntityManager;
+import entitySystems.AttackResolveSystem;
+import entitySystems.CameraControlSystem;
+import entitySystems.CharacterControllerSystem;
+import entitySystems.CollisionSystem;
+import entitySystems.DebugAttackRenderSystem;
+import entitySystems.DebugSpatialRenderSystem;
+import entitySystems.HUDRenderingSystem;
+import entitySystems.HealthBarRenderSystem;
+import entitySystems.InputSystem;
+import entitySystems.PhysicsSystem;
+import entitySystems.RegenSystem;
+import entitySystems.RenderingSystem;
+import entitySystems.StatusChangeSystem;
+import gameMap.MapTester;
+import graphics.Color;
+import graphics.SpriteBatch;
+
+public class DemoWeek1 {
 	private SystemTester tester;
 	private SpriteBatch graphics;
 	private final Rectangle screenDim;
@@ -30,11 +51,13 @@ public class CameraAndMapTest {
 	private MapTester mapTester;
 	private Camera2D camera;
 	
+	private final int numEnemies = 400;
+	
 	public static void main(String[] args) throws IOException, LWJGLException{
-		new CameraAndMapTest(new Rectangle(0,0, 1280, 720), true).start();
+		new DemoWeek1(new Rectangle(0,0, 1280, 720), true).start();
 	}
 
-	public CameraAndMapTest(Rectangle screenDim, boolean fullScreen) throws IOException{
+	public DemoWeek1(Rectangle screenDim, boolean fullScreen) throws IOException{
 		this.screenDim = screenDim;
 		this.isFullScreen = fullScreen;
 
@@ -103,7 +126,6 @@ public class CameraAndMapTest {
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -112,22 +134,7 @@ public class CameraAndMapTest {
 	}
 
 	public void initializeEntities(IEntityManager manager) {
-		IEntity house = manager.createEmptyEntity();
-		house.setLabel("House");
-		TransformationComp housePosComp = new TransformationComp();
-		housePosComp.setPosition(1337, 1337);
-		SpatialComponent houseSpatComp = new SpatialComponent(new Circle(new Vector2(30,20),50f));
-		RenderingComponent houseRendComp = new RenderingComponent();
-		houseRendComp.setTexture(ContentManager.loadTexture("house.png"));
-		PhysicsComponent housePhysComp = new PhysicsComponent();
-		housePhysComp.setMass(1000);
-		
-		house.addComponent(houseRendComp);
-		house.addComponent(houseSpatComp);
-		house.addComponent(housePosComp);
-		house.addComponent(housePhysComp);
-		
-		house.refresh();
+
 		
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");
@@ -142,10 +149,15 @@ public class CameraAndMapTest {
 		RenderingComponent rendComp = new RenderingComponent();
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 		ActionPointsComponent apComp = new ActionPointsComponent();
+		
 
-		//rendComp.setColor(new Color(42,200,255, 255));
+		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
+		
 
+		posComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
+										rendComp.getTexture().Height / 2));	
+		
 		player.addComponent(rendComp);
 		player.addComponent(inpComp);
 		player.addComponent(physComp);
@@ -155,5 +167,50 @@ public class CameraAndMapTest {
 		player.addComponent(apComp);
 
 		player.refresh();
+		
+		IEntity house = manager.createEmptyEntity();
+		house.setLabel("House");
+		TransformationComp housePosComp = new TransformationComp();
+		housePosComp.setPosition(1337, 1337);
+		SpatialComponent houseSpatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
+		RenderingComponent houseRendComp = new RenderingComponent();
+		houseRendComp.setTexture(ContentManager.loadTexture("house.png"));
+		PhysicsComponent housePhysComp = new PhysicsComponent();
+		housePhysComp.setMass(1f);
+		housePosComp.setOrigin(new Vector2(houseRendComp.getTexture().Width / 2,
+										   houseRendComp.getTexture().Height / 2));
+		
+		house.addComponent(houseRendComp);
+		house.addComponent(houseSpatComp);
+		house.addComponent(housePosComp);
+		house.addComponent(housePhysComp);
+		
+		house.refresh();
+		
+		
+		generateRandomEnemies(manager);
+	}
+
+	private void generateRandomEnemies(IEntityManager manager) {
+		for (int i = 0; i < this.numEnemies; i++) {
+			IEntity enemy = manager.createEmptyEntity();
+			enemy.setLabel("Enemy" + i);
+			
+			TransformationComp transComp = new TransformationComp();
+			transComp.setPosition((float)Math.random() * 10000,(float)Math.random() * 10000);
+			SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
+			RenderingComponent rendComp = new RenderingComponent();
+			rendComp.setTexture(ContentManager.loadTexture("house.png"));
+			PhysicsComponent physComp = new PhysicsComponent();
+			physComp.setMass(100f);
+			transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
+											rendComp.getTexture().Height / 2));	
+			enemy.addComponent(rendComp);
+			enemy.addComponent(spatComp);
+			enemy.addComponent(transComp);
+			enemy.addComponent(physComp);
+			
+			enemy.refresh();
+		}
 	}
 }
