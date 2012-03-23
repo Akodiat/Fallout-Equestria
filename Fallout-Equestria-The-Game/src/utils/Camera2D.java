@@ -59,8 +59,6 @@ public class Camera2D {
 	}
 	
 	private void validatePosition() {
-		
-		
 		float x = this.position.X, y = this.position.Y;
 		float left = this.worldBounds.getLeft() * this.zoom.X;
 		float right = this.worldBounds.getRight() * this.zoom.X + this.screenOffset.X  * 2 *  this.zoom.X;
@@ -104,6 +102,18 @@ public class Camera2D {
 	
 	public void zoomOut(float zoom) {
 		this.zoom = Vector2.subtract(this.zoom, new Vector2(zoom, zoom));
+	}
+	
+	public Vector2 getZoom() {
+		return this.zoom;
+	}
+	
+	public Vector2 getPosition() {
+		return this.position;
+	}
+	
+	public Vector2 getScreenOffset() {
+		return this.screenOffset;
 	}
 	
 	public String toString() {

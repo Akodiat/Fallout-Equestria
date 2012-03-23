@@ -99,6 +99,7 @@ public class CameraAndMapTest {
 		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new CameraControlSystem(this.tester.getWorld(), camera));
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
@@ -129,6 +130,8 @@ public class CameraAndMapTest {
 		
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");
+		player.addToGroup("CAMERA_TARGET");
+		
 		player.setLabel("Player");
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
