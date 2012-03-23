@@ -64,8 +64,8 @@ public class ResizableGrid<T>{
 	}
 	
 	public List<T> getCollumn(int column) {
-		List<T> list = new ArrayList<T>(this.gridWidth());
-		for (int row = 0; row < this.gridWidth(); row++) {
+		List<T> list = new ArrayList<T>(this.gridHeight());
+		for (int row = 0; row < this.gridHeight(); row++) {
 			list.add(this.internalGrid[row][column]);
 		}
 		return list;

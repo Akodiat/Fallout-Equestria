@@ -68,9 +68,9 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 				Vector2 Dn = Vector2.subtract((transComp.getPosition()),otherTransComp.getPosition());
 				float distance = Dn.length();
 				if(distance==0){
-					transComp.setPosition(new Vector2(0.01f,0)); 
+					transComp.setPosition(Vector2.add(transComp.getPosition(), (new Vector2(0.01f,0))));
 					//TODO: Decide if really good solution
-					return;
+					break;
 				}
 				Dn = Vector2.norm(Dn);
 

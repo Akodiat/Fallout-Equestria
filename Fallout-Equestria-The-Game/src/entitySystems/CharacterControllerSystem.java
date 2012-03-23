@@ -19,7 +19,7 @@ import graphics.Texture2D;
 public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 	public CharacterControllerSystem(IEntityWorld world) {
-		super(world, InputComponent.class, InputComponent.class, TransformationComp.class);
+		super(world, InputComponent.class, PhysicsComponent.class, TransformationComp.class);
 	}
 	private ComponentMapper<PhysicsComponent> physCM;
 	private ComponentMapper<InputComponent> inpCM;
