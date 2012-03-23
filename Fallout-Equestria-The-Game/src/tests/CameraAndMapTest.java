@@ -98,6 +98,7 @@ public class CameraAndMapTest {
 		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
