@@ -148,13 +148,51 @@ public final class Matrix4 {
 		return det;
 	}
 	
-	/*public  Matrix4 inverse(){
+	public  Matrix4 inverse(){
 		float det = this.det();
-		float b11 = m11*m22*m33 + m12*m23*m31 + m13*m21*m32 - m11*m23*m32 - m12*m21*m33 - m13*m22*m31;
-		float b12 = m01*m23*m32 + m02*m21*m33 + m03*m22*m31 - m01*m22*m33 - m02*m23*m31 - m03*m21*m32;
-		float b13 = m01*m12*m33 + m02*m13*m31 + m03*m11*m32 - m01*m13*m32 - m
+		float b11 = (m11*m22*m33 + m12*m23*m31 + m13*m21*m32 - m11*m23*m32 - m12*m21*m33 - m13*m22*m31)/det;
+		float b12 = (m01*m23*m32 + m02*m21*m33 + m03*m22*m31 - m01*m22*m33 - m02*m23*m31 - m03*m21*m32)/det;
+		float b13 = (m01*m12*m33 + m02*m13*m31 + m03*m11*m32 - m01*m13*m32 - m02*m11*m33 - m03*m12*m31)/det;
+		float b14 = (m01*m13*m22 + m02*m11*m23 + m03*m12*m21 - m01*m12*m23 - m02*m13*m21 - m03*m11*m22)/det;
+		float b21 = (m10*m23*m32 + m12*m20*m33 + m13*m22*m30 - m10*m22*m33 - m12*m23*m30 - m13*m20*m32)/det;
+		float b22 = (m00*m22*m33 + m02*m23*m30 + m03*m20*m32 - m00*m23*m32 - m02*m20*m33 - m03*m22*m30)/det;
+		float b23 = (m00*m13*m32 + m02*m10*m33 + m03*m12*m30 - m00*m12*m33 - m02*m13*m30 - m03*m10*m32)/det;
+		float b24 = (m00*m12*m23 + m02*m13*m20 + m03*m10*m22 - m00*m13*m22 - m02*m10*m23 - m03*m12*m20)/det;
+		float b31 = (m10*m21*m33 + m11*m23*m30 + m13*m20*m31 - m10*m23*m31 - m11*m20*m33 - m13*m21*m30)/det;
+		float b32 = (m00*m23*m31 + m01*m20*m33 + m03*m21*m30 - m00*m21*m33 - m01*m23*m30 - m03*m20*m31)/det;
+		float b33 = (m00*m11*m33 + m01*m13*m30 + m03*m10*m31 - m00*m13*m31 - m01*m10*m33 - m03*m11*m30)/det;
+		float b34 = (m00*m13*m21 + m01*m10*m23 + m03*m11*m20 - m00*m11*m23 - m01*m13*m20 - m03*m10*m21)/det;
+		float b41 = (m10*m22*m31 + m11*m20*m32 + m12*m21*m30 - m10*m21*m32 - m11*m22*m30 - m12*m20*m31)/det;
+		float b42 = (m00*m21*m32 + m01*m22*m30 + m02*m20*m31 - m00*m22*m31 - m01*m20*m32 - m02*m21*m30)/det;
+		float b43 = (m00*m12*m31 + m01*m10*m32 + m02*m11*m30 - m00*m11*m32 - m01*m12*m30 - m02*m10*m31)/det;
+		float b44 = (m00*m11*m22 + m01*m12*m20 + m02*m10*m21 - m00*m12*m21 - m01*m10*m22 - m02*m11*m20)/det;
 		
-	}*/
+		return new Matrix4(b11, b12, b13, b14,
+						   b21, b22, b23, b24,
+						   b31, b32, b33, b34,
+						   b41, b42, b43, b44);
+	}
+	
+	public static Boolean equals(Matrix4 left, Matrix4 right) {
+		return (left.m00 == right.m00 && left.m01 == right.m01 && left.m02 == right.m02 && left.m03 == right.m03 &&
+				left.m10 == right.m10 && left.m11 == right.m11 && left.m12 == right.m12 && left.m13 == right.m13 &&
+				left.m20 == right.m20 && left.m21 == right.m21 && left.m22 == right.m22 && left.m23 == right.m23 &&
+				left.m30 == right.m30 && left.m31 == right.m31 && left.m32 == right.m32 && left.m33 == right.m33);
+
+	}
+	
+	public static Boolean roughlyEquals(Matrix4 left, Matrix4 right, float errorMarigin) {
+		return (left.m00 < errorMarigin +  right.m00 && left.m01 < errorMarigin +  right.m01 && left.m02 < errorMarigin +  right.m02 && left.m03 < errorMarigin +  right.m03 &&
+				left.m10 < errorMarigin +  right.m10 && left.m11 < errorMarigin +  right.m11 && left.m12 < errorMarigin +  right.m12 && left.m13 < errorMarigin +  right.m13 &&
+				left.m20 < errorMarigin +  right.m20 && left.m21 < errorMarigin +  right.m21 && left.m22 < errorMarigin +  right.m22 && left.m23 < errorMarigin +  right.m23 &&
+				left.m30 < errorMarigin +  right.m30 && left.m31 < errorMarigin +  right.m31 && left.m32 < errorMarigin +  right.m32 && left.m33 < errorMarigin +  right.m33
+				&&
+				left.m00 > -errorMarigin + right.m00 && left.m01 > -errorMarigin + right.m01 && left.m02 > -errorMarigin + right.m02 && left.m03 > -errorMarigin + right.m03 &&
+				left.m10 > -errorMarigin + right.m10 && left.m11 > -errorMarigin + right.m11 && left.m12 > -errorMarigin + right.m12 && left.m13 > -errorMarigin + right.m13 &&
+				left.m20 > -errorMarigin + right.m20 && left.m21 > -errorMarigin + right.m21 && left.m22 > -errorMarigin + right.m22 && left.m23 > -errorMarigin + right.m23 &&
+				left.m30 > -errorMarigin + right.m30 && left.m31 > -errorMarigin + right.m31 && left.m32 > -errorMarigin + right.m32 && left.m33 > -errorMarigin + right.m33);
+
+	}
 	
 	
 	
