@@ -5,11 +5,15 @@ import math.Vector2;
 
 import entityFramework.IComponent;
 import utils.Key;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+
 /**
  * 
  * @author Joakim Johansson
  *
  */
+@XStreamAlias("Input")
 public class InputComponent implements IComponent{
 	private Vector2 mousePosition;
 	private boolean leftMouseButtonDown;
@@ -24,6 +28,9 @@ public class InputComponent implements IComponent{
 	private Key forwardButton;
 
 	public InputComponent(){
+		
+		this.mousePosition = Vector2.Zero;
+		
 		this.setBackButton(Keyboard.KEY_S);
 		this.setLeftButton(Keyboard.KEY_A);
 		this.setForwardButton(Keyboard.KEY_W);
@@ -51,6 +58,7 @@ public class InputComponent implements IComponent{
 		this.backButton 	= new Key(inpComp.backButton.getKeyID());
 		this.leftButton 	= new Key(inpComp.leftButton.getKeyID());
 		this.rightButton	= new Key(inpComp.rightButton.getKeyID());
+		this.forwardButton  = new Key(inpComp.forwardButton.getKeyID());
 		this.pipBuckButton	= new Key(inpComp.pipBuckButton.getKeyID());
 		this.gallopButton	= new Key(inpComp.gallopButton.getKeyID());
 	}

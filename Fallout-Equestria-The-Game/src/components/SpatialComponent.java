@@ -3,12 +3,15 @@ package components;
 import math.Vector2;
 import utils.Circle;
 import entityFramework.IComponent;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 
 /**
  * This is a component giving entities the
  * ability to get hit.
  * @author Gustav
  */
+@XStreamAlias("Spatial")
 public class SpatialComponent implements IComponent {
 
 	private Circle bounds;

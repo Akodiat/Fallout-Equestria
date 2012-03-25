@@ -13,7 +13,6 @@ import tests.CameraAndMapTest;
 import tests.SystemTester;
 import utils.Camera2D;
 import utils.Circle;
-import utils.ContentManager;
 import utils.Rectangle;
 
 import components.ActionPointsComponent;
@@ -23,6 +22,7 @@ import components.PhysicsComponent;
 import components.RenderingComponent;
 import components.SpatialComponent;
 import components.TransformationComp;
+import content.ContentManager;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;

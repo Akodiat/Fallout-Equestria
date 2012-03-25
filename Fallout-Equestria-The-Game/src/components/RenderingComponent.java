@@ -5,12 +5,15 @@ import entityFramework.IComponent;
 import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.Texture2D;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 
 /**
  * 
  * @author Joakim Johansson
  *
  */
+@XStreamAlias("Rendering")
 public class RenderingComponent implements IComponent {
 	
 	private Texture2D 	 texture;

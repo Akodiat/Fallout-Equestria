@@ -2,6 +2,9 @@ package components;
 
 import entityFramework.IComponent;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("Health")
 public class HealthComponent implements IComponent {
 
 	private int maxHealth;

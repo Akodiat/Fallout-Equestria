@@ -3,7 +3,7 @@ package entitySystems;
 import java.util.List;
 
 import utils.Circle;
-import utils.ContentManager;
+import content.ContentManager;
 
 import com.google.common.collect.ImmutableList;
 

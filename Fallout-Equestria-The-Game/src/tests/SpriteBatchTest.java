@@ -12,11 +12,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import content.ContentManager;
+
 import math.Matrix4;
 import math.Vector2;
 
 import utils.Camera2D;
-import utils.ContentManager;
 import utils.Rectangle;
 
 public class SpriteBatchTest {

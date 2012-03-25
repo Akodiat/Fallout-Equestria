@@ -3,6 +3,10 @@ package components;
 import entityFramework.IComponent;
 import scripting.LineScript;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+
+@XStreamAlias("Death")
 public class DeathComp implements IComponent{
 	LineScript deathScript;
 	

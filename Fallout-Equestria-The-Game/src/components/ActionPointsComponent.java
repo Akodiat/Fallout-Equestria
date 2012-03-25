@@ -1,7 +1,10 @@
 package components;
 
 import entityFramework.IComponent;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+
+@XStreamAlias("ActionPoints")
 public class ActionPointsComponent implements IComponent {
 
 	private int maxAbilityPoints;

@@ -13,6 +13,7 @@ import components.PhysicsComponent;
 import components.RenderingComponent;
 import components.SpatialComponent;
 import components.TransformationComp;
+import content.ContentManager;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -22,7 +23,6 @@ import scripting.ConsoleScriptFunction;
 import scripting.LineScript;
 import scripting.LineScriptProcessor;
 import utils.Circle;
-import utils.ContentManager;
 import utils.Rectangle;
 
 public class SimpleShootingTest extends AbstractSystemTest {

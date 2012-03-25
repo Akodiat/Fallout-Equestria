@@ -1,0 +1,62 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Transformation>
+        <position>
+          <X>0.0</X>
+          <Y>0.0</Y>
+        </position>
+        <scale>
+          <X>1.0</X>
+          <Y>1.0</Y>
+        </scale>
+        <origin reference="../position"/>
+        <rotation>0.0</rotation>
+      </Transformation>
+      <Health>
+        <maxHealth>450</maxHealth>
+        <regenSpeed>0.0</regenSpeed>
+        <healthPoints>0.0</healthPoints>
+      </Health>
+      <Input>
+        <mousePosition reference="../../Transformation/position"/>
+        <leftMouseButtonDown>false</leftMouseButtonDown>
+        <rightMouseButtonDown>false</rightMouseButtonDown>
+        <backButton>
+          <keyID>31</keyID>
+          <pressed>false</pressed>
+        </backButton>
+        <leftButton>
+          <keyID>30</keyID>
+          <pressed>false</pressed>
+        </leftButton>
+        <rightButton>
+          <keyID>32</keyID>
+          <pressed>false</pressed>
+        </rightButton>
+        <pipBuckButton>
+          <keyID>15</keyID>
+          <pressed>false</pressed>
+        </pipBuckButton>
+        <gallopButton>
+          <keyID>42</keyID>
+          <pressed>false</pressed>
+        </gallopButton>
+        <forwardButton>
+          <keyID>17</keyID>
+          <pressed>false</pressed>
+        </forwardButton>
+      </Input>
+      <Physics>
+        <velocity reference="../../Transformation/position"/>
+        <mass>1.0</mass>
+      </Physics>
+      <Spatial>
+        <bounds>
+          <position reference="../../../Transformation/position"/>
+          <radius>30.0</radius>
+        </bounds>
+      </Spatial>
+    </elements>
+  </components>
+</entityFramework.EntityArchetype>

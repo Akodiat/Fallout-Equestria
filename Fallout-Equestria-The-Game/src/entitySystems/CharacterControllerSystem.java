@@ -4,9 +4,9 @@ package entitySystems;
 import com.google.common.collect.ImmutableList;
 
 import utils.Circle;
-import utils.ContentManager;
 import math.Vector2;
 import components.*;
+import content.ContentManager;
 import entityFramework.*;
 import graphics.Color;
 import graphics.Texture2D;

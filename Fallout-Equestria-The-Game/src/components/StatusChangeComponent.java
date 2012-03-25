@@ -1,7 +1,9 @@
 package components;
 
 import entityFramework.IComponent;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+@XStreamAlias("Status")
 public class StatusChangeComponent implements IComponent {
 
 	private float damageToTake;

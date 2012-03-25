@@ -1,9 +1,14 @@
 package components;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import entityFramework.IComponent;
 import math.Vector2;
 
+
+@XStreamAlias("Transformation")
 public class TransformationComp implements IComponent {
+	
 	private Vector2 	 position;
 	private Vector2 	 scale;
 	private Vector2 	 origin;

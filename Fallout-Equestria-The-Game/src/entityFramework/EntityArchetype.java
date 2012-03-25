@@ -26,5 +26,13 @@ public class EntityArchetype implements IEntityArchetype{
 		}
 		return ImmutableSet.copyOf(clonedList);
 	}
+	
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		for (IComponent component : this.components) {
+			builder.append(component.toString() + "\n");
+		}
+		return builder.toString();
+	}
 
 }

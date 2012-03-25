@@ -1,11 +1,11 @@
 package entitySystems;
 
 import math.Vector2;
-import utils.ContentManager;
 
 import com.google.common.collect.ImmutableSet;
 import components.SpatialComponent;
 import components.TransformationComp;
+import content.ContentManager;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;

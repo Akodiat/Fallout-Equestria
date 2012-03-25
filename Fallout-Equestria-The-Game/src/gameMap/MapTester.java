@@ -5,7 +5,8 @@ import java.io.IOException;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
-import utils.ContentManager;
+import content.ContentManager;
+
 
 import graphics.SpriteBatch;
 import graphics.Texture2D;

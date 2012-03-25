@@ -7,6 +7,9 @@ import utils.SoundEvent;
 
 import entityFramework.IComponent;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("SoundEffecs")
 public class SoundEffectComponent implements IComponent{
 	private List<String> soundsToPlay;
 	

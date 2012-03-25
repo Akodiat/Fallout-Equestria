@@ -3,8 +3,13 @@ package components;
 import math.Vector2;
 import entityFramework.IComponent;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("Physics")
 public class PhysicsComponent implements IComponent{
 	private Vector2 velocity;
+	private float mass;
+	
 	/**
 	 * @return the mass
 	 */
@@ -18,7 +23,6 @@ public class PhysicsComponent implements IComponent{
 		this.mass = mass;
 	}
 
-	private float mass;
 	
 	public PhysicsComponent(){
 		this.velocity = Vector2.Zero;

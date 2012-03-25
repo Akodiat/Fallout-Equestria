@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import components.HealthComponent;
 import components.RenderingComponent;
 import components.TransformationComp;
+import content.ContentManager;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
@@ -12,7 +13,6 @@ import entityFramework.IEntityWorld;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import utils.ContentManager;
 import utils.Rectangle;
 
 public class HealthBarRenderSystem extends EntityProcessingSystem {

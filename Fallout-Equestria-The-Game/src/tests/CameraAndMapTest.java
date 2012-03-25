@@ -10,13 +10,13 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import components.*;
+import content.ContentManager;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
 
 import utils.Camera2D;
 import utils.Circle;
-import utils.ContentManager;
 import utils.Rectangle;
 
 import gameMap.*;

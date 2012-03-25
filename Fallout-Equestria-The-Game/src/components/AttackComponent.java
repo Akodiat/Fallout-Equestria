@@ -7,7 +7,10 @@ import utils.Circle;
 import com.google.common.collect.ImmutableList;
 
 import entityFramework.IComponent;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+
+@XStreamAlias("Attack")
 public class AttackComponent implements IComponent {
 
 	private Circle bounds;

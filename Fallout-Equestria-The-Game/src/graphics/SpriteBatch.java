@@ -1,5 +1,5 @@
 package graphics;
-import utils.ContentManager;
+import content.ContentManager;
 import utils.Rectangle;
 
 import math.Matrix4;
