@@ -139,6 +139,16 @@ public final class Vector2 {
 	public static Vector2 norm(Vector2 v) {
 		return Vector2.mul(1/v.length(), v);
 	}
+	/**
+	 * Rotates the vector v counter-clockwise with rotation rad.
+	 * @param v
+	 * @param rotation
+	 * @return the rotated vector
+	 */
+	public static Vector2 rotate(Vector2 v, float rotation){
+		return new Vector2((float) (v.X*Math.cos(rotation) + v.Y*-1*Math.sin(rotation)),
+				(float) (v.X*Math.sin(rotation) + v.Y*Math.cos(rotation)));
+	}
 	
 	/**
 	 * A vector with both elements set to Zero.

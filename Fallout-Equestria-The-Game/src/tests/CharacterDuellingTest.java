@@ -10,6 +10,7 @@ import org.lwjgl.opengl.Display;
 import graphics.Color;
 
 import utils.Circle;
+import utils.ContentManager;
 import utils.Rectangle;
 
 import components.HealthComponent;
@@ -47,13 +48,13 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 	public void initializeEntities(IEntityManager manager) {
 		IEntity player1 = manager.createEmptyEntity();
 		player1.addToGroup("Enemies");
-		
+
 		TransformationComp posC = new TransformationComp();
 		posC.setPosition(new Vector2(Display.getWidth()/2-200,Display.getHeight()/2));
 
 		PhysicsComponent physC = new PhysicsComponent();
 		physC.setVelocity(new Vector2(0,0));
-		
+
 		HealthComponent healthC = new HealthComponent(100,20f,100f);
 
 		InputComponent inpC = new InputComponent();
@@ -67,12 +68,9 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 
 		RenderingComponent rendC = new RenderingComponent();
 		rendC.setColor(new Color(42,200,255, 255));
-		try {
-			rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		rendC.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
+
 		posC.setOrigin(new Vector2(rendC.getTexture().Width/2,rendC.getTexture().Height/2));
 		SpatialComponent spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
@@ -82,13 +80,13 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player1.addComponent(posC);
 		player1.addComponent(spatC);
 		player1.addComponent(healthC);
-		
+
 		player1.refresh();
-		
+
 		//Player2:
 		IEntity player2 = manager.createEmptyEntity();
 		player2.addToGroup("Enemies");
-		
+
 		TransformationComp player2posC = new TransformationComp();
 		player2posC.setPosition(new Vector2(Display.getWidth()/2+200,Display.getHeight()/2));
 
@@ -96,7 +94,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player2physC.setVelocity(new Vector2(0,0));
 
 		HealthComponent player2healthC = new HealthComponent(100,20f,100f);
-		
+
 		InputComponent player2inpC = new InputComponent();
 
 		player2inpC.setBackButton(Keyboard.KEY_DOWN);
@@ -105,16 +103,14 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player2inpC.setRightButton(Keyboard.KEY_RIGHT);
 		player2inpC.setGallopButton(Keyboard.KEY_RCONTROL);
 		player2inpC.setPipBuckButton(Keyboard.KEY_M);
-		
+
 		RenderingComponent player2rendC = new RenderingComponent();
 		player2rendC.setColor(new Color(42,255,42, 255));
-		try {
-			player2rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("PPieLauncher.png")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		player2rendC.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
+
 		player2posC.setOrigin(new Vector2(player2rendC.getTexture().Width/2,player2rendC.getTexture().Height/2));
-		
+
 		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
 
 		player2.addComponent(player2rendC);
@@ -123,7 +119,7 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player2.addComponent(player2posC);
 		player2.addComponent(player2spatC);
 		player2.addComponent(player2healthC); 
-		
+
 		player2.refresh();
 	}
 
