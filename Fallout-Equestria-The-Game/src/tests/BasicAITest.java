@@ -6,6 +6,7 @@ import org.lwjgl.opengl.Display;
 
 import components.ActionPointsComponent;
 import components.BasicAIComp;
+import components.DeathComp;
 import components.HealthComponent;
 import components.InputComponent;
 import components.PhysicsComponent;
@@ -20,6 +21,7 @@ import entitySystems.BasicAISystem;
 import entitySystems.CameraControlSystem;
 import entitySystems.CharacterControllerSystem;
 import entitySystems.CollisionSystem;
+import entitySystems.DeathSystem;
 import entitySystems.DebugAttackRenderSystem;
 import entitySystems.DebugSpatialRenderSystem;
 import entitySystems.HUDRenderingSystem;
@@ -59,6 +61,7 @@ public class BasicAITest extends AbstractSystemTest{
 		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new BasicAISystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new DeathSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -110,6 +113,8 @@ public class BasicAITest extends AbstractSystemTest{
 			TransformationComp transComp = new TransformationComp();
 			transComp.setPosition((float)Math.random() * 800,(float)Math.random() * 600);
 			SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
+			HealthComponent healthComp = new HealthComponent(50,1,50);
+			DeathComp deathComp = new DeathComp();
 			RenderingComponent rendComp = new RenderingComponent();
 			rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 			rendComp.setColor(Color.Red);
@@ -120,6 +125,8 @@ public class BasicAITest extends AbstractSystemTest{
 			
 			enemy.addComponent(rendComp);
 			enemy.addComponent(spatComp);
+			enemy.addComponent(healthComp);
+			enemy.addComponent(deathComp);
 			enemy.addComponent(transComp);
 			enemy.addComponent(physComp);
 			enemy.addComponent(AIComp);

@@ -60,7 +60,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 				TransformationComp attackPosComp = new TransformationComp();
 
-				SpatialComponent attackSpatComp = new SpatialComponent(new Circle(Vector2.Zero,30f)); 
+				SpatialComponent attackSpatComp = new SpatialComponent(new Circle(Vector2.Zero,10f)); 
 
 				RenderingComponent attackRendComp = new RenderingComponent();
 				attackRendComp.setColor(new Color(255,255,255, 255));
