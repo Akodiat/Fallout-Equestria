@@ -10,22 +10,21 @@ import entityFramework.ComponentMapper;
 import entityFramework.EntitySystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import entityFramework.LabelEntitySystem;
 import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 
-public class HUDRenderingSystem extends EntitySystem {
-	private final String playerLabel;
+public class HUDRenderingSystem extends LabelEntitySystem {
 	private SpriteBatch batch;
 	private Vector2 healthPos;
 	private Vector2 apPos;
 
 	public HUDRenderingSystem(IEntityWorld world, SpriteBatch batch,
 			String playerLabel) {
-		super(world);
+		super(world, playerLabel, HealthComponent.class, ActionPointsComponent.class);
 		this.batch = batch;
-		this.playerLabel = playerLabel;
 		this.healthPos = new Vector2(100, 100);
 		this.apPos = new Vector2(100,140);
 	}
@@ -42,40 +41,38 @@ public class HUDRenderingSystem extends EntitySystem {
 	}
 
 	@Override
-	public void process() {
-		IEntity entity = this.getWorld().getEntityManager()
-				.getEntity(this.playerLabel);
+	protected void processEntity(IEntity entity) {
+		HealthComponent comp = this.healthCM.getComponent(entity);
+		float ratio = comp.getHealthPoints() / comp.getMaxHealth();
+
+		this.batch.end();
+		ShaderEffect effect = this.batch.getActiveEffect();
+		Matrix4 view = this.batch.getView();
+
+		this.batch.begin(effect, Matrix4.Identity);
+
+		Rectangle rectHealth = new Rectangle((int) this.healthPos.X,
+				(int) this.healthPos.Y, (int) (100.0f * ratio), 20);
+		this.batch.draw(Texture2D.getPixel(), rectHealth, Color.White, null);
+
+		ActionPointsComponent actionComp = this.apCM.getComponent(entity);
 		
-		// TODO remove this ugly if statement and handle player death in some
-		// other manor.
-		if (entity != null) {
-			HealthComponent comp = this.healthCM.getComponent(entity);
-			float ratio = comp.getHealthPoints() / comp.getMaxHealth();
+		ratio = actionComp.getAbilityPoints() / actionComp.getMaxAbilityPoints();
+		
+		Rectangle rectAp = new Rectangle((int) this.apPos.X,
+				(int) this.apPos.Y, (int) (100.0f * ratio), 20);
+		this.batch.draw(Texture2D.getPixel(), rectAp, Color.Gold, null);
+		
+		
+		this.batch.end();
+		this.batch.begin(effect, view);	
+	}
 
-			this.batch.end();
-			ShaderEffect effect = this.batch.getActiveEffect();
-			Matrix4 view = this.batch.getView();
-
-			this.batch.begin(effect, Matrix4.Identity);
-
-			Rectangle rectHealth = new Rectangle((int) this.healthPos.X,
-					(int) this.healthPos.Y, (int) (100.0f * ratio), 20);
-			this.batch.draw(Texture2D.getPixel(), rectHealth, Color.White, null);
-
-			ActionPointsComponent actionComp = this.apCM.getComponent(entity);
-			
-			ratio = actionComp.getAbilityPoints() / actionComp.getMaxAbilityPoints();
-			
-			Rectangle rectAp = new Rectangle((int) this.apPos.X,
-					(int) this.apPos.Y, (int) (100.0f * ratio), 20);
-			this.batch.draw(Texture2D.getPixel(), rectAp, Color.Gold, null);
-			
-			
-			
-			this.batch.end();
-			this.batch.begin(effect, view);
-		}
-
+	@Override
+	protected void processMissingEntity() {
+		// TODO Auto-generated method stub
+		//Question should something be done here? Yes no maby so? IDK i rly don't know. 
+		//Should this method 
 	}
 
 }

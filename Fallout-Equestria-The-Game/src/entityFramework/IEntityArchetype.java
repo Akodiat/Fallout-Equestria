@@ -16,4 +16,10 @@ public interface IEntityArchetype {
 	 * @return a set of components.
 	 */
 	public ImmutableSet<IComponent> getComponents();
+	
+	/**Gets a set of groups the component should be added to.
+	 * 
+	 * @return a set of groups.
+	 */
+	public ImmutableSet<String> getGroups();
 }

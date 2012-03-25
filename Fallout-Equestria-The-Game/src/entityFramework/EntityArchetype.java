@@ -7,14 +7,24 @@ import java.util.List;
 import com.google.common.collect.ImmutableSet;
 
 
-public class EntityArchetype implements IEntityArchetype{
+public final class EntityArchetype implements IEntityArchetype{
 
-	//Since the components should not be changed we
+	//Since the components should not be changed.
 	private ImmutableSet<IComponent> components;
 	
+	//Since the default groups should not be changed.
+	private ImmutableSet<String> groups;
+	
 	public EntityArchetype(Collection<IComponent> componentCollection) {
-		this.components = ImmutableSet.copyOf(componentCollection);
+		this(componentCollection, new ArrayList<String>());
 	}
+	
+	public EntityArchetype(Collection<IComponent> componentCollection, Collection<String> groups) {
+		this.components = ImmutableSet.copyOf(componentCollection);
+		this.groups = ImmutableSet.copyOf(groups);
+	}
+	
+	
 
 	@Override
 	public ImmutableSet<IComponent> getComponents() {
@@ -27,8 +37,20 @@ public class EntityArchetype implements IEntityArchetype{
 		return ImmutableSet.copyOf(clonedList);
 	}
 	
+	@Override
+	public ImmutableSet<String> getGroups() {
+		return this.groups;
+	}
+	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		if(this.groups.size() > 0) {
+			builder.append("Part of groups" + "\n");
+			for (String group : this.groups) {
+				builder.append(group + "\n");
+			}
+		}
+		
 		for (IComponent component : this.components) {
 			builder.append(component.toString() + "\n");
 		}
