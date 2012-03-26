@@ -15,7 +15,7 @@ public class Vector2Converter extends AbstractSingleValueConverter{
 	public Object fromString(String str) {
 		String[] elements = str.split(",");
 		return new Vector2(Float.parseFloat(elements[0]),
-				Float.parseFloat(elements[0]));
+				Float.parseFloat(elements[1]));
 	}
 
 }

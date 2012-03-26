@@ -3,6 +3,8 @@ package entitySystems;
 import java.util.List;
 
 import utils.Circle;
+import ability.Ability;
+import ability.PPieLaunchAbility;
 import content.ContentManager;
 
 import com.google.common.collect.ImmutableList;
@@ -31,6 +33,8 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 	private ComponentMapper<BasicAIComp> basicAICM;
 	private ComponentMapper<PhysicsComponent> physCM;
 	private ComponentMapper<TransformationComp> transCM;
+	
+	private Ability pinkieRocket;
 
 	private Texture2D attackTexture;
 
@@ -41,6 +45,8 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		transCM = ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
 
 		attackTexture = ContentManager.loadTexture("pinksplosion rocket.png");
+		this.pinkieRocket = new PPieLaunchAbility(10,1);
+		this.pinkieRocket.initialize();
 	}
 
 	@Override
@@ -68,7 +74,8 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		physComp.setVelocity(targetDirection);
 
 		if(Math.random()<0.003)
-			shoot(targetDirection, transComp.getPosition());
+			this.pinkieRocket.useAbility(entity, transCM.getComponent(target).getPosition(), this.getWorld().getEntityManager());
+			//shoot(targetDirection, transComp.getPosition());
 	}
 	private void shoot(Vector2 targetDirection, Vector2 position){
 		IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
