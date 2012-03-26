@@ -9,7 +9,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import tests.CameraAndMapTest;
 import tests.SystemTester;
 import utils.Camera2D;
 import utils.Circle;

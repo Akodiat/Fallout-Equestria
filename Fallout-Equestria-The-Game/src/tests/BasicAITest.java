@@ -84,7 +84,7 @@ public class BasicAITest extends AbstractSystemTest{
 	}
 	private void generateRandomEnemies(IEntityManager manager) {
 		IEntityArchetype arch = ContentManager.loadArchetype("BasicAI.archetype"); 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < numEnemies; i++) {
 			IEntity enemy = manager.createEntity(arch);
 			enemy.setLabel("Enemy" + i);
 			enemy.addToGroup("Enemies");	

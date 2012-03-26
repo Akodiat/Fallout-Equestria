@@ -7,7 +7,6 @@ import content.ContentManager;
 
 import com.google.common.collect.ImmutableList;
 
-import math.MathHelper;
 import math.Vector2;
 import components.AttackComponent;
 import components.BasicAIComp;

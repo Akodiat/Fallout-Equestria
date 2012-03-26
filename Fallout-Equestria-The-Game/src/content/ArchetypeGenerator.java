@@ -1,15 +1,10 @@
 package content;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-
 import math.Vector2;
 
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 
 import utils.Circle;
