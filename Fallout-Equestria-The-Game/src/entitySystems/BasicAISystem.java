@@ -51,7 +51,9 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 
 		//Set target to the nearest entity from the group "Friends"
 		List<IEntity> targetList= this.getWorld().getEntityManager().getEntityGroup("Friends").asList();
-		//TODO This gives an error if the targetList is empty. 
+		if(targetList.isEmpty())
+			return; //No point in doing things if there isn't even a player to attack...
+		
 		IEntity target = targetList.get(0);
 		for(IEntity possibleTarget: targetList){
 			if (Vector2.distance(transComp.getPosition(), transCM.getComponent(possibleTarget).getPosition()) <
@@ -65,12 +67,12 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		//physComp.setVelocity(Vector2.rotate(targetDirection, (float) Math.random()*MathHelper.Pi-MathHelper.Pi/2));//((float) Math.random()*MathHelper.TwoPi-MathHelper.Pi)));
 		physComp.setVelocity(targetDirection);
 
-		if(Math.random()<0.001)
+		if(Math.random()<0.003)
 			shoot(targetDirection, transComp.getPosition());
 	}
 	private void shoot(Vector2 targetDirection, Vector2 position){
 		IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
-		AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,10f),40, ImmutableList.of("Friends"));
+		AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,10f),80, ImmutableList.of("Friends"));
 
 
 		PhysicsComponent attackPhysComp = new PhysicsComponent(targetDirection);
@@ -91,7 +93,7 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		attack.addComponent(attackPhysComp);
 		attack.addComponent(attackComp);
 		attack.addComponent(attackRendComp);
-		attack.addComponent(attackSpatComp);
+		//attack.addComponent(attackSpatComp);
 
 		attack.refresh();
 	}
