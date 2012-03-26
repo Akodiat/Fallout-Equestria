@@ -17,6 +17,9 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 		this.batch = batch;
 		this.healthPos = new Vector2(100, 100);
 		this.apPos = new Vector2(100,140);
+		
+		this.healthPos = new Vector2(batch.getViewport().Width/2 -50,batch.getViewport().Height -100);
+		this.apPos = new Vector2(batch.getViewport().Width/2 -50,batch.getViewport().Height -50);
 	}
 
 	private ComponentMapper<HealthComponent> healthCM;
@@ -62,7 +65,7 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 		float ratio = comp.getHealthPoints() / comp.getMaxHealth();
 		Rectangle rectHealth = new Rectangle((int) this.healthPos.X,
 				(int) this.healthPos.Y, (int) (100.0f * ratio), 20);
-		this.batch.draw(Texture2D.getPixel(), rectHealth, Color.White, null);
+		this.batch.draw(Texture2D.getPixel(), rectHealth, Color.Green, null);
 	}
 
 	@Override
