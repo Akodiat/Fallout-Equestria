@@ -1,12 +1,14 @@
-package utils;
+package uinttests;
 
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
+import utils.ITimerListener;
+import utils.Timer;
+
 public class TimerTests {
 
-	
 	@Test
 	public void testStart() {
 		ITimerListener timerListener = mock(ITimerListener.class);

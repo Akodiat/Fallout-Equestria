@@ -1,6 +1,5 @@
 package tests;
 
-import java.io.IOException;
 
 import math.Vector2;
 
@@ -27,7 +26,6 @@ import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
 import entitySystems.RenderingSystem;
-import graphics.TextureLoader;
 
 public class CharacterDuellingTest extends AbstractSystemTest{
 

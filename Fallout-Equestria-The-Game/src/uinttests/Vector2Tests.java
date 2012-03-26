@@ -1,4 +1,4 @@
-package tests;
+package uinttests;
 
 import static org.junit.Assert.*;
 
@@ -110,6 +110,18 @@ public class Vector2Tests {
 		
 		assertTrue(result.X == Vector2.mul(1/vector1.length(), vector1).X);
 		assertTrue(result.Y == Vector2.mul(1/vector1.length(), vector1).Y);
-		assertTrue(result.length() == 1.0);
+		assertTrue(result.length() < 1.000001f && result.length() > 1.0f - 000001f);
+	}
+	
+	@Test
+	public void testEquallity() {
+		Vector2 vector0 = new Vector2(1.0f, 2.0f);
+		Vector2 vector1 = new Vector2(2.0f, 2.0f);
+		Vector2 vector2 = new Vector2(1.0f, 2.0f);
+		
+		assertTrue(vector0.equals(vector0));
+		assertFalse(vector0.equals(vector1));
+		assertTrue(vector0.equals(vector2));
+		
 	}
 }

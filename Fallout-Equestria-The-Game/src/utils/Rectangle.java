@@ -1,5 +1,7 @@
 package utils;
 
+import math.Vector2;
+
 public final class Rectangle {
 
 	public final int X;
@@ -29,6 +31,11 @@ public final class Rectangle {
 	
 	public int getBottom() {
 		return this.Y + this.Height;
+	}
+	
+	public Vector2 getCenter() {
+		return new Vector2(this.X + this.Width  / 2.0f, 
+						   this.Y + this.Height / 2.0f);
 	}
 	
 	public String toString() {

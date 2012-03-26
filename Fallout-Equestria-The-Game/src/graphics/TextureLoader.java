@@ -9,12 +9,14 @@ import de.matthiasmann.twl.utils.PNGDecoder.Format;
 
 import static org.lwjgl.opengl.GL11.*;
 
-
+/**
+ * 
+ * @author Lukas Kurtyan
+ *
+ */
 public final class TextureLoader {
 	
-	
-	
-	public static Texture2D loadTexture(InputStream stream) throws IOException{
+	public Texture2D loadTexture(InputStream stream) throws IOException{
 		
 		PNGDecoder decoder = new PNGDecoder(stream);
 		

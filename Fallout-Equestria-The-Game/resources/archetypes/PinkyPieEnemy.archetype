@@ -1,0 +1,41 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Transformation>
+        <position>0.0,0.0</position>
+        <scale>1.0,1.0</scale>
+        <origin>46.5,44.5</origin>
+        <rotation>0.0</rotation>
+      </Transformation>
+      <Spatial>
+        <bounds>
+          <position>0.0,0.0</position>
+          <radius>0.0</radius>
+        </bounds>
+      </Spatial>
+      <Health>
+        <maxHealth>100</maxHealth>
+        <regenSpeed>10.0</regenSpeed>
+        <healthPoints>100.0</healthPoints>
+      </Health>
+      <ActionPoints>
+        <maxAbilityPoints>100</maxAbilityPoints>
+        <abilityPoints>100.0</abilityPoints>
+        <regenerationSpeed>10.0</regenerationSpeed>
+      </ActionPoints>
+      <Rendering>
+        <texture>
+          <TextureAsset>HEJHEJ.png</TextureAsset>
+        </texture>
+        <color>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </color>
+      </Rendering>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <string>Enemies</string>
+    </elements>
+  </groups>
+</entityFramework.EntityArchetype>

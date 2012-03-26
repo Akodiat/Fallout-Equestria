@@ -1,9 +1,12 @@
-package tests;
+package uinttests;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import content.ContentManager;
 
 import scripting.ILineScript;
 import scripting.ILineScriptProcessor;
@@ -131,6 +134,15 @@ public class ScriptSystemTest {
 		
 		verify(function1).excecute(new String[0]);
 		verify(function2).excecute(new String[] { "With a smile!" });	
+	}
+	
+
+	@Test
+	public void testLoadScript() {
+		String path = "TestScript.script";
+		ILineScript script = ContentManager.loadScript(path);
+		String[] lines = script.getAllLines();
+		assertTrue(lines.length == 3);
 	}
 
 

@@ -57,6 +57,20 @@
           <radius>30.0</radius>
         </bounds>
       </Spatial>
+      <Rendering>
+        <texture>
+          <TextureAsset>Circle100pxGrey.png</TextureAsset>
+        </texture>
+        <color>
+          <R>1.0</R>
+          <G>1.0</G>
+          <B>1.0</B>
+          <A>1.0</A>
+        </color>
+      </Rendering>
     </elements>
   </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
 </entityFramework.EntityArchetype>

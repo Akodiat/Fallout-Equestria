@@ -1,7 +1,5 @@
 package tests;
 
-import java.io.IOException;
-
 import math.Vector2;
 
 import org.lwjgl.LWJGLException;
@@ -12,6 +10,7 @@ import components.InputComponent;
 import components.PhysicsComponent;
 import components.RenderingComponent;
 import components.TransformationComp;
+import content.ContentManager;
 
 import utils.Rectangle;
 import entityFramework.IEntity;
@@ -20,7 +19,6 @@ import entitySystems.RenderingSystem;
 import entitySystems.CharacterControllerSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
-import graphics.TextureLoader;
 /**
  * 
  * @author Lukas
@@ -62,12 +60,8 @@ public class CharacterMovementTest extends AbstractSystemTest{
 		
 		RenderingComponent rendC = new RenderingComponent();
 		rendC.setColor(new Color(255,255,255,255));
-		try {
-			rendC.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		rendC.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
+	
 		
 		entity.addComponent(rendC);
 		entity.addComponent(inpC);

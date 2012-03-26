@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
  public class ShaderLoader {
 	
-	  private static int loadShader(int shaderType, InputStream stream) throws IOException{
+	  private int loadShader(int shaderType, InputStream stream) throws IOException{
 	        int shader = glCreateShader(shaderType);
 	       
 	        if (shader != 0) {
@@ -24,8 +24,6 @@ import java.io.InputStreamReader;
                 	BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
                 	
                 	String line;
-                	line = reader.readLine();
-                	
                 	while ((line = reader.readLine()) != null) {
                 		text.append(line).append("\n");
                 	}
@@ -61,15 +59,15 @@ import java.io.InputStreamReader;
 	        return shader;
 	    }
 
-	  private static int loadVerexShader(InputStream stream) throws IOException {
+	  private int loadVerexShader(InputStream stream) throws IOException {
 		  return loadShader(GL_VERTEX_SHADER, stream);
 	  }
 	  
-	  private static int loadFragmentShader(InputStream stream) throws IOException {
+	  private int loadFragmentShader(InputStream stream) throws IOException {
 		  return loadShader(GL_FRAGMENT_SHADER, stream);
 	  }
 	  
-	  public static ShaderEffect loadShader(InputStream vertexStream, InputStream fragmentStream) throws IOException {		  
+	  public ShaderEffect loadShader(InputStream vertexStream, InputStream fragmentStream) throws IOException {		  
 		  int vertexShader = loadVerexShader(vertexStream);
 		  int fragmentShader = loadFragmentShader(fragmentStream);
 		  int program = glCreateProgram();

@@ -46,6 +46,10 @@ public class EntityFactory implements IEntityFactory{
 		for (IComponent component : components) {
 			entity.addComponent(component);
 		}
+		ImmutableSet<String> groups = archetype.getGroups();
+		for (String group : groups) {
+			entity.addToGroup(group);
+		}
 		
 		return entity;
 	}

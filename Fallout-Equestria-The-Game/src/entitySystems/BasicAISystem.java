@@ -52,6 +52,7 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 
 		//Set target to the nearest entity from the group "Friends"
 		List<IEntity> targetList= this.getWorld().getEntityManager().getEntityGroup("Friends").asList();
+		//TODO This gives an error if the targetList is empty. 
 		IEntity target = targetList.get(0);
 		for(IEntity possibleTarget: targetList){
 			if (Vector2.distance(transComp.getPosition(), transCM.getComponent(possibleTarget).getPosition()) <

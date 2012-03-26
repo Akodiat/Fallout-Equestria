@@ -3,14 +3,21 @@ package content;
 import java.io.InputStream;
 import components.*;
 
+import com.google.common.collect.ImmutableSet;
 import com.thoughtworks.xstream.XStream;
 import entityFramework.IEntityArchetype;
 
 public class EntityArchetypeLoader {
 	
 	private static final XStream xstream = new XStream();
-	
+	private static boolean isInitalized = false;
 	public static void initialize() {
+
+		xstream.registerConverter(new TextureConverter());
+		xstream.registerConverter(new Vector2Converter());
+		xstream.registerConverter(new ColorConverter());
+		xstream.alias("Set", ImmutableSet.class);
+		
 		xstream.processAnnotations(ActionPointsComponent.class);
 		xstream.processAnnotations(AttackComponent.class);
 		xstream.processAnnotations(BasicAIComp.class);
@@ -23,10 +30,16 @@ public class EntityArchetypeLoader {
 		xstream.processAnnotations(SpatialComponent.class);
 		xstream.processAnnotations(StatusChangeComponent.class);
 		xstream.processAnnotations(TransformationComp.class);
+
 	}
 	
 	
-	public static IEntityArchetype loadArchetype(InputStream stream) {
+	public IEntityArchetype loadArchetype(InputStream stream) {
+		if(!isInitalized) {
+			isInitalized = true;
+			initialize();
+		}
+		
 		IEntityArchetype archetype = (IEntityArchetype)xstream.fromXML(stream);
 		return archetype;
 	}

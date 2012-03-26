@@ -59,6 +59,7 @@ public class Camera2D {
 	}
 	
 	private void validatePosition() {
+		//TODO confirm this is correct. 
 		float x = this.position.X, y = this.position.Y;
 		float left = this.worldBounds.getLeft() * this.zoom.X;
 		float right = this.worldBounds.getRight() * this.zoom.X + this.screenOffset.X  * 2 *  this.zoom.X;
@@ -120,7 +121,7 @@ public class Camera2D {
 			+  "Screen Offset:   " + this.screenOffset.toString() + "\n"
 			+  "Center Position: " + this.position.toString() + "\n"
 			+  "Zoom:            " + this.zoom.toString() + "\n"
-			+  "World Bounds:    " + this.worldBounds.toString();
+			+  "World Bounds:    " + this.worldBounds.toString() + "\n";
 	}
 	
 }

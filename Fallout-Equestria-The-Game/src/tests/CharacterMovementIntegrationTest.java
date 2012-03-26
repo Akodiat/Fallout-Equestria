@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import graphics.Color;
 import graphics.SpriteBatch;
-import graphics.TextureLoader;
 
 import math.Vector2;
 
@@ -18,6 +17,7 @@ import components.InputComponent;
 import components.PhysicsComponent;
 import components.RenderingComponent;
 import components.TransformationComp;
+import content.ContentManager;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class CharacterMovementIntegrationTest {
 		
 		RenderingComponent rendComp = new RenderingComponent();
 		rendComp.setColor(new Color(255,255,255, 255));
-		rendComp.setTexture(TextureLoader.loadTexture(TextureTest.class.getResourceAsStream("HEJHEJ.png")));
+		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getWidth()/2,Display.getHeight()/2));

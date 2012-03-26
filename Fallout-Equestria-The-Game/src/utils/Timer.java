@@ -21,8 +21,7 @@ public class Timer {
 	
 	private static Set<Timer> activeTimers =
 								new HashSet<>();
-	
-					
+						
 	public Timer(float tickInterval, int numTicks) {
 		this.listeners = new HashSet<>();
 		this.tickInterval = tickInterval;
@@ -35,8 +34,10 @@ public class Timer {
 	 * 
 	 */
 	public void Start() {
-		this.onStart();
-		activeTimers.add(this);
+		if(!this.isActive()) {
+			this.onStart();
+			activeTimers.add(this);
+		}
 	}
 	
 	/**Pauses the timer.
@@ -58,12 +59,14 @@ public class Timer {
 	 * This differs from pause due to the fact that the timer resets it's state.
 	 */
 	public void Stop() {
-		this.onComplete();
-		activeTimers.remove(this);
+		if(this.isActive()) {
+			this.onComplete();
+			activeTimers.remove(this);
+		}
+		
 		this.tickCount = 0;
 		this.elapsedTime = 0.0f;
 	}
-
 	
 	public float getTickInterval() {
 		return tickInterval;
@@ -115,6 +118,10 @@ public class Timer {
 		return this.tickCount >= this.numTicks;
 	}
 	
+	public boolean isActive() {
+		return activeTimers.contains(this);
+	}
+
 	/**Updates all the active timers applying the elapsed time.
 	 * Note: This method must be called, otherwise the timers wont tick.
 	 * 

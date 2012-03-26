@@ -1,20 +1,10 @@
 package entitySystems;
 
-import utils.Rectangle;
-import components.ActionPointsComponent;
-import components.HealthComponent;
-
-import math.Matrix4;
-import math.Vector2;
-import entityFramework.ComponentMapper;
-import entityFramework.EntitySystem;
-import entityFramework.IEntity;
-import entityFramework.IEntityWorld;
-import entityFramework.LabelEntitySystem;
-import graphics.Color;
-import graphics.ShaderEffect;
-import graphics.SpriteBatch;
-import graphics.Texture2D;
+import utils.*;
+import components.*;
+import math.*;
+import entityFramework.*;
+import graphics.*;
 
 public class HUDRenderingSystem extends LabelEntitySystem {
 	private SpriteBatch batch;
@@ -42,30 +32,37 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		HealthComponent comp = this.healthCM.getComponent(entity);
-		float ratio = comp.getHealthPoints() / comp.getMaxHealth();
-
-		this.batch.end();
 		ShaderEffect effect = this.batch.getActiveEffect();
 		Matrix4 view = this.batch.getView();
 
+		this.batch.end();
 		this.batch.begin(effect, Matrix4.Identity);
 
-		Rectangle rectHealth = new Rectangle((int) this.healthPos.X,
-				(int) this.healthPos.Y, (int) (100.0f * ratio), 20);
-		this.batch.draw(Texture2D.getPixel(), rectHealth, Color.White, null);
-
-		ActionPointsComponent actionComp = this.apCM.getComponent(entity);
-		
-		ratio = actionComp.getAbilityPoints() / actionComp.getMaxAbilityPoints();
-		
-		Rectangle rectAp = new Rectangle((int) this.apPos.X,
-				(int) this.apPos.Y, (int) (100.0f * ratio), 20);
-		this.batch.draw(Texture2D.getPixel(), rectAp, Color.Gold, null);
-		
+		drawHealthBar(entity);
+		drawActionPointsBar(entity);
 		
 		this.batch.end();
 		this.batch.begin(effect, view);	
+	}
+
+	private void drawActionPointsBar(IEntity entity) {
+		ActionPointsComponent actionComp = this.apCM.getComponent(entity);
+		
+		float ratio = actionComp.getAbilityPoints() / actionComp.getMaxAbilityPoints();
+		
+		Rectangle rectAp = new Rectangle((int) this.apPos.X,
+				(int) this.apPos.Y, (int) (100.0f * ratio), 20);
+
+		this.batch.draw(Texture2D.getPixel(), rectAp, Color.Gold, null);
+		
+	}
+
+	private void drawHealthBar(IEntity entity) {
+		HealthComponent comp = this.healthCM.getComponent(entity);
+		float ratio = comp.getHealthPoints() / comp.getMaxHealth();
+		Rectangle rectHealth = new Rectangle((int) this.healthPos.X,
+				(int) this.healthPos.Y, (int) (100.0f * ratio), 20);
+		this.batch.draw(Texture2D.getPixel(), rectHealth, Color.White, null);
 	}
 
 	@Override
