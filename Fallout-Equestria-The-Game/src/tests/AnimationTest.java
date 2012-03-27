@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableList;
 
 import components.*;
 import content.ContentManager;
+import death.PPDeathAction;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
@@ -111,6 +112,8 @@ public class AnimationTest {
 		tester.addLogicubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new AnimationSystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new DeathSystem(this.tester.getWorld()));
+		tester.addLogicubSystem(new DeathResolveSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
@@ -122,7 +125,7 @@ public class AnimationTest {
 		
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");
-		player.addToGroup("CAMERA_TARGET");
+		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		player.setLabel("Player");
 		PhysicsComponent physComp = new PhysicsComponent();
@@ -133,6 +136,8 @@ public class AnimationTest {
 
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 		ActionPointsComponent apComp = new ActionPointsComponent();
+		DeathComp deathComp = new DeathComp();
+		deathComp.addDeathAction(new PPDeathAction());
 		
 		//ANIMATIONCOMPONENT
 		Frame frame1 = new Frame(new Rectangle(0,0,44,38),new Vector2(22,19), false);
@@ -160,11 +165,9 @@ public class AnimationTest {
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
 		player.addComponent(apComp);
-
+		player.addComponent(deathComp);
+		
 		player.refresh();
-		
-
-		
 		
 		IEntity house = manager.createEmptyEntity();
 		house.setLabel("House");

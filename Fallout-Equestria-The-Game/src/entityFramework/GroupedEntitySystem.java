@@ -18,12 +18,13 @@ public abstract class GroupedEntitySystem extends EntitySystem {
 			super.entityChanged(entity);
 		}
 	}
-	
 
 	@Override
 	public void process() {
 		ImmutableSet<IEntity> entities = ImmutableSet.copyOf(this.getEntities().values());
-		this.processEntities(entities);
+		if(!entities.isEmpty()) {
+			this.processEntities(entities);
+		}
 	}
 
 	protected abstract void processEntities(ImmutableSet<IEntity> entities);

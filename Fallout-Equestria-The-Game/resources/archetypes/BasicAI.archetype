@@ -2,7 +2,7 @@
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
       <Transformation>
-        <position>625.5791,166.0111</position>
+        <position>634.4806,228.75424</position>
         <scale>1.0,1.0</scale>
         <origin>46.0,44.0</origin>
         <rotation>0.0</rotation>
@@ -18,7 +18,9 @@
         <regenSpeed>1.0</regenSpeed>
         <healthPoints>50.0</healthPoints>
       </Health>
-      <Death/>
+      <Death>
+        <deathActions/>
+      </Death>
       <Rendering>
         <texture>
           <TextureAsset>HEJHEJ.png</TextureAsset>
@@ -26,6 +28,7 @@
         <color>
           <Color>1.0,0.0,0.0,1.0</Color>
         </color>
+        <mirrored>false</mirrored>
       </Rendering>
       <Physics>
         <velocity reference="../../Spatial/bounds/position"/>

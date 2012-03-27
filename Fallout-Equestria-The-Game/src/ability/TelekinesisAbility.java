@@ -20,9 +20,6 @@ public class TelekinesisAbility extends Ability{
 			IEntityManager manager) {
 		ImmutableSet<IEntity> pickupableSet = manager.getEntityGroup("Pickup-able");
 		List<IEntity> pickupable = pickupableSet.asList();
-		
-		
-		
 	}
 
 	@Override
