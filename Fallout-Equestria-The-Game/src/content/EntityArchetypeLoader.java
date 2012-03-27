@@ -28,7 +28,6 @@ public class EntityArchetypeLoader {
 		xstream.processAnnotations(RenderingComponent.class);
 		xstream.processAnnotations(SoundEffectComponent.class);
 		xstream.processAnnotations(SpatialComponent.class);
-		xstream.processAnnotations(StatusChangeComponent.class);
 		xstream.processAnnotations(TransformationComp.class);
 
 	}

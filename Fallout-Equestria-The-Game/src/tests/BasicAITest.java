@@ -35,7 +35,6 @@ public class BasicAITest extends AbstractSystemTest{
 		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new BasicAISystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new DeathSystem(this.tester.getWorld()));

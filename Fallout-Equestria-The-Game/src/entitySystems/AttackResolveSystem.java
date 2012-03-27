@@ -7,10 +7,7 @@ import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.AttackComponent;
-import components.SpatialComponent;
-import components.StatusChangeComponent;
-import components.TransformationComp;
+import components.*;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
@@ -70,9 +67,10 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 				if (itGotHit) {
 					hitSomething = true;
-					targetEntity.addComponent(new StatusChangeComponent(attaCom
-							.getDamage(), ""));
-					targetEntity.refresh();	
+					HealthComponent healthComp = targetEntity.getComponent(HealthComponent.class);
+					if(healthComp != null) {
+						healthComp.addHealthPoints(-attaCom.getDamage());
+					}
 				}
 			}
 

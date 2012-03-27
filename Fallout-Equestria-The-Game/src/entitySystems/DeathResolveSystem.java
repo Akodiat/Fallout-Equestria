@@ -1,6 +1,5 @@
 package entitySystems;
 
-import scripting.ILineScriptProcessor;
 import components.DeathComp;
 import death.IDeathAction;
 
@@ -11,7 +10,7 @@ import entityFramework.IEntityWorld;
 
 public class DeathResolveSystem extends EntitySystem{
 	
-	public DeathResolveSystem(IEntityWorld world, ILineScriptProcessor deathProcessor) {
+	public DeathResolveSystem(IEntityWorld world) {
 		super(world, DeathComp.class);
 	}
 	

@@ -11,7 +11,6 @@ import graphics.Texture2D;
 public class AnimationComp implements IComponent {
 	
 	private Map<String, Animation> animations;
-	
 	private Animation activeAnimation;
 	
 	public AnimationComp(Map<String, Animation> animations){

@@ -25,19 +25,7 @@ import content.ContentManager;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
-import entitySystems.AttackResolveSystem;
-import entitySystems.CameraControlSystem;
-import entitySystems.CharacterControllerSystem;
-import entitySystems.CollisionSystem;
-import entitySystems.DebugAttackRenderSystem;
-import entitySystems.DebugSpatialRenderSystem;
-import entitySystems.HUDRenderingSystem;
-import entitySystems.HealthBarRenderSystem;
-import entitySystems.InputSystem;
-import entitySystems.PhysicsSystem;
-import entitySystems.RegenSystem;
-import entitySystems.RenderingSystem;
-import entitySystems.StatusChangeSystem;
+import entitySystems.*;
 import gameMap.MapTester;
 import graphics.Color;
 import graphics.SpriteBatch;
@@ -123,7 +111,6 @@ public class DemoWeek1 {
 		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new CameraControlSystem(this.tester.getWorld(), camera));
 		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new StatusChangeSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));

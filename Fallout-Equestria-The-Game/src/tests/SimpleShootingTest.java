@@ -20,9 +20,6 @@ import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
 import graphics.Color;
-import scripting.ConsoleScriptFunction;
-import scripting.LineScript;
-import scripting.LineScriptProcessor;
 import utils.Circle;
 import utils.Rectangle;
 
@@ -44,8 +41,6 @@ public class SimpleShootingTest extends AbstractSystemTest {
 		this.tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
 		this.tester.addLogicubSystem(new AttackResolveSystem(this.tester
 				.getWorld()));
-		this.tester.addLogicubSystem(new StatusChangeSystem(this.tester
-				.getWorld()));
 		this.tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
 		this.tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester
 				.getWorld(), this.graphics));
@@ -61,10 +56,7 @@ public class SimpleShootingTest extends AbstractSystemTest {
 		this.tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester
 				.getWorld(), this.graphics));
 		
-		LineScriptProcessor processor = new LineScriptProcessor();
-		processor.registerScriptFunction(new ConsoleScriptFunction());
-		
-		this.tester.addLogicubSystem(new DeathResolveSystem(this.tester.getWorld(), processor));
+		this.tester.addLogicubSystem(new DeathResolveSystem(this.tester.getWorld()));
 
 	}
 
