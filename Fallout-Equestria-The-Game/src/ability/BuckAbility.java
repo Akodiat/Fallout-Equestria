@@ -20,18 +20,17 @@ public class BuckAbility extends Ability{
 
 	@Override
 	public void useAbility(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
+		//TODO: Unfinished!
 		Vector2 buckOrigin = sourceEntity.getComponent(TransformationComp.class).getPosition();
 		int buckStrenght = 9 * sourceEntity.getComponent(SpecialComp.class).getStrength();
 		
 		AttackComponent attackComp = new AttackComponent((new Circle(Vector2.Zero, 40)),buckStrenght,ImmutableList.of("Enemies"));
 		Vector2 attackDirection = Vector2.norm(Vector2.subtract(targetPos, buckOrigin));
 		
-		PhysicsComponent physComp = new PhysicsComponent();
 		IEntity buck = manager.createEmptyEntity();
 		
 		TransformationComp transpComp = sourceEntity.getComponent(TransformationComp.class).clone();
-		
-		buck.addComponent(physComp);
+
 		buck.addComponent(attackComp);
 		buck.addComponent(transpComp);
 		
@@ -44,5 +43,4 @@ public class BuckAbility extends Ability{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
