@@ -139,7 +139,7 @@ public final class Matrix3 {
 	public Matrix3 inverse() {
 		float det = this.det();
 		if(det == 0.0f) {
-			throw new RuntimeException("You cannot take an invers of this matrix!" +
+			throw new RuntimeException("You cannot take an inverse of this matrix!" +
 					"/n It's determinant is 0");
 		}
 		float scalar = 1 / this.det();

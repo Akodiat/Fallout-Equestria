@@ -53,7 +53,7 @@ public class DemoWeek1 {
 	private final int numEnemies = 400;
 	
 	public static void main(String[] args) throws IOException, LWJGLException{
-		new DemoWeek1(new Rectangle(0,0, 1280, 720), true).start();
+		new DemoWeek1(new Rectangle(0,0, 1366, 768), true).start();
 	}
 
 	public DemoWeek1(Rectangle screenDim, boolean fullScreen) throws IOException{
@@ -133,7 +133,6 @@ public class DemoWeek1 {
 	}
 
 	public void initializeEntities(IEntityManager manager) {
-
 		
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");

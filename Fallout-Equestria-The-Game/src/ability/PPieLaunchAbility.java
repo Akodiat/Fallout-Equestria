@@ -1,5 +1,11 @@
 package ability;
 
+import java.io.IOException;
+
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
+
 import com.google.common.collect.ImmutableList;
 
 import math.Vector2;
@@ -13,8 +19,11 @@ import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 
 public class PPieLaunchAbility extends Ability{
+	
+	private Audio soundEffect;
 	private IEntityArchetype pinkeRocket;
 	private final static float speedFactor=3;
+	
 	public PPieLaunchAbility(int APCost, float shootingInterval){
 		super(APCost, shootingInterval);
 	}
@@ -32,12 +41,20 @@ public class PPieLaunchAbility extends Ability{
 		
 		bullet.getComponent(PhysicsComponent.class).setVelocity(Vector2.mul(speedFactor, attackSpeed));
 		
+		soundEffect.playAsSoundEffect(1.0f, 1.0f, false);
+		
 		bullet.refresh();
 	}
 
 	@Override
 	public void initialize() {
 		pinkeRocket = ContentManager.loadArchetype("pinkieRocket.archetype");
+		
+		try {
+			soundEffect = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("resources/sound/effects/pew.ogg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
