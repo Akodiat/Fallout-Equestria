@@ -6,7 +6,7 @@ import entityFramework.IComponent;
  * @author Joakim Johansson
  *
  */
-public class SpecialComp implements IComponent{
+public final class SpecialComp implements IComponent{
 	private int strength;
 	private int perception;
 	private int endurance;

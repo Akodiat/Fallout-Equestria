@@ -25,7 +25,6 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 	private ComponentMapper<InputComponent> inpCM;
 	private ComponentMapper<TransformationComp> transCM;
 
-	private int uglyHack;
 
 	private Texture2D attackTexture;
 	@Override
@@ -45,9 +44,6 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		ActionPointsComponent apComp = entity.getComponent(ActionPointsComponent.class);
 
 		if(inpComp.isLeftMouseButtonDown() && apComp.getAbilityPoints() > 10){
-			this.uglyHack++;
-			if(uglyHack>30){
-				uglyHack = 0;
 
 				apComp.setAbilityPoints(apComp.getAbilityPoints() - 10f);
 				IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
@@ -77,7 +73,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 				attack.addComponent(attackSpatComp);
 
 				attack.refresh();
-			}
+			
 		}
 
 		int speedFactor = 2;
