@@ -13,24 +13,17 @@ public class AnimationComp implements IComponent {
 	private Map<String, Animation> animations;
 	
 	private Animation activeAnimation;
-	private Texture2D spriteSheet;
 	
-	public AnimationComp(Map<String, Animation> animations, String spriteSheetName){
+	public AnimationComp(Map<String, Animation> animations){
 		this.animations = animations;
 		activeAnimation = null;//TODO: dunnolol
-		this.spriteSheet = ContentManager.loadTexture(spriteSheetName);
 	}
 	
 	public AnimationComp(AnimationComp toBeCloned){
 		this.animations = toBeCloned.animations;
 		this.activeAnimation = toBeCloned.activeAnimation;
-		this.spriteSheet = toBeCloned.spriteSheet;
 	}
 	
-	public Texture2D getSpriteSheet() {
-		return spriteSheet;
-	}
-
 	public Animation getActiveAnimation() {
 		return activeAnimation;
 	}

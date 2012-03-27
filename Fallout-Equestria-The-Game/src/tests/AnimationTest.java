@@ -111,11 +111,12 @@ public class AnimationTest {
 		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
 		tester.addLogicubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new AnimationSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
 		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
-		tester.addRenderSubSystem(new AnimationSystem(this.tester.getWorld(),this.graphics));
+
 	}
 
 	public void initializeEntities(IEntityManager manager) {
@@ -134,21 +135,25 @@ public class AnimationTest {
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 		ActionPointsComponent apComp = new ActionPointsComponent();
 		
-		Frame frame1 = new Frame(new Rectangle(0,0,44,38),new Vector2(22,19));
-		Frame frame2 = new Frame(new Rectangle(44,0,44,38),new Vector2(22,19));
-		Frame frame3 = new Frame(new Rectangle(92,0,40,38),new Vector2(22,19));
+		//ANIMATIONCOMPONENT
+		Frame frame1 = new Frame(new Rectangle(0,0,44,38),new Vector2(22,19), false);
+		Frame frame2 = new Frame(new Rectangle(44,0,44,38),new Vector2(22,19), false);
+		Frame frame3 = new Frame(new Rectangle(92,0,40,38),new Vector2(22,19), false);
 		ImmutableList<Frame> frames = ImmutableList.of(frame1,frame2,frame3);
 		Timer aniTimer = new Timer(0.1f, Integer.MAX_VALUE);
 		Animation animation = new Animation(frames, aniTimer);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
 		animations.put("walk", animation);
-		AnimationComp aniComp = new AnimationComp(animations, "DerpyFlySheet.png");
+		AnimationComp aniComp = new AnimationComp(animations);
 		aniComp.setActiveAnimation("walk");
 		aniComp.getActiveAnimation().getTimer().Start();
+		
+		//rendcomp
+		RenderingComponent rendComp = new RenderingComponent();
+		rendComp.setColor(new Color(42,200,255, 255));
+		rendComp.setTexture(ContentManager.loadTexture("DerpyFlySheet.png"));
 
-		//rendComp.setColor(new Color(42,200,255, 255));
-		//rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
-
+		player.addComponent(rendComp);
 		player.addComponent(aniComp);
 		player.addComponent(inpComp);
 		player.addComponent(physComp);

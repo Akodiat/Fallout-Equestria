@@ -1,6 +1,7 @@
 package components;
 
 
+import utils.Rectangle;
 import entityFramework.IComponent;
 import graphics.Color;
 import graphics.ShaderEffect;
@@ -19,24 +20,31 @@ public class RenderingComponent implements IComponent {
 	private Texture2D 	 texture;
 	private Color		 color;
 	private ShaderEffect effect;
-	
-	
+	private Rectangle 	 source;
+	private Boolean 	 mirrored;
+
 	public RenderingComponent(){
 		this.color   = Color.White;
 		this.texture = null;
 		this.effect  = null; 
+		this.source = null;
+		this.mirrored = false;
 	}
 	
-	public RenderingComponent(Texture2D texture, Color color, ShaderEffect effect){
+	public RenderingComponent(Texture2D texture, Color color, ShaderEffect effect, Rectangle source, Boolean mirrored){
 		this.texture = texture;
 		this.color = color;
 		this.effect = effect;
+		this.source = source;
+		this.mirrored = mirrored;
 	}
 	
 	private RenderingComponent(RenderingComponent rendComp){
 		this.texture = rendComp.texture;
 		this.effect = rendComp.effect;
 		this.color = rendComp.color;
+		this.source = rendComp.source;
+		this.mirrored = rendComp.mirrored;
 	}
 	
 	public Object clone(){
@@ -75,8 +83,24 @@ public class RenderingComponent implements IComponent {
 		return effect;
 	}
 
+	public Rectangle getSource() {
+		return source;
+	}
+
+	public void setSource(Rectangle source) {
+		this.source = source;
+	}
+
 	public void setEffect(ShaderEffect effect) {
 		this.effect = effect;
+	}
+	
+	public Boolean getMirrored() {
+		return mirrored;
+	}
+
+	public void setMirrored(Boolean mirrored) {
+		this.mirrored = mirrored;
 	}
 	
 	public String toString() {

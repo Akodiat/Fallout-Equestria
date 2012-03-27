@@ -60,8 +60,8 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 	}
 
 	private void draw(RenderingComponent renderC, TransformationComp transformation) {
-		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), null,
-							  transformation.getOrigin(), transformation.getScale(), transformation.getRotation(), false);
+		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), renderC.getSource(),
+							  transformation.getOrigin(), transformation.getScale(), transformation.getRotation(), renderC.getMirrored());
 	}
 
 }
