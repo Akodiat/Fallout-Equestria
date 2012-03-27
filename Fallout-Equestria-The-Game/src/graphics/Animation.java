@@ -11,11 +11,12 @@ public class Animation implements ITimerListener {
 	private ImmutableList<Frame> frames;
 	private Timer timer;
 	
-	
 	public Animation(ImmutableList<Frame> frames, Timer timer) {
 		this.activeIndex = 0;
 		this.frames = frames;
 		this.timer = timer;
+		this.timer.addEventListener(this);
+
 	}
 
 	public int getActiveIndex() {

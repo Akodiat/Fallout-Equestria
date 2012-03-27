@@ -172,7 +172,12 @@ public final class Matrix4 {
 						   b31, b32, b33, b34,
 						   b41, b42, b43, b44);
 	}
-	
+	/**
+	 * Completely useless. TODO: Remove this POS.
+	 * @param left
+	 * @param right
+	 * @return
+	 */
 	public static Boolean equals(Matrix4 left, Matrix4 right) {
 		return (left.m00 == right.m00 && left.m01 == right.m01 && left.m02 == right.m02 && left.m03 == right.m03 &&
 				left.m10 == right.m10 && left.m11 == right.m11 && left.m12 == right.m12 && left.m13 == right.m13 &&

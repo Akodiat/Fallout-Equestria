@@ -1,36 +1,29 @@
 package graphics;
 
+import content.ContentManager;
 import math.Vector2;
 import utils.Rectangle;
 
 public class Frame {
 
-	private String spriteSheetName;
-	private Rectangle destRect;
+	private Rectangle sourceRect;
 	private Vector2 origin;
 	
-	public Frame(String spriteSheetName, Rectangle destRect, Vector2 origin) {
-		this.spriteSheetName = spriteSheetName;
-		this.destRect = destRect;
+	public Frame(Rectangle sourceRect, Vector2 origin) {
+		this.sourceRect = sourceRect;
 		this.origin = origin;
 	}
-	public String getSpriteSheetName() {
-		return spriteSheetName;
+		
+	public Rectangle getSourceRect() {
+		return sourceRect;
 	}
-	public void setSpriteSheetName(String spriteSheetName) {
-		this.spriteSheetName = spriteSheetName;
-	}
-	public Rectangle getDestRect() {
-		return destRect;
-	}
-	public void setDestRect(Rectangle destRect) {
-		this.destRect = destRect;
+	public void setSourceRect(Rectangle sourceRect) {
+		this.sourceRect = sourceRect;
 	}
 	public Vector2 getOrigin() {
 		return origin;
 	}
 	public void setOrigin(Vector2 origin) {
 		this.origin = origin;
-	}
-	
+	}	
 }
