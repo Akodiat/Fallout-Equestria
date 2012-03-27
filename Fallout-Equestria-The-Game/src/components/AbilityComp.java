@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import ability.Ability;
 
 import entityFramework.IComponent;
 
+@XStreamAlias("Ability")
 public class AbilityComp implements IComponent{
 	private Map<Class<? extends Ability>, Ability> abilities;
 	Ability currentAbility;
