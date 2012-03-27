@@ -15,6 +15,8 @@ import components.SpatialComponent;
 import components.TransformationComp;
 import content.ContentManager;
 import death.PPDeathAction;
+import debuggsystem.DebugAttackRenderSystem;
+import debuggsystem.DebugSpatialRenderSystem;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;

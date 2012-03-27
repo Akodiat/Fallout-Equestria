@@ -12,7 +12,6 @@ public class EntityGroupManager implements IEntityGroupManager{
 	private final Map<IEntity, List<String>> entityToGroups;
 	private final Map<String, List<IEntity>> entityGroups;
 	
-	
 	public EntityGroupManager() {
 		this.entityGroups = new HashMap<String, List<IEntity>>();
 		this.entityToGroups = new HashMap<IEntity, List<String>>();

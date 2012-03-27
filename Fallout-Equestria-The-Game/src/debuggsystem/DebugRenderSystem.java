@@ -1,4 +1,4 @@
-package entitySystems;
+package debuggsystem;
 
 public class DebugRenderSystem {
 

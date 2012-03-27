@@ -15,6 +15,8 @@ import com.google.common.collect.ImmutableList;
 import components.*;
 import content.ContentManager;
 import death.PPDeathAction;
+import debuggsystem.DebugAttackRenderSystem;
+import debuggsystem.DebugSpatialRenderSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;

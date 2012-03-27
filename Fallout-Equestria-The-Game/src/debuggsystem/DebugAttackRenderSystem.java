@@ -1,9 +1,9 @@
-package entitySystems;
+package debuggsystem;
 
 import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
-import components.SpatialComponent;
+import components.AttackComponent;
 import components.TransformationComp;
 import content.ContentManager;
 
@@ -15,23 +15,23 @@ import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 
-public class DebugSpatialRenderSystem extends EntityProcessingSystem {
+public class DebugAttackRenderSystem extends EntityProcessingSystem {
 
 	private Texture2D circleTexture;
 	private SpriteBatch graphics;
 
-	public DebugSpatialRenderSystem(IEntityWorld world, SpriteBatch graphics) {
-		super(world, SpatialComponent.class, TransformationComp.class);
+	public DebugAttackRenderSystem(IEntityWorld world, SpriteBatch graphics) {
+		super(world, AttackComponent.class, TransformationComp.class);
 		this.graphics = graphics;
 	}
 
-	private ComponentMapper<SpatialComponent> sCM;
+	private ComponentMapper<AttackComponent> aCM;
 	private ComponentMapper<TransformationComp> tCM;
 
 	@Override
 	public void initialize() {
-		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				SpatialComponent.class);
+		aCM = ComponentMapper.create(this.getWorld().getDatabase(),
+				AttackComponent.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
 
@@ -42,14 +42,14 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
 
 		for (IEntity entity : entities) {
-			SpatialComponent spatiCom = sCM.getComponent(entity);
+			AttackComponent attaCom = aCM.getComponent(entity);
 			TransformationComp transCom = tCM.getComponent(entity);
 
 			// Rectangle source = new
 			// Rectangle((int)attaCom.getBounds().getPosition().X,(int)attaCom.getBounds().getPosition().Y,(int)attaCom.getBounds().getRadius()*2,(int)attaCom.getBounds().getRadius()*2);
-			float scale = 2*spatiCom.getBounds().getRadius() / 100;
-			graphics.draw(circleTexture, transCom.getPosition(), new Color(Color.Green, 0.5f), null,
-					new Vector2(spatiCom.getBounds().getRadius()), scale, 0, false);
+			float scale = 2*attaCom.getBounds().getRadius() / 100;
+			graphics.draw(circleTexture, transCom.getPosition(), new Color(Color.Red, 0.5f),
+					null, new Vector2(attaCom.getBounds().getRadius()), scale, 0, false);
 
 		}
 	}

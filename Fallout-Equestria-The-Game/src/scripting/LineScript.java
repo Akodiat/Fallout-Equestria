@@ -1,16 +1,10 @@
 package scripting;
 
-import java.util.Collection;
-
 
 public class LineScript implements ILineScript{
 
 	private int currentLine;
 	private final String[] lines;
-	
-	public LineScript(Collection<String> lines) {
-		this((String[])lines.toArray());
-	}
 	
 	public LineScript(String[] lines) {
 		this.lines = lines.clone();

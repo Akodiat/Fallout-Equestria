@@ -6,6 +6,8 @@ import org.lwjgl.opengl.Display;
 
 import components.*;
 import content.ContentManager;
+import debuggsystem.DebugAttackRenderSystem;
+import debuggsystem.DebugSpatialRenderSystem;
 
 import entityFramework.*;
 import entitySystems.*;

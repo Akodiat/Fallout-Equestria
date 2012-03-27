@@ -6,6 +6,7 @@ public abstract class GroupedEntitySystem extends EntitySystem {
 
 	private final String group;
 	
+	@SafeVarargs
 	protected GroupedEntitySystem(IEntityWorld world, String group,
 			Class<? extends IComponent>... componentsClasses) {
 		super(world, componentsClasses);
@@ -28,5 +29,4 @@ public abstract class GroupedEntitySystem extends EntitySystem {
 	}
 
 	protected abstract void processEntities(ImmutableSet<IEntity> entities);
-
 }

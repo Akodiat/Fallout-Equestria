@@ -11,6 +11,8 @@ import org.lwjgl.opengl.DisplayMode;
 
 import components.*;
 import content.ContentManager;
+import debuggsystem.DebugAttackRenderSystem;
+import debuggsystem.DebugSpatialRenderSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;

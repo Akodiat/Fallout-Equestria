@@ -22,6 +22,8 @@ import components.RenderingComponent;
 import components.SpatialComponent;
 import components.TransformationComp;
 import content.ContentManager;
+import debuggsystem.DebugAttackRenderSystem;
+import debuggsystem.DebugSpatialRenderSystem;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;

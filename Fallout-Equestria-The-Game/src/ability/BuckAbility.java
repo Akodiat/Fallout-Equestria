@@ -6,11 +6,7 @@ import utils.Circle;
 import math.Vector2;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
-import components.AttackComponent;
-import components.PhysicsComponent;
-import components.SpecialComp;
-import components.TransformationComp;
-
+import components.*;
 public class BuckAbility extends Ability{
 
 	
