@@ -7,7 +7,7 @@ public abstract class GroupedEntitySystem extends EntitySystem {
 	private final String group;
 	
 	protected GroupedEntitySystem(IEntityWorld world, String group,
-			Class<? extends IComponent>[] componentsClasses) {
+			Class<? extends IComponent>... componentsClasses) {
 		super(world, componentsClasses);
 		this.group = group;
 	}

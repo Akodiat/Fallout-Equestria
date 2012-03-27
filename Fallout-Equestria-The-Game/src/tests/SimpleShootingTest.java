@@ -14,6 +14,7 @@ import components.RenderingComponent;
 import components.SpatialComponent;
 import components.TransformationComp;
 import content.ContentManager;
+import death.PPDeathAction;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -75,7 +76,7 @@ public class SimpleShootingTest extends AbstractSystemTest {
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
 		DeathComp deathComp = new DeathComp();
-		deathComp.setDeathScript(new LineScript(new String[] { "cut, Hahahahahahahahahahahahahahaahahahahahahahahahahahahah" }));
+		deathComp.addDeathAction(new PPDeathAction());
 		ActionPointsComponent apComp = new ActionPointsComponent(100, 100, 10f);
 		
 		SpatialComponent spatComp = new SpatialComponent(new Circle(

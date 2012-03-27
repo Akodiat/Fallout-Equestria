@@ -59,13 +59,13 @@ public class Timer {
 	 * This differs from pause due to the fact that the timer resets it's state.
 	 */
 	public void Stop() {
-		if(this.isActive()) {
-			this.onComplete();
-			activeTimers.remove(this);
-		}
-		
 		this.tickCount = 0;
 		this.elapsedTime = 0.0f;
+		
+		if(this.isActive()) {
+			activeTimers.remove(this);
+			this.onComplete();
+		}
 	}
 	
 	public float getTickInterval() {
@@ -133,8 +133,7 @@ public class Timer {
 		for (Timer timer : activeTimers) {
 			timer.update(delta);
 			if(timer.isComplete()) {
-				timer.onComplete();
-				timersToRemove.add(timer);
+				timer.Stop();
 			}
 		}
 		

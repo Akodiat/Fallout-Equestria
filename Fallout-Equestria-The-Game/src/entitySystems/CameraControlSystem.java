@@ -6,17 +6,16 @@ import com.google.common.collect.ImmutableSet;
 import components.TransformationComp;
 
 import utils.Camera2D;
-import entityFramework.ComponentMapper;
-import entityFramework.EntitySystem;
-import entityFramework.IEntity;
-import entityFramework.IEntityWorld;
+import entityFramework.*;
 
-public class CameraControlSystem extends EntitySystem{
+public class CameraControlSystem extends GroupedEntitySystem{
 
+	public static final String GROUP_NAME = "CAMERA-TARGETS";
 	private final Camera2D camera;
 	
+	@SuppressWarnings("unchecked")
 	public CameraControlSystem(IEntityWorld world,Camera2D camera) {
-		super(world);
+		super(world, GROUP_NAME, TransformationComp.class);
 		this.camera = camera;
 	}
 	
@@ -27,24 +26,22 @@ public class CameraControlSystem extends EntitySystem{
 		transCM = ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
 	}
 
+
 	@Override
-	public void process() {
-		ImmutableSet<IEntity> cameraTargets = this.getWorld().getEntityManager().getEntityGroup("CAMERA_TARGET");
-		if(cameraTargets != null) {
-			float x = 0, y = 0;
-			for (IEntity entity : cameraTargets) {
-				TransformationComp transformation = this.transCM.getComponent(entity);
-				x -= transformation.getPosition().X;
-				y -= transformation.getPosition().Y;
-			}
-			
-			x /= cameraTargets.size();
-			y /= cameraTargets.size();
-			
-			
-			
-			camera.setPosition(Vector2.subtract(new Vector2(x,y), camera.getScreenOffset()));
+	protected void processEntities(ImmutableSet<IEntity> entities) {
+		float x = 0, y = 0;
+		for (IEntity entity : entities) {
+			TransformationComp transformation = this.transCM.getComponent(entity);
+			x -= transformation.getPosition().X;
+			y -= transformation.getPosition().Y;
 		}
+		
+		x /= entities.size();
+		y /= entities.size();	
+		
+		//TODO figure out a way to handle if camera targets are not present!
+		camera.setPosition(Vector2.subtract(new Vector2(x,y), camera.getScreenOffset()));
+		
 	}
 
 }

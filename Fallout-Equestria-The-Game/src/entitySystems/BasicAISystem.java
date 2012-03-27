@@ -2,28 +2,14 @@ package entitySystems;
 
 import java.util.List;
 
-import utils.Circle;
 import ability.Ability;
 import ability.PPieLaunchAbility;
-import content.ContentManager;
-
-import com.google.common.collect.ImmutableList;
 
 import math.Vector2;
-import components.AttackComponent;
-import components.BasicAIComp;
-import components.PhysicsComponent;
-import components.RenderingComponent;
-import components.SpatialComponent;
-import components.TransformationComp;
+import components.*;
+import entityFramework.*;
 
-import entityFramework.ComponentMapper;
-import entityFramework.EntitySingleProcessingSystem;
-import entityFramework.IEntity;
-import entityFramework.IEntityWorld;
-import graphics.Color;
-import graphics.Texture2D;
-
+//TODO should revisit since we have changed the Animation Component. 
 public class BasicAISystem extends EntitySingleProcessingSystem{
 
 	public BasicAISystem(IEntityWorld world) {
@@ -36,15 +22,12 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 	
 	private Ability pinkieRocket;
 
-	private Texture2D attackTexture;
-
 	@Override
 	public void initialize() {
 		basicAICM  = ComponentMapper.create(this.getWorld().getDatabase(), BasicAIComp.class);
 		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
 		transCM = ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
 
-		attackTexture = ContentManager.loadTexture("pinksplosion rocket.png");
 		this.pinkieRocket = new PPieLaunchAbility(10,1);
 		this.pinkieRocket.initialize();
 	}
@@ -74,18 +57,18 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		physComp.setVelocity(targetDirection);
 
 		if(Math.random()<0.003)
-			this.pinkieRocket.useAbility(entity, transCM.getComponent(target).getPosition(), this.getWorld().getEntityManager());
-			//shoot(targetDirection, transComp.getPosition());
+			if(this.pinkieRocket.canUse(entity, this.getWorld().getEntityManager())) {
+				this.pinkieRocket.useAbility(entity, transCM.getComponent(target).getPosition(), this.getWorld().getEntityManager());
+				//shoot(targetDirection, transComp.getPosition());
+			}
 	}
-	private void shoot(Vector2 targetDirection, Vector2 position){
+	
+	/*private void shoot(Vector2 targetDirection, Vector2 position){
 		IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
 		AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,10f),80, ImmutableList.of("Friends"));
 
-
 		PhysicsComponent attackPhysComp = new PhysicsComponent(targetDirection);
-
 		TransformationComp attackPosComp = new TransformationComp();
-
 		SpatialComponent attackSpatComp = new SpatialComponent(new Circle(Vector2.Zero,5f)); 
 
 		RenderingComponent attackRendComp = new RenderingComponent();
@@ -103,6 +86,6 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		//attack.addComponent(attackSpatComp);
 
 		attack.refresh();
-	}
+	}*/
 
 }

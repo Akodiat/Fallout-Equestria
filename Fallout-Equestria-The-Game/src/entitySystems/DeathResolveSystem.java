@@ -2,6 +2,7 @@ package entitySystems;
 
 import scripting.ILineScriptProcessor;
 import components.DeathComp;
+import death.IDeathAction;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySystem;
@@ -10,11 +11,8 @@ import entityFramework.IEntityWorld;
 
 public class DeathResolveSystem extends EntitySystem{
 	
-	ILineScriptProcessor processor;
-
 	public DeathResolveSystem(IEntityWorld world, ILineScriptProcessor deathProcessor) {
 		super(world, DeathComp.class);
-		this.processor = deathProcessor;
 	}
 	
 	private ComponentMapper<DeathComp> deathCM;
@@ -33,13 +31,13 @@ public class DeathResolveSystem extends EntitySystem{
 	public void entityDestroyed(IEntity entity) {
 		if(this.getEntities().containsKey(entity.getUniqueID())) {
 			DeathComp deathComp = this.deathCM.getComponent(entity);
-			processDeath(deathComp);
-			
+			processDeath(entity, deathComp);
 		}
 	}
 
-	private void processDeath(DeathComp deathComp) {
-		this.processor.processEntireScript(deathComp.getDeathScript());
+	private void processDeath(IEntity entity, DeathComp deathComp) {
+		for (IDeathAction deathAction : deathComp.getDeathActions()) {
+			deathAction.excecute(entity, this.getWorld().getEntityManager());
+		}
 	}
-
 }

@@ -16,6 +16,7 @@ import graphics.Texture2D;
  * @author Joakim Johansson
  *
  */
+//TODO Change this so it uses the new ability system. 
 public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 	public CharacterControllerSystem(IEntityWorld world) {

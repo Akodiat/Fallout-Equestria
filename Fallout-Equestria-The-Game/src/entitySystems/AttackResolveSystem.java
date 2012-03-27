@@ -53,14 +53,17 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 						.getEntityGroup(attaCom.getTargetGroups().get(i)));
 			}
 
-			Boolean hitSomething = false;
+			boolean hitSomething = false;
 
 			for (IEntity targetEntity : gEntities) {
+
+				//TODO Källa för nullpointers!
 				SpatialComponent targetSpatiCom = sCM
 						.getComponent(targetEntity);
 				TransformationComp targetPosiCom = tCM
 						.getComponent(targetEntity);
-
+				//Källa för nullpointers!!
+				
 				Boolean itGotHit = Circle.intersects(attaCom.getBounds(),
 						posiCom.getPosition(), targetSpatiCom.getBounds(),
 						targetPosiCom.getPosition());
@@ -69,16 +72,13 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 					hitSomething = true;
 					targetEntity.addComponent(new StatusChangeComponent(attaCom
 							.getDamage(), ""));
-					targetEntity.refresh();
-					
+					targetEntity.refresh();	
 				}
 			}
 
 			if (hitSomething) {
 				entity.kill();
 			}
-
 		}
-
 	}
 }

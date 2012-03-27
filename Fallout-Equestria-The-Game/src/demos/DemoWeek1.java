@@ -137,7 +137,7 @@ public class DemoWeek1 {
 		
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");
-		player.addToGroup("CAMERA_TARGET");
+		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		player.setLabel("Player");
 		PhysicsComponent physComp = new PhysicsComponent();
