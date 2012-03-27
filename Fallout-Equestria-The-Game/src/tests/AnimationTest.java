@@ -150,7 +150,7 @@ public class AnimationTest {
 		Animation animation = new Animation(frames, aniTimer);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
 		animations.put("walk", animation);
-		AnimationComp aniComp = new AnimationComp(animations);
+		AnimationComp aniComp = new AnimationComp(animations,"walk");
 		aniComp.setActiveAnimation("walk");
 		aniComp.getActiveAnimation().getTimer().Start();
 		

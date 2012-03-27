@@ -2,33 +2,40 @@ package components;
 
 import java.util.Map;
 
-import content.ContentManager;
-
 import entityFramework.IComponent;
 import graphics.Animation;
-import graphics.Texture2D;
 
 public class AnimationComp implements IComponent {
-	
+
 	private Map<String, Animation> animations;
 	private Animation activeAnimation;
-	
-	public AnimationComp(Map<String, Animation> animations){
+
+	public AnimationComp(Map<String, Animation> animations, String activeAnimationName){
 		this.animations = animations;
-		activeAnimation = null;//TODO: dunnolol
+		this.activeAnimation = animations.get(activeAnimationName);
 	}
-	
+
 	public AnimationComp(AnimationComp toBeCloned){
 		this.animations = toBeCloned.animations;
 		this.activeAnimation = toBeCloned.activeAnimation;
 	}
-	
+
 	public Animation getActiveAnimation() {
 		return activeAnimation;
 	}
 
-	public void setActiveAnimation(String activeAnimation) {
-		this.activeAnimation = animations.get(activeAnimation);
+	public void setActiveAnimation(String newActiveAnimation) {
+		if(animations.containsKey(newActiveAnimation)){
+			if (this.activeAnimation != this.animations.get(newActiveAnimation)){
+				this.activeAnimation.Complete();
+				this.activeAnimation = this.animations.get(newActiveAnimation);
+				this.activeAnimation.Start();
+			}
+			System.out.println("Tried to set animation which was already in place.");
+			return;
+		}
+		System.out.println("Tried to set animation with invalid key.");
+		//TODO: Remove this annoying debugmessage
 	}
 
 	public Map<String, Animation> getAnimations() {
@@ -42,5 +49,5 @@ public class AnimationComp implements IComponent {
 	public AnimationComp clone(){
 		return new AnimationComp(this);
 	}
-	
+
 }
