@@ -36,9 +36,9 @@ public class AnimationTest {
 	private final boolean isFullScreen;
 	private MapTester mapTester;
 	private Camera2D camera;
-	
+
 	private final int numEnemies = 400;
-	
+
 	public static void main(String[] args) throws IOException, LWJGLException{
 		new AnimationTest(new Rectangle(0,0, 1280, 720), true).start();
 	}
@@ -71,14 +71,13 @@ public class AnimationTest {
 
 			graphics.clearScreen(new Color(157, 150, 101, 255));
 			graphics.begin(null, camera.getTransformation());
-			
 			mapTester.draw();
 			tester.renderWorld();
-			
+
 			graphics.end();
 
 			tester.getWorld().getEntityManager().destoryKilledEntities();
-			
+
 			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 				camera.move(new Vector2(5, 0));
 			} 
@@ -94,8 +93,8 @@ public class AnimationTest {
 			if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {
 				camera.zoomIn(0.001f);
 			} 
-			
-			
+
+
 			Display.update();
 			Display.sync(60);
 		}
@@ -124,11 +123,11 @@ public class AnimationTest {
 	}
 
 	public void initializeEntities(IEntityManager manager) {
-		
+
 		IEntity player = manager.createEmptyEntity();
 		player.addToGroup("Enemies");
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
-		
+
 		player.setLabel("Player");
 		PhysicsComponent physComp = new PhysicsComponent();
 		InputComponent inpComp = new InputComponent();
@@ -140,24 +139,24 @@ public class AnimationTest {
 		ActionPointsComponent apComp = new ActionPointsComponent();
 		DeathComp deathComp = new DeathComp();
 		deathComp.addDeathAction(new PPDeathAction());
-		
+
 		//ANIMATIONCOMPONENT
-		Frame frame1 = new Frame(new Rectangle(0,0,44,38),new Vector2(22,19), false);
+		
+		/*Frame frame1 = new Frame(new Rectangle(0,0,44,38),new Vector2(22,19), false);
 		Frame frame2 = new Frame(new Rectangle(44,0,44,38),new Vector2(22,19), false);
-		Frame frame3 = new Frame(new Rectangle(92,0,40,38),new Vector2(22,19), false);
-		ImmutableList<Frame> frames = ImmutableList.of(frame1,frame2,frame3);
+		Frame frame3 = new Frame(new Rectangle(92,0,40,38),new Vector2(22,19), false);*/
+		ImmutableList<Frame> frames = Frame.generateFrames(new Vector2(0,0), new Vector2(83.3333333333333333333333333333333f, 75), 24, true);
 		Timer aniTimer = new Timer(0.1f, Integer.MAX_VALUE);
 		Animation animation = new Animation(frames, aniTimer);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
 		animations.put("walk", animation);
 		AnimationComp aniComp = new AnimationComp(animations,"walk");
-		aniComp.setActiveAnimation("walk");
 		aniComp.getActiveAnimation().getTimer().Start();
-		
+
 		//rendcomp
 		RenderingComponent rendComp = new RenderingComponent();
-		rendComp.setColor(new Color(42,200,255, 255));
-		rendComp.setTexture(ContentManager.loadTexture("DerpyFlySheet.png"));
+		rendComp.setColor(Color.White);
+		rendComp.setTexture(ContentManager.loadTexture("pinkiewalkweaponspriteSCALED.png"));
 
 		player.addComponent(rendComp);
 		player.addComponent(aniComp);
@@ -168,9 +167,9 @@ public class AnimationTest {
 		player.addComponent(healthComp);
 		player.addComponent(apComp);
 		player.addComponent(deathComp);
-		
+
 		player.refresh();
-		
+/*
 		IEntity house = manager.createEmptyEntity();
 		house.setLabel("House");
 		TransformationComp housePosComp = new TransformationComp();
@@ -181,24 +180,25 @@ public class AnimationTest {
 		PhysicsComponent housePhysComp = new PhysicsComponent();
 		housePhysComp.setMass(1f);
 		housePosComp.setOrigin(new Vector2(houseRendComp.getTexture().Width / 2,
-										   houseRendComp.getTexture().Height / 2));
-		
+				houseRendComp.getTexture().Height / 2));
+
 		house.addComponent(houseRendComp);
 		house.addComponent(houseSpatComp);
 		house.addComponent(housePosComp);
 		house.addComponent(housePhysComp);
-		
+
 		house.refresh();
 		
-		
-		generateRandomEnemies(manager);
+
+
+		generateRandomEnemies(manager);*/
 	}
 
 	private void generateRandomEnemies(IEntityManager manager) {
 		for (int i = 0; i < this.numEnemies; i++) {
 			IEntity enemy = manager.createEmptyEntity();
 			enemy.setLabel("Enemy" + i);
-			
+
 			TransformationComp transComp = new TransformationComp();
 			transComp.setPosition((float)Math.random() * 10000,(float)Math.random() * 10000);
 			SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
@@ -207,12 +207,12 @@ public class AnimationTest {
 			PhysicsComponent physComp = new PhysicsComponent();
 			physComp.setMass(100f);
 			transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
-											rendComp.getTexture().Height / 2));	
+					rendComp.getTexture().Height / 2));	
 			enemy.addComponent(rendComp);
 			enemy.addComponent(spatComp);
 			enemy.addComponent(transComp);
 			enemy.addComponent(physComp);
-			
+
 			enemy.refresh();
 		}
 	}

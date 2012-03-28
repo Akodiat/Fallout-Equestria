@@ -43,14 +43,20 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 			speedFactor=4;
 
 		Vector2 velocity = new Vector2(0,0);
-		if (inpComp.isBackButtonPressed())
+		if (inpComp.isBackButtonPressed()){
 			velocity=Vector2.add(velocity, new Vector2(0,1));
-		if (inpComp.isForwardButtonPressed())
+		}
+		if (inpComp.isForwardButtonPressed()){
 			velocity=Vector2.add(velocity, new Vector2(0,-1));
-		if (inpComp.isLeftButtonPressed())
+		}
+		if (inpComp.isLeftButtonPressed()){
 			velocity=Vector2.add(velocity, new Vector2(-1,0));
-		if (inpComp.isRightButtonPressed())
+			posComp.setMirror(false);
+		}
+		if (inpComp.isRightButtonPressed()){
 			velocity=Vector2.add(velocity, new Vector2(1,0));
+			posComp.setMirror(true);
+		}
 
 		if(velocity.length()!=0)
 			velocity=Vector2.norm(velocity);

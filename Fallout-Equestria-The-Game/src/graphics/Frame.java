@@ -1,5 +1,10 @@
 package graphics;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+
 import math.Vector2;
 import utils.Rectangle;
 
@@ -7,14 +12,12 @@ public class Frame {
 
 	private Rectangle sourceRect;
 	private Vector2 origin;
-	private Boolean mirrored;
-	
-	public Frame(Rectangle sourceRect, Vector2 origin, Boolean mirrored) {
+
+	public Frame(Rectangle sourceRect, Vector2 origin) {
 		this.sourceRect = sourceRect;
 		this.origin = origin;
-		this.mirrored = mirrored;
 	}
-		
+
 	public Rectangle getSourceRect() {
 		return sourceRect;
 	}
@@ -27,10 +30,13 @@ public class Frame {
 	public void setOrigin(Vector2 origin) {
 		this.origin = origin;
 	}	
-	public Boolean getMirrored() {
-		return mirrored;
-	}
-	public void setMirrored(Boolean mirrored) {
-		this.mirrored = mirrored;
+
+	public static ImmutableList<Frame> generateFrames(Vector2 startPos, Vector2 Dimensions, int numFrames, Boolean mirrored){
+		List<Frame> frames = new ArrayList<Frame>();
+		for (int i=numFrames; i>0;i--){
+			frames.add(new Frame(new Rectangle((int)(startPos.X + Dimensions.X*i), (int)startPos.Y, (int)Dimensions.X, (int)Dimensions.Y),
+					   new Vector2(Dimensions.X/2, Dimensions.Y/2)));
+		}
+		return ImmutableList.copyOf(frames);
 	}
 }

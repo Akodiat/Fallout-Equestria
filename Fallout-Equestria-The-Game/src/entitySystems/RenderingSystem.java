@@ -53,7 +53,6 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 			
 			this.spriteBatch.end();
 			this.spriteBatch.begin(effect, view);
-			
 		} else {
 			this.draw(renderC, positionC);
 		}
@@ -61,7 +60,7 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 
 	private void draw(RenderingComponent renderC, TransformationComp transformation) {
 		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), renderC.getSource(),
-							  transformation.getOrigin(), transformation.getScale(), transformation.getRotation(), renderC.getMirrored());
+							  transformation.getOrigin(), transformation.getScale(), transformation.getRotation(), transformation.getMirror());
 	}
 
 }
