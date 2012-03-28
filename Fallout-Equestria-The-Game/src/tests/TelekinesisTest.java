@@ -25,6 +25,7 @@ import entityFramework.IEntityManager;
 import entitySystems.*;
 import debugsystems.*;
 import graphics.Color;
+import utils.Camera2D;
 import utils.Circle;
 import utils.Rectangle;
 /**
@@ -35,10 +36,11 @@ import utils.Rectangle;
 public class TelekinesisTest extends AbstractSystemTest{
 
 	private final int numPickupables = 42;
+	private Camera2D camera;
 
 	public TelekinesisTest(Rectangle screenDim, boolean fullScreen) {
 		super(screenDim, fullScreen);
-		// TODO Auto-generated constructor stub
+		this.camera = new Camera2D(screenDim, screenDim);
 	}
 
 	/**
@@ -51,7 +53,7 @@ public class TelekinesisTest extends AbstractSystemTest{
 	@Override
 	public void initializeSystems() {
 		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld(), this.camera));
 		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));

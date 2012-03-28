@@ -108,8 +108,13 @@ public class Camera2D {
 		return this.zoom;
 	}
 	
-	public Vector2 getPosition() {
+	public Vector2 getWorldPosition() {
 		return this.position;
+	}
+	
+	public Vector2 getViewToWorldCoords(Vector2 viewPosition) {
+		//TODO fix so that scale works!
+		return Vector2.add(this.position, viewPosition);
 	}
 	
 	public Vector2 getScreenOffset() {

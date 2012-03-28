@@ -109,7 +109,7 @@ public class AnimationTest {
 
 	public void initializeSystems() {
 		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld(), this.camera));
 		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new CameraControlSystem(this.tester.getWorld(), camera));

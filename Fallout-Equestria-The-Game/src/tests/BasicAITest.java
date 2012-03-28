@@ -14,14 +14,17 @@ import debugsystems.DebugSpatialRenderSystem;
 import entityFramework.*;
 import entitySystems.*;
 import graphics.Color;
+import utils.Camera2D;
 import utils.Circle;
 import utils.Rectangle;
 
 public class BasicAITest extends AbstractSystemTest{
 	private final int numEnemies = 10;
-
+	private Camera2D camera;
+	
 	public BasicAITest(Rectangle screenDim, boolean fullScreen) {
 		super(screenDim, fullScreen);
+		this.camera = new Camera2D(screenDim, screenDim);
 	}
 
 	/**
@@ -35,7 +38,7 @@ public class BasicAITest extends AbstractSystemTest{
 	@Override
 	public void initializeSystems() {
 		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld(), this.camera));
 		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));

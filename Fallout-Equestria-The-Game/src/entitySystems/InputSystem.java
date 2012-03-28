@@ -5,6 +5,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import utils.Camera2D;
+
 import entityFramework.*;
 import components.InputComp;
 /**
@@ -14,9 +16,11 @@ import components.InputComp;
  */
 public class InputSystem extends EntitySingleProcessingSystem{
 
-	public InputSystem(IEntityWorld world) {
+	private Camera2D camera;
+	
+	public InputSystem(IEntityWorld world, Camera2D camera) {
 		super(world, InputComp.class);
-		// TODO Auto-generated constructor stub
+		this.camera = camera;
 	}
 	private ComponentMapper<InputComp> CM;
 	@Override
@@ -35,7 +39,10 @@ public class InputSystem extends EntitySingleProcessingSystem{
 		inputComponent.setLeftButtonPressed(Keyboard.isKeyDown(inputComponent.getLeftButton().getKeyID()));
 		inputComponent.setRightButtonPressed(Keyboard.isKeyDown(inputComponent.getRightButton().getKeyID()));
 		
-		inputComponent.setMousePosition(new Vector2(Mouse.getX(),Display.getHeight()-Mouse.getY())); //TODO: Find nicer solution
+		Vector2 mouseViewPos = new Vector2(Mouse.getX(),Display.getHeight()-Mouse.getY());
+		Vector2 mouseWorldPos = camera.getViewToWorldCoords(mouseViewPos);
+		
+		inputComponent.setMousePosition(mouseWorldPos); //TODO: Find nicer solution
 		inputComponent.setLeftMouseButtonDown(Mouse.isButtonDown(0));
 		inputComponent.setRightMouseButtonDown(Mouse.isButtonDown(1));
 	}
