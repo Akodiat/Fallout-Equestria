@@ -91,6 +91,8 @@ public class TransformationComp implements IComponent {
 		this.mirror = mirror;
 	}
 	
+	
+	//TODO update this to reflect mirror!
 	public String toString() {
 		return "Transformation Comp" 
 			+  "Position: " + this.position.toString() + "\n" 

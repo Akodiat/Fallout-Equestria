@@ -33,5 +33,10 @@ public class BasicAIComp implements IComponent {
 	public void setTarget(Vector2 target) {
 		this.target = target;
 	}
+	
+	public String toString() {
+		return "BasicAI: \n" 
+			+  "Target: " + this.target.toString();
+	}
 
 }

@@ -10,20 +10,20 @@ import ability.TelekinesisAbility;
 import math.Vector2;
 
 import components.AbilityComp;
-import components.ActionPointsComponent;
-import components.HealthComponent;
-import components.InputComponent;
-import components.PhysicsComponent;
-import components.RenderingComponent;
-import components.SpatialComponent;
+import components.AbilityPointsComp;
+import components.HealthComp;
+import components.InputComp;
+import components.PhysicsComp;
+import components.RenderingComp;
+import components.SpatialComp;
 import components.TransformationComp;
-import components.WeaponComponent;
+import components.WeaponComp;
 
 import content.ContentManager;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
-import debuggsystem.*;
+import debugsystems.*;
 import graphics.Color;
 import utils.Circle;
 import utils.Rectangle;
@@ -50,12 +50,12 @@ public class TelekinesisTest extends AbstractSystemTest{
 
 	@Override
 	public void initializeSystems() {
-		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new TelekinesisSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
+		tester.addLogicSubSystem(new TelekinesisSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -71,15 +71,15 @@ public class TelekinesisTest extends AbstractSystemTest{
 		player.addToGroup("Friends");
 	//	player.addToGroup("Pickup-able");
 		player.setLabel("Player");
-		PhysicsComponent physComp = new PhysicsComponent();
-		InputComponent inpComp = new InputComponent();
+		PhysicsComp physComp = new PhysicsComp();
+		InputComp inpComp = new InputComp();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
-		RenderingComponent rendComp = new RenderingComponent();
-		HealthComponent healthComp = new HealthComponent(100, 2, 89);
-		ActionPointsComponent apComp = new ActionPointsComponent();
-		WeaponComponent weapComp = new WeaponComponent();
+		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,30f));
+		RenderingComp rendComp = new RenderingComp();
+		HealthComp healthComp = new HealthComp(100, 2, 89);
+		AbilityPointsComp apComp = new AbilityPointsComp();
+		WeaponComp weapComp = new WeaponComp();
 		
 		HashMap<Class<? extends Ability>, Ability> map = new HashMap<Class<? extends Ability>, Ability>();
 		map.put(TelekinesisAbility.class, new TelekinesisAbility(2,1));
@@ -116,11 +116,11 @@ public class TelekinesisTest extends AbstractSystemTest{
 
 			TransformationComp transComp = new TransformationComp();
 			transComp.setPosition((float)Math.random() * 800,(float)Math.random() * 600);
-			SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,40f));
-			RenderingComponent rendComp = new RenderingComponent();
+			SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,40f));
+			RenderingComp rendComp = new RenderingComp();
 			rendComp.setTexture(ContentManager.loadTexture("Circle100pxGrey.png"));
 			rendComp.setColor(new Color((float) Math.random(),(float) Math.random(),(float) Math.random(), (float) Math.random()));
-			PhysicsComponent physComp = new PhysicsComponent();
+			PhysicsComp physComp = new PhysicsComp();
 			physComp.setMass(2f);
 			transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 					rendComp.getTexture().Height / 2));	

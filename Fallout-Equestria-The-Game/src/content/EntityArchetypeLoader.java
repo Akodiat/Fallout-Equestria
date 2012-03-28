@@ -18,18 +18,16 @@ public class EntityArchetypeLoader {
 		xstream.registerConverter(new ColorConverter());
 		xstream.alias("Set", ImmutableSet.class);
 		
-		xstream.processAnnotations(ActionPointsComponent.class);
-		xstream.processAnnotations(AttackComponent.class);
+		xstream.processAnnotations(AbilityPointsComp.class);
+		xstream.processAnnotations(AttackComp.class);
 		xstream.processAnnotations(BasicAIComp.class);
 		xstream.processAnnotations(DeathComp.class);
-		xstream.processAnnotations(HealthComponent.class);
-		xstream.processAnnotations(InputComponent.class);
-		xstream.processAnnotations(PhysicsComponent.class);
-		xstream.processAnnotations(RenderingComponent.class);
-		xstream.processAnnotations(SoundEffectComponent.class);
-		xstream.processAnnotations(SpatialComponent.class);
+		xstream.processAnnotations(HealthComp.class);
+		xstream.processAnnotations(InputComp.class);
+		xstream.processAnnotations(PhysicsComp.class);
+		xstream.processAnnotations(RenderingComp.class);
+		xstream.processAnnotations(SpatialComp.class);
 		xstream.processAnnotations(TransformationComp.class);
-
 	}
 	
 	

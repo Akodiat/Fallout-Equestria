@@ -16,12 +16,11 @@ public class SystemTester {
 		world = injector.getInstance(IEntityWorld.class);
 	}
 	
-	
 	public void addRenderSubSystem(IEntitySystem system) {
 		world.getSystemManager().addRenderEntitySystem(system);
 	}
 	
-	public void addLogicubSystem(IEntitySystem system) {
+	public void addLogicSubSystem(IEntitySystem system) {
 		world.getSystemManager().addLogicEntitySystem(system);
 	}
 	

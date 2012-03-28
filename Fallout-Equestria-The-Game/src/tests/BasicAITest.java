@@ -8,8 +8,8 @@ import ability.BulletAbility;
 
 import components.*;
 import content.ContentManager;
-import debuggsystem.DebugAttackRenderSystem;
-import debuggsystem.DebugSpatialRenderSystem;
+import debugsystems.DebugAttackRenderSystem;
+import debugsystems.DebugSpatialRenderSystem;
 
 import entityFramework.*;
 import entitySystems.*;
@@ -34,14 +34,14 @@ public class BasicAITest extends AbstractSystemTest{
 
 	@Override
 	public void initializeSystems() {
-		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new BasicAISystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new DeathSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
+		tester.addLogicSubSystem(new BasicAISystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -55,17 +55,17 @@ public class BasicAITest extends AbstractSystemTest{
 		
 		player.addToGroup("Friends");
 		player.setLabel("Player");
-		PhysicsComponent physComp = new PhysicsComponent();
-		InputComponent inpComp = new InputComponent();
+		PhysicsComp physComp = new PhysicsComp();
+		InputComp inpComp = new InputComp();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
-		RenderingComponent rendComp = new RenderingComponent();
-		HealthComponent healthComp = new HealthComponent(100, 2, 89);
-		ActionPointsComponent apComp = new ActionPointsComponent();
+		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,30f));
+		RenderingComp rendComp = new RenderingComp();
+		HealthComp healthComp = new HealthComp(100, 2, 89);
+		AbilityPointsComp apComp = new AbilityPointsComp();
 		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
 		
-		WeaponComponent weapon = new WeaponComponent(new BulletAbility(archetype, 1, 0.1f, 10f), null);
+		WeaponComp weapon = new WeaponComp(new BulletAbility(archetype, 1, 0.1f, 10f), null);
 
 		
 

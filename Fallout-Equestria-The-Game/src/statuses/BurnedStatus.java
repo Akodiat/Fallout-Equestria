@@ -1,6 +1,6 @@
 package statuses;
 
-import components.RenderingComponent;
+import components.RenderingComp;
 
 import entityFramework.IEntity;
 import graphics.Color;
@@ -16,7 +16,7 @@ public class BurnedStatus extends RecurringDamageStatus {
 	
 	@Override
 	public void activateStatusEffect() {
-		target.getComponent(RenderingComponent.class).setColor(Color.Red);
+		target.getComponent(RenderingComp.class).setColor(Color.Red);
 		timer.Start();
 	}
 }

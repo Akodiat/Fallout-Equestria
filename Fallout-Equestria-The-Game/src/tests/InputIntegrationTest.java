@@ -5,7 +5,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import components.InputComponent;
+import components.InputComp;
 /**
  * 
  * @author Joakim
@@ -14,7 +14,7 @@ import components.InputComponent;
 public class InputIntegrationTest {
 	
 	public static void main(String[] args) throws LWJGLException{
-		InputComponent comp = new InputComponent();
+		InputComp comp = new InputComp();
 	
 		Display.setDisplayMode(new DisplayMode(800,400));
 		Display.create();

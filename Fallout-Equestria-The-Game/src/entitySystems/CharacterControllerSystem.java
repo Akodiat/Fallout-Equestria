@@ -14,11 +14,11 @@ import entityFramework.*;
 public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 	public CharacterControllerSystem(IEntityWorld world) {
-		super(world, InputComponent.class, 
-					 PhysicsComponent.class,
-					 ActionPointsComponent.class,
+		super(world, InputComp.class, 
+					 PhysicsComp.class,
+					 AbilityPointsComp.class,
 					 TransformationComp.class,
-					 WeaponComponent.class);
+					 WeaponComp.class);
 	}
 	
 	@Override
@@ -27,11 +27,11 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		PhysicsComponent	  physComp   = entity.getComponent(PhysicsComponent.class);
-		InputComponent 		  inpComp    = entity.getComponent(InputComponent.class);
+		PhysicsComp	  physComp   = entity.getComponent(PhysicsComp.class);
+		InputComp 		  inpComp    = entity.getComponent(InputComp.class);
 		TransformationComp    posComp    = entity.getComponent(TransformationComp.class);
-		ActionPointsComponent apComp     = entity.getComponent(ActionPointsComponent.class);
-		WeaponComponent 	  weaponComp = entity.getComponent(WeaponComponent.class);
+		AbilityPointsComp apComp     = entity.getComponent(AbilityPointsComp.class);
+		WeaponComp 	  weaponComp = entity.getComponent(WeaponComp.class);
  		
 		if(inpComp.isLeftMouseButtonDown()){
 			Ability ability = weaponComp.getPrimaryAbility();

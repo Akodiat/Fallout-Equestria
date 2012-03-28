@@ -1,7 +1,7 @@
 package entitySystems;
 
 import math.Vector2;
-import components.PhysicsComponent;
+import components.PhysicsComp;
 import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
@@ -17,21 +17,21 @@ import entityFramework.IEntityWorld;
 public class PhysicsSystem extends EntitySingleProcessingSystem {
 
 	public PhysicsSystem(IEntityWorld world) {
-		super(world, PhysicsComponent.class, TransformationComp.class);
+		super(world, PhysicsComp.class, TransformationComp.class);
 	}
 	private ComponentMapper<TransformationComp> transCM;
-	private ComponentMapper<PhysicsComponent> physCM;
+	private ComponentMapper<PhysicsComp> physCM;
 
 	@Override
 	public void initialize() {
 		transCM  = ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
-		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
+		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComp.class);
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
 		TransformationComp posComp = transCM.getComponent(entity);
-		PhysicsComponent physComp = physCM.getComponent(entity);
+		PhysicsComp physComp = physCM.getComponent(entity);
 
 		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
 

@@ -17,6 +17,14 @@ public abstract class EntitySystem implements IEntitySystem{
 		return this.world;
 	}
 	
+	protected final IEntityManager getEntityManager() {
+		return this.world.getEntityManager();
+	}
+	
+	protected final IEntityDatabase getDatabase() {
+		return this.world.getDatabase();
+	}
+	
 	protected final Map<Integer, IEntity> getEntities() {
 		return this.entities;
 	}

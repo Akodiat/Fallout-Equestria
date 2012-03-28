@@ -11,11 +11,11 @@ import graphics.Color;
 import utils.Circle;
 import utils.Rectangle;
 
-import components.HealthComponent;
-import components.InputComponent;
-import components.PhysicsComponent;
-import components.RenderingComponent;
-import components.SpatialComponent;
+import components.HealthComp;
+import components.InputComp;
+import components.PhysicsComp;
+import components.RenderingComp;
+import components.SpatialComp;
 import components.TransformationComp;
 import content.ContentManager;
 
@@ -35,10 +35,10 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 
 	@Override
 	public void initializeSystems() {
-		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 
@@ -50,12 +50,12 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		TransformationComp posC = new TransformationComp();
 		posC.setPosition(new Vector2(Display.getWidth()/2-200,Display.getHeight()/2));
 
-		PhysicsComponent physC = new PhysicsComponent();
+		PhysicsComp physC = new PhysicsComp();
 		physC.setVelocity(new Vector2(0,0));
 
-		HealthComponent healthC = new HealthComponent(100,20f,100f);
+		HealthComp healthC = new HealthComp(100,20f,100f);
 
-		InputComponent inpC = new InputComponent();
+		InputComp inpC = new InputComp();
 
 		inpC.setBackButton(Keyboard.KEY_S);
 		inpC.setLeftButton(Keyboard.KEY_A);
@@ -64,13 +64,13 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		inpC.setGallopButton(Keyboard.KEY_LSHIFT);
 		inpC.setPipBuckButton(Keyboard.KEY_TAB);
 
-		RenderingComponent rendC = new RenderingComponent();
+		RenderingComp rendC = new RenderingComp();
 		rendC.setColor(new Color(42,200,255, 255));
 
 		rendC.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
 
 		posC.setOrigin(new Vector2(rendC.getTexture().Width/2,rendC.getTexture().Height/2));
-		SpatialComponent spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
+		SpatialComp spatC = new SpatialComp(new Circle(new Vector2(0,0), 40));
 
 		player1.addComponent(rendC);
 		player1.addComponent(inpC);
@@ -88,12 +88,12 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		TransformationComp player2posC = new TransformationComp();
 		player2posC.setPosition(new Vector2(Display.getWidth()/2+200,Display.getHeight()/2));
 
-		PhysicsComponent player2physC = new PhysicsComponent();
+		PhysicsComp player2physC = new PhysicsComp();
 		player2physC.setVelocity(new Vector2(0,0));
 
-		HealthComponent player2healthC = new HealthComponent(100,20f,100f);
+		HealthComp player2healthC = new HealthComp(100,20f,100f);
 
-		InputComponent player2inpC = new InputComponent();
+		InputComp player2inpC = new InputComp();
 
 		player2inpC.setBackButton(Keyboard.KEY_DOWN);
 		player2inpC.setLeftButton(Keyboard.KEY_LEFT);
@@ -102,14 +102,14 @@ public class CharacterDuellingTest extends AbstractSystemTest{
 		player2inpC.setGallopButton(Keyboard.KEY_RCONTROL);
 		player2inpC.setPipBuckButton(Keyboard.KEY_M);
 
-		RenderingComponent player2rendC = new RenderingComponent();
+		RenderingComp player2rendC = new RenderingComp();
 		player2rendC.setColor(new Color(42,255,42, 255));
 
 		player2rendC.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
 
 		player2posC.setOrigin(new Vector2(player2rendC.getTexture().Width/2,player2rendC.getTexture().Height/2));
 
-		SpatialComponent player2spatC = new SpatialComponent(new Circle(new Vector2(0,0), 40));
+		SpatialComp player2spatC = new SpatialComp(new Circle(new Vector2(0,0), 40));
 
 		player2.addComponent(player2rendC);
 		player2.addComponent(player2inpC);

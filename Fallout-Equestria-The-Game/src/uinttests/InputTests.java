@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.lwjgl.input.Keyboard;
 
-import components.InputComponent;
+import components.InputComp;
 
 public class InputTests {
 	
 	@Test
 	public void testInputSequence(){
-		InputComponent comp = new InputComponent();
+		InputComp comp = new InputComp();
 		comp.setBackButton(Keyboard.KEY_S);
 		comp.setLeftButton(Keyboard.KEY_A);
 		comp.setForwardButton(Keyboard.KEY_W);

@@ -1,8 +1,8 @@
 package entitySystems;
 import math.Vector2;
 import components.AntiGravityComp;
-import components.InputComponent;
-import components.PhysicsComponent;
+import components.InputComp;
+import components.PhysicsComp;
 import components.TransformationComp;
 
 import entityFramework.*;
@@ -25,12 +25,12 @@ public class TelekinesisSystem extends EntitySingleProcessingSystem{
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		PhysicsComponent physComp = entity.getComponent(PhysicsComponent.class);
+		PhysicsComp physComp = entity.getComponent(PhysicsComp.class);
 		TransformationComp transComp = entity.getComponent(TransformationComp.class);
 		AntiGravityComp aGravComp = entity.getComponent(AntiGravityComp.class);
 		
 		IEntity controller = this.getWorld().getEntityManager().getEntity(aGravComp.getControllingEntityID());
-		InputComponent inpComp = controller.getComponent(InputComponent.class); //Get the InputComponent from the controlling entity
+		InputComp inpComp = controller.getComponent(InputComp.class); //Get the InputComponent from the controlling entity
 		
 		Vector2 velocity = (Vector2.subtract(inpComp.getMousePosition(), transComp.getPosition()));
 		physComp.setVelocity(velocity);

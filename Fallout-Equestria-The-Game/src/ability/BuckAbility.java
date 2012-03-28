@@ -20,7 +20,7 @@ public class BuckAbility extends Ability{
 		Vector2 buckOrigin = sourceEntity.getComponent(TransformationComp.class).getPosition();
 		int buckStrenght = 9 * sourceEntity.getComponent(SpecialComp.class).getStrength();
 		
-		AttackComponent attackComp = new AttackComponent();
+		AttackComp attackComp = new AttackComp();
 		attackComp.setSourceEntity(sourceEntity);
 		attackComp.setBounds(new Circle(Vector2.Zero,30));
 		attackComp.setDamage(buckStrenght);

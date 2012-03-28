@@ -6,9 +6,9 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import graphics.Color;
 
-import components.InputComponent;
-import components.PhysicsComponent;
-import components.RenderingComponent;
+import components.InputComp;
+import components.PhysicsComp;
+import components.RenderingComp;
 import components.TransformationComp;
 import content.ContentManager;
 
@@ -33,9 +33,9 @@ public class CharacterMovementTest extends AbstractSystemTest{
 
 	@Override
 	public void initializeSystems() {
-		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 
@@ -46,10 +46,10 @@ public class CharacterMovementTest extends AbstractSystemTest{
 		TransformationComp posC = new TransformationComp();
 		posC.setPosition(new Vector2(0,0));
 		
-		PhysicsComponent physC = new PhysicsComponent();
+		PhysicsComp physC = new PhysicsComp();
 		physC.setVelocity(new Vector2(0,0));
 		
-		InputComponent inpC = new InputComponent();
+		InputComp inpC = new InputComp();
 
 		inpC.setBackButton(Keyboard.KEY_S);
 		inpC.setLeftButton(Keyboard.KEY_A);
@@ -58,7 +58,7 @@ public class CharacterMovementTest extends AbstractSystemTest{
 		inpC.setGallopButton(Keyboard.KEY_LSHIFT);
 		inpC.setPipBuckButton(Keyboard.KEY_TAB);
 		
-		RenderingComponent rendC = new RenderingComponent();
+		RenderingComp rendC = new RenderingComp();
 		rendC.setColor(new Color(255,255,255,255));
 		rendC.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 	

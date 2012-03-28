@@ -1,8 +1,7 @@
 package entitySystems;
 
-import utils.Timer;
 import components.AnimationComp;
-import components.RenderingComponent;
+import components.RenderingComp;
 import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
@@ -14,12 +13,12 @@ public class AnimationSystem extends EntitySingleProcessingSystem {
 
 	public AnimationSystem(IEntityWorld world) {
 		super(world, AnimationComp.class, TransformationComp.class,
-				RenderingComponent.class);
+				RenderingComp.class);
 	}
 
 	private ComponentMapper<AnimationComp> aCM;
 	private ComponentMapper<TransformationComp> tCM;
-	private ComponentMapper<RenderingComponent> rCM;
+	private ComponentMapper<RenderingComp> rCM;
 
 	@Override
 	public void initialize() {
@@ -28,7 +27,7 @@ public class AnimationSystem extends EntitySingleProcessingSystem {
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
 		rCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				RenderingComponent.class);
+				RenderingComp.class);
 	}
 	@Override
 	public void process(){
@@ -39,7 +38,7 @@ public class AnimationSystem extends EntitySingleProcessingSystem {
 	protected void processEntity(IEntity entity) {
 		AnimationComp animationC = this.aCM.getComponent(entity);
 		TransformationComp positionC = this.tCM.getComponent(entity);
-		RenderingComponent renderC = this.rCM.getComponent(entity);
+		RenderingComp renderC = this.rCM.getComponent(entity);
 		
 		renderC.setSource(animationC.getActiveAnimation().getActiveFrame().getSourceRect());
 		positionC.setOrigin(animationC.getActiveAnimation().getActiveFrame().getOrigin());

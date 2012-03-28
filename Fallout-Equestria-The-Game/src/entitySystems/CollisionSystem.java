@@ -5,8 +5,8 @@ import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.PhysicsComponent;
-import components.SpatialComponent;
+import components.PhysicsComp;
+import components.SpatialComp;
 import components.TransformationComp;
 
 import entityFramework.*;
@@ -15,36 +15,36 @@ import entityFramework.*;
 public class CollisionSystem extends EntitySingleProcessingSystem{
 
 	public CollisionSystem(IEntityWorld world) {
-		super(world, PhysicsComponent.class, TransformationComp.class, SpatialComponent.class);
+		super(world, PhysicsComp.class, TransformationComp.class, SpatialComp.class);
 	}
 
 	private ComponentMapper<TransformationComp> transCM;
-	private ComponentMapper<PhysicsComponent> physCM;
-	private ComponentMapper<SpatialComponent> spatCM;
+	private ComponentMapper<PhysicsComp> physCM;
+	private ComponentMapper<SpatialComp> spatCM;
 
 	@Override
 	public void initialize() {
 		transCM = ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
-		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
-		spatCM = ComponentMapper.create(this.getWorld().getDatabase(), SpatialComponent.class);
+		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComp.class);
+		spatCM = ComponentMapper.create(this.getWorld().getDatabase(), SpatialComp.class);
 
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
 		TransformationComp transComp = transCM.getComponent(entity);
-		PhysicsComponent physComp = physCM.getComponent(entity);
-		SpatialComponent spatComp = spatCM.getComponent(entity);
+		PhysicsComp physComp = physCM.getComponent(entity);
+		SpatialComp spatComp = spatCM.getComponent(entity);
 
-		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComponent.class);
+		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComp.class);
 		transComp.setPosition(Vector2.add(transComp.getPosition(), physComp.getVelocity()));
 
 		for(IEntity i:collidableEntities){						
 
 			//Checking collision with other entities
-			SpatialComponent otherSpatComp = i.getComponent(SpatialComponent.class);
+			SpatialComp otherSpatComp = i.getComponent(SpatialComp.class);
 			TransformationComp otherTransComp = i.getComponent(TransformationComp.class);
-			PhysicsComponent otherPhysComp = i.getComponent(PhysicsComponent.class);
+			PhysicsComp otherPhysComp = i.getComponent(PhysicsComp.class);
 			
 			if(!i.equals(entity) && Circle.intersects(
 					otherSpatComp.getBounds(),
@@ -59,9 +59,9 @@ public class CollisionSystem extends EntitySingleProcessingSystem{
 	}
 
 	private void collide(TransformationComp transComp,
-			PhysicsComponent physComp, SpatialComponent spatComp,
-			SpatialComponent otherSpatComp, TransformationComp otherTransComp,
-			PhysicsComponent otherPhysComp) {
+			PhysicsComp physComp, SpatialComp spatComp,
+			SpatialComp otherSpatComp, TransformationComp otherTransComp,
+			PhysicsComp otherPhysComp) {
 		Vector2 Dn = Vector2.subtract((transComp.getPosition()),otherTransComp.getPosition());
 		float distance = Dn.length();
 		

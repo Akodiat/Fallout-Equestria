@@ -13,7 +13,7 @@ public abstract class EntitySingleProcessingSystem extends EntityProcessingSyste
 
 
 	@Override
-	protected final void processEntitys(ImmutableSet<IEntity> entities) {
+	protected final void processEntities(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
 			this.processEntity(entity);
 		}

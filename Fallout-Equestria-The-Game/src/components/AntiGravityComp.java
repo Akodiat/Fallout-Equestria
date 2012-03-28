@@ -35,4 +35,9 @@ public class AntiGravityComp implements IComponent{
 	public void setControllingEntityID(int controllingEntityID) {
 		this.controllingEntityID = controllingEntityID;
 	}
+	
+	public String toString() {
+		return "AntiGravityComp: \n" 
+			+  "ControlingEntityID: " + this.controllingEntityID + "\n";
+	}
 }

@@ -4,7 +4,7 @@ import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.SpatialComponent;
+import components.SpatialComp;
 import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
@@ -17,11 +17,11 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 	private Vector2 worldDimensions;
 
 	public MapCollisionSystem(IEntityWorld world, Vector2 worldDimensions) {
-		super(world, TransformationComp.class, SpatialComponent.class);
+		super(world, TransformationComp.class, SpatialComp.class);
 		this.worldDimensions = worldDimensions;
 	}
 
-	private ComponentMapper<SpatialComponent> sCM;
+	private ComponentMapper<SpatialComp> sCM;
 	private ComponentMapper<TransformationComp> tCM;
 
 	@Override
@@ -29,14 +29,14 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
 		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				SpatialComponent.class);
+				SpatialComp.class);
 	}
 
 	@Override
-	protected void processEntitys(ImmutableSet<IEntity> entities) {
+	protected void processEntities(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
 			TransformationComp posiCom = tCM.getComponent(entity);
-			SpatialComponent spatiCom = sCM.getComponent(entity);
+			SpatialComp spatiCom = sCM.getComponent(entity);
 			
 			//Check collision against north border
 			if (posiCom.getPosition().X - spatiCom.getBounds().getRadius()<0){

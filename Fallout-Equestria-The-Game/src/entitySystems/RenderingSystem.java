@@ -1,7 +1,7 @@
 package entitySystems;
 
 import math.Matrix4;
-import components.RenderingComponent;
+import components.RenderingComp;
 import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
@@ -16,13 +16,13 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 	private SpriteBatch spriteBatch;
 	
 	public RenderingSystem(IEntityWorld world, SpriteBatch graphics) {
-		super(world, TransformationComp.class, RenderingComponent.class);
+		super(world, TransformationComp.class, RenderingComp.class);
 		this.spriteBatch = graphics;
 	}
 
 	
 	private ComponentMapper<TransformationComp> posCM;
-	private ComponentMapper<RenderingComponent> renderCM; 
+	private ComponentMapper<RenderingComp> renderCM; 
 	
 	
 	
@@ -33,12 +33,12 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 				this.getWorld().getDatabase(), TransformationComp.class);
 		
 		renderCM = ComponentMapper.create(
-				this.getWorld().getDatabase(), RenderingComponent.class);
+				this.getWorld().getDatabase(), RenderingComp.class);
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		RenderingComponent renderC = this.renderCM.getComponent(entity);
+		RenderingComp renderC = this.renderCM.getComponent(entity);
 		TransformationComp positionC = this.posCM.getComponent(entity);
 		
 		
@@ -58,7 +58,7 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 		}
 	}
 
-	private void draw(RenderingComponent renderC, TransformationComp transformation) {
+	private void draw(RenderingComp renderC, TransformationComp transformation) {
 		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), renderC.getSource(),
 							  transformation.getOrigin(), transformation.getScale(), transformation.getRotation(), transformation.getMirror());
 	}

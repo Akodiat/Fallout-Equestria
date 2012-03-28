@@ -13,9 +13,9 @@ import org.lwjgl.opengl.Display;
 
 import utils.Rectangle;
 
-import components.InputComponent;
-import components.PhysicsComponent;
-import components.RenderingComponent;
+import components.InputComp;
+import components.PhysicsComp;
+import components.RenderingComp;
 import components.TransformationComp;
 import content.ContentManager;
 
@@ -35,17 +35,17 @@ public class CharacterMovementIntegrationTest {
 		
 		graphics = new SpriteBatch(new Rectangle(0, 0, 1280, 720));
 		
-		RenderingComponent rendComp = new RenderingComponent();
+		RenderingComp rendComp = new RenderingComp();
 		rendComp.setColor(new Color(255,255,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getWidth()/2,Display.getHeight()/2));
 
-		PhysicsComponent physComp = new PhysicsComponent();
+		PhysicsComp physComp = new PhysicsComp();
 		physComp.setVelocity(new Vector2(0,0));
 
-		InputComponent inpComp = new InputComponent();
+		InputComp inpComp = new InputComp();
 
 		
 

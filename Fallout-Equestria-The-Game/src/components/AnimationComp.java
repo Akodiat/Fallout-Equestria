@@ -1,7 +1,6 @@
 package components;
 
 import java.util.Map;
-
 import entityFramework.IComponent;
 import graphics.Animation;
 
@@ -20,22 +19,23 @@ public class AnimationComp implements IComponent {
 		this.activeAnimation = toBeCloned.activeAnimation;
 	}
 
+	public AnimationComp clone(){
+		return new AnimationComp(this);
+	}	
+	
 	public Animation getActiveAnimation() {
 		return activeAnimation;
 	}
 
 	public void setActiveAnimation(String newActiveAnimation) {
-		if(animations.containsKey(newActiveAnimation)){
-			if (this.activeAnimation != this.animations.get(newActiveAnimation)){
+		Animation animation = this.animations.get(newActiveAnimation);
+		if(animation != null){
+			if (this.activeAnimation != animation){
 				this.activeAnimation.Complete();
-				this.activeAnimation = this.animations.get(newActiveAnimation);
+				this.activeAnimation = animation;
 				this.activeAnimation.Start();
 			}
-			System.out.println("Tried to set animation which was already in place.");
-			return;
 		}
-		System.out.println("Tried to set animation with invalid key.");
-		//TODO: Remove this annoying debugmessage
 	}
 
 	public Map<String, Animation> getAnimations() {
@@ -46,8 +46,17 @@ public class AnimationComp implements IComponent {
 		this.animations = animations;
 	}
 
-	public AnimationComp clone(){
-		return new AnimationComp(this);
+	public String toString() {
+		String s = "AnimationComp: \n";
+		if(this.activeAnimation != null) {
+			s += "CurrentAnimation:" + this.activeAnimation.toString() + "\n";
+		}
+		
+		for (Animation animation : this.animations.values()) {
+			s += animation.toString() + "\n";
+		}
+		
+		return s;
 	}
 
 }

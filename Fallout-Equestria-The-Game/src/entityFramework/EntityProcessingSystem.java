@@ -16,10 +16,10 @@ public abstract class EntityProcessingSystem extends EntitySystem{
 	@Override
 	public void process() {
 		ImmutableSet<IEntity> entities = ImmutableSet.copyOf(this.getEntities().values());
-		this.processEntitys(entities);
+		this.processEntities(entities);
 	}
 	
 	
-	protected abstract void processEntitys(ImmutableSet<IEntity> entities);
+	protected abstract void processEntities(ImmutableSet<IEntity> entities);
 
 }

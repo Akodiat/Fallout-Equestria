@@ -1,6 +1,6 @@
 package ability;
 
-import components.ActionPointsComponent;
+import components.AbilityPointsComp;
 import math.Vector2;
 import utils.ITimerListener;
 import utils.Timer;
@@ -23,15 +23,15 @@ public abstract class Ability{
 		this.timer.addEventListener(new TimerImplementation());
 	}
 	
-	protected boolean canUse(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager, ActionPointsComponent apComp){
+	protected boolean canUse(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager, AbilityPointsComp apComp){
 		return !busy && apComp.getAbilityPoints() >= apCost;
 	}
 	
 	public final void useAbility(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
-		ActionPointsComponent apComp = sourceEntity.getComponent(ActionPointsComponent.class);
+		AbilityPointsComp apComp = sourceEntity.getComponent(AbilityPointsComp.class);
 		if(apComp != null && canUse(sourceEntity, targetPos, manager, apComp)) {
 			timer.Start();
-			apComp.addAbilityPoints(-apCost);
+			apComp.removeAbilityPoints(apCost);
 			use(sourceEntity, targetPos, manager);
 		}
 	}

@@ -12,7 +12,7 @@ import entityFramework.IComponent;
 @XStreamAlias("Ability")
 public class AbilityComp implements IComponent{
 	private Map<Class<? extends Ability>, Ability> abilities;
-	Ability currentAbility;
+	private Ability currentAbility;
 	
 	public AbilityComp(){
 		this(new HashMap<Class<? extends Ability>, Ability>(), null);
@@ -28,20 +28,40 @@ public class AbilityComp implements IComponent{
 	public Object clone(){
 		return new AbilityComp(this);
 	}
+	
 	/**
 	 * @return the currentAbility
 	 */
 	public Ability getCurrentAbility() {
 		return currentAbility;
 	}
+	
 	/**
 	 * @param currentAbility the currentAbility to set
 	 */
 	public void setCurrentAbility(Class<? extends Ability> abilityClass) {
 		this.currentAbility = this.abilities.get(abilityClass);
 	}
+	
 	public void addAbility(Ability ability){
 		abilities.put(ability.getClass(), ability);
 	}
-
+	
+	public void removeAbility(Ability ability){
+		abilities.remove(ability.getClass());
+	}
+	
+	public String toString() {
+		String s = "AbilityComp: \n";
+		if(this.currentAbility != null) {
+			s += "CurrentAbility:" + this.currentAbility.toString() + "\n";
+		}
+		
+		for (Ability ability : this.abilities.values()) {
+			s += ability.toString() + "\n";
+		}
+		
+		return s;
+	}
+	
 }

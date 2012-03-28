@@ -18,8 +18,8 @@ import com.google.common.collect.ImmutableList;
 import components.*;
 import content.ContentManager;
 import death.PPDeathAction;
-import debuggsystem.DebugAttackRenderSystem;
-import debuggsystem.DebugSpatialRenderSystem;
+import debugsystems.DebugAttackRenderSystem;
+import debugsystems.DebugSpatialRenderSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
@@ -108,18 +108,18 @@ public class AnimationTest {
 	}
 
 	public void initializeSystems() {
-		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new CameraControlSystem(this.tester.getWorld(), camera));
-		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
+		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CameraControlSystem(this.tester.getWorld(), camera));
+		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
+		tester.addLogicSubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new AnimationSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new DeathSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new DeathResolveSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new DeathResolveSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
@@ -134,18 +134,18 @@ public class AnimationTest {
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 
 		player.setLabel("Player");
-		PhysicsComponent physComp = new PhysicsComponent();
-		InputComponent inpComp = new InputComponent();
+		PhysicsComp physComp = new PhysicsComp();
+		InputComp inpComp = new InputComp();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
+		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,30f));
 
-		HealthComponent healthComp = new HealthComponent(100, 2, 89);
-		ActionPointsComponent apComp = new ActionPointsComponent();
+		HealthComp healthComp = new HealthComp(100, 2, 89);
+		AbilityPointsComp apComp = new AbilityPointsComp();
 		DeathComp deathComp = new DeathComp();
 		deathComp.addDeathAction(new PPDeathAction());
 		
-		WeaponComponent weaponComp = new WeaponComponent();
+		WeaponComp weaponComp = new WeaponComp();
 		Ability primaryAbility = new BulletAbility(ContentManager.loadArchetype("ppieBullet.archetype"),1,1,1);
 		weaponComp.setPrimaryAbility(primaryAbility);
 
@@ -154,7 +154,7 @@ public class AnimationTest {
 		/*Frame frame1 = new Frame(new Rectangle(0,0,44,38),new Vector2(22,19), false);
 		Frame frame2 = new Frame(new Rectangle(44,0,44,38),new Vector2(22,19), false);
 		Frame frame3 = new Frame(new Rectangle(92,0,40,38),new Vector2(22,19), false);*/
-		ImmutableList<Frame> frames = Frame.generateFrames(new Vector2(0,0), new Vector2(83.3333333333333333333333333333333f, 75), 24, true);
+		ImmutableList<Frame> frames = Frame.generateFrames(new Vector2(0,0), new Vector2(83 + 1.0f/3.0f, 75), 24, true);
 		Timer aniTimer = new Timer(0.01f, Integer.MAX_VALUE);
 		Animation animation = new Animation(frames, aniTimer);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
@@ -163,7 +163,7 @@ public class AnimationTest {
 		aniComp.getActiveAnimation().getTimer().Start();
 
 		//rendcomp
-		RenderingComponent rendComp = new RenderingComponent();
+		RenderingComp rendComp = new RenderingComp();
 		rendComp.setColor(Color.White);
 		rendComp.setTexture(ContentManager.loadTexture("pinkiewalkweaponspriteSCALED.png"));
 
@@ -210,10 +210,10 @@ public class AnimationTest {
 
 			TransformationComp transComp = new TransformationComp();
 			transComp.setPosition((float)Math.random() * 10000,(float)Math.random() * 10000);
-			SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
-			RenderingComponent rendComp = new RenderingComponent();
+			SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,50f));
+			RenderingComp rendComp = new RenderingComp();
 			rendComp.setTexture(ContentManager.loadTexture("house.png"));
-			PhysicsComponent physComp = new PhysicsComponent();
+			PhysicsComp physComp = new PhysicsComp();
 			physComp.setMass(100f);
 			transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 					rendComp.getTexture().Height / 2));	

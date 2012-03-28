@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.ActionPointsComponent;
+import components.AbilityPointsComp;
 import components.AntiGravityComp;
-import components.InputComponent;
+import components.InputComp;
 import components.TransformationComp;
 
 import math.Vector2;
@@ -20,7 +20,7 @@ import entityFramework.IEntityManager;
 public class TelekinesisAbility extends Ability{
 
 	private static final float pickUpRadius = 20; //TODO: Make depend on magic skill?
-	private boolean notPicking = true;
+	private boolean notPicking = true; //TODO: Change this so that is makes sense. 
 
 	public TelekinesisAbility(int apCost, float cooldown) {
 		super(apCost, cooldown);
@@ -29,7 +29,7 @@ public class TelekinesisAbility extends Ability{
 	@Override
 	public void use(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
 		Vector2 sourcePos = sourceEntity.getComponent(TransformationComp.class).getPosition();
-		Vector2 mousePos = sourceEntity.getComponent(InputComponent.class).getMousePosition();
+		Vector2 mousePos = sourceEntity.getComponent(InputComp.class).getMousePosition();
 		
 		ImmutableSet<IEntity> pickupableSet = manager.getEntityGroup("Pickup-able");
 		List<IEntity> pickupable = pickupableSet.asList();
@@ -59,9 +59,7 @@ public class TelekinesisAbility extends Ability{
 	}
 	
 	@Override
-	protected boolean canUse(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager, ActionPointsComponent apComp){
-		return this.notPicking;
-
+	protected boolean canUse(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager, AbilityPointsComp apComp){
+		return this.notPicking; //TODO: Change this so that is makes sense. 
 	}
-
 }

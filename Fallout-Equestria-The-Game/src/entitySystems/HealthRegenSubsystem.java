@@ -2,7 +2,7 @@ package entitySystems;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.HealthComponent;
+import components.HealthComp;
 
 import entityFramework.ComponentMapper;
 import entityFramework.IEntity;
@@ -12,22 +12,22 @@ import entityFramework.TimedEntityProcessingSystem;
 public class HealthRegenSubsystem extends TimedEntityProcessingSystem {
 
 	
-	public HealthRegenSubsystem(IEntityWorld world) {
-		super(world, 0.1f, HealthComponent.class);
+	public HealthRegenSubsystem(IEntityWorld world, float regenTimer) {
+		super(world, regenTimer, HealthComp.class);
 	}
 
-	private ComponentMapper<HealthComponent> hCM;
+	private ComponentMapper<HealthComp> hCM;
 
 	@Override
 	public void initialize() {
 		hCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				HealthComponent.class);
+				HealthComp.class);
 	}
 
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
-			HealthComponent healCom = hCM.getComponent(entity);
+			HealthComp healCom = hCM.getComponent(entity);
 			healCom.regenHealthPoints();
 		}
 	}

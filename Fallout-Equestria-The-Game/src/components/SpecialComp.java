@@ -7,6 +7,9 @@ import entityFramework.IComponent;
  *
  */
 public final class SpecialComp implements IComponent{
+	
+	//FIX MAGIC NUMBERS!
+	
 	private int strength;
 	private int perception;
 	private int endurance;
@@ -15,6 +18,7 @@ public final class SpecialComp implements IComponent{
 	private int agility;
 	private int luck;
 	
+	//TODO Constructor chaning. 
 	public SpecialComp(){
 		this.strength = 5;
 		this.perception = 5;
@@ -130,5 +134,6 @@ public final class SpecialComp implements IComponent{
 	public void setLuck(int luck) {
 		this.luck = luck;
 	}
-
+	
+	//TODO Implement TOSTRING!!!!!!!
 }

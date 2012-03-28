@@ -21,42 +21,40 @@ import entityFramework.IEntityWorld;
 public class AttackResolveSystem extends EntityProcessingSystem {
 
 	public AttackResolveSystem(IEntityWorld world) {
-		super(world, TransformationComp.class, AttackComponent.class);
+		super(world, TransformationComp.class, AttackComp.class);
 	}
 
-	private ComponentMapper<AttackComponent> aCM;
-	private ComponentMapper<SpatialComponent> sCM;
+	private ComponentMapper<AttackComp> aCM;
+	private ComponentMapper<SpatialComp> sCM;
 	private ComponentMapper<TransformationComp> tCM;
 
 	@Override
 	public void initialize() {
 		aCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				AttackComponent.class);
+				AttackComp.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
 		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				SpatialComponent.class);
+				SpatialComp.class);
 	}
 
 	@Override
-	protected void processEntitys(ImmutableSet<IEntity> entities) {
+	protected void processEntities(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
-			AttackComponent attaCom = aCM.getComponent(entity);
+			AttackComp attaCom = aCM.getComponent(entity);
 			TransformationComp posiCom = tCM.getComponent(entity);
 
 			@SuppressWarnings("unchecked")
 			ImmutableSet<IEntity> targets = this
-					.getWorld()
 					.getDatabase()
 					.getEntitysContainingComponents(TransformationComp.class,
-							SpatialComponent.class);
+							SpatialComp.class);
 
 			boolean hitSomething = false;
-
 			for (IEntity targetEntity : targets) {
 				if (targetEntity != attaCom.getSourceEntity()
 						&& targetEntity != entity) {
-					SpatialComponent targetSpatiCom = sCM
+					SpatialComp targetSpatiCom = sCM
 							.getComponent(targetEntity);
 					TransformationComp targetPosiCom = tCM
 							.getComponent(targetEntity);
@@ -65,8 +63,8 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 
 					if (itGotHit) {
 						hitSomething = true;
-						HealthComponent healthComp = targetEntity
-								.getComponent(HealthComponent.class);
+						HealthComp healthComp = targetEntity
+								.getComponent(HealthComp.class);
 						if (healthComp != null) {
 							healthComp.addHealthPoints(-attaCom.getDamage());
 							attaCom.addTargetHit(targetEntity);
@@ -82,9 +80,9 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 		}
 	}
 
-	private boolean checkForCollision(AttackComponent attaCom,
+	private boolean checkForCollision(AttackComp attaCom,
 			TransformationComp posiCom, IEntity targetEntity,
-			SpatialComponent targetSpatiCom, TransformationComp targetPosiCom) {
+			SpatialComp targetSpatiCom, TransformationComp targetPosiCom) {
 
 		return Circle.intersects(attaCom.getBounds(), posiCom.getPosition(),
 				targetSpatiCom.getBounds(), targetPosiCom.getPosition())

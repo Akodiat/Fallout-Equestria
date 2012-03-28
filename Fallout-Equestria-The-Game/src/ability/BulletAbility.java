@@ -1,15 +1,11 @@
 package ability;
 
-import java.io.IOException;
-
 import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
-
 import math.Vector2;
-import components.AttackComponent;
-import components.PhysicsComponent;
+import components.AttackComp;
+import components.PhysicsComp;
 import components.TransformationComp;
+import content.ContentManager;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
@@ -26,12 +22,7 @@ public class BulletAbility extends Ability{
 		super(APCost, shootingInterval);
 		this.bulletArch = bulletArch;
 		this.bulletSpeed = bulletSpeed;
-		
-		try {
-			this.soundEffect = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("/resources/sound/effects/pew.ogg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.soundEffect = ContentManager.loadSound("effects/pew.ogg"); 
 	}
 
 	@Override
@@ -42,12 +33,11 @@ public class BulletAbility extends Ability{
 		Vector2 attackSpeed = Vector2.subtract(targetPos, transComp.getPosition());
 		attackSpeed = Vector2.norm(attackSpeed);
 		
-		bullet.getComponent(AttackComponent.class).setSourceEntity(sourceEntity);
+		bullet.getComponent(AttackComp.class).setSourceEntity(sourceEntity);
 		bullet.getComponent(TransformationComp.class).setRotation(attackSpeed.angle());
 		bullet.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(60, attackSpeed)));
-		bullet.getComponent(PhysicsComponent.class).setVelocity(Vector2.mul(bulletSpeed, attackSpeed));
+		bullet.getComponent(PhysicsComp.class).setVelocity(Vector2.mul(bulletSpeed, attackSpeed));
 		
-		//TODO enable once again. Later
 		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
 		
 		bullet.refresh();

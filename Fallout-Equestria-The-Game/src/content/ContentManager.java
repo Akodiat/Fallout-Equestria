@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.newdawn.slick.openal.Audio;
+
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
@@ -31,11 +33,13 @@ public final class ContentManager {
 	private static final BiMap<String, ShaderEffect> shaderEffects = HashBiMap.create();
 	private static final BiMap<String, ILineScript> scripts =  HashBiMap.create();
 	private static final BiMap<String, IEntityArchetype> archetypes = HashBiMap.create();
+	private static final BiMap<String, Audio> sounds = HashBiMap.create();
 	
-	private static final ShaderLoader shaderLoader = new ShaderLoader();
-	private static final TextureLoader textureLoader = new TextureLoader();	
-	private static final ScriptLoader scriptLoader = new ScriptLoader();
+	private static final ShaderLoader shaderLoader 			   = new ShaderLoader();
+	private static final TextureLoader textureLoader	  	   = new TextureLoader();	
+	private static final ScriptLoader scriptLoader 		       = new ScriptLoader();
 	private static final EntityArchetypeLoader archetypeLoader = new EntityArchetypeLoader();
+	private static final SoundLoader soundLoader 			   = new SoundLoader();
 	
 	public static Texture2D loadTexture(String name) {
 		
@@ -135,6 +139,22 @@ public final class ContentManager {
 			return new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException("Did not find the file!" + name);
+		}
+	}
+
+	public static Audio loadSound(String path) {
+		File file = new File("resources" + File.separator + "sounds" + File.separator + path);
+		Audio audio = sounds.get(path);
+		if(audio != null) {
+			return audio;
+		}
+		
+		try {
+			audio = soundLoader.loadSound(new FileInputStream(file));
+			sounds.put(path, audio);
+			return audio;
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to load sound: " + path);
 		}
 	}
 }

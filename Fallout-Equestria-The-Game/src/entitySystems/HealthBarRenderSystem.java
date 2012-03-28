@@ -1,8 +1,8 @@
 package entitySystems;
 
 import com.google.common.collect.ImmutableSet;
-import components.HealthComponent;
-import components.RenderingComponent;
+import components.HealthComp;
+import components.RenderingComp;
 import components.TransformationComp;
 import content.ContentManager;
 
@@ -21,18 +21,18 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 	private Texture2D healthBarTexture;
 
 	public HealthBarRenderSystem(IEntityWorld world, SpriteBatch graphics) {
-		super(world, HealthComponent.class, RenderingComponent.class,
+		super(world, HealthComp.class, RenderingComp.class,
 				TransformationComp.class);
 		this.spriteBatch = graphics;
 	}
 
-	private ComponentMapper<HealthComponent> hCM;
+	private ComponentMapper<HealthComp> hCM;
 	private ComponentMapper<TransformationComp> tCM;
 
 	@Override
 	public void initialize() {
 		hCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				HealthComponent.class);
+				HealthComp.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
 
@@ -40,9 +40,9 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 	}
 
 	@Override
-	protected void processEntitys(ImmutableSet<IEntity> entities) {
+	protected void processEntities(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
-			HealthComponent healthC = this.hCM.getComponent(entity);
+			HealthComp healthC = this.hCM.getComponent(entity);
 			TransformationComp positionC = this.tCM.getComponent(entity);
 
 			Rectangle healthBar = new Rectangle(

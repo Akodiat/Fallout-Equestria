@@ -27,14 +27,14 @@ public class ArchetypeGenerator {
 		
 		TransformationComp transComp = new TransformationComp();
 		transComp.setPosition((float)Math.random() * 800,(float)Math.random() * 600);
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,10f));
-		HealthComponent healthComp = new HealthComponent(50,1,50);
-		RenderingComponent rendComp = new RenderingComponent();
+		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,10f));
+		HealthComp healthComp = new HealthComp(50,1,50);
+		RenderingComp rendComp = new RenderingComp();
 		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 		rendComp.setColor(Color.Red);
 		BasicAIComp aiComp = new BasicAIComp();
-		ActionPointsComponent apComp = new ActionPointsComponent(200, 100, 4);
-		PhysicsComponent physComp = new PhysicsComponent();
+		AbilityPointsComp apComp = new AbilityPointsComp(200, 100, 4);
+		PhysicsComp physComp = new PhysicsComp();
 		transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 										rendComp.getTexture().Height / 2));	
 	

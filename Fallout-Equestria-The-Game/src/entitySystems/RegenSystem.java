@@ -9,12 +9,12 @@ import entityFramework.IEntityWorld;
 public class RegenSystem extends EntityProcessingSystem {
 
 	HealthRegenSubsystem hRS;
-	ActionPointsRegenSubsystem aPRS;
+	APRegenSubsystem aPRS;
 
-	public RegenSystem(IEntityWorld world) {
+	public RegenSystem(IEntityWorld world, float regenTimer) {
 		super(world);
-		hRS = new HealthRegenSubsystem(world);
-		aPRS = new ActionPointsRegenSubsystem(world);
+		hRS = new HealthRegenSubsystem(world, regenTimer);
+		aPRS = new APRegenSubsystem(world,regenTimer);
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class RegenSystem extends EntityProcessingSystem {
 	}
 
 	@Override
-	protected void processEntitys(ImmutableSet<IEntity> entities) {
+	protected void processEntities(ImmutableSet<IEntity> entities) {
 		hRS.process();
 		aPRS.process();
 	}

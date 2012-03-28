@@ -18,8 +18,8 @@ import utils.Timer;
 
 import components.*;
 import content.ContentManager;
-import debuggsystem.DebugAttackRenderSystem;
-import debuggsystem.DebugSpatialRenderSystem;
+import debugsystems.DebugAttackRenderSystem;
+import debugsystems.DebugSpatialRenderSystem;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
@@ -88,13 +88,13 @@ public class DemoWeek1 {
 	}
 
 	public void initializeSystems() {
-		tester.addLogicubSystem(new CharacterControllerSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new InputSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new CollisionSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new CameraControlSystem(this.tester.getWorld(), camera));
-		tester.addLogicubSystem(new AttackResolveSystem(this.tester.getWorld()));
-		tester.addLogicubSystem(new RegenSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new InputSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new CameraControlSystem(this.tester.getWorld(), camera));
+		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -109,18 +109,18 @@ public class DemoWeek1 {
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		player.setLabel("Player");
-		PhysicsComponent physComp = new PhysicsComponent();
-		InputComponent inpComp = new InputComponent();
+		PhysicsComp physComp = new PhysicsComp();
+		InputComp inpComp = new InputComp();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,10f));
-		RenderingComponent rendComp = new RenderingComponent();
-		HealthComponent healthComp = new HealthComponent(100, 2, 89);
-		ActionPointsComponent apComp = new ActionPointsComponent(100, 50, 5.0f);
+		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,10f));
+		RenderingComp rendComp = new RenderingComp();
+		HealthComp healthComp = new HealthComp(100, 2, 89);
+		AbilityPointsComp apComp = new AbilityPointsComp(100, 50, 5.0f);
 		
 		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
 		
-		WeaponComponent weapon = new WeaponComponent(new BulletAbility(archetype, 1, 0.1f, 10f), null);
+		WeaponComp weapon = new WeaponComp(new BulletAbility(archetype, 1, 0.1f, 10f), null);
 
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
@@ -144,10 +144,10 @@ public class DemoWeek1 {
 		house.setLabel("House");
 		TransformationComp housePosComp = new TransformationComp();
 		housePosComp.setPosition(1337, 1337);
-		SpatialComponent houseSpatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
-		RenderingComponent houseRendComp = new RenderingComponent();
+		SpatialComp houseSpatComp = new SpatialComp(new Circle(Vector2.Zero,50f));
+		RenderingComp houseRendComp = new RenderingComp();
 		houseRendComp.setTexture(ContentManager.loadTexture("house.png"));
-		PhysicsComponent housePhysComp = new PhysicsComponent();
+		PhysicsComp housePhysComp = new PhysicsComp();
 		housePhysComp.setMass(1f);
 		housePosComp.setOrigin(new Vector2(houseRendComp.getTexture().Width / 2,
 										   houseRendComp.getTexture().Height / 2));
@@ -170,10 +170,10 @@ public class DemoWeek1 {
 			
 			TransformationComp transComp = new TransformationComp();
 			transComp.setPosition((float)Math.random() * 10000,(float)Math.random() * 10000);
-			SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
-			RenderingComponent rendComp = new RenderingComponent();
+			SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,50f));
+			RenderingComp rendComp = new RenderingComp();
 			rendComp.setTexture(ContentManager.loadTexture("house.png"));
-			PhysicsComponent physComp = new PhysicsComponent();
+			PhysicsComp physComp = new PhysicsComp();
 			physComp.setMass(100f);
 			transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 											rendComp.getTexture().Height / 2));	

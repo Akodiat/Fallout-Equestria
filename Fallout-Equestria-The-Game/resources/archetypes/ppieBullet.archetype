@@ -26,7 +26,6 @@
         <color>
           <Color>1.0,0.0,0.0,1.0</Color>
         </color>
-        <mirrored>false</mirrored>
       </Rendering>
       <Physics>
         <velocity reference="../../Spatial/bounds/position"/>

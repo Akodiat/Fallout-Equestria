@@ -6,7 +6,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import entityFramework.*;
-import components.InputComponent;
+import components.InputComp;
 /**
  * 
  * @author Joakim Johansson
@@ -15,19 +15,19 @@ import components.InputComponent;
 public class InputSystem extends EntitySingleProcessingSystem{
 
 	public InputSystem(IEntityWorld world) {
-		super(world, InputComponent.class);
+		super(world, InputComp.class);
 		// TODO Auto-generated constructor stub
 	}
-	private ComponentMapper<InputComponent> CM;
+	private ComponentMapper<InputComp> CM;
 	@Override
 	public void initialize() {
-		CM = ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
+		CM = ComponentMapper.create(this.getWorld().getDatabase(), InputComp.class);
 		
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		InputComponent inputComponent = CM.getComponent(entity);
+		InputComp inputComponent = CM.getComponent(entity);
 		inputComponent.setPipBuckButtonPressed(Keyboard.isKeyDown(inputComponent.getPipBuckButton().getKeyID()));
 		inputComponent.setBackButtonPressed(Keyboard.isKeyDown(inputComponent.getBackButton().getKeyID()));
 		inputComponent.setForwardButtonPressed(Keyboard.isKeyDown(inputComponent.getForwardButton().getKeyID()));

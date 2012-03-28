@@ -1,7 +1,7 @@
 package statuses;
 
-import components.HealthComponent;
-import components.RenderingComponent;
+import components.HealthComp;
+import components.RenderingComp;
 
 import entityFramework.IEntity;
 import graphics.Color;
@@ -21,11 +21,11 @@ public abstract class RecurringDamageStatus implements IStatus, ITimerListener{
 	public abstract void activateStatusEffect();
 	
 	public void deactivateStatusEffect() {
-		target.getComponent(RenderingComponent.class).setColor(Color.White);
+		target.getComponent(RenderingComp.class).setColor(Color.White);
 	}
 	
 	public void update() {
-		target.getComponent(HealthComponent.class).addHealthPoints(-10);
+		target.getComponent(HealthComp.class).addHealthPoints(-10);
 	}
 	
 	@Override
