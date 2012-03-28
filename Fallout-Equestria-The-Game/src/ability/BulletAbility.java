@@ -1,5 +1,11 @@
 package ability;
 
+import java.io.IOException;
+
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
+
 import math.Vector2;
 import components.AttackComponent;
 import components.PhysicsComponent;
@@ -11,8 +17,7 @@ import entityFramework.IEntityManager;
 
 public class BulletAbility extends Ability{
 	
-	//TODO enable sound once again, When we all have the nessasary packages.
-	//private Audio soundEffect;
+	private Audio soundEffect;
 	private final IEntityArchetype bulletArch;
 	private final float bulletSpeed;
 	
@@ -22,6 +27,11 @@ public class BulletAbility extends Ability{
 		this.bulletArch = bulletArch;
 		this.bulletSpeed = bulletSpeed;
 		
+		try {
+			this.soundEffect = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("/resources/sound/effects/pew.ogg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -38,7 +48,7 @@ public class BulletAbility extends Ability{
 		bullet.getComponent(PhysicsComponent.class).setVelocity(Vector2.mul(bulletSpeed, attackSpeed));
 		
 		//TODO enable once again. Later
-		//ssssoundEffect.playAsSoundEffect(1.0f, 1.0f, false);
+		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
 		
 		bullet.refresh();
 	}
