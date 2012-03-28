@@ -6,6 +6,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import entityFramework.IEntityManager;
 import utils.Rectangle;
+import utils.Timer;
 import graphics.Color;
 import graphics.SpriteBatch;
 
@@ -41,6 +42,7 @@ public abstract class AbstractSystemTest {
 			
 			while(!Display.isCloseRequested()) {
 				tester.updateWorld(1.0f / 60f);
+				Timer.updateTimers(1f / 60f);
 				
 				graphics.clearScreen(new Color(157, 150, 101, 255));
 				graphics.begin();

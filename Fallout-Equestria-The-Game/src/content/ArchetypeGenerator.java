@@ -30,19 +30,20 @@ public class ArchetypeGenerator {
 		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,10f));
 		HealthComponent healthComp = new HealthComponent(50,1,50);
 		RenderingComponent rendComp = new RenderingComponent();
-		rendComp.setTexture(ContentManager.loadTexture("pinksplosion rocket.png"));
+		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
 		rendComp.setColor(Color.Red);
+		BasicAIComp aiComp = new BasicAIComp();
+		ActionPointsComponent apComp = new ActionPointsComponent(200, 100, 4);
 		PhysicsComponent physComp = new PhysicsComponent();
 		transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 										rendComp.getTexture().Height / 2));	
 	
-		AttackComponent attaComp =  new AttackComponent(null, new Circle(Vector2.Zero, 30f), 10, true);
+	
+		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(apComp, transComp,aiComp, spatComp, healthComp, rendComp,physComp));
 		
-		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(transComp, spatComp, healthComp, rendComp,physComp, attaComp));
 		
-		
-		generateArchetype("ppieBullet.archetype", archetype);
-		testLoad("ppieBullet.archetype");
+		generateArchetype("BasicAI.archetype", archetype);
+		testLoad("BasicAI.archetype");
 		Display.destroy();
 	}
 	

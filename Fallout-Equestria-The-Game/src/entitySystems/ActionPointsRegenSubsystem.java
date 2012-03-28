@@ -26,7 +26,7 @@ public class ActionPointsRegenSubsystem extends TimedEntityProcessingSystem {
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
-			ActionPointsComponent actiRegCom = aPCM.getComponent(entity);
+			ActionPointsComponent actiRegCom = entity.getComponent(ActionPointsComponent.class);
 			actiRegCom.regenAbilityPoints();
 		}
 

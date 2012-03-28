@@ -1,12 +1,18 @@
 <entityFramework.EntityArchetype>
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
+      <ActionPoints>
+        <maxAbilityPoints>200</maxAbilityPoints>
+        <abilityPoints>100.0</abilityPoints>
+        <regenerationSpeed>4.0</regenerationSpeed>
+      </ActionPoints>
       <Transformation>
-        <position>316.67322,330.51236</position>
+        <position>318.59583,544.8149</position>
         <scale>1.0,1.0</scale>
-        <origin>65.0,30.0</origin>
+        <origin>46.0,44.0</origin>
         <rotation>0.0</rotation>
       </Transformation>
+      <BasicAI/>
       <Spatial>
         <bounds>
           <position>0.0,0.0</position>
@@ -20,7 +26,7 @@
       </Health>
       <Rendering>
         <texture>
-          <TextureAsset>pinksplosion rocket.png</TextureAsset>
+          <TextureAsset>HEJHEJ.png</TextureAsset>
         </texture>
         <color>
           <Color>1.0,0.0,0.0,1.0</Color>
@@ -31,15 +37,6 @@
         <velocity reference="../../Spatial/bounds/position"/>
         <mass>1.0</mass>
       </Physics>
-      <Attack>
-        <bounds>
-          <position reference="../../../Spatial/bounds/position"/>
-          <radius>30.0</radius>
-        </bounds>
-        <damage>10</damage>
-        <destoryOnHit>true</destoryOnHit>
-        <targetsHit/>
-      </Attack>
     </elements>
   </components>
   <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">

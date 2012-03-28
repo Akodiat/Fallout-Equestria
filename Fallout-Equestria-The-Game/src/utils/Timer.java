@@ -133,11 +133,12 @@ public class Timer {
 		for (Timer timer : activeTimers) {
 			timer.update(delta);
 			if(timer.isComplete()) {
-				timer.Stop();
+				timersToRemove.add(timer);
 			}
 		}
-		
-		activeTimers.removeAll(timersToRemove);
+		for (Timer timer : timersToRemove) {
+			timer.Stop();
+		}
 	}
 	
 	public void addEventListener(ITimerListener listener) {

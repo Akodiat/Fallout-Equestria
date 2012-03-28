@@ -63,6 +63,10 @@ public class BasicAITest extends AbstractSystemTest{
 		RenderingComponent rendComp = new RenderingComponent();
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
 		ActionPointsComponent apComp = new ActionPointsComponent();
+		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
+		
+		WeaponComponent weapon = new WeaponComponent(new BulletAbility(archetype, 1, 0.1f, 10f), null);
+
 		
 
 		rendComp.setColor(new Color(42,200,255, 255));
@@ -77,6 +81,7 @@ public class BasicAITest extends AbstractSystemTest{
 		player.addComponent(inpComp);
 		player.addComponent(physComp);
 		player.addComponent(posComp);
+		player.addComponent(weapon);
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
 		player.addComponent(apComp);

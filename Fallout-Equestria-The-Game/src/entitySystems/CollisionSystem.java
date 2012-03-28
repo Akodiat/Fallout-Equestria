@@ -64,6 +64,11 @@ public class CollisionSystem extends EntitySingleProcessingSystem{
 			PhysicsComponent otherPhysComp) {
 		Vector2 Dn = Vector2.subtract((transComp.getPosition()),otherTransComp.getPosition());
 		float distance = Dn.length();
+		
+		if(distance == 0) {
+			return;
+		}
+		
 		Dn = Vector2.norm(Dn);
 
 		Vector2 Dt = new Vector2(Dn.Y, -Dn.X);

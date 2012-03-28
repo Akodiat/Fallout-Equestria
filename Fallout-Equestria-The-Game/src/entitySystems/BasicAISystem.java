@@ -57,7 +57,7 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		//physComp.setVelocity(Vector2.rotate(targetDirection, (float) Math.random()*MathHelper.Pi-MathHelper.Pi/2));//((float) Math.random()*MathHelper.TwoPi-MathHelper.Pi)));
 		physComp.setVelocity(targetDirection);
 
-		if(Math.random()<0.003)
+		if(Math.random()< 0.3)
 			this.pinkieRocket.useAbility(entity, transCM.getComponent(target).getPosition(), this.getWorld().getEntityManager());
 			//shoot(targetDirection, transComp.getPosition());
 	}
