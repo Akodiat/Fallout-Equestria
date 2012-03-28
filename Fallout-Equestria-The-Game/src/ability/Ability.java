@@ -7,8 +7,12 @@ import utils.Timer;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public abstract class Ability{
-
 	protected Timer timer;
 	protected int apCost; //The cost of the ability 
 	protected boolean busy;
