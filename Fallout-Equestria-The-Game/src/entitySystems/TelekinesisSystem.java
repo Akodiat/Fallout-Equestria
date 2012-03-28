@@ -13,14 +13,14 @@ import entityFramework.*;
  */
 public class TelekinesisSystem extends EntitySingleProcessingSystem{
 
+
+	
 	public TelekinesisSystem(IEntityWorld world) {
 		super(world, TransformationComp.class, AntiGravityComp.class);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
