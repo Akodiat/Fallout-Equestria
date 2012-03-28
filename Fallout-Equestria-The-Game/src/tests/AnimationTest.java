@@ -12,6 +12,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import ability.Ability;
 import ability.BulletAbility;
+import ability.CircleProjectileAbility;
 
 import com.google.common.collect.ImmutableList;
 
@@ -146,7 +147,7 @@ public class AnimationTest {
 		deathComp.addDeathAction(new PPDeathAction());
 		
 		WeaponComp weaponComp = new WeaponComp();
-		Ability primaryAbility = new BulletAbility(ContentManager.loadArchetype("ppieBullet.archetype"),1,1,1);
+		Ability primaryAbility = new CircleProjectileAbility(ContentManager.loadArchetype("spinProjectile.archetype"),30,1,5,10);
 		weaponComp.setPrimaryAbility(primaryAbility);
 
 		//ANIMATIONCOMPONENT

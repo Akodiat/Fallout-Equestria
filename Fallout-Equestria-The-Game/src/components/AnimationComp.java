@@ -1,9 +1,13 @@
 package components;
 
 import java.util.Map;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import entityFramework.IComponent;
 import graphics.Animation;
 
+@XStreamAlias("Animation")
 public class AnimationComp implements IComponent {
 
 	private Map<String, Animation> animations;
