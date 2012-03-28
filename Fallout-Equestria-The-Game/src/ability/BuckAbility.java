@@ -15,12 +15,17 @@ public class BuckAbility extends Ability{
 	}
 
 	@Override
-	public void useAbility(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
+	public void use(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
 		//TODO: Unfinished!
 		Vector2 buckOrigin = sourceEntity.getComponent(TransformationComp.class).getPosition();
 		int buckStrenght = 9 * sourceEntity.getComponent(SpecialComp.class).getStrength();
 		
-		AttackComponent attackComp = new AttackComponent((new Circle(Vector2.Zero, 40)),buckStrenght,ImmutableList.of("Enemies"));
+		AttackComponent attackComp = new AttackComponent();
+		attackComp.setSourceEntity(sourceEntity);
+		attackComp.setBounds(new Circle(Vector2.Zero,30));
+		attackComp.setDamage(buckStrenght);
+		attackComp.setDestoryOnHit(true);
+		
 		Vector2 attackDirection = Vector2.norm(Vector2.subtract(targetPos, buckOrigin));
 		
 		IEntity buck = manager.createEmptyEntity();
@@ -34,9 +39,4 @@ public class BuckAbility extends Ability{
 		
 	}
 
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
 }

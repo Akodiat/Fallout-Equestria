@@ -2,36 +2,43 @@
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
       <Transformation>
-        <position>0.0,0.0</position>
+        <position>782.9652,502.6898</position>
         <scale>1.0,1.0</scale>
-        <origin>65.5,30.0</origin>
+        <origin>65.0,30.0</origin>
         <rotation>0.0</rotation>
       </Transformation>
       <Spatial>
         <bounds>
-          <position reference="../../../Transformation/position"/>
-          <radius>10.0</radius>
+          <position>0.0,0.0</position>
+          <radius>20.0</radius>
         </bounds>
       </Spatial>
-      <Physics>
-        <velocity reference="../../Transformation/position"/>
-        <mass>1.0</mass>
-      </Physics>
+      <Health>
+        <maxHealth>50</maxHealth>
+        <regenSpeed>1.0</regenSpeed>
+        <healthPoints>50.0</healthPoints>
+      </Health>
       <Rendering>
         <texture>
           <TextureAsset>pinksplosion rocket.png</TextureAsset>
         </texture>
         <color>
-          <Color>1.0,1.0,1.0,1.0</Color>
+          <Color>1.0,0.0,0.0,1.0</Color>
         </color>
+        <mirrored>false</mirrored>
       </Rendering>
+      <Physics>
+        <velocity reference="../../Spatial/bounds/position"/>
+        <mass>10.0</mass>
+      </Physics>
       <Attack>
         <bounds>
-          <position reference="../../../Transformation/position"/>
-          <radius>20.0</radius>
+          <position reference="../../../Spatial/bounds/position"/>
+          <radius>21.0</radius>
         </bounds>
-	   <mirrored>false</mirrored>
-        <damage>20</damage>
+        <damage>10</damage>
+        <destoryOnHit>true</destoryOnHit>
+        <targetsHit/>
       </Attack>
     </elements>
   </components>

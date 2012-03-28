@@ -1,8 +1,6 @@
 package components;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -19,7 +17,7 @@ public class AbilityComp implements IComponent{
 	public AbilityComp(){
 		this(new HashMap<Class<? extends Ability>, Ability>(), null);
 	}
-	public AbilityComp(Map<Class<? extends Ability>, Ability> map, Ability currentAbility){
+	public AbilityComp(Map<Class<? extends Ability>, Ability> abilities, Ability currentAbility){
 		this.abilities = abilities;
 		this.currentAbility = currentAbility;
 	}

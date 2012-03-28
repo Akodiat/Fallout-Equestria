@@ -27,23 +27,22 @@ public class ArchetypeGenerator {
 		
 		TransformationComp transComp = new TransformationComp();
 		transComp.setPosition((float)Math.random() * 800,(float)Math.random() * 600);
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,50f));
+		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,10f));
 		HealthComponent healthComp = new HealthComponent(50,1,50);
-		DeathComp deathComp = new DeathComp();
 		RenderingComponent rendComp = new RenderingComponent();
-		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
+		rendComp.setTexture(ContentManager.loadTexture("pinksplosion rocket.png"));
 		rendComp.setColor(Color.Red);
 		PhysicsComponent physComp = new PhysicsComponent();
 		transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 										rendComp.getTexture().Height / 2));	
-		BasicAIComp AIComp = new BasicAIComp();
 	
-		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(transComp, spatComp, healthComp, deathComp, rendComp,physComp,AIComp)
-				, ImmutableList.of("Enemies"));
+		AttackComponent attaComp =  new AttackComponent(null, new Circle(Vector2.Zero, 30f), 10, true);
+		
+		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(transComp, spatComp, healthComp, rendComp,physComp, attaComp));
 		
 		
-		generateArchetype("BasicAI.archetype", archetype);
-		testLoad("BasicAI.archetype");
+		generateArchetype("ppieBullet.archetype", archetype);
+		testLoad("ppieBullet.archetype");
 		Display.destroy();
 	}
 	

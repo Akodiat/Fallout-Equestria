@@ -1,80 +1,41 @@
 package entitySystems;
 
 
-import com.google.common.collect.ImmutableList;
-
-import utils.Circle;
+import ability.Ability;
 import math.Vector2;
 import components.*;
-import content.ContentManager;
 import entityFramework.*;
-import graphics.Color;
-import graphics.Texture2D;
 
 /**
  * 
  * @author Joakim Johansson
  *
  */
-//TODO Change this so it uses the new ability system. 
 public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 
 	public CharacterControllerSystem(IEntityWorld world) {
-		super(world, InputComponent.class, PhysicsComponent.class, TransformationComp.class);
+		super(world, InputComponent.class, 
+					 PhysicsComponent.class,
+					 ActionPointsComponent.class,
+					 TransformationComp.class,
+					 WeaponComponent.class);
 	}
-	private ComponentMapper<PhysicsComponent> physCM;
-	private ComponentMapper<InputComponent> inpCM;
-	private ComponentMapper<TransformationComp> transCM;
-
-
-	private Texture2D attackTexture;
+	
 	@Override
 	public void initialize() {
-		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComponent.class);
-		inpCM =  ComponentMapper.create(this.getWorld().getDatabase(), InputComponent.class);
-		transCM =  ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
-		attackTexture = ContentManager.loadTexture("pinksplosion rocket.png");
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		PhysicsComponent	physComp = physCM.getComponent(entity);
-		InputComponent 		inpComp = inpCM.getComponent(entity);
-		TransformationComp	posComp = transCM.getComponent(entity);
-		//TODO Remove this is just a temp test!
-		ActionPointsComponent apComp = entity.getComponent(ActionPointsComponent.class);
-
-		if(inpComp.isLeftMouseButtonDown() && apComp.getAbilityPoints() > 10){
-
-				apComp.setAbilityPoints(apComp.getAbilityPoints() - 10f);
-				IEntity attack = this.getWorld().getEntityManager().createEmptyEntity();			
-				AttackComponent attackComp = new AttackComponent(new Circle(Vector2.Zero,20f),20, ImmutableList.of("Enemies"));
-
-				Vector2 attackSpeed = Vector2.subtract(inpComp.getMousePosition(), posComp.getPosition());
-				attackSpeed = Vector2.norm(attackSpeed);
-
-				PhysicsComponent attackPhysComp = new PhysicsComponent(attackSpeed);
-
-				TransformationComp attackPosComp = new TransformationComp();
-
-				SpatialComponent attackSpatComp = new SpatialComponent(new Circle(Vector2.Zero,10f)); 
-
-				RenderingComponent attackRendComp = new RenderingComponent();
-				attackRendComp.setColor(new Color(255,255,255, 255));
-				attackRendComp.setTexture(attackTexture);
-
-				attackPosComp.setRotation(attackSpeed.angle());
-				attackPosComp.setPosition(Vector2.add(posComp.getPosition(), Vector2.mul(60, attackSpeed)));
-				attackPosComp.setOrigin(new Vector2(attackTexture.Width/2,attackTexture.Height/2));
-
-				attack.addComponent(attackPosComp);
-				attack.addComponent(attackPhysComp);
-				attack.addComponent(attackComp);
-				attack.addComponent(attackRendComp);
-				attack.addComponent(attackSpatComp);
-
-				attack.refresh();
-			
+		PhysicsComponent	  physComp   = entity.getComponent(PhysicsComponent.class);
+		InputComponent 		  inpComp    = entity.getComponent(InputComponent.class);
+		TransformationComp    posComp    = entity.getComponent(TransformationComp.class);
+		ActionPointsComponent apComp     = entity.getComponent(ActionPointsComponent.class);
+		WeaponComponent 	  weaponComp = entity.getComponent(WeaponComponent.class);
+ 		
+		if(inpComp.isLeftMouseButtonDown()){
+			Ability ability = weaponComp.getPrimaryAbility();
+			ability.useAbility(entity, inpComp.getMousePosition(), this.getWorld().getEntityManager());
 		}
 
 		int speedFactor = 2;

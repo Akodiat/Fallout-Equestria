@@ -44,39 +44,50 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 			AttackComponent attaCom = aCM.getComponent(entity);
 			TransformationComp posiCom = tCM.getComponent(entity);
 
-			List<IEntity> gEntities = new ArrayList<IEntity>();
-			for (int i = 0; i < attaCom.getTargetGroups().size(); i++) {
-				gEntities.addAll(this.getWorld().getEntityManager()
-						.getEntityGroup(attaCom.getTargetGroups().get(i)));
-			}
+			@SuppressWarnings("unchecked")
+			ImmutableSet<IEntity> targets = this
+					.getWorld()
+					.getDatabase()
+					.getEntitysContainingComponents(TransformationComp.class,
+							SpatialComponent.class);
 
 			boolean hitSomething = false;
 
-			for (IEntity targetEntity : gEntities) {
+			for (IEntity targetEntity : targets) {
+				if (targetEntity != attaCom.getSourceEntity()
+						&& targetEntity != entity) {
+					SpatialComponent targetSpatiCom = sCM
+							.getComponent(targetEntity);
+					TransformationComp targetPosiCom = tCM
+							.getComponent(targetEntity);
+					Boolean itGotHit = checkForCollision(attaCom, posiCom,
+							targetEntity, targetSpatiCom, targetPosiCom);
 
-				//TODO Källa för nullpointers!
-				SpatialComponent targetSpatiCom = sCM
-						.getComponent(targetEntity);
-				TransformationComp targetPosiCom = tCM
-						.getComponent(targetEntity);
-				//Källa för nullpointers!!
-				
-				Boolean itGotHit = Circle.intersects(attaCom.getBounds(),
-						posiCom.getPosition(), targetSpatiCom.getBounds(),
-						targetPosiCom.getPosition());
+					if (itGotHit) {
+						hitSomething = true;
+						HealthComponent healthComp = targetEntity
+								.getComponent(HealthComponent.class);
+						if (healthComp != null) {
+							healthComp.addHealthPoints(-attaCom.getDamage());
+							attaCom.addTargetHit(targetEntity);
 
-				if (itGotHit) {
-					hitSomething = true;
-					HealthComponent healthComp = targetEntity.getComponent(HealthComponent.class);
-					if(healthComp != null) {
-						healthComp.addHealthPoints(-attaCom.getDamage());
+						}
 					}
 				}
-			}
 
-			if (hitSomething) {
-				entity.kill();
+				if (hitSomething && attaCom.isDestoryOnHit()) {
+					entity.kill();
+				}
 			}
 		}
+	}
+
+	private boolean checkForCollision(AttackComponent attaCom,
+			TransformationComp posiCom, IEntity targetEntity,
+			SpatialComponent targetSpatiCom, TransformationComp targetPosiCom) {
+
+		return Circle.intersects(attaCom.getBounds(), posiCom.getPosition(),
+				targetSpatiCom.getBounds(), targetPosiCom.getPosition())
+				&& !attaCom.getTargetsHit().contains(targetEntity);
 	}
 }

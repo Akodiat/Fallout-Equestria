@@ -4,6 +4,8 @@ import math.Vector2;
 
 import org.lwjgl.opengl.Display;
 
+import ability.BulletAbility;
+
 import components.*;
 import content.ContentManager;
 import debuggsystem.DebugAttackRenderSystem;
@@ -65,6 +67,7 @@ public class BasicAITest extends AbstractSystemTest{
 
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
+		
 		
 
 		posComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,

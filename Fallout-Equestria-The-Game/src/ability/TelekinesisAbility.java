@@ -16,16 +16,9 @@ public class TelekinesisAbility extends Ability{
 	}
 
 	@Override
-	public void useAbility(IEntity sourceEntity, Vector2 targetPos,
+	public void use(IEntity sourceEntity, Vector2 targetPos,
 			IEntityManager manager) {
 		ImmutableSet<IEntity> pickupableSet = manager.getEntityGroup("Pickup-able");
 		List<IEntity> pickupable = pickupableSet.asList();
 	}
-
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

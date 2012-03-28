@@ -30,8 +30,8 @@ public class MapTester {
 		this.spriteBatch = graphics;
 		
 		int tileSize = 400;
-		int mapHeight = 100;
-		int mapWidth = 200;
+		int mapHeight = 50;
+		int mapWidth = 100;
 		tileMap = new TileMap(new Tile[mapHeight][mapWidth], tileSize);
 		
 		for(int i=0; i<mapHeight; i++){

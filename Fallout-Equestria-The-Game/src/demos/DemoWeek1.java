@@ -5,27 +5,24 @@ import java.io.IOException;
 import math.Vector2;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+
+import ability.BulletAbility;
 
 import tests.SystemTester;
 import utils.Camera2D;
 import utils.Circle;
 import utils.Rectangle;
+import utils.Timer;
 
-import components.ActionPointsComponent;
-import components.HealthComponent;
-import components.InputComponent;
-import components.PhysicsComponent;
-import components.RenderingComponent;
-import components.SpatialComponent;
-import components.TransformationComp;
+import components.*;
 import content.ContentManager;
 import debuggsystem.DebugAttackRenderSystem;
 import debuggsystem.DebugSpatialRenderSystem;
 
 import entityFramework.IEntity;
+import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 import entitySystems.*;
 import gameMap.MapTester;
@@ -70,7 +67,8 @@ public class DemoWeek1 {
 		tester.startTesting();
 
 		while(!Display.isCloseRequested()) {
-			tester.updateWorld(1.0f / 60f);
+			tester.updateWorld(1.0f / 30f);
+			Timer.updateTimers(1.0f / 30f);
 
 			graphics.clearScreen(new Color(157, 150, 101, 255));
 			graphics.begin(null, camera.getTransformation());
@@ -81,26 +79,9 @@ public class DemoWeek1 {
 			graphics.end();
 
 			tester.getWorld().getEntityManager().destoryKilledEntities();
-			
-			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-				camera.move(new Vector2(5, 0));
-			} 
-			if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-				camera.move(new Vector2(-5, 0));
-			} 
-			if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-				camera.move(new Vector2(0, -5));
-			} 
-			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-				camera.move(new Vector2(0, 5));
-			} 
-			if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {
-				camera.zoomIn(0.001f);
-			} 
-			
-			
+
 			Display.update();
-			Display.sync(60);
+			Display.sync(30);
 		}
 
 		Display.destroy(); 
@@ -132,11 +113,14 @@ public class DemoWeek1 {
 		InputComponent inpComp = new InputComponent();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight()/2,Display.getWidth()/2));
-		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,30f));
+		SpatialComponent spatComp = new SpatialComponent(new Circle(Vector2.Zero,10f));
 		RenderingComponent rendComp = new RenderingComponent();
 		HealthComponent healthComp = new HealthComponent(100, 2, 89);
-		ActionPointsComponent apComp = new ActionPointsComponent();
+		ActionPointsComponent apComp = new ActionPointsComponent(100, 50, 5.0f);
 		
+		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
+		
+		WeaponComponent weapon = new WeaponComponent(new BulletAbility(archetype, 1, 0.1f, 10f), null);
 
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
@@ -152,6 +136,7 @@ public class DemoWeek1 {
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
 		player.addComponent(apComp);
+		player.addComponent(weapon);
 
 		player.refresh();
 		

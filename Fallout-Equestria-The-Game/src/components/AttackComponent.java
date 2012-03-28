@@ -1,50 +1,81 @@
 package components;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import math.Vector2;
 
 import utils.Circle;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import entityFramework.IComponent;
+import entityFramework.IEntity;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
 @XStreamAlias("Attack")
 public class AttackComponent implements IComponent {
 
-	private Circle bounds;
-	private int damage;
-	private ImmutableList<String> targetGroups;
+	private Circle		 bounds;
+	private int 		 damage;
+	private IEntity 	 sourceEntity;
+	private boolean 	 destoryOnHit;
+	private Set<IEntity> targetsHit;
 
-	public AttackComponent(Circle bounds, int damage,
-			ImmutableList<String> targetGroups) {
-		this.bounds = bounds;
-		this.damage = damage;
-		this.targetGroups = targetGroups;
+	public AttackComponent() {
+		this(null, new Circle(new Vector2(0.0f, 0.0f), 1), 1, true);
+	}
+	
+	public AttackComponent(IEntity sourceEntity, Circle bounds, int damage, boolean destroyOnHit) {
+		this.bounds		  = bounds;
+		this.damage		  = damage;
+		this.sourceEntity = sourceEntity;
+		this.destoryOnHit = destroyOnHit;
+		this.targetsHit   = new HashSet<>();
 	}
 
 	/**
 	 * Copyconstructor
 	 * @param objectToCopy
 	 */
-	public AttackComponent(AttackComponent objectToCopy) {
-		this(objectToCopy.getBounds(), objectToCopy.getDamage(), objectToCopy
-				.getTargetGroups());
+	private AttackComponent(AttackComponent other) {
+		this.bounds		  = other.bounds;
+		this.damage 	  = other.damage;
+		this.sourceEntity = other.sourceEntity;
+		this.destoryOnHit = other.destoryOnHit;
+		this.targetsHit   = new HashSet<>();
 	}
 
-	public AttackComponent() {
-		this(new Circle(new Vector2(0.0f, 0.0f), 1), 1, ImmutableList.of(""));
+	public Object clone() {
+		return new AttackComponent(this);
 	}
 
-	public ImmutableList<String> getTargetGroups() {
-		return targetGroups;
+	public boolean isDestoryOnHit() {
+		return destoryOnHit;
 	}
 
-	public void setTargetGroups(ImmutableList<String> targetGroups) {
-		this.targetGroups = targetGroups;
+	public void setDestoryOnHit(boolean destoryOnHit) {
+		this.destoryOnHit = destoryOnHit;
 	}
 
+	public void setSourceEntity(IEntity entity) {
+		this.sourceEntity = entity;
+	}
+	
+	public IEntity getSourceEntity() {
+		return this.sourceEntity;
+	}
+	
+	public void addTargetHit(IEntity entity) {
+		this.targetsHit.add(entity);
+	}
+	
+	public Set<IEntity> getTargetsHit() {
+		return ImmutableSet.copyOf(this.targetsHit);
+	}
+	
 	public Circle getBounds() {
 		return bounds;
 	}
@@ -60,16 +91,13 @@ public class AttackComponent implements IComponent {
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
-
-	public Object clone() {
-		return new AttackComponent(this);
-	}
 	
 	@Override
 	public String toString() {
 		return "Attack Comp: \n" +
-			   "Damage: " + this.damage +
-			   "Circle Bounds: " + this.bounds.toString() +
-			   "Group target lists: " + this.targetGroups.toString();
+			   "Damage: " + this.damage + "\n" +
+			   "Circle Bounds: " + this.bounds.toString() + "\n" +
+			   "Destroy on hit: " + this.destoryOnHit + "\n" +
+			   "SourceEntity: " + this.sourceEntity.getUniqueID();
 	}
 }

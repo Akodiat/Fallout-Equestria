@@ -1,12 +1,13 @@
 package ability;
 
+import components.ActionPointsComponent;
 import math.Vector2;
 import utils.ITimerListener;
 import utils.Timer;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 
-public abstract class Ability implements ITimerListener{
+public abstract class Ability{
 
 	protected Timer timer;
 	protected int apCost; //The cost of the ability 
@@ -15,23 +16,35 @@ public abstract class Ability implements ITimerListener{
 	public Ability(int apCost, float cooldown){
 		this.apCost = apCost;
 		this.timer = new Timer(cooldown, 1);
-		this.timer.addEventListener(this);
+		this.timer.addEventListener(new TimerImplementation());
 	}
-	public boolean canUse(IEntity sourceEntity, IEntityManager manager){
-		return !busy;
-	}
-	public abstract void useAbility(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager);
-	public abstract void initialize();
 	
-	@Override
-	public void Start() {
-		busy=true;	
+	protected boolean canUse(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager, ActionPointsComponent apComp){
+		return !busy && apComp.getAbilityPoints() >= apCost;
 	}
-	@Override
-	public void Tick() {
+	
+	public final void useAbility(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
+		ActionPointsComponent apComp = sourceEntity.getComponent(ActionPointsComponent.class);
+		if(apComp != null && canUse(sourceEntity, targetPos, manager, apComp)) {
+			timer.Start();
+			apComp.addAbilityPoints(-apCost);
+			use(sourceEntity, targetPos, manager);
+		}
 	}
-	@Override
-	public void Complete() {
-		busy=false;
+	
+	protected abstract void use(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager);	
+	
+	private class TimerImplementation implements ITimerListener {	
+		
+		public void Start() {
+			busy=true;	
+		}
+		
+		public void Tick() {
+		}
+
+		public void Complete() {
+			busy=false;
+		}
 	}
 }

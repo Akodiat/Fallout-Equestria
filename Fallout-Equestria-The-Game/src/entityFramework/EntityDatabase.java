@@ -107,6 +107,32 @@ public class EntityDatabase implements IEntityDatabase{
 		
 		return ImmutableSet.copyOf(entities);
 	}
+	
+
+	@SuppressWarnings("unchecked")
+	public ImmutableSet<IEntity> getEntitysContainingComponents(Class<? extends IComponent>... components) {
+		List<List<IComponent>> componentColumns = new ArrayList<>();
+		for (int i = 0; i < components.length; i++) {
+			int componentID = this.typeManager.getTypeID(components[i]);
+			componentColumns.add(this.componentGrid.getCollumn(componentID));
+		}
+		
+		List<IEntity> entities = new ArrayList<IEntity>();
+		for (int i = 0; i < componentColumns.get(0).size(); i++) {
+			boolean containsAll = true;
+			for (int j = 0; j < components.length; j++) {
+				if(componentColumns.get(j).get(i) == null) {
+					containsAll = false;
+					break;
+				}
+			}
+			if(containsAll) {
+				entities.add(this.entityMap.get(i));
+			}
+		}
+		
+		return ImmutableSet.copyOf(entities);
+	}
 
 	@Override
 	public void addEntity(IEntity entity) {

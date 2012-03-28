@@ -6,7 +6,6 @@ import java.util.Set;
 
 import death.IDeathAction;
 import entityFramework.IComponent;
-import scripting.LineScript;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

@@ -94,6 +94,15 @@ public interface IEntityDatabase {
 	 */
 	public ImmutableSet<IEntity> getEntitysContainingComponent(Class<? extends IComponent> component);
 	
+	/**Gets all the entities that has all the specified components.
+	 * 
+	 * @param components the types of the components 
+	 * @return a Set of entities.
+	 */
+	@SuppressWarnings("unchecked")
+	public ImmutableSet<IEntity> getEntitysContainingComponents(Class<? extends IComponent>... components);
+	
+	
 	/**Gets all the entities that has a specific component.
 	 * This is an optimization method, to get the correct componentID
 	 * use the getComponentTypeID method. 
