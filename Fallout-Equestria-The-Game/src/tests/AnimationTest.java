@@ -10,6 +10,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import ability.Ability;
+import ability.BulletAbility;
+
 import com.google.common.collect.ImmutableList;
 
 import components.*;
@@ -69,6 +72,8 @@ public class AnimationTest {
 		while(!Display.isCloseRequested()) {
 			tester.updateWorld(1.0f / 60f);
 
+			Timer.updateTimers(1f/60f);
+			
 			graphics.clearScreen(new Color(157, 150, 101, 255));
 			graphics.begin(null, camera.getTransformation());
 			mapTester.draw();
@@ -119,7 +124,7 @@ public class AnimationTest {
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
 		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
-
+ 
 	}
 
 	public void initializeEntities(IEntityManager manager) {
@@ -139,6 +144,10 @@ public class AnimationTest {
 		ActionPointsComponent apComp = new ActionPointsComponent();
 		DeathComp deathComp = new DeathComp();
 		deathComp.addDeathAction(new PPDeathAction());
+		
+		WeaponComponent weaponComp = new WeaponComponent();
+		Ability primaryAbility = new BulletAbility(ContentManager.loadArchetype("ppieBullet.archetype"),1,1,1);
+		weaponComp.setPrimaryAbility(primaryAbility);
 
 		//ANIMATIONCOMPONENT
 		
@@ -167,7 +176,7 @@ public class AnimationTest {
 		player.addComponent(healthComp);
 		player.addComponent(apComp);
 		player.addComponent(deathComp);
-
+		player.addComponent(weaponComp);
 		player.refresh();
 /*
 		IEntity house = manager.createEmptyEntity();

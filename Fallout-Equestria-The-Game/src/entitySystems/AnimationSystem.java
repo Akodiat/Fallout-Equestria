@@ -33,7 +33,6 @@ public class AnimationSystem extends EntitySingleProcessingSystem {
 	@Override
 	public void process(){
 		super.process();
-		Timer.updateTimers(1f/60f);
 	}
 
 	@Override

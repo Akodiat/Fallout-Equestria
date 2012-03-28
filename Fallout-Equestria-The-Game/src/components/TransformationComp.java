@@ -13,7 +13,7 @@ public class TransformationComp implements IComponent {
 	private Vector2 	 scale;
 	private Vector2 	 origin;
 	private float 		 rotation;
-	private Boolean		 mirror;
+	private boolean		 mirror;
 	
 	public TransformationComp() {
 		this.position = Vector2.Zero;
