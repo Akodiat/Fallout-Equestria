@@ -1,5 +1,7 @@
 package components;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +29,10 @@ public class AbilityComp implements IComponent{
 	}
 	public Object clone(){
 		return new AbilityComp(this);
+	}
+	
+	public ArrayList<Ability> getListOfAbilities(){
+		return new ArrayList<Ability>(abilities.values());
 	}
 	
 	/**
