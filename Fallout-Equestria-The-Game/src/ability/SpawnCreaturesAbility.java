@@ -50,7 +50,7 @@ public class SpawnCreaturesAbility extends Ability {
 			
 			BasicAIComp aiComp = new BasicAIComp(targetPos);
 			
-			WeaponComp weaponComp = new WeaponComp(new BulletAbility(ContentManager.loadArchetype("ppieBullet.archetype"), 5, 5f, 10f), null);
+			WeaponComp weaponComp = new WeaponComp(new BulletAbility(ContentManager.loadArchetype("spinProjectile.archetype"), 5, 5f, 10f), null);
 			HealthComp healthComp = new HealthComp(10f,1f,10f);
 			
 			TransformationComp transComp = new TransformationComp();
@@ -61,6 +61,7 @@ public class SpawnCreaturesAbility extends Ability {
 			SpatialComp spatialComp = new SpatialComp(new Circle(Vector2.Zero, 10f));
 			
 			AbilityPointsComp abComp = new AbilityPointsComp(15, 15, 1);
+			
 			
 			creature.addComponent(aiComp);
 			creature.addComponent(weaponComp);

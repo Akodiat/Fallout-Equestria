@@ -15,14 +15,12 @@ import entityFramework.*;
 public class BasicAISystem extends EntitySingleProcessingSystem{
 
 	public BasicAISystem(IEntityWorld world) {
-		super(world, BasicAIComp.class, PhysicsComp.class, TransformationComp.class);
+		super(world, BasicAIComp.class, PhysicsComp.class, TransformationComp.class, WeaponComp.class);
 	}
 
 	private ComponentMapper<BasicAIComp> basicAICM;
 	private ComponentMapper<PhysicsComp> physCM;
 	private ComponentMapper<TransformationComp> transCM;
-	
-	private Ability pinkieRocket;
 
 	@Override
 	public void initialize() {
@@ -31,7 +29,6 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		transCM = ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
 
 		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
-		this.pinkieRocket = new BulletAbility(archetype, 10, 1, 4);
 	}
 
 	@Override
@@ -58,8 +55,10 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		physComp.setVelocity(Vector2.rotate(targetDirection, (float) Math.random()*MathHelper.Pi-MathHelper.Pi/2));//((float) Math.random()*MathHelper.TwoPi-MathHelper.Pi)));
 		//physComp.setVelocity(targetDirection);
 
+		WeaponComp weapComp = entity.getComponent(WeaponComp.class);		
+		
 		if(Math.random()< 0.3)
-			this.pinkieRocket.useAbility(entity, transCM.getComponent(target).getPosition(), this.getWorld().getEntityManager());
+			weapComp.getPrimaryAbility().useAbility(entity, transCM.getComponent(target).getPosition(), this.getWorld().getEntityManager());
 	}
 	
 }
