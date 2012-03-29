@@ -3,16 +3,20 @@ package entitySystems;
 import java.util.ArrayList;
 import java.util.List;
 
+import math.Vector2;
+
 import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
 
 import components.*;
+import content.ContentManager;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import graphics.Color;
 
 /**
  * 
@@ -68,6 +72,8 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 						if (healthComp != null) {
 							healthComp.addHealthPoints(-attaCom.getDamage());
 							attaCom.addTargetHit(targetEntity);
+							
+							createFloatingCombatText(targetPosiCom.getPosition(), attaCom.getDamage());
 
 						}
 					}
@@ -78,6 +84,28 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 				}
 			}
 		}
+	}
+
+	private void createFloatingCombatText(Vector2 position, int damage) {
+		IEntity entity = this.getEntityManager().createEmptyEntity();
+		TransformationComp transComp = new TransformationComp();
+		transComp.setPosition(position);
+		transComp.setScale(new Vector2(2f,2f));
+		
+		TextRenderingComp textRenderComp = new TextRenderingComp();
+		textRenderComp.setColor(Color.Red);
+		textRenderComp.setFont(ContentManager.loadFont("arialb20.xml"));
+		textRenderComp.setText("-" + damage);
+		
+		PhysicsComp physicsComp = new PhysicsComp(new Vector2(0f, -3));
+		ExistanceComp existComp = new ExistanceComp(0.5f);
+		
+		entity.addComponent(transComp);
+		entity.addComponent(textRenderComp);
+		entity.addComponent(physicsComp);
+		entity.addComponent(existComp);
+		
+		entity.refresh();
 	}
 
 	private boolean checkForCollision(AttackComp attaCom,

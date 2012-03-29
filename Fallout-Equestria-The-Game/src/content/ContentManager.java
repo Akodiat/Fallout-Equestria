@@ -180,4 +180,8 @@ public final class ContentManager {
 	public static String getAudioName(Audio audio) {
 		return sounds.inverse().get(audio);
 	}
+
+	public static String getArchetypeName(IEntityArchetype archetype) {
+		return archetypes.inverse().get(archetype);
+	}
 }

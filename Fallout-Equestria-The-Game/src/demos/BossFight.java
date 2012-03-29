@@ -43,6 +43,7 @@ import entitySystems.MapCollisionSystem;
 import entitySystems.PhysicsSystem;
 import entitySystems.RegenSystem;
 import entitySystems.RenderingSystem;
+import entitySystems.TextRenderingSystem;
 import entitySystems.TrixieAISystem;
 
 import gameMap.MapTester;
@@ -152,6 +153,7 @@ public class BossFight {
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
 		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
+		tester.addRenderSubSystem(new TextRenderingSystem(this.tester.getWorld(), this.graphics));
 	}
 	
 	public void initializeEntities(IEntityManager manager) {
@@ -164,8 +166,12 @@ public class BossFight {
 		player.addToGroup("Friends");
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
+<<<<<<< HEAD
 		player.setLabel("Player");
 
+=======
+		player.setLabel("Player");
+>>>>>>> Fixed teh problem with entity archetype loading
 		player.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
 		player.refresh();
 		
