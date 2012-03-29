@@ -1,10 +1,22 @@
 package statuses;
 
-public class RadiatedStatus implements IStatus {
+import components.RenderingComp;
 
+import entityFramework.IEntity;
+import graphics.Color;
+
+public class RadiatedStatus implements IStatus {
+	private IEntity target;
+	private int radiationLevel;
+	
+	public RadiatedStatus(IEntity target, int radiationLevel) {
+		this.target = target;
+		this.radiationLevel = radiationLevel;
+	}
+	
 	@Override
 	public void activateStatusEffect() {
-		// TODO Auto-generated method stub
+		target.getComponent(RenderingComp.class).setColor(Color.Green);
 		
 	}
 

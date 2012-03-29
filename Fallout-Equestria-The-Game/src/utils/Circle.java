@@ -55,7 +55,7 @@ public class Circle {
 	public static Boolean intersects(Circle circle1, Vector2 offset1,
 			Circle circle2, Vector2 offset2) {
 		float comboRadius = circle1.radius + circle2.getRadius();
-		return comboRadius * comboRadius > distanceSquared(circle1,offset1, circle2,offset2);
+		return comboRadius * comboRadius > distanceSquared(circle1, offset1, circle2, offset2);
 	}
 
 	public static float distanceSquared(Circle circle1, Vector2 offset1,
@@ -65,6 +65,20 @@ public class Circle {
 		float dy = circle1.position.Y + offset1.Y
 				- (circle2.position.Y + offset2.Y);
 		return (dx * dx + dy * dy);
+	}
+	
+	/**
+	 * Calculates the distance between the bounds of two parameter circles.
+	 * A negative distance will be returned if they intersect.
+	 * @return
+	 */
+	public static float distance(Circle circle1, Vector2 offset1,
+			Circle circle2, Vector2 offset2){
+		float distance = distanceSquared(circle1, offset1,
+				circle2, offset2);
+		distance -= circle1.radius + circle2.radius;
+		return distance;
+		
 	}
 	
 	public String toString() {
