@@ -165,11 +165,7 @@ public class BossFight {
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		player.setLabel("Player");
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> Sorta fixed the text drawing
 		player.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
 		player.refresh();
 		
