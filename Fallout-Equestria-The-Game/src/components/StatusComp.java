@@ -1,7 +1,10 @@
 package components;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import entityFramework.IComponent;
 
+@XStreamAlias("Status")
 public class StatusComp implements IComponent {
 	//TODO Implement!!!???
 	

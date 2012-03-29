@@ -32,6 +32,7 @@ public class EntityArchetypeLoader {
 		xstream.processAnnotations(TransformationComp.class);
 		xstream.processAnnotations(AnimationComp.class);
 		xstream.processAnnotations(WeaponComp.class);
+		xstream.processAnnotations(StatusComp.class);
 	}
 	
 	

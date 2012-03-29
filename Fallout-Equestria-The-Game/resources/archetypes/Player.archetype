@@ -65,6 +65,8 @@
           <death.PPDeathAction/>
         </deathActions>
       </Death>
+      <Status>
+      </Status>
       <Weapon>
         <primaryAbility class="ability.BulletAbility">
           <timer>

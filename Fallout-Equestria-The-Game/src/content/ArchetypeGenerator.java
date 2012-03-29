@@ -49,7 +49,7 @@ public class ArchetypeGenerator {
 		HashMap<Class<? extends Ability>, Ability> map = new HashMap<Class<? extends Ability>, Ability>();
 		map.put(SpawnCreaturesAbility.class, new SpawnCreaturesAbility(ContentManager.loadArchetype("ppieBullet.archetype"),5,10,5));
 		map.put(CircleProjectileAbility.class, new CircleProjectileAbility(ContentManager.loadArchetype("spinProjectile.archetype"), 8, 8, 6, 10));
-		map.put(SuperTimeBomb.class, new SuperTimeBomb(ContentManager.loadArchetype("TimeBomb.archetype"), ContentManager.loadArchetype("TimeBombCounter.archetype"), new Rectangle(0,0,2000,1000), 25, 16, 12));
+		map.put(SuperTimeBomb.class, new SuperTimeBomb(ContentManager.loadArchetype("TimeBomb.archetype"), ContentManager.loadArchetype("TimeBombCounter.archetype"), new Rectangle(0,0,2000,1000), 25, 16, 12,"effects/fanfare.ogg"));
 		map.put(TeleportAbility.class, new TeleportAbility(8, 15, "effects/pew.ogg", ContentManager.loadArchetype("Cloud.archetype")));
 
 		AbilityComp abComp = new AbilityComp(map, null);
