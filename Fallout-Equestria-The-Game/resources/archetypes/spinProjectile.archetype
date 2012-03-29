@@ -1,21 +1,27 @@
 <entityFramework.EntityArchetype>
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
+      <Physics>
+        <immovable>false</immovable>
+        <velocity>0.0,0.0</velocity>
+        <mass>1.0</mass>
+        <torque>0.0</torque>
+      </Physics>
       <components.ExistanceComp>
         <existanceTime>3.0</existanceTime>
         <elapsedExistance>0.0</elapsedExistance>
       </components.ExistanceComp>
       <Attack>
         <bounds>
-          <position>0.0,0.0</position>
-          <radius>40.0</radius>
+          <position reference="../../../Physics/velocity"/>
+          <radius>30.0</radius>
         </bounds>
         <damage>60</damage>
         <destoryOnHit>false</destoryOnHit>
         <targetsHit/>
       </Attack>
       <Transformation>
-        <position reference="../../Attack/bounds/position"/>
+        <position reference="../../Physics/velocity"/>
         <scale>1.0,1.0</scale>
         <origin>12.0,30.0</origin>
         <rotation>0.0</rotation>
@@ -39,57 +45,57 @@
                 <elements>
                   <graphics.Frame>
                     <sourceRect>
-                      <X>72</X>
+                      <X>144</X>
                       <Y>0</Y>
-                      <Width>12</Width>
-                      <Height>30</Height>
+                      <Width>24</Width>
+                      <Height>60</Height>
                     </sourceRect>
-                    <origin>6.0,15.0</origin>
+                    <origin>12.0,30.0</origin>
                   </graphics.Frame>
                   <graphics.Frame>
                     <sourceRect>
-                      <X>60</X>
+                      <X>120</X>
                       <Y>0</Y>
-                      <Width>12</Width>
-                      <Height>30</Height>
+                      <Width>24</Width>
+                      <Height>60</Height>
                     </sourceRect>
-                    <origin>6.0,15.0</origin>
+                    <origin>12.0,30.0</origin>
+                  </graphics.Frame>
+                  <graphics.Frame>
+                    <sourceRect>
+                      <X>96</X>
+                      <Y>0</Y>
+                      <Width>24</Width>
+                      <Height>60</Height>
+                    </sourceRect>
+                    <origin>12.0,30.0</origin>
+                  </graphics.Frame>
+                  <graphics.Frame>
+                    <sourceRect>
+                      <X>72</X>
+                      <Y>0</Y>
+                      <Width>24</Width>
+                      <Height>60</Height>
+                    </sourceRect>
+                    <origin>12.0,30.0</origin>
                   </graphics.Frame>
                   <graphics.Frame>
                     <sourceRect>
                       <X>48</X>
                       <Y>0</Y>
-                      <Width>12</Width>
-                      <Height>30</Height>
+                      <Width>24</Width>
+                      <Height>60</Height>
                     </sourceRect>
-                    <origin>6.0,15.0</origin>
-                  </graphics.Frame>
-                  <graphics.Frame>
-                    <sourceRect>
-                      <X>36</X>
-                      <Y>0</Y>
-                      <Width>12</Width>
-                      <Height>30</Height>
-                    </sourceRect>
-                    <origin>6.0,15.0</origin>
+                    <origin>12.0,30.0</origin>
                   </graphics.Frame>
                   <graphics.Frame>
                     <sourceRect>
                       <X>24</X>
                       <Y>0</Y>
-                      <Width>12</Width>
-                      <Height>30</Height>
+                      <Width>24</Width>
+                      <Height>60</Height>
                     </sourceRect>
-                    <origin>6.0,15.0</origin>
-                  </graphics.Frame>
-                  <graphics.Frame>
-                    <sourceRect>
-                      <X>12</X>
-                      <Y>0</Y>
-                      <Width>12</Width>
-                      <Height>30</Height>
-                    </sourceRect>
-                    <origin>6.0,15.0</origin>
+                    <origin>12.0,30.0</origin>
                   </graphics.Frame>
                 </elements>
               </frames>

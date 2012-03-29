@@ -117,6 +117,7 @@ public class AnimationTest {
 		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
 		tester.addLogicSubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
+		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new AnimationSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
@@ -147,7 +148,7 @@ public class AnimationTest {
 		deathComp.addDeathAction(new PPDeathAction());
 		
 		WeaponComp weaponComp = new WeaponComp();
-		Ability primaryAbility = new CircleProjectileAbility(ContentManager.loadArchetype("spinProjectile.archetype"),30,1,5,10);
+		Ability primaryAbility = new CircleProjectileAbility(ContentManager.loadArchetype("spinProjectile.archetype"),30,1,5,20);
 		weaponComp.setPrimaryAbility(primaryAbility);
 
 		//ANIMATIONCOMPONENT

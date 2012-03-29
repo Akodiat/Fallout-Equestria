@@ -8,6 +8,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import math.MathHelper;
 import math.Vector2;
+import components.AnimationComp;
 import components.AttackComp;
 import components.PhysicsComp;
 import components.TransformationComp;
@@ -48,9 +49,10 @@ public class CircleProjectileAbility extends Ability{
 			IEntity bullet = manager.createEntity(bulletArch);
 			attackSpeed = Vector2.rotate(attackSpeed, (float)(MathHelper.TwoPi/bulletAmount));
 			bullet.getComponent(AttackComp.class).setSourceEntity(sourceEntity);
-			bullet.getComponent(TransformationComp.class).setRotation(attackSpeed.angle());
+			bullet.getComponent(TransformationComp.class).setRotation(attackSpeed.angle()+(float)(MathHelper.PiOver2));
 			bullet.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(60, attackSpeed)));
 			bullet.getComponent(PhysicsComp.class).setVelocity(Vector2.mul(bulletSpeed, attackSpeed));
+			bullet.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
 			bullet.refresh();
 		}
 
