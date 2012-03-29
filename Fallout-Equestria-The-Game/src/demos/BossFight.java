@@ -15,16 +15,9 @@ import ability.BulletAbility;
 
 import com.google.common.collect.ImmutableList;
 
-import components.AbilityPointsComp;
 import components.AnimationComp;
-import components.DeathComp;
-import components.HealthComp;
-import components.InputComp;
-import components.PhysicsComp;
-import components.RenderingComp;
-import components.SpatialComp;
 import components.TransformationComp;
-import components.WeaponComp;
+
 import content.ContentManager;
 import content.EntityArchetypeLoader;
 
