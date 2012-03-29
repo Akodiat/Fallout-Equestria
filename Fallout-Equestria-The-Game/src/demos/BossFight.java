@@ -166,8 +166,16 @@ public class BossFight {
 		
 		player.setLabel("Player");
 		
+<<<<<<< HEAD
 		player.refresh();
 		
+=======
+		player.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
+		
+		player.refresh();
+		
+		
+>>>>>>> BossFight + Player archetype
 		//TRIXIE
 		IEntity trixie = manager.createEmptyEntity();
 		trixie.addToGroup("Enemies");
