@@ -20,7 +20,8 @@ import entityFramework.*;
  */
 public class TrixieAISystem extends LabelEntitySystem{
 
-
+	private boolean badHackFlag = false;
+	
 	public TrixieAISystem(IEntityWorld world) {
 		super(world, "Trixie", TransformationComp.class, AbilityComp.class, WeaponComp.class);
 	}
@@ -46,8 +47,10 @@ public class TrixieAISystem extends LabelEntitySystem{
 			
 			List<IEntity> targetList= this.getWorld().getEntityManager().getEntityGroup("Friends").asList();
 			if(targetList.isEmpty()){
-				if(!ContentManager.loadSound("effects/wasThereEverAnyDoubt.ogg").isPlaying())
+				if(!this.badHackFlag){
 					ContentManager.loadSound("effects/wasThereEverAnyDoubt.ogg").playAsSoundEffect(1.0f, 1.0f, false);
+					this.badHackFlag = true;
+				}
 				return; //No point in doing things if there isn't even a player to attack...
 			}
 			IEntity target = targetList.get(0);
