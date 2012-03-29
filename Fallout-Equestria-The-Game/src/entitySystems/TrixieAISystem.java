@@ -51,6 +51,8 @@ public class TrixieAISystem extends LabelEntitySystem{
 					ContentManager.loadSound("effects/wasThereEverAnyDoubt.ogg").playAsSoundEffect(1.0f, 1.0f, false);
 					this.badHackFlag = true;
 				}
+				else if (!ContentManager.loadSound("effects/wasThereEverAnyDoubt.ogg").isPlaying())
+					System.exit(0);
 				return; //No point in doing things if there isn't even a player to attack...
 			}
 			IEntity target = targetList.get(0);
