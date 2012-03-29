@@ -397,19 +397,19 @@ public class SpriteBatch {
 			
 
 			x =  dist * angleX - distY * angleY;
-			//y =  dist * angleY + distY * angleX;
+			y =  dist * angleY + distY * angleX + destination.Y;
 			
 			if(mirror) {
 				rx = textDim.X - x + destination.X;
-				rorig = new Vector2(origin.X + srcRect.Width * scale.X, origin.Y);
+				rorig = new Vector2((origin.X + srcRect.Width), origin.Y);
 			}
 			else {
 				rx = x + destination.X;
 			}
 			
-		
+			this.internalDraw(font.getTexture(), new Vector2(rx,y),
+						      color, srcRect, rorig, scale, rotation, mirror);
 			
-			this.internalDraw(font.getTexture(), new Vector2(rx,y + destination.Y + distY), color, srcRect, rorig, scale, rotation, mirror);
 			dist += (srcRect.Width + font.getCharacterSpacing()) * scale.X;
 			
 		}

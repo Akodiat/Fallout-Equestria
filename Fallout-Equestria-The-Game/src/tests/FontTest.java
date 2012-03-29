@@ -58,10 +58,10 @@ public class FontTest {
 			graphics.drawString(textureFont, "This line is mirrored :O", new Vector2(340,100), Color.Yellow, Vector2.Zero, Vector2.One, 0.0f, true);
 			graphics.drawString(textureFont, "This line has a rectangle around it :P", new Vector2(300,200), Color.Brown, Vector2.Zero, new Vector2(1f,1f));
 			graphics.drawString(textureFont, "This line is rotated", new Vector2(400,260), Color.Crimson, Vector2.Zero, new Vector2(1f,1f), angle, false);
-			Vector2 strVec = textureFont.meassureString("This line is rotated and offseted!");
+			Vector2 strVec = textureFont.meassureString("This line is rotated\n and offseted!");
 			
 			
-			graphics.drawString(textureFont, "This line is rotated\n and offseted!", new Vector2(800,260), Color.ForestGreen, new Vector2(strVec.X / 2,5), new Vector2(1f,1f), angle, false);
+			graphics.drawString(textureFont, "This line is rotated\n and offseted!", new Vector2(800,260), Color.ForestGreen, new Vector2(strVec.X / 2,strVec.Y / 2), new Vector2(1f,1f), angle, false);
 			strVec = textureFont.meassureString("This line is rotated scaled and centered!");
 			
 			
