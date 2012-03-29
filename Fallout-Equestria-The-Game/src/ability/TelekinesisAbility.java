@@ -51,6 +51,7 @@ public class TelekinesisAbility extends Ability{
 				minCloseness = currentCloseness;
 			}
 		}
+		
 		if(toPickUp != null){
 			toPickUp.addComponent(new AntiGravityComp(sourceEntity.getUniqueID()));
 			toPickUp.refresh();

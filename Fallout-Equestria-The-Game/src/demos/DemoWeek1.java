@@ -9,6 +9,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import ability.BulletAbility;
+import ability.SuperTimeBomb;
+import ability.TimeBombAbility;
 
 import tests.SystemTester;
 import utils.Camera2D;
@@ -123,9 +125,10 @@ public class DemoWeek1 {
 		HealthComp healthComp = new HealthComp(100, 2, 89);
 		AbilityPointsComp apComp = new AbilityPointsComp(100, 50, 15.0f);
 		
-		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
+		IEntityArchetype tarchetype = ContentManager.loadArchetype("TimeBomb.archetype");
+		IEntityArchetype carchetype = ContentManager.loadArchetype("TimeBombCounter.archetype");
 		
-		WeaponComp weapon = new WeaponComp(new BulletAbility(archetype, 13, 0.3f, 5f), null);
+		WeaponComp weapon = new WeaponComp(new SuperTimeBomb(tarchetype,carchetype,new Rectangle(0,0,1000,1000),100,30, 1f), null);
 
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));

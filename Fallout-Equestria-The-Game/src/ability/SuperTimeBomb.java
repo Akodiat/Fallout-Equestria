@@ -12,9 +12,9 @@ public class SuperTimeBomb extends Ability{
 	private final int numBombs;
 	private final Rectangle abilityBounds;
 	
-	public SuperTimeBomb(IEntityArchetype explostionArchetype, Rectangle abilityBounds, int numBombs, float timeUntilExplode, int apCost, float cooldown) {
+	public SuperTimeBomb(IEntityArchetype explostionArchetype,IEntityArchetype countDownArch, Rectangle abilityBounds, int numBombs, int apCost, float cooldown) {
 		super(apCost, cooldown);
-		this.timeBombAbility = new TimeBombAbility(explostionArchetype, timeUntilExplode, 0, 0);
+		this.timeBombAbility = new TimeBombAbility(explostionArchetype, countDownArch, 0, 0);
 		this.numBombs = numBombs;
 		this.abilityBounds = abilityBounds;
 	}

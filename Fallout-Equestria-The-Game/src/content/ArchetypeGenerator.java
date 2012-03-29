@@ -34,18 +34,17 @@ public class ArchetypeGenerator {
 		TransformationComp transComp = new TransformationComp();
 		transComp.setPosition((float)Math.random() * 800,(float)Math.random() * 600);
 		RenderingComp rendComp = new RenderingComp();
-		rendComp.setTexture(ContentManager.loadTexture("HEJHEj.png"));
+		rendComp.setTexture(ContentManager.loadTexture("house.png"));
 		rendComp.setColor(Color.Gold);
-		ExistanceComp existanceComp = new ExistanceComp(3f);
+		ExistanceComp existanceComp = new ExistanceComp(5f);
 		transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 										rendComp.getTexture().Height / 2));	
-		AttackComp attackComp = new AttackComp(null, new Circle(Vector2.Zero, 40f), 60, false);
-	
-		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(existanceComp, attackComp, transComp,rendComp));
+		
+		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(existanceComp, transComp,rendComp));
 		
 		
-		generateArchetype("TimeBomb.archetype", archetype);
-		testLoad("TimeBomb.archetype");
+		generateArchetype("TimeBombCounter.archetype", archetype);
+		testLoad("TimeBombCounter.archetype");
 		Display.destroy();
 	}
 	
