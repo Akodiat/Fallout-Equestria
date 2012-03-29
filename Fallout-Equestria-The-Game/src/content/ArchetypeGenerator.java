@@ -3,11 +3,15 @@ package content;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 import math.Vector2;
 
 import org.lwjgl.opengl.Display;
 
 import utils.Circle;
+import utils.Timer;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -16,7 +20,9 @@ import components.*;
 
 import entityFramework.EntityArchetype;
 import entityFramework.IEntityArchetype;
+import graphics.Animation;
 import graphics.Color;
+import graphics.Frame;
 
 public class ArchetypeGenerator {
 	
@@ -27,23 +33,19 @@ public class ArchetypeGenerator {
 		
 		TransformationComp transComp = new TransformationComp();
 		transComp.setPosition((float)Math.random() * 800,(float)Math.random() * 600);
-		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,10f));
-		HealthComp healthComp = new HealthComp(50,1,50);
 		RenderingComp rendComp = new RenderingComp();
-		rendComp.setTexture(ContentManager.loadTexture("HEJHEJ.png"));
-		rendComp.setColor(Color.Red);
-		BasicAIComp aiComp = new BasicAIComp();
-		AbilityPointsComp apComp = new AbilityPointsComp(200, 100, 4);
-		PhysicsComp physComp = new PhysicsComp();
+		rendComp.setTexture(ContentManager.loadTexture("HEJHEj.png"));
+		rendComp.setColor(Color.Gold);
+		ExistanceComp existanceComp = new ExistanceComp(3f);
 		transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 										rendComp.getTexture().Height / 2));	
+		AttackComp attackComp = new AttackComp(null, new Circle(Vector2.Zero, 40f), 60, false);
 	
-	
-		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(apComp, transComp,aiComp, spatComp, healthComp, rendComp,physComp));
+		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(existanceComp, attackComp, transComp,rendComp));
 		
 		
-		generateArchetype("BasicAI.archetype", archetype);
-		testLoad("BasicAI.archetype");
+		generateArchetype("TimeBomb.archetype", archetype);
+		testLoad("TimeBomb.archetype");
 		Display.destroy();
 	}
 	

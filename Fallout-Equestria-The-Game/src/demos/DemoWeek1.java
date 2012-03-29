@@ -9,6 +9,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import ability.BulletAbility;
+import ability.SuperTimeBomb;
+import ability.TimeBombAbility;
 
 import tests.SystemTester;
 import utils.Camera2D;
@@ -18,6 +20,7 @@ import utils.Timer;
 
 import components.*;
 import content.ContentManager;
+import death.CorpseDeathAction;
 import debugsystems.DebugAttackRenderSystem;
 import debugsystems.DebugSpatialRenderSystem;
 
@@ -60,7 +63,7 @@ public class DemoWeek1 {
 		this.graphics = new SpriteBatch(this.screenDim);	
 		this.tester = new SystemTester();
 		this.mapTester = new MapTester(this.graphics);
-		this.camera = new Camera2D(new Rectangle(0,0,10000,10000), screenDim);
+		this.camera = new Camera2D(new Rectangle(0,0,2000, 2000), screenDim);
 		initializeSystems();
 		initializeEntities(this.tester.getWorld().getEntityManager());
 
@@ -95,6 +98,10 @@ public class DemoWeek1 {
 		tester.addLogicSubSystem(new CameraControlSystem(this.tester.getWorld(), camera));
 		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
+		tester.addLogicSubSystem(new AnimationSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new DeathResolveSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -116,11 +123,11 @@ public class DemoWeek1 {
 		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,10f));
 		RenderingComp rendComp = new RenderingComp();
 		HealthComp healthComp = new HealthComp(100, 2, 89);
-		AbilityPointsComp apComp = new AbilityPointsComp(100, 50, 5.0f);
+		AbilityPointsComp apComp = new AbilityPointsComp(100, 50, 15.0f);
 		
 		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
 		
-		WeaponComp weapon = new WeaponComp(new BulletAbility(archetype, 1, 0.1f, 10f), null);
+		WeaponComp weapon = new WeaponComp(new BulletAbility(archetype, 13, 0.3f, 5f), null);
 
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
@@ -128,6 +135,9 @@ public class DemoWeek1 {
 
 		posComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
 										rendComp.getTexture().Height / 2));	
+		
+		DeathComp deathComp = new DeathComp();
+		deathComp.addDeathAction(new CorpseDeathAction(ContentManager.loadTexture("HEJHEJDEAD.png")));
 		
 		player.addComponent(rendComp);
 		player.addComponent(inpComp);
@@ -137,6 +147,7 @@ public class DemoWeek1 {
 		player.addComponent(healthComp);
 		player.addComponent(apComp);
 		player.addComponent(weapon);
+		player.addComponent(deathComp);
 
 		player.refresh();
 		

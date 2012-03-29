@@ -34,16 +34,16 @@ public class SpriteBatch {
 	
 	//The x and y offsets of the different corners.
 	private static final float[] xOffsets  = {
-		1f,
-		1f,
 		0f,
+		1f,
+		1f,
 		0f,
 	};	
 	private static final float[] yOffsets  = {
 		0f,
+		0f,
 		1f,
-		1f,
-		0f
+		1f
 	};	
 	
 	//The current number of sprites in the batch.
@@ -356,6 +356,65 @@ public class SpriteBatch {
 		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror);
 	}
 	
+	public void drawString(TextureFont font , String text, Vector2 position, Color color) {		
+		this.internalDrawString(font, text, position, color, Vector2.Zero, Vector2.One, 0.0f, false);	
+	}
+	
+	public void drawString(TextureFont font , String text, Vector2 position, Color color, Vector2 origin) {		
+		this.internalDrawString(font, text, position, color, origin, Vector2.One, 0.0f, false);	
+	}
+	
+	public void drawString(TextureFont font , String text, Vector2 position, Color color, Vector2 origin, Vector2 scale) {		
+		this.internalDrawString(font, text, position, color, origin, scale, 0.0f, false);	
+	}
+	
+	public void drawString(TextureFont font , String text, Vector2 position, Color color, Vector2 origin, Vector2 scale, float rotation, boolean mirror) {		
+		this.internalDrawString(font, text, position, color, origin, scale, rotation, mirror);	
+	}
+	
+	
+	private void internalDrawString(TextureFont font, String text,
+			Vector2 destination, Color color, Vector2 origin, Vector2 scale, float rotation,
+			boolean mirror) {
+		
+		//TODO this is unreadable dosn't work correctly and so on but other then that  like it!'
+		
+		Vector2 textDim = font.meassureString(text);
+		textDim = new Vector2(textDim.X * scale.X, textDim.Y * scale.Y);
+		float x = 0, y = 0, rx = 0;
+		float angleX = (float)Math.cos(rotation), angleY = (float)Math.sin(rotation);
+		float dist = 0;
+		float distY = 0;
+		for (int i = 0; i < text.length(); i++) {
+			char c = text.charAt(i);
+			if(c == '\n') {
+				distY += font.getLineSpacing();
+				dist = 0;
+				continue;
+			}
+			Vector2 rorig = origin;
+			Rectangle srcRect = font.getCharacterSourceRect(c);
+			
+
+			x =  dist * angleX - distY * angleY;
+			//y =  dist * angleY + distY * angleX;
+			
+			if(mirror) {
+				rx = textDim.X - x + destination.X;
+				rorig = new Vector2(origin.X + srcRect.Width * scale.X, origin.Y);
+			}
+			else {
+				rx = x + destination.X;
+			}
+			
+		
+			
+			this.internalDraw(font.getTexture(), new Vector2(rx,y + destination.Y + distY), color, srcRect, rorig, scale, rotation, mirror);
+			dist += (srcRect.Width + font.getCharacterSpacing()) * scale.X;
+			
+		}
+	}
+
 	private void internalDraw(Texture2D texture, Vector2 destination, Color color, Rectangle sorceRectangle,
 							  Vector2 origin, Vector2 scale, float rotation, boolean mirror)
 	{
@@ -383,9 +442,11 @@ public class SpriteBatch {
 				destWidth = sorceRectangle.Width * scale.X;
 				destHeight = sorceRectangle.Height * scale.Y;		
 				texX = (float)sorceRectangle.X / texture.Width;
-				texY = (float)sorceRectangle.Y / texture.Height;
+				texY = -(float)sorceRectangle.Y / texture.Height;
 				texWidth = (float)sorceRectangle.Width / texture.Width;
-				texHeight = (float)sorceRectangle.Height / texture.Height;		
+				texHeight = (float)sorceRectangle.Height / texture.Height;
+				
+				texY += 1 - texHeight;
 			} else {
 				destWidth = texture.Width * scale.X;
 				destHeight = texture.Height * scale.Y;

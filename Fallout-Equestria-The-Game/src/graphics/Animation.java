@@ -1,5 +1,6 @@
 package graphics;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableList;
@@ -21,6 +22,7 @@ public class Animation implements ITimerListener {
 		this.frames = frames;
 		this.timer = timer;
 		this.duration = timer.getTickInterval()*frames.size();
+		this.listeners = new HashSet<>();
 		this.Start();
 	}
 

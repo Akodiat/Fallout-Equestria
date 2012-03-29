@@ -20,6 +20,6 @@ void main() {
 	realPos.xy -= viewport.xy / 2; 
 	
 	gl_Position = projection * realPos;
-	_textureCoord = textureCoord;
+	_textureCoord.xy = textureCoord.xy;
 	_color = color;
 }

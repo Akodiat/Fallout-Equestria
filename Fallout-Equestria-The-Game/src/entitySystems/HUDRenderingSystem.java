@@ -82,7 +82,7 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 		Rectangle rectHealthFill = new Rectangle((int) this.healthPos.X - 5,
 				(int) this.healthPos.Y, healthBarBackGround.Width,healthBarBackGround.Height);
 		Rectangle rectHealthToActuallyFill = new Rectangle(-2,
-				25, (int)((healthBarBackGround.Width - 82)*ratio),healthBarBackGround.Height);
+				15, (int)((healthBarBackGround.Width - 82)*ratio),healthBarBackGround.Height);
 		this.batch.draw(this.healthBarFill, rectHealthFill, Color.White, rectHealthToActuallyFill);
 	}
 

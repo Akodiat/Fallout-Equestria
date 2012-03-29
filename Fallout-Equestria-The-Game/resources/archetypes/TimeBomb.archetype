@@ -1,0 +1,37 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <components.ExistanceComp>
+        <existanceTime>3.0</existanceTime>
+        <elapsedExistance>0.0</elapsedExistance>
+      </components.ExistanceComp>
+      <Attack>
+        <bounds>
+          <position>0.0,0.0</position>
+          <radius>40.0</radius>
+        </bounds>
+        <damage>60</damage>
+        <destoryOnHit>false</destoryOnHit>
+        <targetsHit/>
+      </Attack>
+      <Transformation>
+        <position>5.0088534,280.07077</position>
+        <scale>1.0,1.0</scale>
+        <origin>46.0,44.0</origin>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+      </Transformation>
+      <Rendering>
+        <texture>
+          <TextureAsset>HEJHEj.png</TextureAsset>
+        </texture>
+        <color>
+          <Color>1.0,0.84313726,0.0,1.0</Color>
+        </color>
+      </Rendering>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
+</entityFramework.EntityArchetype>

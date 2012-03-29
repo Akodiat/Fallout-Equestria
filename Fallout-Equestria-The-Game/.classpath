@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/XML/xstream-1.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="lib/jdom-1.1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
