@@ -1,6 +1,7 @@
 package content;
 
 import java.io.InputStream;
+
 import components.*;
 
 import com.google.common.collect.ImmutableSet;
@@ -16,6 +17,7 @@ public class EntityArchetypeLoader {
 		xstream.registerConverter(new TextureConverter());
 		xstream.registerConverter(new Vector2Converter());
 		xstream.registerConverter(new ColorConverter());
+		xstream.registerConverter(new AudioConverter());
 		xstream.alias("Set", ImmutableSet.class);
 		
 		xstream.processAnnotations(AbilityPointsComp.class);
@@ -28,6 +30,8 @@ public class EntityArchetypeLoader {
 		xstream.processAnnotations(RenderingComp.class);
 		xstream.processAnnotations(SpatialComp.class);
 		xstream.processAnnotations(TransformationComp.class);
+		xstream.processAnnotations(AnimationComp.class);
+		xstream.processAnnotations(WeaponComp.class);
 	}
 	
 	

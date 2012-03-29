@@ -21,8 +21,9 @@ public class BulletAbility extends Ability{
 	public BulletAbility(IEntityArchetype bulletArch, int APCost, float shootingInterval, float bulletSpeed){
 		super(APCost, shootingInterval);
 		this.bulletArch = bulletArch;
-		this.bulletSpeed = bulletSpeed;
-		this.soundEffect = ContentManager.loadSound("effects/pew.ogg"); 
+		this.bulletSpeed = bulletSpeed; 
+
+		this.soundEffect = ContentManager.loadSound("effects/pew.ogg");
 	}
 
 	@Override
@@ -38,6 +39,7 @@ public class BulletAbility extends Ability{
 		bullet.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(60, attackSpeed)));
 		bullet.getComponent(PhysicsComp.class).setVelocity(Vector2.mul(bulletSpeed, attackSpeed));
 		
+
 		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
 		
 		bullet.refresh();

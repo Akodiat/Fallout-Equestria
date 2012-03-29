@@ -176,4 +176,8 @@ public final class ContentManager {
 			throw new RuntimeException("Failed to load font: " + path);
 		}
 	}
+	
+	public static String getAudioName(Audio audio) {
+		return sounds.inverse().get(audio);
+	}
 }
