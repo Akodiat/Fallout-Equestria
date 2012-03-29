@@ -23,7 +23,6 @@ import content.ContentManager;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entitySystems.*;
-import debugsystems.*;
 import graphics.Color;
 import utils.Camera2D;
 import utils.Circle;
@@ -60,8 +59,8 @@ public class TelekinesisTest extends AbstractSystemTest{
 		tester.addLogicSubSystem(new TelekinesisSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
-		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
-		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
+	//	tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
+	//	tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
 		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
 
 	}

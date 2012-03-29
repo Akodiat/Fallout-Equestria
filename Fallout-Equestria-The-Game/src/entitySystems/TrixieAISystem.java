@@ -1,14 +1,16 @@
 package entitySystems;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.opengl.Display;
 
-import ability.Ability;
+import ability.*;
 
 import math.Vector2;
 import components.*;
+import content.ContentManager;
 
 import entityFramework.*;
 /**
@@ -26,7 +28,9 @@ public class TrixieAISystem extends LabelEntitySystem{
 
 	@Override
 	public void initialize() {
-		//Add abilities here!
+		this.abilities = new ArrayList<Ability>();
+		this.abilities.add(new TeleportAbility(5,10,null));
+		this.abilities.add(new CircleProjectileAbility(ContentManager.loadArchetype("ppieBullet.archetype"), 5, 5, 10, 10));
 	}
 
 	@Override
@@ -35,7 +39,17 @@ public class TrixieAISystem extends LabelEntitySystem{
 		AbilityComp abiComp = entity.getComponent(AbilityComp.class);
 		WeaponComp weapComp = entity.getComponent(WeaponComp.class);
 		
+		Ability randAbility = this.abilities.get((int)(Math.random()*10)%this.abilities.size());
 		Vector2 targetPos = new Vector2((float)Math.random() * Display.getWidth(),(float)Math.random() * Display.getHeight()); //Find random target because that's OK.
+		
+		if(randAbility instanceof TeleportAbility){
+			
+		}
+			
+		
+		
+		
+		
 		
 				//Set target to the nearest entity from the group "Friends"
 				List<IEntity> targetList= this.getWorld().getEntityManager().getEntityGroup("Friends").asList();
@@ -50,7 +64,9 @@ public class TrixieAISystem extends LabelEntitySystem{
 
 					targetPos = target.getComponent(TransformationComp.class).getPosition();
 				}
-		this.abilities.get((int)(Math.random()*10)%this.abilities.size()).useAbility(entity, targetPos, this.getWorld().getEntityManager());
+		
+		
+		randAbility.useAbility(entity, targetPos, this.getWorld().getEntityManager());
 		
 	}
 
