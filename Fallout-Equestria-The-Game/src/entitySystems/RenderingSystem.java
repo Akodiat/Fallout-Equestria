@@ -1,6 +1,7 @@
 package entitySystems;
 
 import math.Matrix4;
+import math.Vector2;
 import components.RenderingComp;
 import components.TransformationComp;
 
@@ -60,7 +61,7 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 
 	private void draw(RenderingComp renderC, TransformationComp transformation) {
 		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), renderC.getSource(),
-							  transformation.getOrigin(), transformation.getScale(), transformation.getRotation(), transformation.getMirror());
+							  new Vector2(transformation.getOrigin().X*transformation.getScale().X,transformation.getOrigin().Y*transformation.getScale().Y), transformation.getScale(), transformation.getRotation(), transformation.getMirror());
 	}
 
 }

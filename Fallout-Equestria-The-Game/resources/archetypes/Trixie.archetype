@@ -41,7 +41,7 @@
                       <outer-class class="ability.TimeBombAbility" reference="../../../.."/>
                     </ability.Ability_-TimerImplementation>
                   </listeners>
-                  <tickInterval>0.0</tickInterval>
+                  <tickInterval>0.2</tickInterval>
                   <elapsedTime>0.0</elapsedTime>
                   <tickCount>0</tickCount>
                   <numTicks>1</numTicks>
@@ -95,7 +95,7 @@
                                 </elements>
                               </frames>
                               <time>0.0</time>
-                              <tickInterval>0.0</tickInterval>
+                              <tickInterval>0.2</tickInterval>
                             </graphics.Animation>
                           </entry>
                         </animations>
@@ -312,7 +312,7 @@
                               </elements>
                             </frames>
                             <time>0.0</time>
-                            <tickInterval>0.0</tickInterval>
+                            <tickInterval>0.2</tickInterval>
                           </graphics.Animation>
                         </entry>
                       </animations>
@@ -513,7 +513,7 @@
                               </elements>
                             </frames>
                             <time>0.0</time>
-                            <tickInterval>0.0</tickInterval>
+                            <tickInterval>0.2</tickInterval>
                           </graphics.Animation>
                         </entry>
                       </animations>
@@ -561,10 +561,28 @@
                     </sourceRect>
                     <origin>36.0,60.0</origin>
                   </graphics.Frame>
+                  <graphics.Frame>
+                    <sourceRect>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Width>72</Width>
+                      <Height>120</Height>
+                    </sourceRect>
+                    <origin>36.0,60.0</origin>
+                  </graphics.Frame>
+                  <graphics.Frame>
+                    <sourceRect>
+                      <X>216</X>
+                      <Y>0</Y>
+                      <Width>72</Width>
+                      <Height>120</Height>
+                    </sourceRect>
+                    <origin>36.0,60.0</origin>
+                  </graphics.Frame>
                 </elements>
               </frames>
               <time>0.0</time>
-              <tickInterval>0.0</tickInterval>
+              <tickInterval>0.1</tickInterval>
             </graphics.Animation>
           </entry>
         </animations>

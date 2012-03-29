@@ -33,7 +33,7 @@ public class Frame {
 
 	public static ImmutableList<Frame> generateFrames(Vector2 startPos, Vector2 Dimensions, int numFrames, Boolean mirrored){
 		List<Frame> frames = new ArrayList<Frame>();
-		for (int i=numFrames; i>0;i--){
+		for (int i=numFrames-1; i<=0;i--){
 			frames.add(new Frame(new Rectangle((int)(startPos.X + Dimensions.X*i), (int)startPos.Y, (int)Dimensions.X, (int)Dimensions.Y),
 					   new Vector2(Dimensions.X/2, Dimensions.Y/2)));
 		}

@@ -24,15 +24,7 @@
               <activeIndex>0</activeIndex>
               <frames class="com.google.common.collect.RegularImmutableList" resolves-to="com.google.common.collect.ImmutableList$SerializedForm">
                 <elements>
-                  <graphics.Frame>
-                    <sourceRect>
-                      <X>1738</X>
-                      <Y>0</Y>
-                      <Width>158</Width>
-                      <Height>147</Height>
-                    </sourceRect>
-                    <origin>79.0,73.5</origin>
-                  </graphics.Frame>
+                  
                   <graphics.Frame>
                     <sourceRect>
                       <X>1580</X>
@@ -123,10 +115,19 @@
                     </sourceRect>
                     <origin>79.0,73.5</origin>
                   </graphics.Frame>
+                  <graphics.Frame>
+                    <sourceRect>
+                      <X>0</X>
+                      <Y>0</Y>
+                      <Width>158</Width>
+                      <Height>147</Height>
+                    </sourceRect>
+                    <origin>79.0,73.5</origin>
+                  </graphics.Frame>
                 </elements>
               </frames>
               <time>0.0</time>
-              <tickInterval>0.0</tickInterval>
+              <tickInterval>0.1</tickInterval>
             </graphics.Animation>
           </entry>
         </animations>

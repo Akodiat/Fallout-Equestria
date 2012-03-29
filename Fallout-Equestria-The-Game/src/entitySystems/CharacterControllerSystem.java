@@ -4,6 +4,7 @@ package entitySystems;
 import ability.Ability;
 import math.Vector2;
 import components.*;
+import content.ContentManager;
 import entityFramework.*;
 
 /**
@@ -39,8 +40,13 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		}
 
 		int speedFactor = 2;
-		if(inpComp.isGallopButtonPressed())
+		if(inpComp.isGallopButtonPressed()){
 			speedFactor=4;
+			IEntity cloud = this.getEntityManager().createEntity(ContentManager.loadArchetype("Cloud.archetype"));
+			cloud.getComponent(TransformationComp.class).setPosition(new Vector2(posComp.getPosition().X,posComp.getPosition().Y + posComp.getOrigin().Y));
+			cloud.getComponent(TransformationComp.class).setScale(0.4f, 0.4f);
+			cloud.refresh();
+		}
 
 		Vector2 velocity = new Vector2(0,0);
 		if (inpComp.isBackButtonPressed()){
