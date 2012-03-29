@@ -16,6 +16,7 @@ import ability.BulletAbility;
 import com.google.common.collect.ImmutableList;
 
 import components.AnimationComp;
+import components.StatusComp;
 import components.TransformationComp;
 
 import content.ContentManager;
@@ -166,13 +167,9 @@ public class BossFight {
 		player.addToGroup("Friends");
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
-<<<<<<< HEAD
 		player.setLabel("Player");
-
-=======
-		player.setLabel("Player");
->>>>>>> Fixed teh problem with entity archetype loading
 		player.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
+		player.addComponent(new StatusComp());
 		player.refresh();
 		
 		//TRIXIE
