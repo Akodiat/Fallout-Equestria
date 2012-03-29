@@ -97,7 +97,8 @@ public class Timer {
 	}
 
 	private void onComplete() {
-		for (ITimerListener listener : this.listeners) {
+		Set<ITimerListener> temp = new HashSet<>(this.listeners);
+		for (ITimerListener listener : temp) {
 			listener.Complete();
 		}
 	}

@@ -168,8 +168,7 @@ public class BossFight {
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		player.setLabel("Player");
-		player.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
-		player.addComponent(new StatusComp());
+		
 		player.refresh();
 		
 		//TRIXIE
@@ -178,7 +177,6 @@ public class BossFight {
 		trixie.getComponent(TransformationComp.class).setPosition(new Vector2(100,100));
 		trixie.setLabel("Trixie");
 		
-		trixie.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
 		
 		trixie.refresh();
 		

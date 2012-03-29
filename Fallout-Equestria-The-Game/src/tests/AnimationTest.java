@@ -157,12 +157,10 @@ public class AnimationTest {
 		Frame frame2 = new Frame(new Rectangle(44,0,44,38),new Vector2(22,19), false);
 		Frame frame3 = new Frame(new Rectangle(92,0,40,38),new Vector2(22,19), false);*/
 		ImmutableList<Frame> frames = Frame.generateFrames(new Vector2(0,0), new Vector2(83 + 1.0f/3.0f, 75), 24, true);
-		Timer aniTimer = new Timer(0.1f, Integer.MAX_VALUE);
-		Animation animation = new Animation(frames, aniTimer);
+		Animation animation = new Animation(frames, 0.1f);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
 		animations.put("walk", animation);
 		AnimationComp aniComp = new AnimationComp(animations,"walk");
-		aniComp.getActiveAnimation().getTimer().Start();
 
 		//rendcomp
 		RenderingComp rendComp = new RenderingComp();

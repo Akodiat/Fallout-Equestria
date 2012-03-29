@@ -19,25 +19,205 @@
       <components.AbilityComp>
         <abilities>
           <entry>
-            <java-class>ability.TeleportAbility</java-class>
-            <ability.TeleportAbility>
+            <java-class>ability.SpawnCreaturesAbility</java-class>
+            <ability.SpawnCreaturesAbility>
               <timer>
                 <listeners>
                   <ability.Ability_-TimerImplementation>
-                    <outer-class class="ability.TeleportAbility" reference="../../../.."/>
+                    <outer-class class="ability.SpawnCreaturesAbility" reference="../../../.."/>
                   </ability.Ability_-TimerImplementation>
                 </listeners>
-                <tickInterval>15.0</tickInterval>
+                <tickInterval>10.0</tickInterval>
+                <elapsedTime>0.0</elapsedTime>
+                <tickCount>0</tickCount>
+                <numTicks>1</numTicks>
+              </timer>
+              <apCost>5</apCost>
+              <busy>false</busy>
+              <creatureArch class="entityFramework.EntityArchetype">
+                <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+                  <elements>
+                    <Transformation>
+                      <position>782.9652,502.6898</position>
+                      <scale>1.0,1.0</scale>
+                      <origin>65.0,30.0</origin>
+                      <rotation>0.0</rotation>
+                      <mirror>false</mirror>
+                    </Transformation>
+                    <Spatial>
+                      <bounds>
+                        <position>0.0,0.0</position>
+                        <radius>20.0</radius>
+                      </bounds>
+                    </Spatial>
+                    <Health>
+                      <maxHealth>50.0</maxHealth>
+                      <regenSpeed>1.0</regenSpeed>
+                      <healthPoints>50.0</healthPoints>
+                    </Health>
+                    <Rendering>
+                      <texture>
+                        <TextureAsset>pinksplosion rocket.png</TextureAsset>
+                      </texture>
+                      <color>
+                        <Color>1.0,0.0,0.0,1.0</Color>
+                      </color>
+                    </Rendering>
+                    <Physics>
+                      <immovable>false</immovable>
+                      <velocity reference="../../Spatial/bounds/position"/>
+                      <mass>10.0</mass>
+                      <torque>0.0</torque>
+                    </Physics>
+                    <Attack>
+                      <bounds>
+                        <position reference="../../../Spatial/bounds/position"/>
+                        <radius>21.0</radius>
+                      </bounds>
+                      <damage>10</damage>
+                      <destoryOnHit>true</destoryOnHit>
+                      <targetsHit/>
+                    </Attack>
+                  </elements>
+                </components>
+                <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+                  <elements/>
+                </groups>
+              </creatureArch>
+              <creatureAmount>5</creatureAmount>
+            </ability.SpawnCreaturesAbility>
+          </entry>
+          <entry>
+            <java-class>ability.CircleProjectileAbility</java-class>
+            <ability.CircleProjectileAbility>
+              <timer>
+                <listeners>
+                  <ability.Ability_-TimerImplementation>
+                    <outer-class class="ability.CircleProjectileAbility" reference="../../../.."/>
+                  </ability.Ability_-TimerImplementation>
+                </listeners>
+                <tickInterval>8.0</tickInterval>
                 <elapsedTime>0.0</elapsedTime>
                 <tickCount>0</tickCount>
                 <numTicks>1</numTicks>
               </timer>
               <apCost>8</apCost>
               <busy>false</busy>
-              <soundEffect class="org.newdawn.slick.openal.AudioImpl">
-                <AudioAsset>effects/pew.ogg</AudioAsset>
-              </soundEffect>
-            </ability.TeleportAbility>
+              <bulletArch class="entityFramework.EntityArchetype">
+                <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+                  <elements>
+                    <Physics>
+                      <immovable>false</immovable>
+                      <velocity>0.0,0.0</velocity>
+                      <mass>1.0</mass>
+                      <torque>0.0</torque>
+                    </Physics>
+                    <components.ExistanceComp>
+                      <existanceTime>3.0</existanceTime>
+                      <elapsedExistance>0.0</elapsedExistance>
+                    </components.ExistanceComp>
+                    <Attack>
+                      <bounds>
+                        <position reference="../../../Physics/velocity"/>
+                        <radius>30.0</radius>
+                      </bounds>
+                      <damage>60</damage>
+                      <destoryOnHit>false</destoryOnHit>
+                      <targetsHit/>
+                    </Attack>
+                    <Transformation>
+                      <position reference="../../Physics/velocity"/>
+                      <scale>1.0,1.0</scale>
+                      <origin>12.0,30.0</origin>
+                      <rotation>0.0</rotation>
+                      <mirror>false</mirror>
+                    </Transformation>
+                    <Rendering>
+                      <texture>
+                        <TextureAsset>trixieprojectilesheet.png</TextureAsset>
+                      </texture>
+                      <color>
+                        <Color>1.0,1.0,1.0,1.0</Color>
+                      </color>
+                    </Rendering>
+                    <Animation>
+                      <animations>
+                        <entry>
+                          <string>default</string>
+                          <graphics.Animation>
+                            <activeIndex>0</activeIndex>
+                            <frames class="com.google.common.collect.RegularImmutableList" resolves-to="com.google.common.collect.ImmutableList$SerializedForm">
+                              <elements>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>144</X>
+                                    <Y>0</Y>
+                                    <Width>24</Width>
+                                    <Height>60</Height>
+                                  </sourceRect>
+                                  <origin>12.0,30.0</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>120</X>
+                                    <Y>0</Y>
+                                    <Width>24</Width>
+                                    <Height>60</Height>
+                                  </sourceRect>
+                                  <origin>12.0,30.0</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>96</X>
+                                    <Y>0</Y>
+                                    <Width>24</Width>
+                                    <Height>60</Height>
+                                  </sourceRect>
+                                  <origin>12.0,30.0</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>72</X>
+                                    <Y>0</Y>
+                                    <Width>24</Width>
+                                    <Height>60</Height>
+                                  </sourceRect>
+                                  <origin>12.0,30.0</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>48</X>
+                                    <Y>0</Y>
+                                    <Width>24</Width>
+                                    <Height>60</Height>
+                                  </sourceRect>
+                                  <origin>12.0,30.0</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>24</X>
+                                    <Y>0</Y>
+                                    <Width>24</Width>
+                                    <Height>60</Height>
+                                  </sourceRect>
+                                  <origin>12.0,30.0</origin>
+                                </graphics.Frame>
+                              </elements>
+                            </frames>
+                            <time>0.0</time>
+                            <tickInterval>0.1</tickInterval>
+                          </graphics.Animation>
+                        </entry>
+                      </animations>
+                      <activeAnimation reference="../animations/entry/graphics.Animation"/>
+                    </Animation>
+                  </elements>
+                </components>
+                <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../entry/ability.SpawnCreaturesAbility/creatureArch/groups"/>
+              </bulletArch>
+              <bulletSpeed>6.0</bulletSpeed>
+              <bulletAmount>10</bulletAmount>
+            </ability.CircleProjectileAbility>
           </entry>
           <entry>
             <java-class>ability.SpawnCreaturesAbility</java-class>
@@ -184,17 +364,8 @@
                                   </graphics.Frame>
                                 </elements>
                               </frames>
-                              <timer>
-                                <listeners>
-                                  <graphics.Animation reference="../../.."/>
-                                </listeners>
-                                <tickInterval>0.1</tickInterval>
-                                <elapsedTime>0.0</elapsedTime>
-                                <tickCount>0</tickCount>
-                                <numTicks>2147483647</numTicks>
-                              </timer>
-                              <duration>0.2</duration>
-                              <listeners/>
+                              <time>0.0</time>
+                              <tickInterval>0.1</tickInterval>
                             </graphics.Animation>
                           </entry>
                         </animations>
@@ -221,7 +392,7 @@
                       </Rendering>
                     </elements>
                   </components>
-                  <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../../entry[2]/ability.SpawnCreaturesAbility/creatureArch/groups"/>
+                  <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../../entry/ability.SpawnCreaturesAbility/creatureArch/groups"/>
                 </explostionArchetype>
                 <countDownArchetype class="entityFramework.EntityArchetype">
                   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
@@ -247,7 +418,7 @@
                       </Rendering>
                     </elements>
                   </components>
-                  <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../../entry[2]/ability.SpawnCreaturesAbility/creatureArch/groups"/>
+                  <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../../entry/ability.SpawnCreaturesAbility/creatureArch/groups"/>
                 </countDownArchetype>
               </timeBombAbility>
               <numBombs>25</numBombs>
@@ -263,53 +434,37 @@
             </ability.SuperTimeBomb>
           </entry>
           <entry>
-            <java-class>ability.CircleProjectileAbility</java-class>
-            <ability.CircleProjectileAbility>
+            <java-class>ability.TeleportAbility</java-class>
+            <ability.TeleportAbility>
               <timer>
                 <listeners>
                   <ability.Ability_-TimerImplementation>
-                    <outer-class class="ability.CircleProjectileAbility" reference="../../../.."/>
+                    <outer-class class="ability.TeleportAbility" reference="../../../.."/>
                   </ability.Ability_-TimerImplementation>
                 </listeners>
-                <tickInterval>8.0</tickInterval>
+                <tickInterval>15.0</tickInterval>
                 <elapsedTime>0.0</elapsedTime>
                 <tickCount>0</tickCount>
                 <numTicks>1</numTicks>
               </timer>
               <apCost>8</apCost>
               <busy>false</busy>
-              <bulletArch class="entityFramework.EntityArchetype">
+              <soundEffect class="org.newdawn.slick.openal.AudioImpl">
+                <AudioAsset>effects/pew.ogg</AudioAsset>
+              </soundEffect>
+              <cloudArchetype class="entityFramework.EntityArchetype">
                 <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
                   <elements>
-                    <Physics>
-                      <immovable>false</immovable>
-                      <velocity>0.0,0.0</velocity>
-                      <mass>1.0</mass>
-                      <torque>0.0</torque>
-                    </Physics>
-                    <components.ExistanceComp>
-                      <existanceTime>3.0</existanceTime>
-                      <elapsedExistance>0.0</elapsedExistance>
-                    </components.ExistanceComp>
-                    <Attack>
-                      <bounds>
-                        <position reference="../../../Physics/velocity"/>
-                        <radius>30.0</radius>
-                      </bounds>
-                      <damage>60</damage>
-                      <destoryOnHit>false</destoryOnHit>
-                      <targetsHit/>
-                    </Attack>
                     <Transformation>
-                      <position reference="../../Physics/velocity"/>
+                      <position>0.0,0.0</position>
                       <scale>1.0,1.0</scale>
-                      <origin>12.0,30.0</origin>
+                      <origin>79.0,73.0</origin>
                       <rotation>0.0</rotation>
                       <mirror>false</mirror>
                     </Transformation>
                     <Rendering>
                       <texture>
-                        <TextureAsset>trixieprojectilesheet.png</TextureAsset>
+                        <TextureAsset>DustCloudSheet.png</TextureAsset>
                       </texture>
                       <color>
                         <Color>1.0,1.0,1.0,1.0</Color>
@@ -325,83 +480,121 @@
                               <elements>
                                 <graphics.Frame>
                                   <sourceRect>
-                                    <X>144</X>
+                                    <X>1738</X>
                                     <Y>0</Y>
-                                    <Width>24</Width>
-                                    <Height>60</Height>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
                                   </sourceRect>
-                                  <origin>12.0,30.0</origin>
+                                  <origin>79.0,73.5</origin>
                                 </graphics.Frame>
                                 <graphics.Frame>
                                   <sourceRect>
-                                    <X>120</X>
+                                    <X>1580</X>
                                     <Y>0</Y>
-                                    <Width>24</Width>
-                                    <Height>60</Height>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
                                   </sourceRect>
-                                  <origin>12.0,30.0</origin>
+                                  <origin>79.0,73.5</origin>
                                 </graphics.Frame>
                                 <graphics.Frame>
                                   <sourceRect>
-                                    <X>96</X>
+                                    <X>1422</X>
                                     <Y>0</Y>
-                                    <Width>24</Width>
-                                    <Height>60</Height>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
                                   </sourceRect>
-                                  <origin>12.0,30.0</origin>
+                                  <origin>79.0,73.5</origin>
                                 </graphics.Frame>
                                 <graphics.Frame>
                                   <sourceRect>
-                                    <X>72</X>
+                                    <X>1264</X>
                                     <Y>0</Y>
-                                    <Width>24</Width>
-                                    <Height>60</Height>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
                                   </sourceRect>
-                                  <origin>12.0,30.0</origin>
+                                  <origin>79.0,73.5</origin>
                                 </graphics.Frame>
                                 <graphics.Frame>
                                   <sourceRect>
-                                    <X>48</X>
+                                    <X>1106</X>
                                     <Y>0</Y>
-                                    <Width>24</Width>
-                                    <Height>60</Height>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
                                   </sourceRect>
-                                  <origin>12.0,30.0</origin>
+                                  <origin>79.0,73.5</origin>
                                 </graphics.Frame>
                                 <graphics.Frame>
                                   <sourceRect>
-                                    <X>24</X>
+                                    <X>948</X>
                                     <Y>0</Y>
-                                    <Width>24</Width>
-                                    <Height>60</Height>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
                                   </sourceRect>
-                                  <origin>12.0,30.0</origin>
+                                  <origin>79.0,73.5</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>790</X>
+                                    <Y>0</Y>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
+                                  </sourceRect>
+                                  <origin>79.0,73.5</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>632</X>
+                                    <Y>0</Y>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
+                                  </sourceRect>
+                                  <origin>79.0,73.5</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>474</X>
+                                    <Y>0</Y>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
+                                  </sourceRect>
+                                  <origin>79.0,73.5</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>316</X>
+                                    <Y>0</Y>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
+                                  </sourceRect>
+                                  <origin>79.0,73.5</origin>
+                                </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>158</X>
+                                    <Y>0</Y>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
+                                  </sourceRect>
+                                  <origin>79.0,73.5</origin>
                                 </graphics.Frame>
                               </elements>
                             </frames>
-                            <timer>
-                              <listeners>
-                                <graphics.Animation reference="../../.."/>
-                              </listeners>
-                              <tickInterval>0.1</tickInterval>
-                              <elapsedTime>0.0</elapsedTime>
-                              <tickCount>0</tickCount>
-                              <numTicks>2147483647</numTicks>
-                            </timer>
-                            <duration>0.6</duration>
-                            <listeners/>
+                            <time>0.0</time>
+                            <tickInterval>0.2</tickInterval>
                           </graphics.Animation>
                         </entry>
                       </animations>
                       <activeAnimation reference="../animations/entry/graphics.Animation"/>
                     </Animation>
+                    <components.ExistanceComp>
+                      <existanceTime>1.1</existanceTime>
+                      <elapsedExistance>0.0</elapsedExistance>
+                    </components.ExistanceComp>
                   </elements>
                 </components>
-                <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../entry[2]/ability.SpawnCreaturesAbility/creatureArch/groups"/>
-              </bulletArch>
-              <bulletSpeed>6.0</bulletSpeed>
-              <bulletAmount>10</bulletAmount>
-            </ability.CircleProjectileAbility>
+                <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../entry/ability.SpawnCreaturesAbility/creatureArch/groups"/>
+              </cloudArchetype>
+            </ability.TeleportAbility>
           </entry>
         </abilities>
       </components.AbilityComp>
@@ -439,17 +632,8 @@
                   </graphics.Frame>
                 </elements>
               </frames>
-              <timer>
-                <listeners>
-                  <graphics.Animation reference="../../.."/>
-                </listeners>
-                <tickInterval>0.1</tickInterval>
-                <elapsedTime>0.0</elapsedTime>
-                <tickCount>0</tickCount>
-                <numTicks>2147483647</numTicks>
-              </timer>
-              <duration>0.2</duration>
-              <listeners/>
+              <time>0.0</time>
+              <tickInterval>0.1</tickInterval>
             </graphics.Animation>
           </entry>
         </animations>
@@ -474,6 +658,6 @@
       </Physics>
     </elements>
   </components>
-  <groups class="com.google.common.collect.EmptyImmutableSet" reference="../components/elements/components.AbilityComp/abilities/entry[2]/ability.SpawnCreaturesAbility/creatureArch/groups"/>
+  <groups class="com.google.common.collect.EmptyImmutableSet" reference="../components/elements/components.AbilityComp/abilities/entry/ability.SpawnCreaturesAbility/creatureArch/groups"/>
   <label>Trixie</label>
 </entityFramework.EntityArchetype>

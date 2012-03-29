@@ -40,6 +40,8 @@ public class AnimationSystem extends EntitySingleProcessingSystem {
 		TransformationComp positionC = this.tCM.getComponent(entity);
 		RenderingComp renderC = this.rCM.getComponent(entity);
 		
+		animationC.getActiveAnimation().update((float)1/60);
+		
 		renderC.setSource(animationC.getActiveAnimation().getActiveFrame().getSourceRect());
 		positionC.setOrigin(animationC.getActiveAnimation().getActiveFrame().getOrigin());
 		

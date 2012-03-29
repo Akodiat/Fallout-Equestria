@@ -362,17 +362,7 @@
                   </graphics.Frame>
                 </elements>
               </frames>
-              <timer>
-                <listeners>
-                  <graphics.Animation reference="../../.."/>
-                </listeners>
-                <tickInterval>0.01</tickInterval>
-                <elapsedTime>0.0</elapsedTime>
-                <tickCount>0</tickCount>
-                <numTicks>2147483647</numTicks>
-              </timer>
-              <duration>24.0</duration>
-              <listeners/>
+              <tickInterval>0.05</tickInterval>
             </graphics.Animation>
           </entry>
         </animations>

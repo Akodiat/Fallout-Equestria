@@ -52,7 +52,6 @@ public class CircleProjectileAbility extends Ability{
 			bullet.getComponent(TransformationComp.class).setRotation(attackSpeed.angle()+(float)(MathHelper.PiOver2));
 			bullet.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(60, attackSpeed)));
 			bullet.getComponent(PhysicsComp.class).setVelocity(Vector2.mul(bulletSpeed, attackSpeed));
-			bullet.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
 			bullet.refresh();
 		}
 

@@ -1,6 +1,8 @@
 package components;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -19,7 +21,11 @@ public class AnimationComp implements IComponent {
 	}
 
 	public AnimationComp(AnimationComp toBeCloned){
-		this.animations = toBeCloned.animations;
+		this.animations = new HashMap<String, Animation>();
+		Set<String> keys = toBeCloned.animations.keySet();
+		for (String key : keys) {
+			this.animations.put(key, toBeCloned.animations.get(key).clone());
+		}
 		this.activeAnimation = toBeCloned.activeAnimation;
 	}
 
@@ -35,9 +41,8 @@ public class AnimationComp implements IComponent {
 		Animation animation = this.animations.get(newActiveAnimation);
 		if(animation != null){
 			if (this.activeAnimation != animation){
-				this.activeAnimation.Complete();
+				this.activeAnimation.reset();
 				this.activeAnimation = animation;
-				this.activeAnimation.Start();
 			}
 		}
 	}

@@ -1,85 +1,56 @@
 package graphics;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.google.common.collect.ImmutableList;
 
-import utils.ITimerListener;
-import utils.Timer;
-
-import utils.IAnimationListener;
-
-public class Animation implements ITimerListener {
+public class Animation {
 
 	private int activeIndex;
 	private ImmutableList<Frame> frames;
-	private Timer timer;
-	private float duration;
-	private Set<IAnimationListener> listeners;
-	
-	public Animation(ImmutableList<Frame> frames, Timer timer) {
+	private float time;
+	private float tickInterval;
+
+	public Animation(ImmutableList<Frame> frames,float tickInterval) {
 		this.frames = frames;
-		this.timer = timer;
-		this.duration = timer.getTickInterval()*frames.size();
-		this.listeners = new HashSet<>();
-		this.Start();
+		this.activeIndex = 0;
+		this.time = 0;
 	}
 
-	public int getActiveIndex() {
-		return activeIndex;
+	public Animation(Animation other) {
+		this.frames = other.frames;
 	}
 
-	public void setActiveIndex(int activeIndex) {
-		this.activeIndex = activeIndex;
+	public Animation clone(){
+		return new Animation(this);
 	}
 
 	public ImmutableList<Frame> getFrames() {
 		return frames;
 	}
-
-	public Timer getTimer() {
-		return timer;
-	}
-
-	public void setTimer(Timer timer) {
-		this.timer = timer;
+	
+	public int numFrames(){
+		return this.frames.size();
 	}
 	
+
 	public Frame getActiveFrame(){
 		return frames.get(activeIndex);
 	}
-
-	public float getDuration() {
-		return duration;
+	
+	public float getDuration(){
+		return frames.size()*this.tickInterval;
 	}
 	
-	public void addListener(IAnimationListener listener){
-		this.listeners.add(listener);
-	}
-	
-	public void removeListener(IAnimationListener listener){
-		this.listeners.remove(listener);
+	public void reset(){
+		this.activeIndex = 0;
 	}
 
-	@Override
-	public void Start() {
-		activeIndex = 0;
-		timer.addEventListener(this);
-	}
-
-	@Override
-	public void Tick() {
-		activeIndex = (activeIndex + 1)%frames.size();
-	}
-
-	@Override
-	public void Complete() {
-		activeIndex = 0;
-		timer.removeEventListener(this);
-		for (IAnimationListener listener : listeners) {
-			listener.onComplete();
+	public void update(float deltha) {
+		time += deltha;
+		if (time>=tickInterval){
+			time -= tickInterval;
+			activeIndex = (activeIndex + 1)%frames.size();
 		}
 	}
+
 
 }
