@@ -84,6 +84,7 @@ public class BossFight {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
+		//ContentManager.loadSound("music/trixiemusic.ogg").playAsMusic(1f, 1f, true);
 		this.graphics = new SpriteBatch(this.screenDim);	
 		this.tester = new SystemTester();
 		this.mapTester = new MapTester(this.graphics);
