@@ -171,6 +171,7 @@ public class AnimationTest {
 		player.addComponent(rendComp);
 		player.addComponent(aniComp);
 		player.addComponent(inpComp);
+		player.addComponent(new StatusComp());
 		player.addComponent(physComp);
 		player.addComponent(posComp);
 		player.addComponent(spatComp);

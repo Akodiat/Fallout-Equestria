@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.jdom.JDOMException;
 import org.newdawn.slick.openal.Audio;
 
 import com.google.common.collect.BiMap;
@@ -19,6 +20,7 @@ import scripting.ScriptLoader;
 import graphics.ShaderEffect;
 import graphics.ShaderLoader;
 import graphics.Texture2D;
+import graphics.TextureFont;
 import graphics.TextureLoader;
 
 /**
@@ -34,12 +36,14 @@ public final class ContentManager {
 	private static final BiMap<String, ILineScript> scripts =  HashBiMap.create();
 	private static final BiMap<String, IEntityArchetype> archetypes = HashBiMap.create();
 	private static final BiMap<String, Audio> sounds = HashBiMap.create();
+	private static final BiMap<String, TextureFont> fonts = HashBiMap.create();
 	
 	private static final ShaderLoader shaderLoader 			   = new ShaderLoader();
 	private static final TextureLoader textureLoader	  	   = new TextureLoader();	
 	private static final ScriptLoader scriptLoader 		       = new ScriptLoader();
 	private static final EntityArchetypeLoader archetypeLoader = new EntityArchetypeLoader();
 	private static final SoundLoader soundLoader 			   = new SoundLoader();
+	private static final TextureFontLoader fontLoader 		   = new TextureFontLoader();
 	
 	public static Texture2D loadTexture(String name) {
 		
@@ -155,6 +159,21 @@ public final class ContentManager {
 			return audio;
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to load sound: " + path);
+		}
+	}
+
+	public static TextureFont loadFont(String path) {
+		File file = new File("resources" + File.separator + "fonts" + File.separator + path);
+		TextureFont font = fonts.get(path);
+		if(font != null) {
+			return font;
+		}	
+		try {
+			font = fontLoader.loadTextureFont(new FileInputStream(file));
+			fonts.put(path, font);
+			return font;
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to load font: " + path);
 		}
 	}
 }

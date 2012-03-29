@@ -21,7 +21,7 @@ import utils.Rectangle;
 public class TextureFontLoader {
 
 	@SuppressWarnings("unchecked")
-	public static TextureFont loadTextureFont(InputStream in) throws JDOMException, IOException {
+	public TextureFont loadTextureFont(InputStream in) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
 		Document document = (Document)builder.build(in);
 		
@@ -30,7 +30,7 @@ public class TextureFontLoader {
 		Attribute lineSpacingAttribute = rootNode.getAttribute("LineSpacing");
 		Attribute charSpacingAttribute = rootNode.getAttribute("CharacterSpacing");
 		
-		String assetName = "/fonts/Testa.png";
+		String assetName = "fonts/" + assetAttribute.getValue();
 		float lineSpacing = lineSpacingAttribute.getFloatValue();
 		float charSpacing = charSpacingAttribute.getFloatValue();
 		
@@ -52,7 +52,7 @@ public class TextureFontLoader {
 		return new TextureFont(texture, lineSpacing, charSpacing,sourceRectangleMap);
 	}
 
-	private static Rectangle getCharacterBounds(Attribute boundsAttribute) {
+	private Rectangle getCharacterBounds(Attribute boundsAttribute) {
 		String boundsValue = boundsAttribute.getValue();			
 		String[] boundElementsValue = boundsValue.split(" ");
 		int x = Integer.parseInt(boundElementsValue[0].substring(2));

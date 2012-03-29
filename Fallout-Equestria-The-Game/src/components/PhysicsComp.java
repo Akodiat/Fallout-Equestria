@@ -10,6 +10,7 @@ public class PhysicsComp implements IComponent{
 	private boolean immovable;
 	private Vector2 velocity;
 	private float mass;
+	private float torque;
 	
 	/**
 	 * @return the mass
@@ -29,27 +30,37 @@ public class PhysicsComp implements IComponent{
 		this.velocity = Vector2.Zero;
 		this.mass = 1f;
 		this.immovable = (false);
+		this.torque = 0;
 	}
 	public PhysicsComp(Vector2 velocity){
 		this.velocity = velocity;
 		this.mass = 1f;
 		this.immovable = (false);
+		this.torque = 0;
 	}
-	public PhysicsComp(Vector2 velocity, float mass, boolean immovable){
+	public PhysicsComp(Vector2 velocity, float mass, float torque, boolean immovable){
 		this.velocity = velocity;
 		this.mass = mass;
 		this.immovable = false;
+		this.torque = torque;
 	}	
 	private PhysicsComp(PhysicsComp physComp){
 		this.velocity = physComp.velocity;
 		this.mass = physComp.mass;
 		this.immovable = physComp.immovable;
+		this.torque = physComp.torque;
 	}
 	
 	public Object clone(){
 		return new PhysicsComp(this);
 	}
 
+	public float getTorque() {
+		return torque;
+	}
+	public void setTorque(float torque) {
+		this.torque = torque;
+	}
 	public boolean isImmovable() {
 		return immovable;
 	}

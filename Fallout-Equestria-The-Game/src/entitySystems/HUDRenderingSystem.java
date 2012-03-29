@@ -14,10 +14,12 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 	
 	private Texture2D healthBarBackGround;
 	private Texture2D healthBarFill;
-
+	private TextureFont font;
+	
+	
 	public HUDRenderingSystem(IEntityWorld world, SpriteBatch batch,
 			String playerLabel) {
-		super(world, playerLabel, HealthComp.class, AbilityPointsComp.class);
+		super(world, playerLabel, HealthComp.class, AbilityPointsComp.class, StatusComp.class);
 		this.batch = batch;
 		this.healthPos = new Vector2(100, 100);
 		this.apPos = new Vector2(100,140);
@@ -38,6 +40,7 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 		
 		healthBarBackGround = ContentManager.loadTexture("HealthBarBG.png");
 		healthBarFill = ContentManager.loadTexture("HealthBarFill.png");
+		font = ContentManager.loadFont("arialb20.xml");
 	}
 
 	@Override
@@ -50,9 +53,17 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 
 		drawHealthBar(entity);
 		drawActionPointsBar(entity);
+		drawStatusEffects(entity);
 		
 		this.batch.end();
 		this.batch.begin(effect, view);	
+	}
+
+	private void drawStatusEffects(IEntity entity) {
+		StatusComp comp = entity.getComponent(StatusComp.class);
+		
+		this.batch.drawString(font, comp.toString(), Vector2.Zero, Color.Green);
+		
 	}
 
 	private void drawActionPointsBar(IEntity entity) {
@@ -64,6 +75,7 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 				(int) this.apPos.Y, (int) (100.0f * ratio), 20);
 
 		this.batch.draw(Texture2D.getPixel(), rectAp, Color.Gold, null);
+		
 		
 	}
 

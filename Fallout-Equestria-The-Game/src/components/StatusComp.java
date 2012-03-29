@@ -8,4 +8,9 @@ public class StatusComp implements IComponent {
 	public Object clone() {
 		return new StatusComp();
 	}
+	
+	public String toString() {
+		return "Status Comp: \n"
+			+  "Your alive and healthy!";
+	}
 }

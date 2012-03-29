@@ -9,8 +9,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import ability.BulletAbility;
-import ability.SuperTimeBomb;
-import ability.TimeBombAbility;
 
 import tests.SystemTester;
 import utils.Camera2D;
@@ -142,6 +140,7 @@ public class DemoWeek1 {
 		player.addComponent(rendComp);
 		player.addComponent(inpComp);
 		player.addComponent(physComp);
+		player.addComponent(new StatusComp());
 		player.addComponent(posComp);
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);

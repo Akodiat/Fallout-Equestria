@@ -51,14 +51,7 @@ public class TextureTest {
 	
 		File file = new File("resources" + File.separator + "fonts" + File.separator + "textureFont.xml");
 
-		TextureFont font = null;
-		try {
-			font = TextureFontLoader.loadTextureFont(new FileInputStream(file));
-			Vector2 test = font.meassureString("Hej!");
-		} catch (JDOMException e) {
-			e.printStackTrace();
-		}
-		
+		TextureFont font = ContentManager.loadFont("arialb20.xml");
 		
 		while(!Display.isCloseRequested()) {
 			graphics.clearScreen(new Color(Color.Teal, 0.0f));

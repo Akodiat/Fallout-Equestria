@@ -40,11 +40,7 @@ public class FontTest {
 		mode = Display.getDisplayMode();	
 		
 		graphics = new SpriteBatch(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
-
-		File file = new File("resources" + File.separator + "fonts" + File.separator + "textureFont.xml");
-		textureFont = TextureFontLoader.loadTextureFont(new FileInputStream(file));
-
-
+		textureFont = ContentManager.loadFont("arialb20.xml");
 		
 		float angle = 0.01f;
 		while(!Display.isCloseRequested()) {
