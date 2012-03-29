@@ -34,6 +34,7 @@ public class ArchetypeGenerator {
 		Display.create();
 		EntityArchetypeLoader.initialize();
 		
+<<<<<<< HEAD
 		PhysicsComp physComp = new PhysicsComp();
 		InputComp inpComp = new InputComp();
 		TransformationComp posComp = new TransformationComp();
@@ -62,13 +63,32 @@ public class ArchetypeGenerator {
 		rendComp.setColor(Color.Gold);
 		ExistanceComp existanceComp = new ExistanceComp(5f);
 		transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 2,
+=======
+		TransformationComp transComp = new TransformationComp();
+		RenderingComp rendComp = new RenderingComp();
+		rendComp.setTexture(ContentManager.loadTexture("trixieprojectilesheet.png"));
+		rendComp.setColor(Color.White);
+		ExistanceComp existanceComp = new ExistanceComp(3f);
+		transComp.setOrigin(new Vector2(rendComp.getTexture().Width / 12,
+>>>>>>> Added an animation for the projectile
 										rendComp.getTexture().Height / 2));	
+		AttackComp attackComp = new AttackComp(null, new Circle(Vector2.Zero, 40f), 60, false);
 		
+<<<<<<< HEAD
 		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(existanceComp, transComp,rendComp));
 =======
 		rendComp.setColor(Color.White);
 		rendComp.setTexture(ContentManager.loadTexture("pinkiewalkweaponspriteSCALED.png"));
 >>>>>>> BossFight and Player archetype
+=======
+		ImmutableList<Frame> frames = Frame.generateFrames(Vector2.Zero, new Vector2(rendComp.getTexture().Width / 12,
+										rendComp.getTexture().Height / 2), 6, false);
+		Animation ani = new Animation(frames,new Timer(0.1f, Integer.MAX_VALUE));
+		Map<String,Animation> map =new HashMap<String,Animation>();
+		map.put("default",ani);
+		AnimationComp aniComp = new AnimationComp(map, "default");
+		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(existanceComp, attackComp, transComp,rendComp,aniComp));
+>>>>>>> Added an animation for the projectile
 		
 		IEntityArchetype archetype = new EntityArchetype(ImmutableList.of(physComp, 
 				                                                          inpComp, 
@@ -82,6 +102,7 @@ public class ArchetypeGenerator {
 				                                                          rendComp));
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		generateArchetype("TimeBombCounter.archetype", archetype);
 		testLoad("TimeBombCounter.archetype");
 =======
@@ -89,6 +110,10 @@ public class ArchetypeGenerator {
 		generateArchetype("Player.archetype", archetype);
 		testLoad("Player.archetype");
 >>>>>>> BossFight and Player archetype
+=======
+		generateArchetype("spinProjectile.archetype", archetype);
+		testLoad("spinProjectile.archetype");
+>>>>>>> Added an animation for the projectile
 		Display.destroy();
 	}
 	

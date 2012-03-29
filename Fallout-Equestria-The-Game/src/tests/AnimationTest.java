@@ -156,7 +156,7 @@ public class AnimationTest {
 		Frame frame2 = new Frame(new Rectangle(44,0,44,38),new Vector2(22,19), false);
 		Frame frame3 = new Frame(new Rectangle(92,0,40,38),new Vector2(22,19), false);*/
 		ImmutableList<Frame> frames = Frame.generateFrames(new Vector2(0,0), new Vector2(83 + 1.0f/3.0f, 75), 24, true);
-		Timer aniTimer = new Timer(1f, Integer.MAX_VALUE);
+		Timer aniTimer = new Timer(0.1f, Integer.MAX_VALUE);
 		Animation animation = new Animation(frames, aniTimer);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
 		animations.put("walk", animation);

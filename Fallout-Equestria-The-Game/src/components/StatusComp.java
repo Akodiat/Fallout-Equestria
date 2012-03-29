@@ -11,6 +11,6 @@ public class StatusComp implements IComponent {
 	
 	public String toString() {
 		return "Status Comp: \n"
-			+  "Your alive and healthy!";
+			+  "You're alive and healthy!";
 	}
 }
