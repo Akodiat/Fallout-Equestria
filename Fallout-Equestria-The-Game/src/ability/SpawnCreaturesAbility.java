@@ -4,6 +4,7 @@ import components.AttackComp;
 import components.BasicAIComp;
 import components.HealthComp;
 import components.PhysicsComp;
+import components.RenderingComp;
 import components.TransformationComp;
 import components.WeaponComp;
 import content.ContentManager;
@@ -43,7 +44,7 @@ public class SpawnCreaturesAbility extends Ability {
 			creature.getComponent(AttackComp.class).setSourceEntity(sourceEntity);
 			//creature.getComponent(TransformationComp.class).setRotation(attackSpeed.angle()); //Kamikaze
 			creature.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(60, attackSpeed)));
-			
+			creature.getComponent(RenderingComp.class).setTexture(ContentManager.loadTexture("trixie-filly.png"));
 			BasicAIComp aiComp = new BasicAIComp(targetPos);
 			//TODO: Fix magic numbers!
 			WeaponComp weaponComp = new WeaponComp(new BulletAbility(ContentManager.loadArchetype("PPieBullet.png"), 5, 5f, 10f), null);
