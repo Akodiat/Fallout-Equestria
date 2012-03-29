@@ -43,11 +43,11 @@ public class SpawnCreaturesAbility extends Ability {
 			attackSpeed = Vector2.rotate(attackSpeed, (float)(MathHelper.Pi/creatureAmount));
 			creature.getComponent(AttackComp.class).setSourceEntity(sourceEntity);
 			//creature.getComponent(TransformationComp.class).setRotation(attackSpeed.angle()); //Kamikaze
-			creature.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(60, attackSpeed)));
-			creature.getComponent(RenderingComp.class).setTexture(ContentManager.loadTexture("trixie-filly.png"));
+			creature.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(100, attackSpeed)));
+			creature.getComponent(RenderingComp.class).setTexture(ContentManager.loadTexture("trixie_filly.png"));
 			BasicAIComp aiComp = new BasicAIComp(targetPos);
 			//TODO: Fix magic numbers!
-			WeaponComp weaponComp = new WeaponComp(new BulletAbility(ContentManager.loadArchetype("PPieBullet.png"), 5, 5f, 10f), null);
+			WeaponComp weaponComp = new WeaponComp(new BulletAbility(ContentManager.loadArchetype("ppieBullet.archetype"), 5, 5f, 10f), null);
 			HealthComp healthComp = new HealthComp(10f,1f,10f);
 			
 			creature.addComponent(aiComp);

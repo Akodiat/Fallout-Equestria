@@ -50,6 +50,9 @@ public class EntityFactory implements IEntityFactory{
 		for (String group : groups) {
 			entity.addToGroup(group);
 		}
+		String label = archetype.getLabel();
+		if(label != null)
+			entity.setLabel(label);
 		
 		return entity;
 	}

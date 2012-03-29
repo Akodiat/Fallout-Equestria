@@ -52,7 +52,7 @@
       </Spatial>
       <Health>
         <maxHealth>100.0</maxHealth>
-        <regenSpeed>100.0</regenSpeed>
+        <regenSpeed>2.0</regenSpeed>
         <healthPoints>100.0</healthPoints>
       </Health>
       <ActionPoints>
@@ -366,7 +366,7 @@
                 <listeners>
                   <graphics.Animation reference="../../.."/>
                 </listeners>
-                <tickInterval>1.0</tickInterval>
+                <tickInterval>0.01</tickInterval>
                 <elapsedTime>0.0</elapsedTime>
                 <tickCount>0</tickCount>
                 <numTicks>2147483647</numTicks>

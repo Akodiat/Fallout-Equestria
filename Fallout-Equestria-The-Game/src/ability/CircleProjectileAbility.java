@@ -32,10 +32,10 @@ public class CircleProjectileAbility extends Ability{
 		this.bulletAmount = bulletAmount;
 
 		/*try {
-			this.soundEffect = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("/resources/sound/effects/pew.ogg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
+   this.soundEffect = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("/resources/sound/effects/pew.ogg"));
+  } catch (IOException e) {
+   e.printStackTrace();
+  }*/
 	}
 
 	@Override

@@ -15,13 +15,24 @@ public final class EntityArchetype implements IEntityArchetype{
 	//Since the default groups should not be changed.
 	private ImmutableSet<String> groups;
 	
+	private String label;
+	
 	public EntityArchetype(Collection<IComponent> componentCollection) {
 		this(componentCollection, new ArrayList<String>());
 	}
 	
+	public EntityArchetype(Collection<IComponent> componentCollection, String label){
+		this(componentCollection, new ArrayList<String>(), label);
+	}
+	
 	public EntityArchetype(Collection<IComponent> componentCollection, Collection<String> groups) {
+		this(componentCollection, new ArrayList<String>(), null);
+	}
+	
+	public EntityArchetype(Collection<IComponent> componentCollection, Collection<String> groups, String label) {
 		this.components = ImmutableSet.copyOf(componentCollection);
 		this.groups = ImmutableSet.copyOf(groups);
+		this.label = label;
 	}
 	
 	
@@ -55,6 +66,11 @@ public final class EntityArchetype implements IEntityArchetype{
 			builder.append(component.toString() + "\n");
 		}
 		return builder.toString();
+	}
+
+	@Override
+	public String getLabel() {
+		return this.label;
 	}
 
 }

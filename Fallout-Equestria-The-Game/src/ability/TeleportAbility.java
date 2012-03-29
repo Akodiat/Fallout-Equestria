@@ -15,16 +15,16 @@ public class TeleportAbility extends Ability{
 	
 	public TeleportAbility(int apCost, float cooldown, String soundFilePath) {
 		super(apCost, cooldown);
-		this.soundEffect = ContentManager.loadSound("soundFilePath");
+		this.soundEffect = ContentManager.loadSound(soundFilePath);
 	}
 
 	@Override
 	protected void use(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
-		sourceEntity.getComponent(AnimationComp.class).setActiveAnimation(null);
+	//	sourceEntity.getComponent(AnimationComp.class).setActiveAnimation(null);
 		
 		sourceEntity.getComponent(TransformationComp.class).setPosition(targetPos);
 		
-		sourceEntity.getComponent(AnimationComp.class).setActiveAnimation(null);
+		//sourceEntity.getComponent(AnimationComp.class).setActiveAnimation(null);
 		soundEffect.playAsSoundEffect(1.0f, 1.0f, false);
 	}
 

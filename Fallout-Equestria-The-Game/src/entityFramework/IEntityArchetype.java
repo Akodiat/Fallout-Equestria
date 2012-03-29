@@ -22,4 +22,6 @@ public interface IEntityArchetype {
 	 * @return a set of groups.
 	 */
 	public ImmutableSet<String> getGroups();
+	
+	public String getLabel();
 }

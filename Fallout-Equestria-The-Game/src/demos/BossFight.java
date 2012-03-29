@@ -36,11 +36,13 @@ import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 import entitySystems.AnimationSystem;
 import entitySystems.AttackResolveSystem;
+import entitySystems.BasicAISystem;
 import entitySystems.CameraControlSystem;
 import entitySystems.CharacterControllerSystem;
 import entitySystems.CollisionSystem;
 import entitySystems.DeathResolveSystem;
 import entitySystems.DeathSystem;
+import entitySystems.ExistanceSystem;
 import entitySystems.HUDRenderingSystem;
 import entitySystems.HealthBarRenderSystem;
 import entitySystems.InputSystem;
@@ -48,6 +50,7 @@ import entitySystems.MapCollisionSystem;
 import entitySystems.PhysicsSystem;
 import entitySystems.RegenSystem;
 import entitySystems.RenderingSystem;
+import entitySystems.TrixieAISystem;
 
 import gameMap.MapTester;
 import graphics.Animation;
@@ -89,7 +92,8 @@ public class BossFight {
 		this.graphics = new SpriteBatch(this.screenDim);	
 		this.tester = new SystemTester();
 		this.mapTester = new MapTester(this.graphics);
-		this.camera = new Camera2D(new Rectangle(0,0,10000,10000), screenDim);
+		this.camera = new Camera2D(new Rectangle(0,0,(int) (Display.getWidth()*1.5),(int) (Display.getHeight()*1.5)), screenDim);
+		System.out.print((Display.getHeight()*1.5) +"x"+ (int) (Display.getWidth()*1.5));
 		initializeSystems();
 		initializeEntities(this.tester.getWorld().getEntityManager());
 
@@ -144,6 +148,9 @@ public class BossFight {
 		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
 		tester.addLogicSubSystem(new MapCollisionSystem(this.tester.getWorld(), new Vector2(this.camera.worldBounds.Width, this.camera.worldBounds.Height)));
+		tester.addLogicSubSystem(new TrixieAISystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new BasicAISystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new AnimationSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
@@ -165,22 +172,20 @@ public class BossFight {
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		player.setLabel("Player");
-		
-<<<<<<< HEAD
-		player.refresh();
-		
-=======
+
 		player.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
 		
 		player.refresh();
 		
-		
->>>>>>> BossFight + Player archetype
 		//TRIXIE
-		IEntity trixie = manager.createEmptyEntity();
+		IEntity trixie = manager.createEntity(ContentManager.loadArchetype("Trixie.archetype"));
 		trixie.addToGroup("Enemies");
-		
+		trixie.getComponent(TransformationComp.class).setPosition(new Vector2(100,100));
 		trixie.setLabel("Trixie");
+		
+		trixie.getComponent(AnimationComp.class).getActiveAnimation().getTimer().Start();
+		
+		trixie.refresh();
 		
 		
 	}
