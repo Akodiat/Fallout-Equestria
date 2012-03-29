@@ -45,9 +45,11 @@ public class TrixieAISystem extends LabelEntitySystem{
 			//Set target to the nearest entity from the group "Friends":
 			
 			List<IEntity> targetList= this.getWorld().getEntityManager().getEntityGroup("Friends").asList();
-			if(targetList.isEmpty())
+			if(targetList.isEmpty()){
+				if(!ContentManager.loadSound("effects/wasThereEverAnyDoubt.ogg").isPlaying())
+					ContentManager.loadSound("effects/wasThereEverAnyDoubt.ogg").playAsSoundEffect(1.0f, 1.0f, false);
 				return; //No point in doing things if there isn't even a player to attack...
-
+			}
 			IEntity target = targetList.get(0);
 			for(IEntity possibleTarget: targetList){
 				if (Vector2.distance(transComp.getPosition(), possibleTarget.getComponent(TransformationComp.class).getPosition()) <

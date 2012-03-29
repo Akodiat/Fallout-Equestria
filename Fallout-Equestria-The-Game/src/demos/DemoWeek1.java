@@ -128,7 +128,7 @@ public class DemoWeek1 {
 		IEntityArchetype tarchetype = ContentManager.loadArchetype("TimeBomb.archetype");
 		IEntityArchetype carchetype = ContentManager.loadArchetype("TimeBombCounter.archetype");
 		
-		WeaponComp weapon = new WeaponComp(new SuperTimeBomb(tarchetype,carchetype,new Rectangle(0,0,1000,1000),100,30, 1f), null);
+		WeaponComp weapon = new WeaponComp(new SuperTimeBomb(tarchetype,carchetype,new Rectangle(0,0,1000,1000),100,30, 1f,"effects/fanfare.ogg"), null);
 
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
