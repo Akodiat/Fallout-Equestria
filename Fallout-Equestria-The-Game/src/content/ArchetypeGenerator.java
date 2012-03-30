@@ -61,7 +61,7 @@ public class ArchetypeGenerator {
 		
 				  Map<String,Animation> map2 =new HashMap<String,Animation>();
 				  ImmutableList<Frame> framesDef = Frame.generateFrames(Vector2.Zero, new Vector2(290/4, 120), 4, false);
-				  Animation anDef = new Animation(framesDef, 0.1f);
+				  Animation anDef = new Animation(framesDef, 1f);
 				  ImmutableList<Frame> framesCast = Frame.generateFrames(new Vector2(0,120), new Vector2(111, 108), 4, false);
 				  Animation aniCast = new Animation(framesCast, 0.1f);
 				  map2.put("default",anDef);
