@@ -30,6 +30,10 @@ public class TimeBombAbility  extends Ability{
 		final IEntity countDownEntity = manager.createEntity(this.countDownArchetype);
 		TransformationComp transComp = countDownEntity.getComponent(TransformationComp.class);
 		transComp.setPosition(targetPos);
+		IEntity cloud = manager.createEntity(ContentManager.loadArchetype("Cloud.archetype"));
+		cloud.getComponent(TransformationComp.class).setPosition(transComp.getPosition());
+		cloud.getComponent(TransformationComp.class).setScale(1.4f, 1.4f);
+		cloud.refresh();
 		
 		DeathComp deathComp = createDeathComponent(sourceEntity, manager, transComp);	
 		countDownEntity.addComponent(deathComp);			

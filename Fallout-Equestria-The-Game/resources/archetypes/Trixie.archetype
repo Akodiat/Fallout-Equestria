@@ -41,7 +41,7 @@
                       <outer-class class="ability.TimeBombAbility" reference="../../../.."/>
                     </ability.Ability_-TimerImplementation>
                   </listeners>
-                  <tickInterval>0.2</tickInterval>
+                  <tickInterval>0.0</tickInterval>
                   <elapsedTime>0.0</elapsedTime>
                   <tickCount>0</tickCount>
                   <numTicks>1</numTicks>
@@ -95,7 +95,7 @@
                                 </elements>
                               </frames>
                               <time>0.0</time>
-                              <tickInterval>0.2</tickInterval>
+                              <tickInterval>0.0</tickInterval>
                             </graphics.Animation>
                           </entry>
                         </animations>
@@ -212,15 +212,6 @@
                               <elements>
                                 <graphics.Frame>
                                   <sourceRect>
-                                    <X>1738</X>
-                                    <Y>0</Y>
-                                    <Width>158</Width>
-                                    <Height>147</Height>
-                                  </sourceRect>
-                                  <origin>79.0,73.5</origin>
-                                </graphics.Frame>
-                                <graphics.Frame>
-                                  <sourceRect>
                                     <X>1580</X>
                                     <Y>0</Y>
                                     <Width>158</Width>
@@ -309,10 +300,19 @@
                                   </sourceRect>
                                   <origin>79.0,73.5</origin>
                                 </graphics.Frame>
+                                <graphics.Frame>
+                                  <sourceRect>
+                                    <X>0</X>
+                                    <Y>0</Y>
+                                    <Width>158</Width>
+                                    <Height>147</Height>
+                                  </sourceRect>
+                                  <origin>79.0,73.5</origin>
+                                </graphics.Frame>
                               </elements>
                             </frames>
                             <time>0.0</time>
-                            <tickInterval>0.2</tickInterval>
+                            <tickInterval>0.1</tickInterval>
                           </graphics.Animation>
                         </entry>
                       </animations>
@@ -327,73 +327,6 @@
                 <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../entry/ability.SuperTimeBomb/timeBombAbility/explostionArchetype/groups"/>
               </cloudArchetype>
             </ability.TeleportAbility>
-          </entry>
-          <entry>
-            <java-class>ability.SpawnCreaturesAbility</java-class>
-            <ability.SpawnCreaturesAbility>
-              <timer>
-                <listeners>
-                  <ability.Ability_-TimerImplementation>
-                    <outer-class class="ability.SpawnCreaturesAbility" reference="../../../.."/>
-                  </ability.Ability_-TimerImplementation>
-                </listeners>
-                <tickInterval>10.0</tickInterval>
-                <elapsedTime>0.0</elapsedTime>
-                <tickCount>0</tickCount>
-                <numTicks>1</numTicks>
-              </timer>
-              <apCost>5</apCost>
-              <busy>false</busy>
-              <creatureArch class="entityFramework.EntityArchetype">
-                <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
-                  <elements>
-                    <Transformation>
-                      <position>782.9652,502.6898</position>
-                      <scale>1.0,1.0</scale>
-                      <origin>65.0,30.0</origin>
-                      <rotation>0.0</rotation>
-                      <mirror>false</mirror>
-                    </Transformation>
-                    <Spatial>
-                      <bounds>
-                        <position>0.0,0.0</position>
-                        <radius>20.0</radius>
-                      </bounds>
-                    </Spatial>
-                    <Health>
-                      <maxHealth>50.0</maxHealth>
-                      <regenSpeed>1.0</regenSpeed>
-                      <healthPoints>50.0</healthPoints>
-                    </Health>
-                    <Rendering>
-                      <texture>
-                        <TextureAsset>pinksplosion rocket.png</TextureAsset>
-                      </texture>
-                      <color>
-                        <Color>1.0,0.0,0.0,1.0</Color>
-                      </color>
-                    </Rendering>
-                    <Physics>
-                      <immovable>false</immovable>
-                      <velocity reference="../../Spatial/bounds/position"/>
-                      <mass>10.0</mass>
-                      <torque>0.0</torque>
-                    </Physics>
-                    <Attack>
-                      <bounds>
-                        <position reference="../../../Spatial/bounds/position"/>
-                        <radius>21.0</radius>
-                      </bounds>
-                      <damage>10</damage>
-                      <destoryOnHit>true</destoryOnHit>
-                      <targetsHit/>
-                    </Attack>
-                  </elements>
-                </components>
-                <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../entry/ability.SuperTimeBomb/timeBombAbility/explostionArchetype/groups"/>
-              </creatureArch>
-              <creatureAmount>5</creatureAmount>
-            </ability.SpawnCreaturesAbility>
           </entry>
           <entry>
             <java-class>ability.CircleProjectileAbility</java-class>
@@ -513,7 +446,7 @@
                               </elements>
                             </frames>
                             <time>0.0</time>
-                            <tickInterval>0.2</tickInterval>
+                            <tickInterval>0.0</tickInterval>
                           </graphics.Animation>
                         </entry>
                       </animations>
@@ -526,6 +459,73 @@
               <bulletSpeed>6.0</bulletSpeed>
               <bulletAmount>10</bulletAmount>
             </ability.CircleProjectileAbility>
+          </entry>
+          <entry>
+            <java-class>ability.SpawnCreaturesAbility</java-class>
+            <ability.SpawnCreaturesAbility>
+              <timer>
+                <listeners>
+                  <ability.Ability_-TimerImplementation>
+                    <outer-class class="ability.SpawnCreaturesAbility" reference="../../../.."/>
+                  </ability.Ability_-TimerImplementation>
+                </listeners>
+                <tickInterval>10.0</tickInterval>
+                <elapsedTime>0.0</elapsedTime>
+                <tickCount>0</tickCount>
+                <numTicks>1</numTicks>
+              </timer>
+              <apCost>5</apCost>
+              <busy>false</busy>
+              <creatureArch class="entityFramework.EntityArchetype">
+                <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+                  <elements>
+                    <Transformation>
+                      <position>782.9652,502.6898</position>
+                      <scale>1.0,1.0</scale>
+                      <origin>65.0,30.0</origin>
+                      <rotation>0.0</rotation>
+                      <mirror>false</mirror>
+                    </Transformation>
+                    <Spatial>
+                      <bounds>
+                        <position>0.0,0.0</position>
+                        <radius>20.0</radius>
+                      </bounds>
+                    </Spatial>
+                    <Health>
+                      <maxHealth>50.0</maxHealth>
+                      <regenSpeed>1.0</regenSpeed>
+                      <healthPoints>50.0</healthPoints>
+                    </Health>
+                    <Rendering>
+                      <texture>
+                        <TextureAsset>pinksplosion rocket.png</TextureAsset>
+                      </texture>
+                      <color>
+                        <Color>1.0,0.0,0.0,1.0</Color>
+                      </color>
+                    </Rendering>
+                    <Physics>
+                      <immovable>false</immovable>
+                      <velocity reference="../../Spatial/bounds/position"/>
+                      <mass>10.0</mass>
+                      <torque>0.0</torque>
+                    </Physics>
+                    <Attack>
+                      <bounds>
+                        <position reference="../../../Spatial/bounds/position"/>
+                        <radius>21.0</radius>
+                      </bounds>
+                      <damage>10</damage>
+                      <destoryOnHit>true</destoryOnHit>
+                      <targetsHit/>
+                    </Attack>
+                  </elements>
+                </components>
+                <groups class="com.google.common.collect.EmptyImmutableSet" reference="../../../../entry/ability.SuperTimeBomb/timeBombAbility/explostionArchetype/groups"/>
+              </creatureArch>
+              <creatureAmount>5</creatureAmount>
+            </ability.SpawnCreaturesAbility>
           </entry>
         </abilities>
       </components.AbilityComp>
@@ -543,6 +543,15 @@
               <activeIndex>0</activeIndex>
               <frames class="com.google.common.collect.RegularImmutableList" resolves-to="com.google.common.collect.ImmutableList$SerializedForm">
                 <elements>
+                  <graphics.Frame>
+                    <sourceRect>
+                      <X>216</X>
+                      <Y>0</Y>
+                      <Width>72</Width>
+                      <Height>120</Height>
+                    </sourceRect>
+                    <origin>36.0,60.0</origin>
+                  </graphics.Frame>
                   <graphics.Frame>
                     <sourceRect>
                       <X>144</X>
@@ -570,20 +579,15 @@
                     </sourceRect>
                     <origin>36.0,60.0</origin>
                   </graphics.Frame>
-                  <graphics.Frame>
-                    <sourceRect>
-                      <X>216</X>
-                      <Y>0</Y>
-                      <Width>72</Width>
-                      <Height>120</Height>
-                    </sourceRect>
-                    <origin>36.0,60.0</origin>
-                  </graphics.Frame>
                 </elements>
               </frames>
               <time>0.0</time>
-              <tickInterval>0.1</tickInterval>
+              <tickInterval>0.0</tickInterval>
             </graphics.Animation>
+          </entry>
+          <entry>
+            <string>aniCast</string>
+            <graphics.Animation reference="../../entry/graphics.Animation"/>
           </entry>
         </animations>
         <activeAnimation reference="../animations/entry/graphics.Animation"/>

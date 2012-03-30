@@ -35,6 +35,7 @@ public class TrixieAISystem extends LabelEntitySystem{
 		TransformationComp transComp = entity.getComponent(TransformationComp.class);
 		AbilityComp abiComp = entity.getComponent(AbilityComp.class);
 		WeaponComp weapComp = entity.getComponent(WeaponComp.class);
+		AnimationComp aniComp = entity.getComponent(AnimationComp.class);
 
 		List<Ability> abilities = abiComp.getListOfAbilities();
 		
@@ -64,6 +65,7 @@ public class TrixieAISystem extends LabelEntitySystem{
 				targetPos = target.getComponent(TransformationComp.class).getPosition();
 			}
 		}
+		
 
 		randAbility.useAbility(entity, targetPos, this.getWorld().getEntityManager());
 	}

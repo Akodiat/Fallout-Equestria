@@ -101,6 +101,10 @@
                     <radius>20.0</radius>
                   </bounds>
                 </Spatial>
+                      <components.ExistanceComp>
+        <existanceTime>2.0</existanceTime>
+        <elapsedExistance>0.0</elapsedExistance>
+      </components.ExistanceComp>
                 <Health>
                   <maxHealth>50.0</maxHealth>
                   <regenSpeed>1.0</regenSpeed>
