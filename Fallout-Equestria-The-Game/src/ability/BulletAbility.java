@@ -3,7 +3,9 @@ package ability;
 import org.newdawn.slick.openal.Audio;
 import math.Vector2;
 import components.AttackComp;
+import components.InputComp;
 import components.PhysicsComp;
+import components.RenderingComp;
 import components.TransformationComp;
 import content.ContentManager;
 
@@ -14,22 +16,28 @@ import entityFramework.IEntityManager;
 public class BulletAbility extends AbstractAbilityProcessor{
 	
 	private Audio soundEffect;
-	private final IEntityArchetype bulletArch;
-	private final float bulletSpeed;
+	private final float bulletSpeed = 10;
 	
 	
-	public BulletAbility(IEntityArchetype bulletArch, float bulletSpeed){
-		super(Abilities.Bullet, null);
-		this.bulletArch = bulletArch;
-		this.bulletSpeed = bulletSpeed; 
+	public BulletAbility(IEntityArchetype bulletArch){
+		super(Abilities.Bullet, TransformationComp.class);
 
 		this.soundEffect = ContentManager.loadSound("effects/pew.ogg");
 	}
 
 	@Override
-	protected void use(IEntity sourceEntity, Vector2 targetPos, IEntityManager manager) {
-		IEntity bullet = manager.createEntity(bulletArch);
-		TransformationComp transComp = sourceEntity.getComponent(TransformationComp.class);
+	public void processEntity(IEntity sourceEntity, IEntityManager manager) {
+		IEntity bullet = manager.createEmptyEntity();
+		
+		RenderingComp rendComp = new RenderingComp();
+		rendComp.setTexture(ContentManager.loadTexture("Circle100pxGrey.png"));
+		TransformationComp transComp = new TransformationComp();
+		transComp.setPosition(sourceEntity.getComponent(TransformationComp.class).getPosition());
+		transComp.setOrigin(new Vector2(rendComp.getTexture().getBounds().Width/2,rendComp.getTexture().getBounds().Height/2));
+		Vector2 targetPos = sourceEntity.getComponent(InputComp.class).getMousePosition();
+		
+		PhysicsComp physComp = new PhysicsComp();
+		bullet.addComponent(physComp);
 		
 		Vector2 attackSpeed = Vector2.subtract(targetPos, transComp.getPosition());
 		attackSpeed = Vector2.norm(attackSpeed);
@@ -45,11 +53,6 @@ public class BulletAbility extends AbstractAbilityProcessor{
 		bullet.refresh();
 	}
 
-	@Override
-	public void processEntity(IEntity entity, IEntityManager manager) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void initialize(IEntityManager manager) {
