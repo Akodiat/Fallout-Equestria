@@ -17,118 +17,170 @@ import javax.swing.SwingConstants;
 
 import entityFramework.EntityArchetype;
 import entityFramework.IComponent;
+import entityFramework.IEntityArchetype;
+
 import javax.swing.DefaultComboBoxModel;
+
+import com.google.common.collect.ImmutableList;
+
 import misc.EntityGroups;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import ability.Abilities;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class ArchetypePanel extends JPanel {
 	private JTextField entityIDTextField;
-	private JList groupsList;
+	private JList groupList;
+	private JList componentList;
 	private DefaultListModel groupListModel;
+	private DefaultListModel componentsListModel;
 	
+	private ArchetypeEditor archEd;
+
 	@SuppressWarnings("unchecked")
-	public void setArchetype(EntityArchetype arch){
-		this.entityIDTextField.setText(arch.getLabel());
-		
-		List<IComponent> componentList = arch.getComponents().asList();
-		final String[] compStrings = new String[componentList.size()];
+	public void setArchetype(IEntityArchetype entityArch){
+		this.entityIDTextField.setText(entityArch.getLabel());
+
+		List<IComponent> componentList = entityArch.getComponents().asList();
 		for (IComponent component : componentList) {
-			compStrings[componentList.indexOf(component)] = component.toString();
+			componentsListModel.addElement(component.getClass().getSimpleName());
 		}
-		groupsList.setModel(this.groupListModel);
-	}
+		
+		ImmutableList<String> groupList = entityArch.getGroups().asList();
+		for (String string : groupList) {
+			groupListModel.addElement(string);
+			System.out.println(string);
+		}
+ 
+	} 
 	/**
 	 * Create the panel.
 	 */
-	public ArchetypePanel() {
+	public ArchetypePanel(final ArchetypeEditor archEd) {
 		setLayout(null);
 		
+		this.archEd = archEd;
+
 		JLabel entityNameLabel = new JLabel("Archetype");
 		entityNameLabel.setBounds(10, 11, 67, 26);
 		add(entityNameLabel);
-		
+
 		entityIDTextField = new JTextField();
 		entityIDTextField.setBounds(76, 48, 86, 20);
 		add(entityIDTextField);
 		entityIDTextField.setColumns(10);
-		
+
 		JLabel lblEntityId = new JLabel("Entity ID");
 		lblEntityId.setBounds(20, 51, 46, 14);
 		add(lblEntityId);
-		
+
 		JLabel lblNewLabel = new JLabel("Groups");
 		lblNewLabel.setBounds(20, 104, 46, 14);
 		add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Select group to add");
 		lblNewLabel_1.setBounds(188, 122, 94, 14);
 		add(lblNewLabel_1);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(20, 120, 158, 116);
 		add(scrollPane);
+
+		this.groupListModel = new DefaultListModel();
+		this.componentsListModel = new DefaultListModel();
+
+		groupList = new JList();
+		scrollPane.setViewportView(groupList);
+		groupList.setModel(this.groupListModel);
+
+		final JComboBox groupComboBox = new JComboBox();
+		groupComboBox.setModel(new DefaultComboBoxModel(EntityGroups.values()));
+		groupComboBox.setBounds(292, 119, 118, 20);
+		add(groupComboBox);
 		
-		groupListModel = new DefaultListModel();
+
 		
-		groupsList = new JList();
-		scrollPane.setViewportView(groupsList);
-		groupsList.setModel(this.groupListModel);
-		
-		final JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(EntityGroups.values()));
-		comboBox.setBounds(292, 119, 118, 20);
-		add(comboBox);
-		
+
 		JButton btnRemove = new JButton("Remove");
+		btnRemove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				groupListModel.removeElement(groupList.getSelectedValue());
+			}
+		});
 		btnRemove.setBounds(222, 150, 89, 23);
 		add(btnRemove);
-		
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println();
-				groupListModel.addElement(comboBox.getSelectedItem());
-				groupsList.revalidate();
+				if(!groupListModel.contains(groupComboBox.getSelectedItem())){
+					groupListModel.addElement(groupComboBox.getSelectedItem());
+					groupList.revalidate();
+				}
 			}
 		});
 		btnAdd.setBounds(321, 150, 89, 23);
 		add(btnAdd);
-		
+
 		JLabel lblComponents = new JLabel("Components");
 		lblComponents.setBounds(20, 312, 77, 14);
 		add(lblComponents);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 247, 430, 26);
 		add(separator);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(20, 328, 390, 238);
 		add(scrollPane_1);
-		
-		JList list = new JList();
-		scrollPane_1.setViewportView(list);
-		
+
+		componentList = new JList();
+		componentList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				//TODO: Find way to fix
+			//	archEd.openComponent(componentList.getSelectedValue());
+			}
+		});
+		scrollPane_1.setViewportView(componentList);
+		componentList.setModel(this.componentsListModel);
+
 		JButton button = new JButton("Remove");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				componentsListModel.removeElement(componentList.getSelectedValue());
+			}
+		});
 		button.setBounds(222, 296, 89, 23);
 		add(button);
+
 		
-		JButton button_1 = new JButton("Add");
-		button_1.setBounds(321, 296, 89, 23);
-		add(button_1);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(292, 265, 118, 20);
-		add(comboBox_1);
-		
+
+		final JComboBox componentComboBox = new JComboBox();
+		componentComboBox.setModel(new DefaultComboBoxModel(Abilities.values()));
+		componentComboBox.setBounds(292, 265, 118, 20);
+		add(componentComboBox);
+
 		JLabel lblSelectComponentTo = new JLabel("Select component to add");
 		lblSelectComponentTo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSelectComponentTo.setBounds(152, 268, 130, 14);
 		add(lblSelectComponentTo);
+		
+		JButton button_1 = new JButton("Add");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!componentsListModel.contains(componentComboBox.getSelectedItem())){
+					componentsListModel.addElement(componentComboBox.getSelectedItem());
+					componentList.revalidate();
+				}
+			}
+		});
+		button_1.setBounds(321, 296, 89, 23);
+		add(button_1);
 
 	}
 }
