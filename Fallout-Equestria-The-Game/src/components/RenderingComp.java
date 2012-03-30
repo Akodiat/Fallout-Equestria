@@ -29,7 +29,7 @@ public class RenderingComp implements IComponent {
 		this.source  = null;
 	}
 	
-	public RenderingComp(Texture2D texture, Color color, ShaderEffect effect, Rectangle source, Boolean mirrored){
+	public RenderingComp(Texture2D texture, Color color, ShaderEffect effect, Rectangle source){
 		this.texture = texture;
 		this.color = color;
 		this.effect = effect;
