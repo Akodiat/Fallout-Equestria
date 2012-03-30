@@ -14,6 +14,9 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JComboBox;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
 
 public class ArchetypeEditor {
 
@@ -49,26 +52,21 @@ public class ArchetypeEditor {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1104, 579);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setBounds(0, 0, 1088, 541);
-		frame.getContentPane().add(splitPane);
+		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
-		splitPane.setLeftComponent(panel);
-		panel.setLayout(null);
+		splitPane.setLeftComponent(new ArchetypePanel());
+		splitPane.setRightComponent(new ComponentPanel());
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(5, 5, 46, 14);
-		panel.add(lblNewLabel);
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
 		
-		JPanel panel_1 = new JPanel();
-		splitPane.setRightComponent(panel_1);
-		panel_1.setLayout(null);
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(202, 78, 133, 20);
-		panel_1.add(comboBox);
+		JMenuItem mntmOpen = new JMenuItem("Open");
+		mnFile.add(mntmOpen);
 	}
 }

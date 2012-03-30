@@ -9,6 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class ArchetypePanel extends JPanel {
 	private JTextField textField;
@@ -62,12 +64,44 @@ public class ArchetypePanel extends JPanel {
 		add(comboBox);
 		
 		JButton btnRemove = new JButton("Remove");
-		btnRemove.setBounds(198, 150, 89, 23);
+		btnRemove.setBounds(222, 150, 89, 23);
 		add(btnRemove);
 		
 		JButton btnAdd = new JButton("Add");
-		btnAdd.setBounds(292, 150, 89, 23);
+		btnAdd.setBounds(321, 150, 89, 23);
 		add(btnAdd);
+		
+		JLabel lblComponents = new JLabel("Components");
+		lblComponents.setBounds(20, 312, 77, 14);
+		add(lblComponents);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 247, 430, 26);
+		add(separator);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(20, 328, 390, 238);
+		add(scrollPane_1);
+		
+		JList list = new JList();
+		scrollPane_1.setViewportView(list);
+		
+		JButton button = new JButton("Remove");
+		button.setBounds(222, 296, 89, 23);
+		add(button);
+		
+		JButton button_1 = new JButton("Add");
+		button_1.setBounds(321, 296, 89, 23);
+		add(button_1);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(292, 265, 118, 20);
+		add(comboBox_1);
+		
+		JLabel lblSelectComponentTo = new JLabel("Select component to add");
+		lblSelectComponentTo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSelectComponentTo.setBounds(152, 268, 130, 14);
+		add(lblSelectComponentTo);
 
 	}
 }
