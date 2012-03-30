@@ -13,6 +13,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import components.TransformationComp;
+
 import javax.swing.JComboBox;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -58,7 +60,7 @@ public class ArchetypeEditor {
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
 		splitPane.setLeftComponent(new ArchetypePanel());
-		splitPane.setRightComponent(new ComponentPanel());
+		splitPane.setRightComponent(new ComponentPanel(new TransformationComp()));
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);

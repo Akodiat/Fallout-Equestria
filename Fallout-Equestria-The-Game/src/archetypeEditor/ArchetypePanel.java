@@ -1,5 +1,8 @@
 package archetypeEditor;
 
+import java.util.List;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -12,23 +15,45 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-public class ArchetypePanel extends JPanel {
-	private JTextField textField;
+import entityFramework.EntityArchetype;
+import entityFramework.IComponent;
+import javax.swing.DefaultComboBoxModel;
+import misc.EntityGroups;
 
+import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ArchetypePanel extends JPanel {
+	private JTextField entityIDTextField;
+	private JList groupsList;
+	private DefaultListModel groupListModel;
+	
+	@SuppressWarnings("unchecked")
+	public void setArchetype(EntityArchetype arch){
+		this.entityIDTextField.setText(arch.getLabel());
+		
+		List<IComponent> componentList = arch.getComponents().asList();
+		final String[] compStrings = new String[componentList.size()];
+		for (IComponent component : componentList) {
+			compStrings[componentList.indexOf(component)] = component.toString();
+		}
+		groupsList.setModel(this.groupListModel);
+	}
 	/**
 	 * Create the panel.
 	 */
 	public ArchetypePanel() {
 		setLayout(null);
 		
-		JLabel lblname = new JLabel("*Name*");
-		lblname.setBounds(10, 11, 67, 26);
-		add(lblname);
+		JLabel entityNameLabel = new JLabel("Archetype");
+		entityNameLabel.setBounds(10, 11, 67, 26);
+		add(entityNameLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(76, 48, 86, 20);
-		add(textField);
-		textField.setColumns(10);
+		entityIDTextField = new JTextField();
+		entityIDTextField.setBounds(76, 48, 86, 20);
+		add(entityIDTextField);
+		entityIDTextField.setColumns(10);
 		
 		JLabel lblEntityId = new JLabel("Entity ID");
 		lblEntityId.setBounds(20, 51, 46, 14);
@@ -47,19 +72,14 @@ public class ArchetypePanel extends JPanel {
 		scrollPane.setBounds(20, 120, 158, 116);
 		add(scrollPane);
 		
-		JList list_2 = new JList();
-		scrollPane.setViewportView(list_2);
-		list_2.setModel(new AbstractListModel() {
-			String[] values = new String[] {"oij", "k\u00E5ok\u00E5k", "", "k\u00E5", "\u00E5k", "\u00E5k", "\u00E5k", "\u00E5k\u00E5", "k\u00E5", "k\u00E5", "k\u00E5", "k\u00E5k\u00E5ok\u00E5ok", "", "k", "\u00E5k\u00E5", "k", "\u00E5k\u00E5", "k", "\u00E5ok'"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		groupListModel = new DefaultListModel();
 		
-		JComboBox comboBox = new JComboBox();
+		groupsList = new JList();
+		scrollPane.setViewportView(groupsList);
+		groupsList.setModel(this.groupListModel);
+		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(EntityGroups.values()));
 		comboBox.setBounds(292, 119, 118, 20);
 		add(comboBox);
 		
@@ -68,6 +88,13 @@ public class ArchetypePanel extends JPanel {
 		add(btnRemove);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println();
+				groupListModel.addElement(comboBox.getSelectedItem());
+				groupsList.revalidate();
+			}
+		});
 		btnAdd.setBounds(321, 150, 89, 23);
 		add(btnAdd);
 		
