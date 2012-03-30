@@ -9,7 +9,8 @@ public enum Abilities {
 	Bullet(5),
 	SpawnCreatures(60),
 	TimeBomb(60),
-	SuperTimeBomb(60);
+	SuperTimeBomb(60),
+	CircleBullet(55);
 	
 	public final int Cost;
 	
