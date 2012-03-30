@@ -11,15 +11,15 @@ import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 
-public class BulletAbility extends Ability{
+public class BulletAbility extends AbstractAbilityProcessor{
 	
 	private Audio soundEffect;
 	private final IEntityArchetype bulletArch;
 	private final float bulletSpeed;
 	
 	
-	public BulletAbility(IEntityArchetype bulletArch, int APCost, float shootingInterval, float bulletSpeed){
-		super(APCost, shootingInterval);
+	public BulletAbility(IEntityArchetype bulletArch, float bulletSpeed){
+		super(Abilities.Bullet, null);
 		this.bulletArch = bulletArch;
 		this.bulletSpeed = bulletSpeed; 
 
@@ -43,6 +43,18 @@ public class BulletAbility extends Ability{
 		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
 		
 		bullet.refresh();
+	}
+
+	@Override
+	public void processEntity(IEntity entity, IEntityManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initialize(IEntityManager manager) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

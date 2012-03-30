@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.AbilityComp;
 import components.AntiGravityComp;
 import components.InputComp;
 import components.TransformationComp;
