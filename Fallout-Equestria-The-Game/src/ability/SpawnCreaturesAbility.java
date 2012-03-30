@@ -1,10 +1,10 @@
 package ability;
 
 import utils.Circle;
-import components.AbilityPointsComp;
-import components.AttackComp;
+import components.AbilityComp;
 import components.BasicAIComp;
 import components.HealthComp;
+import components.InputComp;
 import components.PhysicsComp;
 import components.RenderingComp;
 import components.SpatialComp;
@@ -15,7 +15,6 @@ import content.ContentManager;
 import math.MathHelper;
 import math.Vector2;
 import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 
 /**
@@ -23,22 +22,21 @@ import entityFramework.IEntityManager;
  * @author Joakim Johansson
  *
  */
-public class SpawnCreaturesAbility extends Ability {
+public class SpawnCreaturesAbility extends AbstractAbilityProcessor {
 
-	private final IEntityArchetype creatureArch;
 	private final int creatureAmount;
 	
-	public SpawnCreaturesAbility(IEntityArchetype creatureArch, int apCost, float spawningInterval, int creatureAmount) {
-		super(apCost, spawningInterval);
+	public SpawnCreaturesAbility(int apCost, float spawningInterval, int creatureAmount) {
+		super(Abilities.SpawnCreatures, InputComp.class);
 		this.creatureAmount = creatureAmount;
-		this.creatureArch = creatureArch;
 	}
 
 	@Override
-	protected void use(IEntity sourceEntity, Vector2 targetPos,
-			IEntityManager manager) {
-		TransformationComp sourceTransComp = sourceEntity.getComponent(TransformationComp.class);
-
+	public void processEntity(IEntity entity, IEntityManager manager) {
+		TransformationComp sourceTransComp = entity.getComponent(TransformationComp.class);
+		InputComp inpComp = entity.getComponent(InputComp.class);
+		Vector2 targetPos = inpComp.getMousePosition();
+		
 		Vector2 attackSpeed = Vector2.subtract(targetPos, sourceTransComp.getPosition());
 		attackSpeed = Vector2.norm(attackSpeed);
 		for (int i = 0; i<creatureAmount;i++){
@@ -50,7 +48,7 @@ public class SpawnCreaturesAbility extends Ability {
 			
 			BasicAIComp aiComp = new BasicAIComp(targetPos);
 			
-			WeaponComp weaponComp = new WeaponComp(new BulletAbility(ContentManager.loadArchetype("spinProjectile.archetype"), 5, 5f, 10f), null);
+			WeaponComp weaponComp = new WeaponComp(Abilities.Bullet, null);
 			HealthComp healthComp = new HealthComp(10f,1f,10f);
 			
 			TransformationComp transComp = new TransformationComp();
@@ -60,7 +58,7 @@ public class SpawnCreaturesAbility extends Ability {
 			
 			SpatialComp spatialComp = new SpatialComp(new Circle(Vector2.Zero, 10f));
 			
-			AbilityPointsComp abComp = new AbilityPointsComp(15, 15, 1);
+			AbilityComp abComp = new AbilityComp(15, 15, 1);
 			
 			
 			creature.addComponent(aiComp);
@@ -74,6 +72,12 @@ public class SpawnCreaturesAbility extends Ability {
 			
 			creature.refresh();
 		}
+		
+	}
+
+	@Override
+	public void initialize(IEntityManager manager) {
+		// TODO Auto-generated method stub
 		
 	}
 
