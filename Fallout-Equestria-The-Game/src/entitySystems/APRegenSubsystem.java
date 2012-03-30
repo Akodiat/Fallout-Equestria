@@ -1,7 +1,8 @@
 package entitySystems;
 
 import com.google.common.collect.ImmutableSet;
-import components.AbilityPointsComp;
+
+import components.AbilityComp;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
@@ -10,7 +11,7 @@ import entityFramework.TimedEntityProcessingSystem;
 public class APRegenSubsystem extends TimedEntityProcessingSystem {
 
 	protected APRegenSubsystem(IEntityWorld world, float regentimer) {
-		super(world, regentimer, AbilityPointsComp.class);
+		super(world, regentimer, AbilityComp.class);
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class APRegenSubsystem extends TimedEntityProcessingSystem {
 	@Override
 	protected void processEntitys(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
-			AbilityPointsComp actiRegCom = entity.getComponent(AbilityPointsComp.class);
+			AbilityComp actiRegCom = entity.getComponent(AbilityComp.class);
 			actiRegCom.regenAbilityPoints();
 		}
 	}

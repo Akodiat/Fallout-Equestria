@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import death.IDeathAction;
+import death.DeathActions;
 import entityFramework.IComponent;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -12,15 +12,14 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("Death")
 public class DeathComp implements IComponent{
-	private Set<IDeathAction> deathActions;
-	
+	private Set<DeathActions> deathActions;
 	public DeathComp() {
-		this(new HashSet<IDeathAction>());
+		this(new HashSet<DeathActions>());
 	}
 	
-	public DeathComp(Collection<IDeathAction> deathActions) {
+	public DeathComp(Collection<DeathActions> deathActions) {
 		this.deathActions = new HashSet<>();
-		for (IDeathAction deathAction : deathActions) {
+		for (DeathActions deathAction : deathActions) {
 			this.deathActions.add(deathAction);
 		}
 	}
@@ -33,17 +32,17 @@ public class DeathComp implements IComponent{
 		return new DeathComp(this);
 	}
 	
-	public Set<IDeathAction> getDeathActions() {
+	public Set<DeathActions> getDeathActions() {
 		return deathActions;
 	}
 
-	public void addDeathAction(IDeathAction deathAction) {
+	public void addDeathAction(DeathActions deathAction) {
 		this.deathActions.add(deathAction);
 	}
 
 	public String toString() {
 		return "Death Comp: " +
-			   "\n Script: \n" + this.deathActions.toString();
+			   "\n DeathActions: \n" + this.deathActions;
 		
 	}
 }

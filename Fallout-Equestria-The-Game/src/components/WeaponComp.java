@@ -3,7 +3,7 @@ package components;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
-import ability.Ability;
+import ability.Abilities;
 
 /**
  * 
@@ -14,14 +14,14 @@ import ability.Ability;
 public class WeaponComp implements IComponent{
 	//TODO implement rendering and similar effects!. 
 	
-	private Ability primaryAbility;
-	private Ability secondaryAbility;
+	private Abilities primaryAbility;
+	private Abilities secondaryAbility;
 	
 	public WeaponComp() {
-		this(null, null);
+		this(Abilities.None, Abilities.None);
 	}
 	
-	public WeaponComp(Ability primaryAbility, Ability secondaryAbility) {
+	public WeaponComp(Abilities primaryAbility, Abilities secondaryAbility) {
 		this.setPrimaryAbility(primaryAbility);
 		this.setSecondaryAbility(secondaryAbility);
 	}
@@ -31,19 +31,19 @@ public class WeaponComp implements IComponent{
 		this.secondaryAbility = other.secondaryAbility;
 	}
 	
-	public Ability getPrimaryAbility() {
+	public Abilities getPrimaryAbility() {
 		return primaryAbility;
 	}
 
-	public void setPrimaryAbility(Ability primaryAbility) {
+	public void setPrimaryAbility(Abilities primaryAbility) {
 		this.primaryAbility = primaryAbility;
 	}
 
-	public Ability getSecondaryAbility() {
+	public Abilities getSecondaryAbility() {
 		return secondaryAbility;
 	}
 
-	public void setSecondaryAbility(Ability secondaryAbility) {
+	public void setSecondaryAbility(Abilities secondaryAbility) {
 		this.secondaryAbility = secondaryAbility;
 	}
 	

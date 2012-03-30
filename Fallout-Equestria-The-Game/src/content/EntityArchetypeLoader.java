@@ -20,7 +20,7 @@ public class EntityArchetypeLoader {
 		xstream.registerConverter(new AudioConverter());
 		xstream.alias("Set", ImmutableSet.class);
 		
-		xstream.processAnnotations(AbilityPointsComp.class);
+		xstream.processAnnotations(AbilityComp.class);
 		xstream.processAnnotations(AttackComp.class);
 		xstream.processAnnotations(BasicAIComp.class);
 		xstream.processAnnotations(DeathComp.class);

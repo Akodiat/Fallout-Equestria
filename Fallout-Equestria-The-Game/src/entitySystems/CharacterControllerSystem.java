@@ -1,7 +1,7 @@
 package entitySystems;
 
 
-import ability.Ability;
+import ability.Abilities;
 import math.Vector2;
 import components.*;
 import content.ContentManager;
@@ -17,7 +17,7 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 	public CharacterControllerSystem(IEntityWorld world) {
 		super(world, InputComp.class, 
 					 PhysicsComp.class,
-					 AbilityPointsComp.class,
+					 AbilityComp.class,
 					 TransformationComp.class,
 					 WeaponComp.class);
 	}
@@ -31,12 +31,12 @@ public class CharacterControllerSystem extends EntitySingleProcessingSystem{
 		PhysicsComp	  physComp   = entity.getComponent(PhysicsComp.class);
 		InputComp 		  inpComp    = entity.getComponent(InputComp.class);
 		TransformationComp    posComp    = entity.getComponent(TransformationComp.class);
-		AbilityPointsComp apComp     = entity.getComponent(AbilityPointsComp.class);
+		AbilityComp apComp     = entity.getComponent(AbilityComp.class);
 		WeaponComp 	  weaponComp = entity.getComponent(WeaponComp.class);
  		
 		if(inpComp.isLeftMouseButtonDown()){
-			Ability ability = weaponComp.getPrimaryAbility();
-			ability.useAbility(entity, inpComp.getMousePosition(), this.getWorld().getEntityManager());
+			Abilities ability = weaponComp.getPrimaryAbility();
+			apComp.setAbility(ability);
 		}
 
 		int speedFactor = 2;

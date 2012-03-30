@@ -1,73 +1,105 @@
 package components;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import ability.Abilities;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import ability.Ability;
-
 import entityFramework.IComponent;
 
+
 @XStreamAlias("Ability")
-public class AbilityComp implements IComponent{
-	private Map<Class<? extends Ability>, Ability> abilities;
-	private Ability currentAbility;
+public class AbilityComp implements IComponent {
+
+	private static final float DEF_MAX_AP = 100;
+	private static final float DEF_REGEN_SPEED = 10;
 	
-	public AbilityComp(){
-		this(new HashMap<Class<? extends Ability>, Ability>(), null);
+	private float maxAbilityPoints;
+	private float abilityPoints;
+	private float regenerationSpeed;
+	private Abilities ability;
+
+	public AbilityComp() {
+		this.maxAbilityPoints = DEF_MAX_AP;
+		this.abilityPoints = DEF_MAX_AP;
+		this.regenerationSpeed = DEF_REGEN_SPEED;
+		this.ability = null;
 	}
-	public AbilityComp(Map<Class<? extends Ability>, Ability> abilities, Ability currentAbility){
-		this.abilities = abilities;
-		this.currentAbility = currentAbility;
+
+	/**
+	 * Copyconstructor
+	 * @param other
+	 */
+	public AbilityComp(AbilityComp other) {
+		this.maxAbilityPoints = other.maxAbilityPoints;
+		this.abilityPoints = other.abilityPoints;
+		this.regenerationSpeed = other.regenerationSpeed;
+		this.ability = other.ability;
 	}
-	private AbilityComp(AbilityComp other){
-		this.abilities = other.abilities;
-		this.currentAbility = other.currentAbility;
+
+	public AbilityComp(int maxAbilityPoints, float abilityPoints,
+			float regenerationSpeed) {
+		this.maxAbilityPoints = maxAbilityPoints;
+		this.abilityPoints = abilityPoints;
+		this.regenerationSpeed = regenerationSpeed;
 	}
-	public Object clone(){
+	
+	public AbilityComp clone(){
 		return new AbilityComp(this);
 	}
 	
-	public ArrayList<Ability> getListOfAbilities(){
-		return new ArrayList<Ability>(abilities.values());
+	public Abilities getAbility() {
+		return ability;
+	}
+
+	public void setAbility(Abilities ability) {
+		this.ability = ability;
+	}
+
+	public float getMaxAbilityPoints() {
+		return maxAbilityPoints;
+	}
+
+	public void setMaxAbilityPoints(int maxAbilityPoints) {
+		this.maxAbilityPoints = maxAbilityPoints;
+	}
+
+	public float getAbilityPoints() {
+		return abilityPoints;
+	}
+
+	public void setAbilityPoints(float abilityPoints) {
+		this.abilityPoints = abilityPoints;
 	}
 	
-	/**
-	 * @return the currentAbility
-	 */
-	public Ability getCurrentAbility() {
-		return currentAbility;
+	public void addAbilityPoints(float abilityPoints) {
+		float temp = this.abilityPoints + abilityPoints;
+		if (temp <= this.maxAbilityPoints) {
+			this.abilityPoints = temp;
+		}
 	}
 	
-	/**
-	 * @param currentAbility the currentAbility to set
-	 */
-	public void setCurrentAbility(Class<? extends Ability> abilityClass) {
-		this.currentAbility = this.abilities.get(abilityClass);
+	public void removeAbilityPoints(float abilityPoints) {
+		this.addAbilityPoints(-abilityPoints);
 	}
 	
-	public void addAbility(Ability ability){
-		abilities.put(ability.getClass(), ability);
+	public void regenAbilityPoints() {
+		this.addAbilityPoints(this.regenerationSpeed);
 	}
-	
-	public void removeAbility(Ability ability){
-		abilities.remove(ability.getClass());
+
+	public float getRegenerationSpeed() {
+		return regenerationSpeed;
+	}
+
+	public void setRegenerationSpeed(float regenerationSpeed) {
+		this.regenerationSpeed = regenerationSpeed;
 	}
 	
 	public String toString() {
-		String s = "AbilityComp: \n";
-		if(this.currentAbility != null) {
-			s += "CurrentAbility:" + this.currentAbility.toString() + "\n";
-		}
-		
-		for (Ability ability : this.abilities.values()) {
-			s += ability.toString() + "\n";
-		}
-		
-		return s;
+		return "ActionComp: \n" + 
+			   "Current ability points: " + this.abilityPoints +
+			   "\nMax abtility points: " + this.maxAbilityPoints +
+			   "\nRegen speed: " + this.regenerationSpeed +
+			   "\nActive ability: " + this.ability;
 	}
-	
 }
+

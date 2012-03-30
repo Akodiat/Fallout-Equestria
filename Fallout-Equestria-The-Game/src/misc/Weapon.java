@@ -1,29 +1,29 @@
 package misc;
 
-import ability.Ability;
+import ability.Abilities;
 
 public class Weapon {
-	private Ability primaryAbility;
-	private Ability secondaryAbility;
+	private Abilities primaryAbility;
+	private Abilities secondaryAbility;
 	
-	public Weapon(Ability primaryAbility, Ability secondaryAbility) {
+	public Weapon(Abilities primaryAbility, Abilities secondaryAbility) {
 		this.setPrimaryAbility(primaryAbility);
 		this.setSecondaryAbility(secondaryAbility);
 	}
 
-	public Ability getPrimaryAbility() {
+	public Abilities getPrimaryAbility() {
 		return primaryAbility;
 	}
 
-	public void setPrimaryAbility(Ability primaryAbility) {
+	public void setPrimaryAbility(Abilities primaryAbility) {
 		this.primaryAbility = primaryAbility;
 	}
 
-	public Ability getSecondaryAbility() {
+	public Abilities getSecondaryAbility() {
 		return secondaryAbility;
 	}
 
-	public void setSecondaryAbility(Ability secondaryAbility) {
+	public void setSecondaryAbility(Abilities secondaryAbility) {
 		this.secondaryAbility = secondaryAbility;
 	}
 	

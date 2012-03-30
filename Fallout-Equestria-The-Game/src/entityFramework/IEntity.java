@@ -89,7 +89,7 @@ public abstract class IEntity {
 	 * Gets the bitset representing what components this entity contains.
 	 * @return a bitset representing what components this entity contains.
 	 */
-	protected abstract BitSet getComponentBits();
+	public abstract BitSet getComponentBits();
 	
 	/**
 	 * Adds a component bit to this entity.

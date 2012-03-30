@@ -1,11 +1,11 @@
 <entityFramework.EntityArchetype>
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
-      <ActionPoints>
+      <Ability>
         <maxAbilityPoints>200.0</maxAbilityPoints>
         <abilityPoints>100.0</abilityPoints>
         <regenerationSpeed>4.0</regenerationSpeed>
-      </ActionPoints>
+      </Ability>
       <Transformation>
         <position>304.3775,87.19919</position>
         <scale>1.0,1.0</scale>

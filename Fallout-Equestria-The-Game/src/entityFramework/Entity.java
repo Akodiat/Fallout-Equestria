@@ -66,7 +66,7 @@ public final class Entity extends IEntity {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected BitSet getComponentBits() {
+	public BitSet getComponentBits() {
 		return this.componentBits;
 	}
 

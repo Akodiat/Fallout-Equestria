@@ -4,13 +4,14 @@ import java.util.HashMap;
 
 import org.lwjgl.opengl.Display;
 
-import ability.Ability;
+import ability.Abilities;
+import ability.AbilityBuilder;
+import ability.AbilitySystem;
 import ability.TelekinesisAbility;
 
 import math.Vector2;
 
 import components.AbilityComp;
-import components.AbilityPointsComp;
 import components.HealthComp;
 import components.InputComp;
 import components.PhysicsComp;
@@ -59,6 +60,7 @@ public class TelekinesisTest extends AbstractSystemTest{
 		tester.addLogicSubSystem(new TelekinesisSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
+		tester.addLogicSubSystem(new AbilitySystem(this.tester.getWorld(), AbilityBuilder.build()));
 	//	tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
 	//	tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester.getWorld(),this.graphics));
 		tester.addRenderSubSystem(new HUDRenderingSystem(this.tester.getWorld(), this.graphics, "Player"));
@@ -79,14 +81,11 @@ public class TelekinesisTest extends AbstractSystemTest{
 		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,30f));
 		RenderingComp rendComp = new RenderingComp();
 		HealthComp healthComp = new HealthComp(100, 2, 89);
-		AbilityPointsComp apComp = new AbilityPointsComp();
+		AbilityComp apComp = new AbilityComp();
 		WeaponComp weapComp = new WeaponComp();
+		AbilityComp abComp = new AbilityComp();	
 		
-		HashMap<Class<? extends Ability>, Ability> map = new HashMap<Class<? extends Ability>, Ability>();
-		map.put(TelekinesisAbility.class, new TelekinesisAbility(2,1));
-		
-		AbilityComp abComp = new AbilityComp(map, (Ability) map.get(TelekinesisAbility.class));
-		
+		weapComp.setPrimaryAbility(Abilities.Telekinesis);
 		
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
@@ -101,7 +100,7 @@ public class TelekinesisTest extends AbstractSystemTest{
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
 		player.addComponent(apComp);
-		player.addComponent(abComp);
+		player.addComponent(weapComp);
 
 		player.refresh();
 		

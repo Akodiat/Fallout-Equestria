@@ -19,7 +19,7 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 	
 	public HUDRenderingSystem(IEntityWorld world, SpriteBatch batch,
 			String playerLabel) {
-		super(world, playerLabel, HealthComp.class, AbilityPointsComp.class, StatusComp.class);
+		super(world, playerLabel, HealthComp.class, AbilityComp.class, StatusComp.class);
 		this.batch = batch;
 		this.healthPos = new Vector2(100, 100);
 		this.apPos = new Vector2(100,140);
@@ -29,14 +29,14 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 	}
 
 	private ComponentMapper<HealthComp> healthCM;
-	private ComponentMapper<AbilityPointsComp> apCM;
+	private ComponentMapper<AbilityComp> apCM;
 
 	@Override
 	public void initialize() {
 		healthCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				HealthComp.class);
 		apCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				AbilityPointsComp.class);
+				AbilityComp.class);
 		
 		healthBarBackGround = ContentManager.loadTexture("HealthBarBG.png");
 		healthBarFill = ContentManager.loadTexture("HealthBarFill.png");
@@ -67,7 +67,7 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 	}
 
 	private void drawActionPointsBar(IEntity entity) {
-		AbilityPointsComp actionComp = this.apCM.getComponent(entity);
+		AbilityComp actionComp = this.apCM.getComponent(entity);
 		
 		float ratio = actionComp.getAbilityPoints() / actionComp.getMaxAbilityPoints();
 		

@@ -4,8 +4,6 @@ import math.Vector2;
 
 import org.lwjgl.opengl.Display;
 
-import ability.BulletAbility;
-
 import components.*;
 import content.ContentManager;
 import debugsystems.DebugAttackRenderSystem;
@@ -45,6 +43,8 @@ public class BasicAITest extends AbstractSystemTest{
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
 		tester.addLogicSubSystem(new BasicAISystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new AnimationSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -65,10 +65,9 @@ public class BasicAITest extends AbstractSystemTest{
 		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero,30f));
 		RenderingComp rendComp = new RenderingComp();
 		HealthComp healthComp = new HealthComp(100, 2, 89);
-		AbilityPointsComp apComp = new AbilityPointsComp();
-		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
+		AbilityComp apComp = new AbilityComp();
 		
-		WeaponComp weapon = new WeaponComp(new BulletAbility(archetype, 1, 0.1f, 10f), null);
+		WeaponComp weapon = new WeaponComp();
 
 		
 

@@ -1,17 +1,14 @@
 package entitySystems;
 
 import java.util.List;
-
-import ability.Ability;
-import ability.BulletAbility;
-
 import math.MathHelper;
 import math.Vector2;
 import components.*;
-import content.ContentManager;
 import entityFramework.*;
 
 //TODO should revisit since we have changed the Animation Component. 
+
+//TODO Should revisit since we have refactored the way the abilities work.
 public class BasicAISystem extends EntitySingleProcessingSystem{
 
 	public BasicAISystem(IEntityWorld world) {
@@ -28,7 +25,6 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		physCM = ComponentMapper.create(this.getWorld().getDatabase(), PhysicsComp.class);
 		transCM = ComponentMapper.create(this.getWorld().getDatabase(), TransformationComp.class);
 
-		IEntityArchetype archetype = ContentManager.loadArchetype("ppieBullet.archetype");
 	}
 
 	@Override
@@ -54,11 +50,9 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		Vector2 targetDirection = Vector2.norm(Vector2.subtract(AIComp.getTarget(), transComp.getPosition()));
 		physComp.setVelocity(Vector2.rotate(targetDirection, (float) Math.random()*MathHelper.Pi-MathHelper.Pi/2));//((float) Math.random()*MathHelper.TwoPi-MathHelper.Pi)));
 		//physComp.setVelocity(targetDirection);
-
-		WeaponComp weapComp = entity.getComponent(WeaponComp.class);		
+//TODO MAKE WORK
+		//WeaponComp weapComp = entity.getComponent(WeaponComp.class);		
 		
-		if(Math.random()< 0.3)
-			weapComp.getPrimaryAbility().useAbility(entity, transCM.getComponent(target).getPosition(), this.getWorld().getEntityManager());
 	}
 	
 }
