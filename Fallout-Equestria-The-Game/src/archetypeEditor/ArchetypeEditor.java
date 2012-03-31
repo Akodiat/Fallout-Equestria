@@ -78,7 +78,7 @@ public class ArchetypeEditor {
 		JSplitPane splitPane = new JSplitPane();
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
-		this.compPanel = new ComponentPanel(new TransformationComp());
+		this.compPanel = new ComponentPanel();
 		splitPane.setRightComponent(this.compPanel);
 		
 		this.archPanel = new ArchetypePanel(this);
@@ -146,7 +146,7 @@ public class ArchetypeEditor {
 		mnNewMenu.add(mntmNewMenuItem_2);
 	}
 	public void openComponent(IComponent component){
-		this.compPanel = new ComponentPanel(component);
+		this.compPanel.setComponent(component);
 		this.compPanel.revalidate();
 	}
 }
