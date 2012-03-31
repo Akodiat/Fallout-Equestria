@@ -37,7 +37,7 @@ public class InputComp implements IComponent{
 	public InputComp(){
 		
 		this.mousePosition = Vector2.Zero;
-		this.mouseDisplacement = Vector2.Zero;
+		this.setMouseDisplacement(Vector2.Zero);
 		this.setBackButton(Keyboard.KEY_S);
 		this.setLeftButton(Keyboard.KEY_A);
 		this.setForwardButton(Keyboard.KEY_W);
@@ -286,6 +286,14 @@ public class InputComp implements IComponent{
 		this.gallopButton.setPressed(gallopButtonPressed);
 	}
 	
+	public Vector2 getMouseDisplacement() {
+		return mouseDisplacement;
+	}
+
+	public void setMouseDisplacement(Vector2 mouseDisplacement) {
+		this.mouseDisplacement = mouseDisplacement;
+	}
+
 	public String toString() {
 		return "Input Component: \n" +
 			   "Mouse Pos: " + this.mousePosition.toString() + "\n" +

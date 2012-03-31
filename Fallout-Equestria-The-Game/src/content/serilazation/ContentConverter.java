@@ -1,7 +1,10 @@
 package content.serilazation;
 
 import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioImpl;
+import scripting.ILineScript;
+
+import graphics.ShaderEffect;
+import graphics.Texture2D;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -11,36 +14,38 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 import content.ContentManager;
 
-import entityFramework.EntityArchetype;
-import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
-
-public class ArchetypeConverter implements Converter{
+public class ContentConverter implements Converter{
 
 	@Override
 	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
-		return clazz.equals(EntityArchetype.class);
+		return (Texture2D.class.isAssignableFrom(clazz)) 		||
+			   (Audio.class.isAssignableFrom(clazz))     		||
+			   (ShaderEffect.class.isAssignableFrom(clazz))		||
+			   (ILineScript.class.isAssignableFrom(clazz));
 	}
 
 	@Override
 	public void marshal(Object value, HierarchicalStreamWriter writer,
-			MarshallingContext context) {
-		IEntityArchetype archetype = (IEntityArchetype)value;
-		String assetName = ContentManager.getArchetypeName(archetype);
-		writer.startNode("Archetype");
+			MarshallingContext contex) {
+		
+		String assetName = ContentManager.getContentName(value);
+		writer.startNode("Asset");
 		writer.setValue(assetName);
-		writer.endNode();
+		writer.endNode();	
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object unmarshal(HierarchicalStreamReader reader,
 			UnmarshallingContext context) {
+		
 		String assetName;
+		
 		reader.moveDown();
 		assetName = reader.getValue();
 		reader.moveUp();
 		
-		IEntityArchetype archetype = ContentManager.loadArchetype(assetName);
-		return archetype;
+		return ContentManager.load(assetName, context.getRequiredType());
 	}
+
 }

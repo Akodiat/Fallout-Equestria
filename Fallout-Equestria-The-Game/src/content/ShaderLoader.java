@@ -96,4 +96,9 @@ import java.io.InputStreamReader;
 	public ShaderEffect loadContent(InputStream in) throws Exception {
 		return new ShaderEffect(this.loadProgram(in));
 	}
+
+	@Override
+	public String getFoulder() {
+		return "shaders";
+	}
 }

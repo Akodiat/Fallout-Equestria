@@ -3,17 +3,14 @@ package content;
 import graphics.Texture2D;
 import graphics.TextureFont;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import utils.Rectangle;
@@ -44,7 +41,7 @@ public class TextureFontLoader implements IContentLoader<TextureFont>{
 		float lineSpacing = lineSpacingAttribute.getFloatValue();
 		float charSpacing = charSpacingAttribute.getFloatValue();
 		
-		Texture2D texture = ContentManager.loadTexture(assetName);
+		Texture2D texture = ContentManager.load(assetName, Texture2D.class);
 		
 		@SuppressWarnings("unchecked")
 		List<Element> glyphs = rootNode.getChildren("Glyph");
@@ -66,5 +63,10 @@ public class TextureFontLoader implements IContentLoader<TextureFont>{
 	@Override
 	public Class<TextureFont> getClassAbleToLoad() {
 		return TextureFont.class;
+	}
+
+	@Override
+	public String getFoulder() {
+		return "fonts";
 	}
 }

@@ -10,6 +10,9 @@ public class AbilityBuilder {
 		
 		abilities.put(Abilities.Teleport, new TeleportAbility());
 		abilities.put(Abilities.Telekinesis, new TelekinesisAbility());
+		abilities.put(Abilities.Bullet, new BulletAbility());
+		abilities.put(Abilities.CircleBullet, new CircleProjectileAbility());
+		
 		
 		
 		

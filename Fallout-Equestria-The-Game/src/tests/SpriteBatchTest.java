@@ -40,7 +40,7 @@ public class SpriteBatchTest {
 		
 		camera.setZoom(new Vector2(2f, 1.1f));
 		
-		effect = ContentManager.loadShaderEffect("Standard.vert", "GrayScale.frag");
+		effect = ContentManager.loadShaderEffect("GrayScale.effect");
 		
 		while(!Display.isCloseRequested()) {
 			graphics.clearScreen(new Color(Color.Teal, 0.0f));

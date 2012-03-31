@@ -13,8 +13,8 @@ public class CameraControlSystem extends GroupedEntitySystem{
 	public static final String GROUP_NAME = "CAMERA-TARGETS";
 	private final Camera2D camera;
 	
-	@SuppressWarnings("unchecked")
-	public CameraControlSystem(IEntityWorld world,Camera2D camera) {
+	
+	public CameraControlSystem(IEntityWorld world, Camera2D camera) {
 		super(world, GROUP_NAME, TransformationComp.class);
 		this.camera = camera;
 	}

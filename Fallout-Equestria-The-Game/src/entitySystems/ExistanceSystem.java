@@ -3,7 +3,6 @@ package entitySystems;
 import components.ExistanceComp;
 
 import entityFramework.EntitySingleProcessingSystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 

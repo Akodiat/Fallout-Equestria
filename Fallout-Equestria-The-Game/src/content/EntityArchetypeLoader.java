@@ -7,22 +7,20 @@ import components.*;
 import com.google.common.collect.ImmutableSet;
 import com.thoughtworks.xstream.XStream;
 
-import content.serilazation.AudioConverter;
 import content.serilazation.ColorConverter;
-import content.serilazation.TextureConverter;
+import content.serilazation.ContentConverter;
 import content.serilazation.Vector2Converter;
 import entityFramework.IEntityArchetype;
 
-public class EntityArchetypeLoader {
+public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
 	
 	private static final XStream xstream = new XStream();
 	private static boolean isInitalized = false;
 	public static void initialize() {
 
-		xstream.registerConverter(new TextureConverter());
+		xstream.registerConverter(new ContentConverter());
 		xstream.registerConverter(new Vector2Converter());
 		xstream.registerConverter(new ColorConverter());
-		xstream.registerConverter(new AudioConverter());
 		xstream.alias("Set", ImmutableSet.class);
 		
 		xstream.processAnnotations(AbilityComp.class);
@@ -39,16 +37,26 @@ public class EntityArchetypeLoader {
 		xstream.processAnnotations(WeaponComp.class);
 		xstream.processAnnotations(StatusComp.class);
 	}
-	
-	
-	public IEntityArchetype loadArchetype(InputStream stream) {
+
+	@Override
+	public Class<IEntityArchetype> getClassAbleToLoad() {
+		return IEntityArchetype.class;
+	}
+
+	@Override
+	public IEntityArchetype loadContent(InputStream in) throws Exception {
 		if(!isInitalized) {
 			isInitalized = true;
 			initialize();
 		}
 		
-		IEntityArchetype archetype = (IEntityArchetype)xstream.fromXML(stream);
+		IEntityArchetype archetype = (IEntityArchetype)xstream.fromXML(in);
 		return archetype;
+	}
+
+	@Override
+	public String getFoulder() {
+		return "archetypes";
 	}
 
 }

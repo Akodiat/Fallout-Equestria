@@ -3,10 +3,10 @@ package content;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.jdom.JDOMException;
 import org.newdawn.slick.openal.Audio;
 
 import com.google.common.collect.BiMap;
@@ -15,7 +15,6 @@ import com.google.common.collect.HashBiMap;
 import entityFramework.IEntityArchetype;
 
 import scripting.ILineScript;
-import scripting.ScriptLoader;
 
 import graphics.ShaderEffect;
 import graphics.Texture2D;
@@ -27,159 +26,138 @@ import graphics.TextureFont;
  *
  */
 public final class ContentManager {
-
 	
-	private static final BiMap<String, Texture2D> textures = HashBiMap.create();
-	private static final BiMap<String, ShaderEffect> shaderEffects = HashBiMap.create();
-	private static final BiMap<String, ILineScript> scripts =  HashBiMap.create();
-	private static final BiMap<String, IEntityArchetype> archetypes = HashBiMap.create();
-	private static final BiMap<String, Audio> sounds = HashBiMap.create();
-	private static final BiMap<String, TextureFont> fonts = HashBiMap.create();
+	private static final Map<Class<?>, IContentLoader<?>> contentLoaders = new HashMap<>();
+	private static final BiMap<String, Object> loadedContent = HashBiMap.create();
 	
-	private static final ShaderLoader shaderLoader 			   = new ShaderLoader();
-	private static final TextureLoader textureLoader	  	   = new TextureLoader();	
-	private static final ScriptLoader scriptLoader 		       = new ScriptLoader();
-	private static final EntityArchetypeLoader archetypeLoader = new EntityArchetypeLoader();
-	private static final SoundLoader soundLoader 			   = new SoundLoader();
-	private static final TextureFontLoader fontLoader 		   = new TextureFontLoader();
+	static {
+		addContentLoader(new TextureLoader());
+		addContentLoader(new ScriptLoader());
+		addContentLoader(new ShaderLoader());
+		addContentLoader(new SoundLoader());
+		addContentLoader(new TextureFontLoader());
+		addContentLoader(new EntityArchetypeLoader());
+		//TODO add more if needed!. 
+	}
 	
 	
-	
-
-	
-	
-	public static Texture2D loadTexture(String name) {
-		
-		Texture2D texture = textures.get(name);
-		if(texture != null) {
-			return texture;
-		} else {
-			
-		}
-		
-		File textureFile = new File("resources" + File.separator + "textures"
-				+ File.separator + name);
-
-		try {
-			texture = textureLoader.loadContent(new FileInputStream(textureFile));
-			textures.put(name, texture);
-			
-			return texture;
-		} catch (IOException e) {
-			throw new RuntimeException("Failed to load Texture from file " + name);
-		}
+	private static void addContentLoader(IContentLoader<?> contentLoader) {
+		contentLoaders.put(contentLoader.getClassAbleToLoad(), contentLoader);
 	}
 
-	public static String getTextureName(Texture2D texture) {
-		return textures.inverse().get(texture);
+	/**Gets the name of the content provided.
+	 * @param content the content.
+	 * @return the name of the content.
+	 */
+	public static String getContentName(Object content) {
+		return loadedContent.inverse().get(content);
 	}
 	
-	public static ShaderEffect loadShaderEffect(String shader) {
-		ShaderEffect effect = shaderEffects.get(shader);
-		if(effect != null) {
-			return effect;
-		}
+	/**Loads content from disc.
+	 * 
+	 * @param path the relative path of the content.
+	 * @param contentType the type of the content.
+	 * @return a piece of content stored on the disc.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T load(String path, Class<T> contentType) {
 		
-		File shaderFile = new File("resources" + File.separator + "shaders"
-							+ File.separator + shader);
-		try {
-			effect = shaderLoader.loadContent(new FileInputStream(shaderFile));
-			shaderEffects.put(shader, effect);
-			return effect;
-			
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to load Shader from file " + shader);
-		}
-		
-	}
-	
-	public static String getShaderName(ShaderEffect effect) {
-		return shaderEffects.inverse().get(effect);
-	}
-	
-	public static ILineScript loadScript(String scriptPath) {
-		ILineScript script = scripts.get(scriptPath);
-		if(script != null) {
-			return script;
-		}
-		
-		File scriptFile = new File("resources" + File.separator + "scripts"
-				+ File.separator + scriptPath);	
-		try {
-			script = scriptLoader.loadScript(new FileInputStream(scriptFile));
-			scripts.put(scriptPath, script);
-			return script;
-		} catch (IOException e) {
-			throw new RuntimeException("Failed to load Script: " + scriptPath);
-		}
-	}
-	
-	public static String getScriptName(ILineScript script) {
-		return scripts.inverse().get(script);
-	}
-	
-	public static IEntityArchetype loadArchetype(String path) {
-		File file = new File("resources" + File.separator + "archetypes" + File.separator + path);
-		IEntityArchetype archetype = archetypes.get(path);
-		if(archetype != null) {
-			return archetype;
+		//It's not necessary to reload content that is already loaded.
+		T content = (T)loadedContent.get(path);
+		if(content != null) {
+			return content;
 		}	
 		
-		try {
-			archetype = archetypeLoader.loadArchetype(new FileInputStream(file));
-			return archetype;
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Failed to load archetype: " + path);
-		}
+		IContentLoader<T> loader = (IContentLoader<T>) contentLoaders.get(contentType);
 		
+		//If we don't have a way to load the type specified throw an exception!.
+		if(loader == null) {
+			throw new RuntimeException("No loader able to load the specified type was found.");
+		} 
+		
+		//Try to open a stream.
+		InputStream stream = openStream(path, loader.getFoulder());
+		
+		try {
+			content = loader.loadContent(stream);
+			//Place it in the loaded content if successful.
+			loadedContent.put(path, content);
+			return content;
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to load " + path + "." + "\n" + e.getMessage(), e);
+		}
 	}
-	
-	public InputStream loadStuff(String name) {
-		File file = new File("resources" + File.separator + name);
+
+	private static InputStream openStream(String relativePath, String foulder) {
+		String correctPath = "resources" + File.separator + foulder
+										 + File.separator + relativePath;	
+		File file = new File(correctPath);	
 		
 		try {
 			return new FileInputStream(file);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Did not find the file!" + name);
-		}
+			throw new RuntimeException(e);
+		}		
 	}
 
-	public static Audio loadSound(String path) {
-		File file = new File("resources" + File.separator + "sounds" + File.separator + path);
-		Audio audio = sounds.get(path);
-		if(audio != null) {
-			return audio;
-		}
-		
-		try {
-			audio = soundLoader.loadSound(new FileInputStream(file));
-			sounds.put(path, audio);
-			return audio;
-		} catch (IOException e) {
-			throw new RuntimeException("Failed to load sound: " + path);
-		}
-	}
-
-	public static TextureFont loadFont(String path) {
-		File file = new File("resources" + File.separator + "fonts" + File.separator + path);
-		TextureFont font = fonts.get(path);
-		if(font != null) {
-			return font;
-		}	
-		try {
-			font = fontLoader.loadContent(new FileInputStream(file));
-			fonts.put(path, font);
-			return font;
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to load font: " + path);
-		}
+	/**Loads a texture from disc.
+	 * This is a convenience method it's the same thing as
+	 * calling load(path, Texture2D.class).
+	 * @param path the path of the texture.
+	 * @return a Texture2D object.
+	 */
+	public static Texture2D loadTexture(String path) {
+		return load(path, Texture2D.class);
 	}
 	
-	public static String getAudioName(Audio audio) {
-		return sounds.inverse().get(audio);
+	/**Loads a shader effect from disc.
+	 * This is a convenience method it's the same thing as
+	 * calling load(path, ShaderEffect.class).
+	 * @param path the path of the ShaderEffect.
+	 * @return a ShaderEffect object.
+	 */
+	public static ShaderEffect loadShaderEffect(String path) {
+		return load(path, ShaderEffect.class);
 	}
-
-	public static String getArchetypeName(IEntityArchetype archetype) {
-		return archetypes.inverse().get(archetype);
+	
+	/**Loads a script from disc.
+	 * This is a convenience method it's the same thing as
+	 * calling load(path, ILineScript.class).
+	 * @param path the path of the script.
+	 * @return a ILineScript object.
+	 */
+	public static ILineScript loadScript(String path) {
+		return load(path, ILineScript.class);
 	}
+	
+	/**Loads a archetype from disc.
+	 * This is a convenience method it's the same thing as
+	 * calling load(path, IEntityArchetype.class).
+	 * @param path the path of the script.
+	 * @return a ILineScript object.
+	 */
+	public static IEntityArchetype loadArchetype(String path) {
+		return load(path, IEntityArchetype.class);
+	}
+	
+	/**Loads a sound from disc.
+	 * This is a convenience method it's the same thing as
+	 * calling load(path, Audio.class).
+	 * @param path the path of the sound.
+	 * @return a Audio object.
+	 */
+	public static Audio loadSound(String path) {
+		return load(path, Audio.class);
+	}
+	
+	/**Loads a font from disc.
+	 * This is a convenience method it's the same thing as
+	 * calling load(path, TextureFont.class).
+	 * @param path the path of the font.
+	 * @return a TextureFont object.
+	 */
+	public static TextureFont loadFont(String path) {
+		return load(path, TextureFont.class);
+	}
+	
 }

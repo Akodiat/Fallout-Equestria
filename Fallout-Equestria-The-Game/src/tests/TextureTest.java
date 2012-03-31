@@ -46,7 +46,7 @@ public class TextureTest {
 		
 		camera.setZoom(new Vector2(2f, 1.1f));
 		
-		effect = ContentManager.loadShaderEffect("Standard.vert", "GrayScale.frag");
+		effect = ContentManager.loadShaderEffect("GrayScale.effect");
 		
 	
 		File file = new File("resources" + File.separator + "fonts" + File.separator + "textureFont.xml");

@@ -53,6 +53,8 @@ public class AbilitySystem extends EntityProcessingSystem{
 				
 				abiComp.removeAbilityPoints(ability.Cost);
 				abiComp.setAbility(Abilities.None);
+			} else {
+				abiComp.setAbility(Abilities.None);
 			}
 		}
 		

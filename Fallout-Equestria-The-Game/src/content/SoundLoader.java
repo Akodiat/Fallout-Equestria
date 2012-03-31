@@ -25,4 +25,9 @@ public class SoundLoader implements IContentLoader<Audio>{
 		return a;
 	}
 
+	@Override
+	public String getFoulder() {
+		return "sounds";
+	}
+
 }

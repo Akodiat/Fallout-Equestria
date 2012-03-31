@@ -4,6 +4,10 @@ import math.Vector2;
 
 import org.lwjgl.opengl.Display;
 
+import ability.Abilities;
+import ability.AbilityBuilder;
+import ability.AbilitySystem;
+
 import components.*;
 import content.ContentManager;
 import debugsystems.DebugAttackRenderSystem;
@@ -45,6 +49,7 @@ public class BasicAITest extends AbstractSystemTest{
 		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new AnimationSystem(this.tester.getWorld()));
+		tester.addLogicSubSystem(new AbilitySystem(this.tester.getWorld(), AbilityBuilder.build()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester.getWorld(), this.graphics));
@@ -68,7 +73,7 @@ public class BasicAITest extends AbstractSystemTest{
 		AbilityComp apComp = new AbilityComp();
 		
 		WeaponComp weapon = new WeaponComp();
-
+		weapon.setPrimaryAbility(Abilities.Teleport);
 		
 
 		rendComp.setColor(new Color(42,200,255, 255));
@@ -87,6 +92,8 @@ public class BasicAITest extends AbstractSystemTest{
 		player.addComponent(spatComp);
 		player.addComponent(healthComp);
 		player.addComponent(apComp);
+		player.addComponent(new StatusComp());
+		player.addComponent(new SpecialComp());
 
 		player.refresh();
 		
@@ -94,7 +101,7 @@ public class BasicAITest extends AbstractSystemTest{
 		
 	}
 	private void generateRandomEnemies(IEntityManager manager) {
-		IEntityArchetype arch = ContentManager.loadArchetype("BasicAI.archetype"); 
+		IEntityArchetype arch = ContentManager.load("BasicAI.archetype", IEntityArchetype.class); 
 		for (int i = 0; i < numEnemies; i++) {
 			IEntity enemy = manager.createEntity(arch);
 			enemy.setLabel("Enemy" + i);

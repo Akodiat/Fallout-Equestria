@@ -19,7 +19,7 @@ import entityFramework.IEntityManager;
 public class TelekinesisAbility extends AbstractAbilityProcessor{
 
 	private static final float pickUpRadius = 20; //TODO: Make depend on magic skill?
-	private boolean notPicking = true; //TODO: Change this so that is makes sense. 
+	//private boolean notPicking = true; //TODO: Change this so that is makes sense. 
 
 	public TelekinesisAbility() {
 		super(Abilities.Telekinesis, TransformationComp.class);
@@ -30,7 +30,7 @@ public class TelekinesisAbility extends AbstractAbilityProcessor{
 		
 		System.out.println("HEJEHEHEJHEJHEJHEJHEJHE");
 		
-		Vector2 sourcePos = entity.getComponent(TransformationComp.class).getPosition();
+		//Vector2 sourcePos = entity.getComponent(TransformationComp.class).getPosition();
 		Vector2 mousePos = entity.getComponent(InputComp.class).getMousePosition();
 		
 		ImmutableSet<IEntity> pickupableSet = manager.getEntityGroup("Pickup-able");
@@ -57,7 +57,7 @@ public class TelekinesisAbility extends AbstractAbilityProcessor{
 		if(toPickUp != null){
 			toPickUp.addComponent(new AntiGravityComp(entity.getUniqueID()));
 			toPickUp.refresh();
-			this.notPicking = false;
+	//		this.notPicking = false;
 		}
 		
 	}

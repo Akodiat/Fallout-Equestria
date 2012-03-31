@@ -10,7 +10,6 @@ import components.TransformationComp;
 import content.ContentManager;
 
 import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 
 public class BulletAbility extends AbstractAbilityProcessor{
@@ -19,7 +18,7 @@ public class BulletAbility extends AbstractAbilityProcessor{
 	private final float bulletSpeed = 10;
 	
 	
-	public BulletAbility(IEntityArchetype bulletArch){
+	public BulletAbility(){
 		super(Abilities.Bullet, TransformationComp.class);
 
 		this.soundEffect = ContentManager.loadSound("effects/pew.ogg");
@@ -35,6 +34,7 @@ public class BulletAbility extends AbstractAbilityProcessor{
 		transComp.setPosition(sourceEntity.getComponent(TransformationComp.class).getPosition());
 		transComp.setOrigin(new Vector2(rendComp.getTexture().getBounds().Width/2,rendComp.getTexture().getBounds().Height/2));
 		Vector2 targetPos = sourceEntity.getComponent(InputComp.class).getMousePosition();
+		
 		
 		PhysicsComp physComp = new PhysicsComp();
 		bullet.addComponent(physComp);

@@ -1,4 +1,4 @@
-package scripting;
+package content;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,20 +7,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import scripting.ILineScript;
+import scripting.LineScript;
+
 import com.google.common.base.Splitter;
 
-public class ScriptLoader {
+public class ScriptLoader implements IContentLoader<ILineScript>{
 	
-	public ILineScript loadScript(InputStream stream) throws IOException {
-	
-		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-		
-		String rawScript = readRawScript(reader);
-		
-		String[] commands = extractCommands(rawScript);
-		
-		return new LineScript(commands);
-	}
 
 	private String[] extractCommands(String rawScript) {
 		Iterable<String> iterator = Splitter.on(';')
@@ -46,5 +39,25 @@ public class ScriptLoader {
     	}
     	
     	return builder.toString();
+	}
+
+	@Override
+	public Class<ILineScript> getClassAbleToLoad() {
+		return ILineScript.class;
+	}
+
+	@Override
+	public ILineScript loadContent(InputStream in) throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		
+		String rawScript = readRawScript(reader);	
+		String[] commands = extractCommands(rawScript);
+		
+		return new LineScript(commands);
+	}
+
+	@Override
+	public String getFoulder() {
+		return "scripts";
 	}
 }
