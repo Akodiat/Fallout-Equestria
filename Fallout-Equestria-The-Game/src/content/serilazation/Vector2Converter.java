@@ -1,4 +1,4 @@
-package content;
+package content.serilazation;
 
 import math.Vector2;
 

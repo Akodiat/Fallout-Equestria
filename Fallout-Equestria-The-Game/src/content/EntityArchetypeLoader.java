@@ -6,6 +6,11 @@ import components.*;
 
 import com.google.common.collect.ImmutableSet;
 import com.thoughtworks.xstream.XStream;
+
+import content.serilazation.AudioConverter;
+import content.serilazation.ColorConverter;
+import content.serilazation.TextureConverter;
+import content.serilazation.Vector2Converter;
 import entityFramework.IEntityArchetype;
 
 public class EntityArchetypeLoader {

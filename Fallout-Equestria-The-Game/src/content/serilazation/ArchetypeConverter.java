@@ -1,6 +1,7 @@
-package content;
+package content.serilazation;
 
-import graphics.Texture2D;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioImpl;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -8,21 +9,27 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class TextureConverter implements Converter{
+import content.ContentManager;
+
+import entityFramework.EntityArchetype;
+import entityFramework.IEntity;
+import entityFramework.IEntityArchetype;
+
+public class ArchetypeConverter implements Converter{
 
 	@Override
 	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
-		return clazz.equals(Texture2D.class);
+		return clazz.equals(EntityArchetype.class);
 	}
 
 	@Override
 	public void marshal(Object value, HierarchicalStreamWriter writer,
-			MarshallingContext contex) {
-		Texture2D texture = (Texture2D)value;
-		String assetName = ContentManager.getTextureName(texture);
-		writer.startNode("TextureAsset");
+			MarshallingContext context) {
+		IEntityArchetype archetype = (IEntityArchetype)value;
+		String assetName = ContentManager.getArchetypeName(archetype);
+		writer.startNode("Archetype");
 		writer.setValue(assetName);
-		writer.endNode();	
+		writer.endNode();
 	}
 
 	@Override
@@ -33,8 +40,7 @@ public class TextureConverter implements Converter{
 		assetName = reader.getValue();
 		reader.moveUp();
 		
-		Texture2D texture = ContentManager.loadTexture(assetName);
-		return texture;
+		IEntityArchetype archetype = ContentManager.loadArchetype(assetName);
+		return archetype;
 	}
-
 }

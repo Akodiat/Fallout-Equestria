@@ -135,7 +135,7 @@ public class SpriteBatch {
 
 	private void initializeShaders() {
 		//Load a shader.
-		basicEffect = ContentManager.loadShaderEffect("Standard.vert", "Standard.frag");
+		basicEffect = ContentManager.loadShaderEffect("SpriteEffect.effect");
 	}
 
 	private void setupUniforms() {

@@ -18,10 +18,20 @@ import org.jdom.input.SAXBuilder;
 
 import utils.Rectangle;
 
-public class TextureFontLoader {
+public class TextureFontLoader implements IContentLoader<TextureFont>{
 
-	@SuppressWarnings("unchecked")
-	public TextureFont loadTextureFont(InputStream in) throws JDOMException, IOException {
+	private Rectangle getCharacterBounds(Attribute boundsAttribute) {
+		String boundsValue = boundsAttribute.getValue();			
+		String[] boundElementsValue = boundsValue.split(" ");
+		int x = Integer.parseInt(boundElementsValue[0].substring(2));
+		int y = Integer.parseInt(boundElementsValue[1].substring(2));
+		int width = Integer.parseInt(boundElementsValue[2].substring(2));
+		int height = Integer.parseInt(boundElementsValue[3].substring(2));
+		return new Rectangle(x,y,width,height);
+	}
+
+	@Override
+	public TextureFont loadContent(InputStream in) throws Exception {
 		SAXBuilder builder = new SAXBuilder();
 		Document document = (Document)builder.build(in);
 		
@@ -36,6 +46,7 @@ public class TextureFontLoader {
 		
 		Texture2D texture = ContentManager.loadTexture(assetName);
 		
+		@SuppressWarnings("unchecked")
 		List<Element> glyphs = rootNode.getChildren("Glyph");
 		
 		Map<Character, Rectangle> sourceRectangleMap = new HashMap<>();
@@ -52,13 +63,8 @@ public class TextureFontLoader {
 		return new TextureFont(texture, lineSpacing, charSpacing,sourceRectangleMap);
 	}
 
-	private Rectangle getCharacterBounds(Attribute boundsAttribute) {
-		String boundsValue = boundsAttribute.getValue();			
-		String[] boundElementsValue = boundsValue.split(" ");
-		int x = Integer.parseInt(boundElementsValue[0].substring(2));
-		int y = Integer.parseInt(boundElementsValue[1].substring(2));
-		int width = Integer.parseInt(boundElementsValue[2].substring(2));
-		int height = Integer.parseInt(boundElementsValue[3].substring(2));
-		return new Rectangle(x,y,width,height);
+	@Override
+	public Class<TextureFont> getClassAbleToLoad() {
+		return TextureFont.class;
 	}
 }

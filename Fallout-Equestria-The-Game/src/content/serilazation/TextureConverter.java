@@ -1,7 +1,9 @@
-package content;
+package content.serilazation;
 
-import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioImpl;
+
+import entityFramework.EntityArchetype;
+import graphics.Texture2D;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -9,21 +11,23 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class AudioConverter implements Converter{
+import content.ContentManager;
+
+public class TextureConverter implements Converter{
 
 	@Override
 	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
-		return clazz.equals(Audio.class) || clazz.equals(AudioImpl.class);
+		return clazz.equals(Texture2D.class);
 	}
 
 	@Override
 	public void marshal(Object value, HierarchicalStreamWriter writer,
-			MarshallingContext context) {
-		Audio audio = (Audio)value;
-		String assetName = ContentManager.getAudioName(audio);
-		writer.startNode("AudioAsset");
+			MarshallingContext contex) {
+		Texture2D texture = (Texture2D)value;
+		String assetName = ContentManager.getTextureName(texture);
+		writer.startNode("TextureAsset");
 		writer.setValue(assetName);
-		writer.endNode();
+		writer.endNode();	
 	}
 
 	@Override
@@ -34,8 +38,8 @@ public class AudioConverter implements Converter{
 		assetName = reader.getValue();
 		reader.moveUp();
 		
-		Audio audio = ContentManager.loadSound(assetName);
-		return audio;
+		Texture2D texture = ContentManager.loadTexture(assetName);
+		return texture;
 	}
 
 }

@@ -18,10 +18,8 @@ import scripting.ILineScript;
 import scripting.ScriptLoader;
 
 import graphics.ShaderEffect;
-import graphics.ShaderLoader;
 import graphics.Texture2D;
 import graphics.TextureFont;
-import graphics.TextureLoader;
 
 /**
  * 
@@ -45,6 +43,11 @@ public final class ContentManager {
 	private static final SoundLoader soundLoader 			   = new SoundLoader();
 	private static final TextureFontLoader fontLoader 		   = new TextureFontLoader();
 	
+	
+	
+
+	
+	
 	public static Texture2D loadTexture(String name) {
 		
 		Texture2D texture = textures.get(name);
@@ -58,7 +61,7 @@ public final class ContentManager {
 				+ File.separator + name);
 
 		try {
-			texture = textureLoader.loadTexture(new FileInputStream(textureFile));
+			texture = textureLoader.loadContent(new FileInputStream(textureFile));
 			textures.put(name, texture);
 			
 			return texture;
@@ -71,26 +74,21 @@ public final class ContentManager {
 		return textures.inverse().get(texture);
 	}
 	
-	public static ShaderEffect loadShaderEffect(String vertexShader, String fragmentShader) {
-		
-		String combinedEffectName = vertexShader + "|" +  fragmentShader;
-		ShaderEffect effect = shaderEffects.get(combinedEffectName);
+	public static ShaderEffect loadShaderEffect(String shader) {
+		ShaderEffect effect = shaderEffects.get(shader);
 		if(effect != null) {
 			return effect;
 		}
 		
-		File vertexFile = new File("resources" + File.separator + "shaders"
-							+ File.separator + vertexShader);
-		File fragFile = new File("resources" + File.separator + "shaders"
-				+ File.separator + fragmentShader);
-		
+		File shaderFile = new File("resources" + File.separator + "shaders"
+							+ File.separator + shader);
 		try {
-			effect = shaderLoader.loadShader(new FileInputStream(vertexFile), new FileInputStream(fragFile));
-			shaderEffects.put(combinedEffectName, effect);
+			effect = shaderLoader.loadContent(new FileInputStream(shaderFile));
+			shaderEffects.put(shader, effect);
 			return effect;
 			
-		} catch (IOException e) {
-			throw new RuntimeException("Failed to load Shader from files " + vertexShader + " " + fragmentShader);
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to load Shader from file " + shader);
 		}
 		
 	}
@@ -169,7 +167,7 @@ public final class ContentManager {
 			return font;
 		}	
 		try {
-			font = fontLoader.loadTextureFont(new FileInputStream(file));
+			font = fontLoader.loadContent(new FileInputStream(file));
 			fonts.put(path, font);
 			return font;
 		} catch (Exception e) {

@@ -1,7 +1,6 @@
-package content;
+package content.serilazation;
 
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioImpl;
+import graphics.ShaderEffect;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -9,24 +8,21 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-import entityFramework.EntityArchetype;
-import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
+import content.ContentManager;
 
-public class ArchetypeConverter implements Converter{
+public class ShaderConverter implements Converter{
 
 	@Override
-	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
-		return clazz.equals(EntityArchetype.class);
+	public boolean canConvert(@SuppressWarnings("rawtypes") Class cla) {
+		return cla.equals(ShaderEffect.class);
 	}
 
 	@Override
 	public void marshal(Object value, HierarchicalStreamWriter writer,
 			MarshallingContext context) {
-		IEntityArchetype archetype = (IEntityArchetype)value;
-		String assetName = ContentManager.getArchetypeName(archetype);
-		writer.startNode("Archetype");
-		writer.setValue(assetName);
+		ShaderEffect effect = (ShaderEffect)value;
+		writer.startNode("ShaderAsset");
+		writer.setValue(ContentManager.getShaderName(effect));
 		writer.endNode();
 	}
 
@@ -37,8 +33,7 @@ public class ArchetypeConverter implements Converter{
 		reader.moveDown();
 		assetName = reader.getValue();
 		reader.moveUp();
-		
-		IEntityArchetype archetype = ContentManager.loadArchetype(assetName);
-		return archetype;
+		return ContentManager.loadShaderEffect(assetName);
 	}
+
 }

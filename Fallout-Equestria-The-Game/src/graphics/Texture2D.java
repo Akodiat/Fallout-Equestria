@@ -14,7 +14,7 @@ public final class Texture2D {
 	public final int Width;
 	public final int Height;
 	
-	protected Texture2D(int openGLID, int width, int height) {
+	public Texture2D(int openGLID, int width, int height) {
 		this.OpenGLID = openGLID;
 		this.Width = width;
 		this.Height = height;

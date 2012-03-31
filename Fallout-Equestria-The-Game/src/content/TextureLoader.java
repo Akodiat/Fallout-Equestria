@@ -1,4 +1,6 @@
-package graphics;
+package content;
+
+import graphics.Texture2D;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,11 +16,18 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Lukas Kurtyan
  *
  */
-public final class TextureLoader {
+public final class TextureLoader implements IContentLoader<Texture2D>{
 	
-	public Texture2D loadTexture(InputStream stream) throws IOException{
-		
-		PNGDecoder decoder = new PNGDecoder(stream);
+
+	@Override
+	public Class<Texture2D> getClassAbleToLoad() {
+		return Texture2D.class;
+	}
+
+	@Override
+	public Texture2D loadContent(InputStream in) throws IOException {
+
+		PNGDecoder decoder = new PNGDecoder(in);
 		
 		//TODO: remove this temporary fix. 
 		ByteBuffer buffer =
@@ -47,8 +56,6 @@ public final class TextureLoader {
 
 		buffer.clear();
 		buffer = null;
-		stream.close();
-		
 		return new Texture2D(openGLID, decoder.getWidth(), decoder.getHeight());
 	}
 }

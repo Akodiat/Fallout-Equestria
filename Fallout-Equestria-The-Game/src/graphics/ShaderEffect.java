@@ -18,7 +18,7 @@ public class ShaderEffect {
 	private static FloatBuffer matrix3Buffer = BufferUtils.createFloatBuffer(9);
 	private static FloatBuffer matrix4Buffer = BufferUtils.createFloatBuffer(16);
 	
-	protected ShaderEffect(int shaderProgram) {
+	public ShaderEffect(int shaderProgram) {
 		this.ShaderProgramOpenGLID = shaderProgram;		
 	}
 	
