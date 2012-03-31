@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import components.AbilityComp;
+import components.RenderingComp;
+import components.TransformationComp;
+
 public class test extends JFrame {
 
 	private JPanel contentPane;
@@ -38,8 +42,10 @@ public class test extends JFrame {
 		
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-	
-		this.add(new PrimitiveTypePanel(Boolean.TYPE, "something"));
+		ComponentPanel cp = new ComponentPanel();
+		this.add(cp);
+		cp.setComponent(new TransformationComp());
+		//this.add(new PrimitiveTypePanel(Boolean.TYPE, "something"));
 		this.invalidate();
 	}
 

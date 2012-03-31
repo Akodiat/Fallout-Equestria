@@ -1,27 +1,33 @@
 package archetypeEditor;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import entityFramework.IComponent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.Field;
 
 public class PrimitiveTypePanel extends JPanel {
 	private JTextField textField;
-
-
-	public Object Value;
 	private Parser parser;
-	
+	private IComponent component;
+	private Field field;
 	/**
 	 * Create the panel.
 	 */
-	public PrimitiveTypePanel(Class fieldType, String fieldName) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public PrimitiveTypePanel(Field fieldType, IComponent component) {
 		setLayout(null);
-		parser = new Parser(fieldType);
+		this.field = fieldType;
+		parser = new Parser(fieldType.getType());
+		this.component = component;
 		
-		JLabel lblNewLabel = new JLabel(fieldName);
-		lblNewLabel.setBounds(10, 11, 91, 14);
+		JLabel lblNewLabel = new JLabel(fieldType.getName());
+		lblNewLabel.setBounds(10, 11, 120, 14);
 		add(lblNewLabel);
 		
 		textField = new JTextField();
@@ -29,19 +35,17 @@ public class PrimitiveTypePanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				textChanged(((JTextField)arg0.getSource()).getText());
 			}
-
 		});
-	
 		
-		textField.setBounds(112, 26, 86, 20);
+		textField.setBounds(141, 26, 86, 20);
 		add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblValue = new JLabel("Value");
-		lblValue.setBounds(112, 11, 46, 14);
+		lblValue.setBounds(141, 11, 46, 14);
 		add(lblValue);
 		
-		JLabel lblHej = new JLabel(fieldType.getSimpleName());
+		JLabel lblHej = new JLabel(fieldType.getType().getSimpleName());
 		lblHej.setBounds(10, 29, 91, 14);
 		add(lblHej);
 	}
@@ -49,18 +53,13 @@ public class PrimitiveTypePanel extends JPanel {
 
 	protected void textChanged(String text) {
 		try {
-		this.Value = parser.parse(text);
+			Object value = this.parser.parse(text);
+			field.set(this.component, value);
 		} catch(Exception e) {
 			this.textField.setText("Invalid Input");
-			throw e;
 		}
-		
-		System.out.println(Value);
 	}
-	
-	public Object getValue() {
-		return this.Value;
-	}
+
 	
 	private class Parser<T> {
 		private Class<T> type;
