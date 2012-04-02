@@ -15,6 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  *
  */
 @XStreamAlias("Rendering")
+@EditableComponent
 public class RenderingComp implements IComponent {
 	
 	private Texture2D 	 texture;

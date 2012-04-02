@@ -7,6 +7,7 @@ import math.Vector2;
 
 
 @XStreamAlias("Transformation")
+@EditableComponent
 public class TransformationComp implements IComponent {
 	
 	private Vector2 	 position;

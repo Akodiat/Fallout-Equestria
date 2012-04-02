@@ -14,6 +14,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  *
  */
 @XStreamAlias("Input")
+@EditableComponent
 public class InputComp implements IComponent{
 	private Vector2 mousePosition;
 	//TODO implement this.

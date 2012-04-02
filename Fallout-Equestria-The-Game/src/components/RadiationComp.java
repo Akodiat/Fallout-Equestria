@@ -1,11 +1,19 @@
 package components;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import utils.Circle;
 import entityFramework.IComponent;
 
+@XStreamAlias("Radiation")
+@EditableComponent
 public class RadiationComp implements IComponent{
 	private Circle bounds;
 	private float radiationLevel;
+	
+	public RadiationComp() {
+		this(Circle.Empty, 0.0f);
+	}
 	
 	public RadiationComp(RadiationComp toBeCloned) {
 		this.bounds = toBeCloned.getBounds();

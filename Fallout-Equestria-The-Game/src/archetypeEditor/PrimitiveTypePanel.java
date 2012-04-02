@@ -9,6 +9,8 @@ import entityFramework.IComponent;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.lang.reflect.Field;
 
 public class PrimitiveTypePanel extends JPanel {
@@ -16,6 +18,8 @@ public class PrimitiveTypePanel extends JPanel {
 	private Parser parser;
 	private IComponent component;
 	private Field field;
+	
+	private String textValue;
 	/**
 	 * Create the panel.
 	 */
@@ -36,18 +40,37 @@ public class PrimitiveTypePanel extends JPanel {
 				textChanged(((JTextField)arg0.getSource()).getText());
 			}
 		});
+		textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				textChanged(((JTextField)arg0.getSource()).getText());			
+			}
+		});
 		
-		textField.setBounds(141, 26, 86, 20);
+		textField.setBounds(171, 26, 86, 20);
 		add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblValue = new JLabel("Value");
-		lblValue.setBounds(141, 11, 46, 14);
+		lblValue.setBounds(171, 11, 46, 14);
 		add(lblValue);
 		
 		JLabel lblHej = new JLabel(fieldType.getType().getSimpleName());
 		lblHej.setBounds(10, 29, 91, 14);
 		add(lblHej);
+		this.setup();
+	}
+
+
+	private void setup() {
+		try {
+			Object value = field.get(this.component);
+			this.textField.setText(value.toString());
+			this.textValue = value.toString();
+					
+		} catch(Exception e) {
+			throw new RuntimeException();
+		}
 	}
 
 
@@ -55,8 +78,10 @@ public class PrimitiveTypePanel extends JPanel {
 		try {
 			Object value = this.parser.parse(text);
 			field.set(this.component, value);
+			this.textValue = value.toString();
+			this.textField.setText(this.textValue);
 		} catch(Exception e) {
-			this.textField.setText("Invalid Input");
+			this.textField.setText(textValue);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package components;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import entityFramework.IComponent;
 import graphics.Color;
 import graphics.TextureFont;
@@ -9,6 +11,8 @@ import graphics.TextureFont;
  * @author Lukas Kurtyan
  *
  */
+@XStreamAlias("Text")
+@EditableComponent
 public class TextRenderingComp implements IComponent {
 
 	private String text;

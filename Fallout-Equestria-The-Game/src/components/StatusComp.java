@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import entityFramework.IComponent;
 
 @XStreamAlias("Status")
+@EditableComponent
 public class StatusComp implements IComponent {
 	//TODO Implement!!!???
 	

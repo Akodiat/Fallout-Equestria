@@ -181,6 +181,5 @@ public class ArchetypePanel extends JPanel {
 		});
 		button_1.setBounds(321, 296, 89, 23);
 		add(button_1);
-
 	}
 }

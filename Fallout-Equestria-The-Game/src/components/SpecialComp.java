@@ -1,11 +1,15 @@
 package components;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import entityFramework.IComponent;
 /**
  * 
  * @author Joakim Johansson
  *
  */
+@XStreamAlias("SPECIAL")
+@EditableComponent
 public final class SpecialComp implements IComponent{
 	
 	//FIX MAGIC NUMBERS!

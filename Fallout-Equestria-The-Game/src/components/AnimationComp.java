@@ -14,7 +14,12 @@ public class AnimationComp implements IComponent {
 
 	private Map<String, Animation> animations;
 	private Animation activeAnimation;
-
+	
+	public AnimationComp() {
+		this.animations = new HashMap<>();
+		this.activeAnimation = null;
+	}
+	
 	public AnimationComp(Map<String, Animation> animations, String activeAnimationName){
 		this.animations = animations;
 		this.activeAnimation = animations.get(activeAnimationName);

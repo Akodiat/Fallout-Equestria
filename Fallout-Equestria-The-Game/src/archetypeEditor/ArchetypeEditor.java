@@ -35,6 +35,7 @@ import org.lwjgl.opengl.Display;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ArchetypeEditor {
@@ -144,6 +145,9 @@ public class ArchetypeEditor {
 		mntmNewMenuItem_2.setIcon(new ImageIcon(ArchetypeEditor.class.getResource("/com/sun/java/swing/plaf/windows/icons/Question.gif")));
 		mntmNewMenuItem_2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		mnNewMenu.add(mntmNewMenuItem_2);
+		
+		
+		
 	}
 	public void openComponent(IComponent component){
 		this.compPanel.setComponent(component);

@@ -5,6 +5,7 @@ import entityFramework.IComponent;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("BasicAI")
+@EditableComponent
 public class BasicAIComp implements IComponent {
 	private Vector2 target; //Location of the target to shoot at (and walk against)
 	

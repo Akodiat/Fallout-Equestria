@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
 @XStreamAlias("Attack")
+@EditableComponent
 public class AttackComp implements IComponent {
 
 	private Circle		 bounds;
@@ -25,7 +26,7 @@ public class AttackComp implements IComponent {
 	private Set<IEntity> targetsHit;
 
 	public AttackComp() {
-		this(null, new Circle(new Vector2(0.0f, 0.0f), 1), 1, true);
+		this(null, new Circle(new Vector2(0.0f, 0.0f), 0), 1, true);
 	}
 	
 	public AttackComp(IEntity sourceEntity, Circle bounds, int damage, boolean destroyOnHit) {
@@ -94,10 +95,17 @@ public class AttackComp implements IComponent {
 	
 	@Override
 	public String toString() {
-		return "Attack Comp: \n" +
-			   "Damage: " + this.damage + "\n" +
-			   "Circle Bounds: " + this.bounds.toString() + "\n" +
-			   "Destroy on hit: " + this.destoryOnHit + "\n" +
-			   "SourceEntity: " + this.sourceEntity.getUniqueID();
+		String s = "AttackComp: \n"
+			  +	   "Damage: " + this.damage
+			  +	   "\nCircle Bounds: " + this.bounds.toString()
+			  +	   "\nDestroyed on hit: " + this.destoryOnHit
+			  +	   "\nSorceEntity: ";
+		if(this.sourceEntity != null) {
+			s += this.sourceEntity.getUniqueID() + "";
+		} else {
+			s += "None";
+		}
+		
+		return s;
 	}
 }

@@ -9,7 +9,7 @@ import org.newdawn.slick.openal.AudioLoader;
 
 public class SoundLoader implements IContentLoader<Audio>{
 
-	public Audio loadSound(FileInputStream fileInputStream) throws IOException {
+	public Audio loadSound(FileInputStream fileInputStream) throws IOException  {
 		Audio a = AudioLoader.getAudio("OGG", fileInputStream);
 		return a;
 	}
@@ -29,5 +29,4 @@ public class SoundLoader implements IContentLoader<Audio>{
 	public String getFoulder() {
 		return "sounds";
 	}
-
 }

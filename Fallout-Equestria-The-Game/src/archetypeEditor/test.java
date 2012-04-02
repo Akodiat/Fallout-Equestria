@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import components.AbilityComp;
-import components.RenderingComp;
-import components.TransformationComp;
+import components.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class test extends JFrame {
 
@@ -43,7 +43,8 @@ public class test extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		ComponentPanel cp = new ComponentPanel();
-		this.add(cp);
+	
+		getContentPane().add(cp);
 		cp.setComponent(new TransformationComp());
 		//this.add(new PrimitiveTypePanel(Boolean.TYPE, "something"));
 		this.invalidate();

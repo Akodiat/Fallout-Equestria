@@ -4,6 +4,7 @@ import math.Vector2;
 
 public class Circle {
 
+	public static final Circle Empty = new Circle(Vector2.Zero, 0.0f);
 	private Vector2 position;
 	private float radius;
 

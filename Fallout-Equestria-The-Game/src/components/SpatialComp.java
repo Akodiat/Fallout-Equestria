@@ -12,6 +12,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @author Gustav
  */
 @XStreamAlias("Spatial")
+@EditableComponent
 public class SpatialComp implements IComponent {
 
 	private Circle bounds;

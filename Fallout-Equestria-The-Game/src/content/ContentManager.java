@@ -29,6 +29,7 @@ public final class ContentManager {
 	
 	private static final Map<Class<?>, IContentLoader<?>> contentLoaders = new HashMap<>();
 	private static final BiMap<String, Object> loadedContent = HashBiMap.create();
+	private static String resourceFoulderPath = "resources";
 	
 	static {
 		addContentLoader(new TextureLoader());
@@ -40,8 +41,15 @@ public final class ContentManager {
 		//TODO add more if needed!. 
 	}
 	
+	public static void setResourceFoulderPath(String path) {
+		resourceFoulderPath = path;
+	}
 	
-	private static void addContentLoader(IContentLoader<?> contentLoader) {
+	/**Adds a loader able to load a new type of content.
+	 * 
+	 * @param contentLoader the contentLoader.
+	 */
+	public static void addContentLoader(IContentLoader<?> contentLoader) {
 		contentLoaders.put(contentLoader.getClassAbleToLoad(), contentLoader);
 	}
 
@@ -88,8 +96,9 @@ public final class ContentManager {
 		}
 	}
 
+	
 	private static InputStream openStream(String relativePath, String foulder) {
-		String correctPath = "resources" + File.separator + foulder
+		String correctPath = resourceFoulderPath + File.separator + foulder
 										 + File.separator + relativePath;	
 		File file = new File(correctPath);	
 		

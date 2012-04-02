@@ -6,6 +6,8 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class StringListPanel extends JPanel {
 
@@ -28,6 +30,11 @@ public class StringListPanel extends JPanel {
 		add(scrollPane);
 		
 		JList list = new JList();
+		list.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+			}
+		});
 		scrollPane.setViewportView(list);
 		
 		JButton btnRemove = new JButton("Remove");

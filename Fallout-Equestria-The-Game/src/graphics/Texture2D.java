@@ -28,6 +28,10 @@ public final class Texture2D {
 		glBindTexture(GL_TEXTURE_2D, OpenGLID);
 	}
 	
+	public void destroyTexture() {
+		glDeleteTextures(this.OpenGLID);
+	}
+	
 	
 	private static Texture2D pixel;
 	public static Texture2D getPixel() {

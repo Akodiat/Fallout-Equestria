@@ -11,6 +11,7 @@ import ability.Abilities;
  *
  */
 @XStreamAlias("Weapon")
+@EditableComponent
 public class WeaponComp implements IComponent{
 	//TODO implement rendering and similar effects!. 
 	

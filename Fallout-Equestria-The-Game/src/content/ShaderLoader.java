@@ -62,12 +62,17 @@ import java.io.InputStreamReader;
 	  
 	  private int loadProgram(InputStream in) {
 		  
-		  String effectText = loadEffect(in);  	  
-		  int vertexShader   = createShader(GL_VERTEX_SHADER, effectText.split("split")[0]);
-		  int fragmentShader   = createShader(GL_FRAGMENT_SHADER, effectText.split("split")[1]);
+		  try {
+		  String[] effectText = loadEffect(in).split("split");  	  
+		  int vertexShader   = createShader(GL_VERTEX_SHADER, effectText[0]);
+		  int fragmentShader   = createShader(GL_FRAGMENT_SHADER, effectText[1]);
 		  int program = createProgram(vertexShader, fragmentShader);
 		  
 		  return program;
+		  
+		  } catch(ArrayIndexOutOfBoundsException e) {
+			  throw new RuntimeException("The effectFile does not contain a valid 'split' statement");
+		  }
 	  }
 	  
 	  
