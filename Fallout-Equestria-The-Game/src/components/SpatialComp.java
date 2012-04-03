@@ -17,6 +17,10 @@ public class SpatialComp implements IComponent {
 
 	private Circle bounds;
 	
+	public SpatialComp() {
+		this(Circle.Empty);
+	}
+	
 	public SpatialComp(SpatialComp toBeCloned) {
 		this.bounds = toBeCloned.getBounds();
 	}

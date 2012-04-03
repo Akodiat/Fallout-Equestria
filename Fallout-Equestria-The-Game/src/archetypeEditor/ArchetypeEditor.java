@@ -15,8 +15,10 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import components.TransformationComp;
 import content.ContentManager;
+import content.EntityArchetypeLoader;
 import entityFramework.EntityArchetype;
 import entityFramework.IComponent;
+import entityFramework.IEntityArchetype;
 
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -35,6 +37,10 @@ import org.lwjgl.opengl.Display;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -43,7 +49,9 @@ public class ArchetypeEditor {
 	private JFrame frame;
 	private ArchetypePanel archPanel;
 	private ComponentPanel compPanel;
-
+	private EntityArchetypeLoader loader;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -62,15 +70,20 @@ public class ArchetypeEditor {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 */
-	public ArchetypeEditor() {
+	public ArchetypeEditor() throws ClassNotFoundException, IOException {
 		initialize();
+		loader = new EntityArchetypeLoader();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 */
-	private void initialize() {
+	private void initialize() throws ClassNotFoundException, IOException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1104, 579);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,12 +128,15 @@ public class ArchetypeEditor {
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
 			    	try {
 						Display.create();
-					} catch (LWJGLException e1) {
+						FileInputStream in = new FileInputStream(chooser.getSelectedFile());
+				    	archPanel.setArchetype(loader.loadContent(in));
+				    	
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+					} finally {
+						Display.destroy();
 					}
-			    	archPanel.setArchetype(ContentManager.loadArchetype(chooser.getSelectedFile().getName()));
-			    	Display.destroy();
 			    }
 			}
 		});
@@ -128,10 +144,31 @@ public class ArchetypeEditor {
 		mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		mnFile.add(mntmOpen);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save");
-		mntmNewMenuItem_1.setIcon(new ImageIcon(ArchetypeEditor.class.getResource("/com/sun/java/swing/plaf/windows/icons/FloppyDrive.gif")));
-		mntmNewMenuItem_1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-		mnFile.add(mntmNewMenuItem_1);
+		JMenuItem saveMenuItem = new JMenuItem("Save");
+		saveMenuItem.setIcon(new ImageIcon(ArchetypeEditor.class.getResource("/com/sun/java/swing/plaf/windows/icons/FloppyDrive.gif")));
+		saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		mnFile.add(saveMenuItem);
+		saveMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				
+			    int returnVal = chooser.showOpenDialog(mntmNewMenuItem);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    	if(chooser.getSelectedFile() != null) {
+			    		File file = chooser.getSelectedFile();
+			    		try {
+							FileOutputStream ostream = new FileOutputStream(file);
+							IEntityArchetype arch = archPanel.getArchetype();
+							loader.save(ostream, arch);
+							ostream.close();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			    	}
+			    }
+			}
+		});
 		
 		JMenu mnNewMenu = new JMenu("Help");
 		menuBar.add(mnNewMenu);
@@ -146,9 +183,8 @@ public class ArchetypeEditor {
 		mntmNewMenuItem_2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		mnNewMenu.add(mntmNewMenuItem_2);
 		
-		
-		
 	}
+	
 	public void openComponent(IComponent component){
 		this.compPanel.setComponent(component);
 		this.compPanel.revalidate();

@@ -49,7 +49,7 @@ public class ReflectionHelper {
         return classes;
     }
     
-    public Class[] getClassesThatContainAnnotation(Class annotationClass, String packageName) throws ClassNotFoundException, IOException {
+    public static Class[] getClassesThatContainAnnotation(Class annotationClass, String packageName) throws ClassNotFoundException, IOException {
     	Class[] classes = getClasses(packageName);
     	List<Class> correctClasses = new ArrayList<>();
     	for (Class clazz : classes) {
@@ -62,10 +62,10 @@ public class ReflectionHelper {
     	return correctClasses.toArray(new Class[correctClasses.size()]);
     }
     
-    public Object createNewInstance(Class clazz) {
+    public static <T> T createNewInstance(Class clazz) {
     	try {
     		Object obj = clazz.newInstance();
-    		return obj;
+    		return (T)obj;
     	} catch(Exception e) {
     		throw new RuntimeException(e);
     	}

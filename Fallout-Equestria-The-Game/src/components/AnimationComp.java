@@ -10,6 +10,7 @@ import entityFramework.IComponent;
 import graphics.Animation;
 
 @XStreamAlias("Animation")
+@EditableComponent
 public class AnimationComp implements IComponent {
 
 	private Map<String, Animation> animations;

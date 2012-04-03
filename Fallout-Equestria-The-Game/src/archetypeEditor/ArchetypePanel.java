@@ -1,7 +1,9 @@
 package archetypeEditor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
@@ -23,12 +25,17 @@ import entityFramework.IEntityArchetype;
 import javax.swing.DefaultComboBoxModel;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+
+import components.EditableComponent;
 
 import misc.EntityGroups;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+
 import ability.Abilities;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -42,15 +49,25 @@ public class ArchetypePanel extends JPanel {
 	private HashMap<String, IComponent> compMap;
 	
 	private ArchetypeEditor archEd;
+	
+	private Map<String, IComponent> componentMap = new HashMap<>();
+	private Map<String, Class> componentClassMap = new HashMap<>();
+	
 
 	@SuppressWarnings("unchecked")
 	public void setArchetype(IEntityArchetype entityArch){
 		this.entityIDTextField.setText(entityArch.getLabel());
 
+		componentsListModel.clear();
+		componentMap.clear();
 		List<IComponent> componentList = entityArch.getComponents().asList();
 		for (IComponent component : componentList) {
 			componentsListModel.addElement(component.getClass().getSimpleName());
 			compMap.put(component.getClass().getSimpleName(), component);
+			
+			String name = component.getClass().getSimpleName();
+			componentsListModel.addElement(name);
+			componentMap.put(name, component);
 		}
 		
 		ImmutableList<String> groupList = entityArch.getGroups().asList();
@@ -60,41 +77,34 @@ public class ArchetypePanel extends JPanel {
 		}
  
 	} 
+	
+	public IEntityArchetype getArchetype() {
+		ImmutableSet<IComponent> compSet = ImmutableSet.copyOf(this.componentMap.values());
+		
+		List<String> groupNames = new ArrayList<>();
+		for (int i = 0; i < this.groupListModel.size(); i++) {
+			groupNames.add(this.groupListModel.get(i).toString());
+		}
+		ImmutableSet<String> groups = ImmutableSet.copyOf(groupNames);
+		
+		String entityLabel = this.entityIDTextField.getText();
+		
+		return new EntityArchetype(compSet, groups, entityLabel);
+	}
+	
 	/**
 	 * Create the panel.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 */
-	public ArchetypePanel(final ArchetypeEditor archEd) {
+	public ArchetypePanel(final ArchetypeEditor archEd) throws ClassNotFoundException, IOException {
 		setLayout(null);
 		
 		this.archEd = archEd;
 		
 		this.compMap = new HashMap<String, IComponent>();
 
-		JLabel entityNameLabel = new JLabel("Archetype");
-		entityNameLabel.setBounds(10, 11, 67, 26);
-		add(entityNameLabel);
-
-		entityIDTextField = new JTextField();
-		entityIDTextField.setBounds(76, 48, 86, 20);
-		add(entityIDTextField);
-		entityIDTextField.setColumns(10);
-
-		JLabel lblEntityId = new JLabel("Entity ID");
-		lblEntityId.setBounds(20, 51, 46, 14);
-		add(lblEntityId);
-
-		JLabel lblNewLabel = new JLabel("Groups");
-		lblNewLabel.setBounds(20, 104, 46, 14);
-		add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Select group to add");
-		lblNewLabel_1.setBounds(188, 122, 94, 14);
-		add(lblNewLabel_1);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(20, 120, 158, 116);
-		add(scrollPane);
+		JScrollPane scrollPane = unimportantGUI();
 
 		this.groupListModel = new DefaultListModel();
 		this.componentsListModel = new DefaultListModel();
@@ -108,9 +118,6 @@ public class ArchetypePanel extends JPanel {
 		groupComboBox.setBounds(292, 119, 118, 20);
 		add(groupComboBox);
 		
-
-		
-
 		JButton btnRemove = new JButton("Remove");
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -147,7 +154,10 @@ public class ArchetypePanel extends JPanel {
 		componentList = new JList();
 		componentList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				archEd.openComponent(compMap.get(componentList.getSelectedValue()));
+				if(componentList.getSelectedValue() != null) {
+					IComponent component = componentMap.get(componentList.getSelectedValue());
+					archEd.openComponent(component);
+				}
 			}
 		});
 		scrollPane_1.setViewportView(componentList);
@@ -156,16 +166,24 @@ public class ArchetypePanel extends JPanel {
 		JButton button = new JButton("Remove");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				componentsListModel.removeElement(componentList.getSelectedValue());
+				Object selected = componentList.getSelectedValue();
+				componentsListModel.removeElement(selected);
+				removeComponent(selected.toString());
 			}
 		});
 		button.setBounds(222, 296, 89, 23);
 		add(button);
 
 		
+		List<String> classNames = new ArrayList<>();
+		Class[] clazzes = ReflectionHelper.getClassesThatContainAnnotation(EditableComponent.class, "components");
+		for (Class clazz : clazzes) {
+			classNames.add(clazz.getSimpleName());
+			this.componentClassMap.put(clazz.getSimpleName(), clazz);
+		}
 
 		final JComboBox componentComboBox = new JComboBox();
-		componentComboBox.setModel(new DefaultComboBoxModel(Abilities.values()));
+		componentComboBox.setModel(new DefaultComboBoxModel(classNames.toArray(new String[classNames.size()])));
 		componentComboBox.setBounds(292, 265, 118, 20);
 		add(componentComboBox);
 
@@ -178,6 +196,7 @@ public class ArchetypePanel extends JPanel {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!componentsListModel.contains(componentComboBox.getSelectedItem())){
+					createComponent(componentComboBox.getSelectedItem().toString());
 					componentsListModel.addElement(componentComboBox.getSelectedItem());
 					componentList.revalidate();
 				}
@@ -185,5 +204,44 @@ public class ArchetypePanel extends JPanel {
 		});
 		button_1.setBounds(321, 296, 89, 23);
 		add(button_1);
+	}
+	
+	protected void removeComponent(String string) {
+		this.componentMap.remove(string);		
+	}
+
+	protected void createComponent(String componentName) {
+		Class componentClass = this.componentClassMap.get(componentName);
+		IComponent component = ReflectionHelper.createNewInstance(componentClass);
+		this.componentMap.put(componentName, component);
+	}
+
+	private JScrollPane unimportantGUI() {
+		JLabel entityNameLabel = new JLabel("Archetype");
+		entityNameLabel.setBounds(10, 11, 67, 26);
+		add(entityNameLabel);
+
+		entityIDTextField = new JTextField();
+		entityIDTextField.setBounds(76, 48, 86, 20);
+		add(entityIDTextField);
+		entityIDTextField.setColumns(10);
+
+		JLabel lblEntityId = new JLabel("Entity ID");
+		lblEntityId.setBounds(20, 51, 46, 14);
+		add(lblEntityId);
+
+		JLabel lblNewLabel = new JLabel("Groups");
+		lblNewLabel.setBounds(20, 104, 46, 14);
+		add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("Select group to add");
+		lblNewLabel_1.setBounds(188, 122, 94, 14);
+		add(lblNewLabel_1);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(20, 120, 158, 116);
+		add(scrollPane);
+		return scrollPane;
 	}
 }

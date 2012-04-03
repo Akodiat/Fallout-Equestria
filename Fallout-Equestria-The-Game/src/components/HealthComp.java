@@ -5,6 +5,7 @@ import entityFramework.IComponent;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("Health")
+@EditableComponent
 public class HealthComp implements IComponent {
 
 	private final static float DEF_MAX_HP = 100;

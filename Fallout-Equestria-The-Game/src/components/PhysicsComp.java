@@ -6,6 +6,7 @@ import entityFramework.IComponent;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("Physics")
+@EditableComponent
 public class PhysicsComp implements IComponent{
 	private boolean immovable;
 	private Vector2 velocity;

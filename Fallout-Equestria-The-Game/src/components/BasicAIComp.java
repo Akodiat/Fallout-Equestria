@@ -10,7 +10,7 @@ public class BasicAIComp implements IComponent {
 	private Vector2 target; //Location of the target to shoot at (and walk against)
 	
 	public BasicAIComp(){
-		this.target = null;
+		this.target = Vector2.Zero;
 	}
 	public BasicAIComp(Vector2 target){
 		this.target = target;

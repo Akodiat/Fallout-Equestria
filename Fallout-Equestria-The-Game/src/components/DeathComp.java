@@ -11,6 +11,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
 @XStreamAlias("Death")
+@EditableComponent
 public class DeathComp implements IComponent{
 	private Set<DeathActions> deathActions;
 	public DeathComp() {

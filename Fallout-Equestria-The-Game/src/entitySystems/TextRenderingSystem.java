@@ -20,7 +20,6 @@ public class TextRenderingSystem extends EntitySingleProcessingSystem{
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -28,10 +27,7 @@ public class TextRenderingSystem extends EntitySingleProcessingSystem{
 		TransformationComp transC = entity.getComponent(TransformationComp.class);
 		TextRenderingComp renderC = entity.getComponent(TextRenderingComp.class);
 		
-		
 		this.batch.drawString(renderC.getFont(), renderC.getText(), transC.getPosition(),
-							  renderC.getColor(), transC.getOrigin(), transC.getScale());
-		
+							  renderC.getColor(), transC.getOrigin(), transC.getScale());	
 	}
-
 }

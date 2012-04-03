@@ -1,12 +1,22 @@
 package components;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import entityFramework.IComponent;
 
+@XStreamAlias("Death")
+@EditableComponent
 public class ExistanceComp implements IComponent {
 
+	private static final float DEF_EXISTANCE_TIME = 5f;
+	
 	private final float existanceTime;
 	private float elapsedExistance;
 
+	public ExistanceComp() {
+		this(DEF_EXISTANCE_TIME);
+	}
+	
 	public ExistanceComp(float existanceTime) {
 		this.existanceTime = existanceTime;
 	}

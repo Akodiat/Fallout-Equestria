@@ -2,7 +2,6 @@ package ability;
 
 public enum Abilities {
 
-	
 	None(0),
 	Teleport(60), 
 	Telekinesis(20), 

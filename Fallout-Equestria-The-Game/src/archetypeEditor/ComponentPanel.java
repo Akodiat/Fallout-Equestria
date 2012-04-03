@@ -70,6 +70,9 @@ public class ComponentPanel extends JPanel {
 	}
 
 	private void setComponentName(IComponent component) throws Exception {
+		this.scrollPanel.removeAll();
+		this.height = 0;
+		
 		this.componentName.setText(component.getClass().getName());
 		Field[] fields = component.getClass().getDeclaredFields();
 

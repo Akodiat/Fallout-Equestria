@@ -8,6 +8,7 @@ import entityFramework.IComponent;
 
 
 @XStreamAlias("Ability")
+@EditableComponent
 public class AbilityComp implements IComponent {
 
 	private static final float DEF_MAX_AP = 100;

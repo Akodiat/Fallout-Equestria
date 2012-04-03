@@ -1,6 +1,7 @@
 package content;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import components.*;
 
@@ -54,6 +55,10 @@ public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
 		return archetype;
 	}
 
+	public void save(OutputStream out, IEntityArchetype archetype) {
+		xstream.toXML(archetype, out);
+	}
+	
 	@Override
 	public String getFoulder() {
 		return "archetypes";
