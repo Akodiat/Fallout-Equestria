@@ -102,6 +102,10 @@ public class AssetPanel extends JPanel {
 					if(getText().endsWith(".png")){
 						filePath += "textures" + File.separator + getText();
 						openFileWithDefaultApplication(filePath);
+					}else if (getText().endsWith(".xml")){
+						String imageName = getText().replace(".xml",".png");
+						filePath += "textures" + File.separator + "fonts" + File.separator + imageName;
+						openFileWithDefaultApplication(filePath);
 					}else if (getText().endsWith(".ogg")){
 						int soundsIndex = absolutePath.lastIndexOf("sounds", absolutePath.length());
 						filePath = absolutePath.substring(soundsIndex + "sounds".length() + 1);
