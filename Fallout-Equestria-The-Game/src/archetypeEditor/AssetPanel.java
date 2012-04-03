@@ -44,14 +44,19 @@ public class AssetPanel extends JPanel {
 
 		if(field.getType() == Texture2D.class){
 			fileEnding = "png";
+			lblAsset.setText("Texture:");
 		} else if(field.getType() == Audio.class){
 			fileEnding = "ogg";
+			lblAsset.setText("Sound:");
 		}else if(field.getType() == IEntityArchetype.class){
 			fileEnding = "archetype";
+			lblAsset.setText("Archetype:");
 		}else if(field.getType() == LineScript.class){
 			fileEnding = "script";
+			lblAsset.setText("Script:");
 		}else if(field.getType() == TextureFont.class){
 			fileEnding = "xml";
+			lblAsset.setText("Font:");
 		}else{
 			throw new Error("CLASS NOT SUPPORTED BY ASSETPANEL");
 		}
@@ -184,11 +189,11 @@ public class AssetPanel extends JPanel {
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("ERROR WHEN SETTING COMPONENT ASSET FIELD");
+			System.out.println("ERROR WHEN SETTING COMPONENT ASSET FIELD (Illegal argument)");
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("ERROR WHEN SETTING COMPONENT ASSET FIELD");
+			System.out.println("ERROR WHEN SETTING COMPONENT ASSET FIELD (Illegal access)");
 		}
 	}
 }

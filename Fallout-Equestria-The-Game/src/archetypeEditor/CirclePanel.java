@@ -1,113 +1,109 @@
 package archetypeEditor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.Font;
 import java.lang.reflect.Field;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import math.Vector2;
+
+import utils.Circle;
+
 import entityFramework.IComponent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class CirclePanel extends JPanel {
-	private JTextField textField;
-	private Parser parser;
+	private JTextField radiusField;
+	private JTextField xField;
+	private JTextField yField;
+	private float x;
+	private float y;
+	private float radius;
 	private IComponent component;
 	private Field field;
-	
-	private String textValue;
+
 	/**
 	 * Create the panel.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public CirclePanel(Field fieldType, IComponent component) {
+	public CirclePanel(IComponent component, Field field) {
 		setLayout(null);
-		this.field = fieldType;
-		parser = new Parser(fieldType.getType());
-		this.component = component;
 		
-		JLabel lblNewLabel = new JLabel(fieldType.getName());
-		lblNewLabel.setBounds(10, 11, 120, 14);
-		add(lblNewLabel);
+		JLabel lblCircle = new JLabel("Circle:");
+		lblCircle.setFont(new Font("Arial Black", Font.BOLD, 16));
+		lblCircle.setBounds(10, 4, 63, 23);
+		add(lblCircle);
 		
-		textField = new JTextField();
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				textChanged(((JTextField)arg0.getSource()).getText());
+		JLabel lblRadius = new JLabel("Radius:");
+		lblRadius.setBounds(83, 11, 41, 14);
+		add(lblRadius);
+		
+		radiusField = new JTextField();
+		radiusField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
+				radiusField.setText("" + newValue);
+				radius = newValue;
+				setCompValue();
 			}
 		});
-		textField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				textChanged(((JTextField)arg0.getSource()).getText());			
+		radiusField.setBounds(134, 8, 47, 20);
+		add(radiusField);
+		radiusField.setColumns(10);
+		
+		JLabel lblX = new JLabel("X:");
+		lblX.setBounds(191, 11, 10, 14);
+		add(lblX);
+		
+		xField = new JTextField();
+		xField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
+				xField.setText("" + newValue);
+				x = newValue;
+				setCompValue();
 			}
 		});
+		xField.setBounds(211, 8, 47, 20);
+		add(xField);
+		xField.setColumns(10);
 		
-		textField.setBounds(171, 26, 86, 20);
-		add(textField);
-		textField.setColumns(10);
+		JLabel lblY = new JLabel("Y:");
+		lblY.setBounds(268, 11, 10, 14);
+		add(lblY);
 		
-		JLabel lblValue = new JLabel("Value");
-		lblValue.setBounds(171, 11, 46, 14);
-		add(lblValue);
-		
-		JLabel lblHej = new JLabel(fieldType.getType().getSimpleName());
-		lblHej.setBounds(10, 29, 91, 14);
-		add(lblHej);
-		this.setup();
+		yField = new JTextField();
+		yField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
+				yField.setText("" + newValue);
+				y = newValue;
+				setCompValue();
+			}
+		});
+		yField.setBounds(288, 8, 47, 20);
+		add(yField);
+		yField.setColumns(10);
+
 	}
-
-
-	private void setup() {
-		try {
-			Object value = field.get(this.component);
-			this.textField.setText(value.toString());
-			this.textValue = value.toString();
-					
-		} catch(Exception e) {
-			throw new RuntimeException();
-		}
-	}
-
-
-	protected void textChanged(String text) {
-		try {
-			Object value = this.parser.parse(text);
-			field.set(this.component, value);
-			this.textValue = value.toString();
-			this.textField.setText(this.textValue);
-		} catch(Exception e) {
-			this.textField.setText(textValue);
-		}
-	}
-
 	
-	private class Parser<T> {
-		private Class<T> type;
-		
-		public Parser(Class<T> type) {
-			this.type = type;
-		}
-		
-		public Object parse(String s) {	
-			if(type.equals(Integer.TYPE)) {
-				Integer i = Integer.parseInt(s);
-				return i;
-			} else if(type.equals(Boolean.TYPE)) {
-				Boolean bool = Boolean.parseBoolean(s);
-				return bool;	
-			} else if(type.equals(Float.TYPE)) {
-				Float f = Float.parseFloat(s);
-				return f;
-			} else if(type.equals(String.class)) {
-				return s;
-			}
-			
-			throw new RuntimeException("Something went wrong.");			
+	private void setCompValue(){
+		Object newValue = new Circle(new Vector2(x, y), radius);
+		try {
+			this.field.set(component, newValue);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERROR WHEN SETTING COMPONENT ASSET FIELD (Illegal argument)");
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERROR WHEN SETTING COMPONENT ASSET FIELD (Illegal access)");
 		}
 	}
+
 }
