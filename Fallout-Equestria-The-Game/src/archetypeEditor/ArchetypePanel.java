@@ -1,5 +1,6 @@
 package archetypeEditor;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -38,6 +39,7 @@ public class ArchetypePanel extends JPanel {
 	private JList componentList;
 	private DefaultListModel groupListModel;
 	private DefaultListModel componentsListModel;
+	private HashMap<String, IComponent> compMap;
 	
 	private ArchetypeEditor archEd;
 
@@ -48,6 +50,7 @@ public class ArchetypePanel extends JPanel {
 		List<IComponent> componentList = entityArch.getComponents().asList();
 		for (IComponent component : componentList) {
 			componentsListModel.addElement(component.getClass().getSimpleName());
+			compMap.put(component.getClass().getSimpleName(), component);
 		}
 		
 		ImmutableList<String> groupList = entityArch.getGroups().asList();
@@ -64,6 +67,8 @@ public class ArchetypePanel extends JPanel {
 		setLayout(null);
 		
 		this.archEd = archEd;
+		
+		this.compMap = new HashMap<String, IComponent>();
 
 		JLabel entityNameLabel = new JLabel("Archetype");
 		entityNameLabel.setBounds(10, 11, 67, 26);
@@ -142,8 +147,7 @@ public class ArchetypePanel extends JPanel {
 		componentList = new JList();
 		componentList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				//TODO: Find way to fix
-			//	archEd.openComponent(componentList.getSelectedValue());
+				archEd.openComponent(compMap.get(componentList.getSelectedValue()));
 			}
 		});
 		scrollPane_1.setViewportView(componentList);
