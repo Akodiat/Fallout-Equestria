@@ -23,8 +23,8 @@ public class CirclePanel extends JPanel {
 	private JTextField radiusField;
 	private JTextField xField;
 	private JTextField yField;
-	private float x;
-	private float y;
+	private Float x;
+	private Float y;
 	private Float radius;
 	private IComponent component;
 	private Field field;
@@ -53,14 +53,7 @@ public class CirclePanel extends JPanel {
 		});
 		radiusField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
-					float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
-					radiusField.setText("" + newValue);
-					radius = newValue;
-					setCompValue();
-				}catch(Exception ex){
-					radiusField.setText("" + radius);
-				}
+				textChanged(radius, (JTextField)e.getSource());
 			}
 		});
 		radiusField.setBounds(198, 7, 47, 20);
@@ -72,16 +65,15 @@ public class CirclePanel extends JPanel {
 		add(lblX);
 
 		xField = new JTextField();
+		xField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textChanged(x, (JTextField)e.getSource());
+			}
+		});
 		xField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
-					float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
-					xField.setText("" + newValue);
-					x = newValue;
-					setCompValue();
-				}catch(Exception ex){
-					xField.setText("" + x);
-				}
+					textChanged(x, (JTextField)e.getSource());
 			}
 		});
 		xField.setBounds(282, 7, 47, 20);
@@ -93,16 +85,15 @@ public class CirclePanel extends JPanel {
 		add(lblY);
 
 		yField = new JTextField();
+		yField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textChanged(y, (JTextField)e.getSource());
+			}
+		});
 		yField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
-					float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
-					yField.setText("" + newValue);
-					y = newValue;
-					setCompValue();
-				}catch(Exception ex){
-					yField.setText("" + y);
-				}
+					textChanged(y, (JTextField)e.getSource());
 			}
 		});
 		yField.setBounds(359, 7, 47, 20);
@@ -110,6 +101,7 @@ public class CirclePanel extends JPanel {
 		yField.setColumns(10);
 
 	}
+	
 	private void textChanged(Float toChange, JTextField textField){
 		try{
 			float newValue = Float.parseFloat(textField.getText());

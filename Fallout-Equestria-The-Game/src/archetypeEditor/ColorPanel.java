@@ -11,6 +11,8 @@ import graphics.Color;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class ColorPanel extends JPanel {
 	private JTextField rField;
@@ -18,10 +20,10 @@ public class ColorPanel extends JPanel {
 	private JTextField bField;
 	private JTextField aField;
 
-	private float r;
-	private float g;
-	private float b;
-	private float a;
+	private Float r;
+	private Float g;
+	private Float b;
+	private Float a;
 
 	private IComponent component;
 	private Field field;
@@ -32,97 +34,104 @@ public class ColorPanel extends JPanel {
 	public ColorPanel(Field field, IComponent component) {
 		setLayout(null);
 
-		r = 0; g = 0; b = 0; a = 0;
+		r = 0f; g = 0f; b = 0f; a = 0f;
 
 		JLabel lblColor = new JLabel(field.getName());
 		lblColor.setFont(new Font("Arial Black", Font.BOLD, 16));
-		lblColor.setBounds(10, 4, 63, 23);
+		lblColor.setBounds(10, 4, 106, 23);
 		add(lblColor);
 
 		JLabel lblR = new JLabel("R:");
-		lblR.setBounds(83, 11, 16, 14);
+		lblR.setBounds(126, 10, 16, 14);
 		add(lblR);
 
 		rField = new JTextField();
-		rField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try{
-					float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
-					rField.setText("" + newValue);
-					r = newValue;
-					setCompValue();
-				}catch(Exception ex){
-					rField.setText("" + r);
-				}
+		rField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textChanged(r, (JTextField)e.getSource());
 			}
 		});
-		rField.setBounds(93, 8, 47, 20);
+		rField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textChanged(r, (JTextField)e.getSource());
+			}
+		});
+		rField.setBounds(136, 7, 47, 20);
 		add(rField);
 		rField.setColumns(10);
 
 		JLabel lblG = new JLabel("G:");
-		lblG.setBounds(150, 11, 16, 14);
+		lblG.setBounds(193, 10, 16, 14);
 		add(lblG);
 
 		gField = new JTextField();
-		gField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try{
-					float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
-					gField.setText("" + newValue);
-					g = newValue;
-					setCompValue();
-				}catch(Exception ex){
-					gField.setText("" + g);
-				}
+		gField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textChanged(g, (JTextField)e.getSource());
 			}
 		});
-		gField.setBounds(160, 8, 47, 20);
+		gField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textChanged(g, (JTextField)e.getSource());
+			}
+		});
+		gField.setBounds(203, 7, 47, 20);
 		add(gField);
 		gField.setColumns(10);
 
 		JLabel lblB = new JLabel("B:");
-		lblB.setBounds(217, 11, 10, 14);
+		lblB.setBounds(260, 10, 10, 14);
 		add(lblB);
 
 		bField = new JTextField();
-		bField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try{
-					float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
-					bField.setText("" + newValue);
-					b = newValue;
-					setCompValue();
-				}catch(Exception ex){
-					bField.setText("" + b);
-				}
+		bField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textChanged(b, (JTextField)e.getSource());
 			}
 		});
-		bField.setBounds(227, 8, 47, 20);
+		bField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textChanged(b, (JTextField)e.getSource());
+			}
+		});
+		bField.setBounds(270, 7, 47, 20);
 		add(bField);
 		bField.setColumns(10);
 
 		JLabel lblA = new JLabel("A:");
-		lblA.setBounds(284, 11, 16, 14);
+		lblA.setBounds(327, 10, 16, 14);
 		add(lblA);
 
 		aField = new JTextField();
-		aField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try{
-					float newValue = Float.parseFloat(((JTextField)(e.getSource())).getText());
-					aField.setText("" + newValue);
-					a = newValue;
-					setCompValue();
-				}catch(Exception ex){
-					aField.setText("" + a);
-				}
+		aField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textChanged(a, (JTextField)e.getSource());
 			}
 		});
-		aField.setBounds(294, 8, 47, 20);
+		aField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textChanged(a, (JTextField)e.getSource());
+			}
+		});
+		aField.setBounds(337, 7, 47, 20);
 		add(aField);
 		aField.setColumns(10);
 
+	}
+	
+	private void textChanged(Float toChange, JTextField textField){
+		try{
+			float newValue = Float.parseFloat(textField.getText());
+			textField.setText("" + newValue);
+			toChange = newValue;
+			setCompValue();
+		}catch(Exception ex){
+			textField.setText("" + toChange);
+		}
 	}
 
 	private void setCompValue(){
@@ -139,5 +148,7 @@ public class ColorPanel extends JPanel {
 			System.out.println("ERROR WHEN SETTING COMPONENT ASSET FIELD (Illegal access)");
 		}
 	}
+	
+	
 
 }

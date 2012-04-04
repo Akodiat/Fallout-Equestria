@@ -117,13 +117,13 @@ public class ComponentPanel extends JPanel {
 			this.scrollPanel.add(vPanel);
 		} else if(type.equals(Color.class)){
 			ColorPanel cPanel = new ColorPanel(field, component);
-			cPanel.setBounds(0, height, 500, 55);
-			height += 50;
+			cPanel.setBounds(0, height, 500, 40);
+			height += 40;
 			this.scrollPanel.add(cPanel);
 		} else if(type.equals(Circle.class)){
 			CirclePanel cPanel = new CirclePanel(field, component);
-			cPanel.setBounds(0, height, 500, 55);
-			height += 50;
+			cPanel.setBounds(0, height, 500, 40);
+			height += 40;
 			this.scrollPanel.add(cPanel);
 		} else if(type.equals(Texture2D.class)||
 				  type.equals(TextureFont.class)||
