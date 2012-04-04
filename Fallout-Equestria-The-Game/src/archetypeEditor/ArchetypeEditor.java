@@ -93,6 +93,7 @@ public class ArchetypeEditor {
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
 		this.compPanel = new ComponentPanel();
+	
 		splitPane.setRightComponent(this.compPanel);
 		
 		this.archPanel = new ArchetypePanel(this);

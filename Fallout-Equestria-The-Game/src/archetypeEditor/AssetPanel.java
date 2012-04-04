@@ -35,28 +35,23 @@ public class AssetPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AssetPanel(IComponent comp, Field field) {
+	public AssetPanel(Field field, IComponent comp) {
 		setLayout(null);
 
-		JLabel lblAsset = new JLabel("Asset:");
+		JLabel lblAsset = new JLabel(field.getName());
 		lblAsset.setBounds(10, 8, 31, 14);
 		add(lblAsset);
 
 		if(field.getType() == Texture2D.class){
 			fileEnding = "png";
-			lblAsset.setText("Texture:");
 		} else if(field.getType() == Audio.class){
 			fileEnding = "ogg";
-			lblAsset.setText("Sound:");
 		}else if(field.getType() == IEntityArchetype.class){
 			fileEnding = "archetype";
-			lblAsset.setText("Archetype:");
 		}else if(field.getType() == LineScript.class){
 			fileEnding = "script";
-			lblAsset.setText("Script:");
 		}else if(field.getType() == TextureFont.class){
 			fileEnding = "xml";
-			lblAsset.setText("Font:");
 		}else{
 			throw new Error("CLASS NOT SUPPORTED BY ASSETPANEL");
 		}
