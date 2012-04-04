@@ -37,7 +37,7 @@ public class ColorPanel extends JPanel {
 		r = 0f; g = 0f; b = 0f; a = 0f;
 
 		JLabel lblColor = new JLabel(field.getName());
-		lblColor.setFont(new Font("Arial Black", Font.BOLD, 16));
+		lblColor.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblColor.setBounds(10, 4, 106, 23);
 		add(lblColor);
 

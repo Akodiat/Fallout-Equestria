@@ -36,12 +36,12 @@ public class CirclePanel extends JPanel {
 		setLayout(null);
 
 		JLabel lblCircle = new JLabel(field.getName());
-		lblCircle.setFont(new Font("Arial Black", Font.BOLD, 16));
-		lblCircle.setBounds(10, 4, 127, 23);
+		lblCircle.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblCircle.setBounds(10, 6, 99, 23);
 		add(lblCircle);
 
 		JLabel lblRadius = new JLabel("Radius:");
-		lblRadius.setBounds(147, 10, 41, 14);
+		lblRadius.setBounds(119, 12, 59, 14);
 		add(lblRadius);
 
 		radiusField = new JTextField();
@@ -56,12 +56,12 @@ public class CirclePanel extends JPanel {
 				textChanged(radius, (JTextField)e.getSource());
 			}
 		});
-		radiusField.setBounds(198, 7, 47, 20);
+		radiusField.setBounds(188, 9, 47, 20);
 		add(radiusField);
 		radiusField.setColumns(10);
 
 		JLabel lblX = new JLabel("X:");
-		lblX.setBounds(255, 10, 17, 14);
+		lblX.setBounds(245, 12, 17, 14);
 		add(lblX);
 
 		xField = new JTextField();
@@ -76,12 +76,12 @@ public class CirclePanel extends JPanel {
 					textChanged(x, (JTextField)e.getSource());
 			}
 		});
-		xField.setBounds(282, 7, 47, 20);
+		xField.setBounds(272, 9, 47, 20);
 		add(xField);
 		xField.setColumns(10);
 
 		JLabel lblY = new JLabel("Y:");
-		lblY.setBounds(339, 10, 10, 14);
+		lblY.setBounds(329, 12, 10, 14);
 		add(lblY);
 
 		yField = new JTextField();
@@ -96,7 +96,7 @@ public class CirclePanel extends JPanel {
 					textChanged(y, (JTextField)e.getSource());
 			}
 		});
-		yField.setBounds(359, 7, 47, 20);
+		yField.setBounds(349, 9, 47, 20);
 		add(yField);
 		yField.setColumns(10);
 

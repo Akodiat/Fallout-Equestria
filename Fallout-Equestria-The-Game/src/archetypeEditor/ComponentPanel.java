@@ -4,10 +4,10 @@ import javax.swing.JPanel;
 
 import entityFramework.IComponent;
 import entityFramework.IEntityArchetype;
+import graphics.Color;
 import graphics.Texture2D;
 import graphics.TextureFont;
 
-import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.UIManager;
