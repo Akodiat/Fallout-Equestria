@@ -10,6 +10,7 @@ import components.TransformationComp;
 
 import math.Vector2;
 import entityFramework.IEntity;
+import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 /**
  * 
@@ -26,10 +27,7 @@ public class TelekinesisAbility extends AbstractAbilityProcessor{
 	}
 
 	@Override
-	public void processEntity(IEntity entity, IEntityManager manager) {
-		
-		System.out.println("HEJEHEHEJHEJHEJHEJHEJHE");
-		
+	public void processEntity(IEntity entity, IEntityManager manager, IEntityArchetype specialArchetype) {
 		//Vector2 sourcePos = entity.getComponent(TransformationComp.class).getPosition();
 		Vector2 mousePos = entity.getComponent(InputComp.class).getMousePosition();
 		

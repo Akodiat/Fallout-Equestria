@@ -86,7 +86,7 @@ public class ComponentPanel extends JPanel {
 
 		for (Field field : fields) {
 			field.setAccessible(true);
-			if(!Modifier.isFinal(field.getModifiers())) {		
+			if(!Modifier.isStatic(field.getModifiers())) {	
 				createFieldPanel(component, field);
 			}
 		}

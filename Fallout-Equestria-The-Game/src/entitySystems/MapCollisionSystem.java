@@ -1,5 +1,6 @@
 package entitySystems;
 
+import utils.Rectangle;
 import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
@@ -14,11 +15,11 @@ import entityFramework.IEntityWorld;
 
 public class MapCollisionSystem extends EntityProcessingSystem {
 
-	private Vector2 worldDimensions;
+	private Rectangle worldBounds;
 
-	public MapCollisionSystem(IEntityWorld world, Vector2 worldDimensions) {
+	public MapCollisionSystem(IEntityWorld world, Rectangle worldBounds) {
 		super(world, TransformationComp.class, SpatialComp.class);
-		this.worldDimensions = worldDimensions;
+		this.worldBounds = worldBounds;
 	}
 
 	private ComponentMapper<SpatialComp> sCM;
@@ -38,24 +39,28 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			TransformationComp posiCom = tCM.getComponent(entity);
 			SpatialComp spatiCom = sCM.getComponent(entity);
 			
-			//Check collision against north border
-			if (posiCom.getPosition().X - spatiCom.getBounds().getRadius()<0){
-				posiCom.setPosition(new Vector2(spatiCom.getBounds().getRadius(),posiCom.getPosition().Y ));
+			//Check collision against west border
+			int left = this.worldBounds.getLeft();
+			if (posiCom.getPosition().X - spatiCom.getBounds().getRadius() < left ){
+				posiCom.setPosition(new Vector2(spatiCom.getBounds().getRadius() + left ,posiCom.getPosition().Y ));
 			}
 			
-			//Check collision against west border
-			if (posiCom.getPosition().Y - spatiCom.getBounds().getRadius()<0){
-				posiCom.setPosition(new Vector2(posiCom.getPosition().X,spatiCom.getBounds().getRadius()));
+			//Check collision against North border
+			int top = this.worldBounds.getTop();
+			if (posiCom.getPosition().Y - spatiCom.getBounds().getRadius() < top){
+				posiCom.setPosition(new Vector2(posiCom.getPosition().X,spatiCom.getBounds().getRadius() + top));
 			}
 			
 			//Check collision against east border
-			if (posiCom.getPosition().X + spatiCom.getBounds().getRadius()>worldDimensions.X){
-				posiCom.setPosition(new Vector2(worldDimensions.X - spatiCom.getBounds().getRadius(),posiCom.getPosition().Y));
+			int right = this.worldBounds.getRight();
+			if (posiCom.getPosition().X + spatiCom.getBounds().getRadius() > right){
+				posiCom.setPosition(new Vector2(right - spatiCom.getBounds().getRadius(), posiCom.getPosition().Y));
 			}
 			
 			//Check collision against south border
-			if (posiCom.getPosition().Y + spatiCom.getBounds().getRadius()>worldDimensions.Y){
-				posiCom.setPosition(new Vector2(posiCom.getPosition().X,worldDimensions.Y - spatiCom.getBounds().getRadius()));
+			int bottom = this.worldBounds.getBottom();
+			if (posiCom.getPosition().Y + spatiCom.getBounds().getRadius() > bottom){
+				posiCom.setPosition(new Vector2(posiCom.getPosition().X,bottom - spatiCom.getBounds().getRadius()));
 			}
 			
 		}

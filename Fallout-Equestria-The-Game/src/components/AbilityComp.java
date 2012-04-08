@@ -1,6 +1,6 @@
 package components;
 
-import ability.Abilities;
+import ability.AbilityInfo;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -17,13 +17,13 @@ public class AbilityComp implements IComponent {
 	private float maxAbilityPoints;
 	private float abilityPoints;
 	private float regenerationSpeed;
-	private Abilities ability;
+	private AbilityInfo ability;
 
 	public AbilityComp() {
 		this.maxAbilityPoints = DEF_MAX_AP;
 		this.abilityPoints = DEF_MAX_AP;
 		this.regenerationSpeed = DEF_REGEN_SPEED;
-		this.ability = null;
+		this.ability = AbilityInfo.None;
 	}
 
 	/**
@@ -48,11 +48,11 @@ public class AbilityComp implements IComponent {
 		return new AbilityComp(this);
 	}
 	
-	public Abilities getAbility() {
+	public AbilityInfo getAbility() {
 		return ability;
 	}
 
-	public void setAbility(Abilities ability) {
+	public void setAbility(AbilityInfo ability) {
 		this.ability = ability;
 	}
 

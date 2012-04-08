@@ -1,18 +1,25 @@
 package entitySystems;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import com.google.common.collect.ImmutableSet;
+
 import math.Matrix4;
 import math.Vector2;
 import components.RenderingComp;
 import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
-import entityFramework.EntitySingleProcessingSystem;
+import entityFramework.EntityProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 
-public class RenderingSystem extends EntitySingleProcessingSystem {
+public class RenderingSystem extends EntityProcessingSystem {
 
 	private SpriteBatch spriteBatch;
 	
@@ -37,7 +44,7 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 				this.getWorld().getDatabase(), RenderingComp.class);
 	}
 
-	@Override
+	
 	protected void processEntity(IEntity entity) {
 		RenderingComp renderC = this.renderCM.getComponent(entity);
 		TransformationComp positionC = this.posCM.getComponent(entity);
@@ -62,6 +69,28 @@ public class RenderingSystem extends EntitySingleProcessingSystem {
 	private void draw(RenderingComp renderC, TransformationComp transformation) {
 		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), renderC.getSource(),
 							  new Vector2(transformation.getOrigin().X*transformation.getScale().X,transformation.getOrigin().Y*transformation.getScale().Y), transformation.getScale(), transformation.getRotation(), transformation.getMirror());
+	}
+
+	@Override
+	protected void processEntities(ImmutableSet<IEntity> entities) {
+		
+		List<IEntity> sortedEntities = new ArrayList<>(entities);
+		Collections.sort(sortedEntities, new RenderSorter());
+		
+		for (IEntity entity : sortedEntities) {
+			this.processEntity(entity);
+		}
+	}
+	
+	private class RenderSorter implements Comparator<IEntity> {
+
+		@Override
+		public int compare(IEntity o1, IEntity o2) {
+			TransformationComp trans1 = posCM.getComponent(o1);
+			TransformationComp trans2 = posCM.getComponent(o2);
+			return (int) ((trans1.getPosition().Y - trans2.getPosition().Y));
+		}
+	
 	}
 
 }

@@ -93,11 +93,25 @@ public class RenderingComp implements IComponent {
 	}
 	
 	public String toString() {
-		return "Rendering Comp: \n" 
-			+  "Texture: " + this.texture.toString() + "\n"
-			+  "Color: " + this.color.toString() + "\n" 
-			+  "Shader Effect: " + this.effect.toString();
+		String s = "Rendering Comp: \n";
+		s += "Texture: ";
+		if(this.texture != null) {
+			s += this.texture.toString();
+		} else {
+			s += "None";
+		}
 		
+		s += "\nColor: " + this.color.toString() + "\n";
+		s += "Shader Effect: ";
+		
+		if(this.effect != null) {
+			s += this.effect.toString();
+		} else {
+			s+= "Node";
+		}
+		s += "\n";
+		
+		return s;
 	}
 
 }

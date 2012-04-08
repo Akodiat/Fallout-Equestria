@@ -76,6 +76,7 @@ public class ArchetypeEditor {
 	public ArchetypeEditor() throws ClassNotFoundException, IOException {
 		initialize();
 		loader = new EntityArchetypeLoader();
+		EntityArchetypeLoader.initialize();
 	}
 
 	/**

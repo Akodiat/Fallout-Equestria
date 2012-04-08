@@ -38,11 +38,7 @@ public abstract class AbstractProcessor implements IProcessor {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see ability.Processor#processEntity(entityFramework.IEntity, entityFramework.IEntityManager)
-	 */
-	@Override
-	public abstract void processEntity(IEntity entity, IEntityManager manager);
+	
 	/* (non-Javadoc)
 	 * @see ability.Processor#initialize(entityFramework.IEntityManager)
 	 */

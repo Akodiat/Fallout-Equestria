@@ -3,7 +3,7 @@ package components;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
-import ability.Abilities;
+import ability.AbilityInfo;
 
 /**
  * 
@@ -15,14 +15,14 @@ import ability.Abilities;
 public class WeaponComp implements IComponent{
 	//TODO implement rendering and similar effects!. 
 	
-	private Abilities primaryAbility;
-	private Abilities secondaryAbility;
+	private AbilityInfo primaryAbility;
+	private AbilityInfo secondaryAbility;
 	
 	public WeaponComp() {
-		this(Abilities.None, Abilities.None);
+		this(AbilityInfo.None, AbilityInfo.None);
 	}
 	
-	public WeaponComp(Abilities primaryAbility, Abilities secondaryAbility) {
+	public WeaponComp(AbilityInfo primaryAbility, AbilityInfo secondaryAbility) {
 		this.setPrimaryAbility(primaryAbility);
 		this.setSecondaryAbility(secondaryAbility);
 	}
@@ -32,19 +32,19 @@ public class WeaponComp implements IComponent{
 		this.secondaryAbility = other.secondaryAbility;
 	}
 	
-	public Abilities getPrimaryAbility() {
+	public AbilityInfo getPrimaryAbility() {
 		return primaryAbility;
 	}
 
-	public void setPrimaryAbility(Abilities primaryAbility) {
+	public void setPrimaryAbility(AbilityInfo primaryAbility) {
 		this.primaryAbility = primaryAbility;
 	}
 
-	public Abilities getSecondaryAbility() {
+	public AbilityInfo getSecondaryAbility() {
 		return secondaryAbility;
 	}
 
-	public void setSecondaryAbility(Abilities secondaryAbility) {
+	public void setSecondaryAbility(AbilityInfo secondaryAbility) {
 		this.secondaryAbility = secondaryAbility;
 	}
 	
@@ -54,8 +54,23 @@ public class WeaponComp implements IComponent{
 	}
 	
 	public String toString() {
-		return "Weapon: \n" 
-			+  "Primary Ability   " + this.primaryAbility.toString() + "\n"
-			+  "Secondary Ability " + this.secondaryAbility.toString();
+		String s = "Weapon: \n";
+		s += "Primary Ability ";
+
+		if(this.primaryAbility != null) {
+			s += this.primaryAbility.toString();
+		} else {
+			s += "None";
+		}
+
+		s += "Secondary Ability ";
+
+		if(this.secondaryAbility != null) {
+			s += this.secondaryAbility.toString();
+		} else {
+			s += "None";
+		}
+		
+		return s;
 	}
 }

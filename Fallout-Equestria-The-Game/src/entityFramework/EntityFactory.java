@@ -54,6 +54,7 @@ public class EntityFactory implements IEntityFactory{
 		if(label != null)
 			entity.setLabel(label);
 		
+		entity.refresh();
 		return entity;
 	}
 

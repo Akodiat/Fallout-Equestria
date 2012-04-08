@@ -21,7 +21,7 @@ public class AbilitySystem extends EntityProcessingSystem{
 		abilities = new HashMap<>();
 	}
 	
-	public AbilitySystem(IEntityWorld world,Map<Abilities, AbstractAbilityProcessor> abilities) {
+	public AbilitySystem(IEntityWorld world, Map<Abilities, AbstractAbilityProcessor> abilities) {
 		super(world, AbilityComp.class);
 		this.abilities = new HashMap<>(abilities);
 	}
@@ -44,17 +44,17 @@ public class AbilitySystem extends EntityProcessingSystem{
 	protected void processEntities(ImmutableSet<IEntity> entities) {
 		for (IEntity entity : entities) {
 			AbilityComp abiComp = entity.getComponent(AbilityComp.class);
-			Abilities ability = abiComp.getAbility();
-			if (ability != null && ability != Abilities.None && abiComp.getAbilityPoints() >= ability.Cost){
-				IProcessor processor = this.abilities.get(ability);
-							
-				processor.validate(entity);
-				processor.processEntity(entity, getEntityManager());
-				
-				abiComp.removeAbilityPoints(ability.Cost);
-				abiComp.setAbility(Abilities.None);
-			} else {
-				abiComp.setAbility(Abilities.None);
+			AbilityInfo abilityInfo = abiComp.getAbility();
+			if (abilityInfo != null) {
+				Abilities ability = abilityInfo.getAbility();
+				if(ability != Abilities.None && abiComp.getAbilityPoints() >= ability.Cost){			
+					IProcessor processor = this.abilities.get(ability);					
+					processor.validate(entity);
+					processor.processEntity(entity, getEntityManager(), abilityInfo.getArchetype());
+					
+					abiComp.removeAbilityPoints(ability.Cost);
+				}
+				abiComp.setAbility(null);
 			}
 		}
 		

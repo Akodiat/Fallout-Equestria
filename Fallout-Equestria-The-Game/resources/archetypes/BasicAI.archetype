@@ -9,6 +9,14 @@
         <mirror>false</mirror>
       </Transformation>
       <BasicAI/>
+      <Rendering>
+        <color>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </color>
+        <texture>
+          <Asset>HEJHEJ.png</Asset>
+        </texture>
+      </Rendering>
       <Spatial>
         <bounds>
           <position>0.0,0.0</position>

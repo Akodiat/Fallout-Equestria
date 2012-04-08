@@ -108,6 +108,10 @@ public class Camera2D {
 		return this.zoom;
 	}
 	
+	public Rectangle getWorldBounds() {
+		return this.worldBounds;
+	}
+	
 	public Vector2 getWorldPosition() {
 		return this.position;
 	}

@@ -45,6 +45,10 @@ public class EntityWorld implements IEntityWorld {
 		return this.delta;
 	}
 	
+	@Override
+	public void initialize() {
+		this.systemManager.initialize();
+	}
 	
 	@Override
 	public void render() {

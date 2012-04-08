@@ -1,20 +1,10 @@
 package ability;
 
-import utils.Circle;
-import components.AbilityComp;
-import components.BasicAIComp;
-import components.HealthComp;
-import components.InputComp;
-import components.PhysicsComp;
-import components.RenderingComp;
-import components.SpatialComp;
-import components.TransformationComp;
-import components.WeaponComp;
-import content.ContentManager;
 
-import math.MathHelper;
-import math.Vector2;
+import components.InputComp;
+
 import entityFramework.IEntity;
+import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 
 /**
@@ -24,16 +14,16 @@ import entityFramework.IEntityManager;
  */
 public class SpawnCreaturesAbility extends AbstractAbilityProcessor {
 
-	private final int creatureAmount;
-	
 	public SpawnCreaturesAbility(int apCost, float spawningInterval, int creatureAmount) {
 		super(Abilities.SpawnCreatures, InputComp.class);
-		this.creatureAmount = creatureAmount;
 	}
 
 	@Override
-	public void processEntity(IEntity entity, IEntityManager manager) {
-		TransformationComp sourceTransComp = entity.getComponent(TransformationComp.class);
+	public void processEntity(IEntity entity, IEntityManager manager, IEntityArchetype specialArchetype) {
+		
+		throw new UnsupportedOperationException();
+		
+		/*TransformationComp sourceTransComp = entity.getComponent(TransformationComp.class);
 		InputComp inpComp = entity.getComponent(InputComp.class);
 		Vector2 targetPos = inpComp.getMousePosition();
 		
@@ -48,7 +38,7 @@ public class SpawnCreaturesAbility extends AbstractAbilityProcessor {
 			
 			BasicAIComp aiComp = new BasicAIComp(targetPos);
 			
-			WeaponComp weaponComp = new WeaponComp(Abilities.Bullet, null);
+			WeaponComp weaponComp = new WeaponComp(new AbilityInfo(ability));
 			HealthComp healthComp = new HealthComp(10f,1f,10f);
 			
 			TransformationComp transComp = new TransformationComp();
@@ -71,8 +61,7 @@ public class SpawnCreaturesAbility extends AbstractAbilityProcessor {
 			creature.addComponent(abComp);
 			
 			creature.refresh();
-		}
-		
+		}*/
 	}
 
 	@Override

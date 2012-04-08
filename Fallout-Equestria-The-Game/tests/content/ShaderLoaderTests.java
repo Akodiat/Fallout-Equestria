@@ -1,4 +1,4 @@
-package content.tests;
+package content;
 
 import static org.junit.Assert.*;
 import graphics.ShaderEffect;

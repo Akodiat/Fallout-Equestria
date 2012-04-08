@@ -3,6 +3,8 @@ package ability;
 import java.util.HashMap;
 import java.util.Map;
 
+import content.ContentManager;
+
 public class AbilityBuilder {
 
 	public static Map<Abilities, AbstractAbilityProcessor> build(){
@@ -10,7 +12,7 @@ public class AbilityBuilder {
 		
 		abilities.put(Abilities.Teleport, new TeleportAbility());
 		abilities.put(Abilities.Telekinesis, new TelekinesisAbility());
-		abilities.put(Abilities.Bullet, new BulletAbility());
+		abilities.put(Abilities.Bullet, new BulletAbility(ContentManager.loadSound("effects/pew.ogg")));
 		abilities.put(Abilities.CircleBullet, new CircleProjectileAbility());
 		
 		

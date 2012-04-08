@@ -12,6 +12,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import ability.Abilities;
+import ability.AbilityInfo;
 
 import com.google.common.collect.ImmutableList;
 
@@ -118,9 +119,7 @@ public class AnimationTest {
 				this.tester.getWorld(), camera));
 		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
-		tester.addLogicSubSystem(new MapCollisionSystem(this.tester.getWorld(),
-				new Vector2(this.camera.worldBounds.Width,
-						this.camera.worldBounds.Height)));
+		tester.addLogicSubSystem(new MapCollisionSystem(this.tester.getWorld(), camera.worldBounds));
 		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester
 				.getWorld(), this.graphics));
@@ -157,7 +156,7 @@ public class AnimationTest {
 		DeathComp deathComp = new DeathComp();
 
 		WeaponComp weaponComp = new WeaponComp();
-		weaponComp.setPrimaryAbility(Abilities.None);
+		weaponComp.setPrimaryAbility(new AbilityInfo(Abilities.None));
 
 		// ANIMATIONCOMPONENT
 

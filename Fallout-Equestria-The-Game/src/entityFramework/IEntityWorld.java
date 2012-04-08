@@ -10,8 +10,10 @@ public interface IEntityWorld {
 
 	public abstract float getDelta();
 	
-	public abstract void render();
 
+	public abstract void initialize();
+	
 	public abstract void update(float deltha);
+	public abstract void render();
 
 }

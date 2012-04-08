@@ -8,6 +8,7 @@ import math.Vector2;
 import components.*;
 
 import entityFramework.IEntity;
+import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 import graphics.Color;
 import graphics.Texture2D;
@@ -30,7 +31,7 @@ public class CircleProjectileAbility extends AbstractAbilityProcessor{
 	}
 	
 	@Override
-	public void processEntity(IEntity entity, IEntityManager manager) {
+	public void processEntity(IEntity entity, IEntityManager manager, IEntityArchetype specialArchetype) {
 		TransformationComp transComp = entity.getComponent(TransformationComp.class);
 		SpatialComp spatialComp = entity.getComponent(SpatialComp.class);
 		SpecialComp specialComp = entity.getComponent(SpecialComp.class);

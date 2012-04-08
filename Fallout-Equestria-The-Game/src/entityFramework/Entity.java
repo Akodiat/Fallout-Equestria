@@ -181,4 +181,15 @@ public final class Entity extends IEntity {
 	public void clearComponents() {
 		this.database.clearEntity(uniqueID);
 	}
+	
+	public String toString() {
+		ImmutableSet<IComponent> components = this.getComponents();
+		StringBuilder builder = new StringBuilder();
+		String label = this.getLabel();
+		builder.append("Entity: " + "ID: " + this.getUniqueID() + " Name: " + label + " NumComponents: " + components.size()+ "\n");
+		for (IComponent component : components) {
+			builder.append(component.toString() + "\n");
+		}
+		return builder.toString();
+	}
 }

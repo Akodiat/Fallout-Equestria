@@ -54,7 +54,7 @@ private Map<DeathActions, AbstractDeathProcessor> deathActions;
 
 	private void processDeath(IEntity entity, DeathComp deathComp) {
 		for (DeathActions deathAction : deathComp.getDeathActions()) {
-			this.deathActions.get(deathAction).processEntity(entity, getEntityManager());
+			this.deathActions.get(deathAction).processEntity(entity, getEntityManager(), null);
 		}
 	}
 }

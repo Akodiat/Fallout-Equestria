@@ -5,6 +5,7 @@ import components.InputComp;
 import components.TransformationComp;
 
 import entityFramework.IEntity;
+import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 
 public class TeleportAbility extends AbstractAbilityProcessor {
@@ -19,7 +20,7 @@ public class TeleportAbility extends AbstractAbilityProcessor {
 	}
 
 	@Override
-	public void processEntity(IEntity entity, IEntityManager manager) {
+	public void processEntity(IEntity entity, IEntityManager manager, IEntityArchetype archetype) {
 			TransformationComp transComp = entity.getComponent(TransformationComp.class);
 			InputComp inputComp = entity.getComponent(InputComp.class);
 			spawnCloud(entity);

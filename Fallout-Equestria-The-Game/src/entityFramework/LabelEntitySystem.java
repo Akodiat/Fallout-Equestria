@@ -36,7 +36,7 @@ public abstract class LabelEntitySystem implements IEntitySystem {
 	
 	@Override
 	public void entityChanged(IEntity entity) {
-		if(entity.getLabel() == this.label) {
+		if(entity.getLabel().equals(this.label)) {
 			BitSet changedSet = (BitSet)this.typeBits.clone();
 			changedSet.and(entity.getComponentBits());
 			if(changedSet.equals(this.typeBits)) {

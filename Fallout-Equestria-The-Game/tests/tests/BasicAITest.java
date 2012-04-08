@@ -6,6 +6,7 @@ import org.lwjgl.opengl.Display;
 
 import ability.Abilities;
 import ability.AbilityBuilder;
+import ability.AbilityInfo;
 import ability.AbilitySystem;
 
 import components.*;
@@ -73,7 +74,7 @@ public class BasicAITest extends AbstractSystemTest{
 		AbilityComp apComp = new AbilityComp();
 		
 		WeaponComp weapon = new WeaponComp();
-		weapon.setPrimaryAbility(Abilities.Teleport);
+		weapon.setPrimaryAbility(new AbilityInfo(Abilities.Teleport));
 		
 
 		rendComp.setColor(new Color(42,200,255, 255));

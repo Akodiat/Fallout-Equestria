@@ -85,7 +85,7 @@ public class TelekinesisTest extends AbstractSystemTest{
 		WeaponComp weapComp = new WeaponComp();
 		AbilityComp abComp = new AbilityComp();	
 		
-		weapComp.setPrimaryAbility(Abilities.Telekinesis);
+	//	weapComp.setPrimaryAbility(Abilities.Telekinesis);
 		
 		rendComp.setColor(new Color(42,200,255, 255));
 		rendComp.setTexture(ContentManager.loadTexture("PPieLauncher.png"));
