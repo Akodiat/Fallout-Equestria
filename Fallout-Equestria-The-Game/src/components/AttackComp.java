@@ -7,6 +7,9 @@ import math.Vector2;
 
 import utils.Circle;
 
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.google.common.collect.ImmutableSet;
 
 import entityFramework.IComponent;
@@ -19,10 +22,13 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @EditableComponent
 public class AttackComp implements IComponent {
 
+	@Editable
 	private Circle		 bounds;
+	@Editable
 	private int 		 damage;
-	private IEntity 	 sourceEntity;
+	@Editable
 	private boolean 	 destoryOnHit;
+	private IEntity 	 sourceEntity;
 	private Set<IEntity> targetsHit;
 
 	public AttackComp() {

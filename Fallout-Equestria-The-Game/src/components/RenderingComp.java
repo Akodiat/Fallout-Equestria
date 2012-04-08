@@ -6,6 +6,9 @@ import entityFramework.IComponent;
 import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.Texture2D;
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
@@ -18,11 +21,14 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @EditableComponent
 public class RenderingComp implements IComponent {
 	
+	@Editable
 	private Texture2D 	 texture;
+	@Editable
 	private Color		 color;
-	private ShaderEffect effect;
+	@Editable
 	private Rectangle 	 source;
-
+	private ShaderEffect effect;
+	
 	public RenderingComp(){
 		this.color   = Color.White;
 		this.texture = null;

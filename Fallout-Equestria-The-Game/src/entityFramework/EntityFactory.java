@@ -51,7 +51,7 @@ public class EntityFactory implements IEntityFactory{
 			entity.addToGroup(group);
 		}
 		String label = archetype.getLabel();
-		if(label != null)
+		if(label != null && label != "")
 			entity.setLabel(label);
 		
 		entity.refresh();

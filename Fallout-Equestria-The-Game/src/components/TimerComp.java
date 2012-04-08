@@ -2,6 +2,8 @@ package components;
 
 import misc.IEventListener;
 
+import anotations.Editable;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
@@ -11,6 +13,7 @@ public class TimerComp implements IComponent {
 	
 	private static final float DEF_DURATION = 1f;
 	
+	@Editable
 	private final float duration;
 	private float elapsedTime;
 	

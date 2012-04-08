@@ -7,13 +7,19 @@ import java.util.Set;
 import death.DeathActions;
 import entityFramework.IComponent;
 
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
 @XStreamAlias("Death")
 @EditableComponent
 public class DeathComp implements IComponent{
+
+	@Editable
 	private Set<DeathActions> deathActions;
+	
 	public DeathComp() {
 		this(new HashSet<DeathActions>());
 	}

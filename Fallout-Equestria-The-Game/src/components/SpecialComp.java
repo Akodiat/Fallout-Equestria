@@ -1,5 +1,8 @@
 package components;
 
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
@@ -13,13 +16,19 @@ import entityFramework.IComponent;
 public final class SpecialComp implements IComponent{
 	
 	//FIX MAGIC NUMBERS!
-	
+	@Editable
 	private int strength;
+	@Editable
 	private int perception;
+	@Editable
 	private int endurance;
+	@Editable
 	private int charisma;
+	@Editable
 	private int intelligence;
+	@Editable
 	private int agility;
+	@Editable
 	private int luck;
 	
 	//TODO Constructor chaning. 

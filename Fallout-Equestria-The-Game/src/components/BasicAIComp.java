@@ -2,6 +2,8 @@ package components;
 
 import math.Vector2;
 import entityFramework.IComponent;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("BasicAI")

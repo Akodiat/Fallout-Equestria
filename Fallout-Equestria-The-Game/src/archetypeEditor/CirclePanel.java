@@ -23,9 +23,9 @@ public class CirclePanel extends JPanel {
 	private JTextField radiusField;
 	private JTextField xField;
 	private JTextField yField;
-	private Float x;
-	private Float y;
-	private Float radius;
+	private float x;
+	private float y;
+	private float radius;
 	private IComponent component;
 	private Field field;
 

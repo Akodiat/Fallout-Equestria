@@ -27,7 +27,6 @@ import javax.swing.DefaultComboBoxModel;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import components.EditableComponent;
 
 import misc.EntityGroups;
 
@@ -37,6 +36,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import ability.Abilities;
+import anotations.EditableComponent;
+
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 

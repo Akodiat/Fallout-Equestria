@@ -1,5 +1,8 @@
 package components;
 
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
@@ -10,6 +13,7 @@ public class ExistanceComp implements IComponent {
 
 	private static final float DEF_EXISTANCE_TIME = 5f;
 	
+	@Editable
 	private final float existanceTime;
 	private float elapsedExistance;
 

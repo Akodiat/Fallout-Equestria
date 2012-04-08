@@ -1,5 +1,8 @@
 package components;
 
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
@@ -9,11 +12,15 @@ import math.Vector2;
 @XStreamAlias("Transformation")
 @EditableComponent
 public class TransformationComp implements IComponent {
-	
+	@Editable
 	private Vector2 	 position;
+	@Editable
 	private Vector2 	 scale;
+	@Editable
 	private Vector2 	 origin;
+	@Editable
 	private float 		 rotation;
+	@Editable
 	private boolean		 mirror;
 	
 	public TransformationComp() {

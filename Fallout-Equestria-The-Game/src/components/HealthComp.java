@@ -2,6 +2,9 @@ package components;
 
 import entityFramework.IComponent;
 
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("Health")
@@ -9,9 +12,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class HealthComp implements IComponent {
 
 	private final static float DEF_MAX_HP = 100;
-	private final static float DEF_REGEN_SPEED = 100;
+	private final static float DEF_REGEN_SPEED = 10;
 	
+	@Editable
 	private float maxHealth;
+	@Editable
 	private float regenSpeed;
 	private float healthPoints;
 

@@ -3,6 +3,9 @@ package components;
 import math.Vector2;
 import utils.Circle;
 import entityFramework.IComponent;
+import anotations.Editable;
+import anotations.EditableComponent;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
@@ -15,6 +18,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @EditableComponent
 public class SpatialComp implements IComponent {
 
+	@Editable
 	private Circle bounds;
 	
 	public SpatialComp() {

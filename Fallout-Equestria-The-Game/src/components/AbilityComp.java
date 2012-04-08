@@ -1,6 +1,8 @@
 package components;
 
 import ability.AbilityInfo;
+import anotations.Editable;
+import anotations.EditableComponent;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -14,9 +16,13 @@ public class AbilityComp implements IComponent {
 	private static final float DEF_MAX_AP = 100;
 	private static final float DEF_REGEN_SPEED = 10;
 	
+	@Editable
 	private float maxAbilityPoints;
-	private float abilityPoints;
+	
+	@Editable
 	private float regenerationSpeed;
+	
+	private float abilityPoints;
 	private AbilityInfo ability;
 
 	public AbilityComp() {

@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import entityFramework.IComponent;
 import entityFramework.IEntityArchetype;
 import graphics.Color;
+import graphics.ShaderEffect;
 import graphics.Texture2D;
 import graphics.TextureFont;
 
@@ -20,6 +21,8 @@ import utils.Circle;
 
 import math.Vector2;
 
+import anotations.Editable;
+
 import com.thoughtworks.xstream.core.util.Fields;
 
 import java.awt.Component;
@@ -27,6 +30,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Font;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -87,7 +91,10 @@ public class ComponentPanel extends JPanel {
 		for (Field field : fields) {
 			field.setAccessible(true);
 			if(!Modifier.isStatic(field.getModifiers())) {	
-				createFieldPanel(component, field);
+				Annotation anotation = field.getAnnotation(Editable.class);
+				if(anotation != null) {
+					createFieldPanel(component, field);
+				}
 			}
 		}
 
@@ -134,6 +141,8 @@ public class ComponentPanel extends JPanel {
 			aPanel.setBounds(0, height, 500, 55);
 			height += 50;
 			this.scrollPanel.add(aPanel);
+		}else {
+			return;
 		}
 
 		createSpearator();
