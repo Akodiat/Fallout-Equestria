@@ -9,6 +9,7 @@ public class ConsoleScriptFunction implements IScriptFunction{
 			throw new ScriptException();
 		}
 		
+		System.out.print("Testing");
 		System.out.println(params[0]);	
 		
 	}
