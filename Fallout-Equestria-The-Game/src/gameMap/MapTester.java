@@ -36,7 +36,7 @@ public class MapTester {
 		
 		for(int i=0; i<mapHeight; i++){
 			for (int j=0; j<mapWidth; j++){
-				tileMap.setTileAt(i, j, new Tile(textureForAllTiles));
+				tileMap.setTileAt(i, j, new Tile(textureForAllTiles, null, 1f));
 			}
 		}
 		tileMapPainter = new TileMapPainter(tileMap);

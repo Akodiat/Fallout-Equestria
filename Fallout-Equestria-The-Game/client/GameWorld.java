@@ -1,4 +1,6 @@
 import utils.Camera2D;
+import utils.Clock;
+import utils.GameTime;
 import ability.AbilityBuilder;
 import ability.AbilitySystem;
 import debugsystems.AbilityDebugLogicSystem;
@@ -10,6 +12,7 @@ import entityFramework.IEntityDatabase;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
 import entitySystems.*;
+import gameMap.Scene;
 import graphics.SpriteBatch;
 
 
@@ -17,16 +20,19 @@ public class GameWorld extends EntityWorld {
 
 	private final Camera2D camera;
 	private final SpriteBatch spriteBatch;
+	private final Scene scene;
 	
 	
 	public GameWorld(IEntityManager entityManager,
 			IEntitySystemManager systemManager, 
 			IEntityDatabase database, 
 			Camera2D camera, 
-			SpriteBatch spriteBatch) {
+			SpriteBatch spriteBatch, 
+			Scene scene) {
 		super(entityManager, systemManager, database);
 		this.camera 	 = camera;
-		this.spriteBatch = spriteBatch; 
+		this.spriteBatch = spriteBatch;
+		this.scene 		 = scene;
 	}
 	
 	@Override
@@ -53,13 +59,15 @@ public class GameWorld extends EntityWorld {
 		manager.addLogicEntitySystem(new AbilityDebugLogicSystem(this, "Player"));
 		
 		//Rendering systems!
+		manager.addRenderEntitySystem(new SceneRenderSystem(this, scene, spriteBatch, camera));
 		manager.addRenderEntitySystem(new RenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new HUDRenderingSystem(this, spriteBatch, "Player"));
 		
+		
 		//Debugg systems!
 		manager.addRenderEntitySystem(new DebugAttackRenderSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new DebugSpatialRenderSystem(this, spriteBatch));
-		manager.addRenderEntitySystem(new AbilityDebugRenderSystem(this, "Player", spriteBatch));	
+				
 	}
 }

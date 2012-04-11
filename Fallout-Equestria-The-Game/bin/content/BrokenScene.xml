@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TileMap>
+  <Dimention>3|3</Dimention>
+  <BlockSize>32</BlockSize>
+  <Textures>UI.png|Mar04post.png</Textures>
+  <TileLayer DrawOrder="0">
+    <Tiles>
+      <Tile Texture="UI.prng">96|224|32|32</Tile>
+      <Tile Texture="UI.png">128|256|32|32</Tile>
+      <Tile Texture="UI.pasdng">32|224|32|32</Tile>
+      <Tile Texture="UI.123png">96|160|32|32</Tile>
+      <Tile Texture="Mar04post.png">1088|320|32|32</Tile>
+      <Tile Texture="Mar04posqwet.png">1024|320|32|32</Tile>
+      <Tile Texture="Mar04post.png">1056|160|32|32</Tile>
+      <Tile Texture="Mar04qwdpost.png">992|256|32|32</Tile>
+      <Tile Texture="Mar04post.png">992|64|32|32</Tile>
+    </Tiles>
+    <TileGrid>0$255|2$127|8$255|
+3$127|1$127|7$1255|
+6$127|5$127|4$127
+</TileGrid>
+  </TileLayer>
+  <CollisionLayer>
+    <CollisionGrid>1|0|1|
+0|1|0|
+1|0|1
+</CollisionGrid>
+  </CollisionLayer>
+</TileMap>

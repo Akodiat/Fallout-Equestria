@@ -38,6 +38,7 @@ public final class ContentManager {
 		addContentLoader(new SoundLoader());
 		addContentLoader(new TextureFontLoader());
 		addContentLoader(new EntityArchetypeLoader());
+		addContentLoader(new SceneLoader());
 		//TODO add more if needed!. 
 	}
 	
