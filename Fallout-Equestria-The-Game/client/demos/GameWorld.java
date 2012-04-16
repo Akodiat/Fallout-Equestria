@@ -1,3 +1,4 @@
+package demos;
 import utils.Camera2D;
 import utils.Clock;
 import utils.GameTime;
