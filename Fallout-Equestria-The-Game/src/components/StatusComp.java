@@ -1,13 +1,13 @@
 package components;
 
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
 
 @XStreamAlias("Status")
-@EditableComponent
+@Editable
 public class StatusComp implements IComponent {
 	//TODO Implement!!!???
 	

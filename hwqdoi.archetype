@@ -1,0 +1,25 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Rendering>
+        <texture>
+          <Asset>ground.png</Asset>
+        </texture>
+        <color>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </color>
+      </Rendering>
+      <components.RadiationComp>
+        <bounds>
+          <position>0.0,0.0</position>
+          <radius>0.0</radius>
+        </bounds>
+        <radiationLevel>0.0</radiationLevel>
+      </components.RadiationComp>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>

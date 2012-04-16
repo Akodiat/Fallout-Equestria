@@ -2,7 +2,6 @@ package components;
 
 import ability.AbilityInfo;
 import anotations.Editable;
-import anotations.EditableComponent;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -10,7 +9,7 @@ import entityFramework.IComponent;
 
 
 @XStreamAlias("Ability")
-@EditableComponent
+@Editable
 public class AbilityComp implements IComponent {
 
 	private static final float DEF_MAX_AP = 100;

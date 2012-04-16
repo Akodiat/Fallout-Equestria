@@ -1,7 +1,7 @@
 package components;
 
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -12,7 +12,7 @@ import entityFramework.IComponent;
  *
  */
 @XStreamAlias("SPECIAL")
-@EditableComponent
+@Editable
 public final class SpecialComp implements IComponent{
 	
 	//FIX MAGIC NUMBERS!

@@ -1,7 +1,7 @@
 package components;
 
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -9,7 +9,7 @@ import utils.Circle;
 import entityFramework.IComponent;
 
 @XStreamAlias("Radiation")
-@EditableComponent
+@Editable
 public class RadiationComp implements IComponent{
 	@Editable
 	private Circle bounds;

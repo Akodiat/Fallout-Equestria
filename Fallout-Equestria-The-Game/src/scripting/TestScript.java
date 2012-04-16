@@ -1,6 +1,7 @@
 package scripting;
 
 import math.Vector2;
+import utils.GameTime;
 import ability.AbilityInfo;
 import anotations.Editable;
 
@@ -10,10 +11,17 @@ import components.PhysicsComp;
 import components.TransformationComp;
 import components.WeaponComp;
 
-import utils.GameTime;
 @Editable
-public class PlayerScript extends Script{
+public class TestScript extends Script{
+
+	@Editable
+	private float trololo = 10;
+
+	@Editable
+	private boolean granBoll234 = false;
 	
+	
+
 	PhysicsComp	  	        physComp;
 	InputComp 		  	     inpComp;
 	TransformationComp       posComp;

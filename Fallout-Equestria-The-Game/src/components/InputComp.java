@@ -6,7 +6,7 @@ import math.Vector2;
 import entityFramework.IComponent;
 import utils.Key;
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -17,7 +17,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  *
  */
 @XStreamAlias("Input")
-@EditableComponent
+@Editable
 public class InputComp implements IComponent{
 	private Vector2 mousePosition;
 	//TODO implement this.

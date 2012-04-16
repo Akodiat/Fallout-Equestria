@@ -54,6 +54,7 @@ public class GameWorld extends EntityWorld {
 		manager.addLogicEntitySystem(new InputSystem(this, camera));
 		manager.addLogicEntitySystem(new MapCollisionSystem(this, camera.getWorldBounds()));
 		manager.addLogicEntitySystem(new PhysicsSystem(this));
+		manager.addLogicEntitySystem(new ScriptSystem(this));
 		
 		//Debug logic systems!
 		manager.addLogicEntitySystem(new AbilityDebugLogicSystem(this, "Player"));

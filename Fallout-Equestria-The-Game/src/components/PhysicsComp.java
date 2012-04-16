@@ -4,12 +4,12 @@ import math.Vector2;
 import entityFramework.IComponent;
 
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("Physics")
-@EditableComponent
+@Editable
 public class PhysicsComp implements IComponent{
 	@Editable
 	private boolean immovable;

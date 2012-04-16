@@ -1,0 +1,60 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <components.SpecialComp>
+        <strength>5</strength>
+        <perception>5</perception>
+        <endurance>5</endurance>
+        <charisma>5</charisma>
+        <intelligence>5</intelligence>
+        <agility>5</agility>
+        <luck>5</luck>
+      </components.SpecialComp>
+      <Rendering>
+        <color>
+          <Color>0.2,1.0,0.8,1.0</Color>
+        </color>
+      </Rendering>
+      <Physics>
+        <immovable>false</immovable>
+        <velocity>0.0,0.0</velocity>
+        <mass>1.0</mass>
+        <torque>0.0</torque>
+      </Physics>
+      <Ability>
+        <maxAbilityPoints>100.0</maxAbilityPoints>
+        <regenerationSpeed>10.0</regenerationSpeed>
+        <abilityPoints>100.0</abilityPoints>
+        <ability>
+          <ability>None</ability>
+        </ability>
+      </Ability>
+      <components.ScriptComp>
+        <script class="scripting.TestScript">
+          <initialized>false</initialized>
+          <trololo>45.0</trololo>
+          <granBoll234>true</granBoll234>
+        </script>
+      </components.ScriptComp>
+      <Transformation>
+        <position reference="../../Physics/velocity"/>
+        <scale>1.0,1.0</scale>
+        <origin reference="../../Physics/velocity"/>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+      </Transformation>
+      <Health>
+        <maxHealth>100.0</maxHealth>
+        <regenSpeed>10.0</regenSpeed>
+        <healthPoints>100.0</healthPoints>
+      </Health>
+      <Status/>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <string>Enemies</string>
+    </elements>
+  </groups>
+  <label>LittleTrix</label>
+</entityFramework.EntityArchetype>

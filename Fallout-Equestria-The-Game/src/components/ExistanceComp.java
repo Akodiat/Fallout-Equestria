@@ -1,14 +1,14 @@
 package components;
 
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
 
 @XStreamAlias("Death")
-@EditableComponent
+@Editable
 public class ExistanceComp implements IComponent {
 
 	private static final float DEF_EXISTANCE_TIME = 5f;

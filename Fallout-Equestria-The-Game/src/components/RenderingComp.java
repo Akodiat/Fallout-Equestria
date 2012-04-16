@@ -7,7 +7,7 @@ import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.Texture2D;
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -18,7 +18,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  *
  */
 @XStreamAlias("Rendering")
-@EditableComponent
+@Editable
 public class RenderingComp implements IComponent {
 	
 	@Editable

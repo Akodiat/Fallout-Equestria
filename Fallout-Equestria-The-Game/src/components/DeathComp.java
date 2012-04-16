@@ -8,13 +8,13 @@ import death.DeathActions;
 import entityFramework.IComponent;
 
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
 @XStreamAlias("Death")
-@EditableComponent
+@Editable
 public class DeathComp implements IComponent{
 
 	@Editable

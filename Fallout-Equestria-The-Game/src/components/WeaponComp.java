@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import entityFramework.IComponent;
 import ability.AbilityInfo;
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 /**
  * 
@@ -13,7 +13,7 @@ import anotations.EditableComponent;
  *
  */
 @XStreamAlias("Weapon")
-@EditableComponent
+@Editable
 public class WeaponComp implements IComponent{
 	//TODO implement rendering and similar effects!. 
 	

@@ -5,6 +5,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import components.ScriptComp;
 
 import content.ContentManager;
 import entityFramework.IEntity;
@@ -17,6 +18,7 @@ import entitySystems.CameraControlSystem;
 import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
+import scripting.PlayerScript;
 import tests.EntityModule;
 import utils.Camera2D;
 import utils.Clock;
@@ -55,6 +57,7 @@ public class MapDemo extends Demo{
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = manager.createEntity(archetype);
+		entity.addComponent(new ScriptComp(new PlayerScript()));
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
 		

@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import ability.Abilities;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -177,7 +177,7 @@ public class ArchetypePanel extends JPanel {
 
 		
 		List<String> classNames = new ArrayList<>();
-		Class[] clazzes = ReflectionHelper.getClassesThatContainAnnotation(EditableComponent.class, "components");
+		Class[] clazzes = ReflectionHelper.getClassesThatContainAnnotation(Editable.class, "components");
 		for (Class clazz : clazzes) {
 			classNames.add(clazz.getSimpleName());
 			this.componentClassMap.put(clazz.getSimpleName(), clazz);

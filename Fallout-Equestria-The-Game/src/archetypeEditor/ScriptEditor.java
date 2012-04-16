@@ -23,7 +23,7 @@ import com.thoughtworks.xstream.core.util.Fields;
 import entityFramework.IComponent;
 
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import java.awt.Font;
 import java.io.IOException;

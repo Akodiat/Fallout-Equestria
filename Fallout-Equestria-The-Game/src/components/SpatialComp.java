@@ -4,7 +4,7 @@ import math.Vector2;
 import utils.Circle;
 import entityFramework.IComponent;
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -15,7 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @author Gustav
  */
 @XStreamAlias("Spatial")
-@EditableComponent
+@Editable
 public class SpatialComp implements IComponent {
 
 	@Editable

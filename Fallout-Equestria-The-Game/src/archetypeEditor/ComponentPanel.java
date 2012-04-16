@@ -112,7 +112,6 @@ public class ComponentPanel extends JPanel {
 	}
 
 	private void createFieldPanel(IComponent component, Field field) {
-		System.out.println(field.getName());	
 		Class type = field.getType();
 
 		if(type.isPrimitive() || type.equals(String.class)){
@@ -124,8 +123,8 @@ public class ComponentPanel extends JPanel {
 			this.scrollPanel.add(vPanel);
 		} else if(type.equals(Color.class)){
 			ColorPanel cPanel = new ColorPanel(field, component);
-			cPanel.setBounds(0, height, 500, 40);
-			height += 40;
+			cPanel.setBounds(0, height, 500, 60);
+			height += 60;
 			this.scrollPanel.add(cPanel);
 		} else if(type.equals(Circle.class)){
 			CirclePanel cPanel = new CirclePanel(field, component);
@@ -140,11 +139,13 @@ public class ComponentPanel extends JPanel {
 			aPanel.setBounds(0, height, 500, 55);
 			height += 50;
 			this.scrollPanel.add(aPanel);
+		} else if(Script.class.isAssignableFrom(type)) {
+			ScriptPanel sPanel = new ScriptPanel(field, component);
+			sPanel.setBounds(0,height, 500, 500);
+			height += 305;
+
+			this.scrollPanel.add(sPanel);
 		} else {
-			if(Script.class.isAssignableFrom(type)) {
-				
-			}
-			
 			return;
 		}
 

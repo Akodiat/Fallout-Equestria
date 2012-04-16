@@ -1,18 +1,22 @@
 package components;
 
+import anotations.Editable;
 import scripting.Script;
 import utils.GameTime;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 
+@Editable
 public class ScriptComp implements IComponent {
+	@Editable
 	private Script script;
 	
+	public ScriptComp() {
+		this((Script)null);
+	}
+	
 	public ScriptComp(Script script) {
-		if(script == null) {
-			throw new NullPointerException("script cannot by null!");
-		}
 		this.setScript(script);
 	}
 	

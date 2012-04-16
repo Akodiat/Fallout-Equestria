@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -12,7 +12,7 @@ import entityFramework.IComponent;
 import graphics.Animation;
 
 @XStreamAlias("Animation")
-@EditableComponent
+@Editable
 public class AnimationComp implements IComponent {
 
 	private Map<String, Animation> animations;

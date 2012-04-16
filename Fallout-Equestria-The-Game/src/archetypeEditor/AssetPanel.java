@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.openal.Audio;
 
 
@@ -36,6 +38,8 @@ public class AssetPanel extends JPanel {
 	 */
 	public AssetPanel(Field field, IComponent comp) {
 		setLayout(null);
+		this.field = field;
+		this.comp = comp;
 
 		JLabel lblAsset = new JLabel(field.getName());
 		lblAsset.setBounds(10, 8, 31, 14);
@@ -71,6 +75,7 @@ public class AssetPanel extends JPanel {
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					setText(chooser.getSelectedFile().getName());
 					absolutePath = chooser.getSelectedFile().getAbsolutePath();
+					setFieldValue(absolutePath);
 				}
 			}
 		}
@@ -159,20 +164,28 @@ public class AssetPanel extends JPanel {
 
 	private void setFieldValue(String fileName){
 		Object newFieldValue;
-		if(field.getType() == Texture2D.class){
-			newFieldValue = ContentManager.loadTexture(getText());
-		} else if(field.getType() == Audio.class){
-			int soundsIndex = absolutePath.lastIndexOf("sounds", absolutePath.length());
-			String filePath = absolutePath.substring(soundsIndex + "sounds".length() + 1);
-			newFieldValue = ContentManager.loadSound(filePath);
-		}else if(field.getType() == IEntityArchetype.class){
-			newFieldValue = ContentManager.loadArchetype(getText());
-		}else if(field.getType() == TextureFont.class){
-			newFieldValue = ContentManager.loadArchetype(getText());
-		}else{
-			throw new Error("CLASS NOT SUPPORTED BY ASSETPANEL");
+		try {
+			Display.create();
+			if(field.getType() == Texture2D.class){
+				newFieldValue = ContentManager.loadTexture(getText());
+			} else if(field.getType() == Audio.class){
+				int soundsIndex = absolutePath.lastIndexOf("sounds", absolutePath.length());
+				String filePath = absolutePath.substring(soundsIndex + "sounds".length() + 1);
+				newFieldValue = ContentManager.loadSound(filePath);
+			}else if(field.getType() == IEntityArchetype.class){
+				newFieldValue = ContentManager.loadArchetype(getText());
+			}else if(field.getType() == TextureFont.class){
+				newFieldValue = ContentManager.loadFont(getText());
+			}else{
+				Display.destroy();
+				throw new Error("CLASS NOT SUPPORTED BY ASSETPANEL");
+			} 
+		} catch (LWJGLException e1) {
+			e1.printStackTrace();
+			Display.destroy();
+			throw new Error();
 		}
-
+		Display.destroy();
 
 		try {
 			this.field.set(comp, newFieldValue);

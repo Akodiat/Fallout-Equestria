@@ -8,7 +8,7 @@ import math.Vector2;
 import utils.Circle;
 
 import anotations.Editable;
-import anotations.EditableComponent;
+import anotations.Editable;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -19,7 +19,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
 @XStreamAlias("Attack")
-@EditableComponent
+@Editable
 public class AttackComp implements IComponent {
 
 	@Editable
