@@ -39,7 +39,7 @@ public class MapDemo extends Demo{
 	}
 
 	protected void initialize() {
-		scene = ContentManager.load("BigMap.xml", Scene.class);
+		scene = ContentManager.load("SomeSortOfScene.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
@@ -68,7 +68,7 @@ public class MapDemo extends Demo{
 
 	@Override
 	public void update(GameTime time) {
-		this.gameWorld.update(time.DeltaTime);
+		this.gameWorld.update(time);
 		this.gameWorld.getEntityManager().destoryKilledEntities();
 		
 	}

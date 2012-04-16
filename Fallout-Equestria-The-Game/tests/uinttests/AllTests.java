@@ -6,8 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ CircleTests.class, InputTests.class, ScriptSystemTest.class,
-		TimerTests.class, Vector2Tests.class })
+@SuiteClasses({ CircleTests.class, InputTests.class, TimerTests.class, Vector2Tests.class })
 public class AllTests {
 
 }

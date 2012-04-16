@@ -5,14 +5,12 @@ import java.util.List;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
-import entitySystems.CharacterControllerSystem;
 import entitySystems.CollisionSystem;
 import entitySystems.HealthBarRenderSystem;
 import entitySystems.InputSystem;
 import entitySystems.PhysicsSystem;
 import entitySystems.RegenSystem;
 import entitySystems.RenderingSystem;
-import entitySystems.TelekinesisSystem;
 import graphics.Color;
 import graphics.SpriteBatch;
 
@@ -83,11 +81,9 @@ public class NetworkServerTest {
 	}
 	
 	public void initializeSystems(){
-		tester.addLogicSubSystem(new CharacterControllerSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
-		tester.addLogicSubSystem(new TelekinesisSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new AbilitySystem(this.tester.getWorld(), AbilityBuilder.build()));
 		
 	}

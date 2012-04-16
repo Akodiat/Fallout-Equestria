@@ -1,7 +1,6 @@
 package content.serilazation;
 
 import org.newdawn.slick.openal.Audio;
-import scripting.ILineScript;
 
 import graphics.ShaderEffect;
 import graphics.Texture2D;
@@ -20,8 +19,7 @@ public class ContentConverter implements Converter{
 	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
 		return (Texture2D.class.isAssignableFrom(clazz)) 		||
 			   (Audio.class.isAssignableFrom(clazz))     		||
-			   (ShaderEffect.class.isAssignableFrom(clazz))		||
-			   (ILineScript.class.isAssignableFrom(clazz));
+			   (ShaderEffect.class.isAssignableFrom(clazz));
 	}
 
 	@Override

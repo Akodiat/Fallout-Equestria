@@ -1,4 +1,5 @@
 package demos;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 

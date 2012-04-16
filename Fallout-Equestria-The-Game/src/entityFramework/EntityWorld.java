@@ -1,12 +1,14 @@
 package entityFramework;
 
+import utils.GameTime;
+
 import com.google.inject.Inject;
 
 public class EntityWorld implements IEntityWorld {
 	private final IEntityManager entityManager;
 	private final IEntitySystemManager systemManager;
 	private final IEntityDatabase database;
-	private float delta;
+	private GameTime gameTime;
 	
 	
 	@Inject
@@ -14,7 +16,6 @@ public class EntityWorld implements IEntityWorld {
 		this.entityManager = entityManager;
 		this.systemManager = systemManager;
 		this.database = database;
-		this.delta = 0f;
 	}
 
 	/* (non-Javadoc)
@@ -41,8 +42,8 @@ public class EntityWorld implements IEntityWorld {
 		return this.database;
 	}
 	
-	public float getDelta() {
-		return this.delta;
+	public GameTime getTime() {
+		return this.gameTime;
 	}
 	
 	@Override
@@ -57,8 +58,8 @@ public class EntityWorld implements IEntityWorld {
 	}
 
 	@Override
-	public void update(float delta) {
-		this.delta = delta;
+	public void update(GameTime time) {
+		this.gameTime = time;
 		this.systemManager.logic();
 	}
 }

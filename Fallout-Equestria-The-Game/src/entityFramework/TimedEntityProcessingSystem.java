@@ -24,7 +24,7 @@ public abstract class TimedEntityProcessingSystem extends EntitySystem {
 	}
 	
 	private boolean shouldProcess() {
-		this.elapsedTime += this.getWorld().getDelta();
+		this.elapsedTime += this.getWorld().getTime().DeltaTime;
 		if(this.elapsedTime >= this.delayTime) {
 			this.elapsedTime -= this.delayTime;
 			return true;

@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 public class PrimitiveTypePanel extends JPanel {
 	private JTextField textField;
 	private Parser parser;
-	private IComponent component;
+	private Object component;
 	private Field field;
 	
 	private String textValue;
@@ -24,7 +24,7 @@ public class PrimitiveTypePanel extends JPanel {
 	 * Create the panel.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public PrimitiveTypePanel(Field fieldType, IComponent component) {
+	public PrimitiveTypePanel(Field fieldType, Object component) {
 		setLayout(null);
 		this.field = fieldType;
 		parser = new Parser(fieldType.getType());

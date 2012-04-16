@@ -1,13 +1,15 @@
 package components;
 
-import scripting.IScript;
+import scripting.Script;
 import utils.GameTime;
 import entityFramework.IComponent;
+import entityFramework.IEntity;
+import entityFramework.IEntityManager;
 
 public class ScriptComp implements IComponent {
-	private IScript script;
+	private Script script;
 	
-	public ScriptComp(IScript script) {
+	public ScriptComp(Script script) {
 		if(script == null) {
 			throw new NullPointerException("script cannot by null!");
 		}
@@ -15,10 +17,11 @@ public class ScriptComp implements IComponent {
 	}
 	
 	public ScriptComp(ScriptComp other) {
-		this.setScript((IScript)other.clone());		
+		this.setScript(other.getScript().createNew());		
 	}
 	
-	public void startScript() {
+	public void startScript(IEntityManager entityManager, IEntity entity) {
+		script.initialize(entityManager, entity);
 		script.start();
 	}
 	
@@ -26,16 +29,21 @@ public class ScriptComp implements IComponent {
 		script.update(time);
 	}
 
-	public IScript getScript() {
+	public Script getScript() {
 		return script;
 	}
 
-	public void setScript(IScript script) {
+	public void setScript(Script script) {
 		this.script = script;
+	}
+
+	public boolean isInitialized() {
+		return script.isInitialized();
 	}
 
 	public Object clone() {
 		return new ScriptComp(this);
 	}
+
 	
 }

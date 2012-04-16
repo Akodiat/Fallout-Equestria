@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 
 import org.newdawn.slick.openal.Audio;
 
-import scripting.LineScript;
+import scripting.Script;
 import utils.Circle;
 
 import math.Vector2;
@@ -135,13 +135,16 @@ public class ComponentPanel extends JPanel {
 		} else if(type.equals(Texture2D.class)||
 				  type.equals(TextureFont.class)||
 				  type.equals(Audio.class)||
-				  type.equals(IEntityArchetype.class)||
-				  type.equals(LineScript.class)){
+				  type.equals(IEntityArchetype.class)){
 			AssetPanel aPanel = new AssetPanel(field, component);
 			aPanel.setBounds(0, height, 500, 55);
 			height += 50;
 			this.scrollPanel.add(aPanel);
-		}else {
+		} else {
+			if(Script.class.isAssignableFrom(type)) {
+				
+			}
+			
 			return;
 		}
 

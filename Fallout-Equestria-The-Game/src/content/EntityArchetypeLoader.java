@@ -26,7 +26,6 @@ public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
 		
 		xstream.processAnnotations(AbilityComp.class);
 		xstream.processAnnotations(AttackComp.class);
-		xstream.processAnnotations(BasicAIComp.class);
 		xstream.processAnnotations(DeathComp.class);
 		xstream.processAnnotations(HealthComp.class);
 		xstream.processAnnotations(InputComp.class);

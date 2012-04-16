@@ -14,8 +14,6 @@ import com.google.common.collect.HashBiMap;
 
 import entityFramework.IEntityArchetype;
 
-import scripting.ILineScript;
-
 import graphics.ShaderEffect;
 import graphics.Texture2D;
 import graphics.TextureFont;
@@ -33,7 +31,6 @@ public final class ContentManager {
 	
 	static {
 		addContentLoader(new TextureLoader());
-		addContentLoader(new ScriptLoader());
 		addContentLoader(new ShaderLoader());
 		addContentLoader(new SoundLoader());
 		addContentLoader(new TextureFontLoader());
@@ -128,16 +125,6 @@ public final class ContentManager {
 	 */
 	public static ShaderEffect loadShaderEffect(String path) {
 		return load(path, ShaderEffect.class);
-	}
-	
-	/**Loads a script from disc.
-	 * This is a convenience method it's the same thing as
-	 * calling load(path, ILineScript.class).
-	 * @param path the path of the script.
-	 * @return a ILineScript object.
-	 */
-	public static ILineScript loadScript(String path) {
-		return load(path, ILineScript.class);
 	}
 	
 	/**Loads a archetype from disc.

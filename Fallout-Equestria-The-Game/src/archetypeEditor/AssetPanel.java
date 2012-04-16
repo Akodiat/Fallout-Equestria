@@ -14,7 +14,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.newdawn.slick.openal.Audio;
 
-import scripting.LineScript;
 
 import content.ContentManager;
 
@@ -48,8 +47,6 @@ public class AssetPanel extends JPanel {
 			fileEnding = "ogg";
 		}else if(field.getType() == IEntityArchetype.class){
 			fileEnding = "archetype";
-		}else if(field.getType() == LineScript.class){
-			fileEnding = "script";
 		}else if(field.getType() == TextureFont.class){
 			fileEnding = "xml";
 		}else{
@@ -170,8 +167,6 @@ public class AssetPanel extends JPanel {
 			newFieldValue = ContentManager.loadSound(filePath);
 		}else if(field.getType() == IEntityArchetype.class){
 			newFieldValue = ContentManager.loadArchetype(getText());
-		}else if(field.getType() == LineScript.class){
-			newFieldValue = ContentManager.loadScript(getText());
 		}else if(field.getType() == TextureFont.class){
 			newFieldValue = ContentManager.loadArchetype(getText());
 		}else{

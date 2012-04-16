@@ -26,13 +26,13 @@ public class CirclePanel extends JPanel {
 	private float x;
 	private float y;
 	private float radius;
-	private IComponent component;
+	private Object component;
 	private Field field;
 
 	/**
 	 * Create the panel.
 	 */
-	public CirclePanel(Field field, IComponent component) {
+	public CirclePanel(Field field, Object component) {
 		setLayout(null);
 
 		JLabel lblCircle = new JLabel(field.getName());

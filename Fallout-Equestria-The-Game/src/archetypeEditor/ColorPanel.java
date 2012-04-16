@@ -25,13 +25,13 @@ public class ColorPanel extends JPanel {
 	private Float b;
 	private Float a;
 
-	private IComponent component;
+	private Object component;
 	private Field field;
 
 	/**
 	 * Create the panel.
 	 */
-	public ColorPanel(Field field, IComponent component) {
+	public ColorPanel(Field field, Object component) {
 		setLayout(null);
 
 		r = 0f; g = 0f; b = 0f; a = 0f;

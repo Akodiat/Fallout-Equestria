@@ -1,5 +1,8 @@
 package tests;
 
+import utils.Clock;
+import utils.GameTime;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -10,10 +13,12 @@ public class SystemTester {
 	
 	private IEntityWorld world;
 	private boolean startedTesting;
+	private Clock clock;
 	
 	public SystemTester() {
 		Injector injector = Guice.createInjector(new EntityModule());
 		world = injector.getInstance(IEntityWorld.class);
+		this.clock = new Clock();
 	}
 	
 	public void addRenderSubSystem(IEntitySystem system) {
@@ -35,7 +40,9 @@ public class SystemTester {
 	
 	public void updateWorld(float deltha) {
 		if(this.startedTesting) {
-			world.update(deltha);
+			this.clock.update();
+			GameTime time = this.clock.getGameTime();
+			world.update(time);
 		}
 	}
 	

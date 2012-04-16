@@ -12,6 +12,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import components.InputComp;
+import components.ScriptComp;
 import components.TransformationComp;
 import components.WeaponComp;
 
@@ -26,6 +27,7 @@ import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
 import entityFramework.IEntityWorld;
+import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.Clock;
 import utils.GameTime;
@@ -81,6 +83,7 @@ public class AbilityTests {
 	private void initializePlayer(IEntityManager entityManager) {
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = entityManager.createEntity(archetype);
+		entity.addComponent(new ScriptComp(new PlayerScript()));
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
 		
@@ -91,8 +94,8 @@ public class AbilityTests {
 		WeaponComp weapon = entity.getComponent(WeaponComp.class);
 		weapon.setPrimaryAbility(new AbilityInfo(Abilities.None));
 		
-		IEntity entity2 = entityManager.createEntity(ContentManager.loadArchetype("BasicAI.archetype"));
-		entity2.removeComponent(InputComp.class);
+		//IEntity entity2 = entityManager.createEntity(ContentManager.loadArchetype("BasicAI.archetype"));
+		//entity2.removeComponent(InputComp.class);
 	}
 	
 	private void initializeEntitysystems(IEntitySystemManager systemManager) {
@@ -103,12 +106,12 @@ public class AbilityTests {
 		systemManager.addLogicEntitySystem(new AttackResolveSystem(world));
 		systemManager.addLogicEntitySystem(new CameraControlSystem(world, camera));
 		systemManager.addLogicEntitySystem(new CollisionSystem(world));
-		systemManager.addLogicEntitySystem(new CharacterControllerSystem(world));
 		systemManager.addLogicEntitySystem(new DeathSystem(world));
 		systemManager.addLogicEntitySystem(new ExistanceSystem(world));
 		systemManager.addLogicEntitySystem(new InputSystem(world, camera));
 		systemManager.addLogicEntitySystem(new MapCollisionSystem(world, worldBounds));
 		systemManager.addLogicEntitySystem(new PhysicsSystem(world));
+		systemManager.addLogicEntitySystem(new ScriptSystem(world));
 		
 		//Debug logic systems!
 		systemManager.addLogicEntitySystem(new AbilityDebugLogicSystem(world, "Player"));
@@ -129,7 +132,7 @@ public class AbilityTests {
 	private void update() {
 		this.clock.update();
 		GameTime time = this.clock.getGameTime();
-		this.world.update(time.DeltaTime);		
+		this.world.update(time);		
 	}
 
 	private void draw() {
