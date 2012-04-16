@@ -93,8 +93,8 @@ public class SceneLoaderTests {
 	
 		assertNotSame(textureA, textureB);
 		
-		Rectangle sorceRectA = tiles[1][1].getSorceRect();
-		Rectangle sorceRectB = tiles[0][1].getSorceRect();
+		Rectangle sorceRectA = tiles[1][1].getSourceRect();
+		Rectangle sorceRectB = tiles[0][1].getSourceRect();
 		
 		assertNotSame(sorceRectA, sorceRectB);	
 	}

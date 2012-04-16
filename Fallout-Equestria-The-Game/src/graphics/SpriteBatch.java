@@ -135,7 +135,36 @@ public class SpriteBatch {
 
 	private void initializeShaders() {
 		//Load a shader.
-		basicEffect = ContentManager.loadShaderEffect("SpriteEffect.effect");
+		basicEffect = this.createBasicEffect();
+	}
+
+	/**This is a hack. 
+	 * 
+	 * @return
+	 */
+	private ShaderEffect createBasicEffect() {
+		String vertexShaderSource    = "#version 330 core \n layout(location = 0) in vec2 position; layout(location = 1) in vec2 textureCoord; layout(location = 2) in vec4 color; uniform mat4 projection; uniform mat4 view; uniform vec2 viewport; out vec2 _textureCoord; out vec4 _color; void main() { vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f); realPos =  view  * realPos; realPos.xy -= viewport.xy / 2;  gl_Position = projection * realPos; _textureCoord.xy = textureCoord.xy; _color = color;}";
+		String fragmentShaderSource  ="#version 330 core \n uniform sampler2D colorTexture; in vec2 _textureCoord; in vec4 _color; out vec4 outputColor; void main() {outputColor = texture(colorTexture, _textureCoord) * _color;}";
+		
+		int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexShader, vertexShaderSource);
+		glCompileShader(vertexShader);
+		
+		int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragmentShader, fragmentShaderSource);
+		glCompileShader(fragmentShader);
+		
+		int program = glCreateProgram();
+		glAttachShader(program, vertexShader);
+		glAttachShader(program, fragmentShader);
+		
+		glLinkProgram(program);
+		glValidateProgram(program);
+		
+		glDetachShader(program, vertexShader);
+		glDetachShader(program, fragmentShader);
+		
+		return new ShaderEffect(program);
 	}
 
 	private void setupUniforms() {
@@ -266,12 +295,24 @@ public class SpriteBatch {
 	 */
 	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle) {
 		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
-		Vector2 scale = new Vector2((float)destRectangle.Width / texture.Width, 
-									(float)destRectangle.Height / texture.Height);
 		
+		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
+				
 		this.internalDraw(texture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false);
 	}
 	
+	private Vector2 GetRectangleScale(Texture2D texture,
+			Rectangle destRectangle, Rectangle sorceRectangle) {
+		if(sorceRectangle != null) {
+			return new Vector2((float)destRectangle.Width / sorceRectangle.Width, 
+					(float)destRectangle.Height / sorceRectangle.Height);
+		} else {
+			return new Vector2((float)destRectangle.Width / texture.Width,
+							   (float)destRectangle.Height / texture.Height);
+		}
+		
+	}
+
 	/**Adds a sprite to the batch with the specified arguments.
 	 * 
 	 * @param texture the texture.
@@ -285,8 +326,7 @@ public class SpriteBatch {
 	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle, Vector2 origin,
 					 float rotation, boolean mirror) {
 		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
-		Vector2 scale = new Vector2(texture.Width / destRectangle.Width, 
-									texture.Height / destRectangle.Height);
+		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
 		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror);
 	}
 	
@@ -372,7 +412,6 @@ public class SpriteBatch {
 		this.internalDrawString(font, text, position, color, origin, scale, rotation, mirror);	
 	}
 	
-	
 	private void internalDrawString(TextureFont font, String text,
 			Vector2 destination, Color color, Vector2 origin, Vector2 scale, float rotation,
 			boolean mirror) {
@@ -388,11 +427,11 @@ public class SpriteBatch {
 		for (int i = 0; i < text.length(); i++) {
 			char c = text.charAt(i);
 			if(c == '\n') {
-				distY += font.getLineSpacing();
+				distY += font.getLineSpacing() * scale.Y;
 				dist = 0;
 				continue;
 			}
-			Vector2 rorig = origin;
+			Vector2 rorig = new Vector2(origin.X * scale.X, origin.Y * scale.Y);
 			Rectangle srcRect = font.getCharacterSourceRect(c);
 			
 
@@ -401,7 +440,7 @@ public class SpriteBatch {
 			
 			if(mirror) {
 				rx = textDim.X - x + destination.X;
-				rorig = new Vector2((origin.X + srcRect.Width), origin.Y);
+				rorig = new Vector2((origin.X * scale.X + srcRect.Width), origin.Y * scale.Y);
 			}
 			else {
 				rx = x + destination.X;

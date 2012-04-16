@@ -48,7 +48,7 @@ public class BasicAISystem extends EntitySingleProcessingSystem{
 		}
 
 		Vector2 targetDirection = Vector2.norm(Vector2.subtract(AIComp.getTarget(), transComp.getPosition()));
-		physComp.setVelocity(Vector2.rotate(targetDirection, (float) Math.random()*MathHelper.Pi-MathHelper.Pi/2));//((float) Math.random()*MathHelper.TwoPi-MathHelper.Pi)));
+		physComp.setVelocity(Vector2.rotate(targetDirection, (float) Math.random()*MathHelper.TauOver2 - MathHelper.TauOver4));//((float) Math.random()*MathHelper.TwoPi-MathHelper.Pi)));
 		//physComp.setVelocity(targetDirection);
 //TODO MAKE WORK
 		//WeaponComp weapComp = entity.getComponent(WeaponComp.class);		

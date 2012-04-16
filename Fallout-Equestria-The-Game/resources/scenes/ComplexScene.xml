@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TileMap>
   <Dimention>56|32</Dimention>
-  <BlockSize>32</BlockSize>
+  <BlockSize>64</BlockSize>
   <Textures>Mar04post.png|UI.png</Textures>
   <TileLayer DrawOrder="0">
     <Tiles>

@@ -43,7 +43,7 @@ public class CircleProjectileAbility extends AbstractAbilityProcessor{
 			AttackComp aComp = new AttackComp(entity, new Circle(Vector2.Zero, radius),
 											  standardDMG * specialComp.getStrength(), 
 											  true);
-			float angle = (MathHelper.TwoPi * i) / numBullets;
+			float angle = (MathHelper.Tau * i) / numBullets;
 			Vector2 dir = new Vector2((float)Math.cos(angle),
 									  (float)Math.sin(angle));
 			

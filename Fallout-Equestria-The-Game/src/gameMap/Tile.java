@@ -5,7 +5,7 @@ import graphics.Texture2D;
 
 public class Tile {
 	private final Texture2D texture;
-	private final Rectangle sorceRect;
+	private final Rectangle sourceRect;
 	private final float alpha;
 	
 	public Tile(Texture2D texture, Rectangle sorceRect) {
@@ -18,12 +18,12 @@ public class Tile {
 	 * @param alpha
 	 */
 	public Tile(Tile tile, float alpha) {
-		this(tile.texture, tile.sorceRect, alpha);
+		this(tile.texture, tile.sourceRect, alpha);
 	}
 	
-	public Tile(Texture2D texture, Rectangle sorceRect, float alpha){
+	public Tile(Texture2D texture, Rectangle sourceRect, float alpha){
 		this.texture=texture;
-		this.sorceRect = sorceRect;
+		this.sourceRect = sourceRect;
 		this.alpha = alpha;
 	}
 	
@@ -35,8 +35,8 @@ public class Tile {
 		return this.texture;
 	}
 
-	public Rectangle getSorceRect() {
-		return this.sorceRect;
+	public Rectangle getSourceRect() {
+		return this.sourceRect;
 	}
 	
 	public float getAlpha() {

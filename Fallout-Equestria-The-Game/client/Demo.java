@@ -25,6 +25,7 @@ public abstract class Demo {
 	public void start() {
 
 			try {
+				Display.setVSyncEnabled(true);
 				Display.setDisplayMode(new DisplayMode(screenDim.Width, screenDim.Height));
 				Display.create();
 				this.initialize();
