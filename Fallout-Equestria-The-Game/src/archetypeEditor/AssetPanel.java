@@ -56,8 +56,11 @@ public class AssetPanel extends JPanel {
 		}else{
 			throw new Error("CLASS NOT SUPPORTED BY ASSETPANEL");
 		}
-
-		textField = new JTextField();
+		
+		String textFieldText = this.getTextFieldText();
+		
+		
+		textField = new JTextField(textFieldText);
 		textField.setBounds(51, 5, 147, 20);
 		add(textField);
 		textField.setColumns(10);
@@ -148,6 +151,16 @@ public class AssetPanel extends JPanel {
 
 
 
+	}
+	
+	private String getTextFieldText() {
+		try {
+			Object obj = field.get(this.comp);
+			String str = ContentManager.getContentName(obj);
+			return str;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public void setText(String text){

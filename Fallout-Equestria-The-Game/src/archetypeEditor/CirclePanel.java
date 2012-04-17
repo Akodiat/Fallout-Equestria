@@ -23,9 +23,14 @@ public class CirclePanel extends JPanel {
 	private JTextField radiusField;
 	private JTextField xField;
 	private JTextField yField;
-	private float x;
-	private float y;
-	private float radius;
+	private mFloat x = new mFloat();
+	private mFloat y = new mFloat();;
+	private mFloat radius= new mFloat();
+	
+	private class mFloat {
+		public float f = 0;
+	}
+	
 	private Object component;
 	private Field field;
 
@@ -102,19 +107,19 @@ public class CirclePanel extends JPanel {
 
 	}
 	
-	private void textChanged(Float toChange, JTextField textField){
+	private void textChanged(mFloat toChange, JTextField textField){
 		try{
 			float newValue = Float.parseFloat(textField.getText());
 			textField.setText("" + newValue);
-			toChange = newValue;
+			toChange.f = newValue;
 			setCompValue();
 		}catch(Exception ex){
-			textField.setText("" + toChange);
+			textField.setText("" + toChange.f);
 		}
 	}
 
 	private void setCompValue(){
-		Object newValue = new Circle(new Vector2(x, y), radius);
+		Object newValue = new Circle(new Vector2(x.f, y.f), radius.f);
 		try {
 			this.field.set(component, newValue);
 		} catch (IllegalArgumentException e) {
