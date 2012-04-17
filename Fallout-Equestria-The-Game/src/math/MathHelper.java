@@ -87,4 +87,8 @@ public class MathHelper {
 	public static float sin(double angle) {
 		return (float)Math.sin(angle);
 	}
+
+	public static float lerp(float rotation, float rotation2, float t) {
+		return rotation + (rotation2 - rotation) * t;
+	}
 }

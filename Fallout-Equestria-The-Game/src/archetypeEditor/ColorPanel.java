@@ -23,6 +23,7 @@ public class ColorPanel extends JPanel {
 	 */
 	public ColorPanel(Field field,Object containingObject) {
 		setLayout(null);
+
 		this.containingObject = containingObject;
 		this.field = field;
 		
@@ -50,6 +51,7 @@ public class ColorPanel extends JPanel {
 		btnSelectColor.setBounds(295, 27, 106, 23);
 		add(btnSelectColor);
 	}
+
 
 	protected void pickNewColor() {
 		Color color = JColorChooser.showDialog(this, "Select a color", this.colorLabel.getBackground());

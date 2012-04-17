@@ -54,6 +54,16 @@ public final class Vector2 {
 		return new Vector2(scalar * vector.X, scalar * vector.Y);
 	}
 	
+	/**Multiplies a vector by another vector.
+	 * (X1*X2,Y1*Y2)
+	 * @param scalar the scalar.
+	 * @param vector the vector.
+	 * @return the multiplication result.
+	 */
+	public static Vector2 mul(Vector2 vector1, Vector2 vector2) {
+		return new Vector2(vector1.X * vector2.X, vector1.Y * vector2.Y);
+	}
+	
 	/**Calculates the dot product( scalar product) of 2 vectors.
 	 * 
 	 * @param vector0 the first vector.
@@ -149,6 +159,31 @@ public final class Vector2 {
 		return new Vector2((float) (v.X*Math.cos(rotation) + v.Y*-1*Math.sin(rotation)),
 				(float) (v.X*Math.sin(rotation) + v.Y*Math.cos(rotation)));
 	}
+	/**
+	 * Linear interpolation. Finds and returns a point on the straight 
+	 * line between the two points described by the vectors parameters.
+	 * If the float parameter does not describe a value (X) between
+	 * the x-values of the vectors, (0,0) is returned.
+	 * @param v1 
+	 * @param v3
+	 * @param x2 A point between the two points
+	 * @return
+	 */
+	public static Vector2 lerp(Vector2 v1, Vector2 v3, float x2) {
+		 
+        // Ensure the xValue is between the two vectors
+        if (!(v1.X < x2) || !(x2 < v3.X))
+            return Vector2.Zero;
+ 
+        // Get slope
+        float m = ((v3.X - v1.X) / (v1.Y - v3.Y));
+        System.out.println("Slope is " + m);
+ 
+        // Determine Y value
+        float y2 = ((x2 - v1.X) * (v3.Y - v1.Y) / (v3.X - v1.X)) + v1.Y;
+ 
+        return new Vector2(x2, y2);
+    }
 	
 	/**
 	 * A vector with both elements set to Zero.
@@ -159,6 +194,16 @@ public final class Vector2 {
 	 * A vector with both elements set to One.
 	 */
 	public final static Vector2 One = new Vector2(1.0f,1.0f);
+	
+	/**
+	 *The unit vector for the X-dimension.
+	 */
+	public final static Vector2 UnitX = new Vector2(1.0f,0f);
+	
+	/**
+	 * The unit vector for the Y-dimension.
+	 */
+	public final static Vector2 UnitY = new Vector2(0f,1.0f);
 	
 	
 	public boolean equals(Object other) {
@@ -172,4 +217,5 @@ public final class Vector2 {
 	public String toString() {
 		return  this.X + "," + this.Y ;
 	}
+
 }
