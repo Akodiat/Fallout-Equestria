@@ -4,6 +4,7 @@ import org.newdawn.slick.openal.Audio;
 
 import graphics.ShaderEffect;
 import graphics.Texture2D;
+import graphics.TextureFont;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -19,7 +20,8 @@ public class ContentConverter implements Converter{
 	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
 		return (Texture2D.class.isAssignableFrom(clazz)) 		||
 			   (Audio.class.isAssignableFrom(clazz))     		||
-			   (ShaderEffect.class.isAssignableFrom(clazz));
+			   (ShaderEffect.class.isAssignableFrom(clazz))		||
+			   (TextureFont.class.isAssignableFrom(clazz));
 	}
 
 	@Override

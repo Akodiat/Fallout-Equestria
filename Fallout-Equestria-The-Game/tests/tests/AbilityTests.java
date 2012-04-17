@@ -109,7 +109,6 @@ public class AbilityTests {
 		systemManager.addLogicEntitySystem(new DeathSystem(world));
 		systemManager.addLogicEntitySystem(new ExistanceSystem(world));
 		systemManager.addLogicEntitySystem(new InputSystem(world, camera));
-		systemManager.addLogicEntitySystem(new MapCollisionSystem(world, worldBounds));
 		systemManager.addLogicEntitySystem(new PhysicsSystem(world));
 		systemManager.addLogicEntitySystem(new ScriptSystem(world));
 		

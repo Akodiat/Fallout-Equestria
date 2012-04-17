@@ -38,6 +38,7 @@ public class TextRenderingComp implements IComponent {
 	public TextRenderingComp(TextRenderingComp textRenderingComp) {
 		this.text = textRenderingComp.text;
 		this.font = textRenderingComp.font;
+		this.color = textRenderingComp.color;
 	}
 
 	public Object clone() {

@@ -61,14 +61,13 @@ public class ArchetypePanel extends JPanel {
 
 		componentsListModel.clear();
 		componentMap.clear();
+		compMap.clear();
 		List<IComponent> componentList = entityArch.getComponents().asList();
-		for (IComponent component : componentList) {
-			componentsListModel.addElement(component.getClass().getSimpleName());
-			compMap.put(component.getClass().getSimpleName(), component);
-			
+		for (IComponent component : componentList) {			
 			String name = component.getClass().getSimpleName();
 			componentsListModel.addElement(name);
 			componentMap.put(name, component);
+			compMap.put(component.getClass().getSimpleName(), component);
 		}
 		
 		ImmutableList<String> groupList = entityArch.getGroups().asList();

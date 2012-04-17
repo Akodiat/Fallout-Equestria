@@ -207,7 +207,7 @@ public final class Vector2 {
 	
 	
 	public boolean equals(Object other) {
-		if(super.equals(other) && other.getClass().equals(Vector2.class)) {
+		if(other.getClass().equals(Vector2.class)) {
 			Vector2 otherVector2 = (Vector2)other;
 			return this.X == otherVector2.X && this.Y == otherVector2.Y;
 		}

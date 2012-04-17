@@ -79,7 +79,7 @@
       <Spatial>
         <bounds>
           <position reference="../../../Physics/velocity"/>
-          <radius>0.0</radius>
+          <radius>70.0</radius>
         </bounds>
       </Spatial>
     </elements>

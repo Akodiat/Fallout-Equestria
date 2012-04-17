@@ -8,6 +8,7 @@ import debugsystems.AbilityDebugLogicSystem;
 import debugsystems.AbilityDebugRenderSystem;
 import debugsystems.DebugAttackRenderSystem;
 import debugsystems.DebugSpatialRenderSystem;
+import debugsystems.DebuggMapCollisionGrid;
 import entityFramework.EntityWorld;
 import entityFramework.IEntityDatabase;
 import entityFramework.IEntityManager;
@@ -52,7 +53,7 @@ public class GameWorld extends EntityWorld {
 		manager.addLogicEntitySystem(new DeathSystem(this));
 		manager.addLogicEntitySystem(new ExistanceSystem(this));
 		manager.addLogicEntitySystem(new InputSystem(this, camera));
-		manager.addLogicEntitySystem(new MapCollisionSystem(this, camera.getWorldBounds()));
+		manager.addLogicEntitySystem(new MapCollisionSystem(this, this.scene));
 		manager.addLogicEntitySystem(new PhysicsSystem(this));
 		manager.addLogicEntitySystem(new ScriptSystem(this));
 		
@@ -68,6 +69,7 @@ public class GameWorld extends EntityWorld {
 		
 		//Debugg systems!
 		manager.addRenderEntitySystem(new DebugAttackRenderSystem(this, spriteBatch));
+		manager.addRenderEntitySystem(new DebuggMapCollisionGrid(this, scene, spriteBatch,camera));
 		manager.addRenderEntitySystem(new DebugSpatialRenderSystem(this, spriteBatch));
 				
 	}

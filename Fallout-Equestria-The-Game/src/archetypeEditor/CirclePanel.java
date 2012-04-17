@@ -107,6 +107,19 @@ public class CirclePanel extends JPanel {
 
 	}
 	
+	private void initCircle() {
+		try {
+			Circle c = (Circle)this.field.get(component);
+			if(c != null) {
+				this.x.f = c.getPosition().X;
+				this.y.f = c.getPosition().Y;
+				this.radius.f = c.getRadius();
+			}	
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void textChanged(mFloat toChange, JTextField textField){
 		try{
 			float newValue = Float.parseFloat(textField.getText());

@@ -33,7 +33,9 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 		TransformationComp posComp = transCM.getComponent(entity);
 		PhysicsComp physComp = physCM.getComponent(entity);
 
-		posComp.setPosition(Vector2.add(posComp.getPosition(), physComp.getVelocity()));
+		Vector2 displacement = Vector2.mul(this.getWorld().getTime().DeltaTime, physComp.getVelocity());
+		
+		posComp.setPosition(Vector2.add(posComp.getPosition(), displacement));
 		posComp.setRotation(posComp.getRotation() + physComp.getTorque());
 
 	}
