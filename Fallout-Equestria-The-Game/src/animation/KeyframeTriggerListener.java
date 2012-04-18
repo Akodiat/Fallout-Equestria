@@ -2,6 +2,5 @@ package animation;
 
 public interface KeyframeTriggerListener {
 	
-	public void OnTrigger(Key)
-
+	public void OnTrigger(Object sende, KeyframeTriggerEventArgs e);
 }

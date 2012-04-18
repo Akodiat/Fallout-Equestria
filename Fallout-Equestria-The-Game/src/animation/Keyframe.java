@@ -7,8 +7,7 @@ public class Keyframe {
 	private int frameNumber;
 	private List<Bone> bones;
 	private String trigger;
-	private boolean flipVertically;
-	private boolean flipHorizontally;
+	private boolean mirrored;
 
 	//TODO JAVA HOW DO
 	//[Microsoft.Xna.Framework.Content.ContentSerializerIgnore]
@@ -66,20 +65,12 @@ public class Keyframe {
 		this.trigger = trigger;
 	}
 
-	public boolean isFlipVertically() {
-		return flipVertically;
-	}
-
-	public void setFlipVertically(boolean flipVertically) {
-		this.flipVertically = flipVertically;
-	}
-
-	public boolean isFlipHorizontally() {
-		return flipHorizontally;
+	public boolean isMirrored() {
+		return mirrored;
 	}
 
 	public void setFlipHorizontally(boolean flipHorizontally) {
-		this.flipHorizontally = flipHorizontally;
+		this.mirrored = flipHorizontally;
 	}
 
 	public float getFrameTime() {
@@ -92,12 +83,6 @@ public class Keyframe {
 
 	public List<Bone> getUpdateOrderBones() {
 		return updateOrderBones;
-	}
-
-	public void setUpdateOrderBones(List<Bone> updateOrderBones) {
-		this.updateOrderBones = updateOrderBones;
-	}
-
-	
+	}	
 	
 }

@@ -3,18 +3,19 @@ package animation;
 import graphics.Color;
 import graphics.SpriteBatch;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Set;
 
 import math.Vector2;
 
 import utils.GameTime;
 
 import com.google.common.collect.HashBasedTable;
-
-
-//TODO LLOLOLOLOLOL public delegate void KeyframeTriggerEventHandler(object sender, KeyframeTriggerEventArgs e);
 
 public class AnimationPlayer
 {
@@ -34,6 +35,9 @@ public class AnimationPlayer
 
 	private Dictionary<String, Animation> animations = new Hashtable<String, Animation>();
 	
+	private Set<KeyframeTriggerListener> listeners = new HashSet<KeyframeTriggerListener>();
+	private KeyframeTriggerEventArgs eventArgs = new KeyframeTriggerEventArgs();
+	
 	public AnimationPlayer()
 	{
 		this.playSpeedMultiplier = 1.0f;
@@ -48,6 +52,10 @@ public class AnimationPlayer
 			boneTransformations = new BoneTransformation[animation.getKeyframes().get(0).getBones().size()];
 			transitionStates = new BoneTransitionState[animation.getKeyframes().get(0).getBones().size()];
 		}
+	}
+	
+	public void AddListener(KeyframeTriggerListener listenerToAdd){
+		listeners.add(listenerToAdd);
 	}
 
 	public void StartAnimation(String animation)
