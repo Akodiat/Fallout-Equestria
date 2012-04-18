@@ -21,7 +21,6 @@ public class Bone {
 	public Bone(String name, boolean hidden, int parentIndex, int textureIndex,
 			int selfIndex, int updateIndex, Vector2 position, float rotation,
 			Vector2 scale, boolean mirrored) {
-		super();
 		this.name = name;
 		this.hidden = hidden;
 		this.parentIndex = parentIndex;
@@ -32,6 +31,9 @@ public class Bone {
 		this.rotation = rotation;
 		this.scale = scale;
 		this.mirrored = mirrored;
+	}
+	
+	public Bone() {
 	}
 	
 	public String getName() {

@@ -69,8 +69,8 @@ public class Keyframe {
 		return mirrored;
 	}
 
-	public void setFlipHorizontally(boolean flipHorizontally) {
-		this.mirrored = flipHorizontally;
+	public void setMirrored(boolean mirrored) {
+		this.mirrored = mirrored;
 	}
 
 	public float getFrameTime() {
