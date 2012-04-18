@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>DOUBLEPACK.png</TexturePath>
+  <Texture name="manlyman">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>400</Width>
+    <Height>897</Height>
+    <OriginX>200</OriginX>
+    <OriginY>448</OriginY>
+  </Texture>
+  <Texture name="manlymanarm">
+    <X>402</X>
+    <Y>0</Y>
+    <Width>101</Width>
+    <Height>234</Height>
+    <OriginX>50</OriginX>
+    <OriginY>59</OriginY>
+  </Texture>
+</TextureDictionary>

@@ -1,13 +1,14 @@
 package animation;
 
-import java.util.Dictionary;
+
+import java.util.Map;
 
 import graphics.Texture2D;
 
 public class TextureDictionary {
 	private String version;
 	private Texture2D texture;
-	private Dictionary<String, TextureBounds> textureCollection;
+	private Map<String, TextureBounds> textureCollection;
 
 	public String getVersion() {
 		return version;
@@ -26,12 +27,12 @@ public class TextureDictionary {
 		return textureCollection.get(id);
 	}
 	
-	public Dictionary<String, TextureBounds> getTextureCollection() {
+	public Map<String, TextureBounds> getTextureCollection() {
 		return textureCollection;
 	}
 
 	public void setTextureCollection(
-			Dictionary<String, TextureBounds> textureCollection) {
+			Map<String, TextureBounds> textureCollection) {
 		this.textureCollection = textureCollection;
 	}
 }

@@ -1,6 +1,7 @@
 package content;
 
 import graphics.Texture2D;
+import static content.XMLAnimHelper.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -38,16 +39,18 @@ public class AnimationLoader implements IContentLoader<Animation>{
 	private Animation extractAnimation(Element rootNode) {
 		int frameRate = extractInt(rootNode.getChild("FrameRate"));
 		int loopFrame = extractInt(rootNode.getChild("LoopFrame"));
-	    
+	    boolean loop = loopFrame != -1;
 		
-		List<TextureEntry> textures = extractTextures(rootNode);
+
 		List<Keyframe> keyframes = exctractKeyframes(rootNode);
+		List<TextureEntry> textures = extractTextures(rootNode);
 		
 		Animation anim = new Animation();
 		anim.setFrameRate(frameRate);
 		anim.setLoopFrame(loopFrame);
 		anim.setTextures(textures);
 		anim.setKeyframes(keyframes);
+		anim.setLoop(loop);
 		
 		return anim;
 	}
@@ -101,8 +104,12 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		keyframe.setBones(bones);
 		keyframe.setFrameNumber(frameNumber);
 		keyframe.setTrigger(triggerString);
+<<<<<<< HEAD
 		keyframe.setMirrored(mirror);
 		
+=======
+		keyframe.setFlipHorizontally(mirror);
+>>>>>>> Fixed and tested animations
 		return keyframe;
 	}
 
@@ -142,26 +149,6 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		return bone; 
 	}
 
-	private Vector2 extractVector2(Element element) {
-		float x,y;
-		x = extractFloat(element.getChild("X"));
-		y = extractFloat(element.getChild("Y"));
-		
-		return new Vector2(x,y);
-	}
-
-	private float extractFloat(Element element) {
-		return Float.parseFloat(element.getValue());
-	}
-	
-	private int extractInt(Element element) {
-		return Integer.parseInt(element.getValue());
-	}
-	
-	private boolean extractBool(Element element) {
-		return Boolean.parseBoolean(element.getValue());
-	}
-	
 	
 
 	@Override

@@ -36,6 +36,9 @@ public final class ContentManager {
 		addContentLoader(new TextureFontLoader());
 		addContentLoader(new EntityArchetypeLoader());
 		addContentLoader(new SceneLoader());
+		addContentLoader(new AnimationLoader());
+		addContentLoader(new TextureDictionaryLoader());
+		
 		//TODO add more if needed!. 
 	}
 	
