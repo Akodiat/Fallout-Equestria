@@ -16,8 +16,23 @@ public class Bone {
 	private Vector2 position;
 	private float rotation;
 	private Vector2 scale;
-	private boolean textureFlipHorizontal;
-	private boolean textureFlipVertical;
+	private boolean mirrored;
+	
+	public Bone(String name, boolean hidden, int parentIndex, int textureIndex,
+			int selfIndex, int updateIndex, Vector2 position, float rotation,
+			Vector2 scale, boolean mirrored) {
+		super();
+		this.name = name;
+		this.hidden = hidden;
+		this.parentIndex = parentIndex;
+		this.textureIndex = textureIndex;
+		this.selfIndex = selfIndex;
+		this.updateIndex = updateIndex;
+		this.position = position;
+		this.rotation = rotation;
+		this.scale = scale;
+		this.mirrored = mirrored;
+	}
 	
 	public String getName() {
 		return name;
@@ -73,16 +88,10 @@ public class Bone {
 	public void setScale(Vector2 scale) {
 		this.scale = scale;
 	}
-	public boolean isTextureFlipHorizontal() {
-		return textureFlipHorizontal;
+	public boolean isMirrored() {
+		return mirrored;
 	}
-	public void setTextureFlipHorizontal(boolean textureFlipHorizontal) {
-		this.textureFlipHorizontal = textureFlipHorizontal;
-	}
-	public boolean isTextureFlipVertical() {
-		return textureFlipVertical;
-	}
-	public void setTextureFlipVertical(boolean textureFlipVertical) {
-		this.textureFlipVertical = textureFlipVertical;
+	public void setMirrored(boolean textureFlipHorizontal) {
+		this.mirrored = textureFlipHorizontal;
 	}
 }

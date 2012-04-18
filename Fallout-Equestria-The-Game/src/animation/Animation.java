@@ -131,5 +131,61 @@ public class Animation {
 	}
 
 
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public int getFrameRate() {
+		return frameRate;
+	}
+
+	public void setFrameRate(int frameRate) {
+		this.frameRate = frameRate;
+	}
+
+	public boolean isLoop() {
+		return loop;
+	}
+
+	public void setLoop(boolean loop) {
+		this.loop = loop;
+	}
+
+	public int getLoopFrame() {
+		return loopFrame;
+	}
+
+	public void setLoopFrame(int loopFrame) {
+		this.loopFrame = loopFrame;
+	}
+
+	public float getLoopTime() {
+		return loopTime;
+	}
+
+	public void setLoopTime(float loopTime) {
+		this.loopTime = loopTime;
+	}
+
+	public List<TextureEntry> getTextures() {
+		return textures;
+	}
+
+	public void setTextures(List<TextureEntry> textures) {
+		this.textures = textures;
+	}
+
+	public List<Keyframe> getKeyframes() {
+		return keyframes;
+	}
+
+	public void setKeyframes(List<Keyframe> keyframes) {
+		this.keyframes = keyframes;
+	}
+
 
 }
