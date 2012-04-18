@@ -11,13 +11,12 @@ import entityFramework.IComponent;
 @XStreamAlias("Radiation")
 @Editable
 public class RadiationComp implements IComponent{
-	@Editable
 	private Circle bounds;
 	@Editable
-	private float radiationLevel;
+	private int radiationLevel;
 	
 	public RadiationComp() {
-		this(Circle.Empty, 0.0f);
+		this(Circle.Empty, 0);
 	}
 	
 	public RadiationComp(RadiationComp toBeCloned) {
@@ -25,11 +24,11 @@ public class RadiationComp implements IComponent{
 		this.radiationLevel = toBeCloned.getRadiationLevel();
 	}
 	
-	public RadiationComp(Circle bounds, float radiationLevel) {
+	public RadiationComp(Circle bounds, int radiationLevel) {
 		this.bounds = bounds;
 		this.radiationLevel = radiationLevel;
 	}
-	
+
 	public Object clone(){
 		return new RadiationComp(this);
 	}
@@ -38,12 +37,13 @@ public class RadiationComp implements IComponent{
 		return bounds;
 	}
 	
-	public float getRadiationLevel() {
+	public int getRadiationLevel() {
 		return radiationLevel;
 	}
 	
-	public void addRadiation(float dose) {
-		this.radiationLevel += dose;
+	public void radiate() {
+		this.radiationLevel++;
+		this.bounds.setRadius(radiationLevel * this.bounds.getRadius());
 	}
 	
 	public String toString() {

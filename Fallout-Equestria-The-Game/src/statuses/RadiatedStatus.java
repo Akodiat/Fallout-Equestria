@@ -7,23 +7,24 @@ import graphics.Color;
 
 public class RadiatedStatus implements IStatus {
 	private IEntity target;
-	private int radiationLevel;
+	private Color originalColor;
+	private float radiationLevel;
 	
-	public RadiatedStatus(IEntity target, int radiationLevel) {
+	public RadiatedStatus(IEntity target, float radiationLevel) {
 		this.target = target;
 		this.radiationLevel = radiationLevel;
 	}
 	
 	@Override
 	public void activateStatusEffect() {
+		this.originalColor = target.getComponent(RenderingComp.class).getColor();
 		target.getComponent(RenderingComp.class).setColor(Color.Green);
 		
 	}
 
 	@Override
 	public void deactivateStatusEffect() {
-		// TODO Auto-generated method stub
-		
+		target.getComponent(RenderingComp.class).setColor(originalColor);
 	}
 
 	@Override

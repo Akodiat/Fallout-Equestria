@@ -1,53 +1,66 @@
 package entitySystems;
 
+
+import math.Vector2;
+
 import com.google.common.collect.ImmutableSet;
 
 import utils.Circle;
 
 import components.RadiationComp;
 import components.SpatialComp;
+import components.TransformationComp;
 
 import entityFramework.EntitySingleProcessingSystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 
-public class RadiationSystem extends EntitySingleProcessingSystem{
-
-	protected RadiationSystem(IEntityWorld world,
-			Class<? extends IComponent>[] componentsClasses) {
-		super(world, componentsClasses);
+public class RadiationSystem extends EntitySingleProcessingSystem {
+	
+	public RadiationSystem(IEntityWorld world) {
+		super(world);
 	}
 
 	@Override
 	public void initialize() {
-		
+
 	}
 
 	@Override
 	protected void processEntity(IEntity entity) {
 		ImmutableSet<IEntity> radiatingEntities = this.getWorld().getDatabase().getEntitysContainingComponent(RadiationComp.class);
-		
+
 		Circle entityBounds = entity.getComponent(SpatialComp.class).getBounds();
-		
+
 		for(IEntity i : radiatingEntities) {
 			Circle radiationBounds = i.getComponent(RadiationComp.class).getBounds();
-			
-			if(Circle.intersects(entityBounds, radiationBounds) && i.getComponent(RadiationComp.class).getRadiationLevel() > 20f) {
+
+			if(!i.equals(entity) 
+					&& Circle.intersects(entityBounds, entity.getComponent(TransformationComp.class).getPosition(), radiationBounds, i.getComponent(TransformationComp.class).getPosition()) 
+					&& i.getComponent(RadiationComp.class).getRadiationLevel() > 0) {
 				
-				radiate(entity, Circle.distance(entityBounds, entityBounds.getPosition(), 
-						                        radiationBounds, radiationBounds.getPosition()), 
-						                        i.getComponent(RadiationComp.class).getRadiationLevel());
+				radiate(entity, i,
+						Circle.distance(entityBounds, entityBounds.getPosition(), radiationBounds, radiationBounds.getPosition()));
+				
 			}
 		}
 	}
-	
-	private void radiate(IEntity entity, float position, float radiationLevel) {
-		if(!entity.getComponents().contains(RadiationComp.class)) {
-			entity.addComponent(new RadiationComp(entity.getComponent(SpatialComp.class).getBounds(),
-					-position*radiationLevel));
+
+	private void radiate(IEntity entityToRadiate, IEntity radiatingEntity, float distanceToSource) {
+		
+		if(entityToRadiate.getComponent(RadiationComp.class) == null) {
+			float radius = entityToRadiate.getComponent(SpatialComp.class).getBounds().getRadius();
+
+			entityToRadiate.addComponent(new RadiationComp(new Circle(Vector2.Zero, radius), 1));
+			entityToRadiate.refresh();
 		} else {
-			entity.getComponent(RadiationComp.class).addRadiation(-position*radiationLevel);
+			int receiverLevel = entityToRadiate.getComponent(RadiationComp.class).getRadiationLevel();
+			int transmitterLevel = radiatingEntity.getComponent(RadiationComp.class).getRadiationLevel();
+
+			if(receiverLevel < transmitterLevel) {
+				entityToRadiate.getComponent(RadiationComp.class).radiate();
+				
+			}
 		}
 	}
 }
