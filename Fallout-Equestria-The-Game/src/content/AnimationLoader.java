@@ -15,6 +15,8 @@ import org.jdom.input.SAXBuilder;
 import animation.Animation;
 import animation.Bone;
 import animation.Keyframe;
+import animation.TextureDictionary;
+import animation.TextureEntry;
 
 public class AnimationLoader implements IContentLoader<Animation>{
 
@@ -34,19 +36,47 @@ public class AnimationLoader implements IContentLoader<Animation>{
 	}
 
 	private Animation extractAnimation(Element rootNode) {
-		int fameRate = extractInt(rootNode.getChild("FrameRate"));
+		int frameRate = extractInt(rootNode.getChild("FrameRate"));
 		int loopFrame = extractInt(rootNode.getChild("LoopFrame"));
 	    
 		
-		List<Texture2D> textures = extractTextures(rootNode);
-		List<Keyframe> bones = exctractKeyframes(rootNode)
+		List<TextureEntry> textures = extractTextures(rootNode);
+		List<Keyframe> keyframes = exctractKeyframes(rootNode);
 		
-		throw new NullPointerException();
+		Animation anim = new Animation();
+		anim.setFrameRate(frameRate);
+		anim.setLoopFrame(loopFrame);
+		anim.setTextures(textures);
+		anim.setKeyframes(keyframes);
+		
+		return anim;
 	}
 
-	private List<Texture2D> extractTextures(Element rootNode) {
-		// TODO Auto-generated method stub
-		return null;
+	private List<TextureEntry> extractTextures(Element rootNode) {
+		String dictPath = rootNode.getAttributeValue("dictionary");
+		TextureDictionary dictionary = ContentManager.load(dictPath, TextureDictionary.class);
+		
+		List<TextureEntry> entries = new ArrayList<>();
+		
+		@SuppressWarnings("unchecked")
+		List<Element> textureEntryElements = rootNode.getChildren("Texture");
+		for (Element textureEntryElement : textureEntryElements) {
+			TextureEntry entry = extractTextureEntry(textureEntryElement, dictionary);
+			entries.add(entry);
+		}	
+		
+		return entries;
+	}
+
+	private TextureEntry extractTextureEntry(Element textureEntryElement,
+			TextureDictionary dictionary) {
+		
+		TextureEntry entry = new TextureEntry();
+		entry.setTexture(dictionary.getTexture());
+		
+		String boundsID = textureEntryElement.getValue();
+		entry.setTextureBounds(dictionary.getTextureBounds(boundsID));
+		return entry;
 	}
 
 	private List<Keyframe> exctractKeyframes(Element rootNode) {
@@ -100,7 +130,6 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		Vector2 scale = extractVector2(boneElement.getChild("Scale"));
 		
 		bone.setName(boneName);
-		bone.setTextureFlipHorizontal(mirror);
 		bone.setParentIndex(parentIndex);
 		bone.setTextureIndex(textureIndex);
 		bone.setPosition(position);

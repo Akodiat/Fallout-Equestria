@@ -21,9 +21,15 @@ public class TextureDictionary {
 	public void setTexture(Texture2D texture) {
 		this.texture = texture;
 	}
+
+	public TextureBounds getTextureBounds(String id) {
+		return textureCollection.get(id);
+	}
+	
 	public Dictionary<String, TextureBounds> getTextureCollection() {
 		return textureCollection;
 	}
+
 	public void setTextureCollection(
 			Dictionary<String, TextureBounds> textureCollection) {
 		this.textureCollection = textureCollection;
