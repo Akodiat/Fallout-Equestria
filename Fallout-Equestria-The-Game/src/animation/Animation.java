@@ -3,7 +3,6 @@ package animation;
 import java.util.List;
 
 import math.MathHelper;
-import math.Matrix4;
 import math.Vector2;
 
 public class Animation {

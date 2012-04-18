@@ -171,17 +171,10 @@ public final class Vector2 {
 	 */
 	public static Vector2 lerp(Vector2 v1, Vector2 v3, float x2) {
 		 
-        // Ensure the xValue is between the two vectors
-        if (!(v1.X < x2) || !(x2 < v3.X))
-            return Vector2.Zero;
- 
-        // Get slope
-        float m = ((v3.X - v1.X) / (v1.Y - v3.Y));
-        System.out.println("Slope is " + m);
- 
-        // Determine Y value
-        float y2 = ((x2 - v1.X) * (v3.Y - v1.Y) / (v3.X - v1.X)) + v1.Y;
- 
+		x2 = MathHelper.clamp(0, 1, x2);
+  
+        float y2 = MathHelper.lerp(v1.Y, v3.Y, x2);
+        x2 = MathHelper.lerp(v1.X, v3.X, x2);
         return new Vector2(x2, y2);
     }
 	

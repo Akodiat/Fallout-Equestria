@@ -43,18 +43,24 @@ public class AnimationPlayer
 		this.playSpeedMultiplier = 1.0f;
 	}
 
-	public void AddAnimation(String name, Animation animation)
+	public void addAnimation(String name, Animation animation)
 	{
 		animations.put(name, animation);
 
 		if (boneTransformations == null || animation.getKeyframes().get(0).getBones().size() > boneTransformations.length)
 		{
-			boneTransformations = new BoneTransformation[animation.getKeyframes().get(0).getBones().size()];
-			transitionStates = new BoneTransitionState[animation.getKeyframes().get(0).getBones().size()];
+			int length = animation.getKeyframes().get(0).getBones().size();
+			boneTransformations = new BoneTransformation[length];
+			transitionStates = new BoneTransitionState[length];
+			
+			for (int i=0; i< length; i++){
+				boneTransformations[i] = BoneTransformation.Identity;
+				transitionStates[i] = BoneTransitionState.Identity;
+			}
 		}
 	}
 	
-	public void AddListener(KeyframeTriggerListener listenerToAdd){
+	public void addListener(KeyframeTriggerListener listenerToAdd){
 		listeners.add(listenerToAdd);
 	}
 	
@@ -64,12 +70,12 @@ public class AnimationPlayer
 		}
 	}
 
-	public void StartAnimation(String animation)
+	public void startAnimation(String animation)
 	{
-		StartAnimation(animation, false);
+		startAnimation(animation, false);
 	}
 
-	public void StartAnimation(String animation, boolean allowRestart)
+	public void startAnimation(String animation, boolean allowRestart)
 	{
 		transitioning = false;
 
@@ -86,15 +92,15 @@ public class AnimationPlayer
 			}
 		}
 
-		Update(0);
+		update(0);
 	}
 
-	public void ForceAnimationSwitch(String animation)
+	public void forceAnimationSwitch(String animation)
 	{
 		currentAnimation = animation;
 	}
 
-	public void TransitionToAnimation(String animation, float time)
+	public void transitionToAnimation(String animation, float time)
 	{
 		if (transitioning)
 		{
@@ -107,7 +113,7 @@ public class AnimationPlayer
 		transitionAnimation = animation;
 	}
 
-	public int GetBoneTransformIndex(String boneName)
+	public int getBoneTransformIndex(String boneName)
 	{
 		Animation animation = animations.get(currentAnimation);
 
@@ -121,7 +127,7 @@ public class AnimationPlayer
 		return -1;
 	}
 
-	public boolean Update(float deltaSeconds)
+	public boolean update(float deltaSeconds)
 	{
 		if (currentAnimation == null || currentAnimation == "")
 			return false;
@@ -207,9 +213,9 @@ public class AnimationPlayer
 		return returnValue;
 	}
 
-	public boolean Update(GameTime gameTime)
+	public boolean update(GameTime gameTime)
 	{
-		return Update((float)gameTime.DeltaTime);
+		return update((float)gameTime.DeltaTime);
 	}
 
 //	public void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -217,14 +223,13 @@ public class AnimationPlayer
 //		Draw(spriteBatch, position, false, false, 0, Color.White, new Vector2(1, 1), Matrix.Identity);
 //	}
 
-	/// <summary>
-	/// Draw the given animation using the passed in spritebatch. Use this option if you have an existing spritebatch you would like to pass in.
-	/// Make sure that you have backface culling disabled if you want to use bone texture flipping.
-	/// </summary>
-	/// <param name="spriteBatch">Existing active spritebatch. Begin/end will not be called.</param>
-	/// <param name="tintColor">Color to tint the animation.</param>
-	/// <param name="position">Position of the animation to draw.</param>
-	public void Draw( SpriteBatch spriteBatch, Color tintColor, Vector2 position)
+	/** Draw the given animation using the passed in spritebatch. Use this option if you have an existing spritebatch you would like to pass in.
+	/* Make sure that you have backface culling disabled if you want to use bone texture flipping.
+	/* @param spriteBatch Existing active spritebatch. Begin/end will not be called.
+	/* @param tintColor Color to tint the animation.
+	/* @param position Position of the animation to draw.
+	*/
+	public void draw(SpriteBatch spriteBatch, Color tintColor, Vector2 position)
 	{
 		Animation animation = animations.get(currentAnimation);
 
@@ -234,33 +239,35 @@ public class AnimationPlayer
 			if (bone.isHidden())
 				continue;
 	
-			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, boneTransformations[boneIndex].getPosition()), 
-					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
-					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
-					boneTransformations[boneIndex].getScale(), boneTransformations[boneIndex].getRotation(), bone.isMirrored());		
+			this.draw(spriteBatch, position, false, 0, tintColor, Vector2.One);
+//			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, boneTransformations[boneIndex].getPosition()), 
+//					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
+//					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
+//					boneTransformations[boneIndex].getScale(), boneTransformations[boneIndex].getRotation(), bone.isMirrored());		
 		}
 	}
 
-//	public void Draw(SpriteBatch spriteBatch, Vector2 position, bool flipHorizontal, bool flipVertical, float rotation, Color tintColor, Vector2 scale, Matrix cameraTransform)
-//	{
-//		if (string.IsNullOrEmpty(currentAnimation))
-//			return;
-//
-//		Animation animation = animations[currentAnimation];
-//
-//		flipHorizontal |= animation.Keyframes[currentKeyframeIndex].FlipHorizontally;
-//		flipVertical |= animation.Keyframes[currentKeyframeIndex].FlipVertically;
-//
-//		spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null,
-//				Matrix.CreateScale(scale.X * (flipHorizontal ? -1 : 1), scale.Y * (flipVertical ? -1 : 1), 1) *
-//				Matrix.CreateRotationZ(rotation) *
-//				Matrix.CreateTranslation(position.X, position.Y, 0) *
-//				cameraTransform);
-//
-//		Draw(ref spriteBatch, tintColor, new Vector2(0,0));
-//
-//		spriteBatch.End();
-//	}
+	/** Draw the given animation using the passed in spritebatch. Use this option if you have an existing spritebatch you would like to pass in.
+	/* @param spriteBatch Existing active spritebatch. Begin/end will not be called.
+	*/
+	public void draw(SpriteBatch spriteBatch, Vector2 position, boolean mirrored, float rotation, Color tintColor, Vector2 scale)
+	{
+		Animation animation = animations.get(currentAnimation);
+
+		for (int boneIndex = 0; boneIndex < animation.getKeyframes().get(0).getBones().size(); boneIndex++)
+		{
+			Bone bone = animation.getKeyframes().get(currentKeyframeIndex).getBones().get(boneIndex);
+			if (bone.isHidden())
+				continue;
+	
+			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, 
+					boneTransformations[boneIndex].getPosition()), 
+					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
+					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
+					Vector2.mul(scale, boneTransformations[boneIndex].getScale()), 
+					boneTransformations[boneIndex].getRotation() + rotation, bone.isMirrored() ^ mirrored);		
+		}
+	}
 
 	public String getCurrentAnimation() {
 		return currentAnimation;

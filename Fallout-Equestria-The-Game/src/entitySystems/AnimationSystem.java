@@ -8,12 +8,16 @@ import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import graphics.SpriteBatch;
 
 public class AnimationSystem extends EntitySingleProcessingSystem {
 
-	public AnimationSystem(IEntityWorld world) {
+	private SpriteBatch batch;
+	
+	public AnimationSystem(IEntityWorld world, SpriteBatch batch) {
 		super(world, AnimationComp.class, TransformationComp.class,
 				RenderingComp.class);
+		this.batch = batch;
 	}
 
 	private ComponentMapper<AnimationComp> aCM;
@@ -40,10 +44,9 @@ public class AnimationSystem extends EntitySingleProcessingSystem {
 		TransformationComp positionC = this.tCM.getComponent(entity);
 		RenderingComp renderC = this.rCM.getComponent(entity);
 		
-		animationC.getActiveAnimation().update(this.getWorld().getTime().DeltaTime);
-		
-		renderC.setSource(animationC.getActiveAnimation().getActiveFrame().getSourceRect());
-		positionC.setOrigin(animationC.getActiveAnimation().getActiveFrame().getOrigin());
+		animationC.getAnimationPlayer().update(this.getWorld().getTime().DeltaTime);
+		animationC.getAnimationPlayer().draw(batch, positionC.getPosition(), positionC.getMirror(), 
+				positionC.getRotation(), renderC.getColor(), positionC.getScale());
 	}
 
 }

@@ -3,8 +3,16 @@ package animation;
 import math.Vector2;
 
 public class BoneTransitionState {
+	
+	public static final BoneTransitionState Identity = new BoneTransitionState(Vector2.Zero, 0f);
+
 	private Vector2 position;
 	private float rotation;
+	
+	public BoneTransitionState(Vector2 position, float rotation) {
+		this.position = position;
+		this.rotation = rotation;
+	}
 	
 	public Vector2 getPosition() {
 		return position;

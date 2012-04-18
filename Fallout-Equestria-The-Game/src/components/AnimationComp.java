@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import animation.AnimationPlayer;
 import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -15,65 +16,40 @@ import graphics.Animation;
 @Editable
 public class AnimationComp implements IComponent {
 
-	private Map<String, Animation> animations;
-	private Animation activeAnimation;
+	private AnimationPlayer animationPlayer;
 	
 	public AnimationComp() {
-		this.animations = new HashMap<>();
-		this.activeAnimation = null;
+		this.animationPlayer = new AnimationPlayer();
 	}
 	
-	public AnimationComp(Map<String, Animation> animations, String activeAnimationName){
-		this.animations = animations;
-		this.activeAnimation = animations.get(activeAnimationName);
+	public AnimationComp(AnimationPlayer animationPlayer) {
+		this.animationPlayer = animationPlayer;
 	}
-
-	public AnimationComp(AnimationComp toBeCloned){
-		this.animations = new HashMap<String, Animation>();
-		Set<String> keys = toBeCloned.animations.keySet();
-		for (String key : keys) {
-			this.animations.put(key, toBeCloned.animations.get(key).clone());
-		}
-		this.activeAnimation = toBeCloned.activeAnimation;
+	
+	//TODO Proper cloning
+	/**
+	 * WARNING: SHALLOW CLONING
+	 * @param other
+	 */
+	public AnimationComp(AnimationComp other) {
+		this.animationPlayer = other.animationPlayer;
 	}
-
-	public AnimationComp clone(){
+	
+	//TODO Proper cloning
+	/**
+	 * WARNING: SHALLOW CLONING
+	 * @param other
+	 */
+	public AnimationComp clone() {
 		return new AnimationComp(this);
-	}	
-	
-	public Animation getActiveAnimation() {
-		return activeAnimation;
 	}
 
-	public void setActiveAnimation(String newActiveAnimation) {
-		Animation animation = this.animations.get(newActiveAnimation);
-		if(animation != null){
-			if (this.activeAnimation != animation){
-				this.activeAnimation.reset();
-				this.activeAnimation = animation;
-			}
-		}
+	public AnimationPlayer getAnimationPlayer() {
+		return animationPlayer;
 	}
 
-	public Map<String, Animation> getAnimations() {
-		return animations;
-	}
-
-	public void setAnimations(Map<String, Animation> animations) {
-		this.animations = animations;
-	}
-
-	public String toString() {
-		String s = "AnimationComp: \n";
-		if(this.activeAnimation != null) {
-			s += "CurrentAnimation:" + this.activeAnimation.toString() + "\n";
-		}
-		
-		for (Animation animation : this.animations.values()) {
-			s += animation.toString() + "\n";
-		}
-		
-		return s;
+	public void setAnimationPlayer(AnimationPlayer animationPlayer) {
+		this.animationPlayer = animationPlayer;
 	}
 
 }
