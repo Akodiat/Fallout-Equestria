@@ -51,6 +51,4 @@ public class Animation {
 			activeIndex = (activeIndex + 1)%frames.size();
 		}
 	}
-
-
 }

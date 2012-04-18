@@ -57,6 +57,12 @@ public class AnimationPlayer
 	public void AddListener(KeyframeTriggerListener listenerToAdd){
 		listeners.add(listenerToAdd);
 	}
+	
+	private void invokeTrigger(){
+		for (KeyframeTriggerListener listener : listeners) {
+			listener.OnTrigger(this, this.eventArgs);
+		}
+	}
 
 	public void StartAnimation(String animation)
 	{
@@ -190,12 +196,12 @@ public class AnimationPlayer
 			returnValue = reachedEnd;
 		}
 
-		if (currentKeyframeIndex != startKeyframeIndex && KeyframeTriggerEvent != null &&
+		if (currentKeyframeIndex != startKeyframeIndex && !listeners.isEmpty() &&
 				!(animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger() == null ||
 				  animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger() == ""))
 		{
-			triggerEventArgs.triggerString = animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger();
-			KeyframeTriggerEvent(this, triggerEventArgs);
+			eventArgs.triggerString = animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger();
+			invokeTrigger();
 		}
 
 		return returnValue;
@@ -231,7 +237,7 @@ public class AnimationPlayer
 			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, boneTransformations[boneIndex].getPosition()), 
 					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
 					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
-					boneTransformations[boneIndex].getScale(), boneTransformations[boneIndex].getRotation(), bone.isTextureFlipHorizontal());		
+					boneTransformations[boneIndex].getScale(), boneTransformations[boneIndex].getRotation(), bone.isMirrored());		
 		}
 	}
 

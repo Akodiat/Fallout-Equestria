@@ -186,6 +186,4 @@ public class Animation {
 	public void setKeyframes(List<Keyframe> keyframes) {
 		this.keyframes = keyframes;
 	}
-
-
 }
