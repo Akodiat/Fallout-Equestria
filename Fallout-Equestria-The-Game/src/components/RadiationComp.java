@@ -1,7 +1,6 @@
 package components;
 
 import anotations.Editable;
-import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -13,7 +12,7 @@ import entityFramework.IComponent;
 public class RadiationComp implements IComponent{
 	private Circle bounds;
 	@Editable
-	private int radiationLevel;
+	private float radiationLevel;
 	
 	public RadiationComp() {
 		this(Circle.Empty, 0);
@@ -37,13 +36,13 @@ public class RadiationComp implements IComponent{
 		return bounds;
 	}
 	
-	public int getRadiationLevel() {
+	public float getRadiationLevel() {
 		return radiationLevel;
 	}
 	
-	public void radiate() {
-		this.radiationLevel++;
-		this.bounds.setRadius(radiationLevel * this.bounds.getRadius());
+	public void radiate(float dose, Circle spatial) {
+			this.radiationLevel += dose;
+			this.bounds.setRadius(radiationLevel * spatial.getRadius());
 	}
 	
 	public String toString() {

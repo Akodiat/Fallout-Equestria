@@ -15,8 +15,8 @@ import ability.Abilities;
 import ability.AbilityInfo;
 
 import com.google.common.collect.ImmutableList;
-
 import components.*;
+
 import content.ContentManager;
 import death.DeathResolveSystem;
 import debugsystems.DebugAttackRenderSystem;
@@ -45,7 +45,7 @@ public class RadiationTest {
 	private Camera2D camera;
 
 	public static void main(String[] args) throws IOException, LWJGLException {
-		new RadiationTest(new Rectangle(0, 0, 800, 600), true).start();
+		new RadiationTest(new Rectangle(0, 0, 1346, 450), true).start();
 	}
 
 	public RadiationTest(Rectangle screenDim, boolean fullScreen)
@@ -120,7 +120,6 @@ public class RadiationTest {
 				this.tester.getWorld(), camera));
 		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
-		tester.addLogicSubSystem(new MapCollisionSystem(this.tester.getWorld(), camera.worldBounds));
 		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester
 				.getWorld(), this.graphics));
