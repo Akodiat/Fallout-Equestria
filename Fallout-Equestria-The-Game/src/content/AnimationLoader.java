@@ -101,7 +101,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		keyframe.setBones(bones);
 		keyframe.setFrameNumber(frameNumber);
 		keyframe.setTrigger(triggerString);
-		keyframe.setFlipHorizontally(mirror);
+		keyframe.setMirrored(mirror);
 		
 		return keyframe;
 	}
@@ -122,6 +122,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 	private Bone extractBone(Element boneElement) {
 		Bone bone = new Bone();
 		String boneName = boneElement.getAttributeValue("name");
+		boolean hidden = extractBool(boneElement.getChild("Hidden"));
 		boolean mirror = extractBool(boneElement.getChild("TextureFlipHorizontal"));
 		int parentIndex = extractInt(boneElement.getChild("ParentIndex"));
 		int textureIndex = extractInt(boneElement.getChild("TextureIndex"));
@@ -130,6 +131,8 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		Vector2 scale = extractVector2(boneElement.getChild("Scale"));
 		
 		bone.setName(boneName);
+		bone.setHidden(hidden);
+		bone.setMirrored(mirror);
 		bone.setParentIndex(parentIndex);
 		bone.setTextureIndex(textureIndex);
 		bone.setPosition(position);
