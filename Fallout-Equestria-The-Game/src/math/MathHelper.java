@@ -89,7 +89,7 @@ public class MathHelper {
 	}
 
 	public static float lerp(float rotation, float rotation2, float t) {
-		t = MathHelper.clamp(0,	1, t);
+		t = clamp(0f,1f,t);
 		return rotation + (rotation2 - rotation) * t;	
 	}
 	
