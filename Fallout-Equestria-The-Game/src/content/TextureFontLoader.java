@@ -95,7 +95,7 @@ public class TextureFontLoader implements IContentLoader<TextureFont>{
 	}
 
 	@Override
-	public String getFoulder() {
+	public String getFolder() {
 		return "fonts";
 	}
 }

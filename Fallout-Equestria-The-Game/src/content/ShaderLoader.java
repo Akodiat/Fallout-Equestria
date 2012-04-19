@@ -103,7 +103,7 @@ import java.io.InputStreamReader;
 	}
 
 	@Override
-	public String getFoulder() {
+	public String getFolder() {
 		return "shaders";
 	}
 }

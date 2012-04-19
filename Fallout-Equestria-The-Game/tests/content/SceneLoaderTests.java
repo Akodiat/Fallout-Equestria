@@ -105,7 +105,7 @@ public class SceneLoaderTests {
 		SceneLoader loader = new SceneLoader();
 		
 		assertSame(Scene.class, loader.getClassAbleToLoad());
-		assertSame("scenes", loader.getFoulder());
+		assertSame("scenes", loader.getFolder());
 	}
 	
 	

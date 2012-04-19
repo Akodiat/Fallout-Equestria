@@ -59,7 +59,7 @@ public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
 	}
 	
 	@Override
-	public String getFoulder() {
+	public String getFolder() {
 		return "archetypes";
 	}
 

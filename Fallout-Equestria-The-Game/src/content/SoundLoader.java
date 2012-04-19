@@ -26,7 +26,7 @@ public class SoundLoader implements IContentLoader<Audio>{
 	}
 
 	@Override
-	public String getFoulder() {
+	public String getFolder() {
 		return "sounds";
 	}
 }

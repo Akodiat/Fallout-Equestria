@@ -94,7 +94,7 @@ public class AnimationDemo extends Demo {
 		IEntity entity = manager.createEntity(archetype);
 		entity.addComponent(new ScriptComp(new PlayerScript()));
 		
-		Animation animation = ContentManager.load("test.anim", Animation.class);
+		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
 		
 		AnimationPlayer player = new AnimationPlayer();
 		player.addAnimation("lol", animation);

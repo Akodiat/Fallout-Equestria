@@ -35,11 +35,11 @@ public class SoundLoaderTests {
 	}
 	
 	@Test
-	public void testIfCorrectFoulder() {
+	public void testIfCorrectFolder() {
 		SoundLoader loader = new SoundLoader();
 		
-		String foulderName = loader.getFoulder();
-		assertEquals("sounds", foulderName);
+		String folderName = loader.getFolder();
+		assertEquals("sounds", folderName);
 	}
 	
 	@Test

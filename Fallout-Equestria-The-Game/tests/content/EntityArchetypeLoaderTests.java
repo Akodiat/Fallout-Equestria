@@ -24,9 +24,9 @@ public class EntityArchetypeLoaderTests {
 	}
 	
 	@Test
-	public void testIfCorrectFoulderAndClassManaged() {
+	public void testIfCorrectFolderAndClassManaged() {
 		EntityArchetypeLoader loader = new EntityArchetypeLoader();
-		assertEquals(loader.getFoulder(), "archetypes");
+		assertEquals(loader.getFolder(), "archetypes");
 		assertEquals(loader.getClassAbleToLoad(), IEntityArchetype.class);
 	}
 }

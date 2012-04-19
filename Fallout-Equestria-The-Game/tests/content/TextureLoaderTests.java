@@ -49,9 +49,9 @@ public class TextureLoaderTests {
 	}
 	
 	@Test
-	public void testIfFoulderIsCorrect() {
+	public void testIfFolderIsCorrect() {
 		TextureLoader loader = new TextureLoader();
-		assertEquals(loader.getFoulder(), "textures");
+		assertEquals(loader.getFolder(), "textures");
 	}
 	
 	@Test

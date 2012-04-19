@@ -58,7 +58,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 	}
 
 	private List<TextureEntry> extractTextures(Element rootNode) {
-		String dictPath = rootNode.getAttributeValue("dictionary");
+		String dictPath = rootNode.getAttributeValue("dictionary") + ".tdict";
 		TextureDictionary dictionary = ContentManager.load(dictPath, TextureDictionary.class);
 		
 		List<TextureEntry> entries = new ArrayList<>();
@@ -80,6 +80,9 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		entry.setTexture(dictionary.getTexture());
 		
 		String boundsID = textureEntryElement.getValue();
+		boundsID = boundsID.substring(0, boundsID.length() - 4);
+				
+				
 		entry.setTextureBounds(dictionary.getTextureBounds(boundsID));
 		return entry;
 	}
@@ -154,7 +157,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 	
 
 	@Override
-	public String getFoulder() {
+	public String getFolder() {
 		return "animations";
 	}
 

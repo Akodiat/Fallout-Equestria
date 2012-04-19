@@ -38,9 +38,9 @@ public class ShaderLoaderTests {
 	}
 	
 	@Test
-	public void testIfCorrectFoulderAndClassManaged() {
+	public void testIfCorrectFolderAndClassManaged() {
 		ShaderLoader loader = new ShaderLoader();
-		assertEquals(loader.getFoulder(), "shaders");
+		assertEquals(loader.getFolder(), "shaders");
 		assertEquals(loader.getClassAbleToLoad(), ShaderEffect.class);
 	}
 

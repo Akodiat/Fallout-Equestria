@@ -59,7 +59,7 @@ public final class TextureLoader implements IContentLoader<Texture2D>{
 	}
 
 	@Override
-	public String getFoulder() {
+	public String getFolder() {
 		return "textures";
 	}
 }

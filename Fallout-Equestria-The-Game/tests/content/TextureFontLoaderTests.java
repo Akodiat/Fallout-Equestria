@@ -41,9 +41,9 @@ public class TextureFontLoaderTests {
 	}
 	
 	@Test
-	public void testIfCorrectFoulderAndClassManaged() {
+	public void testIfCorrectFolderAndClassManaged() {
 		TextureFontLoader loader = new TextureFontLoader();
-		assertEquals(loader.getFoulder(), "fonts");
+		assertEquals(loader.getFolder(), "fonts");
 		assertEquals(loader.getClassAbleToLoad(), TextureFont.class);
 	}
 }

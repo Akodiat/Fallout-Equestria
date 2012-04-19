@@ -5,5 +5,5 @@ import java.io.InputStream;
 public interface IContentLoader<T> {
 	public Class<T> getClassAbleToLoad();
 	public T loadContent(InputStream in) throws Exception;
-	public String getFoulder();
+	public String getFolder();
 }

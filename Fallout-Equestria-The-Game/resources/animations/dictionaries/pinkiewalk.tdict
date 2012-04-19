@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>pinkiewalk.png</TexturePath>
+  <Texture name="pinkiewalksprite11">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>97</Width>
+    <Height>90</Height>
+    <OriginX>47</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite12">
+    <X>99</X>
+    <Y>0</Y>
+    <Width>97</Width>
+    <Height>90</Height>
+    <OriginX>47</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite23">
+    <X>0</X>
+    <Y>92</Y>
+    <Width>97</Width>
+    <Height>90</Height>
+    <OriginX>47</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite24">
+    <X>99</X>
+    <Y>92</Y>
+    <Width>97</Width>
+    <Height>90</Height>
+    <OriginX>47</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite1">
+    <X>198</X>
+    <Y>0</Y>
+    <Width>97</Width>
+    <Height>89</Height>
+    <OriginX>47</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite13">
+    <X>198</X>
+    <Y>91</Y>
+    <Width>97</Width>
+    <Height>89</Height>
+    <OriginX>47</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite14">
+    <X>297</X>
+    <Y>0</Y>
+    <Width>97</Width>
+    <Height>89</Height>
+    <OriginX>47</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite15">
+    <X>297</X>
+    <Y>91</Y>
+    <Width>97</Width>
+    <Height>89</Height>
+    <OriginX>47</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite2">
+    <X>396</X>
+    <Y>0</Y>
+    <Width>97</Width>
+    <Height>89</Height>
+    <OriginX>47</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite16">
+    <X>396</X>
+    <Y>91</Y>
+    <Width>97</Width>
+    <Height>88</Height>
+    <OriginX>47</OriginX>
+    <OriginY>43</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite20">
+    <X>0</X>
+    <Y>184</Y>
+    <Width>96</Width>
+    <Height>90</Height>
+    <OriginX>46</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite21">
+    <X>0</X>
+    <Y>276</Y>
+    <Width>96</Width>
+    <Height>90</Height>
+    <OriginX>46</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite22">
+    <X>98</X>
+    <Y>184</Y>
+    <Width>96</Width>
+    <Height>90</Height>
+    <OriginX>46</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite8">
+    <X>0</X>
+    <Y>368</Y>
+    <Width>96</Width>
+    <Height>90</Height>
+    <OriginX>46</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite9">
+    <X>98</X>
+    <Y>276</Y>
+    <Width>96</Width>
+    <Height>90</Height>
+    <OriginX>46</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite17">
+    <X>196</X>
+    <Y>184</Y>
+    <Width>96</Width>
+    <Height>89</Height>
+    <OriginX>46</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite18">
+    <X>98</X>
+    <Y>368</Y>
+    <Width>96</Width>
+    <Height>89</Height>
+    <OriginX>46</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite19">
+    <X>196</X>
+    <Y>275</Y>
+    <Width>96</Width>
+    <Height>89</Height>
+    <OriginX>46</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite3">
+    <X>294</X>
+    <Y>182</Y>
+    <Width>96</Width>
+    <Height>89</Height>
+    <OriginX>47</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite7">
+    <X>196</X>
+    <Y>366</Y>
+    <Width>96</Width>
+    <Height>89</Height>
+    <OriginX>46</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite4">
+    <X>294</X>
+    <Y>273</Y>
+    <Width>96</Width>
+    <Height>88</Height>
+    <OriginX>47</OriginX>
+    <OriginY>43</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite10">
+    <X>392</X>
+    <Y>182</Y>
+    <Width>95</Width>
+    <Height>90</Height>
+    <OriginX>46</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite5">
+    <X>294</X>
+    <Y>363</Y>
+    <Width>95</Width>
+    <Height>89</Height>
+    <OriginX>46</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+  <Texture name="pinkiewalksprite6">
+    <X>392</X>
+    <Y>274</Y>
+    <Width>95</Width>
+    <Height>89</Height>
+    <OriginX>46</OriginX>
+    <OriginY>44</OriginY>
+  </Texture>
+</TextureDictionary>

@@ -32,7 +32,7 @@ public class SceneLoader implements IContentLoader<Scene>{
 	private final static String layerDepthElemName  = "DrawOrder";
 	private final static String colLayerElemName    = "CollisionLayer";
 	private final static String blockSizeElemName	= "BlockSize";
-	private final static String textureSubFoulder   = "tilesheets/";
+	private final static String textureSubFolder   = "tilesheets/";
 	
 	@Override
 	public Class<Scene> getClassAbleToLoad() {
@@ -88,7 +88,7 @@ public class SceneLoader implements IContentLoader<Scene>{
 		
 		for (int i = 0; i < textureAssets.length; i++) {
 			String asset = textureAssets[i];
-			Texture2D texture = ContentManager.loadTexture(textureSubFoulder + asset);
+			Texture2D texture = ContentManager.loadTexture(textureSubFolder + asset);
 			textureMap.put(asset, texture);
 		}
 	}
@@ -254,7 +254,7 @@ public class SceneLoader implements IContentLoader<Scene>{
 	}
 
 	@Override
-	public String getFoulder() {
+	public String getFolder() {
 		return "scenes";
 	}
 

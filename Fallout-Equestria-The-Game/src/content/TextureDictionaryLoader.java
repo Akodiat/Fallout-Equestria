@@ -3,6 +3,7 @@ package content;
 import graphics.Texture2D;
 import static content.XMLAnimHelper.*;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,8 +72,8 @@ public class TextureDictionaryLoader implements IContentLoader<TextureDictionary
 	}
 
 	@Override
-	public String getFoulder() {
-		return "animations/dictionaries";
+	public String getFolder() {
+		return "animations" + File.separator + "dictionaries";
 	}
 
 }
