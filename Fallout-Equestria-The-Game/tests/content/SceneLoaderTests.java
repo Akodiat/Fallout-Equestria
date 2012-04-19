@@ -101,7 +101,7 @@ public class SceneLoaderTests {
 
 
 	@Test
-	public void testIfCorectFoulderAndClassManaged() throws Exception {
+	public void testIfCorectFolderAndClassManaged() throws Exception {
 		SceneLoader loader = new SceneLoader();
 		
 		assertSame(Scene.class, loader.getClassAbleToLoad());
