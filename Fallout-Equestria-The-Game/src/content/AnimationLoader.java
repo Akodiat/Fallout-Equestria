@@ -42,8 +42,9 @@ public class AnimationLoader implements IContentLoader<Animation>{
 	    boolean loop = loopFrame != -1;
 		
 
-		List<Keyframe> keyframes = exctractKeyframes(rootNode);
+		List<Keyframe> keyframes = exctractKeyframes(rootNode, frameRate);
 		List<TextureEntry> textures = extractTextures(rootNode);
+		
 		
 		Animation anim = new Animation();
 		anim.setFrameRate(frameRate);
@@ -51,6 +52,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		anim.setTextures(textures);
 		anim.setKeyframes(keyframes);
 		anim.setLoop(loop);
+		anim.setLoopTime(loopFrame * (1.0f / frameRate));
 		
 		return anim;
 	}
@@ -82,12 +84,12 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		return entry;
 	}
 
-	private List<Keyframe> exctractKeyframes(Element rootNode) {
+	private List<Keyframe> exctractKeyframes(Element rootNode, int frameTime) {
 		List<Keyframe> keyframes = new ArrayList<>();
 		
 		List<Element> keyframeElements = rootNode.getChildren("Keyframe");
 		for (Element keyframeElement : keyframeElements) {
-			Keyframe keyframe = extractKeyFrame(keyframeElement);
+			Keyframe keyframe = extractKeyFrame(keyframeElement, frameTime);
 			keyframes.add(keyframe);
 		}
 		
@@ -95,7 +97,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		return keyframes;
 	}
 
-	private Keyframe extractKeyFrame(Element keyframeElement) {
+	private Keyframe extractKeyFrame(Element keyframeElement, int frameRate) {
 		List<Bone> bones = extractBones(keyframeElement);
 		int frameNumber = Integer.parseInt(keyframeElement.getAttribute("frame").getValue());
 		String triggerString = keyframeElement.getAttributeValue("trigger");
@@ -104,12 +106,10 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		keyframe.setBones(bones);
 		keyframe.setFrameNumber(frameNumber);
 		keyframe.setTrigger(triggerString);
-<<<<<<< HEAD
 		keyframe.setMirrored(mirror);
+		keyframe.setFrameTime(frameNumber * ( 1.0f / frameRate));
+		keyframe.sortBones();
 		
-=======
-		keyframe.setFlipHorizontally(mirror);
->>>>>>> Fixed and tested animations
 		return keyframe;
 	}
 
@@ -118,15 +118,16 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		List<Bone> bones = new ArrayList<>();
 		
 		List<Element> boneElements = keyFrameElement.getChildren("Bone");
+		int i = 0;
 		for (Element boneElement : boneElements) {
-			Bone bone = extractBone(boneElement);
+			Bone bone = extractBone(boneElement, i++);
 			bones.add(bone);
 		}
 		
 		return bones;
 	}
 	
-	private Bone extractBone(Element boneElement) {
+	private Bone extractBone(Element boneElement,int drawIndex) {
 		Bone bone = new Bone();
 		String boneName = boneElement.getAttributeValue("name");
 		boolean hidden = extractBool(boneElement.getChild("Hidden"));
@@ -145,6 +146,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		bone.setPosition(position);
 		bone.setRotation(rotation);
 		bone.setScale(scale);
+		bone.setSelfIndex(drawIndex);
 		
 		return bone; 
 	}
@@ -153,8 +155,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 
 	@Override
 	public String getFoulder() {
-		// TODO Auto-generated method stub
-		return null;
+		return "animations";
 	}
 
 }

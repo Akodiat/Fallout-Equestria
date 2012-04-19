@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<Animation dictionary="test.dict">
+<Animation dictionary="test.tdict">
   <FrameRate>25</FrameRate>
   <LoopFrame>19</LoopFrame>
-  <Texture>manlyman.png</Texture>
-  <Texture>manlymanarm.png</Texture>
+  <Texture>manlyman</Texture>
+  <Texture>manlymanarm</Texture>
   <Keyframe frame="0" trigger="" vflip="False" hflip="False">
     <Bone name="sdfghjk">
       <Hidden>False</Hidden>

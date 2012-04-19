@@ -40,7 +40,7 @@ public class AnimationPlayer
 	
 	public AnimationPlayer()
 	{
-		this.playSpeedMultiplier = 1.0f;
+		this.playSpeedMultiplier = 1f;
 	}
 
 	public void addAnimation(String name, Animation animation)
@@ -171,13 +171,15 @@ public class AnimationPlayer
 			currentAnimationTime += deltaSeconds;
 
 			Animation animation = animations.get(currentAnimation);
-
 			if (currentKeyframeIndex == animation.getKeyframes().size() - 1)
 			{
 				if (animation.isLoop())
 				{
 					if (currentAnimationTime > animation.getLoopTime())
 					{
+						System.out.println(currentAnimationTime);
+						System.out.println(animation.getLoopTime());
+						
 						currentAnimationTime -= animation.getLoopTime();
 						currentKeyframeIndex = 0;
 					}
@@ -190,10 +192,11 @@ public class AnimationPlayer
 			}
 			else
 			{
-				if (currentAnimationTime > animation.getKeyframes().get(currentKeyframeIndex + 1).getFrameTime())
+				if (currentAnimationTime > animation.getKeyframes().get(currentKeyframeIndex + 1).getFrameTime()) {
 					currentKeyframeIndex++;
+				}
 			}
-
+			
 			animation.GetBoneTransformations(boneTransformations, 
 											 transitionStates, 
 											 currentKeyframeIndex, 
@@ -259,6 +262,7 @@ public class AnimationPlayer
 			Bone bone = animation.getKeyframes().get(currentKeyframeIndex).getBones().get(boneIndex);
 			if (bone.isHidden())
 				continue;
+			
 	
 			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, 
 					boneTransformations[boneIndex].getPosition()), 

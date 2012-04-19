@@ -93,122 +93,15 @@ public class AnimationDemo extends Demo {
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = manager.createEntity(archetype);
 		entity.addComponent(new ScriptComp(new PlayerScript()));
-
-		//TEXTURES
-		Texture2D textureMan = ContentManager.loadTexture("manlyman.png");
-
-		TextureBounds boundsMan = new TextureBounds();
-		boundsMan.setOrigin(new Vector2(textureMan.getBounds().Width/2, textureMan.getBounds().Height/2));
-		boundsMan.setLocation(textureMan.getBounds());
-
-		TextureEntry entryMan = new TextureEntry();
-		entryMan.setTexture(textureMan);
-		entryMan.setUseDictionary(false);
-		entryMan.setTextureBounds(boundsMan);
-
-		Texture2D textureArm = ContentManager.loadTexture("manlymanarm.png");
-
-		TextureBounds boundsArm = new TextureBounds();
-		boundsArm.setOrigin(new Vector2(textureArm.getBounds().Width/2, textureArm.getBounds().Height/2));
-		boundsArm.setLocation(textureArm.getBounds());
-
-		TextureEntry entryArm = new TextureEntry();
-		entryArm.setTexture(textureArm);
-		entryArm.setUseDictionary(false);
-		entryArm.setTextureBounds(boundsArm);
 		
-		List<TextureEntry> textures = new ArrayList<TextureEntry>();
-		textures.add(entryMan);
-		textures.add(entryArm);	
-
-		//BONES
-		Bone boneArm1 = new Bone();
-		boneArm1.setName("manlyarm");
-		boneArm1.setParentIndex(0);
-		boneArm1.setHidden(false);
-		boneArm1.setSelfIndex(1);
-		boneArm1.setPosition(Vector2.Zero);
-		boneArm1.setRotation(0);
-		boneArm1.setScale(Vector2.One);
-		boneArm1.setTextureIndex(1);
-		boneArm1.setUpdateIndex(1);
+		Animation animation = ContentManager.load("test.anim", Animation.class);
 		
-		Bone boneMan1 = new Bone();
-		boneMan1.setName("manlyman");
-		boneMan1.setParentIndex(-1);
-		boneMan1.setHidden(false);
-		boneMan1.setSelfIndex(1);
-		boneMan1.setPosition(Vector2.Zero);
-		boneMan1.setRotation(0);
-		boneMan1.setScale(Vector2.One);
-		boneMan1.setTextureIndex(0);
-		boneMan1.setUpdateIndex(0);
+		AnimationPlayer player = new AnimationPlayer();
+		player.addAnimation("lol", animation);
+		player.startAnimation("lol");
 		
-		List<Bone> bones1 = new ArrayList<Bone>();
-		bones1.add(boneMan1);
-		bones1.add(boneArm1);
 		
-		Bone boneArm2 = new Bone();
-		boneArm2.setName("manlyarm");
-		boneArm2.setParentIndex(0);
-		boneArm2.setHidden(false);
-		boneArm2.setSelfIndex(1);
-		boneArm2.setPosition(new Vector2(12f, 26f));
-		boneArm2.setRotation(0.5f);
-		boneArm2.setScale(Vector2.One);
-		boneArm2.setTextureIndex(1);
-		boneArm2.setUpdateIndex(1);
-		
-		Bone boneMan2 = new Bone();
-		boneMan2.setName("manlyman");
-		boneMan2.setParentIndex(-1);
-		boneMan2.setHidden(false);
-		boneMan2.setSelfIndex(1);
-		boneMan2.setPosition(Vector2.Zero);
-		boneMan2.setRotation(1);
-		boneMan2.setScale(Vector2.One);
-		boneMan2.setTextureIndex(0);
-		boneMan2.setUpdateIndex(0);
-		
-		List<Bone> bones2 = new ArrayList<Bone>();
-		bones2.add(boneMan2);
-		bones2.add(boneArm2);
-		
-		//KEYFRAMES
-		Keyframe keyframe1 = new Keyframe();
-		keyframe1.setBones(bones1);
-		keyframe1.setFrameNumber(0);
-		keyframe1.setMirrored(false);
-		keyframe1.setTrigger("");
-		keyframe1.setFrameTime(0f);
-		keyframe1.sortBones();
-		
-		Keyframe keyframe2 = new Keyframe();
-		keyframe2.setBones(bones2);
-		keyframe2.setFrameNumber(10);
-		keyframe2.setMirrored(false);
-		keyframe2.setTrigger("");
-		keyframe2.setFrameTime(0.5f);
-		keyframe2.sortBones();
-		
-		List<Keyframe> keyframes1 = new ArrayList<Keyframe>();
-		keyframes1.add(keyframe1);
-		keyframes1.add(keyframe2);
-
-		Animation playerAnim = new Animation();
-		playerAnim.setFrameRate(20);
-		playerAnim.setLoop(true);
-		playerAnim.setVersion("asdLOLf");
-		playerAnim.setTextures(textures);
-		playerAnim.setLoopTime(1f);
-		playerAnim.setKeyframes(keyframes1);
-		playerAnim.setLoopFrame(20);
-		
-		AnimationPlayer animPlayer = new AnimationPlayer();
-		animPlayer.addAnimation("lol", playerAnim);		
-		animPlayer.startAnimation("lol");
-		
-		entity.addComponent(new AnimationComp(animPlayer));
+		entity.addComponent(new AnimationComp(player));
 		//END OF ANIMATION UGLY SHIT
 
 
