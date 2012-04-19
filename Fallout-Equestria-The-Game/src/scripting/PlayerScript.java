@@ -23,14 +23,16 @@ public class PlayerScript extends Script{
 	@Override
 	public void start() {
 		physComp  = entity.getComponent(PhysicsComp.class);
-		inpComp  = entity.getComponent(InputComp.class);
 		posComp  = entity.getComponent(TransformationComp.class);
 		apComp  = entity.getComponent(AbilityComp.class);
 		weaponComp  = entity.getComponent(WeaponComp.class);	
+
 	}
 
 	@Override
 	public void update(GameTime time) {
+
+		inpComp  = entity.getComponent(InputComp.class);
 		if(inpComp.isLeftMouseButtonDown()){
 			AbilityInfo ability = weaponComp.getPrimaryAbility();
 			apComp.setAbility(ability);

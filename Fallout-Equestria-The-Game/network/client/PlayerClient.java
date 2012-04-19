@@ -106,17 +106,23 @@ public class PlayerClient {
 		this.update(time);
 		this.render(time);
 		
-		if(time.TotalTime % this.fps == 0){
-			try {
-				this.server.setNewInpComp(this.player.getComponent(InputComp.class), this.player.getUniqueID());
-			} catch (RemoteException e) {
-				System.out.println("Not able to send inputComp to server. Time="+time.TotalTime); //TODO Better debug? throw further with message? Remove? Yes?
-				e.printStackTrace();
-			}
+		try {
+			this.server.setNewInpComp(this.player.getComponent(InputComp.class), this.player.getLabel());
+		} catch (RemoteException e) {
+			System.out.println("Not able to send inputComp to server. Time="+time.TotalTime); //TODO Better debug? throw further with message? Remove? Yes?
+			e.printStackTrace();
 		}
+		
 	}
 
 	protected void initialize() {
+		try {
+			server.registerClient();
+		} catch (RemoteException e2) {
+			System.out.println("Failed to register client. RemoteException");
+			e2.printStackTrace();
+		}
+		
 		scene = ContentManager.load("SomeSortOfScene.xml", Scene.class); 		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
@@ -144,6 +150,14 @@ public class PlayerClient {
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		this.player = manager.createEntity(archetype);
+		
+		try {
+			player.setLabel(server.getClientLabel());
+		} catch (RemoteException e2) {
+			System.out.println("Failed to get player label from server");
+			e2.printStackTrace();
+		}
+		
 		player.addComponent(new ScriptComp(new PlayerScript()));
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		player.refresh();

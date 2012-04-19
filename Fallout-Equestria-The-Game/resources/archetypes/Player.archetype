@@ -11,12 +11,12 @@
         <luck>5</luck>
       </components.SpecialComp>
       <Rendering>
-        <color>
-          <Color>1.0,1.0,1.0,1.0</Color>
-        </color>
         <texture>
           <Asset>HEJHEJ.png</Asset>
         </texture>
+        <color>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </color>
       </Rendering>
       <Physics>
         <immovable>false</immovable>
@@ -26,9 +26,14 @@
       </Physics>
       <Ability>
         <maxAbilityPoints>100.0</maxAbilityPoints>
-        <abilityPoints>100.0</abilityPoints>
         <regenerationSpeed>10.0</regenerationSpeed>
+        <abilityPoints>100.0</abilityPoints>
       </Ability>
+      <components.ScriptComp>
+        <script class="scripting.PlayerScript">
+          <initialized>false</initialized>
+        </script>
+      </components.ScriptComp>
       <Transformation>
         <position reference="../../Physics/velocity"/>
         <scale>1.0,1.0</scale>
@@ -36,13 +41,13 @@
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>
-      <Weapon>
-        <primaryAbility>None</primaryAbility>
-        <secondaryAbility>None</secondaryAbility>
-      </Weapon>
+      <Health>
+        <maxHealth>100.0</maxHealth>
+        <regenSpeed>13.0</regenSpeed>
+        <healthPoints>100.0</healthPoints>
+      </Health>
       <Input>
         <mousePosition reference="../../Physics/velocity"/>
-        <mouseDisplacement reference="../../Physics/velocity"/>
         <leftMouseButtonDown>false</leftMouseButtonDown>
         <rightMouseButtonDown>false</rightMouseButtonDown>
         <backButton>
@@ -70,11 +75,10 @@
           <pressed>false</pressed>
         </gallopButton>
       </Input>
-      <Health>
-        <maxHealth>100.0</maxHealth>
-        <regenSpeed>13.0</regenSpeed>
-        <healthPoints>100.0</healthPoints>
-      </Health>
+      <Weapon>
+        <primaryAbility/>
+        <secondaryAbility/>
+      </Weapon>
       <Status/>
       <Spatial>
         <bounds>

@@ -10,20 +10,24 @@ public final class RemoteServer_Stub
     private static final long serialVersionUID = 2;
     
     private static java.lang.reflect.Method $method_addPlayer_0;
-    private static java.lang.reflect.Method $method_getDatabase_1;
-    private static java.lang.reflect.Method $method_getPhysComps_2;
-    private static java.lang.reflect.Method $method_getTranspComps_3;
-    private static java.lang.reflect.Method $method_setNewInpComp_4;
-    private static java.lang.reflect.Method $method_test_5;
+    private static java.lang.reflect.Method $method_getClientLabel_1;
+    private static java.lang.reflect.Method $method_getDatabase_2;
+    private static java.lang.reflect.Method $method_getPhysComps_3;
+    private static java.lang.reflect.Method $method_getTranspComps_4;
+    private static java.lang.reflect.Method $method_registerClient_5;
+    private static java.lang.reflect.Method $method_setNewInpComp_6;
+    private static java.lang.reflect.Method $method_test_7;
     
     static {
 	try {
 	    $method_addPlayer_0 = common.IRemoteServer.class.getMethod("addPlayer", new java.lang.Class[] {java.lang.String.class});
-	    $method_getDatabase_1 = common.IRemoteServer.class.getMethod("getDatabase", new java.lang.Class[] {});
-	    $method_getPhysComps_2 = common.IRemoteServer.class.getMethod("getPhysComps", new java.lang.Class[] {});
-	    $method_getTranspComps_3 = common.IRemoteServer.class.getMethod("getTranspComps", new java.lang.Class[] {});
-	    $method_setNewInpComp_4 = common.IRemoteServer.class.getMethod("setNewInpComp", new java.lang.Class[] {components.InputComp.class, int.class});
-	    $method_test_5 = common.IRemoteServer.class.getMethod("test", new java.lang.Class[] {java.lang.String.class});
+	    $method_getClientLabel_1 = common.IRemoteServer.class.getMethod("getClientLabel", new java.lang.Class[] {});
+	    $method_getDatabase_2 = common.IRemoteServer.class.getMethod("getDatabase", new java.lang.Class[] {});
+	    $method_getPhysComps_3 = common.IRemoteServer.class.getMethod("getPhysComps", new java.lang.Class[] {});
+	    $method_getTranspComps_4 = common.IRemoteServer.class.getMethod("getTranspComps", new java.lang.Class[] {});
+	    $method_registerClient_5 = common.IRemoteServer.class.getMethod("registerClient", new java.lang.Class[] {});
+	    $method_setNewInpComp_6 = common.IRemoteServer.class.getMethod("setNewInpComp", new java.lang.Class[] {components.InputComp.class, java.lang.String.class});
+	    $method_test_7 = common.IRemoteServer.class.getMethod("test", new java.lang.Class[] {java.lang.String.class});
 	} catch (java.lang.NoSuchMethodException e) {
 	    throw new java.lang.NoSuchMethodError(
 		"stub class initialization failed");
@@ -52,12 +56,28 @@ public final class RemoteServer_Stub
 	}
     }
     
+    // implementation of getClientLabel()
+    public java.lang.String getClientLabel()
+	throws java.rmi.RemoteException
+    {
+	try {
+	    Object $result = ref.invoke(this, $method_getClientLabel_1, null, -2245548588018207460L);
+	    return ((java.lang.String) $result);
+	} catch (java.lang.RuntimeException e) {
+	    throw e;
+	} catch (java.rmi.RemoteException e) {
+	    throw e;
+	} catch (java.lang.Exception e) {
+	    throw new java.rmi.UnexpectedException("undeclared checked exception", e);
+	}
+    }
+    
     // implementation of getDatabase()
     public entityFramework.IEntityDatabase getDatabase()
 	throws java.rmi.RemoteException
     {
 	try {
-	    Object $result = ref.invoke(this, $method_getDatabase_1, null, -9149672743686306073L);
+	    Object $result = ref.invoke(this, $method_getDatabase_2, null, -9149672743686306073L);
 	    return ((entityFramework.IEntityDatabase) $result);
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
@@ -73,7 +93,7 @@ public final class RemoteServer_Stub
 	throws java.rmi.RemoteException
     {
 	try {
-	    Object $result = ref.invoke(this, $method_getPhysComps_2, null, -1898064680281658327L);
+	    Object $result = ref.invoke(this, $method_getPhysComps_3, null, -1898064680281658327L);
 	    return ((java.util.Map) $result);
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
@@ -89,7 +109,7 @@ public final class RemoteServer_Stub
 	throws java.rmi.RemoteException
     {
 	try {
-	    Object $result = ref.invoke(this, $method_getTranspComps_3, null, 7622408750090971150L);
+	    Object $result = ref.invoke(this, $method_getTranspComps_4, null, 7622408750090971150L);
 	    return ((java.util.Map) $result);
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
@@ -100,12 +120,27 @@ public final class RemoteServer_Stub
 	}
     }
     
-    // implementation of setNewInpComp(InputComp, int)
-    public void setNewInpComp(components.InputComp $param_InputComp_1, int $param_int_2)
+    // implementation of registerClient()
+    public void registerClient()
 	throws java.rmi.RemoteException
     {
 	try {
-	    ref.invoke(this, $method_setNewInpComp_4, new java.lang.Object[] {$param_InputComp_1, new java.lang.Integer($param_int_2)}, -1047477395031961948L);
+	    ref.invoke(this, $method_registerClient_5, null, -4084071139781299983L);
+	} catch (java.lang.RuntimeException e) {
+	    throw e;
+	} catch (java.rmi.RemoteException e) {
+	    throw e;
+	} catch (java.lang.Exception e) {
+	    throw new java.rmi.UnexpectedException("undeclared checked exception", e);
+	}
+    }
+    
+    // implementation of setNewInpComp(InputComp, String)
+    public void setNewInpComp(components.InputComp $param_InputComp_1, java.lang.String $param_String_2)
+	throws java.rmi.RemoteException
+    {
+	try {
+	    ref.invoke(this, $method_setNewInpComp_6, new java.lang.Object[] {$param_InputComp_1, $param_String_2}, 1882529855356589930L);
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
 	} catch (java.rmi.RemoteException e) {
@@ -120,7 +155,7 @@ public final class RemoteServer_Stub
 	throws java.rmi.RemoteException
     {
 	try {
-	    Object $result = ref.invoke(this, $method_test_5, new java.lang.Object[] {$param_String_1}, 2232163481599348975L);
+	    Object $result = ref.invoke(this, $method_test_7, new java.lang.Object[] {$param_String_1}, 2232163481599348975L);
 	    return ((java.lang.String) $result);
 	} catch (java.lang.RuntimeException e) {
 	    throw e;

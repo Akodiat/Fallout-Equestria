@@ -16,8 +16,10 @@ import entityFramework.IEntityDatabase;
  */
 public interface IRemoteServer extends Remote{
 	
-	public void setNewInpComp(InputComp inpComp, int PlayerEntityID) 	throws RemoteException; //TODO Make something better to identify player, perhaps client registry something?
+	public void setNewInpComp(InputComp inpComp, String playerLabel) 	throws RemoteException; //TODO Make something better to identify player, perhaps client registry something?
 	public void addPlayer(String playerArchString)						throws RemoteException;
+	public void registerClient()										throws RemoteException;
+	public String getClientLabel()										throws RemoteException;
 	
 	public Map<Integer, TransformationComp> getTranspComps() 			throws RemoteException;
 	public Map<Integer, PhysicsComp> getPhysComps() 					throws RemoteException;

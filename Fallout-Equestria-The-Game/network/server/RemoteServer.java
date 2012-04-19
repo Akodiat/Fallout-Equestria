@@ -8,6 +8,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import components.*;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
 import demos.GameWorld;
+import demos.ServerWorld;
 import entityFramework.*;
 import entitySystems.*;
 import gameMap.Scene;
@@ -42,18 +44,17 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	
 	protected SystemTester tester;
 	private Scene scene;
-	private IEntityWorld world;
-	
 	private final int fps;
 	private final String playerAsset = "Player.archetype";
 	private Rectangle screenDim = new Rectangle(0,0,800,600);
 	
 	private IEntity player;
-	private GameWorld gameWorld;
+	private ServerWorld world;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Clock clock;
 	
+	private Map<String, String> clientMap;
 
 	protected RemoteServer(Rectangle screenDim, int fps) throws RemoteException {
 		this.screenDim = screenDim;
@@ -124,15 +125,15 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		this.render(time);
 	}
 	public void update(GameTime time) {
-		this.gameWorld.update(time);
-		this.gameWorld.getEntityManager().destoryKilledEntities();
+		this.world.update(time);
+		this.world.getEntityManager().destoryKilledEntities();
 		
 	}
 
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
 		this.spriteBatch.begin(null, this.camera.getTransformation());
-		this.gameWorld.render();
+		this.world.render();
 		this.spriteBatch.end();
 		
 	}
@@ -143,6 +144,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
+		clientMap = new HashMap<String,String>();
 		
 		Injector injector = Guice.createInjector(new EntityModule());
 		IEntityManager manager = injector.getInstance(IEntityManager.class);
@@ -151,8 +153,8 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		
 		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
 		
-		gameWorld = new GameWorld(manager, sm, db, camera, spriteBatch, scene);	//TODO Load GameWorld from server?
-		gameWorld.initialize();
+		world = new ServerWorld(manager, sm, db, camera, spriteBatch, scene);	//TODO Load GameWorld from server?
+		world.initialize();
 		
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
@@ -164,20 +166,10 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		sm.initialize();
 	}
 
-	public void initializeSystems(){
-		tester.addLogicSubSystem(new PhysicsSystem(this.tester.getWorld()));
-		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
-		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
-		//tester.addLogicSubSystem(new AbilitySystem(this.tester.getWorld(), AbilityBuilder.build()));
-
-	}
-
 	@Override
-	public void setNewInpComp(InputComp inpComp, int PlayerEntityID) throws RemoteException {
-		IEntity player = this.getDatabase().getEntity(PlayerEntityID);
-		player.removeComponent(InputComp.class);
+	public void setNewInpComp(InputComp inpComp, String playerLabel) throws RemoteException {
+		IEntity player = this.world.getEntityManager().getEntity(playerLabel);
 		player.addComponent(inpComp);
-		player.refresh();
 	}
 	
 	public Map<Integer, TransformationComp> getTranspComps(){ //TODO Make a rectangle input parameter which specifies the area the entities should be in...
@@ -214,14 +206,35 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 			e1.printStackTrace();
 		}
 	}
-	
-	private void addPlayer(IEntityArchetype archetype){
-		IEntityManager manager  = this.gameWorld.getEntityManager();
+	public void registerClient(){
 		String label = "player";
 		int playerCount = 1;
-		while(manager.getEntity(label+playerCount)!=null)
+		while(this.clientMap.containsKey(label+playerCount))
 			playerCount++;
-		archetype.setLabel(label+=playerCount);
+		
+		try {
+			clientMap.put(RemoteServer.getClientHost(),(label+playerCount));
+		} catch (ServerNotActiveException e) {
+			throw new RuntimeException("Server says it isn't active... sounds lazy... wait! I am the server :O");
+		}
+	}
+	public String getClientLabel(){
+		try {
+			return this.clientMap.get(RemoteServer.getClientHost());
+		} catch (ServerNotActiveException e) {
+			throw new RuntimeException("Server says it isn't active... sounds lazy... wait! I am the server :O");
+		}
+	}
+	
+	private void addPlayer(IEntityArchetype archetype){
+		IEntityManager manager  = this.world.getEntityManager();
+		String label = "";
+		try {
+			label = this.clientMap.get(RemoteServer.getClientHost());
+		} catch (ServerNotActiveException e) {
+			e.printStackTrace();
+		}
+		archetype.setLabel(label); //Sets the label to the value from client register map. E.g. "player#"
 	
 		manager.createEntity(archetype);
 		System.out.println("Added new player with the label:"+label);
@@ -230,7 +243,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	@Override
 	public IEntityDatabase getDatabase() throws RemoteException {
 		System.out.println("Server is about to return database...");
-		return this.gameWorld.getDatabase();
+		return this.world.getDatabase();
 	}
 
 	@Override
