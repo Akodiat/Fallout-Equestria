@@ -73,4 +73,9 @@ public final class EntityArchetype implements IEntityArchetype{
 		return this.label;
 	}
 
+	@Override
+	public void setLabel(String label) {
+		this.label=label;
+	}
+
 }

@@ -24,4 +24,6 @@ public interface IEntityArchetype extends java.io.Serializable{
 	public ImmutableSet<String> getGroups();
 	
 	public String getLabel();
+	
+	public void setLabel(String label);
 }
