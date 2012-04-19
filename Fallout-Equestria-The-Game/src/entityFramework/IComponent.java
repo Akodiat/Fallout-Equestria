@@ -6,7 +6,7 @@ package entityFramework;
  * @author Lukas Kurtyan
  *
  */
-public interface IComponent {
+public interface IComponent extends java.io.Serializable {
 	
 	/** Creates a shallow copy of the component.
 	 * This is the preferred way of creating a component after the original 

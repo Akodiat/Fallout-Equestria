@@ -2,7 +2,7 @@ package graphics;
 
 import math.MathHelper;
 
-public class  Color {
+public class  Color implements java.io.Serializable {
 
 	public final float R;
 	public final float G;

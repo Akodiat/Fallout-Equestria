@@ -3,7 +3,7 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResizableGrid<T>{
+public class ResizableGrid<T> implements java.io.Serializable {
 
 	private static final int Width_Height = 10;
 	private static final float DefaultWidthGrowthFactor = 2.0f;

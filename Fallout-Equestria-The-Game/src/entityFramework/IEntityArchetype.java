@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableSet;
  * @author Lukas Kurtyan
  *
  */
-public interface IEntityArchetype {
+public interface IEntityArchetype extends java.io.Serializable{
 	
 	/** Gets a Set of components.
 	 * @return a set of components.

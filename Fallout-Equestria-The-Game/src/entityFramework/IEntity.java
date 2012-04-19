@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
  * 
  * @author Lukas Kurtyan
  */
-public abstract class IEntity {
+public abstract class IEntity implements java.io.Serializable{
 	
 	/** Gets the list of components contained of the entity.
 	 * @return a list of all the components in the entity.
