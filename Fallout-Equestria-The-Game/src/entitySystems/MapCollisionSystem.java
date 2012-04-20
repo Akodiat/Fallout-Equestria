@@ -9,6 +9,7 @@ import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
 
+import components.PhysicsComp;
 import components.SpatialComp;
 import components.TransformationComp;
 
@@ -30,6 +31,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 
 	private ComponentMapper<SpatialComp> sCM;
 	private ComponentMapper<TransformationComp> tCM;
+	private ComponentMapper<PhysicsComp> pCM;
 
 	@Override
 	public void initialize() {
@@ -37,6 +39,8 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 				TransformationComp.class);
 		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				SpatialComp.class);
+		
+		pCM = ComponentMapper.create(this.getDatabase(), PhysicsComp.class);
 	}
 
 	@Override
@@ -44,30 +48,28 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 		for (IEntity entity : entities) {
 			TransformationComp posiCom = tCM.getComponent(entity);
 			SpatialComp spatiCom = sCM.getComponent(entity);
+			PhysicsComp physCom = pCM.getComponent(entity);
 			keepInsideScene(posiCom, spatiCom);
-			checkSceneGridCollision(posiCom, spatiCom);
-			
+			checkSceneGridCollision(posiCom, spatiCom,physCom);		
 		}
 
 	}
 
 	private void checkSceneGridCollision(TransformationComp posiCom,
-			SpatialComp spatiCom) {
+			SpatialComp spatiCom, PhysicsComp physCom) {
 		CollisionLayer colLayer = this.scene.getCollisionLayers().get(0);
 		if(colLayer != null) {
 			boolean[][] grid = colLayer.getCollisionGrid();
 			Vector2 topLeft = new Vector2(posiCom.getPosition().X - spatiCom.getBounds().getRadius(),
 										  posiCom.getPosition().Y - spatiCom.getBounds().getRadius());
+			
 			Point2 topLeftIndex = getTopLeftIndex(topLeft, grid);
+			Point2 bottomRight = new Point2(topLeftIndex.X + 1, topLeftIndex.Y + 1);
 			
-			int nBlocks = (int)(spatiCom.getBounds().getRadius() * 2 / scene.getBlockSize());
-			int minX = min(topLeftIndex.X + nBlocks, grid[0].length);
-			int minY = min(topLeftIndex.Y + nBlocks, grid.length);
-			
-			for (int row = topLeftIndex.Y; row < minY; row++) {
-				for (int column = topLeftIndex.X; column < minX; column++) {
+			for (int row = topLeftIndex.Y; row <= bottomRight.Y; row++) {
+				for (int column = topLeftIndex.X; column <= bottomRight.X; column++) {
 					if(grid[row][column]) {
-						checkAndResolveBlockCollision(posiCom, spatiCom, row, column);
+						checkAndResolveBlockCollision(posiCom, spatiCom,physCom, row, column);
 					}
 				}
 			}
@@ -75,30 +77,31 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 	}
 
 	private void checkAndResolveBlockCollision(TransformationComp posiCom,
-			SpatialComp spatiCom, int row, int column) {
+			SpatialComp spatiCom,PhysicsComp physComp, int row, int column) {
 		
-		int left = column * this.scene.getBlockSize();
-		int right = (column + 1) * this.scene.getBlockSize();
-		int top = row * this.scene.getBlockSize();
-		int bottom = (row + 1) * this.scene.getBlockSize();
+		int blockSize = this.scene.getBlockSize();
 		
-		float radius = spatiCom.getBounds().getRadius();
-		float x = posiCom.getPosition().X;
-		float y = posiCom.getPosition().Y;
+		Rectangle gridRect = new Rectangle((column) * blockSize, 
+										   (row) * blockSize, 
+										   blockSize, 
+										   blockSize);
 		
-		if (x + radius > left && 
-			x - radius < right &&
-			y + radius > top &&
-			y - radius < bottom) {
-			Vector2 center = new Vector2(left + this.scene.getBlockSize() / 2, 
-										 top + this.scene.getBlockSize() / 2);
+		int r = (int)spatiCom.getBounds().getRadius();
+		int r2 = (int)(spatiCom.getBounds().getRadius()) * 2;
+		int x = (int)posiCom.getPosition().X;
+		int y = (int)posiCom.getPosition().Y;
+		
+		Rectangle playerBounds = new Rectangle(x -r, y- r, r2, r2);
+		
+		
+		
+				
+		if (playerBounds.intersects(gridRect)) {
 			
-			Vector2 dir = Vector2.subtract(posiCom.getPosition(), center);
-			float moveDistance = this.scene.getBlockSize() + radius - dir.length(); 
-			dir = Vector2.norm(dir);
-			dir = Vector2.mul(moveDistance, dir);
+			float time = this.getWorld().getTime().DeltaTime;
 			
-			posiCom.setPosition(Vector2.add(dir, posiCom.getPosition()));
+			Vector2 invVelo = Vector2.mul(-1 * time, physComp.getVelocity());		
+			posiCom.setPosition(Vector2.add(invVelo, posiCom.getPosition()));
 		}
 	}
 

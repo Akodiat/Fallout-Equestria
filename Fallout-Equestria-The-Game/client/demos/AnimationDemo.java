@@ -41,7 +41,7 @@ import utils.Rectangle;
 public class AnimationDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";
 	private static final String aiAsset 	= "FollowingTextAI.archetype";
-	private static Rectangle screenDim 		= new Rectangle(0,0,800,600);
+	private static Rectangle screenDim 		= new Rectangle(0,0,1920,1080);
 
 	private GameWorld gameWorld;
 	private Camera2D camera;
@@ -75,7 +75,7 @@ public class AnimationDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		scene = ContentManager.load("SomeSortOfScene.xml", Scene.class);
+		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 

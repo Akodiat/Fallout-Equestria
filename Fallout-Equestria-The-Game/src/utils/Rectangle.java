@@ -39,6 +39,15 @@ public final class Rectangle {
 						   this.Y + this.Height / 2.0f);
 	}
 	
+	public boolean intersects(Rectangle other) {
+		return other.X < this.X + this.Width && 
+			   this.X < other.X + other.Width &&
+			   other.Y < this.Y + this.Height && 
+			   this.Y < other.Y + other.Height;
+		
+	}
+	
+	
 	public static Rectangle lerp(Rectangle rectangle1, Rectangle rectangle2, float t){
 		int x = (int)MathHelper.lerp(rectangle1.X, rectangle2.X, t);
 		int y = (int)MathHelper.lerp(rectangle1.Y, rectangle2.Y, t);

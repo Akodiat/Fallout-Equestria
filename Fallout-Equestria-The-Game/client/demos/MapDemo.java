@@ -33,7 +33,7 @@ import utils.Rectangle;
 
 public class MapDemo extends Demo{
 	private static final String playerAsset = "Player.archetype";
-	private static Rectangle screenDim = new Rectangle(0,0,800,600);
+	private static Rectangle screenDim = new Rectangle(0,0,1920,1080);
 	
 	private GameWorld gameWorld;
 	private Camera2D camera;
@@ -46,7 +46,7 @@ public class MapDemo extends Demo{
 	}
 
 	protected void initialize() {
-		scene = ContentManager.load("TestScene9000.xml", Scene.class);
+		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);

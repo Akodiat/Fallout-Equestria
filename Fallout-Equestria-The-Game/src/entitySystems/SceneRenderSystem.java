@@ -36,17 +36,19 @@ public class SceneRenderSystem extends EntitySystem {
 	public void process() {
 		List<TileLayer> tileLayers = scene.getTileLayers();
 
+		Point2 tileGridDim = new Point2(scene.getGridBounds().Width, scene.getGridBounds().Height);
+		Point2 minIndex = getMinIndex(tileGridDim);
+		Point2 maxIndex = getMaxIndex(tileGridDim);
+		
 		for (TileLayer tileLayer : tileLayers) {
 			Tile[][] tiles = tileLayer.getTileGrid();
-			drawTileGrid(tiles);
+			drawTileGrid(tiles, minIndex, maxIndex);
 		}
 	}
 
-	private void drawTileGrid(Tile[][] tiles) {
+	private void drawTileGrid(Tile[][] tiles, Point2 minIndex, Point2 maxIndex) {
 		
-		Point2 tileGridDim = new Point2(tiles[0].length, tiles.length);
-		Point2 minIndex = getMinIndex(tileGridDim);
-		Point2 maxIndex = getMaxIndex(tileGridDim);
+		
 		
 		for (int row = minIndex.Y; row < maxIndex.Y; row++) {
 			for (int column = minIndex.X; column < maxIndex.X; column++) {
