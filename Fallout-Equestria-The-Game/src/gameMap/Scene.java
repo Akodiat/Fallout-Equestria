@@ -8,14 +8,16 @@ import com.google.common.collect.ImmutableList;
 
 public class Scene {
 	
-	private ImmutableList<TileLayer> tileLayers;
-	private ImmutableList<CollisionLayer> collisionLayers;
-	private Rectangle bounds;
-	private int blockSize;
+	private final ImmutableList<TileLayer> tileLayers;
+	private final ImmutableList<CollisionLayer> collisionLayers;
+	private final ImmutableList<ArchetypeNode> nodes;
+	private final Rectangle bounds;
+	private final int blockSize;
 	
-	public Scene(List<TileLayer> tileLayers, List<CollisionLayer> collisionLayers, Rectangle bounds, int blockSize) {
+	public Scene(List<TileLayer> tileLayers, List<CollisionLayer> collisionLayers, List<ArchetypeNode> nodes, Rectangle bounds, int blockSize) {
 		this.tileLayers = ImmutableList.copyOf(tileLayers);
-		this.collisionLayers = ImmutableList.copyOf(collisionLayers);		
+		this.collisionLayers = ImmutableList.copyOf(collisionLayers);	
+		this.nodes 			 = ImmutableList.copyOf(nodes);
 		this.bounds = bounds;
 		this.blockSize = blockSize;
 	}
@@ -36,6 +38,10 @@ public class Scene {
 		return collisionLayers;
 	}
 	
+	public ImmutableList<ArchetypeNode> getNodes() {
+		return this.nodes;
+	}
+	
 	public int getBlockSize() {
 		return this.blockSize;
 	}
@@ -50,9 +56,9 @@ public class Scene {
 	
 	public Rectangle getWorldBounds() {
 		Rectangle r = bounds;
-		return new Rectangle(r.X * blockSize,
-						     r.Y * blockSize,
-						     r.Width * blockSize,
+		return new Rectangle(r.X 	  * blockSize,
+						     r.Y	  * blockSize,
+						     r.Width  * blockSize,
 						     r.Height * blockSize);
 	}
 }

@@ -101,7 +101,6 @@ public class AbilityTests {
 	private void initializeEntitysystems(IEntitySystemManager systemManager) {
 		//Logic systems!
 		systemManager.addLogicEntitySystem(new AbilitySystem(world, AbilityBuilder.build()));
-		systemManager.addLogicEntitySystem(new AnimationSystem(world));
 		systemManager.addLogicEntitySystem(new RegenSystem(world, 0.4f));
 		systemManager.addLogicEntitySystem(new AttackResolveSystem(world));
 		systemManager.addLogicEntitySystem(new CameraControlSystem(world, camera));

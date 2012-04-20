@@ -120,7 +120,6 @@ public class AnimationTest {
 		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester
 				.getWorld(), this.graphics));
-		tester.addRenderSubSystem(new AnimationSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new DeathResolveSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(),
@@ -168,7 +167,6 @@ public class AnimationTest {
 		Animation animation = new Animation(frames, 0.1f);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
 		animations.put("walk", animation);
-		AnimationComp aniComp = new AnimationComp(animations, "walk");
 
 		// rendcomp
 		RenderingComp rendComp = new RenderingComp();
@@ -177,7 +175,6 @@ public class AnimationTest {
 				.loadTexture("pinkiewalkweaponspriteSCALED.png"));
 
 		player.addComponent(rendComp);
-		player.addComponent(aniComp);
 		player.addComponent(inpComp);
 		player.addComponent(new StatusComp());
 		player.addComponent(physComp);

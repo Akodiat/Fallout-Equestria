@@ -1,0 +1,27 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Rendering>
+        <texture>
+          <Asset>barrels.png</Asset>
+        </texture>
+        <color>
+          <Color>1.0,0.2,0.8,1.0</Color>
+        </color>
+      </Rendering>
+      <Transformation>
+        <position>0.0,0.0</position>
+        <scale>1.0,1.0</scale>
+        <origin reference="../position"/>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+      </Transformation>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <string>Enemies</string>
+    </elements>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>

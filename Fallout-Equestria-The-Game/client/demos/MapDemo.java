@@ -3,11 +3,15 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import components.ScriptComp;
+import components.TransformationComp;
 
 import content.ContentManager;
+import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
 import entityFramework.IEntityDatabase;
@@ -15,6 +19,7 @@ import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
 import entitySystems.CameraControlSystem;
 
+import gameMap.ArchetypeNode;
 import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
@@ -41,7 +46,7 @@ public class MapDemo extends Demo{
 	}
 
 	protected void initialize() {
-		scene = ContentManager.load("SomeSortOfScene.xml", Scene.class);
+		scene = ContentManager.load("TestScene9000.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
@@ -62,8 +67,25 @@ public class MapDemo extends Demo{
 		entity.refresh();
 		
 		sm.initialize();
+		
+		
+		addArchetypes(manager);
+		
 	}
 	
+	private void addArchetypes(IEntityManager manager) {
+		ImmutableList<ArchetypeNode>  nodes = this.scene.getNodes();
+		for (ArchetypeNode node : nodes) {			
+			createEntity(manager, node);
+		}	
+	}
+
+	private void createEntity(IEntityManager manager, ArchetypeNode node) {
+		IEntity entity = manager.createEntity(node.getArchetype());
+		TransformationComp comp = entity.getComponent(TransformationComp.class);
+		comp.setPosition(node.getPosition());
+	}
+
 	public static void main(String[] args) throws LWJGLException {
 		MapDemo demo = new MapDemo();
 		demo.start();
@@ -78,7 +100,7 @@ public class MapDemo extends Demo{
 
 	@Override
 	public void render(GameTime time) {
-		this.spriteBatch.clearScreen(Color.Black);
+		this.spriteBatch.clearScreen(Color.CornflowerBlue);
 		this.spriteBatch.begin(null, this.camera.getTransformation());
 		this.gameWorld.render();
 		this.spriteBatch.end();

@@ -1,5 +1,8 @@
 package content;
 
+import entityFramework.IComponent;
+import entityFramework.IEntityArchetype;
+import gameMap.ArchetypeNode;
 import gameMap.CollisionLayer;
 import gameMap.Scene;
 import gameMap.Tile;
@@ -12,11 +15,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import math.Vector2;
+
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableSet;
+import components.TransformationComp;
 
 import utils.Rectangle;
 import graphics.Texture2D;
@@ -51,10 +58,39 @@ public class SceneLoader implements IContentLoader<Scene>{
 		Map<String, Texture2D> usedTextures  = extractTextures(rootNode);
 		List<TileLayer> tileLayers		     = extractSortedTileLayers(rootNode, gridBounds, usedTextures);
 		List<CollisionLayer> collisionLayers = extractCollisionLayers(rootNode, gridBounds);
+		List<ArchetypeNode> nodes   		 = extractNodes(rootNode);
 
 
 		
-		return new Scene(tileLayers, collisionLayers, gridBounds, blockSize);
+		return new Scene(tileLayers, collisionLayers, nodes, gridBounds, blockSize);
+	}
+
+	private List<ArchetypeNode> extractNodes(Element rootNode) {
+		Element nodesElement = rootNode.getChild("Nodes");
+		List<Element> nodeElements = nodesElement.getChildren("Node");
+		List<ArchetypeNode> arechetypes = new ArrayList<>();
+		for (Element nodeElement : nodeElements) {
+			IEntityArchetype arch = extractArchetype(nodeElement);;
+			Vector2 position = extractPosition(nodeElement);
+			ArchetypeNode node = new ArchetypeNode(arch, position);
+			arechetypes.add(node);
+		}
+		
+		return arechetypes;
+	}
+
+	private IEntityArchetype extractArchetype(Element nodeElement) {
+		String name = nodeElement.getAttributeValue("Value") + ".archetype";
+		IEntityArchetype archetype = ContentManager.loadArchetype(name);
+		return archetype;
+	}
+
+	private Vector2 extractPosition(Element nodeElement) {
+		String[] pos = split(nodeElement.getAttributeValue("Position"), ',');
+		float x = Float.parseFloat(pos[0]);
+		float y = Float.parseFloat(pos[1]);
+		
+		return new Vector2(x,y);
 	}
 
 	private int extractBlockSize(Element rootNode) {
