@@ -55,6 +55,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	private Clock clock;
 	
 	private Map<String, String> clientMap;
+	private Map<String, IEntityArchetype> archetypeMap;
 
 	protected RemoteServer(Rectangle screenDim, int fps) throws RemoteException {
 		this.screenDim = screenDim;
@@ -145,6 +146,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
 		clientMap = new HashMap<String,String>();
+		archetypeMap = new HashMap<String,IEntityArchetype>();
 		
 		Injector injector = Guice.createInjector(new EntityModule());
 		IEntityManager manager = injector.getInstance(IEntityManager.class);
@@ -162,6 +164,8 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		player.addComponent(new ScriptComp(new PlayerScript()));
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		player.refresh();
+		
+		archetypeMap.put(archetype.getLabel(), archetype); //Adds player with server to the map so that clients can get it.
 		
 		sm.initialize();
 	}
@@ -237,7 +241,30 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		archetype.setLabel(label); //Sets the label to the value from client register map. E.g. "player#"
 	
 		manager.createEntity(archetype);
+		
+		this.archetypeMap.put(label, archetype);
 		System.out.println("Added new player with the label:"+label);
+	}
+	public List<String> getOtherPlayerArchetypes(){
+		ArrayList<String> labelList = new ArrayList<String>(this.clientMap.values());
+		labelList.add("Player"); //Add the player that hosts the server
+		try {
+			labelList.remove(clientMap.get(RemoteServer.getClientHost()));
+		} catch (ServerNotActiveException e) {
+			e.printStackTrace();
+		}
+		ArrayList<String> archList = new ArrayList<String>();
+		
+		for (String label : labelList) {
+			EntityArchetypeLoader archLoader = new EntityArchetypeLoader();
+			ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+			archLoader.save(ostream, this.archetypeMap.get(label));
+			
+			String archString = ostream.toString();
+			archList.add(archString);
+		}
+		System.out.print("The list of archetypes sent to client contains "+archList.size()+" items. The first is "+archList.get(0));
+		return archList;
 	}
 
 	@Override

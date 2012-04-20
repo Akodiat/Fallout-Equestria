@@ -1,13 +1,16 @@
 package client;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Scanner;
 
 import org.lwjgl.opengl.*;
@@ -132,15 +135,6 @@ public class PlayerClient {
 		IEntityManager manager = injector.getInstance(IEntityManager.class);
 		
 		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
-//		IEntityDatabase db;
-//		try {
-//			System.out.println("Trying to get database from server");
-//			db = server.getDatabase();
-//		} catch (RemoteException e) {
-//			System.out.println("I just don't know what went wrong... flew north direction to get database... perhaps it's south?"); //TODO Better debug? throw further with message? Remove? Yes?
-//			db = injector.getInstance(IEntityDatabase.class); //TODO Probably unwise...
-//			e.printStackTrace();
-//		} 
 		
 		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
 		
@@ -184,6 +178,27 @@ public class PlayerClient {
 		} //TODO Move?
 		
 		sm.initialize();
+		
+		try {
+			loadNewArchetypes(server.getOtherPlayerArchetypes());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void loadNewArchetypes(List<String> archetypeStringList){
+		IEntityManager manager  = this.gameWorld.getEntityManager();
+		for (String playerArchString : archetypeStringList) {
+			EntityArchetypeLoader archLoader = new EntityArchetypeLoader();
+			InputStream istream = new ByteArrayInputStream(playerArchString.getBytes());
+			try {	
+				manager.createEntity(archLoader.loadContent(istream));
+			} catch (Exception e1) {
+				System.out.println("Tried to add other players to "+this.player.getLabel()+" but failed att loading archetype");
+				e1.printStackTrace();
+			}
+		}
+		
 	}
 
 	public void update(GameTime time) {
