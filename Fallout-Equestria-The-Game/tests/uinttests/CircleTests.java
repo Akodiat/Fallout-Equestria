@@ -1,9 +1,9 @@
 package uinttests;
 
+import math.MathHelper;
 import math.Vector2;
 
 import utils.Circle;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -47,5 +47,15 @@ public class CircleTests {
 		float combinedRadius = circle1.getRadius() + circle2.getRadius();
 		
 		assertTrue(distance < combinedRadius == Circle.intersects(circle1,circle2));
+	}
+	
+	@Test
+	public void testLerp(){
+		float random = (float)(Math.random()*2)-0.5f;//A value between -0.5 and 1.5
+		Circle lerped  = Circle.lerp(circle1, circle2, random);
+
+		assertTrue(lerped.getPosition().X == MathHelper.lerp(circle1.getPosition().X, circle2.getPosition().X, random));
+		assertTrue(lerped.getPosition().Y == MathHelper.lerp(circle1.getPosition().Y, circle2.getPosition().Y, random));
+		assertTrue(lerped.getRadius() == MathHelper.lerp(circle1.getRadius(), circle2.getRadius(), random));
 	}
 }

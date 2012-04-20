@@ -1,5 +1,6 @@
 package utils;
 
+import math.MathHelper;
 import math.Vector2;
 
 public final class Rectangle {
@@ -36,6 +37,15 @@ public final class Rectangle {
 	public Vector2 getCenter() {
 		return new Vector2(this.X + this.Width  / 2.0f, 
 						   this.Y + this.Height / 2.0f);
+	}
+	
+	public static Rectangle lerp(Rectangle rectangle1, Rectangle rectangle2, float t){
+		int x = (int)MathHelper.lerp(rectangle1.X, rectangle2.X, t);
+		int y = (int)MathHelper.lerp(rectangle1.Y, rectangle2.Y, t);
+		int width = (int)MathHelper.lerp(rectangle1.Width, rectangle2.Width, t);
+		int height = (int)MathHelper.lerp(rectangle1.Height, rectangle2.Height, t);
+		
+		return new Rectangle(x, y, width, height);
 	}
 	
 	public String toString() {

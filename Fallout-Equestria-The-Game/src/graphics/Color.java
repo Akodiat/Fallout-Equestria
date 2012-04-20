@@ -2,7 +2,7 @@ package graphics;
 
 import math.MathHelper;
 
-public class  Color implements java.io.Serializable {
+public class Color implements java.io.Serializable {
 
 	public final float R;
 	public final float G;
@@ -36,6 +36,15 @@ public class  Color implements java.io.Serializable {
 		G = ((hex >> 16) & 0xFF)  / (float)0xFF;
 		B = ((hex >> 8)  & 0xFF)   / (float)0xFF;
 		A = ((hex >> 0)  & 0xFF)   / (float)0xFF;
+	}
+	
+	public static Color lerp(Color c1, Color c2, float t) {
+		float r = MathHelper.lerp(c1.R, c2.R, t);
+		float g = MathHelper.lerp(c1.G, c2.G, t);
+		float b = MathHelper.lerp(c1.B, c2.B, t);
+		float a = MathHelper.lerp(c1.A, c2.A, t);
+		
+		return new Color(r, g, b, a);
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package utils;
 
+import math.MathHelper;
 import math.Vector2;
 
 public class Circle {
@@ -11,6 +12,12 @@ public class Circle {
 	public Circle(Vector2 position, float radius) {
 		this.position = position;
 		this.radius = radius;
+	}
+	public Circle(float radius) {
+		this(Vector2.Zero, radius);
+	}
+	public Circle(float x, float y, float radius) {
+		this(new Vector2(x, y), radius);
 	}
 	/**
 	 * Defaultconstructor
@@ -80,6 +87,14 @@ public class Circle {
 		distance -= circle1.radius + circle2.radius;
 		return distance;
 		
+	}
+	
+	public static Circle lerp(Circle circle1, Circle circle2, float t){
+		float x = MathHelper.lerp(circle1.getPosition().X, circle2.getPosition().X, t);
+		float y = MathHelper.lerp(circle1.getPosition().Y, circle2.getPosition().Y, t);
+		float r = MathHelper.lerp(circle1.getRadius(), circle2.getRadius(), t);
+		
+		return new Circle(x, y, r);
 	}
 	
 	public String toString() {
