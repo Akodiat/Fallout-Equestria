@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 
 import org.newdawn.slick.openal.Audio;
 
-import scripting.Script;
+import scripting.BehaviourScript;
 import utils.Circle;
 
 import math.Vector2;
@@ -139,7 +139,7 @@ public class ComponentPanel extends JPanel {
 			aPanel.setBounds(0, height, 500, 55);
 			height += 50;
 			this.scrollPanel.add(aPanel);
-		} else if(Script.class.isAssignableFrom(type)) {
+		} else if(BehaviourScript.class.isAssignableFrom(type)) {
 			ScriptPanel sPanel = new ScriptPanel(field, component);
 			sPanel.setBounds(0,height, 500, 500);
 			height += 305;

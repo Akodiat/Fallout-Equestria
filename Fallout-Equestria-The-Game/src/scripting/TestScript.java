@@ -12,7 +12,7 @@ import components.TransformationComp;
 import components.WeaponComp;
 
 @Editable
-public class TestScript extends Script{
+public class TestScript extends BehaviourScript{
 
 	@Editable
 	private float trololo = 10;
@@ -73,7 +73,7 @@ public class TestScript extends Script{
 	}
 
 	@Override
-	public Script createNew() {
+	public BehaviourScript createNew() {
 		return new PlayerScript();
 	}
 

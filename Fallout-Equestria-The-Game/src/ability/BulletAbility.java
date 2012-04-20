@@ -64,7 +64,7 @@ public class BulletAbility extends AbstractAbilityProcessor{
 		bullet.addComponent(transComp);
 		bullet.addComponent(rendComp);
 		bullet.addComponent(existanceComp);
-		bullet.addComponent(new AttackComp(sourceEntity, new Circle(Vector2.Zero, 30), 10, true));
+		bullet.addComponent(new AttackComp(sourceEntity, new Circle(Vector2.Zero, 30)));
 		
 		bullet.getComponent(AttackComp.class).setSourceEntity(sourceEntity);
 		bullet.getComponent(TransformationComp.class).setRotation(attackSpeed.angle());

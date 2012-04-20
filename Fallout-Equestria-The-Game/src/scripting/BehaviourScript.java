@@ -4,7 +4,7 @@ import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import utils.GameTime;
 
-public abstract class Script{
+public abstract class BehaviourScript{
 	
 	protected IEntityManager entityManager;
 	protected IEntity entity;
@@ -22,5 +22,5 @@ public abstract class Script{
 	
 	public abstract void start();
 	public abstract void update(GameTime time);
-	public abstract Script createNew();
+	public abstract BehaviourScript createNew();
 }

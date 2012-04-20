@@ -12,7 +12,7 @@ import components.WeaponComp;
 
 import utils.GameTime;
 @Editable
-public class PlayerScript extends Script{
+public class PlayerScript extends BehaviourScript{
 	
 	PhysicsComp	  	        physComp;
 	InputComp 		  	     inpComp;
@@ -67,7 +67,7 @@ public class PlayerScript extends Script{
 	}
 
 	@Override
-	public Script createNew() {
+	public BehaviourScript createNew() {
 		return new PlayerScript();
 	}
 

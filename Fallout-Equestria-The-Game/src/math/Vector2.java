@@ -56,8 +56,6 @@ public final class Vector2 implements java.io.Serializable{
 	
 	/**Multiplies a vector by another vector.
 	 * (X1*X2,Y1*Y2)
-	 * @param scalar the scalar.
-	 * @param vector the vector.
 	 * @return the multiplication result.
 	 */
 	public static Vector2 mul(Vector2 vector1, Vector2 vector2) {
@@ -198,6 +196,15 @@ public final class Vector2 implements java.io.Serializable{
 	 */
 	public final static Vector2 UnitY = new Vector2(0f,1.0f);
 	
+	/**
+	 * Mirrors vectors in the X-axis.
+	 */
+	public final static Vector2 MirrorXAxis = new Vector2(1.0f, -1.0f);
+	
+	/**
+	 * Mirrors vectors in the Y-axis.
+	 */
+	public final static Vector2 MirrorYAxis = new Vector2(-1.0f, 1.0f);	
 	
 	public boolean equals(Object other) {
 		if(other.getClass().equals(Vector2.class)) {

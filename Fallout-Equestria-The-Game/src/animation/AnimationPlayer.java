@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
+import math.MathHelper;
 import math.Vector2;
 
 import utils.GameTime;
@@ -264,13 +265,26 @@ public class AnimationPlayer
 				continue;
 			
 	
-			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, 
-					boneTransformations[boneIndex].getPosition()), 
+			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), 
+					getBonePosition(position, mirrored, scale, boneIndex), 
 					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
-					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
+					Vector2.mul(scale, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin()), 
 					Vector2.mul(scale, boneTransformations[boneIndex].getScale()), 
-					boneTransformations[boneIndex].getRotation() + rotation, bone.isMirrored() ^ mirrored);		
+					getBoneRotation(mirrored, rotation, boneIndex), 
+					bone.isMirrored() ^ mirrored);		
 		}
+	}
+
+	private float getBoneRotation(boolean mirrored, float rotation,
+			int boneIndex) {
+		return mirrored?-1*(boneTransformations[boneIndex].getRotation() + rotation):
+				boneTransformations[boneIndex].getRotation() + rotation;
+	}
+
+	private Vector2 getBonePosition(Vector2 position, boolean mirrored,
+			Vector2 scale, int boneIndex) {
+		return mirrored?Vector2.add(position, Vector2.mul(scale, Vector2.mul(Vector2.MirrorYAxis, boneTransformations[boneIndex].getPosition()))):
+				Vector2.add(position, Vector2.mul(scale, boneTransformations[boneIndex].getPosition()));
 	}
 
 	public String getCurrentAnimation() {

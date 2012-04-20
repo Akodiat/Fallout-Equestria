@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>manlymansheet.png</TexturePath>
+  <Texture name="manlymanhead">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>400</Width>
+    <Height>446</Height>
+    <OriginX>200</OriginX>
+    <OriginY>295</OriginY>
+  </Texture>
+  <Texture name="manlymanbody">
+    <X>402</X>
+    <Y>0</Y>
+    <Width>191</Width>
+    <Height>430</Height>
+    <OriginX>95</OriginX>
+    <OriginY>215</OriginY>
+  </Texture>
+  <Texture name="manlymanarm">
+    <X>595</X>
+    <Y>0</Y>
+    <Width>101</Width>
+    <Height>234</Height>
+    <OriginX>50</OriginX>
+    <OriginY>59</OriginY>
+  </Texture>
+</TextureDictionary>

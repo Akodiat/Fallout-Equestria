@@ -65,21 +65,9 @@ public class AttackResolveSystem extends EntityProcessingSystem {
 							targetEntity, targetSpatiCom, targetPosiCom);
 
 					if (itGotHit) {
-						hitSomething = true;
-						HealthComp healthComp = targetEntity
-								.getComponent(HealthComp.class);
-						if (healthComp != null) {
-							healthComp.addHealthPoints(-attaCom.getDamage());
 							attaCom.addTargetHit(targetEntity);
-							
-							createFloatingCombatText(targetPosiCom.getPosition(), attaCom.getDamage());
-
-						}
+							attaCom.getAttackScript().onHit(targetEntity);
 					}
-				}
-
-				if (hitSomething && attaCom.isDestoryOnHit()) {
-					entity.kill();
 				}
 			}
 		}

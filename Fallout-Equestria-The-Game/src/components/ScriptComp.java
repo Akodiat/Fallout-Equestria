@@ -1,7 +1,7 @@
 package components;
 
 import anotations.Editable;
-import scripting.Script;
+import scripting.BehaviourScript;
 import utils.GameTime;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
@@ -10,13 +10,13 @@ import entityFramework.IEntityManager;
 @Editable
 public class ScriptComp implements IComponent {
 	@Editable
-	private Script script;
+	private BehaviourScript script;
 	
 	public ScriptComp() {
-		this((Script)null);
+		this((BehaviourScript)null);
 	}
 	
-	public ScriptComp(Script script) {
+	public ScriptComp(BehaviourScript script) {
 		this.setScript(script);
 	}
 	
@@ -33,11 +33,11 @@ public class ScriptComp implements IComponent {
 		script.update(time);
 	}
 
-	public Script getScript() {
+	public BehaviourScript getScript() {
 		return script;
 	}
 
-	public void setScript(Script script) {
+	public void setScript(BehaviourScript script) {
 		this.script = script;
 	}
 
