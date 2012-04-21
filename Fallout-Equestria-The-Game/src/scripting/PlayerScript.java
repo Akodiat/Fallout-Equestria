@@ -38,9 +38,9 @@ public class PlayerScript extends BehaviourScript{
 			apComp.setAbility(ability);
 		}
 
-		int speedFactor = 2;
+		int speedFactor = 200;
 		if(inpComp.isGallopButtonPressed()){
-			speedFactor=4;
+			speedFactor=400;
 		}
 
 		Vector2 velocity = new Vector2(0,0);

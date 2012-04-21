@@ -37,8 +37,7 @@ public class CollisionSystem extends EntitySingleProcessingSystem{
 		SpatialComp spatComp = spatCM.getComponent(entity);
 
 		ImmutableSet<IEntity> collidableEntities = this.getWorld().getDatabase().getEntitysContainingComponent(SpatialComp.class);
-		transComp.setPosition(Vector2.add(transComp.getPosition(), physComp.getVelocity()));
-
+		
 		for(IEntity i:collidableEntities){						
 
 			//Checking collision with other entities

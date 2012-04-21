@@ -51,6 +51,7 @@ public class GameWorld extends EntityWorld {
 		manager.addLogicEntitySystem(new CollisionSystem(this));
 		manager.addLogicEntitySystem(new DeathSystem(this));
 		manager.addLogicEntitySystem(new ExistanceSystem(this));
+	
 		
 		manager.addLogicEntitySystem(new InputSystem(this, camera));
 		manager.addLogicEntitySystem(new PhysicsSystem(this));
@@ -66,6 +67,7 @@ public class GameWorld extends EntityWorld {
 		manager.addRenderEntitySystem(new RenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new HUDRenderingSystem(this, spriteBatch, "Player"));
+		manager.addRenderEntitySystem(new AnimationSystem(this, spriteBatch));
 		
 		
 		//Debugg systems!

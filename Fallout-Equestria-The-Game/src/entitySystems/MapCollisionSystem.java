@@ -69,14 +69,16 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			for (int row = topLeftIndex.Y; row <= bottomRight.Y; row++) {
 				for (int column = topLeftIndex.X; column <= bottomRight.X; column++) {
 					if(grid[row][column]) {
-						checkAndResolveBlockCollision(posiCom, spatiCom,physCom, row, column);
+						boolean wasColidedWith = checkAndResolveBlockCollision(posiCom, spatiCom,physCom, row, column);
+						if(wasColidedWith) 
+							return;
 					}
 				}
 			}
 		}
 	}
 
-	private void checkAndResolveBlockCollision(TransformationComp posiCom,
+	private boolean checkAndResolveBlockCollision(TransformationComp posiCom,
 			SpatialComp spatiCom,PhysicsComp physComp, int row, int column) {
 		
 		int blockSize = this.scene.getBlockSize();
@@ -102,7 +104,10 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			
 			Vector2 invVelo = Vector2.mul(-1 * time, physComp.getVelocity());		
 			posiCom.setPosition(Vector2.add(invVelo, posiCom.getPosition()));
+			return true;
 		}
+		return false;
+		
 	}
 
 	private Point2 getTopLeftIndex(Vector2 topLeft, boolean[][] grid) {

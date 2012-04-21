@@ -49,7 +49,7 @@ import utils.Rectangle;
 public class MazeDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";
 	private static final String aiAsset 	= "FollowingTextAI.archetype";
-	private static Rectangle screenDim 		= new Rectangle(0,0,800,600);
+	private static Rectangle screenDim 		= new Rectangle(0,0,1980,1020);
 
 	private GameWorld gameWorld;
 	private Camera2D camera;
@@ -70,50 +70,20 @@ public class MazeDemo extends Demo {
 	public void update(GameTime time) {
 		this.gameWorld.update(time);
 		this.gameWorld.getEntityManager().destoryKilledEntities();
+		
+		if(Math.random() < 0.1f) {
+			IEntityDatabase database  = this.gameWorld.getDatabase();
+			if(database.getEntityCount() < 150) {
+				spawnManlyMan();
+			
+			}
+		}
 
 	}
 
-	@Override
-	public void render(GameTime time) {
-		this.spriteBatch.clearScreen(Color.Black);
-		this.spriteBatch.begin(null, this.camera.getTransformation());
-		this.gameWorld.render();
-		this.spriteBatch.end();	
-	}
+	private void spawnManlyMan() {
 
-	@Override
-	protected void initialize() {
-		scene = ContentManager.load("SomeSortOfScene.xml", Scene.class);
-		camera = new Camera2D(scene.getWorldBounds(), screenDim);
-		spriteBatch = new SpriteBatch(screenDim);
-
-		Injector injector = Guice.createInjector(new EntityModule());
-		IEntityManager manager = injector.getInstance(IEntityManager.class);
-		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
-		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
-
-		gameWorld = new GameWorld(manager, sm, db, camera, spriteBatch, scene);
-		gameWorld.initialize();
-
-		sm.initialize();
-
-		//ANIMATION UGLY SHIT
-		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		IEntity entity = manager.createEntity(archetype);
-		entity.addComponent(new ScriptComp(new PlayerScript()));
-		
-		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
-		
-		AnimationPlayer player = new AnimationPlayer();
-		player.addAnimation("lol", animation);
-		player.startAnimation("lol");
-		
-		entity.addComponent(new RenderingComp(Texture2D.getPixel(), Color.White, null, new Rectangle(0,0,0,0)));
-
-
-		
-		entity.addComponent(new AnimationComp(player));
-		//END OF ANIMATION UGLY SHIT
+		IEntityManager manager = this.gameWorld.getEntityManager();
 		
 		//MANLYMAN
 		AnimationPlayer manPlayer = new AnimationPlayer();
@@ -152,18 +122,54 @@ public class MazeDemo extends Demo {
 
 		manEntity.refresh();
 		//ENDMAN
+		
+		placeAtRandomPosition(manEntity);
+		
+		
+	}
 
+	@Override
+	public void render(GameTime time) {
+		this.spriteBatch.clearScreen(Color.Black);
+		this.spriteBatch.begin(null, this.camera.getTransformation());
+		this.gameWorld.render();
+		this.spriteBatch.end();	
+	}
+
+	@Override
+	protected void initialize() {
+		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
+		camera = new Camera2D(scene.getWorldBounds(), screenDim);
+		spriteBatch = new SpriteBatch(screenDim);
+
+		Injector injector = Guice.createInjector(new EntityModule());
+		IEntityManager manager = injector.getInstance(IEntityManager.class);
+		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
+		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
+
+		gameWorld = new GameWorld(manager, sm, db, camera, spriteBatch, scene);
+		gameWorld.initialize();
+
+		sm.initialize();
+
+		//ANIMATION UGLY SHIT
+		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
+		IEntity entity = manager.createEntity(archetype);
+		entity.addComponent(new ScriptComp(new PlayerScript()));
+		
+		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
+		
+		AnimationPlayer player = new AnimationPlayer();
+		player.addAnimation("lol", animation);
+		player.startAnimation("lol");
+		
+		entity.addComponent(new RenderingComp(Texture2D.getPixel(), Color.White, null, new Rectangle(0,0,0,0)));		
+		entity.addComponent(new AnimationComp(player));
+		//END OF ANIMATION UGLY SHIT
+		
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
-
-//		archetype = ContentManager.loadArchetype(aiAsset);
-//		for (int i = 0; i < 20; i++) {
-//			entity = manager.createEntity(archetype);
-//			placeAtRandomPosition(entity);
-//			entity.refresh();
-//
-//		}
 
 	}
 
