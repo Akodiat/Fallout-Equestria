@@ -50,6 +50,7 @@ public class GameWorld extends EntityWorld {
 		manager.addLogicEntitySystem(new CameraControlSystem(this, camera));
 		//manager.addLogicEntitySystem(new CollisionSystem(this));
 		manager.addLogicEntitySystem(new ScriptCollisionSystem(this));
+		manager.addLogicEntitySystem(new ScriptMouseSystem(this, camera));
 		manager.addLogicEntitySystem(new DeathSystem(this));
 		manager.addLogicEntitySystem(new ExistanceSystem(this));
 	

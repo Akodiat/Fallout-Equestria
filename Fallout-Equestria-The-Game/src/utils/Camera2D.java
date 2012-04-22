@@ -116,6 +116,20 @@ public class Camera2D {
 		return this.position;
 	}
 	
+
+	public Rectangle getViewport() {
+
+		int x,y,width,height;
+		
+		x = 0;
+		y = 0;
+		width = (int)(this.screenOffset.X * -2.0f);
+		height = (int)(this.screenOffset.Y * -2.0f);
+
+		return new Rectangle(x,y,width,height);	
+	}
+	
+	
 	public Rectangle getVisibleArea() {
 		int x,y,width,height;
 		

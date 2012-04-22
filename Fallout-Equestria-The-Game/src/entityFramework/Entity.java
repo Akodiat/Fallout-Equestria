@@ -182,6 +182,7 @@ public final class Entity extends IEntity {
 		this.database.clearEntity(uniqueID);
 	}
 	
+	@Override
 	public String toString() {
 //		ImmutableSet<IComponent> components = this.getComponents();
 //		StringBuilder builder = new StringBuilder();
@@ -194,7 +195,12 @@ public final class Entity extends IEntity {
 		
 		return this.uniqueID + " " + this.getLabel();
 	}
-
+	
+	@Override
+	public int hashCode() {
+		return this.uniqueID;
+	}
+	
 	@Override
 	public boolean isInGroup(String groupName) {
 		return this.getGroups().contains(groupName);

@@ -48,6 +48,10 @@ public class Circle {
 	public void setRadius(float radius) {
 		this.radius = radius;
 	}
+	
+	public static boolean intersects(Circle c, Vector2 offset, Vector2 point) {
+		return Vector2.distance(Vector2.add(c.position, offset), point) <= c.radius;
+	}
 
 	public static boolean intersects(Circle circle1, Circle circle2) {
 		float comboRadius = circle1.radius + circle2.getRadius();

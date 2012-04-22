@@ -18,16 +18,32 @@ import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import java.util.*;
 
 public class ScriptCollisionSystem extends  EntityProcessingSystem{
 
-	
-	
 	public ScriptCollisionSystem(IEntityWorld world) {
 		super(world, TransformationComp.class, SpatialComp.class);
 		// TODO Auto-generated constructor stub
+		this.entityCollisionStates = new HashMap<>();		
 	}
 	
+	private Map<IEntity, Set<IEntity>> entityCollisionStates;
+
+	
+	@Override
+	protected void entityAdded(IEntity entity) {
+		this.entityCollisionStates.put(entity, new HashSet<IEntity>());		
+	}
+	
+	@Override
+	protected void entityRemoved(IEntity entity) {
+		for (IEntity e : entityCollisionStates.get(entity)) {
+			exitCollision(e, entity);	
+		}		
+		this.entityCollisionStates.remove(entity);	
+	}
+
 	private ComponentMapper<TransformationComp> tCM;
 	private ComponentMapper<SpatialComp> sCM;
 
@@ -53,15 +69,47 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 						
 				boolean collisionResult = testCollision(t0.getPosition(), s0.getBounds(),
 														t1.getPosition(), s1.getBounds());
-				if(collisionResult) {
-					notifyScript(e0, e1);					
-				}
+				boolean alreadyColiding = getCollisionStatus(e0,e1);
 				
+				if(collisionResult) {
+					if(alreadyColiding) {
+						overCollision(e0,e1);
+					} else {
+						addCollisionState(e0,e1);
+						enterCollision(e0,e1);
+					}
+				} else {
+					if(alreadyColiding) {
+						removeCollisionState(e0,e1);
+						exitCollision(e0,e1);
+					}
+				}
 			}
 		}	
+						
+	}
+	
+	private void addCollisionState(IEntity e0, IEntity e1) {
+		this.entityCollisionStates.get(e0).add(e1);
+		this.entityCollisionStates.get(e1).add(e0);
 	}
 
-	private void notifyScript(IEntity e0, IEntity e1) {
+	private void removeCollisionState(IEntity e0, IEntity e1) {
+		this.entityCollisionStates.get(e0).remove(e1);
+		this.entityCollisionStates.get(e1).remove(e0);
+	}
+
+	private boolean getCollisionStatus(IEntity e0, IEntity e1) {
+		Set<IEntity> e0Cols = this.entityCollisionStates.get(e0);
+		if(e0Cols.contains(e1)) {
+			return true;
+		} else {
+			return false;
+		}
+				
+	}
+
+	private void enterCollision(IEntity e0, IEntity e1) {
 		ScriptComp scriptComp0 = e0.getComponent(ScriptComp.class);
 		if(scriptComp0 != null) {
 			BehaviourScript script = scriptComp0.getScript();
@@ -73,6 +121,34 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 			BehaviourScript script = scriptComp1.getScript();
 			script.onCollisionEnter(e0);
 		}	
+	}
+	
+	private void overCollision(IEntity e0, IEntity e1) {
+		ScriptComp scriptComp0 = e0.getComponent(ScriptComp.class);
+		if(scriptComp0 != null) {
+			BehaviourScript script = scriptComp0.getScript();
+			script.onCollisionOver(e1);
+		}
+		
+		ScriptComp scriptComp1 = e1.getComponent(ScriptComp.class);
+		if(scriptComp1 != null) {
+			BehaviourScript script = scriptComp1.getScript();
+			script.onCollisionOver(e0);
+		}			
+	}
+	
+	private void exitCollision(IEntity e0, IEntity e1) {
+		ScriptComp scriptComp0 = e0.getComponent(ScriptComp.class);
+		if(scriptComp0 != null) {
+			BehaviourScript script = scriptComp0.getScript();
+			script.onCollisionExit(e1);
+		}
+		
+		ScriptComp scriptComp1 = e1.getComponent(ScriptComp.class);
+		if(scriptComp1 != null) {
+			BehaviourScript script = scriptComp1.getScript();
+			script.onCollisionExit(e0);
+		}
 	}
 
 	private boolean testCollision(Vector2 p0, Circle c0,

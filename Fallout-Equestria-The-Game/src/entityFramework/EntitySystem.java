@@ -75,12 +75,17 @@ public abstract class EntitySystem implements IEntitySystem{
 		if(changedSet.equals(this.componentBits)) {
 			if(!this.entities.containsKey(entity.getUniqueID())) {
 				this.entities.put(entity.getUniqueID(), entity);
+				this.entityAdded(entity);
 			}
 		} else {
 			this.entities.remove(entity.getUniqueID());
+			this.entityRemoved(entity);
 		}
 		
 	}
+
+	protected void entityAdded(IEntity entity) { }
+	protected void entityRemoved(IEntity entity) { }
 
 	@Override
 	public void entityDestroyed(IEntity entity) {

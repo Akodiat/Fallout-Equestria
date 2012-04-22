@@ -9,8 +9,10 @@ import components.InputComp;
 import components.PhysicsComp;
 import components.TransformationComp;
 import components.WeaponComp;
+import entityFramework.IEntity;
 
 import utils.GameTime;
+import utils.MouseState;
 @Editable
 public class PlayerScript extends BehaviourScript{
 	
@@ -61,7 +63,27 @@ public class PlayerScript extends BehaviourScript{
 		velocity = Vector2.mul(speedFactor, velocity);
 		physComp.setVelocity(velocity);
 	}
+	
+	@Override 
+	public void onMouseOver(MouseState state) {
+		System.out.println("Mouse is over player :O");
+	}
+	
+	@Override
+	public void onCollisionEnter(IEntity entity) {
+		System.out.println("Player just collided with " + entity);
+	}
+		
+	@Override
+	public void onCollisionOver(IEntity entity) {
+		System.out.println("Player is continusly colliding with " + entity);
+	}
 
+	@Override
+	public void onCollisionExit(IEntity entity) {
+		System.out.println("Player stoped colliding with " + entity);
+	}
+	
 	@Override
 	public BehaviourScript createNew() {
 		return new PlayerScript();

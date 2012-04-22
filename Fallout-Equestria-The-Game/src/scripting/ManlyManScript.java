@@ -1,6 +1,7 @@
 package scripting;
 
 import utils.GameTime;
+import utils.MouseState;
 import animation.KeyframeTriggerEventArgs;
 import anotations.Editable;
 import components.*;
@@ -48,6 +49,12 @@ public class ManlyManScript extends BehaviourScript {
 		} else {
 			this.entity.getComponent(TransformationComp.class).setMirror(false);
 		}
+	}
+	
+	
+	@Override
+	public void onMouseOver(MouseState ms) {
+		System.out.println("Mouse is over me " + this.entity);
 	}
 	
 	@Override

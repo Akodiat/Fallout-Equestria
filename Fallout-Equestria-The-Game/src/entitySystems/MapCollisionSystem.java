@@ -25,7 +25,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 	private Scene scene;
 
 	public MapCollisionSystem(IEntityWorld world, Scene scene) {
-		super(world, TransformationComp.class, SpatialComp.class);
+		super(world, TransformationComp.class, SpatialComp.class, PhysicsComp.class);
 		this.scene = scene;
 	}
 
