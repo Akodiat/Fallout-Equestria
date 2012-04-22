@@ -12,6 +12,7 @@
 	<classpathentry kind="lib" path="lib/lwjgl-2.8.3/jar/lwjgl_util.jar"/>
 	<classpathentry kind="lib" path="lib/lwjgl-2.8.3/jar/lwjgl.jar">
 		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Users/Lukas/Documents/Git/Fallout-Equestria/Fallout-Equestria-The-Game/lib/lwjgl-2.8.3/javadoc/"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Fallout-Equestria-The-Game/lib/lwjgl-2.8.3/native/windows"/>
 		</attributes>
 	</classpathentry>

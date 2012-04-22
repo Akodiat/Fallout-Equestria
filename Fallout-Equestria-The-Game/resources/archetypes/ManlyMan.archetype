@@ -21,10 +21,16 @@
             <triggerString></triggerString>
           </eventArgs>
         </animationPlayer>
-        <tint>
-          <Color>0.93333334,0.93333334,0.93333334,1.0</Color>
-        </tint>
       </Animation>
+      <components.ScriptComp>
+        <script class="scripting.ManlyManScript">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+          <explodeAnimationName>explode</explodeAnimationName>
+          <targetEntityLabel>Player</targetEntityLabel>
+          <moveSpeed>100.0</moveSpeed>
+        </script>
+      </components.ScriptComp>
       <Transformation>
         <position reference="../../Physics/velocity"/>
         <scale>0.1,0.1</scale>
@@ -32,20 +38,12 @@
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>
-      <components.ScriptComp>
-        <script class="scripting.ManlyManScript">
-          <initialized>false</initialized>
-          <enabled>false</enabled>
-          <explodeAnimationName>explode</explodeAnimationName>
-          <targetEntityLabel>Player</targetEntityLabel>
-          <moveSpeed>130.0</moveSpeed>
-        </script>
-      </components.ScriptComp>
       <Spatial>
         <bounds>
           <position reference="../../../Physics/velocity"/>
           <radius>35.0</radius>
         </bounds>
+        <trigger>true</trigger>
       </Spatial>
     </elements>
   </components>

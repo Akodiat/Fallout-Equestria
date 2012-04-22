@@ -63,7 +63,7 @@ public class ManlyManScript extends BehaviourScript {
 	}
 	
 	@Override
-	public void onCollisionEnter(IEntity entity) {	
+	public void onTriggerEnter(IEntity entity) {	
 		if(entity.isInGroup(EntityGroups.Players.toString())) {
 			explode();
 		}

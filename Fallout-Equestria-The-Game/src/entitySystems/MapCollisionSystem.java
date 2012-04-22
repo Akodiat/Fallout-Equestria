@@ -38,8 +38,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
 		sCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				SpatialComp.class);
-		
+				SpatialComp.class);		
 		pCM = ComponentMapper.create(this.getDatabase(), PhysicsComp.class);
 	}
 
@@ -50,7 +49,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			SpatialComp spatiCom = sCM.getComponent(entity);
 			PhysicsComp physCom = pCM.getComponent(entity);
 			keepInsideScene(posiCom, spatiCom);
-			checkSceneGridCollision(posiCom, spatiCom,physCom);		
+			checkSceneGridCollision(posiCom, spatiCom, physCom);		
 		}
 
 	}
@@ -58,7 +57,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 	private void checkSceneGridCollision(TransformationComp posiCom,
 			SpatialComp spatiCom, PhysicsComp physCom) {
 		CollisionLayer colLayer = this.scene.getCollisionLayers().get(0);
-		if(colLayer != null) {
+		if(colLayer != null && !spatiCom.isTrigger()) {
 			boolean[][] grid = colLayer.getCollisionGrid();
 			Vector2 topLeft = new Vector2(posiCom.getPosition().X - spatiCom.getBounds().getRadius(),
 										  posiCom.getPosition().Y - spatiCom.getBounds().getRadius());

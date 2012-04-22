@@ -21,22 +21,27 @@ public class SpatialComp implements IComponent {
 	@Editable
 	private Circle bounds;
 	
+	@Editable
+	private boolean trigger;
+	
 	public SpatialComp() {
-		this(Circle.Empty);
+		this(Circle.Empty, false);
+	}
+
+	public SpatialComp(float radius) {
+		this(new Circle(radius), false);
+	}
+	
+	
+	public SpatialComp(Circle bounds, boolean isTrigger) {
+		this.bounds = bounds;
+		this.setTrigger(isTrigger);
 	}
 	
 	public SpatialComp(SpatialComp toBeCloned) {
-		this.bounds = toBeCloned.getBounds();
+		this.bounds = toBeCloned.bounds;
+		this.trigger = toBeCloned.trigger;
 	}
-	
-	public SpatialComp(Circle bounds) {
-		this.bounds = bounds;
-	}
-	
-	public SpatialComp(float radius) {
-		this.bounds = new Circle(new Vector2(0,0),radius);
-	}
-	
 	public Object clone(){
 		return new SpatialComp(this);
 	}
@@ -52,5 +57,13 @@ public class SpatialComp implements IComponent {
 	public String toString() {
 		return "Spatial Component: \n" 
 			+  "Circle Bounds: " + this.bounds.toString();
+	}
+
+	public boolean isTrigger() {
+		return trigger;
+	}
+
+	public void setTrigger(boolean trigger) {
+		this.trigger = trigger;
 	}
 }

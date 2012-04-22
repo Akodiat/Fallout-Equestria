@@ -3,6 +3,8 @@ package demos;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.Display;
+
 import math.Vector2;
 
 import animation.Animation;
@@ -79,7 +81,6 @@ public class MazeDemo extends Demo {
 			IEntityDatabase database  = this.gameWorld.getDatabase();
 			if(database.getEntityCount() < 150) {
 				spawnManlyMan();
-			
 			}
 		}
 
