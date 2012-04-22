@@ -19,6 +19,7 @@ import entityFramework.IEntity;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
+@SuppressWarnings("serial")
 @XStreamAlias("Attack")
 @Editable
 public class AttackComp implements IComponent {

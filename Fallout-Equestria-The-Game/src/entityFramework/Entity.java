@@ -194,4 +194,9 @@ public final class Entity extends IEntity {
 		
 		return this.uniqueID + " " + this.getLabel();
 	}
+
+	@Override
+	public boolean isInGroup(String groupName) {
+		return this.getGroups().contains(groupName);
+	}
 }

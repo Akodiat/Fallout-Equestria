@@ -1,22 +1,21 @@
 package components;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import animation.AnimationPlayer;
 import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
-import graphics.Animation;
+import graphics.Color;
 
+@SuppressWarnings("serial")
 @XStreamAlias("Animation")
 @Editable
 public class AnimationComp implements IComponent {
 
 	private AnimationPlayer animationPlayer;
+	
+	private @Editable Color tint;
 	
 	public AnimationComp() {
 		this.animationPlayer = new AnimationPlayer();
@@ -24,6 +23,7 @@ public class AnimationComp implements IComponent {
 	
 	public AnimationComp(AnimationPlayer animationPlayer) {
 		this.animationPlayer = animationPlayer;
+		this.tint = Color.White;
 	}
 	
 	//TODO Proper cloning
@@ -51,5 +51,16 @@ public class AnimationComp implements IComponent {
 	public void setAnimationPlayer(AnimationPlayer animationPlayer) {
 		this.animationPlayer = animationPlayer;
 	}
+	
+	public void changeAnimation(String animationName, float timeToChange) {
+		this.animationPlayer.transitionToAnimation(animationName, timeToChange);
+	}
 
+	public Color getTint() {
+		return tint;
+	}
+
+	public void setTint(Color tint) {
+		this.tint = tint;
+	}
 }

@@ -49,7 +49,7 @@ public class Circle {
 		this.radius = radius;
 	}
 
-	public static Boolean intersects(Circle circle1, Circle circle2) {
+	public static boolean intersects(Circle circle1, Circle circle2) {
 		float comboRadius = circle1.radius + circle2.getRadius();
 		return comboRadius * comboRadius > distanceSquared(circle1, circle2);
 	}
@@ -60,7 +60,7 @@ public class Circle {
 		return (dx * dx + dy * dy);
 	}
 
-	public static Boolean intersects(Circle circle1, Vector2 offset1,
+	public static boolean intersects(Circle circle1, Vector2 offset1,
 			Circle circle2, Vector2 offset2) {
 		float comboRadius = circle1.radius + circle2.getRadius();
 		return comboRadius * comboRadius > distanceSquared(circle1, offset1, circle2, offset2);

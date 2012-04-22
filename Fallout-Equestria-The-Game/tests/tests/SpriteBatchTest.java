@@ -69,8 +69,6 @@ public class SpriteBatchTest {
 			if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 				camera.zoomIn(0.001f);
 			} 
-
-			
 			
 			Display.update();
 			Display.sync(60);

@@ -68,7 +68,7 @@ public class ServerWorld extends EntityWorld {
 		manager.addRenderEntitySystem(new RenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new HUDRenderingSystem(this, spriteBatch, "Player"));
-		manager.addRenderEntitySystem(new AnimationSystem(this, spriteBatch));
+		manager.addRenderEntitySystem(new AnimationSystem(this, spriteBatch, camera));
 		
 		
 		//Debugg systems!

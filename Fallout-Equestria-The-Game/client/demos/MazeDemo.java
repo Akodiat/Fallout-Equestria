@@ -9,6 +9,8 @@ import animation.Animation;
 import animation.AnimationPlayer;
 import animation.Bone;
 import animation.Keyframe;
+import animation.KeyframeTriggerEventArgs;
+import animation.KeyframeTriggerListener;
 import animation.TextureBounds;
 import animation.TextureEntry;
 
@@ -20,6 +22,7 @@ import components.AttackComp;
 import components.PhysicsComp;
 import components.RenderingComp;
 import components.ScriptComp;
+import components.SpatialComp;
 import components.TransformationComp;
 
 import content.ContentManager;
@@ -38,6 +41,7 @@ import scripting.ChangeAnimationOnHitScript;
 import scripting.DestroyOnHitScript;
 import scripting.ForeverFollowAIScript;
 import scripting.ManlyManOnHitScript;
+import scripting.ManlyManScript;
 import scripting.PlayerScript;
 import tests.EntityModule;
 import utils.Camera2D;
@@ -49,7 +53,7 @@ import utils.Rectangle;
 public class MazeDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";
 	private static final String aiAsset 	= "FollowingTextAI.archetype";
-	private static Rectangle screenDim 		= new Rectangle(0,0,1980,1020);
+	private static Rectangle screenDim 		= new Rectangle(0,0,1920,1020);
 
 	private GameWorld gameWorld;
 	private Camera2D camera;
@@ -92,34 +96,13 @@ public class MazeDemo extends Demo {
 		Animation explodeAnimation = ContentManager.load("manlymanexplosion.anim", Animation.class);
 		manPlayer.addAnimation("explode", explodeAnimation);
 		
+		
 		manPlayer.startAnimation("walk");
 		AnimationComp manAniCom = new AnimationComp(manPlayer);
 		
 		
-		IEntity manEntity = manager.createEmptyEntity();
-		
+		IEntity manEntity = manager.createEntity(ContentManager.loadArchetype("ManlyMan.archetype"));
 		manEntity.addComponent(manAniCom);
-		
-		manEntity.addComponent(new PhysicsComp());
-		
-		TransformationComp tComp = new TransformationComp();
-		tComp.setScale(0.1f,0.1f);
-		tComp.setPosition(1000,1000);
-		
-		manEntity.addComponent(tComp);
-		
-		ScriptComp scriptComp = new ScriptComp();
-		ForeverFollowAIScript script = new ForeverFollowAIScript();
-		scriptComp.setScript(script);
-		scriptComp.startScript(manager, manEntity);
-		manEntity.addComponent(scriptComp);
-		
-		manEntity.addComponent(new RenderingComp(Texture2D.getPixel(), Color.White, null, new Rectangle(0,0,0,0)));
-		ManlyManOnHitScript onHitScript = new ManlyManOnHitScript();
-		onHitScript.setAnimation("explode");
-		onHitScript.initialize(manager, manEntity);
-		manEntity.addComponent(new AttackComp(manEntity, new Circle(new Vector2(0.0f, 0.0f), 100), onHitScript));
-
 		manEntity.refresh();
 		//ENDMAN
 		

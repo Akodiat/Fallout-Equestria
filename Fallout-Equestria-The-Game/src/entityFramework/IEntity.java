@@ -120,4 +120,11 @@ public abstract class IEntity implements java.io.Serializable{
 	 */
 	public abstract void kill();
 	
+	/**Determines if the entity is in a specific group.
+	 * 
+	 * @param groupName the name of the group.
+	 * @return the result of the test.
+	 */
+	public abstract boolean isInGroup(String groupName);
+	
  }

@@ -67,7 +67,7 @@ public class AnimationPlayer
 	
 	private void invokeTrigger(){
 		for (KeyframeTriggerListener listener : listeners) {
-			listener.OnTrigger(this, this.eventArgs);
+			listener.onKeyframeTrigger(this, this.eventArgs);
 		}
 	}
 
@@ -178,9 +178,6 @@ public class AnimationPlayer
 				{
 					if (currentAnimationTime > animation.getLoopTime())
 					{
-						System.out.println(currentAnimationTime);
-						System.out.println(animation.getLoopTime());
-						
 						currentAnimationTime -= animation.getLoopTime();
 						currentKeyframeIndex = 0;
 					}

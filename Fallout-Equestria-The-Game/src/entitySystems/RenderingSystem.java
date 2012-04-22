@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -74,10 +75,10 @@ public class RenderingSystem extends EntityProcessingSystem {
 	@Override
 	protected void processEntities(ImmutableSet<IEntity> entities) {
 		
-		List<IEntity> sortedEntities = new ArrayList<>(entities);
-		Collections.sort(sortedEntities, new RenderSorter());
+		TreeSet<IEntity> treeSet = new TreeSet<>(new RenderSorter());
+		treeSet.addAll(entities);
 		
-		for (IEntity entity : sortedEntities) {
+		for (IEntity entity : treeSet) {
 			this.processEntity(entity);
 		}
 	}

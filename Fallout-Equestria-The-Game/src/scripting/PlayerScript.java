@@ -33,10 +33,6 @@ public class PlayerScript extends BehaviourScript{
 	public void update(GameTime time) {
 
 		inpComp  = entity.getComponent(InputComp.class);
-		if(inpComp.isLeftMouseButtonDown()){
-			AbilityInfo ability = weaponComp.getPrimaryAbility();
-			apComp.setAbility(ability);
-		}
 
 		int speedFactor = 200;
 		if(inpComp.isGallopButtonPressed()){

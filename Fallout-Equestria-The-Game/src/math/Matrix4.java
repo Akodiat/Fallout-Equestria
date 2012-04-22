@@ -77,7 +77,6 @@ public final class Matrix4 {
 	
 	public static Matrix4 createOrthogonalProjection(float left, float right, float bottom, float top, 
 											  float zNear, float zFar) {
-		
 		float m00 = 2 / (right - left);
 		float m11 = 2 / (top - bottom);
 		float m22 = 1 / (zFar - zNear);
@@ -86,8 +85,8 @@ public final class Matrix4 {
 		
 		return new Matrix4(m00, 0, 0, 0,
 						   0, m11, 0, 0,
-						   0, 0, m22, m23,
-						   0, 0, 0, m33);
+						   0, 0, m22, 0,
+						   0, 0, m23, m33);
 	}
 	
 	public static Matrix4 mul(Matrix4 l, Matrix4 r) {

@@ -46,9 +46,10 @@ public class GameWorld extends EntityWorld {
 		//Logic systems!
 		manager.addLogicEntitySystem(new AbilitySystem(this, AbilityBuilder.build()));
 		manager.addLogicEntitySystem(new RegenSystem(this, 0.4f));
-		manager.addLogicEntitySystem(new AttackResolveSystem(this));
+		//manager.addLogicEntitySystem(new AttackResolveSystem(this));
 		manager.addLogicEntitySystem(new CameraControlSystem(this, camera));
-		manager.addLogicEntitySystem(new CollisionSystem(this));
+		//manager.addLogicEntitySystem(new CollisionSystem(this));
+		manager.addLogicEntitySystem(new ScriptCollisionSystem(this));
 		manager.addLogicEntitySystem(new DeathSystem(this));
 		manager.addLogicEntitySystem(new ExistanceSystem(this));
 	
@@ -67,7 +68,7 @@ public class GameWorld extends EntityWorld {
 		manager.addRenderEntitySystem(new RenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new HUDRenderingSystem(this, spriteBatch, "Player"));
-		manager.addRenderEntitySystem(new AnimationSystem(this, spriteBatch));
+		manager.addRenderEntitySystem(new AnimationSystem(this, spriteBatch, camera));
 		
 		
 		//Debugg systems!

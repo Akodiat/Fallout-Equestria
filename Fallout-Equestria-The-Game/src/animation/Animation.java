@@ -49,10 +49,6 @@ public class Animation {
 											nextKeyframe.getUpdateOrderBones().get(boneIndex).getRotation(), t);
 
 			
-			System.out.println(position);
-			System.out.println(scale);
-			System.out.println(rotation);
-			
 			transitions[boneIndex].setPosition(position);
 			transitions[boneIndex].setRotation(rotation);
 

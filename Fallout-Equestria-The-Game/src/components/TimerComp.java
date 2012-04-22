@@ -10,7 +10,6 @@ import entityFramework.IComponent;
 
 @XStreamAlias("Timer")
 public class TimerComp implements IComponent {
-	
 	private static final float DEF_DURATION = 1f;
 	
 	@Editable

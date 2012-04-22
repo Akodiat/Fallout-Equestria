@@ -1,6 +1,6 @@
 #version 330 core
 
-layout(location = 0) in vec2 position;
+layout(location = 0) in vec3 position;
 layout(location = 1) in vec2 textureCoord;
 layout(location = 2) in vec4 color;
 
@@ -14,7 +14,7 @@ out vec4 _color;
 
 
 void main() {
-	vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f);
+	vec4 realPos = vec4(position.x,position.y, position.z, 1.0f);
 	realPos =  view  * realPos;
 	realPos.xy -= viewport.xy / 2; 
 	

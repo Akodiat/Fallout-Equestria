@@ -1,0 +1,58 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Physics>
+        <immovable>false</immovable>
+        <velocity>0.0,0.0</velocity>
+        <mass>1.0</mass>
+        <torque>0.0</torque>
+      </Physics>
+      <Animation>
+        <animationPlayer>
+          <currentAnimationTime>0.0</currentAnimationTime>
+          <currentKeyframeIndex>0</currentKeyframeIndex>
+          <playSpeedMultiplier>1.0</playSpeedMultiplier>
+          <transitioning>false</transitioning>
+          <transitionTime>0.0</transitionTime>
+          <transitionTotalTime>0.0</transitionTotalTime>
+          <animations class="hashtable"/>
+          <listeners/>
+          <eventArgs>
+            <triggerString></triggerString>
+          </eventArgs>
+        </animationPlayer>
+        <tint>
+          <Color>0.93333334,0.93333334,0.93333334,1.0</Color>
+        </tint>
+      </Animation>
+      <Transformation>
+        <position reference="../../Physics/velocity"/>
+        <scale>0.1,0.1</scale>
+        <origin reference="../../Physics/velocity"/>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+      </Transformation>
+      <components.ScriptComp>
+        <script class="scripting.ManlyManScript">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+          <explodeAnimationName>explode</explodeAnimationName>
+          <targetEntityLabel>Player</targetEntityLabel>
+          <moveSpeed>130.0</moveSpeed>
+        </script>
+      </components.ScriptComp>
+      <Spatial>
+        <bounds>
+          <position reference="../../../Physics/velocity"/>
+          <radius>35.0</radius>
+        </bounds>
+      </Spatial>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <string>Enemies</string>
+    </elements>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>

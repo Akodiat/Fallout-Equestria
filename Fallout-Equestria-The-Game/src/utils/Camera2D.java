@@ -116,6 +116,18 @@ public class Camera2D {
 		return this.position;
 	}
 	
+	public Rectangle getVisibleArea() {
+		int x,y,width,height;
+		
+		x = (int)((this.position.X) * this.zoom.X);
+		y = (int)((this.position.Y) * this.zoom.Y);
+		width = (int)(this.screenOffset.X * -2.0f * this.zoom.X);
+		height = (int)(this.screenOffset.Y * -2.0f * this.zoom.Y);
+		
+		return new Rectangle(x,y,width,height);	
+	}
+	
+	
 	public Vector2 getViewToWorldCoords(Vector2 viewPosition) {
 		//TODO fix so that scale works!
 		return Vector2.add(this.position, viewPosition);

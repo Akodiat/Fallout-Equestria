@@ -388,7 +388,7 @@ public class SpriteBatch {
 	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
 	 * @param origin the origin (rendering offset)
 	 * @param scale the scale.
-	 * @param rotation the rotation in a counterclockwise system Range 0 to 2Pi
+	 * @param rotation the rotation in a counterclockwise system Range 0 to Tau
 	 * @param mirror a flag indicating if the texture should be horizontally flipped.
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
