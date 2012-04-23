@@ -9,7 +9,8 @@ public enum Abilities {
 	SpawnCreatures(60),
 	TimeBomb(60),
 	SuperTimeBomb(60),
-	CircleBullet(55);
+	CircleBullet(55),
+	Healing(40);
 	
 	public final int Cost;
 	

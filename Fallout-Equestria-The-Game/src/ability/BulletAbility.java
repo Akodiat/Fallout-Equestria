@@ -22,7 +22,6 @@ public class BulletAbility extends AbstractAbilityProcessor{
 	private Audio soundEffect;
 	private final float bulletSpeed = 10;
 	
-	
 	public BulletAbility(Audio soundEffect){
 		super(Abilities.Bullet, TransformationComp.class);
 
@@ -37,7 +36,6 @@ public class BulletAbility extends AbstractAbilityProcessor{
 		} else {
 			createDefaultBullet(sourceEntity, manager);
 		}
-		
 	}
 
 
@@ -71,7 +69,6 @@ public class BulletAbility extends AbstractAbilityProcessor{
 		bullet.getComponent(TransformationComp.class).setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(60, attackSpeed)));
 		bullet.getComponent(PhysicsComp.class).setVelocity(Vector2.mul(bulletSpeed, attackSpeed));
 		
-
 		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
 		
 		bullet.refresh();

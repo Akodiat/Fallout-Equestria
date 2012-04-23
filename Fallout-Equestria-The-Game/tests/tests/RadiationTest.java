@@ -45,7 +45,7 @@ public class RadiationTest {
 	private Camera2D camera;
 
 	public static void main(String[] args) throws IOException, LWJGLException {
-		new RadiationTest(new Rectangle(0, 0, 1346, 450), true).start();
+		new RadiationTest(new Rectangle(0, 0, 800, 600), true).start();
 	}
 
 	public RadiationTest(Rectangle screenDim, boolean fullScreen)
@@ -195,7 +195,11 @@ public class RadiationTest {
 		radPosComp.setOrigin(radRendComp.getTexture().getBounds().getCenter());
 		radPosComp.setScale(0.5f, 0.5f);
 		
+<<<<<<< HEAD
 		SpatialComp radSpatComp = new SpatialComp(new Circle(Vector2.Zero, 95f), false);
+=======
+		SpatialComp radSpatComp = new SpatialComp(new Circle(Vector2.Zero, 85f));
+>>>>>>> Healing
 		PhysicsComp radPhysComp = new PhysicsComp();
 		radPhysComp.setMass(250f);
 		

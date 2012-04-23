@@ -15,7 +15,7 @@ import graphics.Texture2D;
 
 public class CircleProjectileAbility extends AbstractAbilityProcessor{
 
-	private static final float bulletSpeed  = 5.0f;
+	private static final float bulletSpeed  = 400.0f;
 	private static final int numBullets = 40;
 	private static final int standardDMG = 1;
 	private static final int radius = 10;

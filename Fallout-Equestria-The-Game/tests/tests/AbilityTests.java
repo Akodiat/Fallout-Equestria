@@ -76,7 +76,7 @@ public class AbilityTests {
 
 		initializeEntitysystems(this.world.getSystemManager());
 		initializePlayer(this.world.getEntityManager());
-		
+
 	}
 
 
