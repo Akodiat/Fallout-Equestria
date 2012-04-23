@@ -59,7 +59,10 @@ public class AnimationSystem extends EntityProcessingSystem {
 		
 		//The updating for animations should be in it's own system, however it does not make sense to do the 
 		//Object culling 2 times so it's here until a better solution is available.
-		animationC.getAnimationPlayer().update(this.getWorld().getTime().DeltaTime);
+		
+		float delta = (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();
+		
+		animationC.getAnimationPlayer().update(delta);
 		animationC.getAnimationPlayer().draw(batch, positionC.getPosition(), positionC.getMirror(), 
 				positionC.getRotation(), animationC.getTint(), positionC.getScale());
 	}

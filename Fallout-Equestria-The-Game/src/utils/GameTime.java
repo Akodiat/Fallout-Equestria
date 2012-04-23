@@ -1,11 +1,33 @@
 package utils;
 
+/**
+ * 
+ * @author Lukas Kurtyan
+ *
+ */
 public class GameTime {
-	public final float DeltaTime;
-	public final float TotalTime;
+		
+	private final TimeSpan totalTime;
+	private final TimeSpan elapsedTime;
 	
-	protected GameTime(float totalTime, float deltaTime) {
-		this.DeltaTime = deltaTime;
-		this.TotalTime = totalTime;
+	protected GameTime(TimeSpan totalTime, TimeSpan elapsedTime) {
+		this.totalTime = totalTime;
+		this.elapsedTime = elapsedTime;
+	}
+
+	/**Gets the total time expired since the last 
+	 * reset of the timing system.
+	 * @return a TimeSpan containing total time information.
+	 */
+	public TimeSpan getTotalTime() {
+		return totalTime;
+	}
+
+	/**Gets the elapsed time since the last frame.
+	 * 
+	 * @return a TimeSpan containing delta time information.
+	 */
+	public TimeSpan getElapsedTime() {
+		return elapsedTime;
 	}
 }

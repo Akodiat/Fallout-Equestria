@@ -99,7 +99,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 				
 		if (playerBounds.intersects(gridRect)) {
 			
-			float time = this.getWorld().getTime().DeltaTime;
+			float time = (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();
 			
 			Vector2 invVelo = Vector2.mul(-1 * time, physComp.getVelocity());		
 			posiCom.setPosition(Vector2.add(invVelo, posiCom.getPosition()));

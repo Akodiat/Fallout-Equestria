@@ -1,5 +1,7 @@
 package entitySystems;
 
+import java.util.HashSet;
+
 import math.Vector2;
 
 import org.lwjgl.input.Mouse;
@@ -36,8 +38,7 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 	private ComponentMapper<SpatialComp> spatCM;
 	private ComponentMapper<ScriptComp> scriptCM;
 
-	
-	
+	private MouseState lastMouseState;
 
 	@Override
 	public void initialize() {
@@ -45,6 +46,8 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		spatCM 		= ComponentMapper.create(this.getDatabase(), SpatialComp.class);
 		scriptCM 	= ComponentMapper.create(this.getDatabase(), ScriptComp.class);
 		
+		lastMouseState = new MouseState(Vector2.Zero, Vector2.Zero,Vector2.Zero, Vector2.Zero,
+										0, ButtonState.Depressed, ButtonState.Depressed, ButtonState.Depressed);
 	}
 
 	
@@ -56,7 +59,12 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		
 		if(Circle.intersects(spatC.getBounds(), transC.getPosition(), ms.WorldCoords)) {
 			BehaviourScript script = scriptC.getScript();
-			script.onMouseOver(ms);
+			if(this.targetEntity == null) {
+				this.targetEntity = entity;
+				script.onMouseEnter(ms);
+			} else {
+				script.onMouseOver(ms);
+			}
 		}
 				
 	}
@@ -67,6 +75,7 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		for (IEntity entity : entities) {	
 			this.processEntity(entity, ms);
 		}
+		this.lastMouseState = ms;
 	}
 
 
@@ -75,8 +84,11 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		Rectangle viewport = camera.getViewport();
 		
 		Vector2 viewPos = new Vector2(Mouse.getX(), viewport.Height -Mouse.getY());
-		Vector2 delta  = new Vector2(Mouse.getDX(), -Mouse.getDY());
 		Vector2 worldPos = camera.getViewToWorldCoords(viewPos);
+		
+		Vector2 viewDelta = Vector2.subtract(viewPos, lastMouseState.ViewCoords);
+		Vector2 worldDelta = Vector2.subtract(worldPos, lastMouseState.WorldCoords);
+		
 		int scrollDeltha = Mouse.getDWheel();
 		
 		ButtonState leftButton = Mouse.isButtonDown(0) ? ButtonState.Pressed : ButtonState.Depressed;
@@ -85,7 +97,8 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		
 		return new MouseState(worldPos,
 					   		  viewPos, 
-							  delta, 
+							  worldDelta,
+							  viewDelta,
 							  scrollDeltha, 
 							  leftButton,
 							  rightButton, 

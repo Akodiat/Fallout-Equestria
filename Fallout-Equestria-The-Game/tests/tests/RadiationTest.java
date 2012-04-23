@@ -147,7 +147,7 @@ public class RadiationTest {
 		InputComp inpComp = new InputComp();
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(0,0));
-		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero, 30f));
+		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero, 30f), false);
 
 		HealthComp healthComp = new HealthComp(100, 2, 89);
 		AbilityComp apComp = new AbilityComp();
@@ -195,7 +195,7 @@ public class RadiationTest {
 		radPosComp.setOrigin(radRendComp.getTexture().getBounds().getCenter());
 		radPosComp.setScale(0.5f, 0.5f);
 		
-		SpatialComp radSpatComp = new SpatialComp(new Circle(Vector2.Zero, 95f));
+		SpatialComp radSpatComp = new SpatialComp(new Circle(Vector2.Zero, 95f), false);
 		PhysicsComp radPhysComp = new PhysicsComp();
 		radPhysComp.setMass(250f);
 		

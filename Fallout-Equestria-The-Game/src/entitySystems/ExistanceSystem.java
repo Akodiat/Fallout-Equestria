@@ -18,7 +18,7 @@ public class ExistanceSystem extends EntitySingleProcessingSystem{
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		float delta = this.getWorld().getTime().DeltaTime;
+		float delta = (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();
 		
 		ExistanceComp comp = entity.getComponent(ExistanceComp.class);
 		comp.incrementElapsedExistance(delta);

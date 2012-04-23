@@ -216,7 +216,7 @@ public class AnimationPlayer
 
 	public boolean update(GameTime gameTime)
 	{
-		return update((float)gameTime.DeltaTime);
+		return update((float)gameTime.getElapsedTime().getTotalSeconds());
 	}
 
 //	public void Draw(SpriteBatch spriteBatch, Vector2 position)

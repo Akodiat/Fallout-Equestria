@@ -20,7 +20,7 @@ public class TimerSystem extends EntitySingleProcessingSystem{
 	@Override
 	protected void processEntity(IEntity entity) {
 		TimerComp comp = entity.getComponent(TimerComp.class);
-		comp.increaseElapsedTime(this.getWorld().getTime().DeltaTime);
+		comp.increaseElapsedTime((float)this.getWorld().getTime().getElapsedTime().getTotalSeconds());
 		if(comp.getElapsedTime() > comp.getDuration()) {
 			comp.invokeTimedEvent();
 		}

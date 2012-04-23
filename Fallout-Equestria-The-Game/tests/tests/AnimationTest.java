@@ -145,7 +145,7 @@ public class AnimationTest {
 		TransformationComp posComp = new TransformationComp();
 		posComp.setPosition(new Vector2(Display.getHeight() / 2, Display
 				.getWidth() / 2));
-		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero, 30f));
+		SpatialComp spatComp = new SpatialComp(new Circle(Vector2.Zero, 30f), false);
 
 		HealthComp healthComp = new HealthComp(100, 2, 89);
 		AbilityComp apComp = new AbilityComp();

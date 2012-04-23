@@ -28,11 +28,8 @@ public class Clock {
 	}
 	
 	public GameTime getGameTime() {
-		return new GameTime(
-				((float)(this.totalTime / 1000.0f)),
-				((float)(this.delthaTime / 1000.0f)));
-		
-		
+		return new GameTime(TimeSpan.fromMiliseconds(totalTime),
+							TimeSpan.fromMiliseconds(delthaTime));	
 	}
 	
 	/**Gets the time in miliseconds
