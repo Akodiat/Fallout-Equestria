@@ -24,7 +24,7 @@
           <ability>None</ability>
         </ability>
       </Ability>
-      <components.ScriptComp>
+      <Behaviour>
         <script class="scripting.FollowAIScript">
           <initialized>false</initialized>
           <speed>50.0</speed>
@@ -32,7 +32,7 @@
           <sightRange>300.0</sightRange>
           <targetEntityLabel>Player</targetEntityLabel>
         </script>
-      </components.ScriptComp>
+      </Behaviour>
       <Transformation>
         <position reference="../../Physics/velocity"/>
         <scale>1.0,1.0</scale>

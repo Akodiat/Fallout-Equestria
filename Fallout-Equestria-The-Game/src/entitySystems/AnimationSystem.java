@@ -79,7 +79,9 @@ public class AnimationSystem extends EntityProcessingSystem {
 			}
 		}
 		
+		
 		//Sorts the entities based on their y position.
+		//Sometimes for reason unown to me this does not work.
 		Collections.sort(sortedEntities, new RenderSorter());
 		
 		for (IEntity entity : sortedEntities) {
@@ -106,7 +108,8 @@ public class AnimationSystem extends EntityProcessingSystem {
 		public int compare(IEntity o1, IEntity o2) {
 			TransformationComp trans1 = tCM.getComponent(o1);
 			TransformationComp trans2 = tCM.getComponent(o2);
-			return (int) ((trans1.getPosition().Y - trans2.getPosition().Y));
+
+			return Float.compare(trans1.getPosition().Y, trans2.getPosition().Y);
 		}
 	
 	}

@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.ScrollPaneConstants;
 
-import scripting.BehaviourScript;
+import scripting.Behaviour;
 
 import anotations.Editable;
 import javax.swing.JScrollPane;
@@ -34,7 +34,7 @@ public class ScriptPanel extends JPanel {
 
 	Field scriptField;
 	Object containgingObject;
-	HashMap<String, Class<? extends BehaviourScript>> scriptTypes = new HashMap<>();
+	HashMap<String, Class<? extends Behaviour>> scriptTypes = new HashMap<>();
 	
 	int height = 300;
 	public int getHeight() {
@@ -83,11 +83,11 @@ public class ScriptPanel extends JPanel {
 
 
 	protected void changedScript(String string) {
-		Class<? extends BehaviourScript> scriptClass = this.scriptTypes.get(string);
+		Class<? extends Behaviour> scriptClass = this.scriptTypes.get(string);
 		if(scriptClass == null)
 			return;
 		
-		BehaviourScript script = (BehaviourScript) this.tryGetScript();
+		Behaviour script = (Behaviour) this.tryGetScript();
 		if(script == null || !script.equals(scriptClass)) {
 			script = createNewScript(scriptClass);
 			setScriptValue(script);
@@ -102,7 +102,7 @@ public class ScriptPanel extends JPanel {
 	}
 
 
-	private void setScriptValue(BehaviourScript script) {
+	private void setScriptValue(Behaviour script) {
 		try {
 			this.scriptField.set(this.containgingObject, script);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -112,8 +112,8 @@ public class ScriptPanel extends JPanel {
 	}
 
 
-	private BehaviourScript createNewScript(Class<? extends BehaviourScript> scriptClass) {
-		BehaviourScript script = ReflectionHelper.createNewInstance(scriptClass);
+	private Behaviour createNewScript(Class<? extends Behaviour> scriptClass) {
+		Behaviour script = ReflectionHelper.createNewInstance(scriptClass);
 		return script;
 	}
 

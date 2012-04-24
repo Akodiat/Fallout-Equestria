@@ -17,7 +17,7 @@ import com.google.inject.Injector;
 
 import components.AnimationComp;
 import components.RenderingComp;
-import components.ScriptComp;
+import components.BehaviourComp;
 import components.TransformationComp;
 
 import content.ContentManager;
@@ -92,7 +92,7 @@ public class AnimationDemo extends Demo {
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = manager.createEntity(archetype);
-		entity.addComponent(new ScriptComp(new PlayerScript()));
+		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		
 		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
 		

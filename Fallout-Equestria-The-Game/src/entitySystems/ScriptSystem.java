@@ -1,7 +1,7 @@
 package entitySystems;
 
 import utils.GameTime;
-import components.ScriptComp;
+import components.BehaviourComp;
 import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
@@ -9,7 +9,7 @@ import entityFramework.IEntityWorld;
 public class ScriptSystem extends EntitySingleProcessingSystem {
 
 	public ScriptSystem(IEntityWorld world) {
-		super(world, ScriptComp.class);
+		super(world, BehaviourComp.class);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,7 +21,7 @@ public class ScriptSystem extends EntitySingleProcessingSystem {
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		ScriptComp scriptComp = entity.getComponent(ScriptComp.class);
+		BehaviourComp scriptComp = entity.getComponent(BehaviourComp.class);
 		if(scriptComp.isInitialized()) {
 			GameTime time = this.getWorld().getTime();
 			scriptComp.updateScript(time);

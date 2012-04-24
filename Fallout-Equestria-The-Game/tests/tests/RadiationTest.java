@@ -161,7 +161,7 @@ public class RadiationTest {
 		Animation animation = new Animation(frames, 0.1f);
 		Map<String, Animation> animations = new HashMap<String, Animation>();
 		animations.put("walk", animation);
-		ScriptComp scriptComp = new ScriptComp(new PlayerScript());
+		BehaviourComp scriptComp = new BehaviourComp(new PlayerScript());
 
 		// rendcomp
 		RenderingComp rendComp = new RenderingComp();

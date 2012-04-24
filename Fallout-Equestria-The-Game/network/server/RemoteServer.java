@@ -161,7 +161,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		this.player = manager.createEntity(archetype);
-		player.addComponent(new ScriptComp(new PlayerScript()));
+		player.addComponent(new BehaviourComp(new PlayerScript()));
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		player.refresh();
 		

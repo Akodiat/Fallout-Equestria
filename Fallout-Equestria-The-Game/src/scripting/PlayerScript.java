@@ -1,7 +1,6 @@
 package scripting;
 
 import math.Vector2;
-import ability.AbilityInfo;
 import anotations.Editable;
 
 import components.AbilityComp;
@@ -13,8 +12,9 @@ import entityFramework.IEntity;
 
 import utils.GameTime;
 import utils.MouseState;
+
 @Editable
-public class PlayerScript extends BehaviourScript{
+public class PlayerScript extends Behaviour{
 	
 	PhysicsComp	  	        physComp;
 	InputComp 		  	     inpComp;
@@ -28,7 +28,6 @@ public class PlayerScript extends BehaviourScript{
 		posComp  = entity.getComponent(TransformationComp.class);
 		apComp  = entity.getComponent(AbilityComp.class);
 		weaponComp  = entity.getComponent(WeaponComp.class);	
-
 	}
 
 	@Override
@@ -64,11 +63,41 @@ public class PlayerScript extends BehaviourScript{
 		physComp.setVelocity(velocity);
 	}
 	
-	@Override 
-	public void onMouseOver(MouseState state) {
-		System.out.println("Mouse is over player :O");
+	@Override
+	public void onMouseOver(MouseState state){
+		System.out.println("Mouse over player!");
+	}
+
+	@Override
+	public void onMouseEnter(MouseState state){
+		System.out.println("Mouse just went over player!");
+	}
+
+	@Override
+	public void onMouseExit(MouseState state){
+		System.out.println("Mouse just left player area!");
+	}
+
+	@Override
+	public void onMouseDown(MouseState state){
+		System.out.println("Mouse was just pressed");
+	}
+
+	@Override
+	public void onMouseUp(MouseState state){
+		System.out.println("Mouse was just released");
 	}
 	
+	@Override
+	public void onMouseUpAsButton(MouseState state) {
+		System.out.println("Mouse was just released as a button!");
+	}
+	
+	@Override
+	public void onMouseDrag(MouseState state){
+		System.out.println("The mouse is getting draged!");
+	}
+
 	@Override
 	public void onCollisionEnter(IEntity entity) {
 		System.out.println("Player just collided with " + entity);
@@ -85,7 +114,7 @@ public class PlayerScript extends BehaviourScript{
 	}
 	
 	@Override
-	public BehaviourScript createNew() {
+	public Object clone() {
 		return new PlayerScript();
 	}
 

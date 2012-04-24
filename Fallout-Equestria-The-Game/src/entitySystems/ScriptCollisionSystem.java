@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import math.Vector2;
-import scripting.BehaviourScript;
+import scripting.Behaviour;
 import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
 
 import components.PhysicsComp;
-import components.ScriptComp;
+import components.BehaviourComp;
 import components.SpatialComp;
 import components.TransformationComp;
 
@@ -103,36 +103,36 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 	}
 	
 	private void enterTrigger(IEntity e0, IEntity e1) {
-		BehaviourScript s0 = this.getScript(e0);
+		Behaviour s0 = this.getScript(e0);
 		if(s0 != null) {
 			s0.onTriggerEnter(e1);
 		}
 	
-		BehaviourScript s1 = this.getScript(e1);
+		Behaviour s1 = this.getScript(e1);
 		if(s1 != null) {
 			s1.onTriggerEnter(e0);
 		}
 	}
 
 	private void overTrigger(IEntity e0, IEntity e1) {
-		BehaviourScript s0 = this.getScript(e0);
+		Behaviour s0 = this.getScript(e0);
 		if(s0 != null) {
 			s0.onTriggerOver(e1);
 		}
 	
-		BehaviourScript s1 = this.getScript(e1);
+		Behaviour s1 = this.getScript(e1);
 		if(s1 != null) {
 			s1.onTriggerOver(e0);
 		}
 	}
 	
 	private void exitTrigger(IEntity e0, IEntity e1) {
-		BehaviourScript s0 = this.getScript(e0);
+		Behaviour s0 = this.getScript(e0);
 		if(s0 != null) {
 			s0.onTriggerExit(e1);
 		}
 	
-		BehaviourScript s1 = this.getScript(e1);
+		Behaviour s1 = this.getScript(e1);
 		if(s1 != null) {
 			s1.onTriggerExit(e0);
 		}
@@ -140,36 +140,36 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 	
 
 	private void enterCollision(IEntity e0, IEntity e1) {
-		BehaviourScript s0 = this.getScript(e0);
+		Behaviour s0 = this.getScript(e0);
 		if(s0 != null) {
 			s0.onCollisionEnter(e1);
 		}
 	
-		BehaviourScript s1 = this.getScript(e1);
+		Behaviour s1 = this.getScript(e1);
 		if(s1 != null) {
 			s1.onCollisionEnter(e0);
 		}
 	}
 	
 	private void overCollision(IEntity e0, IEntity e1) {
-		BehaviourScript s0 = this.getScript(e0);
+		Behaviour s0 = this.getScript(e0);
 		if(s0 != null) {
 			s0.onCollisionOver(e1);
 		}
 	
-		BehaviourScript s1 = this.getScript(e1);
+		Behaviour s1 = this.getScript(e1);
 		if(s1 != null) {
 			s1.onCollisionOver(e0);
 		}			
 	}
 	
 	private void exitCollision(IEntity e0, IEntity e1) {
-		BehaviourScript s0 = this.getScript(e0);
+		Behaviour s0 = this.getScript(e0);
 		if(s0 != null) {
 			s0.onCollisionExit(e1);
 		}
 	
-		BehaviourScript s1 = this.getScript(e1);
+		Behaviour s1 = this.getScript(e1);
 		if(s1 != null) {
 			s1.onCollisionExit(e0);
 		}	
@@ -196,10 +196,10 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 				
 	}
 
-	private BehaviourScript getScript(IEntity e) {
-		ScriptComp scriptComp = e.getComponent(ScriptComp.class);
+	private Behaviour getScript(IEntity e) {
+		BehaviourComp scriptComp = e.getComponent(BehaviourComp.class);
 		if(scriptComp != null) {
-			return scriptComp.getScript();
+			return scriptComp.getBehaviour();
 		}
 		return null;
 	}

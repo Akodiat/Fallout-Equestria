@@ -29,11 +29,11 @@
         <regenerationSpeed>10.0</regenerationSpeed>
         <abilityPoints>100.0</abilityPoints>
       </Ability>
-      <components.ScriptComp>
+      <Behaviour>
         <script class="scripting.PlayerScript">
           <initialized>false</initialized>
         </script>
-      </components.ScriptComp>
+      </Behaviour>
       <Transformation>
         <position reference="../../Physics/velocity"/>
         <scale>1.0,1.0</scale>

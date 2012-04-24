@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import components.ScriptComp;
+import components.BehaviourComp;
 import components.TransformationComp;
 
 import content.ContentManager;
@@ -62,7 +62,7 @@ public class MapDemo extends Demo{
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = manager.createEntity(archetype);
-		entity.addComponent(new ScriptComp(new PlayerScript()));
+		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
 		

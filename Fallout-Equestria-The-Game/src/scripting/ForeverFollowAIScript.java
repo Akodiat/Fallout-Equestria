@@ -12,7 +12,7 @@ import entityFramework.IEntity;
 import utils.GameTime;
 
 @Editable
-public class ForeverFollowAIScript extends BehaviourScript{
+public class ForeverFollowAIScript extends Behaviour{
 
 	private PhysicsComp physComp;
 	private TransformationComp transComp;
@@ -59,7 +59,7 @@ public class ForeverFollowAIScript extends BehaviourScript{
 	}
 
 	@Override
-	public BehaviourScript createNew() {
+	public Object clone() {
 		// TODO Auto-generated method stub
 		return new ForeverFollowAIScript();
 	}

@@ -12,7 +12,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import components.InputComp;
-import components.ScriptComp;
+import components.BehaviourComp;
 import components.TransformationComp;
 import components.WeaponComp;
 
@@ -83,7 +83,7 @@ public class AbilityTests {
 	private void initializePlayer(IEntityManager entityManager) {
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = entityManager.createEntity(archetype);
-		entity.addComponent(new ScriptComp(new PlayerScript()));
+		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
 		

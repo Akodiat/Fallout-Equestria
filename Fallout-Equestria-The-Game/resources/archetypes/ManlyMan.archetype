@@ -22,7 +22,7 @@
           </eventArgs>
         </animationPlayer>
       </Animation>
-      <components.ScriptComp>
+      <Behaviour>
         <script class="scripting.ManlyManScript">
           <initialized>false</initialized>
           <enabled>false</enabled>
@@ -30,7 +30,7 @@
           <targetEntityLabel>Player</targetEntityLabel>
           <moveSpeed>100.0</moveSpeed>
         </script>
-      </components.ScriptComp>
+      </Behaviour>
       <Transformation>
         <position reference="../../Physics/velocity"/>
         <scale>0.1,0.1</scale>

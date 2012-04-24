@@ -42,7 +42,8 @@ public class GameWorld extends EntityWorld {
 		IEntitySystemManager manager = this.getSystemManager();
 		
 
-		
+
+		manager.addLogicEntitySystem(new ScriptSystem(this));
 		//Logic systems!
 		manager.addLogicEntitySystem(new AbilitySystem(this, AbilityBuilder.build()));
 		manager.addLogicEntitySystem(new RegenSystem(this, 0.4f));
@@ -59,7 +60,6 @@ public class GameWorld extends EntityWorld {
 		manager.addLogicEntitySystem(new PhysicsSystem(this));
 		
 		manager.addLogicEntitySystem(new MapCollisionSystem(this, this.scene));
-		manager.addLogicEntitySystem(new ScriptSystem(this));
 		
 		//Debug logic systems!
 		manager.addLogicEntitySystem(new AbilityDebugLogicSystem(this, "Player"));

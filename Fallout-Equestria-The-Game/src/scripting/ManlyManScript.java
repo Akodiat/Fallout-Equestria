@@ -11,7 +11,7 @@ import misc.EntityGroups;
 import entityFramework.IEntity;
 
 @Editable
-public class ManlyManScript extends BehaviourScript {
+public class ManlyManScript extends Behaviour {
 	
 	private PhysicsComp physComp;
 	private TransformationComp transComp;
@@ -58,7 +58,7 @@ public class ManlyManScript extends BehaviourScript {
 	}
 	
 	@Override
-	public BehaviourScript createNew() {
+	public Object clone() {
 		return new ManlyManScript();
 	}
 	
@@ -74,7 +74,9 @@ public class ManlyManScript extends BehaviourScript {
 		
 		//Remove our behavior making us just sit on the screen.
 		this.entity.removeComponent(PhysicsComp.class);
-		this.entity.removeComponent(ScriptComp.class);
+		this.entity.removeComponent(BehaviourComp.class);
+		this.entity.addComponent(new ExistanceComp(10f));
 		this.entity.refresh();
 	}
+
 }

@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import scripting.PlayerScript;
-import scripting.BehaviourScript;
+import scripting.Behaviour;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -38,11 +38,11 @@ public class ScriptEditor extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private DefaultListModel componentsListModel;
-	private HashMap<String, Class<BehaviourScript>> scriptMaps = new HashMap<>();
+	private HashMap<String, Class<Behaviour>> scriptMaps = new HashMap<>();
 	
-	private BehaviourScript script;
+	private Behaviour script;
 	
-	public BehaviourScript getScript() {
+	public Behaviour getScript() {
 		return this.script;
 	}
 	

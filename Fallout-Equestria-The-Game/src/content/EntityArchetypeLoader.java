@@ -3,6 +3,8 @@ package content;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import scripting.Behaviour;
+
 import components.*;
 
 import com.google.common.collect.ImmutableSet;
@@ -36,6 +38,7 @@ public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
 		xstream.processAnnotations(AnimationComp.class);
 		xstream.processAnnotations(WeaponComp.class);
 		xstream.processAnnotations(StatusComp.class);
+		xstream.processAnnotations(BehaviourComp.class);
 	}
 
 	@Override

@@ -24,7 +24,7 @@ import utils.*;
 
 import common.IRemoteServer;
 import components.InputComp;
-import components.ScriptComp;
+import components.BehaviourComp;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
 import demos.GameWorld;
@@ -112,7 +112,7 @@ public class PlayerClient {
 		try {
 			this.server.setNewInpComp(this.player.getComponent(InputComp.class), this.player.getLabel());
 		} catch (RemoteException e) {
-			System.out.println("Not able to send inputComp to server. Time="+time.TotalTime); //TODO Better debug? throw further with message? Remove? Yes?
+			System.out.println("Not able to send inputComp to server. Time="+time.getTotalTime().getTotalSeconds()); //TODO Better debug? throw further with message? Remove? Yes?
 			e.printStackTrace();
 		}
 		
@@ -152,7 +152,7 @@ public class PlayerClient {
 			e2.printStackTrace();
 		}
 		
-		player.addComponent(new ScriptComp(new PlayerScript()));
+		player.addComponent(new BehaviourComp(new PlayerScript()));
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		player.refresh();
 		

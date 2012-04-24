@@ -23,7 +23,7 @@ import components.AnimationComp;
 import components.AttackComp;
 import components.PhysicsComp;
 import components.RenderingComp;
-import components.ScriptComp;
+import components.BehaviourComp;
 import components.SpatialComp;
 import components.TransformationComp;
 
@@ -139,7 +139,7 @@ public class MazeDemo extends Demo {
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = manager.createEntity(archetype);
-		entity.addComponent(new ScriptComp(new PlayerScript()));
+		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		
 		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
 		
