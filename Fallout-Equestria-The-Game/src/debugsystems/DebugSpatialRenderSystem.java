@@ -49,7 +49,7 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 			// Rectangle((int)attaCom.getBounds().getPosition().X,(int)attaCom.getBounds().getPosition().Y,(int)attaCom.getBounds().getRadius()*2,(int)attaCom.getBounds().getRadius()*2);
 			float scale = spatiCom.getBounds().getRadius() / 50f;
 			graphics.draw(circleTexture, transCom.getPosition(), new Color(Color.Green, 0.5f), null,
-					new Vector2(spatiCom.getBounds().getRadius()), scale, 0, false);
+					transCom.getOrigin(), scale, 0, transCom.getMirror());
 
 		}
 	}
