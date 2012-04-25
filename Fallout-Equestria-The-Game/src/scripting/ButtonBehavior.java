@@ -123,14 +123,14 @@ public class ButtonBehavior extends Behavior {
 	public void onMouseEnter(MouseState state){
 		if(!this.pressed) {
 			this.setActiveTexture(this.overTexture);
+		} else {
+			this.setActiveTexture(this.downTexture);
 		}
 	}
 
 	@Override
 	public void onMouseExit(MouseState state){
-		if(!pressed) {
 			this.setActiveTexture(this.normalTexture);
-		}
 	}	
 	@Override
 	public void onMouseUpAsButton(MouseState state, MouseButton button){

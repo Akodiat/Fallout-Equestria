@@ -49,8 +49,8 @@ import utils.Rectangle;
 
 public class GameOfLifeDemo extends Demo {
 
-	private static Rectangle screenDim = new Rectangle(0,0,1920,1080);
-	private static Rectangle worldBounds = new Rectangle(0, 0, 1920 * 5, 1080 * 5);
+	private static Rectangle screenDim = new Rectangle(0,0,1366,768);
+	private static Rectangle worldBounds = new Rectangle(0, 0, 1366 * 5, 768 * 5);
 	private static final int blockSize = 64;
 	private static final String groupName = "GameOL";
 	private static String buttonArcheype = "StandardButton.archetype";

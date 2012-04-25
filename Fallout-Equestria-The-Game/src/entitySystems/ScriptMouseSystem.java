@@ -91,7 +91,9 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		
 		Circle circle = new Circle(Vector2.Zero, spatC.getBounds().getRadius() * transC.getScale().X);
 		boolean collision = Circle.intersects(circle, transC.getPosition(), ms.WorldCoords);
-		
+
+		System.out.println(transC.getPosition());
+		System.out.println(ms.WorldCoords);
 		if(collision) {
 			fixCollisionMouseBehaviour(entity, ms, state, behaviour);	
 		} else {
