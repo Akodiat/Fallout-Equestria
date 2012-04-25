@@ -22,6 +22,9 @@ public class TextureFont {
 	
 
 	public Vector2 meassureString(String string) {
+		if(string == null || string.isEmpty())
+			return Vector2.Zero;
+		
 		float width = 0, height = this.lineSpacing, currWidth = 0;
 		for (int i = 0; i < string.length() - 1; i++) {
 			char c = string.charAt(i);

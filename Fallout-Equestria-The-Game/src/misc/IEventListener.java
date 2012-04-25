@@ -1,6 +1,5 @@
 package misc;
 
-public interface IEventListener {
-	
-	public void onEvent();
+public interface IEventListener<T extends EventArgs> {
+	public void onEvent(Object sender, T e);
 }

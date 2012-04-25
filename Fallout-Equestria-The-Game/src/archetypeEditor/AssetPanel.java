@@ -31,18 +31,18 @@ public class AssetPanel extends JPanel {
 	private String fileEnding;
 	private String absolutePath;
 	private Field field;
-	private IComponent comp;
+	private Object comp;
 	private File resourcesDirectory = new File("resources");
 	/**
 	 * Create the panel.
 	 */
-	public AssetPanel(Field field, IComponent comp) {
+	public AssetPanel(Field field, Object comp) {
 		setLayout(null);
 		this.field = field;
 		this.comp = comp;
 
 		JLabel lblAsset = new JLabel(field.getName());
-		lblAsset.setBounds(10, 8, 31, 14);
+		lblAsset.setBounds(10, 8, 150, 14);
 		add(lblAsset);
 
 		if(field.getType() == Texture2D.class){
@@ -61,7 +61,7 @@ public class AssetPanel extends JPanel {
 		
 		
 		textField = new JTextField(textFieldText);
-		textField.setBounds(51, 5, 147, 20);
+		textField.setBounds(155, 5, 147, 20);
 		add(textField);
 		textField.setColumns(10);
 
@@ -76,8 +76,8 @@ public class AssetPanel extends JPanel {
 				chooser.setFileFilter(filter);
 				int returnVal = chooser.showOpenDialog(getParent());
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					setText(chooser.getSelectedFile().getName());
 					absolutePath = chooser.getSelectedFile().getAbsolutePath();
+					setText(chooser.getSelectedFile().getName());
 					setFieldValue(absolutePath);
 				}
 			}
@@ -92,7 +92,7 @@ public class AssetPanel extends JPanel {
 				String filePath = "resources" + File.separator;
 
 				//OPEN TEXTFILES WITH NOTEPAD
-				if(getText().endsWith(".script")||getText().endsWith(".archetype"))
+				if(getText().endsWith(".script") || getText().endsWith(".archetype"))
 				{
 					if (getText().endsWith(".archetype")){
 						filePath += "archetypes" + File.separator + getText();
@@ -105,8 +105,9 @@ public class AssetPanel extends JPanel {
 					openFileWithNotepad(filePath);
 				}else{//OPEN OTHER TYPES OF FILES WITH USERS PREFERRED APPLICATION OR OPENGLSTUFF
 					if(getText().endsWith(".png")){
-						filePath += "textures" + File.separator + getText();
-						openFileWithDefaultApplication(filePath);
+						//int soundsIndex = absolutePath.lastIndexOf("textures", absolutePath.length());
+						//filePath = absolutePath.substring(soundsIndex + "textures".length() + 1);
+						openFileWithDefaultApplication(absolutePath);
 					}else if (getText().endsWith(".xml")){
 						String imageName = getText().replace(".xml",".png");
 						filePath += "textures" + File.separator + "fonts" + File.separator + imageName;
@@ -180,7 +181,9 @@ public class AssetPanel extends JPanel {
 		try {
 			Display.create();
 			if(field.getType() == Texture2D.class){
-				newFieldValue = ContentManager.loadTexture(getText());
+				int soundsIndex = absolutePath.lastIndexOf("textures", absolutePath.length());
+				String filePath = absolutePath.substring(soundsIndex + "textures".length() + 1);
+				newFieldValue = ContentManager.loadTexture(filePath);
 			} else if(field.getType() == Audio.class){
 				int soundsIndex = absolutePath.lastIndexOf("sounds", absolutePath.length());
 				String filePath = absolutePath.substring(soundsIndex + "sounds".length() + 1);

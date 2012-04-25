@@ -45,7 +45,7 @@ public class Camera2D {
 	public Matrix4 getTransformation() {
 		Matrix4 screenOff = Matrix4.createTranslation(screenOffset);
 		Matrix4 scale = Matrix4.createScale(this.zoom);
-		Matrix4 translation = Matrix4.createTranslation(new Vector2(-position.X - screenOffset.X, -position.Y - screenOffset.Y));
+		Matrix4 translation = Matrix4.createTranslation(new Vector2(-position.X - screenOffset.X * this.zoom.X, -position.Y - screenOffset.Y * this.zoom.Y));
 		Matrix4 combinedMatrix = Matrix4.mul(screenOff, scale);
 		combinedMatrix = Matrix4.mul(combinedMatrix, translation);
 		
@@ -133,18 +133,28 @@ public class Camera2D {
 	public Rectangle getVisibleArea() {
 		int x,y,width,height;
 		
-		x = (int)((this.position.X) * this.zoom.X);
-		y = (int)((this.position.Y) * this.zoom.Y);
-		width = (int)(this.screenOffset.X * -2.0f * this.zoom.X);
-		height = (int)(this.screenOffset.Y * -2.0f * this.zoom.Y);
+		float zoomX = 1.0f / this.zoom.X;
+		float zoomY = 1.0f / this.zoom.Y;
+		
+		
+		x = (int)((this.position.X) * zoomX);
+		y = (int)((this.position.Y) * zoomY);
+		width = (int)(this.screenOffset.X * -2.0f * zoomY);
+		height = (int)(this.screenOffset.Y * -2.0f * zoomY);
 		
 		return new Rectangle(x,y,width,height);	
 	}
 	
 	
 	public Vector2 getViewToWorldCoords(Vector2 viewPosition) {
-		//TODO fix so that scale works!
-		return Vector2.add(this.position, viewPosition);
+		
+		float zoomX = 1.0f / this.zoom.X;
+		float zoomY = 1.0f / this.zoom.Y;
+		
+		float x = this.position.X + viewPosition.X * zoomX;
+		float y = this.position.Y + viewPosition.Y * zoomY;
+		
+		return new Vector2(x,y);
 	}
 	
 	public Vector2 getScreenOffset() {

@@ -265,7 +265,7 @@ public class AnimationPlayer
 			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), 
 					getBonePosition(position, mirrored, scale, boneIndex), 
 					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
-					Vector2.mul(scale, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin()), 
+					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
 					Vector2.mul(scale, boneTransformations[boneIndex].getScale()), 
 					getBoneRotation(mirrored, rotation, boneIndex), 
 					bone.isMirrored() ^ mirrored);		

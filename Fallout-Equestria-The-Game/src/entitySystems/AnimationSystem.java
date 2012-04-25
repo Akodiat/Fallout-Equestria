@@ -36,7 +36,6 @@ public class AnimationSystem extends EntityProcessingSystem {
 
 	private ComponentMapper<AnimationComp> aCM;
 	private ComponentMapper<TransformationComp> tCM;
-	private ComponentMapper<RenderingComp> rCM;
 
 	@Override
 	public void initialize() {
@@ -44,8 +43,6 @@ public class AnimationSystem extends EntityProcessingSystem {
 				AnimationComp.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
-		rCM = ComponentMapper.create(this.getWorld().getDatabase(),
-				RenderingComp.class);
 	}
 	@Override
 	public void process(){

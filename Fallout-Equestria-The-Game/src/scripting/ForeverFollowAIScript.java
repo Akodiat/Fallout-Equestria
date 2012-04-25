@@ -12,7 +12,7 @@ import entityFramework.IEntity;
 import utils.GameTime;
 
 @Editable
-public class ForeverFollowAIScript extends Behaviour{
+public class ForeverFollowAIScript extends Behavior{
 
 	private PhysicsComp physComp;
 	private TransformationComp transComp;

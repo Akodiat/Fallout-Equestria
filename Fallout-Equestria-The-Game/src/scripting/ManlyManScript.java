@@ -11,7 +11,7 @@ import misc.EntityGroups;
 import entityFramework.IEntity;
 
 @Editable
-public class ManlyManScript extends Behaviour {
+public class ManlyManScript extends Behavior {
 	
 	private PhysicsComp physComp;
 	private TransformationComp transComp;

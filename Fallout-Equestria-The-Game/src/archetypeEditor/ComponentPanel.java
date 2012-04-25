@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 
 import org.newdawn.slick.openal.Audio;
 
-import scripting.Behaviour;
+import scripting.Behavior;
 import utils.Circle;
 
 import math.Vector2;
@@ -137,9 +137,9 @@ public class ComponentPanel extends JPanel {
 				  type.equals(IEntityArchetype.class)){
 			AssetPanel aPanel = new AssetPanel(field, component);
 			aPanel.setBounds(0, height, 500, 55);
-			height += 50;
+			height += 70;
 			this.scrollPanel.add(aPanel);
-		} else if(Behaviour.class.isAssignableFrom(type)) {
+		} else if(Behavior.class.isAssignableFrom(type)) {
 			ScriptPanel sPanel = new ScriptPanel(field, component);
 			sPanel.setBounds(0,height, 500, 500);
 			height += 305;

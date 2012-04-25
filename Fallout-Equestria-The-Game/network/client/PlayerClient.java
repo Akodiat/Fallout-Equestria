@@ -27,8 +27,8 @@ import components.InputComp;
 import components.BehaviourComp;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
-import demos.GameWorld;
 import demos.MapDemo;
+import demos.WorldBuilder;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
@@ -48,7 +48,7 @@ public class PlayerClient {
 	private Rectangle screenDim = new Rectangle(0,0,800,600);
 	
 	private IEntity player;
-	private GameWorld gameWorld;
+	private IEntityWorld gameWorld;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Clock clock;
@@ -131,19 +131,12 @@ public class PlayerClient {
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
 		
-		Injector injector = Guice.createInjector(new EntityModule());
-		IEntityManager manager = injector.getInstance(IEntityManager.class);
-		
-		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
-		
-		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
-		
-		gameWorld = new GameWorld(manager, sm, db, camera, spriteBatch, scene);	//TODO Load GameWorld from server?
+		gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, true);
 		gameWorld.initialize();
 		
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		this.player = manager.createEntity(archetype);
+		this.player = gameWorld.getEntityManager().createEntity(archetype);
 		
 		try {
 			player.setLabel(server.getClientLabel());
@@ -177,7 +170,6 @@ public class PlayerClient {
 			e.printStackTrace();
 		} //TODO Move?
 		
-		sm.initialize();
 		
 		try {
 			loadNewArchetypes(server.getOtherPlayerArchetypes());

@@ -28,5 +28,9 @@ public abstract class GroupedEntitySystem extends EntitySystem {
 		}
 	}
 
+	protected String getGroup() {
+		return this.group;
+	}
+	
 	protected abstract void processEntities(ImmutableSet<IEntity> entities);
 }

@@ -9,9 +9,10 @@ import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import utils.GameTime;
+import utils.MouseButton;
 import utils.MouseState;
 
-public abstract class Behaviour implements KeyframeTriggerListener{
+public abstract class Behavior implements KeyframeTriggerListener{
 	
 	protected IEntityManager entityManager;
 	protected IEntity entity;
@@ -55,9 +56,9 @@ public abstract class Behaviour implements KeyframeTriggerListener{
 	public void onMouseEnter(MouseState state){}
 	public void onMouseExit(MouseState state){}
 	
-	public void onMouseDown(MouseState state){}
-	public void onMouseUp(MouseState state){}
-	public void onMouseUpAsButton(MouseState state){}
+	public void onMouseDown(MouseState state, MouseButton button){}
+	public void onMouseUp(MouseState state, MouseButton button){}
+	public void onMouseUpAsButton(MouseState state, MouseButton button){}
 	public void onMouseDrag(MouseState state){}
 	
 	public void onCollisionOver(IEntity entity){}

@@ -78,7 +78,6 @@ public class EntityManager implements IEntityManager{
 			this.removeFromGroups(entity);
 			this.removeLabel(entity);
 			this.removeFromDatabase(entity);
-			this.refreshEntity(entity);
 			this.giveBackToFactory(entity);
 			entity = null;
 		}

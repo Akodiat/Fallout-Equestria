@@ -3,7 +3,7 @@ package content;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import scripting.Behaviour;
+import scripting.Behavior;
 
 import components.*;
 

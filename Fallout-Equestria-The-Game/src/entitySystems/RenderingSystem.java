@@ -68,17 +68,22 @@ public class RenderingSystem extends EntityProcessingSystem {
 	}
 
 	private void draw(RenderingComp renderC, TransformationComp transformation) {
-		this.spriteBatch.draw(renderC.getTexture(), transformation.getPosition(), renderC.getColor(), renderC.getSource(),
-							  new Vector2(transformation.getOrigin().X*transformation.getScale().X,transformation.getOrigin().Y*transformation.getScale().Y), transformation.getScale(), transformation.getRotation(), transformation.getMirror());
+		this.spriteBatch.draw(renderC.getTexture(), 
+							  transformation.getPosition(), 
+							  renderC.getColor(), 
+							  renderC.getSource(),
+							  transformation.getOrigin(),
+							  transformation.getScale(),
+							  transformation.getRotation(), 
+							  transformation.getMirror());
 	}
 
 	@Override
 	protected void processEntities(ImmutableSet<IEntity> entities) {
 		
-		TreeSet<IEntity> treeSet = new TreeSet<>(new RenderSorter());
-		treeSet.addAll(entities);
-		
-		for (IEntity entity : treeSet) {
+		ArrayList<IEntity> array = new ArrayList<>(entities);
+		Collections.sort(array, new RenderSorter());
+		for (IEntity entity : array) {
 			this.processEntity(entity);
 		}
 	}

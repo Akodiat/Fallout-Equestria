@@ -1,28 +1,25 @@
 <entityFramework.EntityArchetype>
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
-      <components.ExistanceComp>
-        <existanceTime>2.0</existanceTime>
-        <elapsedExistance>0.0</elapsedExistance>
-      </components.ExistanceComp>
+      <Rendering>
+        <texture>
+          <Asset>GUI/button.png</Asset>
+        </texture>
+        <color>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </color>
+      </Rendering>
       <Transformation>
-        <position>1237.1487,734.01855</position>
-        <scale>1.0,1.0</scale>
-        <origin>124.0,124.0</origin>
+        <position>0.0,0.0</position>
+        <scale>0.5,0.5</scale>
+        <origin>64.0,64.0</origin>
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>
-      <Rendering>
-        <texture>
-          <TextureAsset>timebombpre.png</TextureAsset>
-        </texture>
-        <color>
-          <Color>1.0,0.84313726,0.0,1.0</Color>
-        </color>
-      </Rendering>
     </elements>
   </components>
   <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements/>
   </groups>
+  <label></label>
 </entityFramework.EntityArchetype>

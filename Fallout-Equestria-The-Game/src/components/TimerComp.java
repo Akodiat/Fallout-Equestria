@@ -1,5 +1,6 @@
 package components;
 
+import misc.EventArgs;
 import misc.IEventListener;
 
 import anotations.Editable;
@@ -7,8 +8,10 @@ import anotations.Editable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
+import entityFramework.IEntity;
 
 @XStreamAlias("Timer")
+@SuppressWarnings("serial")
 public class TimerComp implements IComponent {
 	private static final float DEF_DURATION = 1f;
 	
@@ -16,7 +19,7 @@ public class TimerComp implements IComponent {
 	private final float duration;
 	private float elapsedTime;
 	
-	private IEventListener listener;
+	private IEventListener<EventArgs> listener;
 	
 	public TimerComp() {
 		this(DEF_DURATION);
@@ -48,20 +51,13 @@ public class TimerComp implements IComponent {
 		this.elapsedTime += delta;
 	}
 	
-	public void triggerEvent() {
+	public void triggerEvent(IEntity entity) {
 		if(this.listener != null) {
-			this.listener.onEvent();
+			this.listener.onEvent(entity, EventArgs.Empty);
 		}
 	}
 	
-	public void setEventListener(IEventListener listener) {
+	public void setEventListener(IEventListener<EventArgs> listener) {
 		this.listener = listener;
-	}
-
-	public void invokeTimedEvent() {
-		if(this.listener != null) {
-			this.listener.onEvent();
-		}
-		
 	}
 }

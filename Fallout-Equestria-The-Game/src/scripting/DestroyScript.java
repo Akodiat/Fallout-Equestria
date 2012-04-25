@@ -5,7 +5,7 @@ import components.TransformationComp;
 
 import utils.GameTime;
 
-public class DestroyScript extends Behaviour {
+public class DestroyScript extends Behavior {
 
 	@Override
 	public void start() {

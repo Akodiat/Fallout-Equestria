@@ -431,7 +431,7 @@ public class SpriteBatch {
 				dist = 0;
 				continue;
 			}
-			Vector2 rorig = new Vector2(origin.X * scale.X, origin.Y * scale.Y);
+			Vector2 rorig = new Vector2(origin.X, origin.Y);
 			Rectangle srcRect = font.getCharacterSourceRect(c);
 			
 
@@ -440,7 +440,7 @@ public class SpriteBatch {
 			
 			if(mirror) {
 				rx = textDim.X - x + destination.X;
-				rorig = new Vector2((origin.X * scale.X + srcRect.Width), origin.Y * scale.Y);
+				rorig = new Vector2((origin.X+ srcRect.Width), origin.Y);
 			}
 			else {
 				rx = x + destination.X;
@@ -497,8 +497,8 @@ public class SpriteBatch {
 			
 			float angleX = (float)Math.cos(rotation);
 			float angleY = (float)Math.sin(rotation);
-			float origX = origin.X / destWidth;
-			float origY = origin.Y / destHeight;
+			float origX = origin.X / destWidth * scale.X;
+			float origY = origin.Y / destHeight * scale.Y;
 			float[] colorValues = color.toArray();
 			
 			for (int i = 0; i < 4; i++) {

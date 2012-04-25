@@ -30,9 +30,9 @@
         <abilityPoints>100.0</abilityPoints>
       </Ability>
       <Behaviour>
-        <script class="scripting.PlayerScript">
+        <behavior class="scripting.PlayerScript">
           <initialized>false</initialized>
-        </script>
+        </behavior>
       </Behaviour>
       <Transformation>
         <position reference="../../Physics/velocity"/>

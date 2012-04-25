@@ -23,13 +23,13 @@
         </animationPlayer>
       </Animation>
       <Behaviour>
-        <script class="scripting.ManlyManScript">
+        <behavior class="scripting.ManlyManScript">
           <initialized>false</initialized>
           <enabled>false</enabled>
           <explodeAnimationName>explode</explodeAnimationName>
           <targetEntityLabel>Player</targetEntityLabel>
           <moveSpeed>100.0</moveSpeed>
-        </script>
+        </behavior>
       </Behaviour>
       <Transformation>
         <position reference="../../Physics/velocity"/>

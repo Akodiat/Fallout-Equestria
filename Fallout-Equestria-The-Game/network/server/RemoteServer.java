@@ -27,7 +27,6 @@ import common.IRemoteServer;
 import components.*;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
-import demos.GameWorld;
 import demos.ServerWorld;
 import entityFramework.*;
 import entitySystems.*;

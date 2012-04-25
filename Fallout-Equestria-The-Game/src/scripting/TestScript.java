@@ -12,7 +12,7 @@ import components.TransformationComp;
 import components.WeaponComp;
 
 @Editable
-public class TestScript extends Behaviour{
+public class TestScript extends Behavior{
 
 	@Editable
 	private float trololo = 10;

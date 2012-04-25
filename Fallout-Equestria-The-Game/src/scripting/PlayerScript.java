@@ -14,7 +14,7 @@ import utils.GameTime;
 import utils.MouseState;
 
 @Editable
-public class PlayerScript extends Behaviour{
+public class PlayerScript extends Behavior{
 	
 	PhysicsComp	  	        physComp;
 	InputComp 		  	     inpComp;
@@ -62,57 +62,7 @@ public class PlayerScript extends Behaviour{
 		velocity = Vector2.mul(speedFactor, velocity);
 		physComp.setVelocity(velocity);
 	}
-	
-	@Override
-	public void onMouseOver(MouseState state){
-		System.out.println("Mouse over player!");
-	}
 
-	@Override
-	public void onMouseEnter(MouseState state){
-		System.out.println("Mouse just went over player!");
-	}
-
-	@Override
-	public void onMouseExit(MouseState state){
-		System.out.println("Mouse just left player area!");
-	}
-
-	@Override
-	public void onMouseDown(MouseState state){
-		System.out.println("Mouse was just pressed");
-	}
-
-	@Override
-	public void onMouseUp(MouseState state){
-		System.out.println("Mouse was just released");
-	}
-	
-	@Override
-	public void onMouseUpAsButton(MouseState state) {
-		System.out.println("Mouse was just released as a button!");
-	}
-	
-	@Override
-	public void onMouseDrag(MouseState state){
-		System.out.println("The mouse is getting draged!");
-	}
-
-	@Override
-	public void onCollisionEnter(IEntity entity) {
-		System.out.println("Player just collided with " + entity);
-	}
-		
-	@Override
-	public void onCollisionOver(IEntity entity) {
-		System.out.println("Player is continusly colliding with " + entity);
-	}
-
-	@Override
-	public void onCollisionExit(IEntity entity) {
-		System.out.println("Player stoped colliding with " + entity);
-	}
-	
 	@Override
 	public Object clone() {
 		return new PlayerScript();

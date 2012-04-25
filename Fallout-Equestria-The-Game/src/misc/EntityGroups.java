@@ -5,4 +5,5 @@ public enum EntityGroups {
 	Friends,
 	Enemies,
 	Pickupable,
+	GUI
 }

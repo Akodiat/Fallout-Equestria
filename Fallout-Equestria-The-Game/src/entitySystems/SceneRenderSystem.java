@@ -61,11 +61,11 @@ public class SceneRenderSystem extends EntitySystem {
 
 	private Point2 getMaxIndex(Point2 gridDim) {
 		
-		float blockSize = (float)scene.getBlockSize();
+		int blockSize = scene.getBlockSize();
 		
-		Vector2 bottomRight = camera.getViewToWorldCoords(new Vector2(spriteBatch.getViewport().Width, spriteBatch.getViewport().Height));
-		Point2 p = new Point2((int)((bottomRight.X + blockSize)/ blockSize),
-				  			  (int)((bottomRight.Y + blockSize)/ blockSize));
+		Rectangle visibleArea = camera.getVisibleArea();
+		Point2 p = new Point2((visibleArea.getRight() + blockSize) / blockSize,
+				  			  (visibleArea.getBottom() + blockSize) / blockSize);
 		p.X = MathHelper.clamp(0, gridDim.X, p.X);
 		p.Y = MathHelper.clamp(0, gridDim.Y, p.Y);
 			
@@ -73,9 +73,11 @@ public class SceneRenderSystem extends EntitySystem {
 	}
 
 	private Point2 getMinIndex(Point2 gridDim) {
-		Vector2 topLeft = camera.getViewToWorldCoords(Vector2.Zero);
-		Point2 p = new Point2((int)(topLeft.X / (float)scene.getBlockSize()),
-							  (int)(topLeft.Y / (float)scene.getBlockSize()));
+
+		int blockSize = scene.getBlockSize();
+		Rectangle visibleArea = camera.getVisibleArea();
+		Point2 p = new Point2(visibleArea.X / blockSize,
+				  			  visibleArea.Y / blockSize);
 
 		p.X = MathHelper.clamp(0, gridDim.X, p.X);
 		p.Y = MathHelper.clamp(0, gridDim.Y, p.Y);

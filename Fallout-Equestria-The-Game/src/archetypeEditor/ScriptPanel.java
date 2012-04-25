@@ -18,11 +18,14 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.ScrollPaneConstants;
 
-import scripting.Behaviour;
+import scripting.Behavior;
 
 import anotations.Editable;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
+
+import org.newdawn.slick.openal.Audio;
+
 import java.awt.FlowLayout;
 import net.miginfocom.swing.MigLayout;
 import com.jgoodies.forms.layout.FormLayout;
@@ -30,11 +33,15 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
+import entityFramework.IEntityArchetype;
+import graphics.Texture2D;
+import graphics.TextureFont;
+
 public class ScriptPanel extends JPanel {
 
 	Field scriptField;
 	Object containgingObject;
-	HashMap<String, Class<? extends Behaviour>> scriptTypes = new HashMap<>();
+	HashMap<String, Class<? extends Behavior>> scriptTypes = new HashMap<>();
 	
 	int height = 300;
 	public int getHeight() {
@@ -83,11 +90,11 @@ public class ScriptPanel extends JPanel {
 
 
 	protected void changedScript(String string) {
-		Class<? extends Behaviour> scriptClass = this.scriptTypes.get(string);
+		Class<? extends Behavior> scriptClass = this.scriptTypes.get(string);
 		if(scriptClass == null)
 			return;
 		
-		Behaviour script = (Behaviour) this.tryGetScript();
+		Behavior script = (Behavior) this.tryGetScript();
 		if(script == null || !script.equals(scriptClass)) {
 			script = createNewScript(scriptClass);
 			setScriptValue(script);
@@ -102,7 +109,7 @@ public class ScriptPanel extends JPanel {
 	}
 
 
-	private void setScriptValue(Behaviour script) {
+	private void setScriptValue(Behavior script) {
 		try {
 			this.scriptField.set(this.containgingObject, script);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -112,8 +119,8 @@ public class ScriptPanel extends JPanel {
 	}
 
 
-	private Behaviour createNewScript(Class<? extends Behaviour> scriptClass) {
-		Behaviour script = ReflectionHelper.createNewInstance(scriptClass);
+	private Behavior createNewScript(Class<? extends Behavior> scriptClass) {
+		Behavior script = ReflectionHelper.createNewInstance(scriptClass);
 		return script;
 	}
 
@@ -151,11 +158,22 @@ public class ScriptPanel extends JPanel {
 			for (Field field : fields) {
 				field.setAccessible(true);
 				Annotation annotation = field.getAnnotation(Editable.class);
+				Class fieldType = field.getType();
 				if(annotation != null) {
-					PrimitiveTypePanel pPanel = new PrimitiveTypePanel(field, script);
-					pPanel.setBounds(0, height, 500, 55);
-					add(pPanel);
-					height += 55;
+					if(fieldType.isPrimitive() || fieldType == String.class) {
+						PrimitiveTypePanel pPanel = new PrimitiveTypePanel(field, script);
+						pPanel.setBounds(0, height, 500, 55);
+						add(pPanel);
+						height += 55;
+					} else if(fieldType.equals(Texture2D.class)||
+							fieldType.equals(TextureFont.class)||
+							fieldType.equals(Audio.class)||
+							fieldType.equals(IEntityArchetype.class)){
+						AssetPanel aPanel = new AssetPanel(field, script);
+						aPanel.setBounds(0, height, 500, 70);
+						height += 70;
+						this.add(aPanel);
+					}
 				}
 			}
 			

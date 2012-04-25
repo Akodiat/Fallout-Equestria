@@ -15,10 +15,11 @@ import components.BehaviourComp;
 import components.SpatialComp;
 import components.TransformationComp;
 
-import scripting.Behaviour;
+import scripting.Behavior;
 import utils.ButtonState;
 import utils.Camera2D;
 import utils.Circle;
+import utils.MouseButton;
 import utils.MouseState;
 import utils.Rectangle;
 import entityFramework.ComponentMapper;
@@ -49,7 +50,7 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		None,
 		Over,
 		MouseDrag,
-		MouseDownOver
+		MouseDragOver
 	}
 	
 	Map<IEntity, CollisionState> collisionStates = new HashMap<>();
@@ -63,7 +64,7 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 	public void entityRemoved(IEntity entity) {
 		CollisionState state = collisionStates.remove(entity);
 		if(state == CollisionState.Over) {
-			Behaviour behaviour = this.scriptCM.getComponent(entity).getBehaviour();
+			Behavior behaviour = this.scriptCM.getComponent(entity).getBehavior();
 			behaviour.onMouseExit(this.lastMouseState);
 		}
 	}
@@ -85,9 +86,11 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		SpatialComp spatC			 =  spatCM.getComponent(entity);
 		BehaviourComp  scriptC			 =  scriptCM.getComponent(entity);	
 		CollisionState state = this.collisionStates.get(entity);
-		Behaviour behaviour = scriptC.getBehaviour();
+		Behavior behaviour = scriptC.getBehavior();
 		
-		boolean collision = Circle.intersects(spatC.getBounds(), transC.getPosition(), ms.WorldCoords);
+		
+		Circle circle = new Circle(Vector2.Zero, spatC.getBounds().getRadius() * transC.getScale().X);
+		boolean collision = Circle.intersects(circle, transC.getPosition(), ms.WorldCoords);
 		
 		if(collision) {
 			fixCollisionMouseBehaviour(entity, ms, state, behaviour);	
@@ -97,85 +100,121 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 	}
 
 	private void fixCollisionMouseBehaviour(IEntity entity, MouseState ms,
-			CollisionState state, Behaviour behaviour) {
-		if(state == CollisionState.None) {
+			CollisionState state, Behavior behaviour) {
+		if(state == CollisionState.None || state == CollisionState.MouseDrag) {
 			behaviour.onMouseEnter(ms);
-			this.setState(entity, CollisionState.Over);
+			if(state == CollisionState.None) {
+				this.setState(entity, CollisionState.Over);
+			} else {
+				this.setState(entity, CollisionState.MouseDragOver);
+			}
 		} else if(state == CollisionState.Over || 
-				 state == CollisionState.MouseDrag){
+				 state == CollisionState.MouseDragOver){
 			behaviour.onMouseOver(ms);
 		}
-		if(state == CollisionState.MouseDrag) {
+		if(state == CollisionState.MouseDrag || state == CollisionState.MouseDragOver) {
 			behaviour.onMouseDrag(ms);
 		}
 		
-		if(mouseGotPressed(ms)) {
-			behaviour.onMouseDown(ms);
-			this.setState(entity, CollisionState.MouseDrag);
-		} else if(mouseGotReleased(ms)){
-			if(state == CollisionState.MouseDrag) {
-				behaviour.onMouseUpAsButton(ms);
-				behaviour.onMouseUp(ms);
-				this.setState(entity, CollisionState.Over);
-			} else {
-				behaviour.onMouseUp(ms);
-			}
-		}
+		fixMouseButtonEventsForCollision(entity, ms, state, behaviour, MouseButton.Left);
+		fixMouseButtonEventsForCollision(entity, ms, state, behaviour, MouseButton.Right);
+		fixMouseButtonEventsForCollision(entity, ms, state, behaviour, MouseButton.Middle);
 	}
-
+	
 	private void fixNonCollisionBehaviour(IEntity entity, MouseState ms,
-			CollisionState state, Behaviour behaviour) {
-		if(state == CollisionState.Over) {
+			CollisionState state, Behavior behaviour) {
+		if(state == CollisionState.Over || state == CollisionState.MouseDragOver) {
 			behaviour.onMouseExit(ms);
-			this.setState(entity, CollisionState.None);
-		}
-		if(state == CollisionState.MouseDrag) {
-			behaviour.onMouseDrag(ms);
-			if(mouseGotReleased(ms)) {
-				behaviour.onMouseUp(ms);
+			if(state == CollisionState.MouseDragOver) {
+				this.setState(entity, CollisionState.MouseDrag);
+			} else {
 				this.setState(entity, CollisionState.None);
 			}
 		}
-	}
-
-	private boolean mouseGotReleased(MouseState ms) {
-		boolean buttonWasPressed = lastMouseState.LeftButtonState == ButtonState.Pressed &&
-				   ms.LeftButtonState == ButtonState.Depressed;
-
-		buttonWasPressed = buttonWasPressed || 
-			(lastMouseState.RightButtonState == ButtonState.Pressed &&
-					   ms.RightButtonState == ButtonState.Depressed);
 		
-		buttonWasPressed = buttonWasPressed || 
-		(lastMouseState.MiddleButtonState == ButtonState.Pressed &&
-		ms.MiddleButtonState == ButtonState.Depressed);
-
-		return buttonWasPressed;
+		
+		if(state == CollisionState.MouseDrag) {
+			behaviour.onMouseDrag(ms);
+			fixMouseButtonEventsForNonCollision(entity, ms, state, behaviour, MouseButton.Left);
+			fixMouseButtonEventsForNonCollision(entity, ms, state, behaviour, MouseButton.Right);
+			fixMouseButtonEventsForNonCollision(entity, ms, state, behaviour, MouseButton.Middle);
+		}
 	}
+
+	private void fixMouseButtonEventsForCollision(IEntity entity, MouseState ms,
+			CollisionState state, Behavior behaviour, MouseButton button) {
+		if(mouseGotPressed(ms, button)) {
+			behaviour.onMouseDown(ms, button);
+			this.setState(entity, CollisionState.MouseDragOver);
+		} else if(mouseGotReleased(ms, button)){
+			if(state == CollisionState.MouseDragOver) {
+				behaviour.onMouseUp(ms, button);
+				behaviour.onMouseUpAsButton(ms, button);
+				if(noButtonsDown(ms)) {
+					this.setState(entity, CollisionState.Over);
+				}
+			} else {
+				behaviour.onMouseUp(ms, button);
+			}
+		}
+	}
+	
+	private void fixMouseButtonEventsForNonCollision(IEntity entity, MouseState ms,
+			CollisionState state, Behavior behaviour, MouseButton button) {
+		if(mouseGotReleased(ms, button)) {
+			behaviour.onMouseUp(ms, button);
+			this.setState(entity, CollisionState.None);
+		}
+	}
+	
 
 	private void setState(IEntity entity, CollisionState state) {
 		this.collisionStates.put(entity, state);
-		
+	}
+	
+	private boolean mouseGotReleased(MouseState ms, MouseButton button) {
+		switch(button) {
+			case Left:
+				return lastMouseState.LeftButtonState == ButtonState.Pressed &&
+				   ms.LeftButtonState == ButtonState.Depressed;
+			case Right:
+				return lastMouseState.RightButtonState == ButtonState.Pressed &&
+				   ms.RightButtonState == ButtonState.Depressed;
+			case Middle:
+				return lastMouseState.MiddleButtonState == ButtonState.Pressed &&
+				ms.MiddleButtonState == ButtonState.Depressed;
+			default:
+				throw new UnsupportedOperationException("Button not supported " + button);				
+			}
 	}
 
-	private boolean mouseGotPressed(MouseState ms) {
-		boolean buttonWasPressed = lastMouseState.LeftButtonState == ButtonState.Depressed &&
-											   ms.LeftButtonState == ButtonState.Pressed;
-		
-		buttonWasPressed = buttonWasPressed || 
-								(lastMouseState.RightButtonState == ButtonState.Depressed &&
-										   ms.RightButtonState == ButtonState.Pressed);
-		
-		buttonWasPressed = buttonWasPressed || 
-							(lastMouseState.MiddleButtonState == ButtonState.Depressed &&
-							ms.MiddleButtonState == ButtonState.Pressed);
-		
-		return buttonWasPressed;
+	private boolean mouseGotPressed(MouseState ms, MouseButton button) {
+		switch(button) {
+			case Left:
+				return lastMouseState.LeftButtonState == ButtonState.Depressed &&
+				   ms.LeftButtonState == ButtonState.Pressed;
+			case Right:
+				return lastMouseState.RightButtonState == ButtonState.Depressed &&
+				   ms.RightButtonState == ButtonState.Pressed;
+			case Middle:
+				return lastMouseState.MiddleButtonState == ButtonState.Depressed &&
+				ms.MiddleButtonState == ButtonState.Pressed;
+			default:
+				throw new UnsupportedOperationException("Button not supported " + button);			
+		}
+	}
+	
+	private boolean noButtonsDown(MouseState ms) {
+		return ms.LeftButtonState == ButtonState.Depressed &&
+			   ms.RightButtonState == ButtonState.Depressed &&
+			   ms.MiddleButtonState == ButtonState.Depressed;			
 	}
 
 	@Override
 	protected void processEntities(ImmutableSet<IEntity> entities) {
 		MouseState ms = generateMouseState();	
+		System.out.println("Processing");
+		
 		for (IEntity entity : entities) {	
 			this.processEntity(entity, ms);
 		}

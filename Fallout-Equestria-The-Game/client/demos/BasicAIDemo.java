@@ -13,6 +13,7 @@ import entityFramework.IEntityArchetype;
 import entityFramework.IEntityDatabase;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
+import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
 import graphics.Color;
@@ -29,7 +30,7 @@ public class BasicAIDemo extends Demo {
 	private static final String aiAsset 	= "FollowingTextAI.archetype";
 	private static Rectangle screenDim 		= new Rectangle(0,0,800,600);
 	
-	private GameWorld gameWorld;
+	private IEntityWorld gameWorld;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Scene scene;
@@ -70,7 +71,7 @@ public class BasicAIDemo extends Demo {
 		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
 		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
 		
-		gameWorld = new GameWorld(manager, sm, db, camera, spriteBatch, scene);
+		gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, true);
 		gameWorld.initialize();
 		
 		sm.initialize();

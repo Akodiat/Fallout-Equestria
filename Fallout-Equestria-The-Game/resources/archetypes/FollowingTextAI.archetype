@@ -25,13 +25,13 @@
         </ability>
       </Ability>
       <Behaviour>
-        <script class="scripting.FollowAIScript">
+        <behavior class="scripting.FollowAIScript">
           <initialized>false</initialized>
           <speed>50.0</speed>
           <minDistance>150.0</minDistance>
           <sightRange>300.0</sightRange>
           <targetEntityLabel>Player</targetEntityLabel>
-        </script>
+        </behavior>
       </Behaviour>
       <Transformation>
         <position reference="../../Physics/velocity"/>

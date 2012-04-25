@@ -78,8 +78,10 @@ public abstract class EntitySystem implements IEntitySystem{
 				this.entityAdded(entity);
 			}
 		} else {
-			this.entities.remove(entity.getUniqueID());
-			this.entityRemoved(entity);
+			if(this.entities.containsKey(entity.getUniqueID())) {
+				this.entities.remove(entity.getUniqueID());
+				this.entityRemoved(entity);
+			}
 		}
 		
 	}
@@ -89,7 +91,10 @@ public abstract class EntitySystem implements IEntitySystem{
 
 	@Override
 	public void entityDestroyed(IEntity entity) {
-		this.entities.remove(entity.getUniqueID());
+		if(this.entities.containsKey(entity.getUniqueID())) {
+			this.entities.remove(entity.getUniqueID());
+			this.entityRemoved(entity);
+		}
 	}
 	
 	@Override

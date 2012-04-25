@@ -33,6 +33,7 @@ import entityFramework.IEntityArchetype;
 import entityFramework.IEntityDatabase;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
+import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
 import graphics.Color;
@@ -57,7 +58,7 @@ public class MazeDemo extends Demo {
 	private static final String aiAsset 	= "FollowingTextAI.archetype";
 	private static Rectangle screenDim 		= new Rectangle(0,0,1920,1020);
 
-	private GameWorld gameWorld;
+	private IEntityWorld gameWorld;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Scene scene;
@@ -122,23 +123,16 @@ public class MazeDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
+		scene = ContentManager.load("MaseScenev1.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 
-		Injector injector = Guice.createInjector(new EntityModule());
-		IEntityManager manager = injector.getInstance(IEntityManager.class);
-		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
-		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
-
-		gameWorld = new GameWorld(manager, sm, db, camera, spriteBatch, scene);
+		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, false);
 		gameWorld.initialize();
-
-		sm.initialize();
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		IEntity entity = manager.createEntity(archetype);
+		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		
 		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
@@ -150,6 +144,7 @@ public class MazeDemo extends Demo {
 		entity.addComponent(new RenderingComp(Texture2D.getPixel(), Color.White, null, new Rectangle(0,0,0,0)));		
 		entity.addComponent(new AnimationComp(player));
 		//END OF ANIMATION UGLY SHIT
+		entity.getComponent(TransformationComp.class).setPosition(600, 600);
 		
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
