@@ -54,7 +54,7 @@ public class PlayerClient {
 	public static void main(String[] args) {
 		try{
 			System.setSecurityManager(new RMISecurityManager());
-			server = (IRemoteServer) Naming.lookup("rmi://localhost/server");
+			server = (IRemoteServer) Naming.lookup("rmi://129.16.178.90/server");
 
 			System.out.println("Client says: Yawn! Umnumnnnnzzzzz... Gasp!... Hi!");
 
