@@ -38,7 +38,6 @@ public class GUIComp implements IComponent {
 				               null, null, "", null, Color.White);
 	}
 	
-	
 	public GUIComp(GUIComp toBeCloned) {
 		this.background = toBeCloned.background;
 		this.middleground = toBeCloned.middleground;
@@ -163,5 +162,13 @@ public class GUIComp implements IComponent {
 		this.bgColor = color;
 		this.mgColor = color;
 		this.fgColor = color;
+	}
+	
+	public GUIComp getChild(String key) {
+		return children.get(key);
+	}
+	
+	public void addChild(String key, GUIComp guiComp) {
+		children.put(key, guiComp);
 	}
 }
