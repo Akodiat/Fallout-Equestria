@@ -1,0 +1,48 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Behaviour>
+        <behavior class="scripting.ButtonBehavior">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+          <pressed>false</pressed>
+          <overTexture>
+            <Asset>GUI\overButton.png</Asset>
+          </overTexture>
+          <downTexture>
+            <Asset>GUI\pressedButton.png</Asset>
+          </downTexture>
+          <listeners/>
+        </behavior>
+      </Behaviour>
+      <components.GUIComp>
+        <children/>
+        <background>
+          <Asset>GUI\buttonbackground.png</Asset>
+        </background>
+        <bgColor>
+          <Color>0.0,0.8,1.0,1.0</Color>
+        </bgColor>
+        <mgColor>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </mgColor>
+        <fgColor>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </fgColor>
+        <text>Cool Button 1</text>
+        <textFont>
+          <Asset>arialb20.xml</Asset>
+        </textFont>
+        <textColor>
+          <Color>0.6,0.0,0.6,1.0</Color>
+        </textColor>
+      </components.GUIComp>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <string>GUI</string>
+    </elements>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>

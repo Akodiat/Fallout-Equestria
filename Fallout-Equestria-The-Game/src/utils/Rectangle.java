@@ -39,6 +39,11 @@ public final class Rectangle {
 						   this.Y + this.Height / 2.0f);
 	}
 	
+	public boolean intersects(Vector2 point) {
+		return this.X < point.X && this.getRight() > point.X 
+			&& this.Y < point.Y && this.getBottom() > point.Y;
+	}
+	
 	public boolean intersects(Rectangle other) {
 		return other.X < this.X + this.Width && 
 			   this.X < other.X + other.Width &&

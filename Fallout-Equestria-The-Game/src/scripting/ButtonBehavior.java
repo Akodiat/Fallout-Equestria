@@ -3,6 +3,7 @@ package scripting;
 import java.util.HashSet;
 import java.util.Set;
 
+import components.GUIComp;
 import components.RenderingComp;
 import components.TextRenderingComp;
 
@@ -31,20 +32,17 @@ public class ButtonBehavior extends Behavior {
 
 	private boolean pressed = false;
 	
-	private @Editable Texture2D backgroudTexture;
-	private @Editable Texture2D normalTexture;
 	private @Editable Texture2D overTexture;
 	private @Editable Texture2D downTexture;
 			
 	private Set<IEventListener<ButtonEventArgs>> listeners;
 	
-	private RenderingComp renderingComp;
-	private TextRenderingComp textComp;
+	private GUIComp guiComp;
 	
 	/**Creates a new default button-behavior.
 	 */
 	public ButtonBehavior() {
-		this(null,null,null, null);
+		this(null,null);
 	}
 	
 	/**Creates a specialized button with customized images
@@ -53,54 +51,31 @@ public class ButtonBehavior extends Behavior {
 	 * @param overTexture
 	 * @param downTexture
 	 */
-	public ButtonBehavior(Texture2D normalTexture, Texture2D overTexture,
-					      Texture2D downTexture, Texture2D backgroundTexture) {
-		this.normalTexture = normalTexture;
+	public ButtonBehavior(Texture2D overTexture, Texture2D downTexture) {
 		this.overTexture = overTexture;
 		this.downTexture = downTexture;
-		this.backgroudTexture = backgroundTexture;
 		listeners = new HashSet<>();
 	}
 	
 	public ButtonBehavior(ButtonBehavior other) {
-		this.normalTexture = other.normalTexture;
 		this.overTexture   = other.overTexture;
 		this.downTexture   = other.downTexture;
-		this.backgroudTexture = other.backgroudTexture;
 		listeners = new HashSet<>();
 	}
 	
 	@Override
 	public void start() {
-		if(this.normalTexture == null) {
-			this.normalTexture = ContentManager.loadTexture(DEF_NORMAL_TEXTURE);
-		}
+		
 		if(this.overTexture == null) {
 			this.overTexture   = ContentManager.loadTexture(DEF_OVER_TEXTURE);
 		}
 		if(this.downTexture == null) {
 			this.downTexture   = ContentManager.loadTexture(DEF_DOWN_TEXTUE);
 		}
-		if(this.backgroudTexture == null) {
-			this.backgroudTexture = ContentManager.loadTexture(DEF_BACKGROUND_TEXTURE);
-		}
 		
-		
-		//These needs to be present for the button to work so if they are not here
-		//We create defaults.
-		this.renderingComp = this.getComponent(RenderingComp.class);
-		if(renderingComp == null) {
-			//Default button rendering component.
-			this.renderingComp = new RenderingComp(this.normalTexture, Color.White, null, null);
-			this.entity.addComponent(renderingComp);
-		}
-		
-		this.textComp = this.getComponent(TextRenderingComp.class);
-		if(this.textComp == null) {
-			TextureFont font = ContentManager.loadFont(DEF_FONT);
-			//Default button rendering text.
-			this.textComp = new TextRenderingComp("",font, Color.Black);
-			this.entity.addComponent(textComp);
+		this.guiComp = this.entity.getComponent(GUIComp.class);
+		if(guiComp == null) {
+			throw new NullPointerException();
 		}
 	}
 
@@ -130,7 +105,7 @@ public class ButtonBehavior extends Behavior {
 
 	@Override
 	public void onMouseExit(MouseState state){
-			this.setActiveTexture(this.normalTexture);
+			this.setActiveTexture(null);
 	}	
 	@Override
 	public void onMouseUpAsButton(MouseState state, MouseButton button){
@@ -138,23 +113,19 @@ public class ButtonBehavior extends Behavior {
 			this.onButtonPress();
 			this.setActiveTexture(overTexture);
 		}
-
-		System.out.println("button as button up " + button);
 	}
 	
 	@Override
 	public void onMouseUp(MouseState state, MouseButton button){
 		if(button == MouseButton.Left) {
 			pressed = false;
-			this.setActiveTexture(normalTexture);
+			this.setActiveTexture(null);
 		}
-		System.out.println("button up " + button);
 	}
 	
 
 	private void setActiveTexture(Texture2D texture) {
-		this.renderingComp.setTexture(texture);
-		System.out.println("Setting active texture! "+  texture.OpenGLID);
+		this.guiComp.setMiddleground(texture);
 	}
 	
 	public void addEventListener(IEventListener<ButtonEventArgs> listener) {
@@ -166,9 +137,8 @@ public class ButtonBehavior extends Behavior {
 	}
 	
 	private void onButtonPress() {
-		System.out.println("Sending event!");
 		ButtonEventArgs args = 
-				new ButtonEventArgs(this.textComp.getText());	
+				new ButtonEventArgs(this.guiComp.getText());	
 		for (IEventListener<ButtonEventArgs> listener : this.listeners) {
 			listener.onEvent(this.entity, args);
 		}

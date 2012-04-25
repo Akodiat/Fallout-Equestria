@@ -22,7 +22,7 @@ import utils.Rectangle;
 public class GUIDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";
 	private static final String aiAsset 	= "FollowingTextAI.archetype";
-	private static Rectangle screenDim 		= new Rectangle(0,0,1920,1020);
+	private static Rectangle screenDim 		= new Rectangle(0,0,1366,768);
 
 	private IEntityWorld gameWorld;
 	private Camera2D camera;
@@ -66,8 +66,8 @@ public class GUIDemo extends Demo {
 		
 		this.gameWorld.initialize();
 		
-		IEntity entity = this.gameWorld.getEntityManager().createEntity(ContentManager.loadArchetype("GUIStandard.archetype"));
-		entity.getComponent(GUIComp.class).setPosition(new Rectangle(100,100,200,20));
+		IEntity entity = this.gameWorld.getEntityManager().createEntity(ContentManager.loadArchetype("FalloutButton.archetype"));
+		entity.getComponent(GUIComp.class).setPosition(new Rectangle(100,100,200,80));
 		
 	}
 

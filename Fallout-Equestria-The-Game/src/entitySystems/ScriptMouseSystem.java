@@ -12,6 +12,7 @@ import org.lwjgl.input.Mouse;
 import com.google.common.collect.ImmutableSet;
 
 import components.BehaviourComp;
+import components.GUIComp;
 import components.SpatialComp;
 import components.TransformationComp;
 
@@ -89,17 +90,33 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		Behavior behaviour = scriptC.getBehavior();
 		
 		
+		
+		
 		Circle circle = new Circle(Vector2.Zero, spatC.getBounds().getRadius() * transC.getScale().X);
 		boolean collision = Circle.intersects(circle, transC.getPosition(), ms.WorldCoords);
 
-		System.out.println(transC.getPosition());
-		System.out.println(ms.WorldCoords);
 		if(collision) {
 			fixCollisionMouseBehaviour(entity, ms, state, behaviour);	
 		} else {
 			fixNonCollisionBehaviour(entity, ms, state, behaviour);	
 		}	
 	}
+	
+
+
+	private void processGUIEntity(IEntity entity, MouseState ms) {
+		GUIComp comp = entity.getComponent(GUIComp.class);
+		BehaviourComp behaviourCOmp = entity.getComponent(BehaviourComp.class);
+		CollisionState state = this.collisionStates.get(entity);
+		
+		boolean collision = comp.getPosition().intersects(ms.ViewCoords);
+		if(collision) {
+			fixCollisionMouseBehaviour(entity, ms, state, behaviourCOmp.getBehavior());	
+		} else {
+			fixNonCollisionBehaviour(entity, ms, state, behaviourCOmp.getBehavior());	
+		}	
+	}
+	
 
 	private void fixCollisionMouseBehaviour(IEntity entity, MouseState ms,
 			CollisionState state, Behavior behaviour) {
@@ -215,11 +232,19 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 	@Override
 	protected void processEntities(ImmutableSet<IEntity> entities) {
 		MouseState ms = generateMouseState();	
-		System.out.println("Processing");
 		
 		for (IEntity entity : entities) {	
 			this.processEntity(entity, ms);
 		}
+		
+		ImmutableSet<IEntity> gui = this.getDatabase().getEntitysContainingComponents(GUIComp.class, BehaviourComp.class);
+		for (IEntity entity : gui) {
+			if(!this.collisionStates.containsKey(entity)) 
+				this.collisionStates.put(entity, CollisionState.None);
+		
+			this.processGUIEntity(entity, ms);
+		}
+		
 		this.lastMouseState = ms;
 	}
 
