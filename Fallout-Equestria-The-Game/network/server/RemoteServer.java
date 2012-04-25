@@ -176,23 +176,23 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		player.addComponent(inpComp);
 	}
 	
-	public Map<Integer, TransformationComp> getTranspComps(){ //TODO Make a rectangle input parameter which specifies the area the entities should be in...
+	public Map<String, TransformationComp> getTranspComps(){ //TODO Make a rectangle input parameter which specifies the area the entities should be in...
 		List<IEntity> list = tester.getWorld().getDatabase().getEntitysContainingComponent(TransformationComp.class).asList();
-		Map<Integer, TransformationComp> map = new HashMap<Integer, TransformationComp>();
+		Map<String, TransformationComp> map = new HashMap<String, TransformationComp>();
 		
 		for (IEntity entity : list) {
-			map.put(Integer.valueOf(entity.getUniqueID()), entity.getComponent(TransformationComp.class));
+			map.put(entity.getLabel(), entity.getComponent(TransformationComp.class));
 		}
 		
 		return map;
 	}
 	
-	public Map<Integer, PhysicsComp> getPhysComps(){ //TODO Make a rectangle input parameter which specifies the area the entities should be in...
+	public Map<String, PhysicsComp> getPhysComps(){ //TODO Make a rectangle input parameter which specifies the area the entities should be in...
 		List<IEntity> list = tester.getWorld().getDatabase().getEntitysContainingComponent(PhysicsComp.class).asList();
-		Map<Integer, PhysicsComp> map = new HashMap<Integer, PhysicsComp>();
+		Map<String, PhysicsComp> map = new HashMap<String, PhysicsComp>();
 		
 		for (IEntity entity : list) {
-			map.put(Integer.valueOf(entity.getUniqueID()), entity.getComponent(PhysicsComp.class));
+			map.put(entity.getLabel(), entity.getComponent(PhysicsComp.class));
 		}
 		
 		return map;

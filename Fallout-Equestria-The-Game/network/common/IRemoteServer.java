@@ -23,8 +23,8 @@ public interface IRemoteServer extends Remote{
 	
 	public String 							getClientLabel()				throws RemoteException;
 	public List<String> 					getOtherPlayerArchetypes()		throws RemoteException;
-	public Map<Integer,TransformationComp> 	getTranspComps() 				throws RemoteException;
-	public Map<Integer, PhysicsComp> 		getPhysComps() 					throws RemoteException;
+	public Map<String,TransformationComp> 	getTranspComps() 				throws RemoteException;
+	public Map<String, PhysicsComp> 		getPhysComps() 					throws RemoteException;
 	public IEntityDatabase 					getDatabase() 					throws RemoteException;
 	public String 							test(String s)					throws RemoteException;
 	

@@ -11,6 +11,7 @@ import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.lwjgl.opengl.*;
@@ -25,6 +26,8 @@ import utils.*;
 import common.IRemoteServer;
 import components.InputComp;
 import components.BehaviourComp;
+import components.PhysicsComp;
+import components.TransformationComp;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
 import demos.MapDemo;
@@ -202,6 +205,22 @@ public class PlayerClient {
 		this.world.update(time);
 		this.world.getEntityManager().destoryKilledEntities();
 		
+	}
+	public void updateOtherPlayers(){
+		try {
+			Map<String,TransformationComp> transMap = this.server.getTranspComps();
+			Map<String,PhysicsComp> physMap = this.server.getPhysComps();
+			
+			for (String label: transMap.keySet()) {
+				IEntity entity = world.getEntityManager().getEntity(label);
+				entity.addComponent(transMap.get(label));
+				entity.addComponent(physMap.get(label));
+			}
+			
+		} catch (RemoteException e) {
+			System.out.println("Unable to update trans and phys comps for "+this.player.getLabel());
+			e.printStackTrace();
+		}
 	}
 
 	public void render(GameTime time) {
