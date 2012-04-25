@@ -49,7 +49,6 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 			this.spriteBatch.draw(comp.getForeground(), comp.getPosition(), comp.getFgColor(), null);
 
 		
-		this.spriteBatch.draw(Texture2D.getPixel(), comp.getPosition(), new Color(Color.Orange, 0.3f), null);
 		
 		if(comp.getText() != null) {
 			Vector2 measure = comp.getTextFont().meassureString(comp.getText());

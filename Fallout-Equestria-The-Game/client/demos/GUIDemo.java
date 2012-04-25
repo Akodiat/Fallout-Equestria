@@ -45,7 +45,7 @@ public class GUIDemo extends Demo {
 
 	@Override
 	public void render(GameTime time) {
-		this.spriteBatch.clearScreen(Color.CornflowerBlue);
+		this.spriteBatch.clearScreen(Color.Black);
 		this.spriteBatch.begin();
 		this.gameWorld.render();
 		this.spriteBatch.end();

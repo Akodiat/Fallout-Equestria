@@ -22,7 +22,7 @@ import GUI.ButtonEventArgs;
 import anotations.Editable;
 
 @Editable
-public class ButtonBehavior extends Behavior {
+public class ButtonBehavior extends GUIBehaviour {
 
 	private static final String DEF_BACKGROUND_TEXTURE = "GUI/ButtonBackground.png";
 	private static final String DEF_NORMAL_TEXTURE 	   = "GUI/NormalButton.png";
@@ -87,6 +87,7 @@ public class ButtonBehavior extends Behavior {
 	
 	@Override
 	public void onMouseDown(MouseState state, MouseButton button) {
+		super.onMouseDown(state, button);
 		if(button == MouseButton.Left) {
 			this.pressed = true;
 			this.setActiveTexture(downTexture);
@@ -96,6 +97,7 @@ public class ButtonBehavior extends Behavior {
 	}
 	@Override
 	public void onMouseEnter(MouseState state){
+		super.onMouseEnter(state);
 		if(!this.pressed) {
 			this.setActiveTexture(this.overTexture);
 		} else {
@@ -105,10 +107,12 @@ public class ButtonBehavior extends Behavior {
 
 	@Override
 	public void onMouseExit(MouseState state){
-			this.setActiveTexture(null);
+		super.onMouseExit(state);
+		this.setActiveTexture(null);
 	}	
 	@Override
 	public void onMouseUpAsButton(MouseState state, MouseButton button){
+		super.onMouseUpAsButton(state, button);
 		if(button == MouseButton.Left) {
 			this.onButtonPress();
 			this.setActiveTexture(overTexture);
@@ -117,13 +121,13 @@ public class ButtonBehavior extends Behavior {
 	
 	@Override
 	public void onMouseUp(MouseState state, MouseButton button){
+		super.onMouseUp(state, button);
 		if(button == MouseButton.Left) {
 			pressed = false;
 			this.setActiveTexture(null);
 		}
 	}
 	
-
 	private void setActiveTexture(Texture2D texture) {
 		this.guiComp.setMiddleground(texture);
 	}

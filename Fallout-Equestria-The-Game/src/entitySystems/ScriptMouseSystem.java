@@ -17,6 +17,7 @@ import components.SpatialComp;
 import components.TransformationComp;
 
 import scripting.Behavior;
+import scripting.GUIBehaviour;
 import utils.ButtonState;
 import utils.Camera2D;
 import utils.Circle;
@@ -45,6 +46,8 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 	private ComponentMapper<BehaviourComp> scriptCM;
 
 	private MouseState lastMouseState;
+	private IEntity focusTarget;
+	
 	
 	
 	private enum CollisionState {
@@ -109,8 +112,23 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 		BehaviourComp behaviourCOmp = entity.getComponent(BehaviourComp.class);
 		CollisionState state = this.collisionStates.get(entity);
 		
+		//Temporary hack just to make i work!
+
+		
 		boolean collision = comp.getPosition().intersects(ms.ViewCoords);
 		if(collision) {
+			GUIBehaviour behaviour = (GUIBehaviour)behaviourCOmp.getBehavior();
+			if(behaviour != null) {
+				if(this.mouseGotPressed(ms, MouseButton.Left));
+					behaviour.onFocusLost();
+					if(this.focusTarget != null) {
+						GUIBehaviour focusedBehaviour = 
+					   (GUIBehaviour)this.focusTarget.getComponent(BehaviourComp.class).getBehavior();
+						focusedBehaviour.onFocusLost();
+						this.focusTarget = entity;	
+					}
+				} 
+			
 			fixCollisionMouseBehaviour(entity, ms, state, behaviourCOmp.getBehavior());	
 		} else {
 			fixNonCollisionBehaviour(entity, ms, state, behaviourCOmp.getBehavior());	

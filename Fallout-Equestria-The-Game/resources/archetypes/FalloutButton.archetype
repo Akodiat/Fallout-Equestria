@@ -7,24 +7,21 @@
           <enabled>false</enabled>
           <pressed>false</pressed>
           <overTexture>
-            <Asset>GUI\overButton.png</Asset>
+            <Asset>GUI\falloutOverButton.png</Asset>
           </overTexture>
           <downTexture>
-            <Asset>GUI\pressedButton.png</Asset>
+            <Asset>GUI\falloutDownButton.png</Asset>
           </downTexture>
           <listeners/>
         </behavior>
       </Behaviour>
       <components.GUIComp>
         <children/>
-        <background>
-          <Asset>GUI\buttonbackground.png</Asset>
-        </background>
         <bgColor>
-          <Color>0.0,0.8,1.0,1.0</Color>
+          <Color>1.0,1.0,1.0,1.0</Color>
         </bgColor>
         <mgColor>
-          <Color>1.0,1.0,1.0,1.0</Color>
+          <Color>1.0,0.0,1.0,1.0</Color>
         </mgColor>
         <fgColor>
           <Color>1.0,1.0,1.0,1.0</Color>
@@ -34,7 +31,7 @@
           <Asset>arialb20.xml</Asset>
         </textFont>
         <textColor>
-          <Color>0.6,0.0,0.6,1.0</Color>
+          <Color>1.0,0.0,1.0,1.0</Color>
         </textColor>
       </components.GUIComp>
     </elements>

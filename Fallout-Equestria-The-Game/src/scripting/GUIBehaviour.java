@@ -2,6 +2,7 @@ package scripting;
 
 import java.awt.dnd.MouseDragGestureRecognizer;
 
+import misc.EventArgs;
 import misc.IEventListener;
 
 import utils.MouseButton;
@@ -18,6 +19,8 @@ public abstract class GUIBehaviour extends Behavior {
 	private Event<MouseEventArgs> mouseExitEvent;
 	private Event<MouseEventArgs> mouseClickedEvent;
 	private Event<MouseEventArgs> mouseDragEvent;
+	private Event<EventArgs> 	  focusGainedEvent;
+	private Event<EventArgs>	  focusLostEvent;
 	
 	public GUIBehaviour() {
 		this.mouseDownEvent = new Event<>();
@@ -27,6 +30,8 @@ public abstract class GUIBehaviour extends Behavior {
 		this.mouseExitEvent = new Event<>();
 		this.mouseClickedEvent = new Event<>();
 		this.mouseDragEvent = new Event<>();
+		this.focusLostEvent = new Event<>();
+		this.focusGainedEvent = new Event<>();
 	}
 
 	@Override
@@ -72,6 +77,14 @@ public abstract class GUIBehaviour extends Behavior {
 		mouseDragEvent.invoke(this.entity, args);
 	}
 	
+	public void onFocusLost() {
+		this.focusLostEvent.invoke(this.entity, EventArgs.Empty);
+	}
+	
+	public void onFocusGained() {
+		this.focusGainedEvent.invoke(this.entity, EventArgs.Empty);
+	}
+	
 	public void addMouseDownListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseDownEvent.addListener(listener);
 	}
@@ -90,4 +103,44 @@ public abstract class GUIBehaviour extends Behavior {
 	public void addMouseExitListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseExitEvent.addListener(listener);
 	}
+	public void addMouseClicked(IEventListener<MouseEventArgs> listener) {
+		this.mouseClickedEvent.addListener(listener);
+	}
+	public void addFocusGainedEvent(IEventListener<EventArgs> listener) {
+		this.focusGainedEvent.addListener(listener);
+	}
+	public void addFocusLostEvent(IEventListener<EventArgs> listener) {
+		this.focusLostEvent.addListener(listener);
+	}
+	
+	
+	public void removeMouseDownListener(IEventListener<MouseEventArgs> listener) {
+		this.mouseDownEvent.removeListener(listener);
+	}
+	public void removeMouseUpListener(IEventListener<MouseEventArgs> listener) {
+		this.mouseUpEvent.removeListener(listener);
+	}
+	public void removeMouseOverListener(IEventListener<MouseEventArgs> listener) {
+		this.mouseOverEvent.removeListener(listener);
+	}
+	public void removeMouseDragListener(IEventListener<MouseEventArgs> listener) {
+		this.mouseDragEvent.removeListener(listener);
+	}
+	public void removeMouseEnterListener(IEventListener<MouseEventArgs> listener) {
+		this.mouseEnterEvent.removeListener(listener);
+	}
+	public void removeMouseExitListener(IEventListener<MouseEventArgs> listener) {
+		this.mouseExitEvent.removeListener(listener);
+	}
+	public void removeMouseClicked(IEventListener<MouseEventArgs> listener) {
+		this.mouseClickedEvent.removeListener(listener);
+	}
+	public void removeFocusGainedEvent(IEventListener<EventArgs> listener) {
+		this.focusGainedEvent.removeListener(listener);
+	}
+	public void removeFocusLostEvent(IEventListener<EventArgs> listener) {
+		this.focusLostEvent.removeListener(listener);
+	}
+	
+	
 }
