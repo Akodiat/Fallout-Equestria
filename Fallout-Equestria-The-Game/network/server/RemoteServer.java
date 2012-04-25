@@ -140,7 +140,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	
 	protected void initialize() {
 	
-		scene = ContentManager.load("SomeSortOfScene.xml", Scene.class); 		//TODO Load scene from server?
+		scene = ContentManager.load("MaseScenev0.xml", Scene.class); 		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
