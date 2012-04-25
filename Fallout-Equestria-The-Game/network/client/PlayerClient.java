@@ -48,7 +48,7 @@ public class PlayerClient {
 	private Rectangle screenDim = new Rectangle(0,0,800,600);
 	
 	private IEntity player;
-	private IEntityWorld gameWorld;
+	private IEntityWorld world;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Clock clock;
@@ -131,23 +131,28 @@ public class PlayerClient {
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
 		
-		gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, true);
-		gameWorld.initialize();
-		
-
-		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		this.player = gameWorld.getEntityManager().createEntity(archetype);
-		
+		String label = "Player"; //Temporary initialization
 		try {
-			player.setLabel(server.getClientLabel());
+			label=server.getClientLabel();
 		} catch (RemoteException e2) {
 			System.out.println("Failed to get player label from server");
 			e2.printStackTrace();
 		}
 		
+		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, label);
+		world.initialize();
+		
+
+		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
+		this.player = world.getEntityManager().createEntity(archetype);
+		
+		player.setLabel(label);
+		
 		player.addComponent(new BehaviourComp(new PlayerScript()));
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		player.refresh();
+		
+		
 		
 		System.out.println("Trying to say hello to the server");
 		try {System.out.println(server.test("Hello?"));
@@ -179,7 +184,7 @@ public class PlayerClient {
 		}
 	}
 	private void loadNewArchetypes(List<String> archetypeStringList){
-		IEntityManager manager  = this.gameWorld.getEntityManager();
+		IEntityManager manager  = this.world.getEntityManager();
 		for (String playerArchString : archetypeStringList) {
 			EntityArchetypeLoader archLoader = new EntityArchetypeLoader();
 			InputStream istream = new ByteArrayInputStream(playerArchString.getBytes());
@@ -194,15 +199,15 @@ public class PlayerClient {
 	}
 
 	public void update(GameTime time) {
-		this.gameWorld.update(time);
-		this.gameWorld.getEntityManager().destoryKilledEntities();
+		this.world.update(time);
+		this.world.getEntityManager().destoryKilledEntities();
 		
 	}
 
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
 		this.spriteBatch.begin(null, this.camera.getTransformation());
-		this.gameWorld.render();
+		this.world.render();
 		this.spriteBatch.end();
 		
 	}

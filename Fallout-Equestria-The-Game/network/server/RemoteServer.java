@@ -28,6 +28,7 @@ import components.*;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
 import demos.ServerWorld;
+import demos.WorldBuilder;
 import entityFramework.*;
 import entitySystems.*;
 import gameMap.Scene;
@@ -48,7 +49,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	private Rectangle screenDim = new Rectangle(0,0,800,600);
 	
 	private IEntity player;
-	private ServerWorld world;
+	private IEntityWorld world;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Clock clock;
@@ -154,7 +155,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		
 		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
 		
-		world = new ServerWorld(manager, sm, db, camera, spriteBatch, scene);	//TODO Load GameWorld from server?
+		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, "Player");
 		world.initialize();
 		
 
