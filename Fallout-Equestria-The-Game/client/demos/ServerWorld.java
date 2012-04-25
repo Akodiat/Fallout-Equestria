@@ -27,6 +27,7 @@ public class ServerWorld extends EntityWorld {
 	private final Camera2D camera;
 	private final SpriteBatch spriteBatch;
 	private final Scene scene;
+	private final String label;
 	
 	
 	public ServerWorld(IEntityManager entityManager,
@@ -34,11 +35,12 @@ public class ServerWorld extends EntityWorld {
 			IEntityDatabase database, 
 			Camera2D camera, 
 			SpriteBatch spriteBatch, 
-			Scene scene) {
+			Scene scene, String label) {
 		super(entityManager, systemManager, database);
 		this.camera 	 = camera;
 		this.spriteBatch = spriteBatch;
 		this.scene 		 = scene;
+		this.label		 = label;
 	}
 	
 	@Override
@@ -55,19 +57,19 @@ public class ServerWorld extends EntityWorld {
 		manager.addLogicEntitySystem(new CollisionSystem(this));
 		manager.addLogicEntitySystem(new DeathSystem(this));
 		manager.addLogicEntitySystem(new ExistanceSystem(this));
-		manager.addLogicEntitySystem(new ServerInputSystem(this, camera, "Player"));
+		manager.addLogicEntitySystem(new ServerInputSystem(this, camera, this.label));
 		manager.addLogicEntitySystem(new MapCollisionSystem(this, this.scene));
 		manager.addLogicEntitySystem(new PhysicsSystem(this));
 		manager.addLogicEntitySystem(new ScriptSystem(this));
 		
 		//Debug logic systems!
-		manager.addLogicEntitySystem(new AbilityDebugLogicSystem(this, "Player"));
+		manager.addLogicEntitySystem(new AbilityDebugLogicSystem(this, this.label));
 		
 		//Rendering systems!
 		manager.addRenderEntitySystem(new SceneRenderSystem(this, scene, spriteBatch, camera));
 		manager.addRenderEntitySystem(new RenderingSystem(this, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(this, spriteBatch));
-		manager.addRenderEntitySystem(new HUDRenderingSystem(this, spriteBatch, "Player"));
+		manager.addRenderEntitySystem(new HUDRenderingSystem(this, spriteBatch, this.label));
 		manager.addRenderEntitySystem(new AnimationSystem(this, spriteBatch, camera));
 		
 		
