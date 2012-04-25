@@ -100,24 +100,6 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 			Display.destroy();
 		}
 		
-//		this.tester = new SystemTester();
-//		this.world = tester.getWorld();
-//		System.out.println("Hello, this is Server. I am running");
-//		initialize();
-//
-//		tester.startTesting();
-//
-//		while(true) {							//TODO Find good stopping condition
-//			tester.updateWorld(1.0f / 60f);
-//			Timer.updateTimers(1f / 60f);
-//
-//		/*	graphics.clearScreen(new Color(157, 150, 101, 255));
-//			graphics.begin();
-//			tester.renderWorld();
-//			graphics.end();
-//		*/
-//			tester.getWorld().getEntityManager().destoryKilledEntities();
-//		} 
 	}
 	private void gameLoop() {
 		this.clock.update();
@@ -148,26 +130,17 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		clientMap = new HashMap<String,String>();
 		archetypeMap = new HashMap<String,IEntityArchetype>();
 		
-		Injector injector = Guice.createInjector(new EntityModule());
-		IEntityManager manager = injector.getInstance(IEntityManager.class);
-		
-		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
-		
-		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
-		
 		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, "Player");
 		world.initialize();
 		
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		this.player = manager.createEntity(archetype);
+		this.player = world.getEntityManager().createEntity(archetype);
 		player.addComponent(new BehaviourComp(new PlayerScript()));
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		player.refresh();
 		
 		archetypeMap.put(archetype.getLabel(), archetype); //Adds player with server to the map so that clients can get it.
-		
-		sm.initialize();
 	}
 
 	@Override
