@@ -20,7 +20,7 @@ public class EntityDatabase implements IEntityDatabase{
 	@Inject
 	public EntityDatabase(ComponentTypeManager manager) {
 		this.typeManager = manager;
-		this.componentGrid = new ResizableGrid<IComponent>();
+		this.componentGrid = new ResizableGrid<IComponent>(20,20);
 		this.entityMap = new HashMap<Integer, IEntity>();
 	}
 	
