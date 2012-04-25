@@ -8,8 +8,10 @@ import components.GUIComp;
 import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
+import graphics.Texture2D;
 import graphics.TextureFont;
 
 public class GUIRenderingSystem extends EntitySingleProcessingSystem {
@@ -46,6 +48,9 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 		if(comp.getForeground() != null)
 			this.spriteBatch.draw(comp.getForeground(), comp.getPosition(), comp.getFgColor(), null);
 
+		
+		this.spriteBatch.draw(Texture2D.getPixel(), comp.getPosition(), new Color(Color.Orange, 0.3f), null);
+		
 		if(comp.getText() != null) {
 			Vector2 measure = comp.getTextFont().meassureString(comp.getText());
 			String text = comp.getText();
@@ -79,6 +84,7 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 
 			if(width + dots > position.Width) {
 				newText = text.substring(0, i) + dotString;
+				return newText;
 			}
 		}
 

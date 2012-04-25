@@ -27,10 +27,17 @@ public class GUIComp implements IComponent {
 	private @Editable Color mgColor;
 	private @Editable Color fgColor;
 
-	private @Editable Rectangle position;
+
 	private @Editable String text;
 	private @Editable TextureFont textFont;
 	private @Editable Color textColor;
+	private @Editable Rectangle position;
+	
+	public GUIComp() {
+		this(null, null, null, Color.White, Color.White, Color.White,
+				               null, null, "", null, Color.White);
+	}
+	
 	
 	public GUIComp(GUIComp toBeCloned) {
 		this.background = toBeCloned.background;

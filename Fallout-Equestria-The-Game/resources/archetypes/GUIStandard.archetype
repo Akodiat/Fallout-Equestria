@@ -1,0 +1,33 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <components.GUIComp>
+        <children/>
+        <background>
+          <Asset>barrels.png</Asset>
+        </background>
+        <middleground>
+          <Asset>trixie_filly.png</Asset>
+        </middleground>
+        <bgColor>
+          <Color>1,0.0,0.6,1.0</Color>
+        </bgColor>
+        <mgColor>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </mgColor>
+        <fgColor reference="../mgColor"/>
+        <text>Test</text>
+        <textFont>
+          <Asset>arialb20.xml</Asset>
+        </textFont>
+        <textColor>
+          <Color>0.0,0.0,0.0,1.0</Color>
+        </textColor>
+      </components.GUIComp>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>

@@ -26,6 +26,7 @@ import anotations.Editable;
 import com.thoughtworks.xstream.core.util.Fields;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -60,6 +61,8 @@ public class ComponentPanel extends JPanel {
 		scrollPanel = new JPanel();
 		scrollPane.setViewportView(scrollPanel);
 		scrollPanel.setLayout(null);
+		scrollPanel.setMaximumSize(new Dimension(500,4000));
+		scrollPanel.setPreferredSize(new Dimension(500,4000));
 		this.forceInvalidate(this);
 	}
 
