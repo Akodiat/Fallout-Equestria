@@ -177,7 +177,9 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	}
 	
 	public Map<String, TransformationComp> getTranspComps(){ //TODO Make a rectangle input parameter which specifies the area the entities should be in...
-		List<IEntity> list = tester.getWorld().getDatabase().getEntitysContainingComponent(TransformationComp.class).asList();
+//		List<IEntity> list = this.world.getDatabase().getEntitysContainingComponent(TransformationComp.class).asList();
+		List<IEntity> list = this.world.getDatabase().getAllEntities().asList();
+		
 		Map<String, TransformationComp> map = new HashMap<String, TransformationComp>();
 		
 		for (IEntity entity : list) {
@@ -188,7 +190,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	}
 	
 	public Map<String, PhysicsComp> getPhysComps(){ //TODO Make a rectangle input parameter which specifies the area the entities should be in...
-		List<IEntity> list = tester.getWorld().getDatabase().getEntitysContainingComponent(PhysicsComp.class).asList();
+		List<IEntity> list = this.world.getDatabase().getEntitysContainingComponent(PhysicsComp.class).asList();
 		Map<String, PhysicsComp> map = new HashMap<String, PhysicsComp>();
 		
 		for (IEntity entity : list) {
