@@ -54,7 +54,7 @@ public class PlayerClient {
 	public static void main(String[] args) {
 		try{
 			System.setSecurityManager(new RMISecurityManager());
-			server = (IRemoteServer) Naming.lookup("rmi://192.168.1.108/server");
+			server = (IRemoteServer) Naming.lookup("rmi://localhost/server");
 
 			System.out.println("Client says: Yawn! Umnumnnnnzzzzz... Gasp!... Hi!");
 
@@ -221,8 +221,8 @@ public class PlayerClient {
 			for (String label: transMap.keySet()) {
 				IEntity entity = world.getEntityManager().getEntity(label);
 				if(entity!=null){ //Add else that requests the entity from the server. Also null check... bad!
-					entity.addComponent(transMap.get(label));
-					entity.addComponent(physMap.get(label));
+					entity.getComponent(TransformationComp.class).setAllFieldsToBeLike((transMap.get(label)));
+					entity.getComponent(PhysicsComp.class).setAllFieldsToBeLike((physMap.get(label)));
 				}
 			}
 

@@ -7,7 +7,11 @@ import anotations.Editable;
 import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 @XStreamAlias("Physics")
 @Editable
 public class PhysicsComp implements IComponent{
@@ -33,28 +37,25 @@ public class PhysicsComp implements IComponent{
 
 	//TODO add constructor chaining 
 	public PhysicsComp(){
-		this.velocity = Vector2.Zero;
-		this.mass = 1f;
-		this.immovable = (false);
-		this.torque = 0;
+		this(Vector2.Zero,1f,0,false);
 	}
 	public PhysicsComp(Vector2 velocity){
-		this.velocity = velocity;
-		this.mass = 1f;
-		this.immovable = (false);
-		this.torque = 0;
+		this(velocity,1f,0,false);
+	}	
+	private PhysicsComp(PhysicsComp other){
+		this(other.velocity, other.mass, other.torque, other.immovable);
 	}
 	public PhysicsComp(Vector2 velocity, float mass, float torque, boolean immovable){
 		this.velocity = velocity;
 		this.mass = mass;
 		this.immovable = false;
 		this.torque = torque;
-	}	
-	private PhysicsComp(PhysicsComp physComp){
-		this.velocity = physComp.velocity;
-		this.mass = physComp.mass;
-		this.immovable = physComp.immovable;
-		this.torque = physComp.torque;
+	}
+	public void setAllFieldsToBeLike(PhysicsComp other){
+		this.velocity = other.velocity;
+		this.mass = other.mass;
+		this.immovable = other.immovable;
+		this.torque = other.torque;
 	}
 	
 	public Object clone(){

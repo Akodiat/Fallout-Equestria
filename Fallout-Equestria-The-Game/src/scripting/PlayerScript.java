@@ -52,7 +52,7 @@ public class PlayerScript extends Behavior{
 		}
 		if(inpComp.isLeftMouseButtonDown()){
 			AbilityFactory abilityFactory = new AbilityFactory(entityManager);
-			Vector2 velocity = Vector2.norm(Vector2.subtract(posComp.getPosition(), inputComp.getMousePosition()));
+			Vector2 velocity = Vector2.norm(Vector2.subtract(inputComp.getMousePosition(),posComp.getPosition()));
 			IEntity projectile = abilityFactory.createProjectile(
 					this.posComp.getPosition(), 
 					velocity, 

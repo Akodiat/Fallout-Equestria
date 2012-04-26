@@ -47,7 +47,6 @@ public class BulletBehavior extends Behavior{
 
 	@Override
 	public void update(GameTime time) {
-		System.out.println(entity);
 		
 	}
 	
@@ -57,6 +56,7 @@ public class BulletBehavior extends Behavior{
 		HealthComp otherHealth = other.getComponent(HealthComp.class);
 		if(otherHealth != null){
 			otherHealth.addHealthPoints(-damage);
+			System.out.println(damage);
 		}
 		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
 		this.entity.kill();

@@ -11,6 +11,11 @@ import math.Vector2;
 
 @XStreamAlias("Transformation")
 @Editable
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class TransformationComp implements IComponent {
 	@Editable
 	private Vector2 	 position;
@@ -24,27 +29,22 @@ public class TransformationComp implements IComponent {
 	private boolean		 mirror;
 	
 	public TransformationComp() {
-		this.position = Vector2.Zero;
-		this.scale = Vector2.One;
-		this.origin = Vector2.Zero;
-		this.rotation = 0;
-		this.mirror = false;
+		this(Vector2.Zero,Vector2.One,0,Vector2.Zero);
 	}
-	
 	public TransformationComp(Vector2 position, Vector2 scale, float rotation, Vector2 origin) {
+		this(position,scale,rotation,origin, false);
+	}
+	public TransformationComp(Vector2 position, Vector2 scale, float rotation, Vector2 origin, boolean mirror) {
 		this.position = position;
 		this.scale = scale;
 		this.rotation = rotation;
 		this.origin = origin;
+		
 		this.mirror = false;
 	}
 	
 	private TransformationComp(TransformationComp other) {
-		this.position = other.position;
-		this.scale = other.scale;
-		this.rotation = other.rotation;
-		this.origin = other.origin;
-		this.mirror = other.mirror;
+		this(other.position,other.scale,other.rotation,other.origin,other.mirror);
 	}
 
 	public TransformationComp clone(){
@@ -55,6 +55,13 @@ public class TransformationComp implements IComponent {
 		return position;
 	}
 	
+	public void setAllFieldsToBeLike(TransformationComp other){
+		this.position = other.position;
+		this.scale = other.scale;
+		this.rotation = other.rotation;
+		this.origin = other.origin;
+		this.mirror = other.mirror;
+	}
 	public void setPosition(Vector2 position) {
 		this.position = position;
 	}
