@@ -8,10 +8,8 @@ import components.GUIComp;
 import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
-import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
-import graphics.Texture2D;
 import graphics.TextureFont;
 
 public class GUIRenderingSystem extends EntitySingleProcessingSystem {
@@ -53,7 +51,7 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 		if(comp.getText() != null) {
 			Vector2 measure = comp.getTextFont().meassureString(comp.getText());
 			String text = comp.getText();
-			if(measure.X >= comp.getPosition().Width) {
+			if(measure.X >= comp.getPosition().Width-40) {
 				text = fixText(comp.getTextFont(), comp.getText(), comp.getPosition());
 			}
 
@@ -64,8 +62,6 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 			this.spriteBatch.drawString(comp.getTextFont(), text, textPosition, comp.getTextColor(), measure);
 
 		}
-		
-		
 		
 		this.spriteBatch.end();
 		this.spriteBatch.begin(effect, transform);
@@ -79,7 +75,7 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 
 		for(int i = text.length() - 1; i >= 0; i--) {
 			String substr = text.substring(0, i);
-			if(textFont.meassureString(substr).X + dots < position.Width) {
+			if(textFont.meassureString(substr).X + dots < position.Width-40) {
 				newText = substr + dotString;
 				return newText;
 			}
