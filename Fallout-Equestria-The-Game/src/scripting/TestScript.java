@@ -40,7 +40,7 @@ public class TestScript extends Behavior{
 	@Override
 	public void update(GameTime time) {
 		if(inpComp.isLeftMouseButtonDown()){
-			AbilityInfo ability = weaponComp.getPrimaryAbility();
+			AbilityInfo ability = weaponComp.getPrimaryArchetype();
 			apComp.setAbility(ability);
 		}
 

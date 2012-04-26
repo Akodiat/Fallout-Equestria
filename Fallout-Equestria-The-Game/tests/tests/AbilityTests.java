@@ -92,7 +92,7 @@ public class AbilityTests {
 		trans.setPosition(screenBounds.getCenter());
 		
 		WeaponComp weapon = entity.getComponent(WeaponComp.class);
-		weapon.setPrimaryAbility(new AbilityInfo(Abilities.None));
+		weapon.setPrimaryArchetype(new AbilityInfo(Abilities.None));
 		
 		//IEntity entity2 = entityManager.createEntity(ContentManager.loadArchetype("BasicAI.archetype"));
 		//entity2.removeComponent(InputComp.class);

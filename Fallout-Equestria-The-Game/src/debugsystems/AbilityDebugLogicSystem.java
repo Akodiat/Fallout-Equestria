@@ -34,7 +34,7 @@ public class AbilityDebugLogicSystem extends LabelEntitySystem {
 		        	AbilityInfo info = new AbilityInfo(abilities[this.currentAbilityIndex]);
 		        	this.currentAbilityIndex = (this.currentAbilityIndex + 1) % abilities.length;
 		        	
-		        	weapon.setPrimaryAbility(info);
+		        	weapon.setPrimaryArchetype(info);
 		        }
 		    }
 		}

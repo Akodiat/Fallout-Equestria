@@ -154,7 +154,7 @@ public class RadiationTest {
 		DeathComp deathComp = new DeathComp();
 
 		WeaponComp weaponComp = new WeaponComp();
-		weaponComp.setPrimaryAbility(new AbilityInfo(Abilities.None));
+		weaponComp.setPrimaryArchetype(new AbilityInfo(Abilities.None));
 
 		ImmutableList<Frame> frames = Frame.generateFrames(new Vector2(0, 0),
 				new Vector2(83 + 1.0f / 3.0f, 75), 24, true);

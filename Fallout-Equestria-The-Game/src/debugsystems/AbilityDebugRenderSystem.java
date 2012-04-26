@@ -33,7 +33,7 @@ public class AbilityDebugRenderSystem extends LabelEntitySystem{
 	@Override
 	protected void processEntity(IEntity entity) {
 		WeaponComp comp = entity.getComponent(WeaponComp.class);
-		String s = "The ability in use is " + comp.getPrimaryAbility().toString();
+		String s = "The ability in use is " + comp.getPrimaryArchetype().toString();
 		
 		Rectangle screenBounds = this.spriteBatch.getViewport();
 		

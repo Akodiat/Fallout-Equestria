@@ -3,13 +3,14 @@ package components;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
+import entityFramework.IEntityArchetype;
 import ability.AbilityInfo;
 import anotations.Editable;
 import anotations.Editable;
 
 /**
  * 
- * @author Lukas Kurtyan
+ * @author Lukas Kurtyan & Joakim Johansson
  *
  */
 @XStreamAlias("Weapon")
@@ -18,38 +19,49 @@ public class WeaponComp implements IComponent{
 	//TODO implement rendering and similar effects!. 
 	
 	@Editable
-	private AbilityInfo primaryAbility;
+	private IEntityArchetype primaryArch;
 	@Editable
-	private AbilityInfo secondaryAbility;
+	private IEntityArchetype secondaryArch;
+	@Editable
+	private boolean isMelee;
 	
 	public WeaponComp() {
-		this(AbilityInfo.None, AbilityInfo.None);
+		this(null, null, false);
 	}
 	
-	public WeaponComp(AbilityInfo primaryAbility, AbilityInfo secondaryAbility) {
-		this.setPrimaryAbility(primaryAbility);
-		this.setSecondaryAbility(secondaryAbility);
+	public WeaponComp(IEntityArchetype primaryAbility, IEntityArchetype secondaryAbility, boolean isMelee) {
+		this.setPrimaryArchetype(primaryAbility);
+		this.setSecondaryArchetype(secondaryAbility);
 	}
 	
 	private WeaponComp(WeaponComp other) {
-		this.primaryAbility   = other.primaryAbility;
-		this.secondaryAbility = other.secondaryAbility;
+		this.primaryArch   = other.primaryArch;
+		this.secondaryArch = other.secondaryArch;
+		this.isMelee 	   = other.isMelee;
 	}
 	
-	public AbilityInfo getPrimaryAbility() {
-		return primaryAbility;
+	public boolean isMelee(){
+		return this.isMelee;
+	}
+	
+	public boolean isRanged(){
+		return !this.isMelee;
+	}
+	
+	public IEntityArchetype getPrimaryArchetype() {
+		return primaryArch;
 	}
 
-	public void setPrimaryAbility(AbilityInfo primaryAbility) {
-		this.primaryAbility = primaryAbility;
+	public void setPrimaryArchetype(IEntityArchetype primaryAbility) {
+		this.primaryArch = primaryAbility;
 	}
 
-	public AbilityInfo getSecondaryAbility() {
-		return secondaryAbility;
+	public IEntityArchetype getSecondaryArchetype() {
+		return secondaryArch;
 	}
 
-	public void setSecondaryAbility(AbilityInfo secondaryAbility) {
-		this.secondaryAbility = secondaryAbility;
+	public void setSecondaryArchetype(IEntityArchetype secondaryAbility) {
+		this.secondaryArch = secondaryAbility;
 	}
 	
 	@Override
@@ -61,16 +73,16 @@ public class WeaponComp implements IComponent{
 		String s = "Weapon: \n";
 		s += "Primary Ability ";
 
-		if(this.primaryAbility != null) {
-			s += this.primaryAbility.toString();
+		if(this.primaryArch != null) {
+			s += this.primaryArch.toString();
 		} else {
 			s += "None";
 		}
 
 		s += "Secondary Ability ";
 
-		if(this.secondaryAbility != null) {
-			s += this.secondaryAbility.toString();
+		if(this.secondaryArch != null) {
+			s += this.secondaryArch.toString();
 		} else {
 			s += "None";
 		}

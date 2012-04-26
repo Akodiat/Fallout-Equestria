@@ -152,7 +152,7 @@ public class AnimationTest {
 		DeathComp deathComp = new DeathComp();
 
 		WeaponComp weaponComp = new WeaponComp();
-		weaponComp.setPrimaryAbility(new AbilityInfo(Abilities.None));
+		weaponComp.setPrimaryArchetype(new AbilityInfo(Abilities.None));
 
 		// ANIMATIONCOMPONENT
 

@@ -39,6 +39,9 @@ public class PlayerScript extends Behavior{
 		if(inpComp.isGallopButtonPressed()){
 			speedFactor=400;
 		}
+		if(inpComp.isLeftMouseButtonDown()){
+			weaponComp.getPrimaryArchetype();
+		}
 
 		Vector2 velocity = new Vector2(0,0);
 		if (inpComp.isBackButtonPressed()){
