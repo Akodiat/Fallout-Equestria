@@ -66,6 +66,7 @@ public class MenuDemo extends Demo{
 			}
 		});
 		
+		
 		factory.createGUI(new Rectangle(buttonX,150,200,40), archetype, "MultiPlayer", new IEventListener<MouseEventArgs>() {	
 			@Override
 			public void onEvent(Object sender, MouseEventArgs e) {
@@ -81,6 +82,8 @@ public class MenuDemo extends Demo{
 				System.exit(0);
 			}
 		});
+		
+		factory.createGUI(new Rectangle(100,100,200,40), ContentManager.loadArchetype("StandardTextbox.archetype"));
 		
 		
 	}

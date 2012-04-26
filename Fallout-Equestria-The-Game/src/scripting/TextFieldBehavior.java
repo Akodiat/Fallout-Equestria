@@ -17,7 +17,7 @@ public class TextFieldBehavior extends GUIBehaviour {
 
 	@Override
 	public Object clone() {
-		return null;
+		return new TextFieldBehavior();
 	}
 	
 	@Override
@@ -35,17 +35,21 @@ public class TextFieldBehavior extends GUIBehaviour {
 	@Override 
 	public void update(GameTime time) {
 		while(Keyboard.next()) {
-			
-			String text = entity.getComponent(GUIComp.class).getText();
-			
-			if(Keyboard.getEventKey() == Keyboard.KEY_BACKSLASH) {
-				text.substring(0, text.length() - 2);
+			if(Keyboard.getEventKeyState()) {
+				
+				String text = entity.getComponent(GUIComp.class).getText();
+				
+				if(Keyboard.getEventKey() == Keyboard.KEY_BACK) {
+					text = text.substring(0, text.length() - 1);
+				}
+				
+				
+				char c = Keyboard.getEventCharacter();
+				if(("!\"#¤%@ &/()=?\\`^*'~¨_.,:;-|><").contains(c + "") ||  Character.isLetterOrDigit(c)) {
+					text += c;
+				}
+				entity.getComponent(GUIComp.class).setText(text);
 			}
-			
-			char c = Keyboard.getEventCharacter();
-			text += c;
-			
-			entity.getComponent(GUIComp.class).setText(text);
 		}
 	}
 }

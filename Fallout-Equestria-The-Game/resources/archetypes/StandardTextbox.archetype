@@ -1,0 +1,66 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Behaviour>
+        <behavior class="scripting.TextFieldBehavior">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+          <mouseDownEvent>
+            <listeners/>
+          </mouseDownEvent>
+          <mouseUpEvent>
+            <listeners/>
+          </mouseUpEvent>
+          <mouseOverEvent>
+            <listeners/>
+          </mouseOverEvent>
+          <mouseEnterEvent>
+            <listeners/>
+          </mouseEnterEvent>
+          <mouseExitEvent>
+            <listeners/>
+          </mouseExitEvent>
+          <mouseClickedEvent>
+            <listeners/>
+          </mouseClickedEvent>
+          <mouseDragEvent>
+            <listeners/>
+          </mouseDragEvent>
+          <focusGainedEvent>
+            <listeners/>
+          </focusGainedEvent>
+          <focusLostEvent>
+            <listeners/>
+          </focusLostEvent>
+          <isFocused>false</isFocused>
+        </behavior>
+      </Behaviour>
+      <components.GUIComp>
+        <children/>
+        <background>
+          <Asset>GUI\guiBackground.png</Asset>
+        </background>
+        <bgColor>
+          <Color>0.2,1.0,1.0,1.0</Color>
+        </bgColor>
+        <mgColor>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </mgColor>
+        <fgColor reference="../mgColor"/>
+        <text>Standard</text>
+        <textFont>
+          <Asset>arialb20.xml</Asset>
+        </textFont>
+        <textColor>
+          <Color>1.0,0.49803922,0.101960786,1.0</Color>
+        </textColor>
+      </components.GUIComp>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <string>GUI</string>
+    </elements>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>
