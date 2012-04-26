@@ -4,6 +4,7 @@ import math.Vector2;
 import anotations.Editable;
 
 import components.AbilityComp;
+import components.BehaviourComp;
 import components.InputComp;
 import components.PhysicsComp;
 import components.TransformationComp;
@@ -40,7 +41,8 @@ public class PlayerScript extends Behavior{
 			speedFactor=400;
 		}
 		if(inpComp.isLeftMouseButtonDown()){
-			weaponComp.getPrimaryArchetype();
+			this.entityManager.createEntity(weaponComp.getPrimaryArchetype());
+				//.addComponent(new BehaviourComp(new BulletBehavior()));
 		}
 
 		Vector2 velocity = new Vector2(0,0);
