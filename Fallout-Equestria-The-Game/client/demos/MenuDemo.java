@@ -83,7 +83,7 @@ public class MenuDemo extends Demo{
 			}
 		});
 		
-		factory.createGUI(new Rectangle(100,100,200,40), ContentManager.loadArchetype("StandardTextbox.archetype"));
+		factory.createGUI(new Rectangle(100,100,500,40), ContentManager.loadArchetype("StandardTextbox.archetype"));
 		
 		
 	}
