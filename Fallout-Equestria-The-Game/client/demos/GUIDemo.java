@@ -53,17 +53,10 @@ public class GUIDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		this.gameWorld = WorldBuilder.buildEmptyWorld();
-		IEntitySystemManager manager = this.gameWorld.getSystemManager();
-		
 		this.camera = new Camera2D(screenDim, screenDim);
 		this.spriteBatch = new SpriteBatch(screenDim);
 		
-		manager.addLogicEntitySystem(new ScriptSystem(this.gameWorld));	
-		manager.addLogicEntitySystem(new ScriptMouseSystem(this.gameWorld, this.camera));
-		
-		manager.addRenderEntitySystem(new GUIRenderingSystem(this.gameWorld, this.spriteBatch));
-		
+		this.gameWorld = WorldBuilder.buildGUIWorld(camera, spriteBatch);
 		this.gameWorld.initialize();
 		
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(ContentManager.loadArchetype("FalloutButton.archetype"));

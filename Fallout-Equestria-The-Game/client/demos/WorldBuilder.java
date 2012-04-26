@@ -11,6 +11,14 @@ import debugsystems.DebugAttackRenderSystem;
 import debugsystems.DebugSpatialRenderSystem;
 import debugsystems.DebuggMapCollisionGrid;
 
+import entityFramework.ComponentTypeManager;
+import entityFramework.EntityDatabase;
+import entityFramework.EntityFactory;
+import entityFramework.EntityGroupManager;
+import entityFramework.EntityLabelManager;
+import entityFramework.EntityManager;
+import entityFramework.EntitySystemManager;
+import entityFramework.EntityWorld;
 import entityFramework.IEntityDatabase;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
@@ -19,6 +27,7 @@ import entitySystems.AnimationSystem;
 import entitySystems.CameraControlSystem;
 import entitySystems.DeathSystem;
 import entitySystems.ExistanceSystem;
+import entitySystems.GUIRenderingSystem;
 import entitySystems.HUDRenderingSystem;
 import entitySystems.InputSystem;
 import entitySystems.MapCollisionSystem;
@@ -114,8 +123,23 @@ public class WorldBuilder {
 	}
 
 	
+	public static IEntityWorld buildGUIWorld(Camera2D camera, SpriteBatch spriteBatch) {
+		IEntityWorld world = buildEmptyWorld();
+		IEntitySystemManager manager = world.getSystemManager();
+	
+		manager.addLogicEntitySystem(new ScriptSystem(world));	
+		manager.addLogicEntitySystem(new ScriptMouseSystem(world, camera));
+		manager.addRenderEntitySystem(new GUIRenderingSystem(world, spriteBatch));
+		return world;
+	}
+	
 	public static IEntityWorld buildEmptyWorld() {
-		Injector injector = Guice.createInjector(new EntityModule());
-		return injector.getInstance(IEntityWorld.class);
+		IEntityDatabase database = new EntityDatabase(new ComponentTypeManager());
+		IEntityManager manager = new EntityManager(new EntityLabelManager(), 
+												   new EntityGroupManager(), 
+												   new EntityFactory(), database);
+		IEntitySystemManager systemManager = new EntitySystemManager(manager);
+		IEntityWorld world = new EntityWorld(manager, systemManager, database);
+		return world;
 	}
 }

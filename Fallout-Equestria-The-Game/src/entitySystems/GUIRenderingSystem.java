@@ -78,11 +78,10 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 		float dots = textFont.meassureString(dotString).X;
 
 		float width = 0;
-		for(int i = 0; i < text.length(); i++) {
-			width += textFont.meassureString(text.charAt(i) + "").X;
-
-			if(width + dots > position.Width) {
-				newText = text.substring(0, i) + dotString;
+		for(int i = text.length() - 1; i >= 0; i--) {
+			String substr = text.substring(0, i);
+			if(textFont.meassureString(substr).X + dots < position.Width) {
+				newText = substr + dotString;
 				return newText;
 			}
 		}
