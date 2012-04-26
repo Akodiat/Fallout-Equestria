@@ -205,4 +205,9 @@ public final class Entity extends IEntity {
 	public boolean isInGroup(String groupName) {
 		return this.getGroups().contains(groupName);
 	}
+
+	@Override
+	public boolean hasComponent(Class<? extends IComponent> componentClass) {
+		return this.getComponent(componentClass) != null;
+	}
 }

@@ -17,6 +17,7 @@ import graphics.Color;
 import graphics.SpriteBatch;
 import utils.Camera2D;
 import utils.GameTime;
+import utils.Mouse;
 import utils.Rectangle;
 
 public class GUIDemo extends Demo {
@@ -27,6 +28,7 @@ public class GUIDemo extends Demo {
 	private IEntityWorld gameWorld;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
+	private Mouse mouse;
 	
 	public static void main(String[] args) {
 		new GUIDemo().start();
@@ -41,6 +43,7 @@ public class GUIDemo extends Demo {
 	public void update(GameTime time) {
 		this.gameWorld.update(time);
 		this.gameWorld.getEntityManager().destoryKilledEntities();
+		this.mouse.poll(camera);
 	}
 
 	@Override
@@ -55,8 +58,9 @@ public class GUIDemo extends Demo {
 	protected void initialize() {
 		this.camera = new Camera2D(screenDim, screenDim);
 		this.spriteBatch = new SpriteBatch(screenDim);
+		this.mouse = new Mouse();
 		
-		this.gameWorld = WorldBuilder.buildGUIWorld(camera, spriteBatch);
+		this.gameWorld = WorldBuilder.buildGUIWorld(mouse, spriteBatch);
 		this.gameWorld.initialize();
 		
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(ContentManager.loadArchetype("FalloutButton.archetype"));

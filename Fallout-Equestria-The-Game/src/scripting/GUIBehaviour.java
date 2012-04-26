@@ -2,6 +2,8 @@ package scripting;
 
 import java.awt.dnd.MouseDragGestureRecognizer;
 
+import anotations.Editable;
+
 import misc.EventArgs;
 import misc.IEventListener;
 
@@ -10,7 +12,8 @@ import utils.MouseState;
 import GUI.Event;
 import GUI.MouseEventArgs;
 
-public abstract class GUIBehaviour extends Behavior {
+@Editable
+public class GUIBehaviour extends Behavior {
 
 	private Event<MouseEventArgs> mouseDownEvent;
 	private Event<MouseEventArgs> mouseUpEvent;
@@ -34,6 +37,17 @@ public abstract class GUIBehaviour extends Behavior {
 		this.mouseDragEvent = new Event<>();
 		this.focusLostEvent = new Event<>();
 		this.focusGainedEvent = new Event<>();
+	}
+	
+
+	@Override
+	public void start() {		
+		
+	}
+
+	@Override
+	public Object clone() {
+		return new GUIBehaviour();
 	}
 	
 	public boolean isFocused() {
@@ -151,6 +165,7 @@ public abstract class GUIBehaviour extends Behavior {
 	public void removeFocusLostEvent(IEventListener<EventArgs> listener) {
 		this.focusLostEvent.removeListener(listener);
 	}
+
 	
 	
 }

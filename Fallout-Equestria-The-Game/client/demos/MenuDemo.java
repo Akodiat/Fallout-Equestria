@@ -4,6 +4,7 @@ import org.newdawn.slick.openal.Audio;
 
 import misc.IEventListener;
 import content.ContentManager;
+import GUI.ButtonEventArgs;
 import GUI.GUIFactory;
 import GUI.MouseEventArgs;
 import entityFramework.IEntityArchetype;
@@ -12,6 +13,7 @@ import graphics.Color;
 import graphics.SpriteBatch;
 import utils.Camera2D;
 import utils.GameTime;
+import utils.Mouse;
 import utils.Rectangle;
 
 public class MenuDemo extends Demo{
@@ -20,6 +22,8 @@ public class MenuDemo extends Demo{
 	
 	private IEntityWorld world;
 	private SpriteBatch spriteBatch;
+	private Camera2D camera;
+	private Mouse mouse;
 	
 	public static void main(String[] args) {
 		new MenuDemo().start();
@@ -33,6 +37,7 @@ public class MenuDemo extends Demo{
 
 	@Override
 	public void update(GameTime time) {
+		this.mouse.poll(camera);
 		this.world.update(time);
 		this.world.getEntityManager().destoryKilledEntities();
 	}
@@ -49,8 +54,11 @@ public class MenuDemo extends Demo{
 	@Override
 	protected void initialize() {
 		this.spriteBatch = new SpriteBatch(screenRect);
-		world = WorldBuilder.buildGUIWorld(new Camera2D(screenRect,screenRect), this.spriteBatch);
+		this.mouse = new Mouse();
+		this.camera = new Camera2D(screenRect, screenRect);
+		world = WorldBuilder.buildGUIWorld(mouse, this.spriteBatch);
 		world.initialize();
+		
 		
 		GUIFactory factory = new GUIFactory(world.getEntityManager());
 		
@@ -58,20 +66,18 @@ public class MenuDemo extends Demo{
 		
 		int buttonX = screenRect.Width - 250;
 		
-		factory.createGUI(new Rectangle(buttonX,100,200,40), archetype, "SinglePlayer", new IEventListener<MouseEventArgs>() {
+		factory.createButton(new Rectangle(buttonX,100,200,40), archetype, "SinglePlayer", new IEventListener<ButtonEventArgs>() {
+			
 			@Override
-			public void onEvent(Object sender, MouseEventArgs e) {
-				Audio audio = ContentManager.loadSound("ClickSound.ogg");
-				audio.playAsSoundEffect(1.0f, 0.5f, false);
+			public void onEvent(Object sender, ButtonEventArgs e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
-		
 		
 		factory.createGUI(new Rectangle(buttonX,150,200,40), archetype, "MultiPlayer", new IEventListener<MouseEventArgs>() {	
 			@Override
 			public void onEvent(Object sender, MouseEventArgs e) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		
@@ -79,11 +85,12 @@ public class MenuDemo extends Demo{
 			
 			@Override
 			public void onEvent(Object sender, MouseEventArgs e) {
-				System.exit(0);
 			}
 		});
 		
 		factory.createGUI(new Rectangle(100,100,500,40), ContentManager.loadArchetype("StandardTextbox.archetype"));
+		
+		factory.createLabel(new Rectangle(400,300, 140, 40), ContentManager.loadArchetype("StandardLabel.archetype"), "This a label!");
 		
 		
 	}

@@ -87,13 +87,12 @@ public class ButtonBehavior extends GUIBehaviour {
 	
 	@Override
 	public void onMouseDown(MouseState state, MouseButton button) {
-		super.onMouseDown(state, button);
 		if(button == MouseButton.Left) {
+			super.onMouseDown(state, button);
 			this.pressed = true;
 			this.setActiveTexture(downTexture);
 		}
 
-		System.out.println("button down " + button);
 	}
 	@Override
 	public void onMouseEnter(MouseState state){
@@ -112,17 +111,17 @@ public class ButtonBehavior extends GUIBehaviour {
 	}	
 	@Override
 	public void onMouseUpAsButton(MouseState state, MouseButton button){
-		super.onMouseUpAsButton(state, button);
 		if(button == MouseButton.Left) {
 			this.onButtonPress();
+			super.onMouseUpAsButton(state, button);
 			this.setActiveTexture(overTexture);
 		}
 	}
 	
 	@Override
 	public void onMouseUp(MouseState state, MouseButton button){
-		super.onMouseUp(state, button);
 		if(button == MouseButton.Left) {
+			super.onMouseUp(state, button);
 			pressed = false;
 			this.setActiveTexture(null);
 		}
@@ -132,11 +131,11 @@ public class ButtonBehavior extends GUIBehaviour {
 		this.guiComp.setMiddleground(texture);
 	}
 	
-	public void addEventListener(IEventListener<ButtonEventArgs> listener) {
+	public void addButtonClicked(IEventListener<ButtonEventArgs> listener) {
 		this.listeners.add(listener);
 	}
 	
-	public void removeEventListener(IEventListener<ButtonEventArgs> listener) {
+	public void removeButtonClicked(IEventListener<ButtonEventArgs> listener) {
 		this.listeners.remove(listener);
 	}
 	

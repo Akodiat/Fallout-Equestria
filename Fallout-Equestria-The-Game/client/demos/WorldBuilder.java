@@ -1,5 +1,6 @@
 package demos;
 
+import GUI.GUISystem;
 import ability.AbilityBuilder;
 import ability.AbilitySystem;
 
@@ -44,6 +45,7 @@ import gameMap.Scene;
 import graphics.SpriteBatch;
 import tests.EntityModule;
 import utils.Camera2D;
+import utils.Mouse;
 
 public class WorldBuilder {
 
@@ -123,12 +125,12 @@ public class WorldBuilder {
 	}
 
 	
-	public static IEntityWorld buildGUIWorld(Camera2D camera, SpriteBatch spriteBatch) {
+	public static IEntityWorld buildGUIWorld(Mouse mouse, SpriteBatch spriteBatch) {
 		IEntityWorld world = buildEmptyWorld();
 		IEntitySystemManager manager = world.getSystemManager();
 	
 		manager.addLogicEntitySystem(new ScriptSystem(world));	
-		manager.addLogicEntitySystem(new ScriptMouseSystem(world, camera));
+		manager.addLogicEntitySystem(new GUISystem(world, mouse));
 		manager.addRenderEntitySystem(new GUIRenderingSystem(world, spriteBatch));
 		return world;
 	}

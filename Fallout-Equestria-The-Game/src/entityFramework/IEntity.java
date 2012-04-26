@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
  * 
  * @author Lukas Kurtyan
  */
-public abstract class IEntity implements java.io.Serializable{
+public abstract class IEntity{
 	
 	/** Gets the list of components contained of the entity.
 	 * @return a list of all the components in the entity.
@@ -126,5 +126,12 @@ public abstract class IEntity implements java.io.Serializable{
 	 * @return the result of the test.
 	 */
 	public abstract boolean isInGroup(String groupName);
+	
+	/**Determines if the entity has a component of the specified type.
+	 * 
+	 * @param componentClass the component type.
+	 * @return the result
+	 */
+	public abstract boolean hasComponent(Class<? extends IComponent> componentClass);
 	
  }
