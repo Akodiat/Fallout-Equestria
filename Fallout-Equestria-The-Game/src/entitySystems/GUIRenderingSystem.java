@@ -77,7 +77,6 @@ public class GUIRenderingSystem extends EntitySingleProcessingSystem {
 		String dotString = "...";
 		float dots = textFont.meassureString(dotString).X;
 
-		float width = 0;
 		for(int i = text.length() - 1; i >= 0; i--) {
 			String substr = text.substring(0, i);
 			if(textFont.meassureString(substr).X + dots < position.Width) {

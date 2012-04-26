@@ -1,39 +1,51 @@
 package scripting;
 
-import graphics.TextureFont;
-
 import org.lwjgl.input.Keyboard;
 
-import utils.MouseButton;
-import utils.MouseState;
+import anotations.Editable;
 
-public class TextFieldBehavior extends Behavior {
-	private String text = "";
-	private TextureFont textFont;
+import components.GUIComp;
+
+import utils.GameTime;
+
+@Editable
+public class TextFieldBehavior extends GUIBehaviour {
 	
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Object clone() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public void onMouseDown(MouseState state, MouseButton button) {
-		this.setEnabled(true);
-		
+	@Override
+	public void onFocusGained() {
+		super.onFocusGained();
+		this.setFocused(true);
+	}
+	
+	@Override
+	public void onFocusLost() {
+		super.onFocusLost();
+		this.setFocused(false);
+	}
+	
+	@Override 
+	public void update(GameTime time) {
 		while(Keyboard.next()) {
 			
+			String text = entity.getComponent(GUIComp.class).getText();
+			
 			if(Keyboard.getEventKey() == Keyboard.KEY_BACKSLASH) {
-				this.text.substring(0, this.text.length() - 2);
+				text.substring(0, text.length() - 2);
 			}
 			
 			char c = Keyboard.getEventCharacter();
-			this.text += c;
+			text += c;
+			
+			entity.getComponent(GUIComp.class).setText(text);
 		}
 	}
 }

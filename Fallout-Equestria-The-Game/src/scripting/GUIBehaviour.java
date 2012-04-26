@@ -22,6 +22,8 @@ public abstract class GUIBehaviour extends Behavior {
 	private Event<EventArgs> 	  focusGainedEvent;
 	private Event<EventArgs>	  focusLostEvent;
 	
+	private boolean isFocused;
+
 	public GUIBehaviour() {
 		this.mouseDownEvent = new Event<>();
 		this.mouseUpEvent = new Event<>();
@@ -32,6 +34,14 @@ public abstract class GUIBehaviour extends Behavior {
 		this.mouseDragEvent = new Event<>();
 		this.focusLostEvent = new Event<>();
 		this.focusGainedEvent = new Event<>();
+	}
+	
+	public boolean isFocused() {
+		return isFocused;
+	}
+
+	public void setFocused(boolean isFocused) {
+		this.isFocused = isFocused;
 	}
 
 	@Override
