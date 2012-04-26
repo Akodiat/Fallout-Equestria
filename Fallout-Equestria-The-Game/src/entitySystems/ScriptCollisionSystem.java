@@ -199,7 +199,8 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 	private Behavior getScript(IEntity e) {
 		BehaviourComp scriptComp = e.getComponent(BehaviourComp.class);
 		if(scriptComp != null) {
-			return scriptComp.getBehavior();
+			if(scriptComp.isInitialized())
+				return scriptComp.getBehavior();
 		}
 		return null;
 	}

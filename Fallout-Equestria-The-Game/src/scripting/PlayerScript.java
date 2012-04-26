@@ -1,19 +1,25 @@
 package scripting;
 
 import math.Vector2;
+import ability.AbilityFactory;
 import anotations.Editable;
 
 import components.AbilityComp;
 import components.BehaviourComp;
 import components.InputComp;
 import components.PhysicsComp;
+import components.SpecialComp;
 import components.TransformationComp;
 import components.WeaponComp;
 import entityFramework.IEntity;
 
 import utils.GameTime;
 import utils.MouseState;
-
+/**
+ * 
+ * @author Lukas Kurtyan & Joakim Johansson
+ *
+ */
 @Editable
 public class PlayerScript extends Behavior{
 	
@@ -22,13 +28,17 @@ public class PlayerScript extends Behavior{
 	TransformationComp       posComp;
 	AbilityComp 		      apComp;
 	WeaponComp 	  		  weaponComp;
+	SpecialComp			 specialComp;
+	InputComp			   inputComp;
 	
 	@Override
 	public void start() {
 		physComp  = entity.getComponent(PhysicsComp.class);
 		posComp  = entity.getComponent(TransformationComp.class);
 		apComp  = entity.getComponent(AbilityComp.class);
-		weaponComp  = entity.getComponent(WeaponComp.class);	
+		weaponComp  = entity.getComponent(WeaponComp.class);
+		specialComp = entity.getComponent(SpecialComp.class);
+		inputComp	= entity.getComponent(InputComp.class);
 	}
 
 	@Override
@@ -41,8 +51,14 @@ public class PlayerScript extends Behavior{
 			speedFactor=400;
 		}
 		if(inpComp.isLeftMouseButtonDown()){
-			this.entityManager.createEntity(weaponComp.getPrimaryArchetype());
-				//.addComponent(new BehaviourComp(new BulletBehavior()));
+			AbilityFactory abilityFactory = new AbilityFactory(entityManager);
+			Vector2 velocity = Vector2.norm(Vector2.subtract(posComp.getPosition(), inputComp.getMousePosition()));
+			IEntity projectile = abilityFactory.createProjectile(
+					this.posComp.getPosition(), 
+					velocity, 
+					this.weaponComp.getPrimaryArchetype(), 
+					this.specialComp);
+			
 		}
 
 		Vector2 velocity = new Vector2(0,0);
