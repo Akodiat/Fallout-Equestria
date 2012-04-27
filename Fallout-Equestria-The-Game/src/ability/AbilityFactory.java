@@ -29,7 +29,7 @@ public class AbilityFactory {
 	
 	public IEntity createProjectile(Vector2 position, Vector2 velocity, IEntityArchetype bulletArch, SpecialComp specialComp){
 		float distanceFromEntity = 100;
-		float velocityFactor = 30;
+		float velocityFactor = 300;
 		IEntity bullet = manager.createEntity(bulletArch);
 		bullet.getComponent(TransformationComp.class).setPosition(Vector2.add(Vector2.mul(distanceFromEntity, Vector2.norm(velocity)), position));
 		bullet.getComponent(PhysicsComp.class).setVelocity(Vector2.mul(velocityFactor, velocity));

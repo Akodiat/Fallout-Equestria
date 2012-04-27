@@ -36,7 +36,7 @@ import graphics.Color;
 import graphics.SpriteBatch;
 /**
  * 
- * @author Joakim Johansspn
+ * @author Joakim Johansson
  *
  */
 @SuppressWarnings("serial")
@@ -54,8 +54,10 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	private SpriteBatch spriteBatch;
 	private Clock clock;
 	
-	private Map<String, String> clientMap;
+	private Map<String, String> clientMap; //Key = label, value = RemoteServer.getClientHost()
 	private Map<String, IEntityArchetype> archetypeMap;
+	
+	private Map<String, List<String>> createdObjectsQueue; //Maps the label of a client to a list of XML-strings representing the newly created objects not yet created on the specific client
 
 	protected RemoteServer(Rectangle screenDim, int fps) throws RemoteException {
 		this.screenDim = screenDim;
@@ -141,6 +143,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		player.refresh();
 		
 		archetypeMap.put(archetype.getLabel(), archetype); //Adds player with server to the map so that clients can get it.
+		//this.createdObjectsQueue.put(key, value)
 	}
 
 	@Override
@@ -185,10 +188,11 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 			e1.printStackTrace();
 		}
 	}
+	
 	public void registerClient(){
 		String label = "player";
 		int playerCount = 1;
-		while(this.clientMap.containsKey(label+playerCount))
+		while(this.clientMap.containsValue(label+playerCount))
 			playerCount++;
 		
 		try {
@@ -197,6 +201,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 			throw new RuntimeException("Server says it isn't active... sounds lazy... wait! I am the server :O");
 		}
 	}
+	
 	public String getClientLabel(){
 		try {
 			return this.clientMap.get(RemoteServer.getClientHost());
@@ -220,6 +225,25 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		this.archetypeMap.put(label, archetype);
 		System.out.println("Added new player with the label:"+label);
 	}
+	
+	public List<String> getNewEntities(){
+		try {
+			return this.createdObjectsQueue.get(RemoteServer.getClientHost());
+		} catch (ServerNotActiveException e) {
+			System.out.println("Somehow not able to connect when getting new entities. This text should logically never come up...");
+			return new ArrayList<String>(); //Returns an empty list in case of connection error, rather than blow things up
+		}
+		
+	}
+	
+	public void reportNewEntity(String entityArchetypeString){
+		try {
+			this.createdObjectsQueue.get(RemoteServer.getClientHost()).add(entityArchetypeString);
+		} catch (ServerNotActiveException e) {
+			System.out.println("Somehow not able to connect when getting new entities. This text should logically never come up...");
+		}
+	}
+	
 	public List<String> getOtherPlayerArchetypes(){
 		ArrayList<String> labelList = new ArrayList<String>(this.clientMap.values());
 		labelList.add("Player"); //Add the player that hosts the server
