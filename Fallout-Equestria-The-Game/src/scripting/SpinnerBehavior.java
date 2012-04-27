@@ -1,26 +1,61 @@
 package scripting;
 
+import utils.GameTime;
+import anotations.Editable;
 import components.GUIComp;
 
-public class SpinnerBehavior extends Behavior{
-	private GUIComp spinner;
-	private GUIComp textField;
-	private GUIComp plusButton;
-	private GUIComp minusButton;
+@Editable
+public class SpinnerBehavior extends GUIBehaviour{
+	@Editable
+	private GUIComp label, plusButton, minusButton;
+	
+	@Editable
+	private int value, min, max, interval;
+	
+	public SpinnerBehavior(GUIComp label, GUIComp plusBtn, GUIComp minusBtn, int value, int max, int min, int interval) {
+		this.label = label;
+		this.plusButton = plusBtn;
+		this.minusButton = minusBtn;
+		this.value = value;
+		this.max = max;
+		this.min = min;
+		this.interval = interval;
+	}
 	
 	@Override
 	public void start() {
-		this.spinner = entity.getComponent(GUIComp.class);
+		onFocusGained();
+	}
+	
+	@Override
+	public void onFocusGained() {
 		
-		this.textField = new GUIComp();
-		this.plusButton = new GUIComp();
-		this.minusButton = new GUIComp();
+	}
+	
+	@Override
+	public void onFocusLost() {
+		
+	}
+	
+	@Override	
+	public void update(GameTime time) {
+		
+	}
+	
+	public void increment () {
+		if(value < max) {
+			value += interval;
+		}
+	}
+	
+	public void decrement () {
+		if(value > min) {
+			value -= interval;
+		}
 	}
 
 	@Override
 	public Object clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SpinnerBehavior(this.label, this.plusButton, this.minusButton, this.value, this.max, this.min, this.interval);
 	}
-
 }

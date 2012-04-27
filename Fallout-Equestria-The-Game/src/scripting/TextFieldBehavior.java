@@ -52,7 +52,6 @@ public class TextFieldBehavior extends GUIBehaviour {
 						text = StringHelper.backspace(text, position);
 
 						position -= 1;
-						System.out.println(position);
 					}
 
 					if(Keyboard.getEventKey() == Keyboard.KEY_LEFT && this.position != 0) {
@@ -64,11 +63,10 @@ public class TextFieldBehavior extends GUIBehaviour {
 					}
 
 					char c = Keyboard.getEventCharacter();
-					if(("!\"#§%@ &/()=?\\`^*'~®_.,:;-|><").contains(c + "") ||  Character.isLetterOrDigit(c) && !("едц≈ƒ÷").contains(c + "")) {
+					if(("!\"#§%@ &/()=?\\`^*'~®_.,:;-|>< {}£$А[]®^~").contains(c + "") ||  Character.isLetterOrDigit(c) && !("едц≈ƒ÷").contains(c + "")) {
 
 						text = StringHelper.insert(text, position, c + "");
 						position += 1;
-						System.out.println(position);
 					}
 
 					entity.getComponent(GUIComp.class).setText(text);
