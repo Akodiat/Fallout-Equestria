@@ -227,21 +227,13 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	}
 	
 	public List<String> getNewEntities(){
-		try {
-			return this.createdObjectsQueue.get(RemoteServer.getClientHost());
-		} catch (ServerNotActiveException e) {
-			System.out.println("Somehow not able to connect when getting new entities. This text should logically never come up...");
-			return new ArrayList<String>(); //Returns an empty list in case of connection error, rather than blow things up
-		}
-		
+		List<String> newEntities = new ArrayList<String>(this.createdObjectsQueue.get(this.getClientLabel())); //If this don't work, use this.clientMap.get(RemoteServer.getClientHost()) instead of getClientLabel()	
+		this.createdObjectsQueue.get(this.getClientLabel()).clear();
+		return newEntities; 
 	}
 	
 	public void reportNewEntity(String entityArchetypeString){
-		try {
-			this.createdObjectsQueue.get(RemoteServer.getClientHost()).add(entityArchetypeString);
-		} catch (ServerNotActiveException e) {
-			System.out.println("Somehow not able to connect when getting new entities. This text should logically never come up...");
-		}
+		this.createdObjectsQueue.get(this.getClientLabel()).add(entityArchetypeString);
 	}
 	
 	public List<String> getOtherPlayerArchetypes(){
