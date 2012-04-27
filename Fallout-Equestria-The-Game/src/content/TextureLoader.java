@@ -32,7 +32,7 @@ public final class TextureLoader implements IContentLoader<Texture2D>{
 		ByteBuffer buffer =
 				ByteBuffer.allocateDirect(4 * decoder.getWidth() * decoder.getHeight());
 		
-		decoder.decodeFlipped(buffer, 4 * decoder.getWidth(), Format.RGBA);
+		decoder.decode(buffer, 4 * decoder.getWidth(), Format.RGBA);
 		buffer.flip();
 		
 		int openGLID = glGenTextures();

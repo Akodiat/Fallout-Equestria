@@ -1,25 +1,7 @@
 package graphics;
 
-import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_RGBA8;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glDrawBuffer;
-import static org.lwjgl.opengl.GL11.glGenTextures;
-import static org.lwjgl.opengl.GL11.glTexImage2D;
-import static org.lwjgl.opengl.GL30.GL_COLOR_ATTACHMENT0;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_COMPLETE;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER;
-import static org.lwjgl.opengl.GL30.glBindFramebuffer;
-import static org.lwjgl.opengl.GL30.glCheckFramebufferStatus;
-import static org.lwjgl.opengl.GL30.glFramebufferTexture2D;
-import static org.lwjgl.opengl.GL30.glGenFramebuffers;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL32.GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS;
 
 import java.nio.ByteBuffer;
@@ -66,6 +48,11 @@ public class RenderTarget2D {
 	
 	public void unbindGL() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	
+	public void destroy() {
+		glDeleteFramebuffers(frameBufferObjectOpenGLID);
+		texture.destroyTexture();
 	}
 	
 	private void validateBuffer() {

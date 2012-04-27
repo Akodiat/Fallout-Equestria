@@ -71,14 +71,11 @@ public class GUISystem extends EntityProcessingSystem {
 		
 	}
 	
-
 	private void changeState(GUIState state, IEntity entity) {
 		System.out.println(state.getClass().getSimpleName());
 		this.guiStates.put(entity, state);
 	}
 
-	
-	
 	public void checkNonLeftButtonEvents(BehaviourComp comp, MouseState state) {
 		if(mouse.wasButtonPressed(MouseButton.Right)) {
 			comp.onMouseDown(state, MouseButton.Right);
@@ -135,7 +132,6 @@ public class GUISystem extends EntityProcessingSystem {
 	}
 	
 	private class GUIStateDragOver extends GUIState {
-		
 		@Override
 		public void Update(boolean collision, IEntity entity, MouseState state) {
 			BehaviourComp comp = entity.getComponent(BehaviourComp.class);
@@ -152,7 +148,6 @@ public class GUISystem extends EntityProcessingSystem {
 				checkNonLeftButtonEvents(comp, state);
 			}
 		}
-		
 	}
 	public class GUIStateDrag extends GUIState {
 		@Override
@@ -167,7 +162,6 @@ public class GUISystem extends EntityProcessingSystem {
 					comp.onMouseUp(state, MouseButton.Left);
 				}
 			}
-		}
-		
+		}	
 	}
 }

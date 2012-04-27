@@ -1,6 +1,7 @@
 package utils;
 
 import math.MathHelper;
+import math.Point2;
 import math.Vector2;
 
 public final class Rectangle {
@@ -10,6 +11,7 @@ public final class Rectangle {
 	public final int Width;
 	public final int Height;
 	
+	public static final Rectangle Empty = new Rectangle(0,0,0,0);
 	
 	public Rectangle(int x, int y, int width, int height) {
 		this.X = x;
@@ -52,6 +54,9 @@ public final class Rectangle {
 		
 	}
 	
+	public Rectangle offset(Point2 offset) {
+		return new Rectangle(this.X + offset.X, this.Y + offset.Y, this.Width, this.Height);
+	}
 	
 	public static Rectangle lerp(Rectangle rectangle1, Rectangle rectangle2, float t){
 		int x = (int)MathHelper.lerp(rectangle1.X, rectangle2.X, t);

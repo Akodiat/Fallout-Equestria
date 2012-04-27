@@ -28,6 +28,7 @@ public class SpriteBatch {
 	//IndexBuffer
 	private final IndexBuffer indexBuffer;
 	
+	private boolean renderingToRenderTarget = false;
 	
 	//The texture used for drawing.
 	private Texture2D activeTexture;
@@ -175,12 +176,12 @@ public class SpriteBatch {
 		this.activeEffect.setUniform("viewport", viewport.Width, viewport.Height);
 		this.activeEffect.setUniformSampler("colorTexture", 0);
 		this.activeEffect.setUniform("view", this.view);
-		
+				
 		Matrix4 projectionMatrix =
 				Matrix4.createOrthogonalProjection(viewport.getLeft(),
 												   viewport.getRight(), 
-												   viewport.getBottom(), 
-												   viewport.getTop(), 1, -1);
+												   viewport.getBottom(), viewport.getTop(),
+												     1, -1);
 		
 		this.activeEffect.setUniform("projection", projectionMatrix);
 		//Stop using the active shader.
@@ -210,6 +211,12 @@ public class SpriteBatch {
 	public ShaderEffect getActiveEffect() {
 		return activeEffect;
 	}
+	
+	
+	private void setRenderTargetMode(boolean isRenderTo) {
+		this.renderingToRenderTarget = isRenderTo;
+	}
+	
 	
 	/**Clear the screen with the specified color.
 	 * 
@@ -246,10 +253,28 @@ public class SpriteBatch {
 	 * @param view the custom view used.
 	 */
 	public void begin(ShaderEffect effect, Matrix4 view) {
+		this.begin(effect, view, null);
+	}
+	
+	
+	/**Prepares the spritebatch for rendering.
+	 * This overload uses the provided effect and the provided view.
+	 * (note* begin must be called before draw or end can be called)
+	 * @param effect the custom effect used.
+	 * @param view the custom view used.
+	 */
+	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target) {
 	
 		glEnable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		if(target != null) { 
+			this.setRenderTargetMode(true);
+			target.bindGl();
+		} else {
+			this.setRenderTargetMode(false);
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
 		
 		if(effect == null) {
 			this.activeEffect = basicEffect;
@@ -481,11 +506,9 @@ public class SpriteBatch {
 				destWidth = sorceRectangle.Width * scale.X;
 				destHeight = sorceRectangle.Height * scale.Y;		
 				texX = (float)sorceRectangle.X / texture.Width;
-				texY = -(float)sorceRectangle.Y / texture.Height;
+				texY = (float)sorceRectangle.Y / texture.Height;
 				texWidth = (float)sorceRectangle.Width / texture.Width;
-				texHeight = (float)sorceRectangle.Height / texture.Height;
-				
-				texY += 1 - texHeight;
+				texHeight = (float)sorceRectangle.Height / texture.Height;		
 			} else {
 				destWidth = texture.Width * scale.X;
 				destHeight = texture.Height * scale.Y;
@@ -515,11 +538,17 @@ public class SpriteBatch {
 				float x = destination.X + num2 * angleX - num3 * angleY;
 				float y = destination.Y + num2 * angleY + num3 * angleX;
 				
+				if(this.renderingToRenderTarget) {
+					y = this.viewport.Height - y;
+				}
+				
 				this.vertexBuffer.setData(x);
 				this.vertexBuffer.setData(y);
 				
 				float realTexCoordX = texX + num0 * texWidth;
-				float realTexCoordY = texY + (1f - num1) * texHeight;
+				float realTexCoordY = texY + num1 * texHeight;
+				
+				
 				
 				this.textureBuffer.setData(realTexCoordX);
 				this.textureBuffer.setData(realTexCoordY);
