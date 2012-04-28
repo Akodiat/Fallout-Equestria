@@ -1,13 +1,5 @@
 package demos;
 
-import org.newdawn.slick.openal.Audio;
-
-import misc.IEventListener;
-import content.ContentManager;
-import GUI.ButtonEventArgs;
-import GUI.GUIFactory;
-import GUI.MouseEventArgs;
-import entityFramework.IEntityArchetype;
 import entityFramework.IEntityWorld;
 import graphics.Color;
 import graphics.SpriteBatch;
@@ -60,7 +52,7 @@ public class MenuDemo extends Demo{
 		world.initialize();
 		
 		
-		GUIFactory factory = new GUIFactory(world.getEntityManager());
+		/*GUIFactory factory = new GUIFactory(world.getEntityManager());
 		
 		IEntityArchetype archetype = ContentManager.loadArchetype("FalloutButton.archetype");
 		
@@ -91,7 +83,7 @@ public class MenuDemo extends Demo{
 		factory.createGUI(new Rectangle(100,100,500,40), ContentManager.loadArchetype("StandardTextbox.archetype"));
 		
 		factory.createLabel(new Rectangle(400,300, 140, 40), ContentManager.loadArchetype("StandardLabel.archetype"), "This a label!");
-		
+		*/
 		
 	}
 }

@@ -26,7 +26,7 @@ public class TextureFont {
 			return Vector2.Zero;
 		
 		float width = 0, height = this.lineSpacing, currWidth = 0;
-		for (int i = 0; i < string.length() - 1; i++) {
+		for (int i = 0; i < string.length(); i++) {
 			char c = string.charAt(i);
 			
 			if(c == '\n') {
@@ -43,16 +43,15 @@ public class TextureFont {
 				width = currWidth;
 			}
 		}
-
-		Rectangle srcRect = this.charSourceMap.get(string.charAt(string.length() - 1));
-		return new Vector2(width + srcRect.Width, height);
+		
+		return new Vector2(width - this.characterSpacing, height);
 	}
 	
-	protected float getLineSpacing(){
+	public float getLineSpacing(){
 		return this.lineSpacing;
 	}
 	
-	protected float getCharacterSpacing() {
+	public float getCharacterSpacing() {
 		return this.characterSpacing;
 	}
 	

@@ -95,7 +95,7 @@ public class GameOfLifeDemo extends Demo {
 		
 		final Random random = new Random();
 		ButtonBehavior behaviour = (ButtonBehavior)button.getComponent(BehaviourComp.class).getBehavior();
-		behaviour.addEventListener(new IEventListener<ButtonEventArgs>() {
+		behaviour.addButtonClicked(new IEventListener<ButtonEventArgs>() {
 			@Override
 			public void onEvent(Object sender, ButtonEventArgs e) {
 			  golSystem.seedNewLife(random.nextLong());

@@ -4,12 +4,13 @@ import graphics.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 
 import math.Point2;
 import misc.EventArgs;
 import misc.IEventListener;
 
-import graphics.SpriteBatch;
 import utils.GameTime;
 import utils.Mouse;
 import utils.MouseButton;
@@ -25,7 +26,8 @@ public abstract class GUIControl {
 	private Color fgColor;
 	private String name;
 	private boolean focused;
-	
+	public boolean visible;
+	public boolean enabled;
 	
 	public GUIControl() {
 		this.parent = null;
@@ -35,16 +37,23 @@ public abstract class GUIControl {
 		this.setFgColor(Color.White);
 		this.name = "";
 		this.focused = false;
+		this.visible = true;
+		this.enabled = true;
 
-		this.mouseDownEvent = new Event<>();
-		this.mouseUpEvent = new Event<>();
-		this.mouseOverEvent = new Event<>();
-		this.mouseEnterEvent = new Event<>();
-		this.mouseExitEvent = new Event<>();
-		this.mouseClickedEvent = new Event<>();
-		this.mouseDragEvent = new Event<>();
-		this.focusLostEvent = new Event<>();
-		this.focusGainedEvent = new Event<>();
+		this.mouseDownEvent 	 = new Event<>();
+		this.mouseUpEvent 		 = new Event<>();
+		this.mouseOverEvent		 = new Event<>();
+		this.mouseEnterEvent     = new Event<>();
+		this.mouseExitEvent 	 = new Event<>();
+		this.mouseClickedEvent   = new Event<>();
+		this.mouseDragEvent 	 = new Event<>();
+		this.keyUpEvent 		 = new Event<>();
+		this.keyDownEvent 		 = new Event<>();
+		this.focusLostEvent 	 = new Event<>();
+		this.focusGainedEvent 	 = new Event<>();
+		this.controlAddedEvent 	 = new Event<>();
+		this.controlRemovedEvent = new Event<>();
+		
 		this.mouseEventState = stateNone;
 	}
 	
@@ -60,17 +69,35 @@ public abstract class GUIControl {
 			child.getParent().removeChild(child);
 		}
 		child.setParent(this);
+		this.onChildAdded(child);
 	}
 	public void removeChild(GUIControl child) {
 		this.children.remove(child);
 		child.setParent(null);
+		this.onChildRemoved(child);
 	}	
 	public void setBounds(Rectangle rectangle) {
 		this.bounds = rectangle;
 	}
+	public void setBounds(int x, int y, int width, int height) {
+		this.bounds = new Rectangle(x, y, width, height);
+	}	
 	public Rectangle getBounds() {
 		return this.bounds;
 	}
+	public Rectangle getAbsolueBounds() {
+		GUIControl control = this;
+		int x = this.bounds.X, y = this.bounds.Y;
+		while(control.getParent() != null) {
+			control = control.getParent();
+			x += control.bounds.X;
+			y += control.bounds.Y;
+		}
+		
+		return new Rectangle(x,y, this.bounds.Width, this.bounds.Height);
+		
+	}
+	
 	public Color getBgColor() {
 		return bgColor;
 	}
@@ -90,7 +117,9 @@ public abstract class GUIControl {
 		this.name = name;
 	}
 	public void render(GUIRenderingContext context, GameTime time) {
-		context.render(this, time);
+		if(this.visible) {
+			context.render(this, time);
+		}
 	}
 	public List<GUIControl> getChildren() {
 		return this.children;
@@ -100,22 +129,46 @@ public abstract class GUIControl {
 	}
 	public void setFocused(boolean focused) {
 		this.focused = focused;
+		if(focused) {
+			this.onFocusGained();
+		} else {
+			this.onFocusLost();
+		}
 	}
-
 	public Rectangle getDimention() {
 		return new Rectangle(0,0,
 							 this.bounds.Width, 
 							 this.bounds.Height);
-		
 	}	
-	public Point2 getPosition() {
-		
-		
-		
+	public Point2 getPosition() {		
 		return new Point2(this.bounds.X, this.bounds.Y);
 	}
-
+	public void setPosition(Point2 point) {
+		this.bounds = new Rectangle(point.X, point.Y,
+									bounds.Width, bounds.Height);
+	}
+	public void setPosition(int x, int y) {
+		this.setPosition(new Point2(x, y));
+	}
 	
+	
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+
 	private Event<MouseEventArgs> mouseDownEvent;
 	private Event<MouseEventArgs> mouseUpEvent;
 	private Event<MouseEventArgs> mouseOverEvent;
@@ -123,6 +176,13 @@ public abstract class GUIControl {
 	private Event<MouseEventArgs> mouseExitEvent;
 	private Event<MouseEventArgs> mouseClickedEvent;
 	private Event<MouseEventArgs> mouseDragEvent;
+	private Event<KeyboardEventArgs> keyDownEvent;
+	private Event<KeyboardEventArgs> keyUpEvent;
+	private Event<ControlEventArgs> controlAddedEvent;
+	private Event<ControlEventArgs> controlRemovedEvent;
+	
+	
+	
 	private Event<EventArgs> 	  focusGainedEvent;
 	private Event<EventArgs>	  focusLostEvent;
 	private MouseEventState		  mouseEventState;
@@ -133,11 +193,11 @@ public abstract class GUIControl {
 	private final MouseEventState 	stateDrag     = new MouseEventStateDrag();
 	
 
-	private Rectangle createBestFit(Rectangle rect) {
+	private Rectangle createBestFit(Rectangle rect, Point2 offset) {
 		if(this.parent == null) {
 			return rect;
 		} else {
-			Rectangle pB = this.parent.getBounds();
+			Rectangle pB = this.parent.getDimention().offset(offset);
 			int x = rect.X, y = rect.Y ,w = rect.Width, h = rect.Height;
 			if(x < pB.getLeft()) {
 				w = (x + w) - pB.getLeft();
@@ -158,6 +218,7 @@ public abstract class GUIControl {
 			}
 			
 			if(w < 0 || h < 0) {
+				
 				return Rectangle.Empty;
 			} else {
 				return new Rectangle(x,y,w,h);
@@ -165,11 +226,9 @@ public abstract class GUIControl {
 		}
 	}
 
-	
 	private boolean checkMouseCollision(Point2 offset, MouseState state) {
 		Rectangle rect = this.getBounds().offset(offset);
-		rect = createBestFit(rect);
-		
+		rect = createBestFit(rect, offset);
 		if(rect.intersects(state.ViewCoords)) {
 			return true;
 		}
@@ -177,7 +236,40 @@ public abstract class GUIControl {
 		return false;
 	}
 	
+	public void checkKeyboardInput() {
+		while(Keyboard.next()) {
+			
+			char c = Keyboard.getEventCharacter();
+			int key = Keyboard.getEventKey();
+			boolean pressed = Keyboard.getEventKeyState();
+			
+			this.keyboardRecursive(c, key, pressed);
+		}	
+		
+	}
+	
+	private void keyboardRecursive(char keyChar, int key, boolean pressed) {
+		if(!this.visible || !this.enabled) {
+			return;
+		}
+		
+		if(this.focused) {
+			if(pressed) {
+				this.onKeyDown(keyChar, key);
+			} else {
+				this.onKeyUp(keyChar, key);
+			}
+		}
+		for (GUIControl child : this.children) {
+			child.keyboardRecursive(keyChar, key, pressed);
+		}
+	}
+	
 	public void checkMouseInput(Point2 parentOffset, Mouse mouse) {
+		if(!this.visible || !this.enabled) {
+			return;
+		}
+		
 		MouseState state = mouse.getMouseState();
 		boolean collision = this.checkMouseCollision(parentOffset, state);
 		this.mouseEventState.update(collision, mouse);
@@ -186,10 +278,21 @@ public abstract class GUIControl {
 		for (GUIControl child : this.children) {
 			child.checkMouseInput(childOffset, mouse);
 		}
+		
 	}
 	private void changeMouseEventState(MouseEventState newState) {
 		this.mouseEventState = newState;
-	}	
+	}
+	
+	protected void onKeyDown(char keyChar, int key) {
+		KeyboardEventArgs args = new KeyboardEventArgs(keyChar, key);
+		this.keyDownEvent.invoke(this, args);
+	}
+	protected void onKeyUp(char keyChar, int key) {
+		KeyboardEventArgs args = new KeyboardEventArgs(keyChar, key);
+		this.keyUpEvent.invoke(this, args);
+	}
+	
 	protected void onMouseDown(Mouse mouse, MouseButton button) {
 		MouseEventArgs args = new MouseEventArgs(mouse.getMouseState(), button);
 		mouseDownEvent.invoke(this, args);
@@ -226,6 +329,14 @@ public abstract class GUIControl {
 		this.focusGainedEvent.invoke(this, EventArgs.Empty);
 		this.focused = true;
 	}
+	protected void onChildAdded(GUIControl child) {
+		ControlEventArgs args = new ControlEventArgs(child);
+		this.controlAddedEvent.invoke(this, args);
+	}
+	protected void onChildRemoved(GUIControl child) {
+		ControlEventArgs args = new ControlEventArgs(child);
+		this.controlRemovedEvent.invoke(this, args);
+	}
 	
 	public void addMouseDownListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseDownEvent.addListener(listener);
@@ -245,7 +356,7 @@ public abstract class GUIControl {
 	public void addMouseExitListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseExitEvent.addListener(listener);
 	}
-	public void addMouseClicked(IEventListener<MouseEventArgs> listener) {
+	public void addClicked(IEventListener<MouseEventArgs> listener) {
 		this.mouseClickedEvent.addListener(listener);
 	}
 	public void addFocusGainedEvent(IEventListener<EventArgs> listener) {
@@ -254,22 +365,34 @@ public abstract class GUIControl {
 	public void addFocusLostEvent(IEventListener<EventArgs> listener) {
 		this.focusLostEvent.addListener(listener);
 	}
-	
+	public void addKeyDownListener(IEventListener<KeyboardEventArgs> listener) {
+		this.keyDownEvent.addListener(listener);
+	}
+	public void addKeyUpListener(IEventListener<KeyboardEventArgs> listener) {
+		this.keyUpEvent.addListener(listener);
+	}	
+	public void addControlAddedListener(IEventListener<ControlEventArgs> listener) {
+		this.controlAddedEvent.addListener(listener);
+	}
+	public void addControlRemovedListener(IEventListener<ControlEventArgs> listener) {
+		this.controlRemovedEvent.addListener(listener);
+	}
+
 	public void removeMouseDownListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseDownEvent.removeListener(listener);
-	}
+	}	
 	public void removeMouseUpListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseUpEvent.removeListener(listener);
-	}
+	}	
 	public void removeMouseOverListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseOverEvent.removeListener(listener);
-	}
+	}	
 	public void removeMouseDragListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseDragEvent.removeListener(listener);
-	}
+	}	
 	public void removeMouseEnterListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseEnterEvent.removeListener(listener);
-	}
+	}	
 	public void removeMouseExitListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseExitEvent.removeListener(listener);
 	}
@@ -282,7 +405,19 @@ public abstract class GUIControl {
 	public void removeFocusLostEvent(IEventListener<EventArgs> listener) {
 		this.focusLostEvent.removeListener(listener);
 	}
-
+	public void removeKeyDownListener(IEventListener<KeyboardEventArgs> listener) {
+		this.keyDownEvent.removeListener(listener);
+	}
+	public void removeKeyUpListener(IEventListener<KeyboardEventArgs> listener) {
+		this.keyUpEvent.removeListener(listener);
+	}
+	public void removeControlAddedListener(IEventListener<ControlEventArgs> listener) {
+		this.controlAddedEvent.removeListener(listener);
+	}
+	public void removeControlRemovedListener(IEventListener<ControlEventArgs> listener) {
+		this.controlRemovedEvent.removeListener(listener);
+	}
+	
 	public void checkNonLeftButtonEvents(Mouse mouse) {
 		if(mouse.wasButtonPressed(MouseButton.Right)) {
 			onMouseDown(mouse, MouseButton.Right);
@@ -300,6 +435,7 @@ public abstract class GUIControl {
 			onMouseUpAsButton(mouse, MouseButton.Middle);
 		}
 	}
+	
 	private abstract class MouseEventState {
 		public abstract void update(boolean collision, Mouse mouse);
 	}
@@ -332,6 +468,7 @@ public abstract class GUIControl {
 	private class MouseEventStateDragOver extends MouseEventState {
 		@Override
 		public void update(boolean collision, Mouse mouse) {
+			onMouseDrag(mouse);
 			if(!collision) {
 				onMouseExit(mouse);
 				changeMouseEventState(stateDrag);
@@ -349,6 +486,7 @@ public abstract class GUIControl {
 	private class MouseEventStateDrag extends MouseEventState {
 		@Override
 		public void update(boolean collision, Mouse mouse) {
+			onMouseDrag(mouse);
 			if(collision) {
 				onMouseEnter(mouse);
 				changeMouseEventState(stateDragOver);
@@ -357,10 +495,8 @@ public abstract class GUIControl {
 					changeMouseEventState(stateNone);
 					onMouseUp(mouse, MouseButton.Left);
 				}
+			
 			}
 		}	
-	}
-
-	
-	
+	}	
 }

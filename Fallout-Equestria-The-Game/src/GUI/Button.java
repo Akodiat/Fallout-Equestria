@@ -3,12 +3,14 @@ package GUI;
 import misc.EventArgs;
 import utils.Mouse;
 import utils.MouseButton;
+import graphics.Color;
 import graphics.Texture2D;
 import graphics.TextureFont;
 
 public class Button extends GUIImageControl {
 	private Texture2D overTexture;
 	private Texture2D downTexture;
+	private Color textColor;
 	private boolean mouseHover;
 	private boolean pressed;
 	private String text;
@@ -21,6 +23,7 @@ public class Button extends GUIImageControl {
 		this.pressed = false;
 		this.text = "";
 		this.font = null;
+		this.textColor = Color.White;
 	}
 	
 	public Texture2D getOverTexture() {
@@ -55,6 +58,14 @@ public class Button extends GUIImageControl {
 		return font;
 	}
 
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(Color textColor) {
+		this.textColor = textColor;
+	}
+
 	public void setFont(TextureFont font) {
 		this.font = font;
 	}
@@ -76,6 +87,7 @@ public class Button extends GUIImageControl {
 	@Override
 	protected void onMouseDown(Mouse mouse, MouseButton button) {
 		super.onMouseDown(mouse, button);
+		this.pressed = true;
 		System.out.println("Mouse was pressed! " + button);
 	}
 	
@@ -88,6 +100,7 @@ public class Button extends GUIImageControl {
 	@Override
 	protected void onMouseUp(Mouse mouse, MouseButton button){
 		super.onMouseUp(mouse, button);
+		this.pressed = false;
 		System.out.println("Mouse was released! " + button);
 	}
 	@Override

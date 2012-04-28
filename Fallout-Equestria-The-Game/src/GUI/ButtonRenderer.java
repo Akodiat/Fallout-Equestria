@@ -22,13 +22,13 @@ public class ButtonRenderer implements IGUIRenderer<Button>{
 			batch.draw(background, control.getDimention(), control.getBgColor(), null);
 		} 
 		
-		if(control.isMouseHover()) {
-		 	Texture2D texture = control.getOverTexture();
+		if(control.isPressed() && control.isMouseHover()) {
+		 	Texture2D texture = control.getDownTexture();
 		 	if(texture != null) {
 		 		batch.draw(texture, control.getDimention(), control.getFgColor(), null);
 		 	}		
 		} else if(control.isMouseHover()) {
-			Texture2D texture = control.getDownTexture();
+			Texture2D texture = control.getOverTexture();
 		 	if(texture != null) {
 		 		batch.draw(texture, control.getDimention(), control.getFgColor(), null);
 		 	}		
@@ -57,7 +57,7 @@ public class ButtonRenderer implements IGUIRenderer<Button>{
 		}
 		
 		textDim = font.meassureString(text);
-		batch.drawString(font, text, control.getDimention().getCenter(), control.getFgColor(),Vector2.mul(0.5f, textDim),Vector2.One, 0.0f, false);
+		batch.drawString(font, text, control.getDimention().getCenter(), control.getTextColor(),Vector2.mul(0.5f, textDim),Vector2.One, 0.0f, false);
 	}
 
 }

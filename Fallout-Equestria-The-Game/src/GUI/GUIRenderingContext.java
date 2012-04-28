@@ -2,6 +2,7 @@ package GUI;
 
 import graphics.Color;
 import graphics.RenderTarget2D;
+import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import content.ContentManager;
 
 import math.Matrix4;
 
@@ -18,10 +21,12 @@ import utils.Rectangle;
 public class GUIRenderingContext {
 
 	private SpriteBatch spriteBatch;
+	private ShaderEffect disabledEffect;
 	
 	public GUIRenderingContext(SpriteBatch spriteBatch) {
 		this.spriteBatch = spriteBatch;
 		this.renderers = new HashMap<>();
+		disabledEffect = ContentManager.loadShaderEffect("GrayScale.effect");
 	}
 	
 	Map<Class<? extends GUIControl>, IGUIRenderer<? extends GUIControl>> renderers;	
@@ -40,12 +45,21 @@ public class GUIRenderingContext {
 	}
 	
 	public RenderTarget2D renderChildrenRecursivly(GUIControl control, GameTime time) {
+		if(!control.isVisible())
+			return null;
+		
 		List<GUIControl> children = control.getChildren();
 		if(children.isEmpty()) {
 			RenderTarget2D target = new RenderTarget2D(control.getBounds().Width, control.getBounds().Height);
-			this.spriteBatch.begin(null, Matrix4.Identity, target);
-			this.renderInternal(control, time);
-			this.spriteBatch.end();
+			if(!control.isEnabled()) {
+				this.spriteBatch.begin(disabledEffect, Matrix4.Identity, target);
+				this.renderInternal(control, time);
+				this.spriteBatch.end();
+			} else {
+				this.spriteBatch.begin(null, Matrix4.Identity, target);
+				this.renderInternal(control, time);
+				this.spriteBatch.end();
+			}
 			return target;
 		} else {
 			RenderTarget2D[] childTargets = new RenderTarget2D[children.size()];			
@@ -59,14 +73,17 @@ public class GUIRenderingContext {
 			
 			for (int i = 0; i < control.getChildren().size(); i++) {
 				GUIControl child = control.getChildren().get(i);
-				RenderTarget2D childTarget = childTargets[i];
-				this.spriteBatch.draw(childTarget.getTexture(), child.getBounds(), Color.White, null);
+				if(child.isVisible()) {
+					RenderTarget2D childTarget = childTargets[i];
+					this.spriteBatch.draw(childTarget.getTexture(), child.getBounds(), Color.White, null);
+				}
 		
 			}
 			this.spriteBatch.end();
 			
 			for (RenderTarget2D renderTarget2D : childTargets) {
-				renderTarget2D.destroy();
+				if(renderTarget2D != null)
+					renderTarget2D.destroy();
 			}
 			
 			return target;
