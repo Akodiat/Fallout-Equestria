@@ -28,8 +28,8 @@ public class LabelRenderer implements IGUIRenderer<Label>{
 			text = FontHelper.fixTextForRendering(font, text, control.getBounds());
 		}
 	
-
-		batch.drawString(font, text,Vector2.Zero, control.getFgColor());
+		if(text != null)
+			batch.drawString(font, text,Vector2.Zero, control.getFgColor());
 
 	}
 

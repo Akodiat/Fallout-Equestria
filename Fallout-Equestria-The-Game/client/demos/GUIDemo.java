@@ -280,6 +280,11 @@ public class GUIDemo extends Demo {
 		chatPanel.setFont(ContentManager.loadFont("arialb20.xml"));
 		this.panel.addChild(chatPanel);
 		
+		Spinner spinner = new Spinner(20,0,1,10);
+		spinner.setBounds(20, 20, 160, 40);
+		spinner.setFont(ContentManager.loadFont("arialb20.xml"));
+		spinner.setBgColor(Color.DarkOrange);
+		this.panel.addChild(spinner);
 	}
 
 }
