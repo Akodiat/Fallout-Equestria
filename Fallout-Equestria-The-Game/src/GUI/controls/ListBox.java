@@ -67,7 +67,6 @@ public class ListBox<T> extends GUISelector<T> {
 		Rectangle b = this.getBounds();
 		vBar.setBounds(b.Width - SCROLLBAR_SIZE, 0, SCROLLBAR_SIZE, b.Height);
 		hBar.setBounds(0, b.Height - SCROLLBAR_SIZE, b.Width, SCROLLBAR_SIZE);				
-		System.out.println(hBar.getBounds());
 	}
 	
 
@@ -152,7 +151,6 @@ public class ListBox<T> extends GUISelector<T> {
 			bar.setVisible(true);
 			bar.setScrollMax(maxScroll + SCROLLBAR_SIZE);
 			bar.setScrollValue(0);
-			System.out.println(bar.getBounds());
 			
 		} else {
 			if(bar.isEnabled()) {
@@ -220,7 +218,6 @@ public class ListBox<T> extends GUISelector<T> {
 		
 		int itemIndex = (int)((relativeY + scrollOffset) / itemHeight);
 		itemIndex = MathHelper.clamp(-1, this.itemCount() - 1 , itemIndex);
-		System.out.println(itemIndex);
 		
 		if(itemIndex != -1) {
 			this.setSelectedIndex(itemIndex);

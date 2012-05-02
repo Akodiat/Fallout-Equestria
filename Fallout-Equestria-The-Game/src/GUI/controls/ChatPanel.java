@@ -24,12 +24,20 @@ public class ChatPanel extends Panel {
 	}
 
 	private void initializeComponents() {
-		this.sendButton.addClicked(new IEventListener<MouseEventArgs>() {
+		this.sendButton.addMouseClicked(new IEventListener<MouseEventArgs>() {
 			@Override
 			public void onEvent(Object sender, MouseEventArgs e) {
 				sendPressed();
 			}
 		});
+		
+		this.inputField.addClicked(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				sendPressed();
+			}
+		});
+		
 		
 		this.area.setBounds(0, 0, 250, 220);
 		this.inputField.setBounds(0,220,200,30);

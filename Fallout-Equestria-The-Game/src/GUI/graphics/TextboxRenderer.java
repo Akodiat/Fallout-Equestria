@@ -116,7 +116,6 @@ public class TextboxRenderer implements IGUIRenderer<Textfield>{
 		}
 		
 		return result;
-		
 	}
 
 }

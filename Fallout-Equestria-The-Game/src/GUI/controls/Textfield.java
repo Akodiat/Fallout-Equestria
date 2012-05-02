@@ -20,6 +20,12 @@ public class Textfield extends GUITextBase {
 		return markerPosition;
 	}
 		
+	 @Override
+	 public void setText(String text) {
+		 super.setText(text);
+		 this.markerPosition = text.length();
+	 }
+	
 	@Override
 	protected void onFocusGained() {
 		super.onFocusGained();

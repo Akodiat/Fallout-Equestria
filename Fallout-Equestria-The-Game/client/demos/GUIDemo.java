@@ -1,61 +1,15 @@
 package demos;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.input.Keyboard;
-
 import math.Point2;
 import misc.IEventListener;
-import GUI.GUIFocusManager;
-import GUI.MouseEventArgs;
-import GUI.ScrollEventArgs;
-import GUI.VisibleElement;
-import GUI.controls.Button;
-import GUI.controls.ChatPanel;
-import GUI.controls.GUIControl;
-import GUI.controls.ImageBox;
-import GUI.controls.Label;
-import GUI.controls.ListBox;
-import GUI.controls.Panel;
-import GUI.controls.ScrollBar;
-import GUI.controls.ScrollPanel;
-import GUI.controls.Slider;
-import GUI.controls.TextArea;
-import GUI.controls.Textfield;
-import GUI.graphics.ScrollBarRenderer;
-import GUI.graphics.ButtonRenderer;
-import GUI.graphics.PanelRenderer;
-import GUI.graphics.GUIRenderingContext;
-import GUI.graphics.ImageBoxRenderer;
-import GUI.graphics.LabelRenderer;
-import GUI.graphics.ListBoxRenderer;
-import GUI.graphics.LookAndFeel;
-import GUI.graphics.ScrollPanelRenderer;
-import GUI.graphics.SliderRenderer;
-import GUI.graphics.TextboxRenderer;
-
-import com.google.inject.Guice;
-import components.GUIComp;
+import GUI.*;
+import GUI.controls.*;
+import GUI.graphics.*;
 
 import content.ContentManager;
-
-import entityFramework.IEntity;
-import entityFramework.IEntityManager;
-import entityFramework.IEntitySystemManager;
-import entityFramework.IEntityWorld;
-import entitySystems.GUIRenderingSystem;
-import entitySystems.ScriptMouseSystem;
-import entitySystems.ScriptSystem;
-import gameMap.Scene;
-import graphics.Color;
-import graphics.SpriteBatch;
-import graphics.Texture2D;
-import utils.Camera2D;
-import utils.GameTime;
-import utils.Mouse;
-import utils.Rectangle;
+import graphics.*;
+import utils.*;
 
 public class GUIDemo extends Demo {
 	private static Rectangle screenDim 		= new Rectangle(0,0,1366,768);
@@ -66,7 +20,7 @@ public class GUIDemo extends Demo {
 	
 	private GUIRenderingContext context;
 	private GUIFocusManager manager;
-	ScrollPanel panel;
+	private ScrollPanel panel;
 	
 	public static void main(String[] args) {
 		new GUIDemo().start();
@@ -114,9 +68,7 @@ public class GUIDemo extends Demo {
 		lookAndFeel.setElement("ScrollBar_Button_Background", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
 		lookAndFeel.setElement("ScrollBar_Button_Down", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
 		lookAndFeel.setElement("ScrollBar_Button_Over", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
-		lookAndFeel.setElement("TextArea_Background", new VisibleElement(textAreaBackground, textAreaBackground.getBounds()));
-		
-		
+		lookAndFeel.setElement("TextArea_Background", new VisibleElement(textAreaBackground, textAreaBackground.getBounds()));	
 		lookAndFeel.setDefaultFont(ContentManager.loadFont("arialb20.xml"));
 		
 		context = new GUIRenderingContext(spriteBatch, lookAndFeel, ContentManager.loadShaderEffect("GrayScale.effect"));
@@ -269,7 +221,7 @@ public class GUIDemo extends Demo {
 		addItemButton.setFont(ContentManager.loadFont("Pericles20bi.xml"));
 		panel.addChild(addItemButton);
 		
-		addItemButton.addClicked(new IEventListener<MouseEventArgs>() {
+		addItemButton.addMouseClicked(new IEventListener<MouseEventArgs>() {
 			
 			@Override
 			public void onEvent(Object sender, MouseEventArgs e) {
@@ -313,7 +265,7 @@ public class GUIDemo extends Demo {
 		TextArea area = new TextArea();
 		area.setBounds(100,500,300,150);
 		area.setFont(ContentManager.loadFont("Courier New20.xml"));
-		area.setText("Hej jag heter lukas japp en dag gick jag till en affär och åt en kaka");
+		area.setText("This is a textarea alot of text that can be scrolled through in needed the scrollbar is always active but we rly anyways this can be scrolled laalalallalalallalalalallalalallalalalallalalalallalalallalalala");
 		
 		this.panel.addChild(area);
 		

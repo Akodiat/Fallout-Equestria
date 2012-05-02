@@ -61,45 +61,24 @@ public class Button extends GUIImageControl {
 	protected void onMouseEnter(Mouse mouse) {
 		super.onMouseEnter(mouse);
 		this.mouseHover = true;
-		System.out.println("Mouse entered button!");
 	}
 	
 	@Override
 	protected void onMouseExit(Mouse mouse) {
 		super.onMouseExit(mouse);
 		this.mouseHover = false;
-		System.out.println("Mouse exited button!");
 	}
 	
 	@Override
 	protected void onMouseDown(Mouse mouse, MouseButton button) {
 		super.onMouseDown(mouse, button);
 		this.pressed = true;
-		System.out.println("Mouse was pressed! " + button);
 	}
 	
-	@Override
-	protected void onMouseOver(Mouse mouse) {
-		super.onMouseOver(mouse);
-		System.out.println("Mouse is over!");
-	}	
 
 	@Override
 	protected void onMouseUp(Mouse mouse, MouseButton button){
 		super.onMouseUp(mouse, button);
 		this.pressed = false;
-		System.out.println("Mouse was released! " + button);
-	}
-	@Override
-	protected void onMouseClick(Mouse mouse, MouseButton button){
-		super.onMouseClick(mouse, button);
-		System.out.println("Mouse was released! as button" + button);
-		
-	}	
-	
-	@Override
-	protected void onMouseDrag(Mouse mouse){
-		super.onMouseOver(mouse);
-		System.out.println("Mouse is draged! crazy i know");
 	}
 }

@@ -55,7 +55,7 @@ public class GUIFocusManager{
 	private void hookListeners(GUIControl control) {
 		control.addControlAddedListener(controlAddedListener);
 		control.addControlRemovedListener(controlRemovedListener);
-		control.addClicked(mouseClickListener);
+		control.addMouseClicked(mouseClickListener);
 		for (GUIControl child : control.getChildren()) {
 			this.hookListeners(child);
 		}

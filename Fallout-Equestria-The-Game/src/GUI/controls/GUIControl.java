@@ -65,6 +65,7 @@ public abstract class GUIControl {
 		this.controlAddedEvent 	 = new Event<>();
 		this.controlRemovedEvent = new Event<>();
 		this.resizedEvent 		 = new Event<>();
+		this.clickedEvent 		 = new Event<>();
 		
 		this.mouseEventState = stateNone;
 	}
@@ -204,6 +205,7 @@ public abstract class GUIControl {
 	}
 
 
+	private Event<EventArgs> clickedEvent;
 	private Event<MouseEventArgs> mouseDownEvent;
 	private Event<MouseEventArgs> mouseUpEvent;
 	private Event<MouseEventArgs> mouseOverEvent;
@@ -320,9 +322,18 @@ public abstract class GUIControl {
 	}
 	
 	protected void onKeyDown(char keyChar, int key) {
+		if(key == Keyboard.KEY_RETURN) {
+			onClicked();
+		}
+		
 		KeyboardEventArgs args = new KeyboardEventArgs(keyChar, key);
 		this.keyDownEvent.invoke(this, args);
 	}
+	
+	protected void onClicked() {
+		this.clickedEvent.invoke(this, EventArgs.Empty);	
+	}
+
 	protected void onKeyUp(char keyChar, int key) {
 		KeyboardEventArgs args = new KeyboardEventArgs(keyChar, key);
 		this.keyUpEvent.invoke(this, args);
@@ -349,6 +360,8 @@ public abstract class GUIControl {
 		mouseUpEvent.invoke(this, args);
 	}
 	protected void onMouseClick(Mouse mouse, MouseButton button){
+		this.onClicked();
+		
 		MouseEventArgs args = new MouseEventArgs(mouse.getMouseState(), button);
 		mouseClickedEvent.invoke(this, args);
 	}	
@@ -376,8 +389,11 @@ public abstract class GUIControl {
 		ResizedEventArgs args = new ResizedEventArgs(bounds);
 		this.resizedEvent.invoke(this, args);
 	}
-
 	
+	
+	public void addClicked(IEventListener<EventArgs> listener) {
+		this.clickedEvent.addListener(listener);
+	}
 	public void addMouseDownListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseDownEvent.addListener(listener);
 	}
@@ -396,7 +412,7 @@ public abstract class GUIControl {
 	public void addMouseExitListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseExitEvent.addListener(listener);
 	}
-	public void addClicked(IEventListener<MouseEventArgs> listener) {
+	public void addMouseClicked(IEventListener<MouseEventArgs> listener) {
 		this.mouseClickedEvent.addListener(listener);
 	}
 	public void addFocusGainedEvent(IEventListener<EventArgs> listener) {
@@ -420,7 +436,10 @@ public abstract class GUIControl {
 	public void addResizedListener(IEventListener<ResizedEventArgs> listener) {
 		this.resizedEvent.addListener(listener);
 	}
-
+	
+	public void removeClicked(IEventListener<EventArgs> listener) {
+		this.clickedEvent.addListener(listener);
+	}
 	public void removeMouseDownListener(IEventListener<MouseEventArgs> listener) {
 		this.mouseDownEvent.removeListener(listener);
 	}	
