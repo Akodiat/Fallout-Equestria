@@ -6,6 +6,14 @@ public final class Vector2 implements java.io.Serializable{
 	public final float Y;
 	
 	/**
+	 * Creates a new instance of a Vector2, set to (0,0).
+	 */
+	public Vector2(){
+		this.X = 0;
+		this.Y = 0;
+	}
+	
+	/**
 	 * Creates a new instance of a Vector2.
  	 * @param x - xCoordinate of the vector.
 	 * @param y - yCoordinate of the vector.

@@ -8,6 +8,9 @@ public class Key implements java.io.Serializable{
 	private final int keyID;
 	private boolean pressed;
 
+	public Key(){
+		this.keyID = -1;
+	}
 	public Key(int keyID){
 		this.keyID=keyID;
 	}
