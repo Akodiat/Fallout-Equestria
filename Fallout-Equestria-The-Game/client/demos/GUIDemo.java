@@ -77,7 +77,7 @@ public class GUIDemo extends Demo {
 		panel.setBounds(new Rectangle(0,0,1366,768));
 		
 
-		Button falloutButton0 = new Button();
+		ToggleButton falloutButton0 = new ToggleButton();
 		falloutButton0.setBounds(new Rectangle(600,400,256,256));
 		falloutButton0.setText("Click Me!");
 		falloutButton0.setFgColor(new Color(200,50,200,255));

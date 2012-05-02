@@ -3,12 +3,13 @@ package GUI.graphics;
 import GUI.FontHelper;
 import GUI.VisibleElement;
 import GUI.controls.Button;
+import GUI.controls.ButtonBase;
 import math.Vector2;
 import graphics.SpriteBatch;
 import graphics.TextureFont;
 import utils.GameTime;
 
-public class ButtonRenderer implements IGUIRenderer<Button>{
+public class ButtonRenderer implements IGUIRenderer<ButtonBase>{
 
 	private static final String DEFAULT_BUTTON_BACKGROUND = "Button_Background";
 	private static final String DEFAULT_BUTTON_DOWN 	  = "Button_Down";
@@ -36,12 +37,12 @@ public class ButtonRenderer implements IGUIRenderer<Button>{
 	}
 
 	@Override
-	public Class<Button> getRenderedType() {
-		return Button.class;
+	public Class<ButtonBase> getRenderedType() {
+		return ButtonBase.class;
 	}
 
 	@Override
-	public void render(SpriteBatch batch, GameTime time, Button control, LookAndFeel lookAndFeel) {
+	public void render(SpriteBatch batch, GameTime time, ButtonBase control, LookAndFeel lookAndFeel) {
 		VisibleElement backgroundElement = lookAndFeel.getElement(backgroundKey);
 		VisibleElement overElement		 = lookAndFeel.getElement(overKey);
 		VisibleElement downElement		 = lookAndFeel.getElement(downKey);
@@ -61,7 +62,7 @@ public class ButtonRenderer implements IGUIRenderer<Button>{
 		drawText(batch, control, lookAndFeel);
 	}
 
-	private void drawText(SpriteBatch batch, Button control, LookAndFeel lookAndFeel) {
+	protected void drawText(SpriteBatch batch, ButtonBase control, LookAndFeel lookAndFeel) {
 		String text = control.getText();
 		TextureFont font = (control.getFont() != null) ? control.getFont() : lookAndFeel.getDefaultFont();
 		

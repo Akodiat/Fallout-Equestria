@@ -26,7 +26,6 @@ public class ScrollBar extends GUIControl {
 	private int stepSize;
 	
 	private Texture2D background;
-	
 	private Event<ScrollEventArgs> scolledEvent;
 	
 	public ScrollBar() {
