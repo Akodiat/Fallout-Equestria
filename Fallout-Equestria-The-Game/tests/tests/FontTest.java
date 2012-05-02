@@ -21,7 +21,7 @@ import content.ContentManager;
  */
 public class FontTest {
 	
-	private static final String fontAsset = "Andale Mono20.xml";
+	private static final String fontAsset = "Monofonto24.xml";
 	
 	private static SpriteBatch graphics;
 	private static DisplayMode mode;
@@ -42,8 +42,8 @@ public class FontTest {
 			graphics.begin(null);
 			
 			
-			graphics.drawString(textureFont, "Normal text yay how awesome!", new Vector2(0,0), Color.Green);
-			graphics.drawString(textureFont, "This is a,\nmultiline! hehe string", new Vector2(0,100), Color.Gold);
+			graphics.drawString(textureFont, "Normal text yay how awesome!", new Vector2(0,0), Color.Black);
+			graphics.drawString(textureFont, "This is a,\nmultiline! hehe string", new Vector2(0,100), Color.Black);
 			graphics.drawString(textureFont, "This line has an orgin!", new Vector2(0,200), Color.Red, new Vector2(50, 0));
 			graphics.drawString(textureFont, "This line is scaled!", new Vector2(0,300), Color.Cyan, Vector2.Zero, new Vector2(2f,2f));
 			graphics.drawString(textureFont, "This line is also scaled!", new Vector2(340,0), Color.Yellow, Vector2.Zero, new Vector2(4f,1.5f),0.0f, false);
