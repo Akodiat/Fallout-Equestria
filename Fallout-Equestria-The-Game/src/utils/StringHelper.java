@@ -16,17 +16,11 @@ public class StringHelper {
 		return strings.toArray(new String[strings.size()]);
 	}
 	
-	public static String insert(String text, int position, String input) {
-		String result = text.substring(0, position);
-		result += input + text.substring(position);
-		
-		return result;
-	}
-	
-	public static String backspace(String text, int position) {
-		String result = text.substring(0, position-1);
-		result += text.substring(position);
-		
-		return result;
+	public static String reverse(String toReverse) {
+		StringBuilder builder = new StringBuilder();
+		for (int i = toReverse.length() - 1; i >= 0; i--) {
+			builder.append(toReverse.charAt(i));
+		}
+		return builder.toString();
 	}
 }

@@ -1,6 +1,5 @@
 package demos;
 
-import GUI.GUISystem;
 import ability.AbilityBuilder;
 import ability.AbilitySystem;
 
@@ -130,7 +129,6 @@ public class WorldBuilder {
 		IEntitySystemManager manager = world.getSystemManager();
 	
 		manager.addLogicEntitySystem(new ScriptSystem(world));	
-		manager.addLogicEntitySystem(new GUISystem(world, mouse));
 		manager.addRenderEntitySystem(new GUIRenderingSystem(world, spriteBatch));
 		return world;
 	}

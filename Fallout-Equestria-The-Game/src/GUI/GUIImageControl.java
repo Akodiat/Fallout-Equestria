@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.controls.GUIControl;
 import graphics.Texture2D;
 
 public class GUIImageControl extends GUIControl {

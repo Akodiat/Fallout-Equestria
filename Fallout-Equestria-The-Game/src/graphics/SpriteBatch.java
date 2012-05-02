@@ -268,6 +268,7 @@ public class SpriteBatch {
 		glEnable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
 		if(target != null) { 
 			this.setRenderTargetMode(true);
 			target.bindGl();

@@ -29,7 +29,7 @@ public class MathHelper {
 	public static long clamp(long min, long max, long value) {
 		//We cannot use the double overload since precision might be lost.
 		if(min > max)
-			throw new IllegalArgumentException("Min cannot be greater then Max");
+			throw new IllegalArgumentException("Min cannot be greater then Max " + "(min=" + min + "|max=" + max + ")");
 
 		if(value < min) {
 			return min;
