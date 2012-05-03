@@ -6,7 +6,7 @@ public class ScreenManager {
 	
 	private Screen activeScreen;
 	
-	public ScreenManager(Screen screen, int width, int height) {
+	public ScreenManager(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}

@@ -12,7 +12,7 @@ import graphics.*;
 import utils.*;
 
 public class GUIDemo extends Demo {
-	private static Rectangle screenDim 		= new Rectangle(0,0,1366,768);
+	private static Rectangle screenDim = new Rectangle(0,0,1366,768);
 
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;

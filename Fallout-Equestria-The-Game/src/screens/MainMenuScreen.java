@@ -1,12 +1,15 @@
 package screens;
 
+import math.Point2;
 import graphics.Color;
 import GUI.controls.Button;
 import GUI.controls.Panel;
+import utils.GameTime;
 import utils.Mouse;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends GUIScreen {
 	private boolean isFocused;
+	private Panel menuPanel;
 	
 	public MainMenuScreen() {
 		initialize();
@@ -14,7 +17,7 @@ public class MainMenuScreen implements Screen {
 	
 	@Override
 	public void initialize() {
-		Panel menuPanel = new Panel();
+		menuPanel = new Panel();
 		menuPanel.setBounds(0, 0, 1366, 768);
 		
 		Button singlePlayerButton = new Button();
@@ -44,11 +47,12 @@ public class MainMenuScreen implements Screen {
 	
 	@Override
 	public void update() {
-		
+//		menuPanel.checkMouseInput(new Point2(0,0), mouse);
+//		menuPanel.checkKeyboardInput();
 	}
 
 	@Override
-	public void draw() {
+	public void draw(GameTime time) {
 		
 	}
 
