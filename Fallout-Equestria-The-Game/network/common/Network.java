@@ -37,5 +37,6 @@ public class Network {
 		kryo.register(NewPlayerMessage.class);
 		kryo.register(PlayerCharacteristics.class);
 		kryo.register(Color.class);
+		kryo.register(ChatMessage.class);
 	}
 }

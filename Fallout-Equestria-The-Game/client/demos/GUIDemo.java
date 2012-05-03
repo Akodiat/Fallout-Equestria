@@ -263,17 +263,12 @@ public class GUIDemo extends Demo {
 		chatPanel.setFont(ContentManager.loadFont("arialb20.xml"));
 		this.panel.addChild(chatPanel);
 		
-<<<<<<< HEAD
 		Spinner spinner = new Spinner(20,0,1,10);
 		spinner.setBounds(20, 20, 160, 40);
 		spinner.setFont(ContentManager.loadFont("arialb20.xml"));
 		spinner.setBgColor(Color.DarkOrange);
 		this.panel.addChild(spinner);
-=======
-		Spinner spinner = new Spinner(10, 0, 1, 0);
-		spinner.setBounds(20, 50, 100, 20);
-		spinner.setBgColor(Color.Red);
-		this.panel.addChild(spinner);
+
 		
 		ComboBox<String> comboBox = new ComboBox<>();
 		comboBox.setBounds(20,260, 200, 23);
@@ -300,7 +295,6 @@ public class GUIDemo extends Demo {
 	
 		this.panel.addChild(comboBox);
 		
->>>>>>> Fixed loaders for look and feel
 	}
 
 }

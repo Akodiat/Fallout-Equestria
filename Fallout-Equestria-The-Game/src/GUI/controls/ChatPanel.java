@@ -5,13 +5,14 @@ import misc.EventArgs;
 import misc.IEventListener;
 import GUI.Event;
 import GUI.MouseEventArgs;
+import GUI.TextEventArgs;
 import graphics.TextureFont;
 
 public class ChatPanel extends Panel {
 	private final TextArea area;
 	private final Button sendButton;
 	private final Textfield inputField;
-	private final Event<EventArgs> sendTextEvent;
+	private final Event<TextEventArgs> sendTextEvent;
 		
 	
 	public ChatPanel() {
@@ -71,19 +72,19 @@ public class ChatPanel extends Panel {
 		if(text.length() > 0) {
 			this.inputField.setText("");
 			this.addText(text);
-			onTextAdded();
+			onTextAdded(text);
 		}
 	}
 	
-	private void onTextAdded() {
-		this.sendTextEvent.invoke(this, EventArgs.Empty);
+	private void onTextAdded(String text) {
+		this.sendTextEvent.invoke(this, new TextEventArgs(text));
 	}
 	
-	public void addTextSendListener(IEventListener<EventArgs> listener) {
-		this.sendTextEvent.addListener(listener);
+	public void addTextSendListener(IEventListener<TextEventArgs> iEventListener) {
+		this.sendTextEvent.addListener(iEventListener);
 	}
 	
-	public void removeTextSendListener(IEventListener<EventArgs> listener) {
+	public void removeTextSendListener(IEventListener<TextEventArgs> listener) {
 		this.sendTextEvent.addListener(listener);
 	}
 	

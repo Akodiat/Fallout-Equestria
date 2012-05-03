@@ -6,7 +6,6 @@ import ability.AbilitySystem;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import debugsystems.AbilityDebugLogicSystem;
 import debugsystems.DebugAttackRenderSystem;
 import debugsystems.DebugSpatialRenderSystem;
 import debugsystems.DebuggMapCollisionGrid;
