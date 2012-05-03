@@ -85,12 +85,12 @@ public class InputComp implements IComponent{
 		this.leftMouseButtonDown = other.leftMouseButtonDown;
 		this.rightMouseButtonDown = other.leftMouseButtonDown;
 		
-		this.backButton 	= new Key(other.backButton.getKeyID());
-		this.leftButton 	= new Key(other.leftButton.getKeyID());
-		this.rightButton	= new Key(other.rightButton.getKeyID());
-		this.forwardButton  = new Key(other.forwardButton.getKeyID());
-		this.pipBuckButton	= new Key(other.pipBuckButton.getKeyID());
-		this.gallopButton	= new Key(other.gallopButton.getKeyID());
+		this.backButton 	= other.backButton;
+		this.leftButton 	= other.leftButton;
+		this.rightButton	= other.rightButton;
+		this.forwardButton  = other.forwardButton;
+		this.pipBuckButton	= other.pipBuckButton;
+		this.gallopButton	= other.gallopButton;
 	}
 
 	public Key getForwardButton() {
