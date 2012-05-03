@@ -168,7 +168,7 @@ public class KryoClient {
 					IEntity player = world.getEntityManager().createEntity(
 							ContentManager.loadArchetype(
 									message.playerCharacteristics.archetypePath));
-					player.setLabel(Utils.getPlayerLabel(connection.getID()));
+					//player.setLabel(Utils.getPlayerLabel(connection.getID()));
 					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);
 					player.refresh();
 				}

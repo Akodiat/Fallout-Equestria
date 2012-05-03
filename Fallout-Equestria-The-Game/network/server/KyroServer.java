@@ -178,7 +178,8 @@ public class KyroServer {
 			}
 			@Override
 			public void connected(Connection arg0) {
-				super.connected(arg0);		
+				super.connected(arg0);	
+				
 			}
 		};
 	}
