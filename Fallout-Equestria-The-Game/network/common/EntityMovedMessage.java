@@ -6,4 +6,5 @@ import components.TransformationComp;
 public class EntityMovedMessage {
 	public TransformationComp newTransfComp;
 	public PhysicsComp newPhysComp;
+	public int entityID;
 }

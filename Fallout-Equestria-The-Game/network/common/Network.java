@@ -35,6 +35,7 @@ public class Network {
 		kryo.register(components.ExistanceComp.class);
 		
 		kryo.register(NewPlayerMessage.class);
+		kryo.register(EntityMovedMessage.class);
 		kryo.register(PlayerCharacteristics.class);
 		kryo.register(Color.class);
 		kryo.register(ChatMessage.class);

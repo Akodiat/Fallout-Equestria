@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import math.Vector2;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -20,14 +22,17 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
+import common.EntityMovedMessage;
 import common.Network;
 import common.NewPlayerMessage;
 import common.PlayerCharacteristics;
 import common.Utils;
 import components.BehaviourComp;
 import components.InputComp;
+import components.PhysicsComp;
 import components.RenderingComp;
 import components.SpecialComp;
+import components.TransformationComp;
 import content.ContentManager;
 import demos.WorldBuilder;
 import entityFramework.IEntity;
@@ -93,6 +98,7 @@ public class KyroServer {
 			e.printStackTrace();
 		} finally {
 			Display.destroy();
+			server.stop();
 		}
 	}
 	
@@ -140,7 +146,18 @@ public class KyroServer {
 		this.world.update(time);
 		this.world.getEntityManager().destoryKilledEntities();
 		
-		
+		for (IEntity entity: this.world.getDatabase().getEntitysContainingComponents(TransformationComp.class, PhysicsComp.class)) {
+			if(!entity.getComponent(PhysicsComp.class).getVelocity().equals(Vector2.Zero)){
+				EntityMovedMessage message = new EntityMovedMessage();
+				
+				message.entityID = entity.getUniqueID();
+				message.newPhysComp = entity.getComponent(PhysicsComp.class);
+				message.newTransfComp = entity.getComponent(TransformationComp.class);
+				
+				server.sendToAllUDP(message);
+			}
+				
+		}
 	}
 
 	public void render(GameTime time) {

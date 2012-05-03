@@ -20,6 +20,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import common.EntityMovedMessage;
 import common.IRemoteServer;
 import common.Network;
 import common.NewPlayerMessage;
@@ -96,6 +97,7 @@ public class KryoClient {
 			e.printStackTrace();
 		} finally {
 			Display.destroy();
+			client.stop();
 		}
 	}
 
@@ -171,6 +173,14 @@ public class KryoClient {
 					//player.setLabel(Utils.getPlayerLabel(connection.getID()));
 					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);
 					player.refresh();
+				}
+				else if (object instanceof EntityMovedMessage){
+					EntityMovedMessage message = (EntityMovedMessage) object;
+					
+					IEntity entity = world.getEntityManager().getEntity(message.entityID);
+					entity.addComponent(message.newPhysComp);
+					entity.addComponent(message.newTransfComp); //TODO Create and use setAllToBeLike(...) method
+					entity.refresh();
 				}
 			};
 		};
