@@ -44,15 +44,7 @@ public class InputComp implements IComponent{
 
 	//TODO chain constructors;
 	public InputComp(){
-		
-		this.mousePosition = Vector2.Zero;
-		this.setMouseDisplacement(Vector2.Zero);
-		this.setBackButton(Keyboard.KEY_S);
-		this.setLeftButton(Keyboard.KEY_A);
-		this.setForwardButton(Keyboard.KEY_W);
-		this.setRightButton(Keyboard.KEY_D);
-		this.setGallopButton(Keyboard.KEY_LSHIFT);
-		this.setPipBuckButton(Keyboard.KEY_TAB);
+		this(Keyboard.KEY_S, Keyboard.KEY_A, Keyboard.KEY_W, Keyboard.KEY_D, Keyboard.KEY_LSHIFT, Keyboard.KEY_TAB);
 	}
 	
 	public InputComp(int backButtonID, int leftButtonID, int forwardButtonID, int rightButtonID, int gallopButtonID, int pipBuckButtonID){
@@ -67,17 +59,18 @@ public class InputComp implements IComponent{
 		this.gallopButton=gallopButton;
 		this.pipBuckButton=pipBuckButton;
 	}
-	private InputComp(InputComp inpComp){
-		this.mousePosition = inpComp.mousePosition;
-		this.leftMouseButtonDown = inpComp.leftMouseButtonDown;
-		this.rightMouseButtonDown = inpComp.leftMouseButtonDown;
+	private InputComp(InputComp other){
+		this(
+				new Key(other.backButton.getKeyID()),
+				new Key(other.leftButton.getKeyID()),
+				new Key(other.forwardButton.getKeyID()),
+				new Key(other.rightButton.getKeyID()),
+				new Key(other.gallopButton.getKeyID()),
+				new Key(other.pipBuckButton.getKeyID()));
 		
-		this.backButton 	= new Key(inpComp.backButton.getKeyID());
-		this.leftButton 	= new Key(inpComp.leftButton.getKeyID());
-		this.rightButton	= new Key(inpComp.rightButton.getKeyID());
-		this.forwardButton  = new Key(inpComp.forwardButton.getKeyID());
-		this.pipBuckButton	= new Key(inpComp.pipBuckButton.getKeyID());
-		this.gallopButton	= new Key(inpComp.gallopButton.getKeyID());
+		this.mousePosition = other.mousePosition;
+		this.leftMouseButtonDown = other.leftMouseButtonDown;
+		this.rightMouseButtonDown = other.leftMouseButtonDown;
 	}
 	
 	/**
@@ -85,6 +78,19 @@ public class InputComp implements IComponent{
 	 */
 	public Object clone(){
 		return new InputComp(this);
+	}
+	
+	public void setAllToBeLike(InputComp other){
+		this.mousePosition = other.mousePosition;
+		this.leftMouseButtonDown = other.leftMouseButtonDown;
+		this.rightMouseButtonDown = other.leftMouseButtonDown;
+		
+		this.backButton 	= new Key(other.backButton.getKeyID());
+		this.leftButton 	= new Key(other.leftButton.getKeyID());
+		this.rightButton	= new Key(other.rightButton.getKeyID());
+		this.forwardButton  = new Key(other.forwardButton.getKeyID());
+		this.pipBuckButton	= new Key(other.pipBuckButton.getKeyID());
+		this.gallopButton	= new Key(other.gallopButton.getKeyID());
 	}
 
 	public Key getForwardButton() {

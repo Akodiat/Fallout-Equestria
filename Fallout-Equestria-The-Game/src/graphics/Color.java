@@ -9,6 +9,10 @@ public class Color implements java.io.Serializable {
 	public final float B;
 	public final float A;
 	
+	public Color(){
+		this(1,1,1,1);
+	}
+	
 	public Color(float red, float green, float blue, float alpha) {
 		R = MathHelper.clamp(0.0f, 1.0f, red);
 		G = MathHelper.clamp(0.0f, 1.0f, green);

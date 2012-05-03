@@ -9,7 +9,11 @@ import com.google.common.collect.ImmutableSet;
 import components.PhysicsComp;
 import components.TransformationComp;
 
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public final class EntityArchetypeProxy implements IEntityArchetype{
 
 	//Since the components should not be changed.
