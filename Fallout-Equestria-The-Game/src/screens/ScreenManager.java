@@ -1,44 +1,38 @@
 package screens;
 
+import graphics.SpriteBatch;
+import utils.Camera2D;
+import utils.Mouse;
+import utils.Rectangle;
+import utils.TimeSpan;
+
 public class ScreenManager {
-	private int width;
-	private int height;
+	private static final Rectangle screenDim = new Rectangle(0,0,1366,768);
 	
-	private Screen activeScreen;
+	private Camera2D camera;
+	private SpriteBatch spriteBatch;
+	private Mouse mouse;
 	
 	public ScreenManager(int width, int height) {
-		this.width = width;
-		this.height = height;
+		this.camera = new Camera2D(screenDim, screenDim);
+		this.spriteBatch = new SpriteBatch(screenDim);
+		this.mouse = new Mouse();
 	}
 	
-	public void transition(Screen fromScreen, Screen toScreen, int fromTime, int toTime) {
-		fromScreen.switchFrom(fromTime);
-		toScreen.switchTo(toTime);
-		
-		this.setActiveScreen(toScreen);
+	public void transition(Screen fromScreen, Screen toScreen, TimeSpan time) {
+		fromScreen.switchFrom(time);
+		toScreen.switchTo(time);
 	}
 	
-	public int getWidth() {
-		return width;
+	public Camera2D getCamera() {
+		return camera;
 	}
 
-	public void setWidth(int width) {
-		this.width = width;
+	public SpriteBatch getSpriteBatch() {
+		return spriteBatch;
 	}
 
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public Screen getActiveScreen() {
-		return activeScreen;
-	}
-
-	public void setActiveScreen(Screen screen) {
-		this.activeScreen = screen;
+	public Mouse getMouse() {
+		return mouse;
 	}
 }

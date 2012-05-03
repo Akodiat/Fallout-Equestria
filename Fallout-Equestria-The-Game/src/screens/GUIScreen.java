@@ -1,34 +1,25 @@
 package screens;
 
-import math.Point2;
 import content.ContentManager;
-import graphics.SpriteBatch;
+import graphics.Color;
 import graphics.Texture2D;
 import GUI.GUIFocusManager;
-import GUI.VisibleElement;
-import GUI.controls.Panel;
+import GUI.graphics.VisibleElement;
 import GUI.graphics.GUIRenderingContext;
 import GUI.graphics.LookAndFeel;
-import utils.Camera2D;
 import utils.GameTime;
 import utils.Mouse;
+import utils.TimeSpan;
 
 public class GUIScreen implements Screen{
-	private Camera2D camera;
-	private SpriteBatch spriteBatch;
-	private Mouse mouse;
-	
+	private ScreenManager screenManager;
+	private boolean isFocused;
+
 	private GUIRenderingContext context;
 	private GUIFocusManager manager;
-	
-	protected Panel contentPanel;
 
 	@Override
 	public void initialize() {
-		this.camera = new Camera2D(screenDim, screenDim);
-		this.spriteBatch = new SpriteBatch(screenDim);
-		this.mouse = new Mouse();
-		
 		Texture2D backgroundTexture = ContentManager.loadTexture("GUI/Fallout-2-icon.png");
 		Texture2D buttonOverTexture = ContentManager.loadTexture("GUI/Fallout-2-2-icon.png");
 		Texture2D buttonDownTexture = ContentManager.loadTexture("GUI/fallout_point_lookout.png");
@@ -50,43 +41,60 @@ public class GUIScreen implements Screen{
 		lookAndFeel.setElement("TextArea_Background", new VisibleElement(textAreaBackground, textAreaBackground.getBounds()));	
 		lookAndFeel.setDefaultFont(ContentManager.loadFont("arialb20.xml"));
 		
-		context = new GUIRenderingContext(spriteBatch, lookAndFeel, ContentManager.loadShaderEffect("GrayScale.effect"));
+		context = new GUIRenderingContext(screenManager.getSpriteBatch(), lookAndFeel, ContentManager.loadShaderEffect("GrayScale.effect"));
 	}
 
 	@Override
 	public void update() {
-		this.mouse.poll(camera);
-		contentPanel.checkMouseInput(new Point2(0,0), mouse);
-		contentPanel.checkKeyboardInput();
+		screenManager.getMouse().poll(screenManager.getCamera());
 	}
 
 	@Override
 	public void draw(GameTime time) {
-		// TODO Auto-generated method stub
-		
+		screenManager.getSpriteBatch().clearScreen(Color.Black);
 	}
 
 	@Override
 	public void handleInput(Mouse m) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean isFocused() {
-		// TODO Auto-generated method stub
-		return false;
+		return isFocused;
 	}
 
 	@Override
-	public void switchTo(int time) {
-		// TODO Auto-generated method stub
+	public void switchTo(TimeSpan time) {
 		
 	}
 
 	@Override
-	public void switchFrom(int time) {
-		// TODO Auto-generated method stub
+	public void switchFrom(TimeSpan time) {
 		
+	}
+	
+	public GUIRenderingContext getContext() {
+		return context;
+	}
+
+	public void setContext(GUIRenderingContext context) {
+		this.context = context;
+	}
+
+	public GUIFocusManager getManager() {
+		return manager;
+	}
+
+	public void setManager(GUIFocusManager manager) {
+		this.manager = manager;
+	}
+
+	public ScreenManager getScreenManager() {
+		return screenManager;
+	}
+
+	public void setScreenManager(ScreenManager screenManager) {
+		this.screenManager = screenManager;
 	}
 }
