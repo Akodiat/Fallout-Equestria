@@ -130,7 +130,8 @@ public class KyroServer {
 		message.playerCharacteristics = new PlayerCharacteristics();
 		
 		message.playerCharacteristics.name = "P"+(int)(Math.random()*21);
-		message.playerCharacteristics.color= new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
+		message.playerCharacteristics.color = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
+		message.playerCharacteristics.archetypePath = playerAsset;
 		
 		this.addedPlayerMessages.add(message);
 	}
