@@ -17,6 +17,8 @@ import utils.GameTime;
 import utils.Rectangle;
 
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 
 import common.IRemoteServer;
 import common.Network;
@@ -66,9 +68,11 @@ public class KryoClient {
 	public KryoClient(Rectangle screenDim, int fps) throws IOException {
 		this.client = new Client();
 		this.client.start();
+		Network.registerClasses(this.client);
+
 		this.client.connect(5000, "localhost", 54555, 54777);
 
-		Network.registerClasses(client);
+		this.client.addListener(this.generateNewListener());
 
 		this.screenDim = screenDim;
 		this.fps = fps;
@@ -110,9 +114,9 @@ public class KryoClient {
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
-		
+
 		String label = Utils.getPlayerLabel(this.client.getID());
-		
+
 		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, label);
 		world.initialize();
 
@@ -127,15 +131,15 @@ public class KryoClient {
 		NewPlayerMessage message = new NewPlayerMessage();
 		message.specialComp = player.getComponent(SpecialComp.class);
 		message.playerCharacteristics = new PlayerCharacteristics();
-		
+
 		message.playerCharacteristics.name = "P"+(int)(Math.random()*21);
 		message.playerCharacteristics.color= new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
-		
+
 		//Not to be here:
 		player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color); player.refresh();
-		
+
 		message.playerCharacteristics.archetypePath = playerAsset;
-		
+
 		this.client.sendTCP(message);
 
 	}
@@ -153,5 +157,22 @@ public class KryoClient {
 		this.world.render();
 		this.spriteBatch.end();
 
+	}
+
+	private Listener generateNewListener(){
+		return new Listener() {
+			public void received (Connection connection, Object object) {
+				if (object instanceof NewPlayerMessage){
+					NewPlayerMessage message = (NewPlayerMessage) object;
+
+					IEntity player = world.getEntityManager().createEntity(
+							ContentManager.loadArchetype(
+									message.playerCharacteristics.archetypePath));
+					player.setLabel(Utils.getPlayerLabel(connection.getID()));
+					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);
+					player.refresh();
+				}
+			};
+		};
 	}
 }

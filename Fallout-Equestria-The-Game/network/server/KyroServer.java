@@ -124,6 +124,15 @@ public class KyroServer {
 		player.setLabel(label);
 		player.addToGroup(CameraControlSystem.GROUP_NAME);
 		player.refresh();
+		
+		NewPlayerMessage message = new NewPlayerMessage();
+		message.specialComp = player.getComponent(SpecialComp.class);
+		message.playerCharacteristics = new PlayerCharacteristics();
+		
+		message.playerCharacteristics.name = "P"+(int)(Math.random()*21);
+		message.playerCharacteristics.color= new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
+		
+		this.addedPlayerMessages.add(message);
 	}
 
 	public void update(GameTime time) {
@@ -147,8 +156,14 @@ public class KyroServer {
 					IEntity player = world.getEntityManager().getEntity(Utils.getPlayerLabel(connection.getID()));
 					player.getComponent(InputComp.class).setAllToBeLike(message);
 					System.out.println("Made it");
+					
 				}
 				else if (object instanceof NewPlayerMessage){
+					for (NewPlayerMessage message : addedPlayerMessages) { //Sends messages from all other players to the newly connected player.
+						System.out.println(message);
+						connection.sendTCP(message);
+					}
+					
 					NewPlayerMessage message = (NewPlayerMessage) object;
 					addedPlayerMessages.add(message);
 					IEntity player = world.getEntityManager().createEntity(
@@ -162,12 +177,7 @@ public class KyroServer {
 			}
 			@Override
 			public void connected(Connection arg0) {
-				super.connected(arg0);
-				
-				for (NewPlayerMessage message : addedPlayerMessages) { //Sends messages from all other players to the newly connected player.
-					server.sendToTCP(arg0.getID(), message);
-				}
-				
+				super.connected(arg0);		
 			}
 		};
 	}
