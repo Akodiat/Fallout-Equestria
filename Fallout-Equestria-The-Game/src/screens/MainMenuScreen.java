@@ -6,6 +6,11 @@ public class MainMenuScreen implements Screen {
 	private boolean isFocused;
 	
 	public MainMenuScreen() {
+		initialize();
+	}
+	
+	@Override
+	public void initialize() {
 		
 	}
 	
