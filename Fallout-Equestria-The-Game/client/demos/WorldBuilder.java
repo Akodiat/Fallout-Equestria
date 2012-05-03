@@ -24,6 +24,7 @@ import entityFramework.IEntitySystemManager;
 import entityFramework.IEntityWorld;
 import entitySystems.AnimationSystem;
 import entitySystems.CameraControlSystem;
+import entitySystems.CollisionSystem;
 import entitySystems.DeathSystem;
 import entitySystems.ExistanceSystem;
 import entitySystems.GUIRenderingSystem;
@@ -102,6 +103,7 @@ public class WorldBuilder {
 		manager.addLogicEntitySystem(new ServerInputSystem(world, camera, label));
 		manager.addLogicEntitySystem(new PhysicsSystem(world));
 		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));
+		manager.addLogicEntitySystem(new CollisionSystem(world));
 		
 		
 		//Rendering systems!

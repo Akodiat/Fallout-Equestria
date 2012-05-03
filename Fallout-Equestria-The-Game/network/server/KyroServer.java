@@ -138,7 +138,9 @@ public class KyroServer {
 
 	public void update(GameTime time) {
 		this.world.update(time);
-		this.world.getEntityManager().destoryKilledEntities();	
+		this.world.getEntityManager().destoryKilledEntities();
+		
+		
 	}
 
 	public void render(GameTime time) {
@@ -156,8 +158,6 @@ public class KyroServer {
 					InputComp message = (InputComp) object;
 					IEntity player = world.getEntityManager().getEntity(Utils.getPlayerLabel(connection.getID()));
 					player.getComponent(InputComp.class).setAllToBeLike(message);
-					System.out.println("Made it");
-					
 				}
 				else if (object instanceof NewPlayerMessage){
 					for (NewPlayerMessage message : addedPlayerMessages) { //Sends messages from all other players to the newly connected player.
