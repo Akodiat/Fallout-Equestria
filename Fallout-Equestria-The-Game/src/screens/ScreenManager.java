@@ -9,11 +9,13 @@ public class ScreenManager {
 	public ScreenManager(Screen screen, int width, int height) {
 		this.width = width;
 		this.height = height;
-		this.setActiveScreen(screen);
 	}
 	
-	public void transition(Screen newScreen, int time) {
-		this.setActiveScreen(newScreen);
+	public void transition(Screen fromScreen, Screen toScreen, int fromTime, int toTime) {
+		fromScreen.switchFrom(fromTime);
+		toScreen.switchTo(toTime);
+		
+		this.setActiveScreen(toScreen);
 	}
 	
 	public int getWidth() {
@@ -39,5 +41,4 @@ public class ScreenManager {
 	public void setActiveScreen(Screen screen) {
 		this.activeScreen = screen;
 	}
-	
 }
