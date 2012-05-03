@@ -1,6 +1,5 @@
 package screens;
 
-import math.Point2;
 import graphics.Color;
 import GUI.controls.Button;
 import GUI.controls.Panel;
@@ -9,7 +8,6 @@ import utils.Mouse;
 
 public class MainMenuScreen extends GUIScreen {
 	private boolean isFocused;
-	private Panel menuPanel;
 	
 	public MainMenuScreen() {
 		initialize();
@@ -17,38 +15,37 @@ public class MainMenuScreen extends GUIScreen {
 	
 	@Override
 	public void initialize() {
-		menuPanel = new Panel();
-		menuPanel.setBounds(0, 0, 1366, 768);
+		contentPanel = new Panel();
+		contentPanel.setBounds(0, 0, 1366, 768);
 		
 		Button singlePlayerButton = new Button();
 		singlePlayerButton.setBounds(1200, 200, 120, 40);
 		singlePlayerButton.setText("Singleplayer");
 		singlePlayerButton.setFgColor(new Color(200,50,200,255));
-		menuPanel.addChild(singlePlayerButton);
+		contentPanel.addChild(singlePlayerButton);
 		
 		Button multiPlayerButton = new Button(); 
 		multiPlayerButton.setBounds(1200, 260, 120, 40);
 		multiPlayerButton.setText("Multiplayer");
 		multiPlayerButton.setFgColor(new Color(200,50,200,255));
-		menuPanel.addChild(multiPlayerButton);
+		contentPanel.addChild(multiPlayerButton);
 		
 		Button optionsButton = new Button(); 
 		optionsButton.setBounds(1200, 320, 120, 40);
 		optionsButton.setText("Options");
 		optionsButton.setFgColor(new Color(200,50,200,255));
-		menuPanel.addChild(optionsButton);
+		contentPanel.addChild(optionsButton);
 		
 		Button creditsButton = new Button();
 		creditsButton.setBounds(1200, 380, 120, 40);
 		creditsButton.setText("Credits");
 		creditsButton.setFgColor(new Color(200,50,200,255));
-		menuPanel.addChild(creditsButton);
+		contentPanel.addChild(creditsButton);
 	}
 	
 	@Override
 	public void update() {
-//		menuPanel.checkMouseInput(new Point2(0,0), mouse);
-//		menuPanel.checkKeyboardInput();
+
 	}
 
 	@Override

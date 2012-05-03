@@ -1,10 +1,12 @@
 package screens;
 
+import math.Point2;
 import content.ContentManager;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import GUI.GUIFocusManager;
 import GUI.VisibleElement;
+import GUI.controls.Panel;
 import GUI.graphics.GUIRenderingContext;
 import GUI.graphics.LookAndFeel;
 import utils.Camera2D;
@@ -18,6 +20,8 @@ public class GUIScreen implements Screen{
 	
 	private GUIRenderingContext context;
 	private GUIFocusManager manager;
+	
+	protected Panel contentPanel;
 
 	@Override
 	public void initialize() {
@@ -52,6 +56,8 @@ public class GUIScreen implements Screen{
 	@Override
 	public void update() {
 		this.mouse.poll(camera);
+		contentPanel.checkMouseInput(new Point2(0,0), mouse);
+		contentPanel.checkKeyboardInput();
 	}
 
 	@Override
