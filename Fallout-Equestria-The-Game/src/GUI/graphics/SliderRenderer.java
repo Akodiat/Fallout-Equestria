@@ -1,6 +1,5 @@
 package GUI.graphics;
 
-import GUI.VisibleElement;
 import GUI.controls.Slider;
 import graphics.Color;
 import graphics.SpriteBatch;

@@ -31,7 +31,7 @@ public abstract class GUIControl {
 	private int renderOrder;
 	private IGUIRenderer<?> renderer;
 	
-	private Rectangle bounds;
+	protected Rectangle bounds;
 	private Color bgColor;
 	private Color fgColor;
 	private String name;

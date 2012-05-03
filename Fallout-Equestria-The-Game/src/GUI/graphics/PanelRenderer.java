@@ -14,7 +14,7 @@ public class PanelRenderer implements IGUIRenderer<Panel>{
 
 	@Override
 	public void render(SpriteBatch batch, GameTime time, Panel control, LookAndFeel lookAndFeel) {	
-		Rectangle dim = new Rectangle(0,0,control.getBounds().Width, control.getBounds().Height);	
+		Rectangle dim = new Rectangle(-10,-10,control.getBounds().Width + 1000, control.getBounds().Height + 1000);	
 		batch.draw(Texture2D.getPixel(), dim, control.getBgColor(), null);	
 	}
 

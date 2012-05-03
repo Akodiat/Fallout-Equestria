@@ -31,9 +31,10 @@ public class ListBox<T> extends GUISelector<T> {
 	private Color selectedItemColor;
 	
 	
-	public ListBox(ScrollBar vBar, ScrollBar hBar) {
-		this.vBar = vBar;
-		this.hBar = hBar;
+	public ListBox() {
+		this.vBar = new ScrollBar();
+		this.hBar = new ScrollBar();
+		this.hBar.setHorizontal(true);
 		this.vBar.setEnabled(false);
 		this.vBar.setVisible(false);
 		

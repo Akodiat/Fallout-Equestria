@@ -1,8 +1,6 @@
 package GUI.graphics;
 
 import GUI.FontHelper;
-import GUI.VisibleElement;
-import GUI.controls.Button;
 import GUI.controls.ButtonBase;
 import math.Vector2;
 import graphics.SpriteBatch;

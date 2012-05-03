@@ -5,7 +5,6 @@ import java.util.List;
 import math.Point2;
 import math.Vector2;
 
-import GUI.VisibleElement;
 import GUI.controls.TextArea;
 import graphics.SpriteBatch;
 import utils.GameTime;

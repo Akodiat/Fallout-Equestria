@@ -4,7 +4,6 @@ import graphics.TextureFont;
 
 import java.util.ArrayList;
 import java.util.List;
-import static utils.StringHelper.*;
 
 import com.google.common.collect.ImmutableList;
 

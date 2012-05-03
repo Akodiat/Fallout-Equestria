@@ -1,6 +1,5 @@
 package GUI.graphics;
 
-import GUI.VisibleElement;
 import GUI.controls.ScrollBar;
 import graphics.SpriteBatch;
 import utils.GameTime;

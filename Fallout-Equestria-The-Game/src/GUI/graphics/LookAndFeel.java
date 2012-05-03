@@ -5,8 +5,6 @@ import graphics.TextureFont;
 import java.util.Map;
 import java.util.HashMap;
 
-import GUI.VisibleElement;
-
 public class LookAndFeel {
 	private Map<String, VisibleElement> guiElements;
 	private TextureFont defaultFont;

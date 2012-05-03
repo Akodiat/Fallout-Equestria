@@ -10,10 +10,12 @@ public class Textfield extends GUITextBase {
 	private static final TextboxRenderer DEFAULT_RENDERER = new TextboxRenderer();
 	
 	private int markerPosition;
+	private boolean editable;
 	
 	public Textfield() {
 		this.markerPosition = 0;
 		this.setRenderer(DEFAULT_RENDERER);
+		this.editable = true;
 	}	
 
 	public int getMarkerPosition() {
@@ -26,6 +28,14 @@ public class Textfield extends GUITextBase {
 		 this.markerPosition = text.length();
 	 }
 	
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
 	@Override
 	protected void onFocusGained() {
 		super.onFocusGained();
@@ -40,22 +50,24 @@ public class Textfield extends GUITextBase {
 	
 	@Override
 	protected void onKeyDown(char keyChar, int key) {	
-		super.onKeyDown(keyChar, key);
-		if(key == Keyboard.KEY_BACK) {
-			if(deleteChar(this.markerPosition - 1)) {
-				markerPosition -= 1;
-			}
-		} else if(key == Keyboard.KEY_DELETE) {
-			deleteChar(this.markerPosition);
-		} else if(key == Keyboard.KEY_LEFT && this.markerPosition != 0) {
-			this.markerPosition -= 1;
-		} else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT && this.markerPosition < this.getText().length()) {
-			this.markerPosition += 1;
-		} else if(("!\"#¤%@ &/()=?\\`^*'~¨_.,:;-|><").contains(keyChar + "") 
-				||  Character.isLetterOrDigit(keyChar) && !("åäöÅÄÖ").contains(keyChar + "")) {
-
-			if(this.insertChar(keyChar)) {
-				markerPosition += 1;
+		if(this.editable) {
+			super.onKeyDown(keyChar, key);
+			if(key == Keyboard.KEY_BACK) {
+				if(deleteChar(this.markerPosition - 1)) {
+					markerPosition -= 1;
+				}
+			} else if(key == Keyboard.KEY_DELETE) {
+				deleteChar(this.markerPosition);
+			} else if(key == Keyboard.KEY_LEFT && this.markerPosition != 0) {
+				this.markerPosition -= 1;
+			} else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT && this.markerPosition < this.getText().length()) {
+				this.markerPosition += 1;
+			} else if(("!\"#¤%@ &/()=?\\`^*'~¨_.,:;-|><").contains(keyChar + "") 
+					||  Character.isLetterOrDigit(keyChar) && !("åäöÅÄÖ").contains(keyChar + "")) {
+	
+				if(this.insertChar(keyChar)) {
+					markerPosition += 1;
+				}
 			}
 		}
 	}

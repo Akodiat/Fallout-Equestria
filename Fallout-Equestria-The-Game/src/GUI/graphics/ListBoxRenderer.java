@@ -11,6 +11,7 @@ import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import utils.GameTime;
+import utils.Rectangle;
 
 @SuppressWarnings("rawtypes")
 public class ListBoxRenderer implements IGUIRenderer<ListBox>{
@@ -26,8 +27,8 @@ public class ListBoxRenderer implements IGUIRenderer<ListBox>{
 		int selectedItemIndex = control.getSelecteItemIndex();
 		Point2 viewOffset = control.getViewOffset();
 		
-		
-		batch.draw(Texture2D.getPixel(), control.getDimention(), control.getBgColor(), null);
+		Rectangle dim = new Rectangle(-10,-20,control.getDimention().Width + 20,control.getDimention().Height + 20);
+		batch.draw(Texture2D.getPixel(), dim, control.getBgColor(), null);
 		
 		@SuppressWarnings("unchecked")
 		ImmutableList<String> itemStrings = control.getItemsAsStrings();

@@ -38,6 +38,7 @@ public final class ContentManager {
 		addContentLoader(new SceneLoader());
 		addContentLoader(new AnimationLoader());
 		addContentLoader(new TextureDictionaryLoader());
+		addContentLoader(new LookAndFeelLoader());
 		
 		//TODO add more if needed!. 
 	}

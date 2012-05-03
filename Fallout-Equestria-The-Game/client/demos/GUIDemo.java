@@ -50,9 +50,9 @@ public class GUIDemo extends Demo {
 		this.spriteBatch = new SpriteBatch(screenDim);
 		this.mouse = new Mouse();
 		
-		Texture2D backgroundTexture = ContentManager.loadTexture("GUI/Fallout-2-icon.png");
-		Texture2D buttonOverTexture = ContentManager.loadTexture("GUI/Fallout-2-2-icon.png");
-		Texture2D buttonDownTexture = ContentManager.loadTexture("GUI/fallout_point_lookout.png");
+		Texture2D backgroundTexture = ContentManager.loadTexture("GUI/Button_BG.png");
+		Texture2D buttonOverTexture = ContentManager.loadTexture("GUI/Button_Down.png");
+		Texture2D buttonDownTexture = ContentManager.loadTexture("GUI/Button_Over.png");
 		Texture2D sliderAndScrollBG = ContentManager.loadTexture("GUI/guiBackground.png");
 		Texture2D textboxBG 		= ContentManager.loadTexture("GUI/guiBackground.png");
 		Texture2D scrollButtonBG    = ContentManager.loadTexture("GUI/guiBackground.png");
@@ -81,6 +81,8 @@ public class GUIDemo extends Demo {
 		falloutButton0.setBounds(new Rectangle(600,400,256,256));
 		falloutButton0.setText("Click Me!");
 		falloutButton0.setFgColor(new Color(200,50,200,255));
+		falloutButton0.setBgColor(new Color(200,50,200,255));
+		
 		panel.addChild(falloutButton0);
 		
 		Label buttonLabel = new Label();
@@ -144,10 +146,7 @@ public class GUIDemo extends Demo {
 		scrollBarLabel.setBounds(new Rectangle(1100,0,200,50));
 		scrollBarLabel.setFgColor(Color.Orange);
 		scrollBarLabel.setText("Scrollbars! \nThey can scroll :O");
-		panel.addChild(scrollBarLabel);
-		
-
-						
+		panel.addChild(scrollBarLabel);				
 		
 		final ScrollBar vBar = new ScrollBar();
 		vBar.setBounds(1300,50,20,200);
@@ -187,24 +186,7 @@ public class GUIDemo extends Demo {
 		hBar.addScrollListener(scroll);
 		
 		
-						
-		
-		final ScrollBar vBar1 = new ScrollBar();
-		vBar1.setBounds(0,0,20,200);
-		vBar1.setVertical(true);
-		vBar1.setScrollMax(100);
-		vBar1.setBackground(ContentManager.loadTexture("GUI/guiBackground.png"));
-		
-						
-		final ScrollBar hBar1 = new ScrollBar();
-		hBar1.setBounds(0,0,200,20);
-		hBar1.setHorizontal(true);
-		hBar1.setScrollMax(100);
-		hBar1.setBackground(ContentManager.loadTexture("GUI/guiBackground.png"));
-		
-		
-		
-		final ListBox<String> listBox = new ListBox<>(vBar1, hBar1);
+		final ListBox<String> listBox = new ListBox<>();
 		listBox.setBounds(470,50,150,250);
 		listBox.setFont(ContentManager.loadFont("arialb20.xml"));
 		listBox.setBgColor(new Color(220,220,220,255));
@@ -216,6 +198,7 @@ public class GUIDemo extends Demo {
 
 		Button addItemButton = new Button();
 		addItemButton.setBounds(new Rectangle(200,40,158,158));
+		addItemButton.setFgColor(new Color(0,255,0,255));
 		addItemButton.setText("Add item!");
 		addItemButton.setImage(ContentManager.loadTexture("GUI/Fallout-2-icon.png"));
 		addItemButton.setFont(ContentManager.loadFont("Pericles20bi.xml"));
@@ -280,11 +263,44 @@ public class GUIDemo extends Demo {
 		chatPanel.setFont(ContentManager.loadFont("arialb20.xml"));
 		this.panel.addChild(chatPanel);
 		
+<<<<<<< HEAD
 		Spinner spinner = new Spinner(20,0,1,10);
 		spinner.setBounds(20, 20, 160, 40);
 		spinner.setFont(ContentManager.loadFont("arialb20.xml"));
 		spinner.setBgColor(Color.DarkOrange);
 		this.panel.addChild(spinner);
+=======
+		Spinner spinner = new Spinner(10, 0, 1, 0);
+		spinner.setBounds(20, 50, 100, 20);
+		spinner.setBgColor(Color.Red);
+		this.panel.addChild(spinner);
+		
+		ComboBox<String> comboBox = new ComboBox<>();
+		comboBox.setBounds(20,260, 200, 23);
+		comboBox.setBgColor(new Color(0,0,0,0));
+		comboBox.setFont(ContentManager.loadFont("Pericles20bi.xml"));
+		comboBox.addItem("Hej");
+		comboBox.addItem("Hej1");
+		comboBox.addItem("Hej2");
+		comboBox.addItem("Hej3");
+		comboBox.addItem("Hej4");
+		comboBox.addItem("Hej5");
+		comboBox.addItem("Hej6");
+		comboBox.addItem("Hej7");
+		comboBox.addItem("Hej8");
+		comboBox.addItem("Hej9");
+		
+		comboBox.addSelectedChangedListener(new IEventListener<ItemEventArgs<String>>() {
+			
+			@Override
+			public void onEvent(Object sender, ItemEventArgs<String> e) {
+				System.out.println(e.getItem());
+			}
+		});
+	
+		this.panel.addChild(comboBox);
+		
+>>>>>>> Fixed loaders for look and feel
 	}
 
 }

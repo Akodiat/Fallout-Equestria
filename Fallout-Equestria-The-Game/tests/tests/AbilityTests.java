@@ -17,7 +17,6 @@ import components.TransformationComp;
 import components.WeaponComp;
 
 import content.ContentManager;
-import debugsystems.AbilityDebugLogicSystem;
 import debugsystems.AbilityDebugRenderSystem;
 import debugsystems.DebugAttackRenderSystem;
 import debugsystems.DebugSpatialRenderSystem;
@@ -110,9 +109,6 @@ public class AbilityTests {
 		systemManager.addLogicEntitySystem(new InputSystem(world, camera));
 		systemManager.addLogicEntitySystem(new PhysicsSystem(world));
 		systemManager.addLogicEntitySystem(new ScriptSystem(world));
-		
-		//Debug logic systems!
-		systemManager.addLogicEntitySystem(new AbilityDebugLogicSystem(world, "Player"));
 		
 		//Rendering systems!
 		systemManager.addRenderEntitySystem(new RenderingSystem(world, this.spriteBatch));

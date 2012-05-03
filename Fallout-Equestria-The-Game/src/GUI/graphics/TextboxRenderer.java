@@ -1,6 +1,5 @@
 package GUI.graphics;
 
-import GUI.VisibleElement;
 import GUI.controls.Textfield;
 import math.Vector2;
 import graphics.SpriteBatch;
@@ -43,7 +42,7 @@ public class TextboxRenderer implements IGUIRenderer<Textfield>{
 				   control.getBgColor(), 
 				   backgroundElement.getSrcRect());
 		
-		if(control.isFocused()) {
+		if(control.isFocused() && control.isEditable()) {
 			renderFocused(batch, control, text, font);	
 		} else {
 			renderNonFocused(batch, control,text, font);
