@@ -1,14 +1,21 @@
 package GUI.graphics;
 
+import GUI.LookAndFeelAssets;
 import GUI.controls.Slider;
 import graphics.Color;
+import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import utils.GameTime;
 import utils.Rectangle;
 
 public class SliderRenderer implements IGUIRenderer<Slider>{
-	public static final String DEFAULT_SLIDER_BACKGROUND = "Slider_Background";
+	public static final String DEFAULT_SLIDER_BACKGROUND = LookAndFeelAssets.Slider_BG.toString();
+	public static final String DEFAULT_SLIDER_OVERLAY = LookAndFeelAssets.Slider_Overlay.toString();
+	public static final String DEFAULT_V_SLIDER_BACKGROUND = LookAndFeelAssets.VerticalSlider_BG.toString();
+	public static final String DEFAULT_V_SLIDER_OVERLAY = LookAndFeelAssets.VerticalSlider_Overlay.toString();
+	
+	
 	
 	@Override
 	public Class<Slider> getRenderedType() {
@@ -16,8 +23,13 @@ public class SliderRenderer implements IGUIRenderer<Slider>{
 	}
 
 	@Override
-	public void render(SpriteBatch batch, GameTime time, Slider control,LookAndFeel lookAndFeel) {	
+	public void render(SpriteBatch batch, GameTime time, Slider control,LookAndFeel lookAndFeel, RenderTarget2D target) {
 		VisibleElement backgroundElement = lookAndFeel.getElement(DEFAULT_SLIDER_BACKGROUND);
+		VisibleElement overlayElement = lookAndFeel.getElement(DEFAULT_SLIDER_OVERLAY);
+		if(control.isVertical()) {
+			backgroundElement = lookAndFeel.getElement(DEFAULT_V_SLIDER_BACKGROUND);
+			overlayElement = lookAndFeel.getElement(DEFAULT_V_SLIDER_OVERLAY);
+		}
 		
 		
 		Rectangle rect = control.getDimention();
@@ -39,7 +51,7 @@ public class SliderRenderer implements IGUIRenderer<Slider>{
 				   control.getBgColor(),
 				   backgroundElement.getSrcRect());
 		
-		batch.draw(Texture2D.getPixel(), filledRect, new Color(Color.Purple, 0.8f), null);	
+		batch.draw(overlayElement.getTexture(), filledRect, control.getFgColor(), overlayElement.getSrcRect());	
 	}
 
 }

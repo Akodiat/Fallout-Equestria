@@ -21,6 +21,18 @@ import animation.TextureDictionary;
 
 public class TextureDictionaryLoader implements IContentLoader<TextureDictionary>{
 
+	private final String texturePath;
+	
+	public TextureDictionaryLoader() {
+		this("animationsheets");
+	}
+	
+	
+	public TextureDictionaryLoader(String string) {
+		this.texturePath = string + "/";
+	}
+
+
 	@Override
 	public Class<TextureDictionary> getClassAbleToLoad() {
 		return TextureDictionary.class;
@@ -44,7 +56,7 @@ public class TextureDictionaryLoader implements IContentLoader<TextureDictionary
 
 	private Texture2D extractSpriteSheet(Element rootNode) {
 		String path = rootNode.getChildText("TexturePath");
-		return ContentManager.loadTexture("animationsheets/" + path);
+		return ContentManager.loadTexture(this.texturePath + path);
 	}
 
 	private Map<String, TextureBounds> extractTextures(Element rootNode) {

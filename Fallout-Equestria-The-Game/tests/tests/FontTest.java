@@ -21,7 +21,7 @@ import content.ContentManager;
  */
 public class FontTest {
 	
-	private static final String fontAsset = "Monofonto24.xml";
+	private static final String fontAsset = "Courier New20.xml";
 	
 	private static SpriteBatch graphics;
 	private static DisplayMode mode;

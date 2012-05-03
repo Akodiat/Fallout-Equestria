@@ -1,17 +1,19 @@
 package GUI.graphics;
 
 import GUI.FontHelper;
+import GUI.LookAndFeelAssets;
 import GUI.controls.ButtonBase;
 import math.Vector2;
+import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.TextureFont;
 import utils.GameTime;
 
 public class ButtonRenderer implements IGUIRenderer<ButtonBase>{
 
-	private static final String DEFAULT_BUTTON_BACKGROUND = "Button_Background";
-	private static final String DEFAULT_BUTTON_DOWN 	  = "Button_Down";
-	private static final String DEFAULT_BUTTON_OVER		  = "Button_Over";
+	private static final String DEFAULT_BUTTON_BACKGROUND = LookAndFeelAssets.Button_BG.toString();
+	private static final String DEFAULT_BUTTON_DOWN 	  = LookAndFeelAssets.Button_Down.toString();
+	private static final String DEFAULT_BUTTON_OVER		  = LookAndFeelAssets.Button_Over.toString();
 	
 	private String backgroundKey;
 	private String overKey;
@@ -40,10 +42,12 @@ public class ButtonRenderer implements IGUIRenderer<ButtonBase>{
 	}
 
 	@Override
-	public void render(SpriteBatch batch, GameTime time, ButtonBase control, LookAndFeel lookAndFeel) {
+	public void render(SpriteBatch batch, GameTime time, ButtonBase control, LookAndFeel lookAndFeel, RenderTarget2D target) {
 		VisibleElement backgroundElement = lookAndFeel.getElement(backgroundKey);
 		VisibleElement overElement		 = lookAndFeel.getElement(overKey);
 		VisibleElement downElement		 = lookAndFeel.getElement(downKey);
+		
+		
 		
 		batch.draw(backgroundElement.getTexture(), 
 				  control.getDimention(), 
@@ -52,9 +56,9 @@ public class ButtonRenderer implements IGUIRenderer<ButtonBase>{
 		
 		
 		if(control.isPressed() && control.isMouseHover()) {
-			batch.draw(downElement.getTexture(), control.getDimention(), control.getFgColor(), null);	
+			batch.draw(downElement.getTexture(), control.getDimention(), control.getFgColor(), downElement.getSrcRect());	
 		} else if(control.isMouseHover()) {
-			batch.draw(overElement.getTexture(), control.getDimention(), control.getFgColor(), null);	
+			batch.draw(overElement.getTexture(), control.getDimention(), control.getFgColor(), overElement.getSrcRect());	
 		}
 		
 		drawText(batch, control, lookAndFeel);

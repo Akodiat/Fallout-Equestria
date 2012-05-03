@@ -1,6 +1,7 @@
 package GUI.controls;
 
 import GUI.Event;
+import GUI.LookAndFeelAssets;
 import GUI.ScrollEventArgs;
 import GUI.graphics.ButtonRenderer;
 import GUI.graphics.ScrollBarRenderer;
@@ -13,10 +14,14 @@ import graphics.Texture2D;
 
 public class ScrollBar extends GUIControl {
 	private static final ScrollBarRenderer DEFAULT_RENDERER = new ScrollBarRenderer();
-	private static final ButtonRenderer DEFAULT_SCROLLBUTTON_RENDERER = new ButtonRenderer("ScrollBar_Button_Background",
-																						   "ScrollBar_Button_Over",
-																						   "ScrollBar_Button_Down");	
-	
+	private static final ButtonRenderer DEFAULT_VSCROLLBUTTON_RENDERER = new ButtonRenderer(LookAndFeelAssets.ScrollButton_BG.toString(),
+																						   LookAndFeelAssets.ScrollButton_Over.toString(),
+																						   LookAndFeelAssets.ScrollButton_Down.toString());	
+	private static final ButtonRenderer DEFAULT_HSCROLLBUTTON_RENDERER = 
+					 new ButtonRenderer(LookAndFeelAssets.HorisontalScrollbarButton_BG.toString(),
+										LookAndFeelAssets.HorisontalScrollbarButton_Over.toString(),
+										LookAndFeelAssets.HorisontalScrollbarButton_Down.toString());
+	private static final int scrollBarRatio = 4;
 	
 	protected Button scrollButton;
 	private boolean vertical;
@@ -33,8 +38,7 @@ public class ScrollBar extends GUIControl {
 		this.addChild(scrollButton);
 		this.vertical = true;
 		this.scolledEvent = new Event<>();
-		
-		this.scrollButton.setRenderer(DEFAULT_SCROLLBUTTON_RENDERER);
+		this.scrollButton.setRenderer(DEFAULT_VSCROLLBUTTON_RENDERER);
 		this.setRenderer(DEFAULT_RENDERER);
 	}
 	
@@ -102,6 +106,7 @@ public class ScrollBar extends GUIControl {
 	}
 	
 	protected void repositionScrollButton() {		
+		this.changeScrollRenderer();
 		double ratio = this.scrollValue / (double)this.scrollMax;
 		if(this.isHorizontal()) {
 			repositionHorizontal(ratio);
@@ -109,10 +114,18 @@ public class ScrollBar extends GUIControl {
 			repositionVertical(ratio);		
 		}
 	}
+	
+	protected void changeScrollRenderer() {
+		if(this.vertical)
+			this.scrollButton.setRenderer(DEFAULT_VSCROLLBUTTON_RENDERER);
+		else
+			this.scrollButton.setRenderer(DEFAULT_VSCROLLBUTTON_RENDERER);
+		
+	}
 
 	protected void repositionVertical(double ratio) {	
 		int center = (int)(this.getBounds().Height * ratio);	
-		int size = this.getBounds().Height / 10;
+		int size = this.getBounds().Height / scrollBarRatio;
 		
 		int top = MathHelper.clamp(0, this.getBounds().Height - size, (center - size / 2));
 		
@@ -122,7 +135,7 @@ public class ScrollBar extends GUIControl {
 
 	protected void repositionHorizontal(double ratio) {
 		int center = (int)(this.getBounds().Width * ratio);	
-		int size = this.getBounds().Width / 10;
+		int size = this.getBounds().Width / scrollBarRatio;
 		
 		int left = MathHelper.clamp(0, this.getBounds().Width - size, (center - size / 2));
 		

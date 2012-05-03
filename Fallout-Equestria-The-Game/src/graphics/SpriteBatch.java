@@ -194,6 +194,7 @@ public class SpriteBatch {
 	 */
 	public void setViewport(Rectangle newViewport) {
 		this.viewport = newViewport;
+		glViewport(0,0,newViewport.Width, newViewport.Height);
 	}
 	
 	/**Gets the dimensions of the screen rendered to.

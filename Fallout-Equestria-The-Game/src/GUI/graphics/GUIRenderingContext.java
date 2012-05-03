@@ -67,7 +67,7 @@ public class GUIRenderingContext {
 			GameTime time, RenderTarget2D[] childTargets) {
 		RenderTarget2D target = new RenderTarget2D(control.getBounds().Width, control.getBounds().Height); 
 		this.spriteBatch.begin(null, Matrix4.Identity, target);
-		this.renderInternal(control, time);
+		this.renderInternal(control, time, target);
 		
 		for (int i = 0; i < control.getChildren().size(); i++) {
 			GUIControl child = control.getChildren().get(i);
@@ -84,20 +84,20 @@ public class GUIRenderingContext {
 		RenderTarget2D target = new RenderTarget2D(control.getBounds().Width, control.getBounds().Height);
 		if(!control.isEnabled()) {
 			this.spriteBatch.begin(disabledEffect, Matrix4.Identity, target);
-			this.renderInternal(control, time);
+			this.renderInternal(control, time, target);
 			this.spriteBatch.end();
 		} else {
 			this.spriteBatch.begin(null, Matrix4.Identity, target);
-			this.renderInternal(control, time);
+			this.renderInternal(control, time, target);
 			this.spriteBatch.end();
 		}
 		return target;
 	}			
 	
-	private  <T extends GUIControl> void renderInternal(T control, GameTime time) {	
+	private  <T extends GUIControl> void renderInternal(T control, GameTime time, RenderTarget2D target) {	
 		@SuppressWarnings("unchecked")
 		IGUIRenderer<T> renderer = (IGUIRenderer<T>)control.getRenderer();
-		renderer.render(spriteBatch, time, control, lookAndFeel);	
+		renderer.render(spriteBatch, time, control, lookAndFeel, target);	
 	}
 
 

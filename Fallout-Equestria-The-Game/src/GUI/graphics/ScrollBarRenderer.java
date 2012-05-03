@@ -1,21 +1,29 @@
 package GUI.graphics;
 
+import GUI.LookAndFeelAssets;
 import GUI.controls.ScrollBar;
+import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import utils.GameTime;
 
 public class ScrollBarRenderer implements IGUIRenderer<ScrollBar>{
 	
-	private static final String DEFAULT_BACKGROUND = "ScrollBar_Background";
+	private static final String DEFAULT_BACKGROUND = LookAndFeelAssets.Scrollbar_BG.toString();
+	private static final String DEFAULT_H_BACKGROUND = LookAndFeelAssets.HorisontalScrollbar_BG.toString();
+	
 	
 	private final String backgroundKey;
+	private final String hBackgroundKey;
+	
+	
 	
 	public ScrollBarRenderer() {
-		this(DEFAULT_BACKGROUND);
+		this(DEFAULT_BACKGROUND, DEFAULT_H_BACKGROUND);
 	}
 	
-	public ScrollBarRenderer(String backgroundKey) {
+	public ScrollBarRenderer(String backgroundKey, String hBackgroundKey) {
 		this.backgroundKey = backgroundKey;
+		this.hBackgroundKey = hBackgroundKey;
 	}
 
 	@Override
@@ -24,8 +32,11 @@ public class ScrollBarRenderer implements IGUIRenderer<ScrollBar>{
 	}
 
 	@Override
-	public void render(SpriteBatch batch, GameTime time, ScrollBar control, LookAndFeel lookAndFeel) {
+	public void render(SpriteBatch batch, GameTime time, ScrollBar control, LookAndFeel lookAndFeel, RenderTarget2D target) {
 		VisibleElement backgroundElement = lookAndFeel.getElement(backgroundKey);
+		if(control.isHorizontal()) {
+			backgroundElement = lookAndFeel.getElement(hBackgroundKey);
+		}		
 		
 		batch.draw(backgroundElement.getTexture(),
 				   control.getDimention(), 

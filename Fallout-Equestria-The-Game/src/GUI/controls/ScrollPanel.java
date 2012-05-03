@@ -80,7 +80,7 @@ public class ScrollPanel extends Panel implements IScrollable {
 	protected void onResized(Rectangle bounds) {
 		super.onResized(bounds);
 		vBar.setBounds(bounds.Width - SCROLLBAR_SIZE, 0, SCROLLBAR_SIZE, bounds.Height - SCROLLBAR_SIZE + 3);
-		hBar.setBounds(0, bounds.Height - SCROLLBAR_SIZE + 3, bounds.Width - SCROLLBAR_SIZE, SCROLLBAR_SIZE);		
+		hBar.setBounds(0, bounds.Height - SCROLLBAR_SIZE, bounds.Width - SCROLLBAR_SIZE, SCROLLBAR_SIZE);		
 		
 		if(innerBounds.Width < bounds.Width + SCROLLBAR_SIZE||
 		   innerBounds.Height < bounds.Height + SCROLLBAR_SIZE) {

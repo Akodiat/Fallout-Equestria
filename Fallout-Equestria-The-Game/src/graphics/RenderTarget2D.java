@@ -6,6 +6,8 @@ import static org.lwjgl.opengl.GL32.GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS;
 
 import java.nio.ByteBuffer;
 
+import org.lwjgl.opengl.GL14;
+
 public class RenderTarget2D {
 	
 	private final Texture2D texture;
@@ -18,8 +20,8 @@ public class RenderTarget2D {
 	public RenderTarget2D(int width, int height) {
 		int textureID = glGenTextures();
 		glBindTexture(GL_TEXTURE_2D, textureID);
+		glTexParameteri(GL_TEXTURE_2D, GL14.GL_GENERATE_MIPMAP, GL_TRUE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 
 				 0, 
 				 GL_RGBA8, 

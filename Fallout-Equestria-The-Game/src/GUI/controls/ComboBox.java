@@ -35,6 +35,7 @@ public class ComboBox<T> extends Panel implements ISelector<T>  {
 		this.selectorBox.visible = false;
 		this.selectorBox.setBgColor(new Color(200,200,200,255));
 		this.selectorBox.setFgColor(Color.Black);
+		this.setBgColor(new Color(0,0,0,0));
 		
 		
 		this.addChild(showField);

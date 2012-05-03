@@ -69,6 +69,10 @@ public class GUIDemo extends Demo {
 		lookAndFeel.setElement("ScrollBar_Button_Down", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
 		lookAndFeel.setElement("ScrollBar_Button_Over", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
 		lookAndFeel.setElement("TextArea_Background", new VisibleElement(textAreaBackground, textAreaBackground.getBounds()));	
+		
+		
+		
+		lookAndFeel = ContentManager.load("gui.tdict", LookAndFeel.class);
 		lookAndFeel.setDefaultFont(ContentManager.loadFont("arialb20.xml"));
 		
 		context = new GUIRenderingContext(spriteBatch, lookAndFeel, ContentManager.loadShaderEffect("GrayScale.effect"));
@@ -111,7 +115,7 @@ public class GUIDemo extends Demo {
 		final Textfield field = new Textfield();
 		field.setBounds(new Rectangle(200,225,250,23));
 		field.setText("Testing...");
-		field.setFont(ContentManager.loadFont("arialb20.xml"));
+		field.setFont(ContentManager.loadFont("Andale Mono20.xml"));
 		field.setFgColor(Color.Goldenrod);
 		field.setMaxLength(25);
 		panel.addChild(field);
@@ -130,6 +134,7 @@ public class GUIDemo extends Demo {
 	
 		Slider slider = new Slider();
 		slider.setBounds(new Rectangle(200,455,250,30));
+		slider.setFgColor(Color.Red);
 		slider.setScrollMax(255);
 		slider.setHorizontal(true);
 		slider.addScrollListener(new IEventListener<ScrollEventArgs>() {
@@ -188,8 +193,8 @@ public class GUIDemo extends Demo {
 		
 		final ListBox<String> listBox = new ListBox<>();
 		listBox.setBounds(470,50,150,250);
-		listBox.setFont(ContentManager.loadFont("arialb20.xml"));
-		listBox.setBgColor(new Color(220,220,220,255));
+		listBox.setFont(ContentManager.loadFont("Andale Mono20.xml"));
+		listBox.setBgColor(new Color(220,220,220,100));
 		listBox.setFgColor(Color.Black);
 		this.panel.addChild(listBox);
 		
@@ -213,21 +218,6 @@ public class GUIDemo extends Demo {
 		});
 		
 		manager = new GUIFocusManager(panel);
-		
-		
-		
-		final ScrollBar vBar2 = new ScrollBar();
-		vBar2.setBounds(0,0,20,200);
-		vBar2.setVertical(true);
-		vBar2.setScrollMax(100);
-		vBar2.setBackground(ContentManager.loadTexture("GUI/guiBackground.png"));
-		
-		final ScrollBar hBar2 = new ScrollBar();
-		hBar2.setBounds(0,0,200,20);
-		hBar2.setHorizontal(true);
-		hBar2.setScrollMax(100);
-		hBar2.setBackground(ContentManager.loadTexture("GUI/guiBackground.png"));
-		
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
 		scrollPanel.setBounds(650,50,250,250);
@@ -260,8 +250,17 @@ public class GUIDemo extends Demo {
 		
 		ChatPanel chatPanel = new ChatPanel();
 		chatPanel.setBounds(1000,400,250,250);
-		chatPanel.setFont(ContentManager.loadFont("arialb20.xml"));
+		chatPanel.setFont(ContentManager.loadFont("Courier New20.xml"));
 		this.panel.addChild(chatPanel);
+		
+		final ImageBox imageBox1 = new ImageBox();
+		imageBox1.setRenderOrder(-1);
+		imageBox1.setBounds(1000,400,300,300);
+		imageBox1.setImage(ContentManager.loadTexture("tilesheets/Stars_Wallpaper_by_Colliemom.png"));
+		imageBox1.setImageSrcRect(new Rectangle(0,0,200,200));
+		this.panel.addChild(imageBox1);
+		
+		
 		
 		Spinner spinner = new Spinner(20,0,1,10);
 		spinner.setBounds(20, 20, 160, 40);

@@ -6,21 +6,25 @@ import misc.IEventListener;
 import GUI.Event;
 import GUI.MouseEventArgs;
 import GUI.TextEventArgs;
+import graphics.Color;
 import graphics.TextureFont;
 
 public class ChatPanel extends Panel {
+	private static final int textBoxSize = 25;
+	private static final int buttonWidth = 35;
+	private static final int scrollBar   = 15;
 	private final TextArea area;
 	private final Button sendButton;
 	private final Textfield inputField;
 	private final Event<TextEventArgs> sendTextEvent;
-		
-	
+
 	public ChatPanel() {
 		super();
 		this.area = new TextArea();
 		this.sendButton = new Button();
 		this.inputField = new Textfield();
 		this.sendTextEvent = new Event<>();
+		this.setBgColor(new Color(0,0,0,0));
 		this.initializeComponents();
 	}
 
@@ -40,9 +44,6 @@ public class ChatPanel extends Panel {
 		});
 		
 		
-		this.area.setBounds(0, 0, 250, 220);
-		this.inputField.setBounds(0,220,200,30);
-		this.sendButton.setBounds(200,220,50,30);
 		
 		this.addChild(this.area);
 		this.addChild(this.inputField);
@@ -52,6 +53,10 @@ public class ChatPanel extends Panel {
 	@Override
 	public void onResized(Rectangle bounds) {
 		super.onResized(bounds);
+		
+		this.area.setBounds(0, 0, bounds.Width, bounds.Height - textBoxSize);
+		this.inputField.setBounds(0,this.area.getBounds().Height,this.bounds.Width - buttonWidth, textBoxSize);
+		this.sendButton.setBounds(inputField.bounds.Width,area.bounds.Height,buttonWidth,textBoxSize);
 		
 	}
 

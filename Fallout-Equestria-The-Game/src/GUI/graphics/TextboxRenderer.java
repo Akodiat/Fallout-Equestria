@@ -1,7 +1,9 @@
 package GUI.graphics;
 
+import GUI.LookAndFeelAssets;
 import GUI.controls.Textfield;
 import math.Vector2;
+import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import graphics.TextureFont;
@@ -9,7 +11,7 @@ import utils.GameTime;
 import utils.Rectangle;
 
 public class TextboxRenderer implements IGUIRenderer<Textfield>{
-	private static final String DEFAULT_BACKGROUND = "Textfield_Background";
+	private static final String DEFAULT_BACKGROUND = LookAndFeelAssets.Button_BG.toString();
 	private static final int borderSpacing = 10;
 	private static final int verticalBorderSpacing = 4;
 	
@@ -31,7 +33,7 @@ public class TextboxRenderer implements IGUIRenderer<Textfield>{
 	}
 
 	@Override
-	public void render(SpriteBatch batch, GameTime time, Textfield control,LookAndFeel lookAndFeel) {
+	public void render(SpriteBatch batch, GameTime time, Textfield control,LookAndFeel lookAndFeel, RenderTarget2D target) {
 		VisibleElement backgroundElement = lookAndFeel.getElement(backgroundKey);
 		
 		String text = control.getText();

@@ -3,6 +3,7 @@ package GUI.graphics;
 import GUI.FontHelper;
 import GUI.controls.Label;
 import math.Vector2;
+import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.TextureFont;
 import utils.GameTime;
@@ -15,7 +16,7 @@ public class LabelRenderer implements IGUIRenderer<Label>{
 	}
 
 	@Override
-	public void render(SpriteBatch batch, GameTime time, Label control,LookAndFeel lookAndFeel) {
+	public void render(SpriteBatch batch, GameTime time, Label control,LookAndFeel lookAndFeel, RenderTarget2D target) {
 			
 		TextureFont font = (control.getFont() != null) ? control.getFont() : lookAndFeel.getDefaultFont();
 		String text = control.getText();

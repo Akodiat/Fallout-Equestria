@@ -96,7 +96,7 @@ public class ChatClient extends Demo {
 		
 		
 		panel = new ChatPanel();
-		panel.setBounds(0,0,250,250);
+		panel.setBounds(0,0,400,400);
 		panel.setFont(ContentManager.loadFont("arialb20.xml"));
 		manager = new GUIFocusManager(panel);
 		
@@ -104,6 +104,7 @@ public class ChatClient extends Demo {
 		final Client client = new Client();
 		client.start();
 		Network.registerClasses(client);
+		
 		try {
 			InetAddress address = client.discoverHost(54777, 5000);
 			System.out.println(address);

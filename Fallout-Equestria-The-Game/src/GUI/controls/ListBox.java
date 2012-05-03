@@ -19,8 +19,7 @@ import utils.Rectangle;
 
 public class ListBox<T> extends GUISelector<T> {
 	private static final ListBoxRenderer DEFAULT_RENDERER = new ListBoxRenderer();
-	
-	
+	private static final int margin = 10;
 	private static final int SCROLLBAR_SIZE = 16;
 	private final ScrollBar vBar;
 	private final ScrollBar hBar;
@@ -40,7 +39,7 @@ public class ListBox<T> extends GUISelector<T> {
 		
 		this.hBar.setEnabled(false);
 		this.hBar.setVisible(false);
-		
+		this.setBgColor(new Color(0,0,0,0));
 		
 		this.addChild(hBar);
 		this.addChild(vBar);
@@ -59,17 +58,18 @@ public class ListBox<T> extends GUISelector<T> {
 	@Override
 	public void setBounds(Rectangle rect) {
 		super.setBounds(rect);
-		this.resizeScrollbars();
-		
+		this.resizeScrollbars();	
 	}
-
 
 	private void resizeScrollbars() {	
 		Rectangle b = this.getBounds();
-		vBar.setBounds(b.Width - SCROLLBAR_SIZE, 0, SCROLLBAR_SIZE, b.Height);
+		vBar.setBounds(b.Width - SCROLLBAR_SIZE, this.margin, SCROLLBAR_SIZE, b.Height - this.margin * 2);
 		hBar.setBounds(0, b.Height - SCROLLBAR_SIZE, b.Width, SCROLLBAR_SIZE);				
 	}
 	
+	public int getMargin() {
+		return margin;
+	}
 
 	public Point2 getViewOffset() {
 		return new Point2(this.hBar.getScrollValue(), this.vBar.getScrollValue());
@@ -146,7 +146,7 @@ public class ListBox<T> extends GUISelector<T> {
 	}
 
 	private void updateScrollbar(int listSize, int boundsSize, ScrollBar bar) {
-		int maxScroll = listSize - boundsSize;
+		int maxScroll = listSize - boundsSize + margin * 2;
 		if(maxScroll > 0) {
 			bar.setEnabled(true);
 			bar.setVisible(true);

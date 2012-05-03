@@ -15,6 +15,7 @@ import utils.Rectangle;
 public class TextArea extends GUITextBase{
 	private static final TextAreaRenderer DEFAULT_RENDERER = new TextAreaRenderer();
 	private static final int SCROLLBAR_SIZE = 15;
+	private static final int margin = 6;
 		
 	private ScrollBar vBar;
 	private List<String> lines;
@@ -67,7 +68,7 @@ public class TextArea extends GUITextBase{
 
 	private void updateLines() {
 		this.lines.clear();	
-		int maxWidth = this.getBounds().Width - SCROLLBAR_SIZE;
+		int maxWidth = this.getBounds().Width - SCROLLBAR_SIZE - margin * 2;
 		TextureFont font = this.getFont();
 		StringBuilder text = new StringBuilder(this.getText());
 		String line = "";
@@ -97,6 +98,10 @@ public class TextArea extends GUITextBase{
 		this.lines.add(line);
 	}
 
+	public int getMargin() {
+		return this.margin;
+	}
+	
 	public void setScrollOffset(int value) {
 		this.vBar.setScrollValue(value);
 	}

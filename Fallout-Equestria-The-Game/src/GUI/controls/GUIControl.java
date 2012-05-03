@@ -35,6 +35,7 @@ public abstract class GUIControl {
 	private Color bgColor;
 	private Color fgColor;
 	private String name;
+	private float rotation;
 	private boolean focused;
 	public boolean visible;
 	public boolean enabled;
@@ -43,9 +44,10 @@ public abstract class GUIControl {
 		this.parent = null;
 		this.children = new ArrayList<>();
 		this.bounds = new Rectangle(0,0,0,0);
-		this.setBgColor(Color.White);
-		this.setFgColor(Color.White);
+		this.bgColor = Color.White;
+		this.fgColor = Color.White;
 		this.name = "";
+		this.rotation = 0;
 		this.focused = false;
 		this.visible = true;
 		this.enabled = true;
@@ -73,6 +75,15 @@ public abstract class GUIControl {
 	public GUIControl getParent() {
 		return this.parent;
 	}
+	
+	public float getRotation() {
+		return this.rotation;
+	}
+	
+	public void setRotation(float value) {
+		this.rotation = value;
+	}
+	
 	protected void setParent(GUIControl parent) {
 		this.parent = parent;
 	}

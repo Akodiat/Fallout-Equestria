@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>graygui.png</TexturePath>
+  <Texture name="Textarea_BG">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>397</Width>
+    <Height>413</Height>
+    <OriginX>198</OriginX>
+    <OriginY>206</OriginY>
+  </Texture>
+  <Texture name="Textfield_BG">
+    <X>399</X>
+    <Y>0</Y>
+    <Width>396</Width>
+    <Height>96</Height>
+    <OriginX>197</OriginX>
+    <OriginY>48</OriginY>
+  </Texture>
+  <Texture name="Textfield_Focus">
+    <X>399</X>
+    <Y>98</Y>
+    <Width>396</Width>
+    <Height>96</Height>
+    <OriginX>197</OriginX>
+    <OriginY>48</OriginY>
+  </Texture>
+  <Texture name="Slider_BG">
+    <X>0</X>
+    <Y>415</Y>
+    <Width>300</Width>
+    <Height>45</Height>
+    <OriginX>150</OriginX>
+    <OriginY>22</OriginY>
+  </Texture>
+  <Texture name="Slider_Overlay">
+    <X>399</X>
+    <Y>196</Y>
+    <Width>300</Width>
+    <Height>45</Height>
+    <OriginX>150</OriginX>
+    <OriginY>22</OriginY>
+  </Texture>
+  <Texture name="Button_BG">
+    <X>399</X>
+    <Y>243</Y>
+    <Width>268</Width>
+    <Height>106</Height>
+    <OriginX>134</OriginX>
+    <OriginY>53</OriginY>
+  </Texture>
+  <Texture name="Button_Down">
+    <X>399</X>
+    <Y>351</Y>
+    <Width>268</Width>
+    <Height>106</Height>
+    <OriginX>134</OriginX>
+    <OriginY>53</OriginY>
+  </Texture>
+  <Texture name="Button_Over">
+    <X>669</X>
+    <Y>243</Y>
+    <Width>268</Width>
+    <Height>106</Height>
+    <OriginX>134</OriginX>
+    <OriginY>53</OriginY>
+  </Texture>
+  <Texture name="CheckBox_Checked">
+    <X>797</X>
+    <Y>0</Y>
+    <Width>54</Width>
+    <Height>54</Height>
+    <OriginX>27</OriginX>
+    <OriginY>27</OriginY>
+  </Texture>
+  <Texture name="CheckBox_Over">
+    <X>797</X>
+    <Y>56</Y>
+    <Width>54</Width>
+    <Height>54</Height>
+    <OriginX>27</OriginX>
+    <OriginY>27</OriginY>
+  </Texture>
+  <Texture name="CheckBox_Unchecked">
+    <X>853</X>
+    <Y>0</Y>
+    <Width>54</Width>
+    <Height>54</Height>
+    <OriginX>27</OriginX>
+    <OriginY>27</OriginY>
+  </Texture>
+  <Texture name="SliderButton_BG">
+    <X>853</X>
+    <Y>56</Y>
+    <Width>54</Width>
+    <Height>54</Height>
+    <OriginX>27</OriginX>
+    <OriginY>27</OriginY>
+  </Texture>
+  <Texture name="SliderButton_Down">
+    <X>797</X>
+    <Y>112</Y>
+    <Width>54</Width>
+    <Height>54</Height>
+    <OriginX>27</OriginX>
+    <OriginY>27</OriginY>
+  </Texture>
+  <Texture name="SliderButton_Over">
+    <X>853</X>
+    <Y>112</Y>
+    <Width>54</Width>
+    <Height>54</Height>
+    <OriginX>27</OriginX>
+    <OriginY>27</OriginY>
+  </Texture>
+  <Texture name="ScrollButton_BG">
+    <X>302</X>
+    <Y>415</Y>
+    <Width>14</Width>
+    <Height>32</Height>
+    <OriginX>7</OriginX>
+    <OriginY>16</OriginY>
+  </Texture>
+  <Texture name="ScrollButton_Down">
+    <X>318</X>
+    <Y>415</Y>
+    <Width>14</Width>
+    <Height>32</Height>
+    <OriginX>7</OriginX>
+    <OriginY>16</OriginY>
+  </Texture>
+  <Texture name="ScrollButton_Over">
+    <X>334</X>
+    <Y>415</Y>
+    <Width>14</Width>
+    <Height>32</Height>
+    <OriginX>7</OriginX>
+    <OriginY>16</OriginY>
+  </Texture>
+  <Texture name="ScrollbarButton_BG">
+    <X>350</X>
+    <Y>415</Y>
+    <Width>14</Width>
+    <Height>15</Height>
+    <OriginX>7</OriginX>
+    <OriginY>7</OriginY>
+  </Texture>
+  <Texture name="ScrollbarButton_Down">
+    <X>366</X>
+    <Y>415</Y>
+    <Width>14</Width>
+    <Height>15</Height>
+    <OriginX>7</OriginX>
+    <OriginY>7</OriginY>
+  </Texture>
+  <Texture name="ScrollbarButton_Over">
+    <X>350</X>
+    <Y>432</Y>
+    <Width>14</Width>
+    <Height>15</Height>
+    <OriginX>7</OriginX>
+    <OriginY>7</OriginY>
+  </Texture>
+  <Texture name="Scrollbar_BG">
+    <X>302</X>
+    <Y>449</Y>
+    <Width>14</Width>
+    <Height>1</Height>
+    <OriginX>7</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>
