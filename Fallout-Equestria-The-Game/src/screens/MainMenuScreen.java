@@ -1,5 +1,7 @@
 package screens;
 
+import utils.Mouse;
+
 public class MainMenuScreen implements Screen {
 	private boolean isFocused;
 	
@@ -20,15 +22,14 @@ public class MainMenuScreen implements Screen {
 	}
 
 	@Override
-	public void handleInput() {
+	public void handleInput(Mouse m) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean isFocused() {
-		// TODO Auto-generated method stub
-		return false;
+		return isFocused;
 	}
 
 }
