@@ -4,7 +4,6 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import entityFramework.IComponent;
 import entityFramework.IEntityArchetype;
-import ability.AbilityInfo;
 import anotations.Editable;
 import anotations.Editable;
 

@@ -13,9 +13,7 @@ import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 
-@Editable
-@XStreamAlias("Behaviour")
-@SuppressWarnings("serial")
+@Editable @XStreamAlias("Behaviour")
 public class BehaviourComp implements IComponent {
 	@Editable
 	private Behavior behavior;

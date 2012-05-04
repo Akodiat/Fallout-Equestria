@@ -13,9 +13,7 @@ import graphics.Color;
 import graphics.Texture2D;
 import graphics.TextureFont;
 
-@XStreamAlias("GUI")
-@Editable
-@SuppressWarnings("serial")
+@XStreamAlias("GUI") @Editable
 public class GUIComp implements IComponent {
 	private Map<String, GUIComp> children;
 	

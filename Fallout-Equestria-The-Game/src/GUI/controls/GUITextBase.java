@@ -1,6 +1,6 @@
 package GUI.controls;
 
-import GUI.Event;
+import misc.Event;
 import misc.EventArgs;
 import misc.IEventListener;
 import graphics.TextureFont;

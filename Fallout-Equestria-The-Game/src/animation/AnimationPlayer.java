@@ -3,20 +3,15 @@ package animation;
 import graphics.Color;
 import graphics.SpriteBatch;
 
-import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Set;
 
-import math.MathHelper;
 import math.Vector2;
 
 import utils.GameTime;
 
-import com.google.common.collect.HashBasedTable;
 
 public class AnimationPlayer
 {

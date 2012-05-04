@@ -4,12 +4,12 @@ import java.awt.dnd.MouseDragGestureRecognizer;
 
 import anotations.Editable;
 
+import misc.Event;
 import misc.EventArgs;
 import misc.IEventListener;
 
 import utils.MouseButton;
 import utils.MouseState;
-import GUI.Event;
 import GUI.MouseEventArgs;
 
 @Editable

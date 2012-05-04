@@ -1,7 +1,6 @@
 package components;
 
 import anotations.Editable;
-import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -17,6 +16,9 @@ import math.Vector2;
  *
  */
 public class TransformationComp implements IComponent {
+	
+	//Will use vector3 for new Rendering 
+	
 	@Editable
 	private Vector2 	 position;
 	@Editable

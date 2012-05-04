@@ -33,8 +33,6 @@ public class EntityArchetypeLoader extends ContentLoader<IEntityArchetype>{
 		xstream.alias("Set", ImmutableSet.class);
 		
 		xstream.processAnnotations(AbilityComp.class);
-		xstream.processAnnotations(AttackComp.class);
-		xstream.processAnnotations(DeathComp.class);
 		xstream.processAnnotations(HealthComp.class);
 		xstream.processAnnotations(InputComp.class);
 		xstream.processAnnotations(PhysicsComp.class);

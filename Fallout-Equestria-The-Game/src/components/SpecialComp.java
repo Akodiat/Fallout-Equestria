@@ -1,7 +1,6 @@
 package components;
 
 import anotations.Editable;
-import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

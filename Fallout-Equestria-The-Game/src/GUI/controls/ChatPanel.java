@@ -1,9 +1,9 @@
 package GUI.controls;
 
 import utils.Rectangle;
+import misc.Event;
 import misc.EventArgs;
 import misc.IEventListener;
-import GUI.Event;
 import GUI.MouseEventArgs;
 import GUI.TextEventArgs;
 import graphics.Color;

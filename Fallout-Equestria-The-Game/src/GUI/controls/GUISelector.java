@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import misc.Event;
 import misc.IEventListener;
 
-import GUI.Event;
 import GUI.ItemEventArgs;
 
 import com.google.common.collect.ImmutableList;

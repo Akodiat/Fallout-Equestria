@@ -1,6 +1,5 @@
 package animation;
 
-import math.Matrix4;
 import math.Vector2;
 
 public class BoneTransformation {

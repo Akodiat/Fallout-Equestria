@@ -6,7 +6,6 @@ import math.Vector2;
 import entityFramework.IComponent;
 import utils.Key;
 import anotations.Editable;
-import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -16,8 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @author Joakim Johansson
  *
  */
-@XStreamAlias("Input")
-@Editable
+@XStreamAlias("Input") @Editable
 public class InputComp implements IComponent{
 	private Vector2 mousePosition;
 	//TODO implement this.
@@ -26,19 +24,13 @@ public class InputComp implements IComponent{
 	private boolean leftMouseButtonDown;
 	private boolean rightMouseButtonDown;
 
-	@Editable
-	private Key backButton;
-	@Editable	
-	private Key	leftButton;
-	@Editable	
-	private Key	rightButton;
-	@Editable
-	private Key forwardButton;
+	private @Editable Key backButton;
+	private @Editable Key leftButton;
+	private @Editable Key rightButton;
+	private @Editable Key forwardButton;
 	
-	@Editable
-	private Key	pipBuckButton;
-	@Editable
-	private Key	gallopButton; //Meaning sprint
+	private @Editable Key pipBuckButton;
+	private @Editable Key gallopButton; //Meaning sprint
 	
 	//TODO add ability buttons!. 
 

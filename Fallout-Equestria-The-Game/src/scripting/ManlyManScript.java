@@ -2,12 +2,14 @@ package scripting;
 
 import utils.GameTime;
 import utils.MouseState;
-import animation.KeyframeTriggerEventArgs;
 import anotations.Editable;
 import components.*;
 
 import math.Vector2;
 import misc.EntityGroups;
+import misc.IEventListener;
+import misc.Timer;
+import misc.TimerEventArgs;
 import entityFramework.IEntity;
 
 @Editable
@@ -75,8 +77,22 @@ public class ManlyManScript extends Behavior {
 		//Remove our behavior making us just sit on the screen.
 		this.Entity.removeComponent(PhysicsComp.class);
 		this.Entity.removeComponent(BehaviourComp.class);
-		this.Entity.addComponent(new ExistanceComp(10f));
+		TimerComp comp = new TimerComp();
+		this.Entity.addComponent(comp);
+		
+		Timer timer = new Timer(1,10f);
+		timer.addCompleteListener(new IEventListener<TimerEventArgs>() {
+			@Override
+			public void onEvent(Object sender, TimerEventArgs e) {
+				destroyEntity();
+			}
+		});
+		comp.addTimer(timer);
 		this.Entity.refresh();
+	}
+
+	protected void destroyEntity() {
+		this.Entity.kill();
 	}
 
 }

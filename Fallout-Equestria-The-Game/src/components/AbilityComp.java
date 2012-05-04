@@ -1,6 +1,5 @@
 package components;
 
-import ability.AbilityInfo;
 import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -8,9 +7,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import entityFramework.IComponent;
 
 
-@XStreamAlias("Ability")
-@Editable
-@SuppressWarnings("serial")
+@Editable @XStreamAlias("Ability")
 public class AbilityComp implements IComponent {
 
 	private static final float DEF_MAX_AP = 100;
@@ -23,13 +20,11 @@ public class AbilityComp implements IComponent {
 	private float regenerationSpeed;
 	
 	private float abilityPoints;
-	private AbilityInfo ability;
 
 	public AbilityComp() {
 		this.maxAbilityPoints = DEF_MAX_AP;
 		this.abilityPoints = DEF_MAX_AP;
 		this.regenerationSpeed = DEF_REGEN_SPEED;
-		this.ability = AbilityInfo.None;
 	}
 
 	/**
@@ -40,7 +35,6 @@ public class AbilityComp implements IComponent {
 		this.maxAbilityPoints = other.maxAbilityPoints;
 		this.abilityPoints = other.abilityPoints;
 		this.regenerationSpeed = other.regenerationSpeed;
-		this.ability = other.ability;
 	}
 
 	public AbilityComp(int maxAbilityPoints, float abilityPoints,
@@ -54,14 +48,6 @@ public class AbilityComp implements IComponent {
 		return new AbilityComp(this);
 	}
 	
-	public AbilityInfo getAbility() {
-		return ability;
-	}
-
-	public void setAbility(AbilityInfo ability) {
-		this.ability = ability;
-	}
-
 	public float getMaxAbilityPoints() {
 		return maxAbilityPoints;
 	}
@@ -105,8 +91,7 @@ public class AbilityComp implements IComponent {
 		return "ActionComp: \n" + 
 			   "Current ability points: " + this.abilityPoints +
 			   "\nMax abtility points: " + this.maxAbilityPoints +
-			   "\nRegen speed: " + this.regenerationSpeed +
-			   "\nActive ability: " + this.ability;
+			   "\nRegen speed: " + this.regenerationSpeed;
 	}
 }
 

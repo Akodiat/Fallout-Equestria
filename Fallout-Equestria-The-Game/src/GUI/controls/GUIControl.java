@@ -7,7 +7,6 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import GUI.ControlEventArgs;
-import GUI.Event;
 import GUI.KeyboardEventArgs;
 import GUI.MouseEventArgs;
 import GUI.ResizedEventArgs;
@@ -16,6 +15,7 @@ import GUI.graphics.IGUIRenderer;
 
 
 import math.Point2;
+import misc.Event;
 import misc.EventArgs;
 import misc.IEventListener;
 

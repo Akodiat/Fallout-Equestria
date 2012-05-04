@@ -84,6 +84,7 @@ public class SceneLoader extends ContentLoader<Scene>{
 			arechetypes.add(node);
 		}
 		
+		
 		return arechetypes;
 	}
 

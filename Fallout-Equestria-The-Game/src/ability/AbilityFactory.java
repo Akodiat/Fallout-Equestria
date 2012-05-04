@@ -1,19 +1,14 @@
 package ability;
 
-import utils.Circle;
-import components.AttackComp;
-import components.ExistanceComp;
-import components.InputComp;
 import components.PhysicsComp;
-import components.RenderingComp;
 import components.SpecialComp;
 import components.TransformationComp;
-import content.ContentManager;
 
 import math.Vector2;
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
 import entityFramework.IEntityManager;
+
 /**
  * 
  * @author Joakim Johansson

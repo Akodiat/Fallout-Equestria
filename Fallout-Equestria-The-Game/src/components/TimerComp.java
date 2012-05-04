@@ -1,63 +1,32 @@
 package components;
 
-import misc.EventArgs;
-import misc.IEventListener;
+import java.util.ArrayList;
+import java.util.List;
 
-import anotations.Editable;
+import misc.Timer;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 import entityFramework.IComponent;
-import entityFramework.IEntity;
 
 @XStreamAlias("Timer")
-@SuppressWarnings("serial")
 public class TimerComp implements IComponent {
-	private static final float DEF_DURATION = 1f;
-	
-	@Editable
-	private final float duration;
-	private float elapsedTime;
-	
-	private IEventListener<EventArgs> listener;
-	
+	private final List<Timer> timers;
 	public TimerComp() {
-		this(DEF_DURATION);
+		this.timers = new ArrayList<>();
 	}
 	
-	public TimerComp(float duration) {
-		this.duration = duration;
-		this.elapsedTime = 0;
-	}	
-	
-	public TimerComp(TimerComp timerComp) {
-		this.duration = timerComp.duration;
-		this.elapsedTime = 0;
-	}
-
 	public Object clone() {
-		return new TimerComp(this);
+		return new TimerComp();
 	}
 	
-	public float getDuration() {
-		return this.duration;
+	
+	public void addTimer(Timer timer) {
+		this.timers.add(timer);
+		timer.start();
 	}
 	
-	public float getElapsedTime() {
-		return this.elapsedTime;
-	}
-	
-	public void increaseElapsedTime(float delta) {
-		this.elapsedTime += delta;
-	}
-	
-	public void triggerEvent(IEntity entity) {
-		if(this.listener != null) {
-			this.listener.onEvent(entity, EventArgs.Empty);
-		}
-	}
-	
-	public void setEventListener(IEventListener<EventArgs> listener) {
-		this.listener = listener;
+
+	public List<Timer> getTimers() {
+		return timers;
 	}
 }

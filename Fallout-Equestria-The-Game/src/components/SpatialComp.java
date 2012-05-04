@@ -1,11 +1,8 @@
 package components;
 
-import math.Vector2;
 import utils.Circle;
 import entityFramework.IComponent;
 import anotations.Editable;
-import anotations.Editable;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 

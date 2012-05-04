@@ -7,14 +7,14 @@ public class TextureBounds {
 	private Rectangle location;
 	private Vector2 origin;
 
-	public TextureBounds()
-	{
+	public TextureBounds(){
+		this(Rectangle.Empty, Vector2.Zero);
 	}
 
 	public TextureBounds(Rectangle location, Vector2 origin)
 	{
-		location = location;
-		origin = origin;
+		this.location = location;
+		this.origin = origin;
 	}
 
 	public Rectangle getLocation() {

@@ -2,24 +2,20 @@ package components;
 
 import math.Vector2;
 import entityFramework.IComponent;
-
 import anotations.Editable;
-import anotations.Editable;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 /**
  * 
  * @author Joakim Johansson
  *
  */
-@XStreamAlias("Physics")
-@Editable
+@XStreamAlias("Physics") @Editable
 public class PhysicsComp implements IComponent{
-	@Editable
-	private boolean immovable;
+	
+	private @Editable boolean immovable;
+	private @Editable float mass;
+	
 	private Vector2 velocity;
-	@Editable
-	private float mass;
 	private float torque;
 	
 	/**

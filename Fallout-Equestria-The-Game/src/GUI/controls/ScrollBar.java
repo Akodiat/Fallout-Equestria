@@ -1,11 +1,11 @@
 package GUI.controls;
 
-import GUI.Event;
 import GUI.LookAndFeelAssets;
 import GUI.ScrollEventArgs;
 import GUI.graphics.ButtonRenderer;
 import GUI.graphics.ScrollBarRenderer;
 import math.MathHelper;
+import misc.Event;
 import misc.IEventListener;
 import utils.Mouse;
 import utils.MouseButton;

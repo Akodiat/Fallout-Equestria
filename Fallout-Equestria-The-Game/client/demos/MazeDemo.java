@@ -1,61 +1,22 @@
 package demos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.Display;
-
 import math.Vector2;
-
 import animation.Animation;
 import animation.AnimationPlayer;
-import animation.Bone;
-import animation.Keyframe;
-import animation.KeyframeTriggerEventArgs;
-import animation.KeyframeTriggerListener;
-import animation.TextureBounds;
-import animation.TextureEntry;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import components.AnimationComp;
-import components.AttackComp;
-import components.PhysicsComp;
-import components.RenderingComp;
-import components.BehaviourComp;
-import components.SpatialComp;
-import components.TransformationComp;
-
-import content.ContentManager;
-import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
-import entityFramework.IEntityDatabase;
-import entityFramework.IEntityManager;
-import entityFramework.IEntitySystemManager;
-import entityFramework.IEntityWorld;
+import components.*;
+import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
 import graphics.Color;
-import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import scripting.ChangeAnimationOnHitScript;
-import scripting.DestroyOnHitScript;
-import scripting.ForeverFollowAIScript;
-import scripting.ManlyManOnHitScript;
-import scripting.ManlyManScript;
 import scripting.PlayerScript;
-import tests.EntityModule;
 import utils.Camera2D;
-import utils.Circle;
-import utils.Clock;
 import utils.GameTime;
 import utils.Rectangle;
 
 public class MazeDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";
-	private static final String aiAsset 	= "FollowingTextAI.archetype";
 	private static Rectangle screenDim 		= new Rectangle(0,0,1920,1020);
 
 	private IEntityWorld gameWorld;

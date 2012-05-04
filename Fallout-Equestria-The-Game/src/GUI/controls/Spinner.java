@@ -3,8 +3,8 @@ package GUI.controls;
 import graphics.Texture2D;
 import graphics.TextureFont;
 import utils.Rectangle;
-import GUI.Event;
 import GUI.MouseEventArgs;
+import misc.Event;
 import misc.EventArgs;
 import misc.IEventListener;
 

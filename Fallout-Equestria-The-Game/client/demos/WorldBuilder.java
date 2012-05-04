@@ -1,8 +1,5 @@
 package demos;
 
-import ability.AbilityBuilder;
-import ability.AbilitySystem;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -11,41 +8,11 @@ import content.ContentManager;
 import debugsystems.DebugSpatialRenderSystem;
 import debugsystems.DebuggMapCollisionGrid;
 
-import entityFramework.ComponentTypeManager;
-import entityFramework.EntityDatabase;
-import entityFramework.EntityFactory;
-import entityFramework.EntityGroupManager;
-import entityFramework.EntityLabelManager;
-import entityFramework.EntityManager;
-import entityFramework.EntitySystemManager;
-import entityFramework.EntityWorld;
-import entityFramework.IEntityDatabase;
-import entityFramework.IEntityManager;
-import entityFramework.IEntitySystemManager;
-import entityFramework.IEntityWorld;
-import entitySystems.AnimationSystem;
-import entitySystems.CameraControlSystem;
-import entitySystems.CollisionSystem;
-import entitySystems.DeathSystem;
-import entitySystems.ExistanceSystem;
-import entitySystems.GUIRenderingSystem;
-import entitySystems.HUDRenderingSystem;
-import entitySystems.InputSystem;
-import entitySystems.MapCollisionSystem;
-import entitySystems.PhysicsSystem;
-import entitySystems.RegenSystem;
-import entitySystems.RenderingSystem;
-import entitySystems.SceneRenderSystem;
-import entitySystems.ScriptCollisionSystem;
-import entitySystems.ScriptMouseSystem;
-import entitySystems.ScriptSystem;
-import entitySystems.ServerInputSystem;
-import entitySystems.TextRenderingSystem;
+import entityFramework.*;
+import entitySystems.*;
 import gameMap.Scene;
 import graphics.SpriteBatch;
-import tests.EntityModule;
 import utils.Camera2D;
-import utils.Mouse;
 
 public class WorldBuilder {
 
@@ -60,13 +27,12 @@ public class WorldBuilder {
 		
 		
 		//Logic systems!
-		manager.addLogicEntitySystem(new AbilitySystem(world, AbilityBuilder.build()));
 		manager.addLogicEntitySystem(new RegenSystem(world, 0.4f));
 		manager.addLogicEntitySystem(new CameraControlSystem(world, camera));
-		manager.addLogicEntitySystem(new ExistanceSystem(world));
 		manager.addLogicEntitySystem(new InputSystem(world, camera));
 		manager.addLogicEntitySystem(new PhysicsSystem(world));
 		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));
+		manager.addLogicEntitySystem(new TimerSystem(world));
 		
 		
 		//Rendering systems!
@@ -96,10 +62,8 @@ public class WorldBuilder {
 		
 		
 		//Logic systems!
-		manager.addLogicEntitySystem(new AbilitySystem(world, AbilityBuilder.build()));
 		manager.addLogicEntitySystem(new RegenSystem(world, 0.4f));
 		manager.addLogicEntitySystem(new CameraControlSystem(world, camera));
-		manager.addLogicEntitySystem(new ExistanceSystem(world));
 		manager.addLogicEntitySystem(new ServerInputSystem(world, camera, label));
 		manager.addLogicEntitySystem(new PhysicsSystem(world));
 		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));

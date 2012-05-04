@@ -43,6 +43,7 @@ public final class EntityArchetype implements IEntityArchetype{
 		List<IComponent> clonedList = new ArrayList<IComponent>(components.size());
 		for (IComponent component : this.components) {
 			IComponent clone = (IComponent)component.clone();
+			
 			clonedList.add(clone);
 		}
 		return ImmutableSet.copyOf(clonedList);

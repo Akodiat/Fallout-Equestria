@@ -8,9 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import entityFramework.IComponent;
 import graphics.Color;
 
-@SuppressWarnings("serial")
-@XStreamAlias("Animation")
-@Editable
+@XStreamAlias("Animation") @Editable
 public class AnimationComp implements IComponent {
 
 	private AnimationPlayer animationPlayer;

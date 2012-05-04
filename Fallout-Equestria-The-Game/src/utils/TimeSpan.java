@@ -139,12 +139,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	}
 	
 	public String toString() {
-		return String.format("Days: + %i Hours: %i Minutes: %i Seconds: %i MiliSeconds: %i", 
-							 this.getDays(), 
-							 this.getHours(), 
-							 this.getMinutes(), 
-							 this.getSeconds(), 
-							 this.getMiliSeconds());
+		return this.getTotalSeconds() + " ";
 	}
 
 	

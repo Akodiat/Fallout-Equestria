@@ -7,7 +7,6 @@ import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.Texture2D;
 import anotations.Editable;
-import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -21,12 +20,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @Editable
 public class RenderingComp implements IComponent {
 	
-	@Editable
-	private Texture2D 	 texture;
-	@Editable
-	private Color		 color;
-	@Editable
-	private Rectangle 	 source;
+	
+	private @Editable Texture2D texture;
+	private @Editable Color color;
+	private @Editable Rectangle source;
+	
 	private ShaderEffect effect;
 	
 	public RenderingComp(){
