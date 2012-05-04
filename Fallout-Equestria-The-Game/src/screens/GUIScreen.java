@@ -9,17 +9,19 @@ import GUI.graphics.GUIRenderingContext;
 import GUI.graphics.LookAndFeel;
 import utils.GameTime;
 import utils.Mouse;
-import utils.TimeSpan;
 
 public class GUIScreen implements Screen{
 	private ScreenManager screenManager;
 	private boolean isFocused;
+	private TransitionState state;
 
 	private GUIRenderingContext context;
 	private GUIFocusManager manager;
 
 	@Override
 	public void initialize() {
+		this.state = TransitionState.NONE;
+		
 		Texture2D backgroundTexture = ContentManager.loadTexture("GUI/Fallout-2-icon.png");
 		Texture2D buttonOverTexture = ContentManager.loadTexture("GUI/Fallout-2-2-icon.png");
 		Texture2D buttonDownTexture = ContentManager.loadTexture("GUI/fallout_point_lookout.png");
@@ -45,7 +47,7 @@ public class GUIScreen implements Screen{
 	}
 
 	@Override
-	public void update() {
+	public void update(GameTime time, boolean isTop) {
 		screenManager.getMouse().poll(screenManager.getCamera());
 	}
 
@@ -65,12 +67,7 @@ public class GUIScreen implements Screen{
 	}
 
 	@Override
-	public void switchTo(TimeSpan time) {
-		
-	}
-
-	@Override
-	public void switchFrom(TimeSpan time) {
+	public void swap(GameTime time) {
 		
 	}
 	
@@ -96,5 +93,15 @@ public class GUIScreen implements Screen{
 
 	public void setScreenManager(ScreenManager screenManager) {
 		this.screenManager = screenManager;
+	}
+
+	@Override
+	public TransitionState getTransitionState() {
+		return this.state;
+	}
+
+	public void setTransitionState(TransitionState state) {
+		// TODO Auto-generated method stub
+		
 	}
 }

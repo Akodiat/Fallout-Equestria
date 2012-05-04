@@ -5,9 +5,10 @@ import graphics.Color;
 import GUI.controls.Button;
 import GUI.controls.Panel;
 import utils.GameTime;
-import utils.TimeSpan;
 
 public class MainMenuScreen extends GUIScreen {
+	private static final int transitionTime = 2;
+	
 	private Panel contentPanel;
 	private TransitionState state;
 	
@@ -15,7 +16,7 @@ public class MainMenuScreen extends GUIScreen {
 		super();
 		initialize();
 		
-		this.state = TransitionState.NONE;
+		this.setTransitionState(TransitionState.NONE);
 	}
 	
 	@Override
@@ -55,7 +56,7 @@ public class MainMenuScreen extends GUIScreen {
 	}
 	
 	@Override
-	public void update() {
+	public void update(GameTime time, boolean isTop) {
 		contentPanel.checkMouseInput(new Point2(0,0), getScreenManager().getMouse());
 		contentPanel.checkKeyboardInput();
 	}
@@ -66,12 +67,19 @@ public class MainMenuScreen extends GUIScreen {
 	}
 
 	@Override
-	public void switchTo(TimeSpan time) {
-		this.state = TransitionState.TO;
+	public void swap(GameTime time){
+		while(time.getElapsedTime().getSeconds() < transitionTime) {
+			
+		}
 	}
 
 	@Override
-	public void switchFrom(TimeSpan time) {
-		this.state = TransitionState.FROM;
+	public TransitionState getTransitionState() {
+		return state;
+	}
+
+	@Override
+	public void setTransitionState(TransitionState state) {
+		this.state = state;
 	}
 }

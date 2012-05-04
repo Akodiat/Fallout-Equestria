@@ -1,7 +1,7 @@
 package screens;
 
 public enum TransitionState {
-	TO, 
-	FROM, 
+	IN, 
+	OUT, 
 	NONE
 }
