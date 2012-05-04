@@ -62,6 +62,8 @@ public class KyroServer {
 	private SpriteBatch spriteBatch;
 	private Clock clock;
 	private Scene scene;
+	
+	private ContentManager contentManager;
 
 	public KyroServer(Rectangle screenDim, int fps) throws IOException{
 		this.server = new Server();
@@ -110,8 +112,9 @@ public class KyroServer {
 	}
 	
 	protected void initialize() {
+		contentManager = new ContentManager("resources");
 
-		scene = ContentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
+		scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
@@ -120,10 +123,10 @@ public class KyroServer {
 		
 		String label = "server";
 		
-		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, label);
+		world = WorldBuilder.buildServerWorld(camera, scene, contentManager, spriteBatch, true, label);
 		world.initialize();
 
-		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
+		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
 		this.player = world.getEntityManager().createEntity(archetype);
 
 		player.addComponent(new BehaviourComp(new PlayerScript()));
@@ -185,7 +188,7 @@ public class KyroServer {
 					NewPlayerMessage message = (NewPlayerMessage) object;
 					addedPlayerMessages.add(message);
 					IEntity player = world.getEntityManager().createEntity(
-							ContentManager.loadArchetype(
+							contentManager.loadArchetype(
 									message.playerCharacteristics.archetypePath));
 					player.setLabel(Utils.getPlayerLabel(connection.getID()));
 					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);

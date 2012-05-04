@@ -60,6 +60,8 @@ public class KryoClient {
 	private SpriteBatch spriteBatch;
 	private Clock clock;
 	private Scene scene;
+	
+	private ContentManager contentManager;
 
 	public static void main(String[] args) throws IOException{
 		KryoClient kryoClient = new KryoClient(new Rectangle(0,0,800,600), 60);
@@ -111,18 +113,19 @@ public class KryoClient {
 	}
 
 	protected void initialize() {
-
-		scene = ContentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
+		contentManager = new ContentManager("resources");
+		
+		scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
 
 		String label = Utils.getPlayerLabel(this.client.getID());
 
-		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, label);
+		world = WorldBuilder.buildServerWorld(camera, scene, contentManager, spriteBatch, true, label);
 		world.initialize();
 
-		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
+		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
 		this.player = world.getEntityManager().createEntity(archetype);
 
 		player.addComponent(new BehaviourComp(new PlayerScript()));
@@ -168,7 +171,7 @@ public class KryoClient {
 					NewPlayerMessage message = (NewPlayerMessage) object;
 
 					IEntity player = world.getEntityManager().createEntity(
-							ContentManager.loadArchetype(
+							contentManager.loadArchetype(
 									message.playerCharacteristics.archetypePath));
 					//player.setLabel(Utils.getPlayerLabel(connection.getID()));
 					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);
