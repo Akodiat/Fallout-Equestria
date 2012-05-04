@@ -14,6 +14,8 @@ public class GUIScreen implements Screen{
 	private ScreenManager screenManager;
 	private boolean isFocused;
 	private TransitionState state;
+	
+	private ContentManager contentManager = new ContentManager("resources");
 
 	private GUIRenderingContext context;
 	private GUIFocusManager manager;
@@ -22,13 +24,13 @@ public class GUIScreen implements Screen{
 	public void initialize() {
 		this.state = TransitionState.NONE;
 		
-		Texture2D backgroundTexture = ContentManager.loadTexture("GUI/Fallout-2-icon.png");
-		Texture2D buttonOverTexture = ContentManager.loadTexture("GUI/Fallout-2-2-icon.png");
-		Texture2D buttonDownTexture = ContentManager.loadTexture("GUI/fallout_point_lookout.png");
-		Texture2D sliderAndScrollBG = ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D textboxBG 		= ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D scrollButtonBG    = ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D textAreaBackground= ContentManager.loadTexture("GUI/guiBackground.png");
+		Texture2D backgroundTexture = contentManager.loadTexture("GUI/Fallout-2-icon.png");
+		Texture2D buttonOverTexture = contentManager.loadTexture("GUI/Fallout-2-2-icon.png");
+		Texture2D buttonDownTexture = contentManager.loadTexture("GUI/fallout_point_lookout.png");
+		Texture2D sliderAndScrollBG = contentManager.loadTexture("GUI/guiBackground.png");
+		Texture2D textboxBG 		= contentManager.loadTexture("GUI/guiBackground.png");
+		Texture2D scrollButtonBG    = contentManager.loadTexture("GUI/guiBackground.png");
+		Texture2D textAreaBackground= contentManager.loadTexture("GUI/guiBackground.png");
 		
 		LookAndFeel lookAndFeel = new LookAndFeel();
 		lookAndFeel.setElement("Button_Background", new VisibleElement(backgroundTexture, backgroundTexture.getBounds()));
@@ -41,9 +43,9 @@ public class GUIScreen implements Screen{
 		lookAndFeel.setElement("ScrollBar_Button_Down", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
 		lookAndFeel.setElement("ScrollBar_Button_Over", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
 		lookAndFeel.setElement("TextArea_Background", new VisibleElement(textAreaBackground, textAreaBackground.getBounds()));	
-		lookAndFeel.setDefaultFont(ContentManager.loadFont("arialb20.xml"));
+		lookAndFeel.setDefaultFont(contentManager.loadFont("arialb20.xml"));
 		
-		context = new GUIRenderingContext(screenManager.getSpriteBatch(), lookAndFeel, ContentManager.loadShaderEffect("GrayScale.effect"));
+		context = new GUIRenderingContext(screenManager.getSpriteBatch(), lookAndFeel, contentManager.loadShaderEffect("GrayScale.effect"));
 	}
 
 	@Override
