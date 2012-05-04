@@ -42,7 +42,7 @@ public class RandomMoving extends Behavior {
 		this.distance= DEFAULT_DISTANCE;
 		this.lerpAmount = 0;
 
-		TransformationComp transComp = this.entity.getComponent(TransformationComp.class);
+		TransformationComp transComp = this.Entity.getComponent(TransformationComp.class);
 		transComp.setPosition(this.area.getCenter());
 		this.previousPos = transComp.getPosition();
 		this.targetPos = transComp.getPosition();
@@ -50,7 +50,7 @@ public class RandomMoving extends Behavior {
 
 	public void update(GameTime time) {
 
-		TransformationComp transComp = this.entity.getComponent(TransformationComp.class);
+		TransformationComp transComp = this.Entity.getComponent(TransformationComp.class);
 
 		if(lerpAmount>1){
 			this.previousPos = targetPos;

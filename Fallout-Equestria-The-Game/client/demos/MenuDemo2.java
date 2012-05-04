@@ -20,6 +20,7 @@ import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 import entitySystems.RenderingSystem;
 import entitySystems.ScriptMouseSystem;
+import entitySystems.ScriptSystem;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
@@ -32,8 +33,6 @@ import utils.Rectangle;
 public class MenuDemo2 extends Demo{
 
 	private static Rectangle screenRect = new Rectangle(0,0,1360,768);
-	private static final Audio clickSound = ContentManager.loadSound("effects" + File.separator + "open.ogg");
-	private static final Audio overSound = ContentManager.loadSound("effects" + File.separator + "buttonclickeded.ogg");
 
 	Camera2D camera;
 	Mouse mouse;
@@ -82,15 +81,13 @@ public class MenuDemo2 extends Demo{
 		this.mouse = new Mouse();
 		
 		camera.setPosition(new Vector2(2000, 223));
-		world = WorldBuilder.buildGUIWorld(mouse, this.spriteBatch);
+		world = WorldBuilder.buildEmptyWorld();
 		world.getSystemManager().addLogicEntitySystem(new ScriptMouseSystem(world, camera));
+		world.getSystemManager().addLogicEntitySystem(new ScriptSystem(world, new ContentManager("resources")));
 		world.getSystemManager().addRenderEntitySystem(new CameraControlSystem(world, camera));
 		world.getSystemManager().addRenderEntitySystem(new RenderingSystem(world, spriteBatch));
 		world.initialize();
 
-		IEntityArchetype archetype = ContentManager.loadArchetype("FalloutButton.archetype");
-
-		int buttonX = screenRect.Width - 250;
 
 		//WALLPAPER
 		IEntity wallpaper = this.world.getEntityManager().createEmptyEntity();

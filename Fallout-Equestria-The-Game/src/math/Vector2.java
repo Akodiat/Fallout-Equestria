@@ -81,6 +81,26 @@ public final class Vector2 implements java.io.Serializable{
 	}
 	
 	/**
+	 * Returns a new vector consisting of the highest 
+	 * x- and y-values found in the parameters.
+	 */
+	public static Vector2 max(Vector2 vector1, Vector2 vector2){
+		float highestXValue = vector1.X > vector2.X ? vector1.X:vector2.X;
+		float highestYValue = vector1.Y > vector2.Y ? vector1.Y:vector2.Y;
+		return new Vector2(highestXValue,highestYValue);
+	}
+	
+	/**
+	 * Returns a new vector consisting of the lowest 
+	 * x- and y-values found in the parameters.
+	 */
+	public static Vector2 min(Vector2 vector1, Vector2 vector2){
+		float lowestXValue = vector1.X > vector2.X ? vector2.X:vector1.X;
+		float lowestYValue = vector1.Y > vector2.Y ? vector2.Y:vector1.Y;
+		return new Vector2(lowestXValue,lowestYValue);
+	}
+	
+	/**
 	 * Calculates the distance between two vectors.
 	 * @param vector0 the first vector.
 	 * @param vector1 the second vector.
@@ -169,19 +189,36 @@ public final class Vector2 implements java.io.Serializable{
 	 * Linear interpolation. Finds and returns a point on the straight 
 	 * line between the two points described by the vectors parameters.
 	 * If the float parameter does not describe a value (X) between
-	 * the x-values of the vectors, (0,0) is returned.
+	 * the x-values of the vectors, it will be clamped.
 	 * @param v1 
-	 * @param v3
-	 * @param x2 A point between the two points
+	 * @param v2
+	 * @param amount A value between 1 and 0.
 	 * @return
 	 */
-	public static Vector2 lerp(Vector2 v1, Vector2 v3, float x2) {
+	public static Vector2 lerp(Vector2 v1, Vector2 v2, float amount) {
 		 
-		x2 = MathHelper.clamp(0, 1, x2);
+		amount = MathHelper.clamp(0, 1, amount);
   
-        float y2 = MathHelper.lerp(v1.Y, v3.Y, x2);
-        x2 = MathHelper.lerp(v1.X, v3.X, x2);
-        return new Vector2(x2, y2);
+        float y2 = MathHelper.lerp(v1.Y, v2.Y, amount);
+        amount = MathHelper.lerp(v1.X, v2.X, amount);
+        return new Vector2(amount, y2);
+    }
+	/**
+	 * Linear interpolation. Finds and returns a point on a smooth curve 
+	 * between the two points described by the vectors parameters.
+	 * If the float parameter does not describe a value (X) between
+	 * the x-values of the vectors, it will be clamped.
+	 * @param v1 
+	 * @param v2
+	 * @param amount A value between 1 and 0.
+	 * @return
+	 */
+	public static Vector2 smoothLerp(Vector2 v1, Vector2 v2, float amount) {
+		amount = ((amount > 1f) ? 1f : ((amount < 0f) ? 0f : amount));
+		amount = amount * amount * (3f - 2f * amount);
+		Vector2 result = new Vector2(v1.X + (v2.X - v1.X) * amount,
+									 v1.Y + (v2.Y - v1.Y) * amount);
+		return result;
     }
 	
 	/**
