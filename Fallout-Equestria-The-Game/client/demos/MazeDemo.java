@@ -127,7 +127,7 @@ public class MazeDemo extends Demo {
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 
-		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, false);
+		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene,this.ContentManager, spriteBatch, false);
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT

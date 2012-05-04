@@ -10,9 +10,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
- public class ShaderLoader implements IContentLoader<ShaderEffect>{
+ public class ShaderLoader extends ContentLoader<ShaderEffect>{
 	
-	  private int createShader(int glShaderType, String shaderCode) {
+	  public ShaderLoader(String folder) {
+		super(folder);
+	}
+
+	private int createShader(int glShaderType, String shaderCode) {
 		  int shader = glCreateShader(glShaderType);
 		  
 		  glShaderSource(shader, shaderCode);
@@ -102,8 +106,4 @@ import java.io.InputStreamReader;
 		return new ShaderEffect(this.loadProgram(in));
 	}
 
-	@Override
-	public String getFolder() {
-		return "shaders";
-	}
 }

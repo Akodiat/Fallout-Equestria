@@ -1,10 +1,8 @@
 package entitySystems;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.TreeSet;
 
 import math.Vector2;
 
@@ -14,7 +12,6 @@ import utils.Rectangle;
 import com.google.common.collect.ImmutableSet;
 
 import components.AnimationComp;
-import components.RenderingComp;
 import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
@@ -88,7 +85,7 @@ public class AnimationSystem extends EntityProcessingSystem {
 	
 	private boolean isVisible(IEntity entity, Rectangle visibleArea) {
 		TransformationComp transComp = tCM.getComponent(entity);
-		AnimationComp animationComp = aCM.getComponent(entity);
+	//	AnimationComp animationComp = aCM.getComponent(entity);
 		
 		//Here animation.getBounds should be.
 		//Below is temporary hack until getBounds is implemented. 

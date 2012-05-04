@@ -71,7 +71,7 @@ public class BasicAIDemo extends Demo {
 		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
 		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
 		
-		gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, true);
+		gameWorld = WorldBuilder.buildGameWorld(camera, scene,this.ContentManager, spriteBatch, true);
 		gameWorld.initialize();
 		
 		sm.initialize();

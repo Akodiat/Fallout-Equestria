@@ -13,11 +13,13 @@ public final class Texture2D {
 	public final int OpenGLID;	
 	public final int Width;
 	public final int Height;
+	private boolean isDestroyed;
 	
 	public Texture2D(int openGLID, int width, int height) {
 		this.OpenGLID = openGLID;
 		this.Width = width;
 		this.Height = height;
+		this.isDestroyed = false;
 	}
 	
 	public Rectangle getBounds() {	
@@ -29,7 +31,18 @@ public final class Texture2D {
 	}
 	
 	public void destroyTexture() {
-		glDeleteTextures(this.OpenGLID);
+		if(!this.isDestroyed) {
+			glDeleteTextures(this.OpenGLID);
+			this.isDestroyed = true;
+		}
+		
+	}
+	
+	@Override
+	protected void finalize() {
+		if(!this.isDestroyed) {
+			this.destroyTexture();
+		}
 	}
 	
 	
@@ -39,7 +52,11 @@ public final class Texture2D {
 			createPixel();
 		}
 		return pixel;
+		
 	}
+	
+	
+	
 
 	private static void createPixel() {
 		int openGLID = glGenTextures();

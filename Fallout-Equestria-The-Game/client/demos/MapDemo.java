@@ -57,7 +57,7 @@ public class MapDemo extends Demo{
 		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
 		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
 		
-		gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, false);
+		gameWorld = WorldBuilder.buildGameWorld(camera, scene,this.ContentManager, spriteBatch, false);
 		gameWorld.initialize();
 		
 

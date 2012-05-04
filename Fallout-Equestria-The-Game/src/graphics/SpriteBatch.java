@@ -1,5 +1,4 @@
 package graphics;
-import content.ContentManager;
 import utils.Rectangle;
 
 import math.Matrix4;
@@ -183,6 +182,8 @@ public class SpriteBatch {
 												   viewport.getBottom(), viewport.getTop(),
 												     1, -1);
 		
+		glViewport(0, 0, viewport.Width, viewport.Height);
+		
 		this.activeEffect.setUniform("projection", projectionMatrix);
 		//Stop using the active shader.
 		this.activeEffect.unbindShaderProgram();
@@ -194,7 +195,7 @@ public class SpriteBatch {
 	 */
 	public void setViewport(Rectangle newViewport) {
 		this.viewport = newViewport;
-		glViewport(0,0,newViewport.Width, newViewport.Height);
+		setupUniforms();
 	}
 	
 	/**Gets the dimensions of the screen rendered to.
@@ -265,14 +266,28 @@ public class SpriteBatch {
 	 * @param view the custom view used.
 	 */
 	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target) {
+		this.begin(effect, view, target, true);
+	}
 	
-		glEnable(GL_BLEND);
+	
+	private Rectangle oldViewPort;
+	
+	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target, boolean useBlending) {
+		
 		glEnable(GL_TEXTURE_2D);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		if(useBlending)	{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+		
+		this.betweenBeginAndEnd = true;
+		this.view = view;
+		this.oldViewPort = this.viewport;
 		
 		if(target != null) { 
 			this.setRenderTargetMode(true);
 			target.bindGl();
+			this.setViewport(new Rectangle(0,0,target.getTexture().Width, target.getTexture().Height));
 		} else {
 			this.setRenderTargetMode(false);
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -285,10 +300,9 @@ public class SpriteBatch {
 		}
 		
 		
-		this.betweenBeginAndEnd = true;
-		this.view = view;
 		this.setupUniforms();
 	}
+			
 	
 	/** Ends the batch drawing, Draws the batched items to the current renderTarget.
 	 */
@@ -296,6 +310,8 @@ public class SpriteBatch {
 		if(!this.betweenBeginAndEnd) {
 			throw new GraphicsException("Cannot end before you begin...");
 		}
+		
+		this.viewport = oldViewPort;
 		
 		if(this.activeTexture != null) {
 			this.renderBatch();

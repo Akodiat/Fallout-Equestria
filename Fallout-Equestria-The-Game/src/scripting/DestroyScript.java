@@ -13,7 +13,7 @@ public class DestroyScript extends Behavior {
 
 	@Override
 	public void update(GameTime time) {
-		this.entity.kill();
+		this.Entity.kill();
 	}
 
 	@Override

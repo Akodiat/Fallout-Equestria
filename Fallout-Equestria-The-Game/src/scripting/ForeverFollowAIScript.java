@@ -24,12 +24,12 @@ public class ForeverFollowAIScript extends Behavior{
 
 	@Override
 	public void start() {
-		this.physComp = this.entity.getComponent(PhysicsComp.class);
-		this.transComp = this.entity.getComponent(TransformationComp.class);
+		this.physComp = this.Entity.getComponent(PhysicsComp.class);
+		this.transComp = this.Entity.getComponent(TransformationComp.class);
 
 		if(physComp == null) {
 			this.physComp = new PhysicsComp();
-			this.entity.addComponent(new PhysicsComp());
+			this.Entity.addComponent(new PhysicsComp());
 		}
 		if(this.transComp == null) {
 			throw new NullPointerException("transComp");
@@ -38,7 +38,7 @@ public class ForeverFollowAIScript extends Behavior{
 
 	@Override
 	public void update(GameTime time) {
-		IEntity targetEntity = this.entityManager.getEntity(targetEntityLabel);
+		IEntity targetEntity = this.EntityManager.getEntity(targetEntityLabel);
 		if(targetEntity != null) {
 			TransformationComp playerTrans = targetEntity.getComponent(TransformationComp.class);
 			moveTowardsTarget(playerTrans.getPosition());
@@ -52,9 +52,9 @@ public class ForeverFollowAIScript extends Behavior{
 		this.physComp.setVelocity(Vector2.mul(this.speed, dir));
 		
 		if (dir.X<0){
-			this.entity.getComponent(TransformationComp.class).setMirror(true);
+			this.Entity.getComponent(TransformationComp.class).setMirror(true);
 		} else {
-			this.entity.getComponent(TransformationComp.class).setMirror(false);
+			this.Entity.getComponent(TransformationComp.class).setMirror(false);
 		}
 	}
 

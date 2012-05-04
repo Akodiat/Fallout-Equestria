@@ -33,25 +33,25 @@ public class PlayerScript extends Behavior{
 	
 	@Override
 	public void start() {
-		physComp  = entity.getComponent(PhysicsComp.class);
-		posComp  = entity.getComponent(TransformationComp.class);
-		apComp  = entity.getComponent(AbilityComp.class);
-		weaponComp  = entity.getComponent(WeaponComp.class);
-		specialComp = entity.getComponent(SpecialComp.class);
-		inputComp	= entity.getComponent(InputComp.class);
+		physComp  = Entity.getComponent(PhysicsComp.class);
+		posComp  = Entity.getComponent(TransformationComp.class);
+		apComp  = Entity.getComponent(AbilityComp.class);
+		weaponComp  = Entity.getComponent(WeaponComp.class);
+		specialComp = Entity.getComponent(SpecialComp.class);
+		inputComp	= Entity.getComponent(InputComp.class);
 	}
 
 	@Override
 	public void update(GameTime time) {
 
-		inpComp  = entity.getComponent(InputComp.class);
+		inpComp  = Entity.getComponent(InputComp.class);
 
 		int speedFactor = 200;
 		if(inpComp.isGallopButtonPressed()){
 			speedFactor=400;
 		}
 		if(inpComp.isLeftMouseButtonDown()){
-			AbilityFactory abilityFactory = new AbilityFactory(entityManager);
+			AbilityFactory abilityFactory = new AbilityFactory(EntityManager);
 			Vector2 velocity = Vector2.norm(Vector2.subtract(inputComp.getMousePosition(),posComp.getPosition()));
 			IEntity projectile = abilityFactory.createProjectile(
 					this.posComp.getPosition(), 

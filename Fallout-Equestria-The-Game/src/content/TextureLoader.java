@@ -16,8 +16,12 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Lukas Kurtyan
  *
  */
-public final class TextureLoader implements IContentLoader<Texture2D>{
+public final class TextureLoader extends ContentLoader<Texture2D>{
 	
+	public TextureLoader(String folder) {
+		super(folder);
+	}
+
 	@Override
 	public Class<Texture2D> getClassAbleToLoad() {
 		return Texture2D.class;
@@ -56,10 +60,5 @@ public final class TextureLoader implements IContentLoader<Texture2D>{
 		buffer.clear();
 		buffer = null;
 		return new Texture2D(openGLID, decoder.getWidth(), decoder.getHeight());
-	}
-
-	@Override
-	public String getFolder() {
-		return "textures";
 	}
 }

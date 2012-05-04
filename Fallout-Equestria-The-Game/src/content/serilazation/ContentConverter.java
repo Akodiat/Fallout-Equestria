@@ -16,6 +16,12 @@ import content.ContentManager;
 
 public class ContentConverter implements Converter{
 
+	private final ContentManager ContentManager;
+	
+	public ContentConverter(ContentManager contentManager) {
+		this.ContentManager = contentManager;
+	}
+	
 	@Override
 	public boolean canConvert(@SuppressWarnings("rawtypes") Class clazz) {
 		return (Texture2D.class.isAssignableFrom(clazz)) 		||

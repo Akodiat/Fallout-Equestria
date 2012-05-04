@@ -17,13 +17,15 @@ import utils.Rectangle;
 
 public class HealthBarRenderSystem extends EntityProcessingSystem {
 
+	private ContentManager contentManager;
 	private SpriteBatch spriteBatch;
 	private Texture2D healthBarTexture;
 
-	public HealthBarRenderSystem(IEntityWorld world, SpriteBatch graphics) {
+	public HealthBarRenderSystem(IEntityWorld world, ContentManager contentManager, SpriteBatch graphics) {
 		super(world, HealthComp.class, RenderingComp.class,
 				TransformationComp.class);
 		this.spriteBatch = graphics;
+		this.contentManager = contentManager;
 	}
 
 	private ComponentMapper<HealthComp> hCM;
@@ -35,8 +37,8 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 				HealthComp.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
-
-		healthBarTexture = ContentManager.loadTexture("HealthBarUnit.png");
+		
+		healthBarTexture = contentManager.loadTexture("HealthBarUnit.png");
 	}
 
 	@Override

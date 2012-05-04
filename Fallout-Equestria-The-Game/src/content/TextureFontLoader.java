@@ -16,7 +16,14 @@ import org.jdom.input.SAXBuilder;
 
 import utils.Rectangle;
 
-public class TextureFontLoader implements IContentLoader<TextureFont>{
+public class TextureFontLoader extends ContentLoader<TextureFont>{
+
+	private final ContentManager ContentManager;
+	
+	public TextureFontLoader(ContentManager manager, String folder) {
+		super(folder);
+		this.ContentManager = manager;
+	}
 
 	private static final String assetAttrib = "Asset";
 	private static final String lineSpacingAttrib = "LineSpacing";
@@ -25,6 +32,8 @@ public class TextureFontLoader implements IContentLoader<TextureFont>{
 	private static final String glyphAttrib = "Glyph";
 	private static final String charAttrib = "Char";
 	private static final String boundsAttrib = "Bounds";
+	
+	
 	
 	@Override
 	public TextureFont loadContent(InputStream in) throws Exception {
@@ -92,10 +101,5 @@ public class TextureFontLoader implements IContentLoader<TextureFont>{
 	@Override
 	public Class<TextureFont> getClassAbleToLoad() {
 		return TextureFont.class;
-	}
-
-	@Override
-	public String getFolder() {
-		return "fonts";
 	}
 }

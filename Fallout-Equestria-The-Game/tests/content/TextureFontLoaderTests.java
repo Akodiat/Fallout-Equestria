@@ -26,7 +26,7 @@ public class TextureFontLoaderTests {
 	
 	@Test
 	public void testIfCanLoadValidFont() throws Exception {
-		TextureFontLoader loader = new TextureFontLoader();
+		TextureFontLoader loader = new TextureFontLoader(new ContentManager("resources"), "");
 		TextureFont font = loader.loadContent(this.getClass().getResourceAsStream("testFont.font"));
 		
 		assertNotNull(font);	
@@ -34,7 +34,7 @@ public class TextureFontLoaderTests {
 	
 	@Test(expected = Exception.class)
 	public void testIfExceptionIfInvalidFont() throws Exception {
-		TextureFontLoader loader = new TextureFontLoader();
+		TextureFontLoader loader = new TextureFontLoader(new ContentManager("resources"), "");
 		loader.loadContent(this.getClass().getResourceAsStream("invalidTestFont.font"));
 		
 		fail("This should not get here!");	
@@ -42,7 +42,7 @@ public class TextureFontLoaderTests {
 	
 	@Test
 	public void testIfCorrectFolderAndClassManaged() {
-		TextureFontLoader loader = new TextureFontLoader();
+		TextureFontLoader loader = new TextureFontLoader(new ContentManager("resources"), "fonts");
 		assertEquals(loader.getFolder(), "fonts");
 		assertEquals(loader.getClassAbleToLoad(), TextureFont.class);
 	}

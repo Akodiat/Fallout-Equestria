@@ -1,5 +1,6 @@
 package GUI.controls;
 
+import graphics.Texture2D;
 import graphics.TextureFont;
 import utils.Rectangle;
 import GUI.Event;
@@ -8,7 +9,7 @@ import misc.EventArgs;
 import misc.IEventListener;
 
 public class Spinner extends Panel {
-	private static final int margin = 10;
+	private static final int margin = 5;
 
 	private final Label label;
 	private final Button plusButton, minusButton;
@@ -21,11 +22,13 @@ public class Spinner extends Panel {
 
 	private Event<EventArgs> spinnedEvent;
 
-	public Spinner(float max, float min, float interval, float value) {
+	public Spinner(float max, float min, float interval, float value, Texture2D plusImage, Texture2D minusImage) {
 		super();
 		this.label = new Label();
 		this.plusButton = new Button();
+		this.plusButton.setImage(plusImage);
 		this.minusButton = new Button();
+		this.minusButton.setImage(minusImage);
 
 		this.addChild(label);
 		this.addChild(plusButton);

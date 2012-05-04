@@ -48,7 +48,7 @@ public class AnimationDemo extends Demo {
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Scene scene;
-
+	
 	public static void main(String[] str) {
 		AnimationDemo demo = new AnimationDemo();
 		demo.start();
@@ -79,20 +79,14 @@ public class AnimationDemo extends Demo {
 		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
-
-		Injector injector = Guice.createInjector(new EntityModule());
-		IEntityManager manager = injector.getInstance(IEntityManager.class);
-		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
-		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
-
-		gameWorld = WorldBuilder.buildGameWorld(camera, scene, spriteBatch, true);
+		
+		gameWorld = WorldBuilder.buildGameWorld(camera, scene, this.ContentManager, spriteBatch, true);
 		gameWorld.initialize();
 
-		sm.initialize();
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		IEntity entity = manager.createEntity(archetype);
+		IEntity entity = gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		
 		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
@@ -111,7 +105,7 @@ public class AnimationDemo extends Demo {
 
 		archetype = ContentManager.loadArchetype(aiAsset);
 		for (int i = 0; i < 20; i++) {
-			entity = manager.createEntity(archetype);
+			entity = gameWorld.getEntityManager().createEntity(archetype);
 			placeAtRandomPosition(entity);
 			entity.refresh();
 

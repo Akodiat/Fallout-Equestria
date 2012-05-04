@@ -24,14 +24,14 @@ public class ShaderLoaderTests {
 
 	@Test
 	public void testIfCanLoadValidShaderEffect() throws Exception {
-		ShaderLoader loader = new ShaderLoader();
+		ShaderLoader loader = new ShaderLoader("shaders");
 		ShaderEffect effect = loader.loadContent(this.getClass().getResourceAsStream("testEffect.effect"));		
 		assertNotNull(effect);
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void testIfExceptionIfInvalidEffect() throws Exception {
-		ShaderLoader loader = new ShaderLoader();
+		ShaderLoader loader = new ShaderLoader("shaders");
 		loader.loadContent(this.getClass().getResourceAsStream("invalidTestEffect.effect"));		
 		
 		fail("It should not get here!");
@@ -39,7 +39,7 @@ public class ShaderLoaderTests {
 	
 	@Test
 	public void testIfCorrectFolderAndClassManaged() {
-		ShaderLoader loader = new ShaderLoader();
+		ShaderLoader loader = new ShaderLoader("shaders");
 		assertEquals(loader.getFolder(), "shaders");
 		assertEquals(loader.getClassAbleToLoad(), ShaderEffect.class);
 	}

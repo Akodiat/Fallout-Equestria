@@ -3,8 +3,6 @@ package content;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import scripting.Behavior;
-
 import components.*;
 
 import com.google.common.collect.ImmutableSet;
@@ -15,13 +13,21 @@ import content.serilazation.ContentConverter;
 import content.serilazation.Vector2Converter;
 import entityFramework.IEntityArchetype;
 
-public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
+public class EntityArchetypeLoader extends ContentLoader<IEntityArchetype>{
+	private final ContentManager contentManager;		
+	private final XStream xstream;
 	
-	private static final XStream xstream = new XStream();
-	private static boolean isInitalized = false;
-	public static void initialize() {
+	public EntityArchetypeLoader(ContentManager contentManager, String folder) {
+		super(folder);
+		this.contentManager = contentManager;
+		this.xstream = new XStream();
+		this.initialize();
+	}
 
-		xstream.registerConverter(new ContentConverter());
+
+	public void initialize() {
+
+		xstream.registerConverter(new ContentConverter(contentManager));
 		xstream.registerConverter(new Vector2Converter());
 		xstream.registerConverter(new ColorConverter());
 		xstream.alias("Set", ImmutableSet.class);
@@ -47,12 +53,7 @@ public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
 	}
 
 	@Override
-	public IEntityArchetype loadContent(InputStream in) throws Exception {
-		if(!isInitalized) {
-			isInitalized = true;
-			initialize();
-		}
-		
+	public IEntityArchetype loadContent(InputStream in) throws Exception {		
 		IEntityArchetype archetype = (IEntityArchetype)xstream.fromXML(in);
 		return archetype;
 	}
@@ -60,10 +61,4 @@ public class EntityArchetypeLoader implements IContentLoader<IEntityArchetype>{
 	public void save(OutputStream out, IEntityArchetype archetype) {
 		xstream.toXML(archetype, out);
 	}
-	
-	@Override
-	public String getFolder() {
-		return "archetypes";
-	}
-
 }

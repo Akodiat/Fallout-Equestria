@@ -19,7 +19,6 @@ import com.google.common.collect.ImmutableList;
 import components.*;
 import content.ContentManager;
 import death.DeathResolveSystem;
-import debugsystems.DebugAttackRenderSystem;
 import debugsystems.DebugSpatialRenderSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -29,8 +28,7 @@ import utils.Camera2D;
 import utils.Circle;
 import utils.Rectangle;
 import utils.Timer;
-
-import gameMap.*;
+a
 import graphics.*;
 
 public class AnimationTest {
@@ -41,7 +39,8 @@ public class AnimationTest {
 	private final boolean isFullScreen;
 	private MapTester mapTester;
 	private Camera2D camera;
-
+	private ContentManager ContentManager;
+	
 	public static void main(String[] args) throws IOException, LWJGLException {
 		new AnimationTest(new Rectangle(0, 0, 1280, 720), true).start();
 	}
@@ -66,6 +65,7 @@ public class AnimationTest {
 		this.tester = new SystemTester();
 		this.mapTester = new MapTester(this.graphics);
 		this.camera = new Camera2D(new Rectangle(0, 0, 10000, 10000), screenDim);
+		ContentManager = new ContentManager("resources");
 		initializeSystems();
 		initializeEntities(this.tester.getWorld().getEntityManager());
 
@@ -115,21 +115,18 @@ public class AnimationTest {
 		tester.addLogicSubSystem(new CollisionSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new CameraControlSystem(
 				this.tester.getWorld(), camera));
-		tester.addLogicSubSystem(new AttackResolveSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new RegenSystem(this.tester.getWorld(), 0.5f));
 		tester.addLogicSubSystem(new ExistanceSystem(this.tester.getWorld()));
-		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester
-				.getWorld(), this.graphics));
+		tester.addRenderSubSystem(new HealthBarRenderSystem(this.tester.getWorld(), ContentManager,
+				 this.graphics));
 		tester.addLogicSubSystem(new DeathSystem(this.tester.getWorld()));
 		tester.addLogicSubSystem(new DeathResolveSystem(this.tester.getWorld()));
 		tester.addRenderSubSystem(new RenderingSystem(this.tester.getWorld(),
 				this.graphics));
-		tester.addRenderSubSystem(new DebugAttackRenderSystem(this.tester
-				.getWorld(), this.graphics));
 		tester.addRenderSubSystem(new DebugSpatialRenderSystem(this.tester
-				.getWorld(), this.graphics));
+				.getWorld(),this.ContentManager, this.graphics));
 		tester.addRenderSubSystem(new HUDRenderingSystem(
-				this.tester.getWorld(), this.graphics, "Player"));
+				this.tester.getWorld(),this.ContentManager, this.graphics, "Player"));
 
 	}
 
@@ -152,7 +149,7 @@ public class AnimationTest {
 		DeathComp deathComp = new DeathComp();
 
 		WeaponComp weaponComp = new WeaponComp();
-		weaponComp.setPrimaryArchetype(new AbilityInfo(Abilities.None));
+	//	weaponComp.setPrimaryArchetype(new AbilityInfo(Abilities.None));
 
 		// ANIMATIONCOMPONENT
 

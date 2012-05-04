@@ -19,12 +19,13 @@ public class DebugRadiationRenderSystem extends EntityProcessingSystem{
 	
 	private Texture2D circleTexture;
 	private SpriteBatch graphics;
-	
+	private ContentManager contentManager;
 	private ComponentMapper<RadiationComp> rCM;
 
-	public DebugRadiationRenderSystem(IEntityWorld world, SpriteBatch graphics) {
+	public DebugRadiationRenderSystem(IEntityWorld world,ContentManager contentManager, SpriteBatch graphics) {
 		super(world, RadiationComp.class);
 		this.graphics = graphics;
+		this.contentManager = contentManager;
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class DebugRadiationRenderSystem extends EntityProcessingSystem{
 		rCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				RadiationComp.class);
 		
-		this.circleTexture = ContentManager.loadTexture("Circle100pxGrey.png");
+		this.circleTexture = contentManager.loadTexture("Circle100pxGrey.png");
 	}
 
 	@Override

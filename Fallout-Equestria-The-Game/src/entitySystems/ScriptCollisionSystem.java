@@ -9,7 +9,6 @@ import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.PhysicsComp;
 import components.BehaviourComp;
 import components.SpatialComp;
 import components.TransformationComp;

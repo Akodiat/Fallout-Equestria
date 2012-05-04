@@ -28,6 +28,7 @@ public class GUIRenderingContext {
 	
 	public  void render(GUIControl control, GameTime time) {
 		RenderTarget2D target = renderChildrenRecursivly(control, time);	
+
 		
 		this.spriteBatch.begin();
 		this.spriteBatch.draw(target.getTexture(), control.getBounds(), Color.White, null);

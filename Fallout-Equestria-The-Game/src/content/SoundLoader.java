@@ -7,7 +7,11 @@ import java.io.InputStream;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 
-public class SoundLoader implements IContentLoader<Audio>{
+public class SoundLoader extends ContentLoader<Audio>{
+
+	public SoundLoader(String folder) {
+		super(folder);
+	}
 
 	public Audio loadSound(FileInputStream fileInputStream) throws IOException  {
 		Audio a = AudioLoader.getAudio("OGG", fileInputStream);
@@ -23,10 +27,5 @@ public class SoundLoader implements IContentLoader<Audio>{
 	public Audio loadContent(InputStream in) throws IOException {
 		Audio a = AudioLoader.getAudio("OGG", in);
 		return a;
-	}
-
-	@Override
-	public String getFolder() {
-		return "sounds";
 	}
 }

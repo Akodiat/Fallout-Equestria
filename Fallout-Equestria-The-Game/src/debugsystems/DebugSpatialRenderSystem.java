@@ -20,9 +20,11 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 	private Texture2D circleTexture;
 	private SpriteBatch graphics;
 
-	public DebugSpatialRenderSystem(IEntityWorld world, SpriteBatch graphics) {
+	private ContentManager contentManager;
+	public DebugSpatialRenderSystem(IEntityWorld world,ContentManager contentManager, SpriteBatch graphics) {
 		super(world, SpatialComp.class, TransformationComp.class);
 		this.graphics = graphics;
+		this.contentManager = contentManager;
 	}
 
 	private ComponentMapper<SpatialComp> sCM;
@@ -35,7 +37,7 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
 
-		this.circleTexture = ContentManager.loadTexture("Circle100pxGrey.png");
+		this.circleTexture = contentManager.loadTexture("Circle100pxGrey.png");
 	}
 
 	@Override

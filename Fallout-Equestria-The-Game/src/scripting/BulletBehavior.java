@@ -42,7 +42,7 @@ public class BulletBehavior extends Behavior{
 	
 	@Override
 	public void start() {
-		this.entity.getComponent(TransformationComp.class);
+		this.Entity.getComponent(TransformationComp.class);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class BulletBehavior extends Behavior{
 			System.out.println(damage);
 		}
 		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
-		this.entity.kill();
+		this.Entity.kill();
 	}
 
 	@Override

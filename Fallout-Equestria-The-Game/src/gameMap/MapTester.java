@@ -16,6 +16,7 @@ public class MapTester {
 	private TileMapPainter tileMapPainter;
 	private Texture2D textureForAllTiles;
 	private SpriteBatch spriteBatch;	
+	private ContentManager ContentManager;
 	public static void main(String[] args) throws IOException, LWJGLException{
 		Display.create();
 		MapTester tester = new MapTester(new SpriteBatch(new utils.Rectangle(0, 0, Display.getWidth(), Display.getHeight())));
@@ -26,6 +27,7 @@ public class MapTester {
 	}
 	
 	public MapTester(SpriteBatch graphics) throws IOException{
+		this.ContentManager = new ContentManager("resources");
 		this.textureForAllTiles =  ContentManager.loadTexture("ground.png");
 		this.spriteBatch = graphics;
 		

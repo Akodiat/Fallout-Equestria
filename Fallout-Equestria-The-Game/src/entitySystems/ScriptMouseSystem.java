@@ -1,12 +1,11 @@
 package entitySystems;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import math.Vector2;
 
-import org.lwjgl.input.Cursor;
+
 import org.lwjgl.input.Mouse;
 
 import com.google.common.collect.ImmutableSet;
@@ -26,8 +25,6 @@ import utils.MouseState;
 import utils.Rectangle;
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
-import entityFramework.EntitySingleProcessingSystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 
@@ -255,6 +252,7 @@ public class ScriptMouseSystem extends EntityProcessingSystem {
 			this.processEntity(entity, ms);
 		}
 		
+		@SuppressWarnings("unchecked")
 		ImmutableSet<IEntity> gui = this.getDatabase().getEntitysContainingComponents(GUIComp.class, BehaviourComp.class);
 		for (IEntity entity : gui) {
 			if(!this.collisionStates.containsKey(entity)) 

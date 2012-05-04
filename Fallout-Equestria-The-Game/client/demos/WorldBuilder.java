@@ -6,7 +6,8 @@ import ability.AbilitySystem;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import debugsystems.DebugAttackRenderSystem;
+import content.ContentManager;
+
 import debugsystems.DebugSpatialRenderSystem;
 import debugsystems.DebuggMapCollisionGrid;
 
@@ -48,12 +49,12 @@ import utils.Mouse;
 
 public class WorldBuilder {
 
-	public static IEntityWorld buildGameWorld(Camera2D camera, Scene scene, SpriteBatch spriteBatch, boolean debugging) {
+	public static IEntityWorld buildGameWorld(Camera2D camera, Scene scene,ContentManager contentManager, SpriteBatch spriteBatch, boolean debugging) {
 		IEntityWorld world = buildEmptyWorld();
 		IEntitySystemManager manager = world.getSystemManager();
 		
 		
-		manager.addLogicEntitySystem(new ScriptSystem(world));
+		manager.addLogicEntitySystem(new ScriptSystem(world, contentManager));
 		manager.addLogicEntitySystem(new ScriptCollisionSystem(world));
 		manager.addLogicEntitySystem(new ScriptMouseSystem(world, camera));
 		
@@ -72,25 +73,24 @@ public class WorldBuilder {
 		manager.addRenderEntitySystem(new SceneRenderSystem(world, scene, spriteBatch, camera));
 		manager.addRenderEntitySystem(new RenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(world, spriteBatch));
-		manager.addRenderEntitySystem(new HUDRenderingSystem(world, spriteBatch, "Player"));
+		manager.addRenderEntitySystem(new HUDRenderingSystem(world, contentManager, spriteBatch, "Player"));
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
 		
 
 		//Debug systems!
 		if(debugging) {
-			manager.addRenderEntitySystem(new DebugAttackRenderSystem(world, spriteBatch));
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
-			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world, spriteBatch));
+			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world,contentManager, spriteBatch));
 		}
 	
 		return world;
 	}
-	public static IEntityWorld buildServerWorld(Camera2D camera, Scene scene, SpriteBatch spriteBatch, boolean debugging, String label) {
+	public static IEntityWorld buildServerWorld(Camera2D camera, Scene scene, ContentManager contentManager, SpriteBatch spriteBatch, boolean debugging, String label) {
 		IEntityWorld world = buildEmptyWorld();
 		IEntitySystemManager manager = world.getSystemManager();
 		
 		
-		manager.addLogicEntitySystem(new ScriptSystem(world));
+		manager.addLogicEntitySystem(new ScriptSystem(world, contentManager));
 		manager.addLogicEntitySystem(new ScriptCollisionSystem(world));
 		manager.addLogicEntitySystem(new ScriptMouseSystem(world, camera));
 		
@@ -110,30 +110,20 @@ public class WorldBuilder {
 		manager.addRenderEntitySystem(new SceneRenderSystem(world, scene, spriteBatch, camera));
 		manager.addRenderEntitySystem(new RenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(world, spriteBatch));
-		manager.addRenderEntitySystem(new HUDRenderingSystem(world, spriteBatch, label));
+		manager.addRenderEntitySystem(new HUDRenderingSystem(world, contentManager, spriteBatch, label));
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
 		
 
 		//Debug systems!
 		if(debugging) {
-			manager.addRenderEntitySystem(new DebugAttackRenderSystem(world, spriteBatch));
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
-			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world, spriteBatch));
+			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world,contentManager, spriteBatch));
 		}
 	
 		return world;
 	}
 
-	
-	public static IEntityWorld buildGUIWorld(Mouse mouse, SpriteBatch spriteBatch) {
-		IEntityWorld world = buildEmptyWorld();
-		IEntitySystemManager manager = world.getSystemManager();
-	
-		manager.addLogicEntitySystem(new ScriptSystem(world));	
-		manager.addRenderEntitySystem(new GUIRenderingSystem(world, spriteBatch));
-		return world;
-	}
-	
+
 	public static IEntityWorld buildEmptyWorld() {
 		IEntityDatabase database = new EntityDatabase(new ComponentTypeManager());
 		IEntityManager manager = new EntityManager(new EntityLabelManager(), 

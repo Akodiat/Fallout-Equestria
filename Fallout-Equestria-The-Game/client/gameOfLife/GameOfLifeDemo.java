@@ -3,48 +3,27 @@ package gameOfLife;
 import graphics.Color;
 import java.util.Random;
 
+import com.google.inject.Guice;
+
 import math.Point2;
 import math.Vector2;
+import misc.EventArgs;
 import misc.IEventListener;
 
-import GUI.ButtonEventArgs;
-import ability.AbilityBuilder;
-import ability.AbilitySystem;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import components.BehaviourComp;
-import components.RenderingComp;
-import components.TextRenderingComp;
-import components.TransformationComp;
-
-import content.ContentManager;
-import debugsystems.DebugAttackRenderSystem;
-import debugsystems.DebugSpatialRenderSystem;
+import GUI.GUIFocusManager;
+import GUI.controls.Button;
+import GUI.graphics.GUIRenderingContext;
+import GUI.graphics.LookAndFeel;
 import demos.Demo;
-import demos.WorldBuilder;
 
 import entityFramework.*;
-import entitySystems.AnimationSystem;
-import entitySystems.CameraControlSystem;
-import entitySystems.ExistanceSystem;
-import entitySystems.HUDRenderingSystem;
-import entitySystems.InputSystem;
-import entitySystems.PhysicsSystem;
-import entitySystems.RegenSystem;
-import entitySystems.RenderingSystem;
-import entitySystems.ScriptCollisionSystem;
-import entitySystems.ScriptMouseSystem;
-import entitySystems.ScriptSystem;
-import entitySystems.TextRenderingSystem;
-import gameMap.Scene;
+import entitySystems.*;
 import graphics.SpriteBatch;
 
-import scripting.ButtonBehavior;
 import tests.EntityModule;
 import utils.Camera2D;
 import utils.GameTime;
+import utils.Mouse;
 import utils.Rectangle;
 
 public class GameOfLifeDemo extends Demo {
@@ -53,7 +32,6 @@ public class GameOfLifeDemo extends Demo {
 	private static Rectangle worldBounds = new Rectangle(0, 0, 1366 * 5, 768 * 5);
 	private static final int blockSize = 64;
 	private static final String groupName = "GameOL";
-	private static String buttonArcheype = "StandardButton.archetype";
 	private static String cellArchetype = "GameOfLifeCell.archetype";
 	
 	private IEntityWorld world;
@@ -61,6 +39,11 @@ public class GameOfLifeDemo extends Demo {
 	private Camera2D camera;
 	private GameOfLifeLogicSystem golSystem;
 	
+	private GUIRenderingContext context;
+	private Mouse mouse;
+	
+	Button button;
+		
 	public static void main(String[] args) {
 		new GameOfLifeDemo().start();
 	}
@@ -75,6 +58,9 @@ public class GameOfLifeDemo extends Demo {
 		this.camera.setZoom(new Vector2(0.2f, 0.2f));
 		this.camera.setPosition(Vector2.Zero);
 		this.spriteBatch = new SpriteBatch(screenDim);
+		this.mouse = new Mouse();
+		this.context = new GUIRenderingContext(spriteBatch, this.ContentManager.load("gui.tdict", LookAndFeel.class), 
+											   this.ContentManager.loadShaderEffect("GrayScale.effect"));
 		
 		
 		
@@ -85,23 +71,20 @@ public class GameOfLifeDemo extends Demo {
 	
 		//Primitive GUI!
 		
-		IEntity button = world.getEntityManager().createEntity(ContentManager.loadArchetype(buttonArcheype));
-		TransformationComp comp = button.getComponent(TransformationComp.class);
-		comp.setPosition(this.worldBounds.Width - 250,250);
-		comp.setScale(5f,5f);
-				
-		button.getComponent(RenderingComp.class).setColor(Color.Pink);
-		button.getComponent(TextRenderingComp.class).setText("Seed!");
+		this.button = new Button();
+		this.button.setFont(this.ContentManager.loadFont("arialb20.xml"));
+		this.button.setText("Seed");
+		this.button.setBounds(0,710,200,50);
+		new GUIFocusManager(button);
 		
 		final Random random = new Random();
-		ButtonBehavior behaviour = (ButtonBehavior)button.getComponent(BehaviourComp.class).getBehavior();
-		behaviour.addButtonClicked(new IEventListener<ButtonEventArgs>() {
+		this.button.addClicked(new IEventListener<EventArgs>() {
 			@Override
-			public void onEvent(Object sender, ButtonEventArgs e) {
-			  golSystem.seedNewLife(random.nextLong());
-				
+			public void onEvent(Object sender, EventArgs e) {
+				golSystem.seedNewLife(random.nextLong());
 			}
 		});
+		
 	}
 	
 	
@@ -110,13 +93,11 @@ public class GameOfLifeDemo extends Demo {
 		IEntitySystemManager manager = world.getSystemManager();
 		
 		this.golSystem = new GameOfLifeLogicSystem(world,
+												   this.ContentManager,
 												   blockSize, 
-												   new Point2((worldBounds.Width - 500)/ blockSize, worldBounds.Height / blockSize ), 
+												   new Point2((worldBounds.Width) / blockSize, (worldBounds.Height - 220) / blockSize ), 
 												   cellArchetype, 
 												   groupName);
-		
-		manager.addLogicEntitySystem(new ScriptSystem(world));
-		manager.addLogicEntitySystem(new ScriptMouseSystem(world, camera));
 		
 		
 		//Logic systems!
@@ -134,13 +115,19 @@ public class GameOfLifeDemo extends Demo {
 	public void update(GameTime time) {
 		this.world.update(time);
 		this.world.getEntityManager().destoryKilledEntities();
+		mouse.poll(this.camera);
+		button.checkMouseInput(new Point2(0,0),this.mouse);
+		
 	}
 
 	@Override
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
+
+		button.render(this.context, time);
 		this.spriteBatch.begin(null, camera.getTransformation());
 		this.world.render();		
 		this.spriteBatch.end();
+		
 	}
 }

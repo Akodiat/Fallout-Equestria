@@ -8,7 +8,6 @@ import gameMap.Tile;
 import gameMap.TileLayer;
 import graphics.Texture2D;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.junit.AfterClass;
@@ -33,7 +32,7 @@ public class SceneLoaderTests {
 
 	private Scene loadScene(String sceneAsset) throws Exception {
 		InputStream stream = this.getClass().getResourceAsStream(sceneAsset);
-		SceneLoader loader = new SceneLoader();
+		SceneLoader loader = new SceneLoader(new ContentManager(""), "");
 		return loader.loadContent(stream);
 	}
 	
@@ -75,7 +74,7 @@ public class SceneLoaderTests {
 	
 	@Test(expected = Exception.class)
 	public void testIfCrashesOnInvalidScene() throws Exception {
-		Scene scene = loadScene("BrokenScene.xml");
+		loadScene("BrokenScene.xml");
 		fail("It should not get here!");
 	}
 
@@ -102,7 +101,7 @@ public class SceneLoaderTests {
 
 	@Test
 	public void testIfCorectFolderAndClassManaged() throws Exception {
-		SceneLoader loader = new SceneLoader();
+		SceneLoader loader = new SceneLoader(new ContentManager(""), "scenes");
 		
 		assertSame(Scene.class, loader.getClassAbleToLoad());
 		assertSame("scenes", loader.getFolder());

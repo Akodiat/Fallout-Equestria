@@ -13,7 +13,7 @@ public class SoundLoaderTests {
 
 	@Test
 	public void testIfCanLoadValidSound() throws IOException {
-		SoundLoader loader = new SoundLoader();
+		SoundLoader loader = new SoundLoader("sounds");
 		
 		Audio audio = loader.loadContent(this.getClass().getResourceAsStream("testSound.ogg"));
 		
@@ -27,7 +27,7 @@ public class SoundLoaderTests {
 		//if a soundfile is invalid. There is no easy fix for this. 
 		//2 options. 1. Write our own. 2. Find another source then slick. 
 		
-		SoundLoader loader = new SoundLoader();
+		SoundLoader loader = new SoundLoader("sounds");
 		//This should throw an Exception but it dosnt.
 		loader.loadContent(this.getClass().getResourceAsStream("invalidSound.ogg"));
 		
@@ -36,7 +36,7 @@ public class SoundLoaderTests {
 	
 	@Test
 	public void testIfCorrectFolder() {
-		SoundLoader loader = new SoundLoader();
+		SoundLoader loader = new SoundLoader("sounds");
 		
 		String folderName = loader.getFolder();
 		assertEquals("sounds", folderName);
@@ -44,7 +44,7 @@ public class SoundLoaderTests {
 	
 	@Test
 	public void testIfCorrectClassTypeManaged() {
-		SoundLoader loader = new SoundLoader();
+		SoundLoader loader = new SoundLoader("sounds");
 		assertEquals(Audio.class, loader.getClassAbleToLoad());
 	}
 

@@ -1,9 +1,7 @@
 package entitySystems;
 import static math.MathHelper.*;
 
-import utils.Circle;
 import utils.Rectangle;
-import math.MathHelper;
 import math.Point2;
 import math.Vector2;
 

@@ -61,52 +61,52 @@ public class GUIBehaviour extends Behavior {
 	@Override
 	public void onMouseDown(MouseState state, MouseButton button) {
 		MouseEventArgs args = new MouseEventArgs(state, button);
-		mouseDownEvent.invoke(this.entity, args);
+		mouseDownEvent.invoke(this.Entity, args);
 	}
 	
 
 	@Override
 	public void onMouseOver(MouseState state) {
 		MouseEventArgs args = new MouseEventArgs(state, null);
-		mouseOverEvent.invoke(this.entity, args);
+		mouseOverEvent.invoke(this.Entity, args);
 	}
 	
 	@Override
 	public void onMouseEnter(MouseState state){
 		MouseEventArgs args = new MouseEventArgs(state, null);
-		mouseEnterEvent.invoke(this.entity, args);
+		mouseEnterEvent.invoke(this.Entity, args);
 	}
 	
 	@Override
 	public void onMouseExit(MouseState state){
 		MouseEventArgs args = new MouseEventArgs(state, null);
-		mouseExitEvent.invoke(this.entity, args);
+		mouseExitEvent.invoke(this.Entity, args);
 	}
 	
 	@Override
 	public void onMouseUp(MouseState state, MouseButton button){
 		MouseEventArgs args = new MouseEventArgs(state, button);
-		mouseUpEvent.invoke(this.entity, args);
+		mouseUpEvent.invoke(this.Entity, args);
 	}
 	
 	@Override
 	public void onMouseUpAsButton(MouseState state, MouseButton button){
 		MouseEventArgs args = new MouseEventArgs(state, button);
-		mouseClickedEvent.invoke(this.entity, args);
+		mouseClickedEvent.invoke(this.Entity, args);
 	}
 	
 	@Override
 	public void onMouseDrag(MouseState state){
 		MouseEventArgs args = new MouseEventArgs(state, null);
-		mouseDragEvent.invoke(this.entity, args);
+		mouseDragEvent.invoke(this.Entity, args);
 	}
 	
 	public void onFocusLost() {
-		this.focusLostEvent.invoke(this.entity, EventArgs.Empty);
+		this.focusLostEvent.invoke(this.Entity, EventArgs.Empty);
 	}
 	
 	public void onFocusGained() {
-		this.focusGainedEvent.invoke(this.entity, EventArgs.Empty);
+		this.focusGainedEvent.invoke(this.Entity, EventArgs.Empty);
 	}
 	
 	public void addMouseDownListener(IEventListener<MouseEventArgs> listener) {

@@ -1,8 +1,8 @@
 package entitySystems;
 
-import scripting.Behavior;
 import utils.GameTime;
 import components.BehaviourComp;
+import content.ContentManager;
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
@@ -10,8 +10,10 @@ import entityFramework.IEntityWorld;
 
 public class ScriptSystem extends EntitySingleProcessingSystem {
 
-	public ScriptSystem(IEntityWorld world) {
+	private ContentManager contentManager;
+	public ScriptSystem(IEntityWorld world, ContentManager contentManager) {
 		super(world, BehaviourComp.class);
+		this.contentManager = contentManager;
 	}
 	
 	private ComponentMapper<BehaviourComp>	bCM;	
@@ -39,7 +41,7 @@ public class ScriptSystem extends EntitySingleProcessingSystem {
 				behaviourComp.update(time);
 			}
 		} else {
-			behaviourComp.start(getEntityManager(), entity);
+			behaviourComp.start(getEntityManager(),contentManager, entity);
 		}
 	}
 }

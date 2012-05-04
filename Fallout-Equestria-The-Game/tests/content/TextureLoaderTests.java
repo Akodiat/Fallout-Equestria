@@ -29,7 +29,7 @@ public class TextureLoaderTests {
 
 	@Test
 	public void testIfCanLoadValidTexture() throws IOException {
-		TextureLoader loader = new TextureLoader();
+		TextureLoader loader = new TextureLoader("textures");
 		Texture2D texture = loader.loadContent(this.getClass().getResourceAsStream("testTexture.png"));
 		
 		assertNotNull(texture);
@@ -42,7 +42,7 @@ public class TextureLoaderTests {
 	public void testIfThrownExceptionIfInvalidTexture() throws IOException {
 		
 		//A valid texture in this context is a .png file!
-		TextureLoader loader = new TextureLoader();
+		TextureLoader loader = new TextureLoader("textures");
 		loader.loadContent(this.getClass().getResourceAsStream("invalidTestTexture.jpg"));
 		
 		fail("Should not get down here!");
@@ -50,13 +50,13 @@ public class TextureLoaderTests {
 	
 	@Test
 	public void testIfFolderIsCorrect() {
-		TextureLoader loader = new TextureLoader();
+		TextureLoader loader = new TextureLoader("textures");
 		assertEquals(loader.getFolder(), "textures");
 	}
 	
 	@Test
 	public void testIfClassMangagedIsCorrect() {
-		TextureLoader loader = new TextureLoader();
+		TextureLoader loader = new TextureLoader("textures");
 		assertEquals(loader.getClassAbleToLoad(), Texture2D.class);
 	}
 

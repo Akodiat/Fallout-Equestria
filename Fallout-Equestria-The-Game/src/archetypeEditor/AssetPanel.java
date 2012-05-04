@@ -33,6 +33,7 @@ public class AssetPanel extends JPanel {
 	private Field field;
 	private Object comp;
 	private File resourcesDirectory = new File("resources");
+	private ContentManager ContentManager;
 	/**
 	 * Create the panel.
 	 */
@@ -40,6 +41,7 @@ public class AssetPanel extends JPanel {
 		setLayout(null);
 		this.field = field;
 		this.comp = comp;
+		this.ContentManager = new ContentManager("resources");
 
 		JLabel lblAsset = new JLabel(field.getName());
 		lblAsset.setBounds(10, 8, 150, 14);

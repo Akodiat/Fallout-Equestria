@@ -2,6 +2,7 @@ package demos;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import content.ContentManager;
 
 import utils.Clock;
 import utils.GameTime;
@@ -13,6 +14,7 @@ public abstract class Demo {
 	private final Rectangle screenDim;
 	private final Clock clock;
 	private final int fps;
+	protected ContentManager ContentManager;
 	
 	public Clock getClock() {
 		return this.clock;
@@ -22,6 +24,7 @@ public abstract class Demo {
 		this.screenDim = screenDim;
 		this.fps = fps;
 		this.clock = new Clock();
+		this.ContentManager = new ContentManager("resources");
 	}	
 	
 	public void start() {

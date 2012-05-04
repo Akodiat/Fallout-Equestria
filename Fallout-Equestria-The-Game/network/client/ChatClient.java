@@ -70,33 +70,13 @@ public class ChatClient extends Demo {
 		this.camera = new Camera2D(sr, sr);
 		this.spriteBatch = new SpriteBatch(sr);
 		this.mouse = new Mouse();
-		
-		Texture2D backgroundTexture = ContentManager.loadTexture("GUI/Button_BG.png");
-		Texture2D buttonOverTexture = ContentManager.loadTexture("GUI/Button_Down.png");
-		Texture2D buttonDownTexture = ContentManager.loadTexture("GUI/Button_Over.png");
-		Texture2D sliderAndScrollBG = ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D textboxBG 		= ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D scrollButtonBG    = ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D textAreaBackground= ContentManager.loadTexture("GUI/guiBackground.png");
-		
-		LookAndFeel lookAndFeel = new LookAndFeel();
-		lookAndFeel.setElement("Button_Background", new VisibleElement(backgroundTexture, backgroundTexture.getBounds()));
-		lookAndFeel.setElement("Button_Over", new VisibleElement(buttonOverTexture, buttonOverTexture.getBounds()));
-		lookAndFeel.setElement("Button_Down", new VisibleElement(buttonDownTexture, buttonDownTexture.getBounds()));
-		lookAndFeel.setElement("Slider_Background", new VisibleElement(sliderAndScrollBG, sliderAndScrollBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Background", new VisibleElement(sliderAndScrollBG, sliderAndScrollBG.getBounds()));
-		lookAndFeel.setElement("Textfield_Background", new VisibleElement(textboxBG, textboxBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Button_Background", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Button_Down", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Button_Over", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
-		lookAndFeel.setElement("TextArea_Background", new VisibleElement(textAreaBackground, textAreaBackground.getBounds()));	
-		lookAndFeel.setDefaultFont(ContentManager.loadFont("arialb20.xml"));
-		
-		context = new GUIRenderingContext(spriteBatch, lookAndFeel, ContentManager.loadShaderEffect("GrayScale.effect"));
+		LookAndFeel feel = ContentManager.load("gui.tdict", LookAndFeel.class);
+		context = new GUIRenderingContext(spriteBatch, feel, ContentManager.loadShaderEffect("GrayScale.effect"));
 		
 		
 		panel = new ChatPanel();
 		panel.setBounds(0,0,400,400);
+		panel.setBgColor(Color.Blue);
 		panel.setFont(ContentManager.loadFont("arialb20.xml"));
 		manager = new GUIFocusManager(panel);
 		

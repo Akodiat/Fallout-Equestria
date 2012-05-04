@@ -37,61 +37,67 @@ public class TextAreaRenderer implements IGUIRenderer<TextArea>{
 	public void render(SpriteBatch batch, GameTime time, TextArea control,
 			LookAndFeel lookAndFeel, RenderTarget2D target) {
 		VisibleElement backgroundElement = lookAndFeel.getElement(backgroundKey);
+		Rectangle correctedBG =  new Rectangle(0,0, control.getDimention().Width - control.getScrollBarSize(), 
+												    control.getDimention().Height);
 		batch.draw(backgroundElement.getTexture(),
-				   control.getDimention(), 
+				   correctedBG,
 				   control.getBgColor(),
 				   backgroundElement.getSrcRect());
-		
-		List<String> lines = control.getLines();
-		
-		
-		StringBuilder builder = new StringBuilder();
-		for (String line : lines) {
-			builder.append(line);
-			builder.append('\n');
-		}
-
 		batch.end();
-		
 
-		RenderTarget2D innerTarget = createTextTarget(control);
-		Rectangle sr = batch.getViewport();
-		batch.setViewport(new Rectangle(0,0, innerTarget.getTexture().Width, innerTarget.getTexture().Height));
 		
 		
-		batch.begin(null,Matrix4.Identity,innerTarget);
-		
-		
-		Point2 offset = new Point2(0,-control.getScrollOffset() + control.getMargin());
-		batch.drawString(control.getFont(), 
-						 builder.toString(), 
-						 new Vector2(offset.X, offset.Y),
-						 control.getFgColor());
-		
+		Rectangle correct = new Rectangle(control.getMargin(),control.getMargin(),
+										  correctedBG.Width - control.getMargin() * 2, 
+										  correctedBG.Height - control.getMargin() * 2);
 
 
-
-		batch.end();
-		
-		batch.setViewport(sr);
+		RenderTarget2D innerTarget = new RenderTarget2D(correct.Width, correct.Height);
+		drawText(batch, control, backgroundElement,correctedBG, innerTarget);
 		
 
-		batch.begin(null,Matrix4.Identity,target);
-		Vector2 targetOffset = new Vector2(control.getMargin() * 2, control.getMargin());
-		batch.draw(innerTarget.getTexture(), targetOffset, Color.White);
-		batch.end();
-		
+		//Blitting (copying the pixels to the better rendertarget).
+		innerTarget.blitToTarget(target, correct);
 		innerTarget.destroy();
 		
 		batch.begin(null,Matrix4.Identity,target);
 		
 	}
 
-	private RenderTarget2D createTextTarget(TextArea control) {
-		int width = control.getDimention().Width - control.getMargin() * 2;
-		int height = control.getDimention().Height - control.getMargin() * 2;
+	private void drawText(SpriteBatch batch, TextArea control,
+			VisibleElement backgroundElement, 
+			Rectangle bgRect,
+			RenderTarget2D innerTarget) {
 		
-		return new RenderTarget2D(width, height);
-	}
+		
+		List<String> lines = control.getLines();	
+		StringBuilder builder = new StringBuilder();
+		for (String line : lines) {
+			builder.append(line);
+			builder.append('\n');
+		}
+		
+		batch.begin(null,Matrix4.Identity,innerTarget);
+		
+		//Text have a habit of not playing nice with the rendertargets so we repaint and blit the targets instead.
+		
+		Vector2 offset = new Vector2(0,-control.getScrollOffset() - control.getMargin());
+		
+		Rectangle correctBG_Offseted = bgRect.offset(new Point2(-control.getMargin(), -control.getMargin()));
+		
+		batch.draw(backgroundElement.getTexture(),
+				   correctBG_Offseted, 
+				   control.getBgColor(),
+				   backgroundElement.getSrcRect());
+		
+		batch.drawString(control.getFont(), 
+						 builder.toString(), 
+						 offset,
+						 Color.White);
+		
+		
 
+
+		batch.end();
+	}
 }

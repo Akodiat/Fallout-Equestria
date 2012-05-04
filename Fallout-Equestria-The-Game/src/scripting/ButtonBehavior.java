@@ -22,7 +22,7 @@ import GUI.ButtonEventArgs;
 import anotations.Editable;
 
 @Editable
-public class ButtonBehavior extends GUIBehaviour {
+public class ButtonBehavior extends Behavior {
 
 	private static final String DEF_BACKGROUND_TEXTURE = "GUI/ButtonBackground.png";
 	private static final String DEF_NORMAL_TEXTURE 	   = "GUI/NormalButton.png";
@@ -73,7 +73,7 @@ public class ButtonBehavior extends GUIBehaviour {
 			this.downTexture   = ContentManager.loadTexture(DEF_DOWN_TEXTUE);
 		}
 		
-		this.guiComp = this.entity.getComponent(GUIComp.class);
+		this.guiComp = this.Entity.getComponent(GUIComp.class);
 		if(guiComp == null) {
 			throw new NullPointerException();
 		}
@@ -143,7 +143,7 @@ public class ButtonBehavior extends GUIBehaviour {
 		ButtonEventArgs args = 
 				new ButtonEventArgs(this.guiComp.getText());	
 		for (IEventListener<ButtonEventArgs> listener : this.listeners) {
-			listener.onEvent(this.entity, args);
+			listener.onEvent(this.Entity, args);
 		}
 	}
 }

@@ -25,33 +25,39 @@ import graphics.TextureFont;
  */
 public final class ContentManager {
 	
-	private static final Map<Class<?>, IContentLoader<?>> contentLoaders = new HashMap<>();
-	private static final BiMap<String, Object> loadedContent = HashBiMap.create();
-	private static String resourceFolderPath = "resources";
+	private final Map<Class<?>, IContentLoader<?>> contentLoaders = new HashMap<>();
+	private final BiMap<String, Object> loadedContent = HashBiMap.create();
+	private String resourceFolderPath;
 	
-	static {
-		addContentLoader(new TextureLoader());
-		addContentLoader(new ShaderLoader());
-		addContentLoader(new SoundLoader());
-		addContentLoader(new TextureFontLoader());
-		addContentLoader(new EntityArchetypeLoader());
-		addContentLoader(new SceneLoader());
-		addContentLoader(new AnimationLoader());
-		addContentLoader(new TextureDictionaryLoader());
-		addContentLoader(new LookAndFeelLoader());
+	private void initializeLoaders() {
+		addContentLoader(new TextureLoader("textures"));
+		addContentLoader(new ShaderLoader("shaders"));
+		addContentLoader(new SoundLoader("sounds"));
+		addContentLoader(new TextureFontLoader(this, "fonts"));
+		addContentLoader(new EntityArchetypeLoader(this,"archetypes"));
+		addContentLoader(new SceneLoader(this, "scenes"));
+		addContentLoader(new AnimationLoader(this, "animations"));
+		addContentLoader(new TextureDictionaryLoader(this,"animations/dictionaries"));
+		addContentLoader(new LookAndFeelLoader(new TextureDictionaryLoader(this,"animations/dictionaries", "GUI"), "lookAndFeels"));
 		
 		//TODO add more if needed!. 
 	}
 	
-	public static void setResourceFolderPath(String path) {
-		resourceFolderPath = path;
+	public ContentManager(String rootContentFolderPath) {
+		this.resourceFolderPath = rootContentFolderPath;
+		this.initializeLoaders();
+	}
+	
+	
+	public String getResourceFolderPath() {
+		return this.resourceFolderPath;
 	}
 	
 	/**Adds a loader able to load a new type of content.
 	 * 
 	 * @param contentLoader the contentLoader.
 	 */
-	public static void addContentLoader(IContentLoader<?> contentLoader) {
+	public void addContentLoader(IContentLoader<?> contentLoader) {
 		contentLoaders.put(contentLoader.getClassAbleToLoad(), contentLoader);
 	}
 
@@ -59,7 +65,7 @@ public final class ContentManager {
 	 * @param content the content.
 	 * @return the name of the content.
 	 */
-	public static String getContentName(Object content) {
+	public String getContentName(Object content) {
 		return loadedContent.inverse().get(content);
 	}
 	
@@ -70,7 +76,7 @@ public final class ContentManager {
 	 * @return a piece of content stored on the disc.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T load(String path, Class<T> contentType) {
+	public <T> T load(String path, Class<T> contentType) {
 		
 		//It's not necessary to reload content that is already loaded.
 		T content = (T)loadedContent.get(path);
@@ -99,7 +105,7 @@ public final class ContentManager {
 	}
 
 	
-	private static InputStream openStream(String relativePath, String folder) {
+	private InputStream openStream(String relativePath, String folder) {
 		String correctPath = resourceFolderPath + File.separator + folder
 										 + File.separator + relativePath;	
 		File file = new File(correctPath);	
@@ -117,7 +123,7 @@ public final class ContentManager {
 	 * @param path the path of the texture.
 	 * @return a Texture2D object.
 	 */
-	public static Texture2D loadTexture(String path) {
+	public Texture2D loadTexture(String path) {
 		return load(path, Texture2D.class);
 	}
 	
@@ -127,7 +133,7 @@ public final class ContentManager {
 	 * @param path the path of the ShaderEffect.
 	 * @return a ShaderEffect object.
 	 */
-	public static ShaderEffect loadShaderEffect(String path) {
+	public ShaderEffect loadShaderEffect(String path) {
 		return load(path, ShaderEffect.class);
 	}
 	
@@ -137,7 +143,7 @@ public final class ContentManager {
 	 * @param path the path of the script.
 	 * @return a ILineScript object.
 	 */
-	public static IEntityArchetype loadArchetype(String path) {
+	public IEntityArchetype loadArchetype(String path) {
 		return load(path, IEntityArchetype.class);
 	}
 	
@@ -147,7 +153,7 @@ public final class ContentManager {
 	 * @param path the path of the sound.
 	 * @return a Audio object.
 	 */
-	public static Audio loadSound(String path) {
+	public Audio loadSound(String path) {
 		return load(path, Audio.class);
 	}
 	
@@ -157,7 +163,7 @@ public final class ContentManager {
 	 * @param path the path of the font.
 	 * @return a TextureFont object.
 	 */
-	public static TextureFont loadFont(String path) {
+	public TextureFont loadFont(String path) {
 		return load(path, TextureFont.class);
 	}
 	

@@ -11,17 +11,20 @@ import entityFramework.IEntityManager;
 import utils.GameTime;
 import utils.MouseButton;
 import utils.MouseState;
+import content.ContentManager;;
 
 public abstract class Behavior implements KeyframeTriggerListener{
 	
-	protected IEntityManager entityManager;
-	protected IEntity entity;
+	protected IEntityManager EntityManager;
+	protected IEntity Entity;
+	protected ContentManager ContentManager;
 	private boolean initialized;
 	private boolean enabled;
 
-	public final void initialize(IEntityManager manager, IEntity entity) {
-		this.entityManager = manager;
-		this.entity = entity;
+	public final void initialize(IEntityManager manager, ContentManager contentManager, IEntity entity) {
+		this.EntityManager = manager;
+		this.ContentManager = contentManager;
+		this.Entity = entity;
 		this.initialized = true;
 		
 		AnimationComp comp = entity.getComponent(AnimationComp.class);
@@ -74,7 +77,7 @@ public abstract class Behavior implements KeyframeTriggerListener{
 	public void onDestroy(){}
 	
 	public <T extends IComponent> T getComponent(Class<T> componentClass) {
-		return this.entity.getComponent(componentClass);
+		return this.Entity.getComponent(componentClass);
 	}
 	
 	public void onKeyframeTrigger(Object sender, KeyframeTriggerEventArgs e){}

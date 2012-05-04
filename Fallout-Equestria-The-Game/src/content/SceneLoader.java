@@ -1,6 +1,5 @@
 package content;
 
-import entityFramework.IComponent;
 import entityFramework.IEntityArchetype;
 import gameMap.ArchetypeNode;
 import gameMap.CollisionLayer;
@@ -22,13 +21,11 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableSet;
-import components.TransformationComp;
 
 import utils.Rectangle;
 import graphics.Texture2D;
 
-public class SceneLoader implements IContentLoader<Scene>{
+public class SceneLoader extends ContentLoader<Scene>{
 	
 	private final static char primarySeparator 		= '|';
 	private final static char secondarySeparator 	= '$';
@@ -40,6 +37,15 @@ public class SceneLoader implements IContentLoader<Scene>{
 	private final static String colLayerElemName    = "CollisionLayer";
 	private final static String blockSizeElemName	= "BlockSize";
 	private final static String textureSubFolder   = "tilesheets/";
+	
+	
+	private ContentManager ContentManager;
+	
+	public SceneLoader(ContentManager manager, String folder) {
+		super(folder);
+		this.ContentManager = manager;
+	}
+	
 	
 	@Override
 	public Class<Scene> getClassAbleToLoad() {
@@ -67,6 +73,8 @@ public class SceneLoader implements IContentLoader<Scene>{
 
 	private List<ArchetypeNode> extractNodes(Element rootNode) {
 		Element nodesElement = rootNode.getChild("Nodes");
+		
+		@SuppressWarnings("unchecked")
 		List<Element> nodeElements = nodesElement.getChildren("Node");
 		List<ArchetypeNode> arechetypes = new ArrayList<>();
 		for (Element nodeElement : nodeElements) {
@@ -288,10 +296,4 @@ public class SceneLoader implements IContentLoader<Scene>{
 		
 		return strings.toArray(new String[strings.size()]);
 	}
-
-	@Override
-	public String getFolder() {
-		return "scenes";
-	}
-
 }

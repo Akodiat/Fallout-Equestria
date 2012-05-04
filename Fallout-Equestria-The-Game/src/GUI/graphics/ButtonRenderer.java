@@ -6,6 +6,7 @@ import GUI.controls.ButtonBase;
 import math.Vector2;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
+import graphics.Texture2D;
 import graphics.TextureFont;
 import utils.GameTime;
 
@@ -49,20 +50,41 @@ public class ButtonRenderer implements IGUIRenderer<ButtonBase>{
 		
 		
 		
-		batch.draw(backgroundElement.getTexture(), 
-				  control.getDimention(), 
-				  control.getBgColor(), 
-				  backgroundElement.getSrcRect());
-		
 		
 		if(control.isPressed() && control.isMouseHover()) {
-			batch.draw(downElement.getTexture(), control.getDimention(), control.getFgColor(), downElement.getSrcRect());	
+			batch.draw(downElement.getTexture(), 
+					   control.getDimention(), 
+					   control.getBgColor(), 
+					   downElement.getSrcRect());	
 		} else if(control.isMouseHover()) {
-			batch.draw(overElement.getTexture(), control.getDimention(), control.getFgColor(), overElement.getSrcRect());	
+			batch.draw(overElement.getTexture(), 
+					   control.getDimention(), 
+					   control.getBgColor(), 
+					   overElement.getSrcRect());	
+		} else  {
+			batch.draw(backgroundElement.getTexture(), 
+					  control.getDimention(), 
+					  control.getBgColor(), 
+					  backgroundElement.getSrcRect());
 		}
+		
+		if(control.getImage() != null) {
+			drawImage(control,batch);
+		}
+		
 		
 		drawText(batch, control, lookAndFeel);
 	}
+
+	private void drawImage(ButtonBase control,SpriteBatch batch) {
+		Vector2 position = control.getDimention().getCenter();
+		Texture2D image = control.getImage();
+		
+		batch.draw(image, position, control.getFgColor(), null, image.getBounds().getCenter(), 1.0f, 0.0f, false);
+	}
+
+
+
 
 	protected void drawText(SpriteBatch batch, ButtonBase control, LookAndFeel lookAndFeel) {
 		String text = control.getText();

@@ -21,13 +21,15 @@ import graphics.Color;
 
 public class GameOfLifeLogicSystem extends GroupedEntitySystem {
 	
+	private ContentManager contentManager;
 	
-	protected GameOfLifeLogicSystem(IEntityWorld world, int gridBlockSize, Point2 gridSize, String cellArchetype, String group) {
+	protected GameOfLifeLogicSystem(IEntityWorld world, ContentManager contentManager, int gridBlockSize, Point2 gridSize, String cellArchetype, String group) {
 		super(world, group, RenderingComp.class, TransformationComp.class);
 		
 		this.cellGrid = new boolean[gridSize.Y][gridSize.X];		
 		this.gridBlockSize = gridBlockSize;
 		this.cellArchetype = cellArchetype;
+		this.contentManager = contentManager;
 	}
 	
 	private final int gridBlockSize;
@@ -37,7 +39,7 @@ public class GameOfLifeLogicSystem extends GroupedEntitySystem {
 	
 	@Override
 	public void initialize() {
-		IEntityArchetype archetype = ContentManager.loadArchetype(cellArchetype);
+		IEntityArchetype archetype = contentManager.loadArchetype(cellArchetype);
 		
 		for (int row = 0; row < this.cellGrid.length; row++) {
 			for (int column = 0; column < this.cellGrid[0].length; column++) {

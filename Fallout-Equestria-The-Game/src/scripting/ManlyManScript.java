@@ -31,7 +31,7 @@ public class ManlyManScript extends Behavior {
 
 	@Override
 	public void update(GameTime time) {
-		IEntity targetEntity = this.entityManager.getEntity(targetEntityLabel);
+		IEntity targetEntity = this.EntityManager.getEntity(targetEntityLabel);
 		if(targetEntity != null) {
 			TransformationComp playerTrans = targetEntity.getComponent(TransformationComp.class);
 			moveTowardsTarget(playerTrans.getPosition());
@@ -45,16 +45,16 @@ public class ManlyManScript extends Behavior {
 		this.physComp.setVelocity(Vector2.mul(this.moveSpeed, dir));
 		
 		if (dir.X<0){
-			this.entity.getComponent(TransformationComp.class).setMirror(true);
+			this.Entity.getComponent(TransformationComp.class).setMirror(true);
 		} else {
-			this.entity.getComponent(TransformationComp.class).setMirror(false);
+			this.Entity.getComponent(TransformationComp.class).setMirror(false);
 		}
 	}
 	
 	
 	@Override
 	public void onMouseOver(MouseState ms) {
-		System.out.println("Mouse is over me " + this.entity);
+		System.out.println("Mouse is over me " + this.Entity);
 	}
 	
 	@Override
@@ -73,10 +73,10 @@ public class ManlyManScript extends Behavior {
 		animComp.changeAnimation(explodeAnimationName, 0.1f);
 		
 		//Remove our behavior making us just sit on the screen.
-		this.entity.removeComponent(PhysicsComp.class);
-		this.entity.removeComponent(BehaviourComp.class);
-		this.entity.addComponent(new ExistanceComp(10f));
-		this.entity.refresh();
+		this.Entity.removeComponent(PhysicsComp.class);
+		this.Entity.removeComponent(BehaviourComp.class);
+		this.Entity.addComponent(new ExistanceComp(10f));
+		this.Entity.refresh();
 	}
 
 }

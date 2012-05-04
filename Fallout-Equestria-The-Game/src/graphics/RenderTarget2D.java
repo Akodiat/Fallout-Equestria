@@ -6,44 +6,51 @@ import static org.lwjgl.opengl.GL32.GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS;
 
 import java.nio.ByteBuffer;
 
-import org.lwjgl.opengl.GL14;
+import utils.Rectangle;
 
 public class RenderTarget2D {
 	
 	private final Texture2D texture;
 	private int frameBufferObjectOpenGLID;
+	private boolean isDestroyed;
 	
 	public Texture2D getTexture() {
 		return texture;
 	}
 		
 	public RenderTarget2D(int width, int height) {
-		int textureID = glGenTextures();
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexParameteri(GL_TEXTURE_2D, GL14.GL_GENERATE_MIPMAP, GL_TRUE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexImage2D(GL_TEXTURE_2D, 
-				 0, 
-				 GL_RGBA8, 
-				 width, 
-				 height, 
-				 0, 
-				 GL_RGBA, GL_UNSIGNED_BYTE, 
-				 (ByteBuffer) null);
-		
-		glBindTexture(GL_TEXTURE_2D, 0);
-			
-		this.texture = new Texture2D(textureID, width, height);
+		this.texture = createTexture(width, height);
 		
 
 		this.frameBufferObjectOpenGLID = glGenFramebuffers();
 		glBindFramebuffer(GL_FRAMEBUFFER, this.frameBufferObjectOpenGLID);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.OpenGLID, 0);
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 		
 		this.validateBuffer();
 		
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);		
+	}
+
+	private Texture2D createTexture(int width, int height) {
+		int textureID = glGenTextures();
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 
+				 0, 
+				 GL_RGBA16, 
+				 width, 
+				 height, 
+				 0, 
+				 GL_RGBA, GL_UNSIGNED_BYTE, 
+				 (ByteBuffer) null);
+		glGenerateMipmap(GL_TEXTURE_2D);
+			
+		return new Texture2D(textureID, width, height);
+		
 	}
 	
 	public void bindGl() {
@@ -55,8 +62,25 @@ public class RenderTarget2D {
 	}
 	
 	public void destroy() {
-		glDeleteFramebuffers(frameBufferObjectOpenGLID);
-		texture.destroyTexture();
+		if(!this.isDestroyed) {
+			glDeleteFramebuffers(frameBufferObjectOpenGLID);
+			texture.destroyTexture();
+			this.isDestroyed = true;
+		}
+	}
+	
+	protected void finalize() {
+		if(!this.isDestroyed) {
+			this.destroy();
+		}
+	}
+	
+	public void blitToTarget(RenderTarget2D target, Rectangle area) {
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, this.frameBufferObjectOpenGLID);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, target.frameBufferObjectOpenGLID);
+		
+		glBlitFramebuffer(0, 0, this.getTexture().Width, this.getTexture().Height, 
+				area.X, area.Y, area.getRight(), area.getBottom(), GL_COLOR_BUFFER_BIT, GL_LINEAR);
 	}
 	
 	private void validateBuffer() {

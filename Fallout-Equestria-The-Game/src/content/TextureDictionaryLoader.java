@@ -3,9 +3,7 @@ package content;
 import graphics.Texture2D;
 import static content.XMLAnimHelper.*;
 
-import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,17 +17,20 @@ import org.jdom.input.SAXBuilder;
 import animation.TextureBounds;
 import animation.TextureDictionary;
 
-public class TextureDictionaryLoader implements IContentLoader<TextureDictionary>{
+public class TextureDictionaryLoader extends ContentLoader<TextureDictionary>{
 
 	private final String texturePath;
+	private ContentManager ContentManager;
 	
-	public TextureDictionaryLoader() {
-		this("animationsheets");
+	public TextureDictionaryLoader(ContentManager contentManager, String folderPath) {
+		this(contentManager, folderPath, "animationsheets");
 	}
 	
 	
-	public TextureDictionaryLoader(String string) {
-		this.texturePath = string + "/";
+	public TextureDictionaryLoader(ContentManager contentManager, String folderPath, String textureSubFolderPath) {
+		super(folderPath);
+		this.texturePath = textureSubFolderPath + "/";
+		this.ContentManager = contentManager;
 	}
 
 
@@ -60,6 +61,8 @@ public class TextureDictionaryLoader implements IContentLoader<TextureDictionary
 	}
 
 	private Map<String, TextureBounds> extractTextures(Element rootNode) {
+		
+		@SuppressWarnings("unchecked")
 		List<Element> boundElements = rootNode.getChildren("Texture");
 		Map<String, TextureBounds> images = new HashMap<>();
 		for (Element element : boundElements) {
@@ -82,10 +85,4 @@ public class TextureDictionaryLoader implements IContentLoader<TextureDictionary
 						 			 extractInt(element.getChild("OriginY"))));
 		return bounds;
 	}
-
-	@Override
-	public String getFolder() {
-		return "animations" + File.separator + "dictionaries";
-	}
-
 }

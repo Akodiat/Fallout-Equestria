@@ -26,13 +26,15 @@ public class FontTest {
 	private static SpriteBatch graphics;
 	private static DisplayMode mode;
 	private static TextureFont textureFont;
+	private static ContentManager contentManager;
 	
 	public static void main(String[] args) throws LWJGLException, FileNotFoundException, IOException, JDOMException {
 		Display.create();
 		mode = Display.getDisplayMode();	
+		contentManager = new ContentManager("resources");
 		
 		graphics = new SpriteBatch(new Rectangle(0, 0, mode.getWidth(), mode.getHeight()));
-		textureFont = ContentManager.loadFont(fontAsset);
+		textureFont = contentManager.loadFont(fontAsset);
 		
 		float angle = 0.01f;
 		while(!Display.isCloseRequested()) {

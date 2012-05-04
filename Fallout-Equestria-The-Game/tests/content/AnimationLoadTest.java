@@ -4,13 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.openal.Audio;
 
 import animation.Animation;
 
@@ -30,22 +27,21 @@ public class AnimationLoadTest {
 	
 	
 	@Test
-	public void testIfCanLoadValidSound() throws Exception {
-		AnimationLoader loader = new AnimationLoader();
+	public void testIfCanLoadValidAnimation() throws Exception {
+		AnimationLoader loader = new AnimationLoader(new ContentManager(""), "animations");
 		
 		Animation animation = loader.loadContent(this.getClass().getResourceAsStream("test.anim"));
 		
 		assertNotNull(animation);
 	}
 	
-	@Test(expected = IOException.class)
-	public void testIfFailsToLoadInvalidSound() throws IOException {
+	@Test(expected = Exception.class)
+	public void testIfFailsToLoadInvalidAnimation() throws Exception {
 		
 		//This test will always fail. Slick AudioLoader is incapable of understanding,
 		//if a soundfile is invalid. There is no easy fix for this. 
 		//2 options. 1. Write our own. 2. Find another source then slick. 
-		
-		SoundLoader loader = new SoundLoader();
+		AnimationLoader loader =  new AnimationLoader(new ContentManager(""), "animations");
 		//This should throw an Exception but it dosnt.
 		loader.loadContent(this.getClass().getResourceAsStream("invalidSound.ogg"));
 		
@@ -54,7 +50,7 @@ public class AnimationLoadTest {
 	
 	@Test
 	public void testIfCorrectFolder() {
-		SoundLoader loader = new SoundLoader();
+		AnimationLoader loader = new AnimationLoader(new ContentManager(""), "animations");
 		
 		String folderName = loader.getFolder();
 		assertEquals("sounds", folderName);
@@ -62,7 +58,7 @@ public class AnimationLoadTest {
 	
 	@Test
 	public void testIfCorrectClassTypeManaged() {
-		SoundLoader loader = new SoundLoader();
-		assertEquals(Audio.class, loader.getClassAbleToLoad());
+		AnimationLoader loader = new AnimationLoader(new ContentManager(""), "animations");
+		assertEquals(Animation.class, loader.getClassAbleToLoad());
 	}
 }

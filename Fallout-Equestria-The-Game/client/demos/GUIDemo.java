@@ -17,6 +17,7 @@ public class GUIDemo extends Demo {
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Mouse mouse;
+	private ContentManager ContentManager;
 	
 	private GUIRenderingContext context;
 	private GUIFocusManager manager;
@@ -49,30 +50,9 @@ public class GUIDemo extends Demo {
 		this.camera = new Camera2D(screenDim, screenDim);
 		this.spriteBatch = new SpriteBatch(screenDim);
 		this.mouse = new Mouse();
+		this.ContentManager = new ContentManager("resources");
 		
-		Texture2D backgroundTexture = ContentManager.loadTexture("GUI/Button_BG.png");
-		Texture2D buttonOverTexture = ContentManager.loadTexture("GUI/Button_Down.png");
-		Texture2D buttonDownTexture = ContentManager.loadTexture("GUI/Button_Over.png");
-		Texture2D sliderAndScrollBG = ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D textboxBG 		= ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D scrollButtonBG    = ContentManager.loadTexture("GUI/guiBackground.png");
-		Texture2D textAreaBackground= ContentManager.loadTexture("GUI/guiBackground.png");
-		
-		LookAndFeel lookAndFeel = new LookAndFeel();
-		lookAndFeel.setElement("Button_Background", new VisibleElement(backgroundTexture, backgroundTexture.getBounds()));
-		lookAndFeel.setElement("Button_Over", new VisibleElement(buttonOverTexture, buttonOverTexture.getBounds()));
-		lookAndFeel.setElement("Button_Down", new VisibleElement(buttonDownTexture, buttonDownTexture.getBounds()));
-		lookAndFeel.setElement("Slider_Background", new VisibleElement(sliderAndScrollBG, sliderAndScrollBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Background", new VisibleElement(sliderAndScrollBG, sliderAndScrollBG.getBounds()));
-		lookAndFeel.setElement("Textfield_Background", new VisibleElement(textboxBG, textboxBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Button_Background", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Button_Down", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
-		lookAndFeel.setElement("ScrollBar_Button_Over", new VisibleElement(scrollButtonBG, scrollButtonBG.getBounds()));
-		lookAndFeel.setElement("TextArea_Background", new VisibleElement(textAreaBackground, textAreaBackground.getBounds()));	
-		
-		
-		
-		lookAndFeel = ContentManager.load("gui.tdict", LookAndFeel.class);
+		LookAndFeel lookAndFeel = ContentManager.load("gui.tdict", LookAndFeel.class);
 		lookAndFeel.setDefaultFont(ContentManager.loadFont("arialb20.xml"));
 		
 		context = new GUIRenderingContext(spriteBatch, lookAndFeel, ContentManager.loadShaderEffect("GrayScale.effect"));
@@ -203,7 +183,6 @@ public class GUIDemo extends Demo {
 
 		Button addItemButton = new Button();
 		addItemButton.setBounds(new Rectangle(200,40,158,158));
-		addItemButton.setFgColor(new Color(0,255,0,255));
 		addItemButton.setText("Add item!");
 		addItemButton.setImage(ContentManager.loadTexture("GUI/Fallout-2-icon.png"));
 		addItemButton.setFont(ContentManager.loadFont("Pericles20bi.xml"));
@@ -261,11 +240,13 @@ public class GUIDemo extends Demo {
 		this.panel.addChild(imageBox1);
 		
 		
+		Texture2D minus = ContentManager.loadTexture("GUI/minus.png");
+		Texture2D plus = ContentManager.loadTexture("GUI/plus.png");
 		
-		Spinner spinner = new Spinner(20,0,1,10);
+		
+		Spinner spinner = new Spinner(20,0,1,10,plus,minus);
 		spinner.setBounds(20, 20, 160, 40);
 		spinner.setFont(ContentManager.loadFont("arialb20.xml"));
-		spinner.setBgColor(Color.DarkOrange);
 		this.panel.addChild(spinner);
 
 		

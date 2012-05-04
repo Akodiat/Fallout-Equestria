@@ -15,7 +15,7 @@ import utils.Rectangle;
 public class TextArea extends GUITextBase{
 	private static final TextAreaRenderer DEFAULT_RENDERER = new TextAreaRenderer();
 	private static final int SCROLLBAR_SIZE = 15;
-	private static final int margin = 6;
+	private int margin = 20;
 		
 	private ScrollBar vBar;
 	private List<String> lines;
@@ -46,6 +46,9 @@ public class TextArea extends GUITextBase{
 		this.updateControl();
 	}
 	
+	public void setMargin(int margin) {
+		this.margin = margin;
+	}
 	
 	@Override
 	public void onTextChanged() {
@@ -62,7 +65,7 @@ public class TextArea extends GUITextBase{
 		if(this.getFont() == null)
 			return;
 		
-		int maxScroll = (int) (((this.lines.size() * this.getFont().getLineSpacing()) - this.getBounds().Height));
+		int maxScroll = (int) (((this.lines.size() * this.getFont().getLineSpacing()) - this.getBounds().Height + this.getMargin()));
 		this.vBar.setScrollMax(maxScroll);
 	}
 
@@ -112,6 +115,10 @@ public class TextArea extends GUITextBase{
 	
 	public int getMaxScrollOffset() {
 		return vBar.getScrollMax();
+	}
+
+	public int getScrollBarSize() {
+		return SCROLLBAR_SIZE;
 	}
 
 }

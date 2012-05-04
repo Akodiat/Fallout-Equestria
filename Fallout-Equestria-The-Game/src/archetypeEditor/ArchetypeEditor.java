@@ -51,7 +51,6 @@ public class ArchetypeEditor {
 	private ComponentPanel compPanel;
 	private EntityArchetypeLoader loader;
 	
-	
 	/**
 	 * Launch the application.
 	 */
@@ -61,6 +60,7 @@ public class ArchetypeEditor {
 				try {
 					ArchetypeEditor window = new ArchetypeEditor();
 					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,7 +75,7 @@ public class ArchetypeEditor {
 	 */
 	public ArchetypeEditor() throws ClassNotFoundException, IOException {
 		initialize();
-		loader = new EntityArchetypeLoader();
+		loader = new EntityArchetypeLoader("archetypes");
 		EntityArchetypeLoader.initialize();
 	}
 

@@ -2,6 +2,8 @@ package components;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+import content.ContentManager;
+
 import anotations.Editable;
 import scripting.Behavior;
 import utils.GameTime;
@@ -35,8 +37,8 @@ public class BehaviourComp implements IComponent {
 	 * @param entityManager manager in use.
 	 * @param entity 
 	 */
-	public void start(IEntityManager entityManager, IEntity entity) {
-		behavior.initialize(entityManager, entity);
+	public void start(IEntityManager entityManager, ContentManager contentManager, IEntity entity) {
+		behavior.initialize(entityManager,contentManager, entity);
 		behavior.start();
 		behavior.setEnabled(true);
 	}

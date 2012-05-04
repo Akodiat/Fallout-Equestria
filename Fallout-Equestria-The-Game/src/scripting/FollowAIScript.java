@@ -29,12 +29,12 @@ public class FollowAIScript extends Behavior{
 	
 	@Override
 	public void start() {
-		this.physComp = this.entity.getComponent(PhysicsComp.class);
-		this.transComp = this.entity.getComponent(TransformationComp.class);
+		this.physComp = this.Entity.getComponent(PhysicsComp.class);
+		this.transComp = this.Entity.getComponent(TransformationComp.class);
 		
 		if(physComp == null) {
 			this.physComp = new PhysicsComp();
-			this.entity.addComponent(new PhysicsComp());
+			this.Entity.addComponent(new PhysicsComp());
 		}
 		if(this.transComp == null) {
 			throw new NullPointerException("transComp");
@@ -43,7 +43,7 @@ public class FollowAIScript extends Behavior{
 
 	@Override
 	public void update(GameTime time) {
-		IEntity targetEntity = this.entityManager.getEntity(targetEntityLabel);
+		IEntity targetEntity = this.EntityManager.getEntity(targetEntityLabel);
 		if(targetEntity != null) {
 			TransformationComp playerTrans = targetEntity.getComponent(TransformationComp.class);
 			if(targetInRange(playerTrans.getPosition())) {

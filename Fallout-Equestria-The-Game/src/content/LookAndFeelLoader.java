@@ -2,17 +2,21 @@ package content;
 
 import graphics.Texture2D;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import animation.TextureBounds;
 import animation.TextureDictionary;
 import GUI.graphics.LookAndFeel;
 import GUI.graphics.VisibleElement;
 
-public class LookAndFeelLoader implements IContentLoader<LookAndFeel>{
+public class LookAndFeelLoader extends ContentLoader<LookAndFeel>{
 
-	private TextureDictionaryLoader dictionaryLoader = new TextureDictionaryLoader("GUI");
+	private TextureDictionaryLoader dictionaryLoader;
+	
+	public LookAndFeelLoader(TextureDictionaryLoader loader, String folder) {
+		super(folder);
+		this.dictionaryLoader = loader;
+	}
+
 	
 	@Override
 	public Class<LookAndFeel> getClassAbleToLoad() {
@@ -36,10 +40,4 @@ public class LookAndFeelLoader implements IContentLoader<LookAndFeel>{
 		
 		return feel;
 	}
-
-	@Override
-	public String getFolder() {
-		return "lookAndFeels";
-	}
-
 }

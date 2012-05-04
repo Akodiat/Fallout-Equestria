@@ -1,6 +1,5 @@
 package content;
 
-import graphics.Texture2D;
 import static content.XMLAnimHelper.*;
 
 import java.io.InputStream;
@@ -19,8 +18,16 @@ import animation.Keyframe;
 import animation.TextureDictionary;
 import animation.TextureEntry;
 
-public class AnimationLoader implements IContentLoader<Animation>{
+public class AnimationLoader extends ContentLoader<Animation>{
 
+	
+	private ContentManager ContentManager;
+	
+	public AnimationLoader(ContentManager manager, String folderPath) {
+		super(folderPath);
+		this.ContentManager = manager;
+	}
+	
 	@Override
 	public Class<Animation> getClassAbleToLoad() {
 		return Animation.class;
@@ -90,6 +97,7 @@ public class AnimationLoader implements IContentLoader<Animation>{
 	private List<Keyframe> exctractKeyframes(Element rootNode, int frameTime) {
 		List<Keyframe> keyframes = new ArrayList<>();
 		
+		@SuppressWarnings("unchecked")
 		List<Element> keyframeElements = rootNode.getChildren("Keyframe");
 		for (Element keyframeElement : keyframeElements) {
 			Keyframe keyframe = extractKeyFrame(keyframeElement, frameTime);
@@ -153,12 +161,4 @@ public class AnimationLoader implements IContentLoader<Animation>{
 		
 		return bone; 
 	}
-
-	
-
-	@Override
-	public String getFolder() {
-		return "animations";
-	}
-
 }

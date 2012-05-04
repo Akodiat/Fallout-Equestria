@@ -37,13 +37,7 @@ public class ListBoxRenderer implements IGUIRenderer<ListBox>{
 		batch.draw(element.getTexture(), dim, control.getBgColor(), element.getSrcRect());
 		batch.end();
 		
-		RenderTarget2D innerTarget = createTextTarget(control);
-		
-
-		Rectangle sr = batch.getViewport();
-		batch.setViewport(new Rectangle(0,0, innerTarget.getTexture().Width, innerTarget.getTexture().Height));
-		
-		
+		RenderTarget2D innerTarget = createTextTarget(control);		
 		batch.begin(null,Matrix4.Identity,innerTarget);
 
 		@SuppressWarnings("unchecked")
@@ -58,8 +52,6 @@ public class ListBoxRenderer implements IGUIRenderer<ListBox>{
 			batch.drawString(control.getFont(), text, position, color);	
 		}	
 		batch.end();
-		
-		batch.setViewport(sr);
 
 		batch.begin(null,Matrix4.Identity,target);
 		Vector2 offset = new Vector2(control.getMargin(), control.getMargin());

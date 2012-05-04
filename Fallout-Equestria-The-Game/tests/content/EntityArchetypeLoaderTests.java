@@ -9,7 +9,7 @@ public class EntityArchetypeLoaderTests {
 
 	@Test
 	public void testIfCanLoadValidArchetype() throws Exception {
-		EntityArchetypeLoader loader = new EntityArchetypeLoader();
+		EntityArchetypeLoader loader = new EntityArchetypeLoader(new ContentManager(""), "");
 		IEntityArchetype archetype = loader.loadContent(this.getClass().getResourceAsStream("testArchetype.archetype"));
 		
 		assertNotNull(archetype);	
@@ -17,7 +17,7 @@ public class EntityArchetypeLoaderTests {
 	
 	@Test(expected = Exception.class)
 	public void testIfExceptionIfInvalidFont() throws Exception {
-		EntityArchetypeLoader loader = new EntityArchetypeLoader();
+		EntityArchetypeLoader loader = new EntityArchetypeLoader(new ContentManager(""), "");
 		loader.loadContent(this.getClass().getResourceAsStream("invalidTestArchetype.archetype"));
 		
 		fail("This should not get here!");	
@@ -25,7 +25,7 @@ public class EntityArchetypeLoaderTests {
 	
 	@Test
 	public void testIfCorrectFolderAndClassManaged() {
-		EntityArchetypeLoader loader = new EntityArchetypeLoader();
+		EntityArchetypeLoader loader = new EntityArchetypeLoader(new ContentManager(""), "archetypes");
 		assertEquals(loader.getFolder(), "archetypes");
 		assertEquals(loader.getClassAbleToLoad(), IEntityArchetype.class);
 	}
