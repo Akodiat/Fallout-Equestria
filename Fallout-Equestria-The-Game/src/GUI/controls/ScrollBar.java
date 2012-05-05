@@ -10,7 +10,6 @@ import misc.IEventListener;
 import utils.Mouse;
 import utils.MouseButton;
 import utils.Rectangle;
-import graphics.Texture2D;
 
 public class ScrollBar extends GUIControl {
 	private static final ScrollBarRenderer DEFAULT_RENDERER = new ScrollBarRenderer();
@@ -18,9 +17,9 @@ public class ScrollBar extends GUIControl {
 																						   LookAndFeelAssets.ScrollButton_Over.toString(),
 																						   LookAndFeelAssets.ScrollButton_Down.toString());	
 	private static final ButtonRenderer DEFAULT_HSCROLLBUTTON_RENDERER = 
-					 new ButtonRenderer(LookAndFeelAssets.HorisontalScrollbarButton_BG.toString(),
-										LookAndFeelAssets.HorisontalScrollbarButton_Over.toString(),
-										LookAndFeelAssets.HorisontalScrollbarButton_Down.toString());
+					 new ButtonRenderer(LookAndFeelAssets.HorisontalScrollButton_BG.toString(),
+										LookAndFeelAssets.HorisontalScrollButton_Over.toString(),
+										LookAndFeelAssets.HorisontalScrollButton_Down.toString());
 	private static final int scrollBarRatio = 4;
 	
 	protected Button scrollButton;
@@ -30,7 +29,6 @@ public class ScrollBar extends GUIControl {
 	private int scrollValue;
 	private int stepSize;
 	
-	private Texture2D background;
 	private Event<ScrollEventArgs> scolledEvent;
 	
 	public ScrollBar() {
@@ -59,14 +57,6 @@ public class ScrollBar extends GUIControl {
 		this.repositionScrollButton();
 	}
 	
-	public Texture2D getBackground() {
-		return background;
-	}
-
-	public void setBackground(Texture2D background) {
-		this.background = background;
-	}
-
 	public Button getScrollButton() {
 		return scrollButton;
 	}
@@ -119,7 +109,7 @@ public class ScrollBar extends GUIControl {
 		if(this.vertical)
 			this.scrollButton.setRenderer(DEFAULT_VSCROLLBUTTON_RENDERER);
 		else
-			this.scrollButton.setRenderer(DEFAULT_VSCROLLBUTTON_RENDERER);
+			this.scrollButton.setRenderer(DEFAULT_HSCROLLBUTTON_RENDERER);
 		
 	}
 

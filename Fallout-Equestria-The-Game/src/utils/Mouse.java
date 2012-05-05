@@ -10,9 +10,9 @@ public class Mouse {
 	private MouseState currentState;
 
 	public Mouse() {
-		this.lastState = new MouseState(Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, 0, 
+		this.lastState = new MouseState(Vector2.Zero, Vector2.Zero, 0, 
 										ButtonState.Depressed, ButtonState.Depressed, ButtonState.Depressed);
-		this.currentState = new MouseState(Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, 0, 
+		this.currentState = new MouseState(Vector2.Zero, Vector2.Zero, 0, 
 				ButtonState.Depressed, ButtonState.Depressed, ButtonState.Depressed);
 
 	}
@@ -39,7 +39,6 @@ public class Mouse {
 	}
 	
 	public boolean wasButtonReleased(MouseButton button) {
-		
 		switch (button) {
 			case Left:
 				return lastState.LeftButtonState == ButtonState.Pressed &&
@@ -55,21 +54,16 @@ public class Mouse {
 		}
 	}
 	
-	public void poll(Camera2D camera) {	
-		this.lastState = this.currentState;
-		
-		Rectangle viewport = camera.getViewport();
+	public void poll(Rectangle viewport) {
 		Vector2 viewPos = new Vector2(getX(), viewport.Height - getY());
-		Vector2 worldPos = camera.getViewToWorldCoords(viewPos);
-		
+		this.updateCurrentMouseState(viewPos);
+	}
+	
+	private void updateCurrentMouseState(Vector2 viewPos) {
+		this.lastState = this.currentState;
 		Vector2 viewDelta = Vector2.subtract(viewPos, 
 											 this.lastState.ViewCoords);
-		
-		Vector2 worldDelta = Vector2.subtract(worldPos, 
-											  this.currentState.WorldCoords);
-		
-		int scrollDeltha = getDWheel();
-		
+		int scrollDeltha = getDWheel();	
 		ButtonState leftButton = isButtonDown(0) ?
 								 ButtonState.Pressed : ButtonState.Depressed;
 		ButtonState rightButton = isButtonDown(1) ?
@@ -77,16 +71,13 @@ public class Mouse {
 		ButtonState middleButton = isButtonDown(2) ? 
 								 ButtonState.Pressed : ButtonState.Depressed;
 		
-		this.currentState = new MouseState(worldPos,
-										   viewPos, 
-										   worldDelta,
+		this.currentState = new MouseState(viewPos,
 										   viewDelta,
 										   scrollDeltha, 
 										   leftButton,
 										   rightButton, 
 										   middleButton);
 	
-
 	}
 	
 }

@@ -2,16 +2,13 @@ package screens;
 
 import math.Point2;
 import utils.GameTime;
-import utils.TimeSpan;
 import GUI.controls.Panel;
 
 public class MultiplayerScreen extends GUIScreen{
 	private Panel contentPanel;
-	private TransitionState state;
 	
 	public MultiplayerScreen() {
 		initialize();
-		this.state = TransitionState.NONE;
 	}
 	
 	@Override

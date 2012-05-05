@@ -1,6 +1,6 @@
 package math;
 
-public final class Vector2 implements java.io.Serializable{
+public final class Vector2{
 	
 	public final float X;
 	public final float Y;

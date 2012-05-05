@@ -1,20 +1,15 @@
 package scripting;
 
 import math.Vector2;
-import ability.AbilityFactory;
 import anotations.Editable;
 
 import components.AbilityComp;
-import components.BehaviourComp;
 import components.InputComp;
 import components.PhysicsComp;
 import components.SpecialComp;
 import components.TransformationComp;
-import components.WeaponComp;
-import entityFramework.IEntity;
 
 import utils.GameTime;
-import utils.MouseState;
 /**
  * 
  * @author Lukas Kurtyan & Joakim Johansson
@@ -27,7 +22,6 @@ public class PlayerScript extends Behavior{
 	InputComp 		  	     inpComp;
 	TransformationComp       posComp;
 	AbilityComp 		      apComp;
-	WeaponComp 	  		  weaponComp;
 	SpecialComp			 specialComp;
 	InputComp			   inputComp;
 	
@@ -36,7 +30,6 @@ public class PlayerScript extends Behavior{
 		physComp  = Entity.getComponent(PhysicsComp.class);
 		posComp  = Entity.getComponent(TransformationComp.class);
 		apComp  = Entity.getComponent(AbilityComp.class);
-		weaponComp  = Entity.getComponent(WeaponComp.class);
 		specialComp = Entity.getComponent(SpecialComp.class);
 		inputComp	= Entity.getComponent(InputComp.class);
 	}
@@ -51,14 +44,6 @@ public class PlayerScript extends Behavior{
 			speedFactor=400;
 		}
 		if(inpComp.isLeftMouseButtonDown()){
-			AbilityFactory abilityFactory = new AbilityFactory(EntityManager);
-			Vector2 velocity = Vector2.norm(Vector2.subtract(inputComp.getMousePosition(),posComp.getPosition()));
-			IEntity projectile = abilityFactory.createProjectile(
-					this.posComp.getPosition(), 
-					velocity, 
-					this.weaponComp.getPrimaryArchetype(), 
-					this.specialComp);
-			
 		}
 
 		Vector2 velocity = new Vector2(0,0);

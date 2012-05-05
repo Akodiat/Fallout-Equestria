@@ -12,7 +12,6 @@ import graphics.TextureFont;
 public class ChatPanel extends Panel {
 	private static final int textBoxSize = 25;
 	private static final int buttonWidth = 35;
-	private static final int scrollBar   = 15;
 	private final TextArea area;
 	private final Button sendButton;
 	private final Textfield inputField;

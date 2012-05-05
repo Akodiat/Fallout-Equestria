@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableSet;
  * @author Lukas Kurtyan
  *
  */
-public interface IEntityDatabase extends java.io.Serializable{
+public interface IEntityDatabase {
 	
 	/**Gets a component from the specified entity of the specified class.
 	 * @param entity the specified entity.

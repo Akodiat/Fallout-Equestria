@@ -23,7 +23,6 @@ public class WorldBuilder {
 		
 		manager.addLogicEntitySystem(new ScriptSystem(world, contentManager));
 		manager.addLogicEntitySystem(new ScriptCollisionSystem(world));
-		manager.addLogicEntitySystem(new ScriptMouseSystem(world, camera));
 		
 		
 		//Logic systems!
@@ -58,7 +57,6 @@ public class WorldBuilder {
 		
 		manager.addLogicEntitySystem(new ScriptSystem(world, contentManager));
 		manager.addLogicEntitySystem(new ScriptCollisionSystem(world));
-		manager.addLogicEntitySystem(new ScriptMouseSystem(world, camera));
 		
 		
 		//Logic systems!

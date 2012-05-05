@@ -20,6 +20,8 @@ public class LookAndFeel {
 	}
 	
 	public VisibleElement getElement(String key) {
+		if(!this.guiElements.containsKey(key))
+			throw new NullPointerException("The key " + key  + " does not exist");
 		return this.guiElements.get(key);
 	}
 	

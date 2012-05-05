@@ -170,12 +170,13 @@ public class SpriteBatch {
 	private void setupUniforms() {
 		//Start using the active shader. This has to be done so we can set the uniforms.
 		this.activeEffect.bindShaderProgram();
+			
 		
 		//Set the shader uniforms.
 		this.activeEffect.setUniform("viewport", viewport.Width, viewport.Height);
 		this.activeEffect.setUniformSampler("colorTexture", 0);
 		this.activeEffect.setUniform("view", this.view);
-				
+			
 		Matrix4 projectionMatrix =
 				Matrix4.createOrthogonalProjection(viewport.getLeft(),
 												   viewport.getRight(), 
@@ -188,7 +189,7 @@ public class SpriteBatch {
 		//Stop using the active shader.
 		this.activeEffect.unbindShaderProgram();
 	}
-	
+
 	/** Fixes the spritebatch to render to the new screen dimensions.
 	 * 
 	 * @param newViewport the screen viewport.

@@ -1,8 +1,6 @@
 package scripting;
 
 import components.AnimationComp;
-import components.TransformationComp;
-
 import animation.KeyframeTriggerEventArgs;
 import animation.KeyframeTriggerListener;
 import entityFramework.IComponent;

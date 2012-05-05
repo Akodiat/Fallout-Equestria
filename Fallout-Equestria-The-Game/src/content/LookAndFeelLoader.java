@@ -32,9 +32,7 @@ public class LookAndFeelLoader extends ContentLoader<LookAndFeel>{
 		for (String key : dictionary.getTextureCollection().keySet()) {
 			TextureBounds srcRect = dictionary.getTextureCollection().get(key);
 			VisibleElement element = new VisibleElement(texture,srcRect.getLocation());
-			
 			feel.setElement(key, element);
-			System.out.println(feel.getElement("ScrollbarButton_BG"));
 		}
 		
 		

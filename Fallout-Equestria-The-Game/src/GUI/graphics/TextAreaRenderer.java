@@ -1,13 +1,9 @@
 package GUI.graphics;
 
 import java.util.List;
-
-import com.google.common.collect.ImmutableList;
-
 import math.Matrix4;
 import math.Point2;
 import math.Vector2;
-
 import GUI.LookAndFeelAssets;
 import GUI.controls.TextArea;
 import graphics.Color;

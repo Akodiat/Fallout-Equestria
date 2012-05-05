@@ -19,7 +19,7 @@ import utils.Rectangle;
 
 public class ListBox<T> extends GUISelector<T> {
 	private static final ListBoxRenderer DEFAULT_RENDERER = new ListBoxRenderer();
-	private static final int margin = 10;
+	private final int margin = 10;
 	private static final int SCROLLBAR_SIZE = 16;
 	private final ScrollBar vBar;
 	private final ScrollBar hBar;

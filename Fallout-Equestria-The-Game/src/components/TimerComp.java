@@ -3,7 +3,8 @@ package components;
 import java.util.ArrayList;
 import java.util.List;
 
-import misc.Timer;
+import utils.Timer;
+
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import entityFramework.IComponent;

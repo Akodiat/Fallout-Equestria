@@ -2,13 +2,13 @@ package scripting;
 
 import utils.GameTime;
 import utils.MouseState;
+import utils.Timer;
 import anotations.Editable;
 import components.*;
 
 import math.Vector2;
 import misc.EntityGroups;
 import misc.IEventListener;
-import misc.Timer;
 import misc.TimerEventArgs;
 import entityFramework.IEntity;
 

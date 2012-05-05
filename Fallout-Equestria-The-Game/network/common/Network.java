@@ -31,8 +31,6 @@ public class Network {
 		kryo.register(components.BehaviourComp.class);
 		kryo.register(components.SpecialComp.class);
 		kryo.register(components.SpatialComp.class);
-		kryo.register(components.DeathComp.class);
-		kryo.register(components.ExistanceComp.class);
 		
 		kryo.register(NewPlayerMessage.class);
 		kryo.register(EntityMovedMessage.class);

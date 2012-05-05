@@ -76,58 +76,6 @@
           <pressed>false</pressed>
         </gallopButton>
       </Input>
-      <Weapon>
-        <primaryArch class="entityFramework.EntityArchetype">
-          <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
-            <elements>
-              <Rendering>
-                <texture>
-                  <Asset>Circle100pxGrey.png</Asset>
-                </texture>
-                <color>
-                  <Color>0.0,0.8,1.0,1.0</Color>
-                </color>
-              </Rendering>
-              <Behaviour>
-                <behavior class="scripting.BulletBehavior">
-                  <initialized>false</initialized>
-                  <enabled>false</enabled>
-                  <damage>10.0</damage>
-                  <soundEffect class="org.newdawn.slick.openal.Audio">
-                    <Asset>effects\explosion2.ogg</Asset>
-                  </soundEffect>
-                </behavior>
-              </Behaviour>
-              <Physics>
-                <immovable>false</immovable>
-                <velocity>0.0,0.0</velocity>
-                <mass>0.5</mass>
-                <torque>0.0</torque>
-              </Physics>
-              <Transformation>
-                <position reference="../../Physics/velocity"/>
-                <scale>1.0,1.0</scale>
-                <origin reference="../../Physics/velocity"/>
-                <rotation>0.0</rotation>
-                <mirror>false</mirror>
-              </Transformation>
-              <Spatial>
-                <bounds>
-                  <position reference="../../../Physics/velocity"/>
-                  <radius>20.0</radius>
-                </bounds>
-                <trigger>false</trigger>
-              </Spatial>
-            </elements>
-          </components>
-          <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
-            <elements/>
-          </groups>
-          <label></label>
-        </primaryArch>
-        <secondaryArch class="entityFramework.EntityArchetype" reference="../primaryArch"/>
-        <isMelee>false</isMelee>
-      </Weapon>
       <Status/>
       <Spatial>
         <bounds>

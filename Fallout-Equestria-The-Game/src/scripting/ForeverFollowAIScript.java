@@ -1,9 +1,7 @@
 package scripting;
 
-import javax.xml.crypto.dsig.Transform;
 
 import anotations.Editable;
-import math.MathHelper;
 import math.Vector2;
 import components.PhysicsComp;
 import components.TransformationComp;

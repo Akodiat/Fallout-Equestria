@@ -2,10 +2,8 @@ package GUI.graphics;
 
 import GUI.LookAndFeelAssets;
 import GUI.controls.Slider;
-import graphics.Color;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import graphics.Texture2D;
 import utils.GameTime;
 import utils.Rectangle;
 

@@ -4,22 +4,17 @@ import java.io.File;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.openal.Audio;
 
 import components.BehaviourComp;
 import components.RenderingComp;
 import components.TransformationComp;
 
 import math.Vector2;
-import misc.IEventListener;
 import content.ContentManager;
-import GUI.MouseEventArgs;
 import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
 import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 import entitySystems.RenderingSystem;
-import entitySystems.ScriptMouseSystem;
 import entitySystems.ScriptSystem;
 import graphics.Color;
 import graphics.SpriteBatch;
@@ -80,9 +75,7 @@ public class MenuDemo2 extends Demo{
 		this.camera = new Camera2D(backGround.getBounds(), screenRect);
 		this.mouse = new Mouse();
 		
-		camera.setPosition(new Vector2(2000, 223));
 		world = WorldBuilder.buildEmptyWorld();
-		world.getSystemManager().addLogicEntitySystem(new ScriptMouseSystem(world, camera));
 		world.getSystemManager().addLogicEntitySystem(new ScriptSystem(world, new ContentManager("resources")));
 		world.getSystemManager().addRenderEntitySystem(new CameraControlSystem(world, camera));
 		world.getSystemManager().addRenderEntitySystem(new RenderingSystem(world, spriteBatch));

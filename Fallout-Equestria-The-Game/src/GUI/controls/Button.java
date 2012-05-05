@@ -1,7 +1,6 @@
 package GUI.controls;
 
 import GUI.graphics.ButtonRenderer;
-import GUI.graphics.IGUIRenderer;
 import utils.Mouse;
 import utils.MouseButton;
 

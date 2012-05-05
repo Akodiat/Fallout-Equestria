@@ -1,9 +1,6 @@
 package common;
 
-import graphics.Animation;
-import components.PhysicsComp;
 import components.SpecialComp;
-import components.TransformationComp;
 
 /**
  * 

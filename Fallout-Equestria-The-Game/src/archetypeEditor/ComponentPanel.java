@@ -25,6 +25,8 @@ import anotations.Editable;
 
 import com.thoughtworks.xstream.core.util.Fields;
 
+import content.ContentManager;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -40,14 +42,15 @@ public class ComponentPanel extends JPanel {
 	private JPanel scrollPanel;
 	private JLabel componentName;
 	private int height;
-
+	private ContentManager manager;
 
 	/**
 	 * Create the panel.
 	 */
-	public ComponentPanel() {
+	public ComponentPanel(ContentManager manager) {
 		setBackground(UIManager.getColor("Panel.background"));
 		setLayout(null);
+		this.manager = manager;
 
 		componentName = new JLabel("NO ACTIVE COMPONENT");
 		componentName.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -138,12 +141,12 @@ public class ComponentPanel extends JPanel {
 				  type.equals(TextureFont.class)||
 				  type.equals(Audio.class)||
 				  type.equals(IEntityArchetype.class)){
-			AssetPanel aPanel = new AssetPanel(field, component);
+			AssetPanel aPanel = new AssetPanel(field, component, manager);
 			aPanel.setBounds(0, height, 500, 55);
 			height += 70;
 			this.scrollPanel.add(aPanel);
 		} else if(Behavior.class.isAssignableFrom(type)) {
-			ScriptPanel sPanel = new ScriptPanel(field, component);
+			ScriptPanel sPanel = new ScriptPanel(field, component, manager);
 			sPanel.setBounds(0,height, 500, 500);
 			height += 305;
 

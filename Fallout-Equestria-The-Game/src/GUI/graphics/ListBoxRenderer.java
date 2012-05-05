@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableList;
 import graphics.Color;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import graphics.Texture2D;
 import utils.GameTime;
 import utils.Rectangle;
 

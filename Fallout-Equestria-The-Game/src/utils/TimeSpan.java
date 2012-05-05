@@ -143,4 +143,6 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	}
 
 	
+	public static final TimeSpan Zero = new TimeSpan(0);
+	
 }

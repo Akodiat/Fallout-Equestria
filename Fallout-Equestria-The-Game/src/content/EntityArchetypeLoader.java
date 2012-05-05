@@ -1,5 +1,6 @@
 package content;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -40,7 +41,6 @@ public class EntityArchetypeLoader extends ContentLoader<IEntityArchetype>{
 		xstream.processAnnotations(SpatialComp.class);
 		xstream.processAnnotations(TransformationComp.class);
 		xstream.processAnnotations(AnimationComp.class);
-		xstream.processAnnotations(WeaponComp.class);
 		xstream.processAnnotations(StatusComp.class);
 		xstream.processAnnotations(BehaviourComp.class);
 	}
@@ -57,6 +57,14 @@ public class EntityArchetypeLoader extends ContentLoader<IEntityArchetype>{
 	}
 
 	public void save(OutputStream out, IEntityArchetype archetype) {
-		xstream.toXML(archetype, out);
+		String s = 	xstream.toXML(archetype);
+		System.out.println(s);
+		try {
+			out.write(s.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

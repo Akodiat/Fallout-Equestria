@@ -27,20 +27,20 @@ import javax.swing.DefaultComboBoxModel;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import content.ContentManager;
+
 
 import misc.EntityGroups;
 
-import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-
-import ability.Abilities;
 import anotations.Editable;
 
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
+@SuppressWarnings("serial")
 public class ArchetypePanel extends JPanel {
 	private JTextField entityIDTextField;
 	private JList groupList;
@@ -53,7 +53,7 @@ public class ArchetypePanel extends JPanel {
 	
 	private Map<String, IComponent> componentMap = new HashMap<>();
 	private Map<String, Class> componentClassMap = new HashMap<>();
-	
+	private ContentManager manager;
 
 	@SuppressWarnings("unchecked")
 	public void setArchetype(IEntityArchetype entityArch){
@@ -97,9 +97,9 @@ public class ArchetypePanel extends JPanel {
 	 * @throws IOException 
 	 * @throws ClassNotFoundException 
 	 */
-	public ArchetypePanel(final ArchetypeEditor archEd) throws ClassNotFoundException, IOException {
+	public ArchetypePanel(final ArchetypeEditor archEd, final ContentManager manager) throws ClassNotFoundException, IOException {
 		setLayout(null);
-		
+		this.manager = manager;
 		this.archEd = archEd;
 		
 		this.compMap = new HashMap<String, IComponent>();

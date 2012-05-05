@@ -14,9 +14,9 @@ import utils.*;
 public class GUIDemo extends Demo {
 	private static Rectangle screenDim = new Rectangle(0,0,1366,768);
 
-	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Mouse mouse;
+	private Keyboard keyboard;
 	private ContentManager ContentManager;
 	
 	private GUIRenderingContext context;
@@ -29,14 +29,14 @@ public class GUIDemo extends Demo {
 	
 	public GUIDemo() {
 		super(screenDim, 60);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void update(GameTime time) {
-		this.mouse.poll(camera);
+		this.mouse.poll(screenDim);
+		this.keyboard.poll();
 		panel.checkMouseInput(new Point2(0,0), mouse);
-		panel.checkKeyboardInput();
+		panel.checkKeyboardInput(keyboard);
 	}
 
 	@Override
@@ -47,9 +47,9 @@ public class GUIDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		this.camera = new Camera2D(screenDim, screenDim);
 		this.spriteBatch = new SpriteBatch(screenDim);
 		this.mouse = new Mouse();
+		this.keyboard = new Keyboard();
 		this.ContentManager = new ContentManager("resources");
 		
 		LookAndFeel lookAndFeel = ContentManager.load("gui.tdict", LookAndFeel.class);
@@ -137,7 +137,6 @@ public class GUIDemo extends Demo {
 		vBar.setBounds(1300,50,20,200);
 		vBar.setVertical(true);
 		vBar.setScrollMax(100);
-		vBar.setBackground(ContentManager.loadTexture("GUI/guiBackground.png"));
 		this.panel.addChild(vBar);
 		
 						
@@ -145,7 +144,6 @@ public class GUIDemo extends Demo {
 		hBar.setBounds(1100,250,200,20);
 		hBar.setHorizontal(true);
 		hBar.setScrollMax(100);
-		hBar.setBackground(ContentManager.loadTexture("GUI/guiBackground.png"));
 		this.panel.addChild(hBar);
 		
 		

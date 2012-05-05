@@ -12,7 +12,6 @@ public class Camera2D {
 
 	//Properties of the Camera
 	private Vector2 position;
-	private Vector2 zoom;
 	
 	//Used to center the screen.
 	private Vector2 screenOffset;
@@ -31,25 +30,15 @@ public class Camera2D {
 	}
 	
 	public Camera2D(Rectangle worldBounds, Rectangle screen, Vector2 position) {
-		this(worldBounds, screen, position, Vector2.One);
-	}
-	
-	public Camera2D(Rectangle worldBounds, Rectangle screen, Vector2 position, Vector2 zoom) {
 		this.screenOffset = new Vector2(-screen.Width / 2, -screen.Height / 2);
-		this.zoom = zoom;
 		this.position = position;
 		this.worldBounds = worldBounds;
 		
 	}
 
 	public Matrix4 getTransformation() {
-		Matrix4 screenOff = Matrix4.createTranslation(screenOffset);
-		Matrix4 scale = Matrix4.createScale(this.zoom);
-		Matrix4 translation = Matrix4.createTranslation(new Vector2(-position.X - screenOffset.X * this.zoom.X, -position.Y - screenOffset.Y * this.zoom.Y));
-		Matrix4 combinedMatrix = Matrix4.mul(screenOff, scale);
-		combinedMatrix = Matrix4.mul(combinedMatrix, translation);
-		
-		return combinedMatrix;
+		Matrix4 translation = Matrix4.createTranslation(new Vector2(-position.X, -position.Y));
+		return translation;
 	}
 	
 	
@@ -61,11 +50,11 @@ public class Camera2D {
 	private void validatePosition() {
 		//TODO confirm this is correct. 
 		float x = this.position.X, y = this.position.Y;
-		float left = this.worldBounds.getLeft() * this.zoom.X;
-		float right = this.worldBounds.getRight() * this.zoom.X + this.screenOffset.X  * 2 *  this.zoom.X;
+		float left = this.worldBounds.getLeft();
+		float right = this.worldBounds.getRight() + this.screenOffset.X  * 2;
 		
 		float top = this.worldBounds.getTop();
-		float bottom = this.worldBounds.getBottom() + this.screenOffset.Y * 2 * this.zoom.Y;
+		float bottom = this.worldBounds.getBottom() + this.screenOffset.Y * 2;
 		
 		if(x < left) {
 			x = left;
@@ -87,25 +76,9 @@ public class Camera2D {
 		this.screenOffset = new Vector2(-screen.Width / 2, -screen.Height / 2);
 	}
 	
-	public void setZoom(Vector2 zoom) {
-		this.zoom = zoom;
-	}
-	
 	public void move(Vector2 displaysment) {
 		this.position = Vector2.add(this.position, new Vector2(-displaysment.X, displaysment.Y));
 		this.validatePosition();
-	}
-	
-	public void zoomIn(float zoom) {
-		this.zoom = Vector2.add(this.zoom, new Vector2(zoom, zoom));
-	}
-	
-	public void zoomOut(float zoom) {
-		this.zoom = Vector2.subtract(this.zoom, new Vector2(zoom, zoom));
-	}
-	
-	public Vector2 getZoom() {
-		return this.zoom;
 	}
 	
 	public Rectangle getWorldBounds() {
@@ -132,15 +105,10 @@ public class Camera2D {
 	
 	public Rectangle getVisibleArea() {
 		int x,y,width,height;
-		
-		float zoomX = 1.0f / this.zoom.X;
-		float zoomY = 1.0f / this.zoom.Y;
-		
-		
-		x = (int)((this.position.X) * zoomX);
-		y = (int)((this.position.Y) * zoomY);
-		width = (int)(this.screenOffset.X * -2.0f * zoomY);
-		height = (int)(this.screenOffset.Y * -2.0f * zoomY);
+		x = (int)((this.position.X));
+		y = (int)((this.position.Y));
+		width = (int)(this.screenOffset.X * -2.0f);
+		height = (int)(this.screenOffset.Y * -2.0f);
 		
 		return new Rectangle(x,y,width,height);	
 	}
@@ -148,11 +116,8 @@ public class Camera2D {
 	
 	public Vector2 getViewToWorldCoords(Vector2 viewPosition) {
 		
-		float zoomX = 1.0f / this.zoom.X;
-		float zoomY = 1.0f / this.zoom.Y;
-		
-		float x = this.position.X + viewPosition.X * zoomX;
-		float y = this.position.Y + viewPosition.Y * zoomY;
+		float x = this.position.X + viewPosition.X;
+		float y = this.position.Y + viewPosition.Y;
 		
 		return new Vector2(x,y);
 	}
@@ -165,7 +130,6 @@ public class Camera2D {
 		return "Camera :" 
 			+  "Screen Offset:   " + this.screenOffset.toString() + "\n"
 			+  "Center Position: " + this.position.toString() + "\n"
-			+  "Zoom:            " + this.zoom.toString() + "\n"
 			+  "World Bounds:    " + this.worldBounds.toString() + "\n";
 	}
 	

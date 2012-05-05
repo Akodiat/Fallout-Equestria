@@ -23,9 +23,9 @@ public enum LookAndFeelAssets {
 	ScrollButton_Over, 
 	ScrollButton_Down, 
 	ScrollbarButton_Over, 
-	HorisontalScrollbarButton_BG, 
-	HorisontalScrollbarButton_Over, 
-	HorisontalScrollbarButton_Down, 
+	HorisontalScrollButton_BG, 
+	HorisontalScrollButton_Over, 
+	HorisontalScrollButton_Down, 
 	VerticalSlider_BG,
 	VerticalSlider_Overlay, HorisontalScrollbar_BG,
 }

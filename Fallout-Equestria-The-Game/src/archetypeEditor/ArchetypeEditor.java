@@ -49,7 +49,9 @@ public class ArchetypeEditor {
 	private JFrame frame;
 	private ArchetypePanel archPanel;
 	private ComponentPanel compPanel;
+	private ContentManager manager;
 	private EntityArchetypeLoader loader;
+	
 	
 	/**
 	 * Launch the application.
@@ -75,8 +77,6 @@ public class ArchetypeEditor {
 	 */
 	public ArchetypeEditor() throws ClassNotFoundException, IOException {
 		initialize();
-		loader = new EntityArchetypeLoader("archetypes");
-		EntityArchetypeLoader.initialize();
 	}
 
 	/**
@@ -85,6 +85,11 @@ public class ArchetypeEditor {
 	 * @throws ClassNotFoundException 
 	 */
 	private void initialize() throws ClassNotFoundException, IOException {
+		
+
+		manager = new ContentManager("resources");
+		loader = new EntityArchetypeLoader(manager, "archetypes");
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1104, 579);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,11 +98,11 @@ public class ArchetypeEditor {
 		JSplitPane splitPane = new JSplitPane();
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
-		this.compPanel = new ComponentPanel();
+		this.compPanel = new ComponentPanel(manager);
 	
 		splitPane.setRightComponent(this.compPanel);
 		
-		this.archPanel = new ArchetypePanel(this);
+		this.archPanel = new ArchetypePanel(this, manager);
 		splitPane.setLeftComponent(this.archPanel);
 		
 		splitPane.setDividerLocation(420);

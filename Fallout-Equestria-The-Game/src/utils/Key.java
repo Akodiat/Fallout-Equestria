@@ -4,7 +4,7 @@ package utils;
  * @author Joakim Johansson
  *
  */
-public class Key implements java.io.Serializable{
+public class Key {
 	private final int keyID;
 	private boolean pressed;
 

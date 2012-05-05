@@ -2,25 +2,13 @@ package scripting;
 
 import org.newdawn.slick.openal.Audio;
 
-import anotations.Editable;
-import math.Vector2;
-import utils.Circle;
 import utils.GameTime;
-import utils.MouseButton;
-import utils.MouseState;
 
-import components.AbilityComp;
-import components.AttackComp;
-import components.ExistanceComp;
 import components.HealthComp;
-import components.InputComp;
-import components.PhysicsComp;
-import components.RenderingComp;
 import components.TransformationComp;
-import components.WeaponComp;
-import content.ContentManager;
 import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
+
+import anotations.Editable;
 
 @Editable
 public class BulletBehavior extends Behavior{

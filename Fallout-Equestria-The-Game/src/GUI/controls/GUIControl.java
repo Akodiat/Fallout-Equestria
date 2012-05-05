@@ -4,8 +4,6 @@ import graphics.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
 import GUI.ControlEventArgs;
 import GUI.KeyboardEventArgs;
 import GUI.MouseEventArgs;
@@ -20,6 +18,8 @@ import misc.EventArgs;
 import misc.IEventListener;
 
 import utils.GameTime;
+import utils.Keyboard;
+import utils.KeyboardKey;
 import utils.Mouse;
 import utils.MouseButton;
 import utils.MouseState;
@@ -284,16 +284,13 @@ public abstract class GUIControl {
 		return false;
 	}
 	
-	public void checkKeyboardInput() {
-		while(Keyboard.next()) {
-			
-			char c = Keyboard.getEventCharacter();
-			int key = Keyboard.getEventKey();
-			boolean pressed = Keyboard.getEventKeyState();
-			
-			this.keyboardRecursive(c, key, pressed);
-		}	
-		
+	public void checkKeyboardInput(Keyboard keyboard) {	
+		for (KeyboardKey pressedKey : keyboard.getPressedKeys()) {
+			this.keyboardRecursive(pressedKey.getCharacter(), pressedKey.getKeyCode(), true);
+		}
+		for (KeyboardKey releasedKeys : keyboard.getReleasedKeys()) {
+			this.keyboardRecursive(releasedKeys.getCharacter(), releasedKeys.getKeyCode(), false);
+		}
 	}
 	
 	private void keyboardRecursive(char keyChar, int key, boolean pressed) {
@@ -333,7 +330,7 @@ public abstract class GUIControl {
 	}
 	
 	protected void onKeyDown(char keyChar, int key) {
-		if(key == Keyboard.KEY_RETURN) {
+		if(key == org.lwjgl.input.Keyboard.KEY_RETURN) {
 			onClicked();
 		}
 		

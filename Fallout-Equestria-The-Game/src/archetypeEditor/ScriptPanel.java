@@ -33,6 +33,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
+import content.ContentManager;
+
 import entityFramework.IEntityArchetype;
 import graphics.Texture2D;
 import graphics.TextureFont;
@@ -42,7 +44,7 @@ public class ScriptPanel extends JPanel {
 	Field scriptField;
 	Object containgingObject;
 	HashMap<String, Class<? extends Behavior>> scriptTypes = new HashMap<>();
-	
+	private ContentManager manager;
 	int height = 300;
 	public int getHeight() {
 		return this.height;
@@ -51,8 +53,8 @@ public class ScriptPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public ScriptPanel(Field scriptField, Object valueContaingScript) {
-		
+	public ScriptPanel(Field scriptField, Object valueContaingScript, ContentManager manager) {
+		this.manager = manager;
 		this.containgingObject = valueContaingScript;
 		this.scriptField = scriptField;
 		setLayout(null);
@@ -169,7 +171,7 @@ public class ScriptPanel extends JPanel {
 							fieldType.equals(TextureFont.class)||
 							fieldType.equals(Audio.class)||
 							fieldType.equals(IEntityArchetype.class)){
-						AssetPanel aPanel = new AssetPanel(field, script);
+						AssetPanel aPanel = new AssetPanel(field, script, manager);
 						aPanel.setBounds(0, height, 500, 70);
 						height += 70;
 						this.add(aPanel);

@@ -10,5 +10,6 @@ public interface Screen {
 	public void handleInput(Mouse m);
 	public boolean isFocused();
 	public void swap(GameTime time);
+	public void transition();
 	public TransitionState getTransitionState();
 }
