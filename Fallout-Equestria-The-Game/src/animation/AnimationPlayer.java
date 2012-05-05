@@ -256,11 +256,18 @@ public class AnimationPlayer
 			if (bone.isHidden())
 				continue;
 			
-	
+			
+			TextureBounds bounds = animation.getTextures().get(bone.getTextureIndex()).getTextureBounds();
+			Vector2 origin = bounds.getOrigin();
+			if(mirrored) {
+				origin = new Vector2(bounds.getLocation().Width - bounds.getOrigin().X ,
+									 bounds.getOrigin().Y);
+			}
+			
 			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), 
 					getBonePosition(position, mirrored, scale, boneIndex), 
-					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
-					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
+					tintColor, bounds.getLocation(), 
+					origin, 
 					Vector2.mul(scale, boneTransformations[boneIndex].getScale()), 
 					getBoneRotation(mirrored, rotation, boneIndex), 
 					bone.isMirrored() ^ mirrored);		

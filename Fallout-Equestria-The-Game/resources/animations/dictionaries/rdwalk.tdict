@@ -1,0 +1,684 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>rdwalk.png</TexturePath>
+  <Texture name="RDUPPERMANE">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>46</Width>
+    <Height>34</Height>
+    <OriginX>37</OriginX>
+    <OriginY>17</OriginY>
+  </Texture>
+  <Texture name="RDUPPERTAIL">
+    <X>48</X>
+    <Y>0</Y>
+    <Width>42</Width>
+    <Height>43</Height>
+    <OriginX>8</OriginX>
+    <OriginY>18</OriginY>
+  </Texture>
+  <Texture name="RDBODY">
+    <X>0</X>
+    <Y>36</Y>
+    <Width>40</Width>
+    <Height>28</Height>
+    <OriginX>20</OriginX>
+    <OriginY>14</OriginY>
+  </Texture>
+  <Texture name="RDHEAD">
+    <X>0</X>
+    <Y>66</Y>
+    <Width>39</Width>
+    <Height>37</Height>
+    <OriginX>19</OriginX>
+    <OriginY>32</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0002_Layer-22">
+    <X>42</X>
+    <Y>45</Y>
+    <Width>37</Width>
+    <Height>59</Height>
+    <OriginX>8</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0003_Layer-21">
+    <X>81</X>
+    <Y>45</Y>
+    <Width>37</Width>
+    <Height>59</Height>
+    <OriginX>8</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0001_Layer-23">
+    <X>120</X>
+    <Y>0</Y>
+    <Width>37</Width>
+    <Height>57</Height>
+    <OriginX>8</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0000_Layer-24">
+    <X>159</X>
+    <Y>0</Y>
+    <Width>37</Width>
+    <Height>56</Height>
+    <OriginX>8</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0003_Layer-21">
+    <X>120</X>
+    <Y>59</Y>
+    <Width>37</Width>
+    <Height>50</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-1</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0002_Layer-22">
+    <X>198</X>
+    <Y>0</Y>
+    <Width>37</Width>
+    <Height>49</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-2</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0004_Layer-20">
+    <X>159</X>
+    <Y>58</Y>
+    <Width>37</Width>
+    <Height>49</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-2</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0001_Layer-23">
+    <X>198</X>
+    <Y>51</Y>
+    <Width>37</Width>
+    <Height>47</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-2</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0000_Layer-24">
+    <X>0</X>
+    <Y>105</Y>
+    <Width>37</Width>
+    <Height>44</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0005_Layer-19">
+    <X>39</X>
+    <Y>106</Y>
+    <Width>35</Width>
+    <Height>60</Height>
+    <OriginX>8</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="RDLOWERTAIL">
+    <X>0</X>
+    <Y>151</Y>
+    <Width>35</Width>
+    <Height>56</Height>
+    <OriginX>3</OriginX>
+    <OriginY>4</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0005_Layer-19">
+    <X>76</X>
+    <Y>106</Y>
+    <Width>35</Width>
+    <Height>49</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-2</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0006_Layer-18">
+    <X>37</X>
+    <Y>168</Y>
+    <Width>34</Width>
+    <Height>60</Height>
+    <OriginX>8</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0023_Layer-1">
+    <X>113</X>
+    <Y>111</Y>
+    <Width>34</Width>
+    <Height>55</Height>
+    <OriginX>9</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0006_Layer-18">
+    <X>76</X>
+    <Y>157</Y>
+    <Width>34</Width>
+    <Height>48</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0023_Layer-1">
+    <X>149</X>
+    <Y>111</Y>
+    <Width>34</Width>
+    <Height>43</Height>
+    <OriginX>9</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="RDEYE">
+    <X>0</X>
+    <Y>209</Y>
+    <Width>33</Width>
+    <Height>36</Height>
+    <OriginX>16</OriginX>
+    <OriginY>18</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0007_Layer-17">
+    <X>112</X>
+    <Y>168</Y>
+    <Width>32</Width>
+    <Height>60</Height>
+    <OriginX>8</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0007_Layer-17">
+    <X>185</X>
+    <Y>109</Y>
+    <Width>32</Width>
+    <Height>48</Height>
+    <OriginX>8</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0008_Layer-16">
+    <X>149</X>
+    <Y>156</Y>
+    <Width>31</Width>
+    <Height>60</Height>
+    <OriginX>9</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0022_Layer-2">
+    <X>219</X>
+    <Y>100</Y>
+    <Width>31</Width>
+    <Height>55</Height>
+    <OriginX>10</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0008_Layer-16">
+    <X>182</X>
+    <Y>159</Y>
+    <Width>31</Width>
+    <Height>48</Height>
+    <OriginX>9</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0022_Layer-2">
+    <X>73</X>
+    <Y>207</Y>
+    <Width>31</Width>
+    <Height>41</Height>
+    <OriginX>10</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0009_Layer-15">
+    <X>215</X>
+    <Y>159</Y>
+    <Width>29</Width>
+    <Height>61</Height>
+    <OriginX>9</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0010_Layer-14">
+    <X>237</X>
+    <Y>0</Y>
+    <Width>29</Width>
+    <Height>61</Height>
+    <OriginX>10</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0009_Layer-15">
+    <X>268</X>
+    <Y>0</Y>
+    <Width>29</Width>
+    <Height>48</Height>
+    <OriginX>9</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0010_Layer-14">
+    <X>299</X>
+    <Y>0</Y>
+    <Width>29</Width>
+    <Height>48</Height>
+    <OriginX>10</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="RDWINGS">
+    <X>268</X>
+    <Y>50</Y>
+    <Width>29</Width>
+    <Height>44</Height>
+    <OriginX>7</OriginX>
+    <OriginY>36</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0021_Layer-3">
+    <X>330</X>
+    <Y>0</Y>
+    <Width>28</Width>
+    <Height>53</Height>
+    <OriginX>10</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0021_Layer-3">
+    <X>299</X>
+    <Y>50</Y>
+    <Width>28</Width>
+    <Height>39</Height>
+    <OriginX>10</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk4">
+    <X>252</X>
+    <Y>96</Y>
+    <Width>27</Width>
+    <Height>41</Height>
+    <OriginX>7</OriginX>
+    <OriginY>1</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk5">
+    <X>360</X>
+    <Y>0</Y>
+    <Width>27</Width>
+    <Height>41</Height>
+    <OriginX>7</OriginX>
+    <OriginY>1</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk6">
+    <X>281</X>
+    <Y>96</Y>
+    <Width>27</Width>
+    <Height>41</Height>
+    <OriginX>7</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0011_Layer-13">
+    <X>329</X>
+    <Y>55</Y>
+    <Width>26</Width>
+    <Height>60</Height>
+    <OriginX>9</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="RDNECK">
+    <X>389</X>
+    <Y>0</Y>
+    <Width>26</Width>
+    <Height>59</Height>
+    <OriginX>13</OriginX>
+    <OriginY>50</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0011_Layer-13">
+    <X>252</X>
+    <Y>139</Y>
+    <Width>26</Width>
+    <Height>47</Height>
+    <OriginX>9</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk3">
+    <X>92</X>
+    <Y>0</Y>
+    <Width>26</Width>
+    <Height>40</Height>
+    <OriginX>7</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0020_Layer-4">
+    <X>360</X>
+    <Y>43</Y>
+    <Width>25</Width>
+    <Height>51</Height>
+    <OriginX>11</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk7">
+    <X>417</X>
+    <Y>0</Y>
+    <Width>25</Width>
+    <Height>41</Height>
+    <OriginX>7</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0020_Layer-4">
+    <X>182</X>
+    <Y>209</Y>
+    <Width>25</Width>
+    <Height>38</Height>
+    <OriginX>11</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0012_Layer-12">
+    <X>280</X>
+    <Y>139</Y>
+    <Width>24</Width>
+    <Height>59</Height>
+    <OriginX>9</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0019_Layer-5">
+    <X>246</X>
+    <Y>188</Y>
+    <Width>24</Width>
+    <Height>53</Height>
+    <OriginX>11</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0012_Layer-12">
+    <X>444</X>
+    <Y>0</Y>
+    <Width>24</Width>
+    <Height>48</Height>
+    <OriginX>9</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk8">
+    <X>306</X>
+    <Y>139</Y>
+    <Width>24</Width>
+    <Height>42</Height>
+    <OriginX>7</OriginX>
+    <OriginY>3</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk2">
+    <X>387</X>
+    <Y>61</Y>
+    <Width>24</Width>
+    <Height>40</Height>
+    <OriginX>7</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0019_Layer-5">
+    <X>357</X>
+    <Y>96</Y>
+    <Width>24</Width>
+    <Height>39</Height>
+    <OriginX>11</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0013_Layer-11">
+    <X>417</X>
+    <Y>43</Y>
+    <Width>23</Width>
+    <Height>59</Height>
+    <OriginX>9</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0013_Layer-11">
+    <X>470</X>
+    <Y>0</Y>
+    <Width>23</Width>
+    <Height>48</Height>
+    <OriginX>9</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="frontlegwalk1">
+    <X>332</X>
+    <Y>117</Y>
+    <Width>22</Width>
+    <Height>42</Height>
+    <OriginX>7</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0014_Layer-10">
+    <X>306</X>
+    <Y>183</Y>
+    <Width>21</Width>
+    <Height>59</Height>
+    <OriginX>9</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0017_Layer-7">
+    <X>383</X>
+    <Y>103</Y>
+    <Width>21</Width>
+    <Height>59</Height>
+    <OriginX>10</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0018_Layer-6">
+    <X>332</X>
+    <Y>161</Y>
+    <Width>21</Width>
+    <Height>56</Height>
+    <OriginX>10</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0014_Layer-10">
+    <X>272</X>
+    <Y>200</Y>
+    <Width>21</Width>
+    <Height>47</Height>
+    <OriginX>9</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0017_Layer-7">
+    <X>356</X>
+    <Y>137</Y>
+    <Width>21</Width>
+    <Height>47</Height>
+    <OriginX>10</OriginX>
+    <OriginY>-3</OriginY>
+  </Texture>
+  <Texture name="backhindlegswalk_0018_Layer-6">
+    <X>442</X>
+    <Y>50</Y>
+    <Width>21</Width>
+    <Height>43</Height>
+    <OriginX>10</OriginX>
+    <OriginY>-4</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk24">
+    <X>465</X>
+    <Y>50</Y>
+    <Width>21</Width>
+    <Height>42</Height>
+    <OriginX>7</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0016_Layer-8">
+    <X>406</X>
+    <Y>104</Y>
+    <Width>20</Width>
+    <Height>60</Height>
+    <OriginX>10</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0015_Layer-9">
+    <X>428</X>
+    <Y>104</Y>
+    <Width>20</Width>
+    <Height>59</Height>
+    <OriginX>9</OriginX>
+    <OriginY>8</OriginY>
+  </Texture>
+  <Texture name="RDLOWERMANE">
+    <X>488</X>
+    <Y>50</Y>
+    <Width>20</Width>
+    <Height>49</Height>
+    <OriginX>10</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk16">
+    <X>355</X>
+    <Y>186</Y>
+    <Width>20</Width>
+    <Height>40</Height>
+    <OriginX>19</OriginX>
+    <OriginY>1</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk15">
+    <X>379</X>
+    <Y>164</Y>
+    <Width>20</Width>
+    <Height>39</Height>
+    <OriginX>18</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk20">
+    <X>450</X>
+    <Y>95</Y>
+    <Width>19</Width>
+    <Height>43</Height>
+    <OriginX>12</OriginX>
+    <OriginY>3</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk23">
+    <X>401</X>
+    <Y>166</Y>
+    <Width>19</Width>
+    <Height>42</Height>
+    <OriginX>7</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk17">
+    <X>377</X>
+    <Y>205</Y>
+    <Width>19</Width>
+    <Height>41</Height>
+    <OriginX>17</OriginX>
+    <OriginY>1</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk14">
+    <X>422</X>
+    <Y>166</Y>
+    <Width>19</Width>
+    <Height>38</Height>
+    <OriginX>17</OriginX>
+    <OriginY>-1</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk12">
+    <X>471</X>
+    <Y>101</Y>
+    <Width>19</Width>
+    <Height>37</Height>
+    <OriginX>16</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk22">
+    <X>450</X>
+    <Y>140</Y>
+    <Width>18</Width>
+    <Height>43</Height>
+    <OriginX>8</OriginX>
+    <OriginY>3</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk18">
+    <X>470</X>
+    <Y>140</Y>
+    <Width>18</Width>
+    <Height>42</Height>
+    <OriginX>15</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk19">
+    <X>422</X>
+    <Y>206</Y>
+    <Width>18</Width>
+    <Height>42</Height>
+    <OriginX>13</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk21">
+    <X>490</X>
+    <Y>140</Y>
+    <Width>18</Width>
+    <Height>42</Height>
+    <OriginX>9</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk9">
+    <X>443</X>
+    <Y>185</Y>
+    <Width>18</Width>
+    <Height>40</Height>
+    <OriginX>7</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk13">
+    <X>398</X>
+    <Y>210</Y>
+    <Width>18</Width>
+    <Height>37</Height>
+    <OriginX>16</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk10">
+    <X>310</X>
+    <Y>91</Y>
+    <Width>17</Width>
+    <Height>40</Height>
+    <OriginX>11</OriginX>
+    <OriginY>3</OriginY>
+  </Texture>
+  <Texture name="frontlegswalk11">
+    <X>463</X>
+    <Y>185</Y>
+    <Width>16</Width>
+    <Height>39</Height>
+    <OriginX>13</OriginX>
+    <OriginY>3</OriginY>
+  </Texture>
+  <Texture name="RDEAR">
+    <X>237</X>
+    <Y>63</Y>
+    <Width>15</Width>
+    <Height>25</Height>
+    <OriginX>7</OriginX>
+    <OriginY>17</OriginY>
+  </Texture>
+  <Texture name="ponybone">
+    <X>35</X>
+    <Y>230</Y>
+    <Width>15</Width>
+    <Height>15</Height>
+    <OriginX>7</OriginX>
+    <OriginY>2</OriginY>
+  </Texture>
+  <Texture name="RDIRIS">
+    <X>52</X>
+    <Y>230</Y>
+    <Width>14</Width>
+    <Height>18</Height>
+    <OriginX>7</OriginX>
+    <OriginY>9</OriginY>
+  </Texture>
+  <Texture name="RDMARK">
+    <X>146</X>
+    <Y>218</Y>
+    <Width>13</Width>
+    <Height>21</Height>
+    <OriginX>6</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="RDHIGHLIGHTS">
+    <X>254</X>
+    <Y>63</Y>
+    <Width>8</Width>
+    <Height>10</Height>
+    <OriginX>4</OriginX>
+    <OriginY>5</OriginY>
+  </Texture>
+  <Texture name="RDMOUTH">
+    <X>237</X>
+    <Y>90</Y>
+    <Width>8</Width>
+    <Height>8</Height>
+    <OriginX>4</OriginX>
+    <OriginY>4</OriginY>
+  </Texture>
+  <Texture name="Pixel">
+    <X>42</X>
+    <Y>36</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>

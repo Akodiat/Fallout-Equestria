@@ -15,6 +15,7 @@ import org.jdom.input.SAXBuilder;
 import animation.Animation;
 import animation.Bone;
 import animation.Keyframe;
+import animation.TextureBounds;
 import animation.TextureDictionary;
 import animation.TextureEntry;
 
@@ -87,9 +88,16 @@ public class AnimationLoader extends ContentLoader<Animation>{
 		entry.setTexture(dictionary.getTexture());
 		
 		String boundsID = textureEntryElement.getValue();
+		int i = boundsID.lastIndexOf('/');
+		if(i != -1) {
+			boundsID = boundsID.substring(i + 1);
+			System.out.println(boundsID);
+		}
+		
 		boundsID = boundsID.substring(0, boundsID.length() - 4);
 				
-				
+		TextureBounds bounds = dictionary.getTextureBounds(boundsID);
+		
 		entry.setTextureBounds(dictionary.getTextureBounds(boundsID));
 		return entry;
 	}

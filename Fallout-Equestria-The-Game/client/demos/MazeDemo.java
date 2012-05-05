@@ -96,7 +96,7 @@ public class MazeDemo extends Demo {
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		
-		Animation animation = ContentManager.load("pinkiewalk.anim", Animation.class);
+		Animation animation = ContentManager.load("rdwalk.anim", Animation.class);
 		
 		AnimationPlayer player = new AnimationPlayer();
 		player.addAnimation("lol", animation);

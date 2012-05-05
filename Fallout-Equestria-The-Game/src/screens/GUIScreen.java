@@ -50,7 +50,7 @@ public class GUIScreen implements Screen{
 
 	@Override
 	public void update(GameTime time, boolean isTop) {
-		screenManager.getMouse().poll(screenManager.getCamera());
+	//	screenManager.getMouse().poll(screenManager.getCamera());
 	}
 
 	@Override
@@ -103,6 +103,12 @@ public class GUIScreen implements Screen{
 	}
 
 	public void setTransitionState(TransitionState state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void transition() {
 		// TODO Auto-generated method stub
 		
 	}
