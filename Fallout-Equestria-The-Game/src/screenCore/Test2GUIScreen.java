@@ -23,7 +23,7 @@ public class Test2GUIScreen extends TransitioningGUIScreen {
 		Button button0 = new Button();
 		button0.setBounds(x,40,200,50);
 		button0.setText("GameOfLife");
-		this.addGuiControl(button0, new Vector2(vp.Width + 200,40), new Vector2(x,40),new Vector2(-200,40));
+		this.addGuiControl(button0, new Vector2(vp.Width + 200,900), new Vector2(x,40),new Vector2(-200,40));
 		
 		button0.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {

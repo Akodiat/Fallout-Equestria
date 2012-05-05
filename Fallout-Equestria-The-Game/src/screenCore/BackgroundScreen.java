@@ -89,7 +89,6 @@ public class BackgroundScreen extends EntityScreen {
 	public void render(GameTime time, SpriteBatch spriteBatch) {	
 		super.render(time, spriteBatch);
 		float alpha = 1.0f - this.getTransitionPosition();
-
 		
 		spriteBatch.begin(null, camera.getTransformation());
 		spriteBatch.draw(this.backgroundTexture, Vector2.Zero, new Color(Color.White, alpha));		

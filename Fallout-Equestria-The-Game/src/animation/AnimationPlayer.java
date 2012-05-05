@@ -31,8 +31,15 @@ public class AnimationPlayer
 
 	private Dictionary<String, Animation> animations = new Hashtable<String, Animation>();
 	
+
+	
 	private Set<KeyframeTriggerListener> listeners = new HashSet<KeyframeTriggerListener>();
 	private KeyframeTriggerEventArgs eventArgs = new KeyframeTriggerEventArgs();
+
+	
+	public Animation getCurrentAnimationAnimation() {
+		return this.animations.get(currentAnimation);
+	}
 	
 	public AnimationPlayer()
 	{

@@ -3,6 +3,7 @@ package animation;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Keyframe {
 	private int frameNumber;
 	private List<Bone> bones;
@@ -83,6 +84,15 @@ public class Keyframe {
 
 	public List<Bone> getUpdateOrderBones() {
 		return updateOrderBones;
+	}
+
+	public Bone getRootBone() {
+		for (Bone bone : this.bones) {
+			if(bone.getParentIndex() == -1) {
+				return bone;
+			}
+		}
+		return null;
 	}	
 	
 }

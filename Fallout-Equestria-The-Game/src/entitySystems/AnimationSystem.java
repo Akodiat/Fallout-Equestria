@@ -9,6 +9,9 @@ import math.Vector2;
 import utils.Camera2D;
 import utils.Rectangle;
 
+import animation.Bone;
+import animation.Keyframe;
+
 import com.google.common.collect.ImmutableSet;
 
 import components.AnimationComp;
@@ -56,9 +59,14 @@ public class AnimationSystem extends EntityProcessingSystem {
 		
 		float delta = (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();
 		
+		for (Keyframe frame : animationC.getAnimationPlayer().getCurrentAnimationAnimation().getKeyframes()) {
+			Bone bone = frame.getRootBone();	
+			bone.setRotation(positionC.getRotation());
+		}
+		
 		animationC.getAnimationPlayer().update(delta);
 		animationC.getAnimationPlayer().draw(batch, positionC.getPosition(), positionC.getMirror(), 
-				positionC.getRotation(), animationC.getTint(), positionC.getScale());
+				0, animationC.getTint(), positionC.getScale());
 	}
 	
 	@Override

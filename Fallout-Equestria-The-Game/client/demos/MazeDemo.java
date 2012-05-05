@@ -1,5 +1,6 @@
 package demos;
 
+import math.MathHelper;
 import math.Vector2;
 import animation.Animation;
 import animation.AnimationPlayer;
@@ -39,9 +40,9 @@ public class MazeDemo extends Demo {
 		this.gameWorld.update(time);
 		this.gameWorld.getEntityManager().destoryKilledEntities();
 		
-		if(Math.random() < 0.1f) {
+		if(Math.random() < 0.5f) {
 			IEntityDatabase database  = this.gameWorld.getDatabase();
-			if(database.getEntityCount() < 150) {
+			if(database.getEntityCount() < 850) {
 				spawnManlyMan();
 			}
 		}
@@ -58,7 +59,7 @@ public class MazeDemo extends Demo {
 		manPlayer.addAnimation("walk", walkAnimation);
 		Animation explodeAnimation = ContentManager.load("manlymanexplosion.anim", Animation.class);
 		manPlayer.addAnimation("explode", explodeAnimation);
-		
+
 		
 		manPlayer.startAnimation("walk");
 		AnimationComp manAniCom = new AnimationComp(manPlayer);
@@ -66,6 +67,8 @@ public class MazeDemo extends Demo {
 		
 		IEntity manEntity = manager.createEntity(ContentManager.loadArchetype("ManlyMan.archetype"));
 		manEntity.addComponent(manAniCom);
+
+		manEntity.getComponent(TransformationComp.class).setRotation((float)(MathHelper.Tau * Math.random()));
 		manEntity.refresh();
 		//ENDMAN
 		
@@ -95,6 +98,8 @@ public class MazeDemo extends Demo {
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
+
+		Texture2D plus = this.ContentManager.loadTexture("GUI/plus.png");
 		
 		Animation animation = ContentManager.load("rdwalk.anim", Animation.class);
 		
@@ -106,6 +111,7 @@ public class MazeDemo extends Demo {
 		entity.addComponent(new AnimationComp(player));
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(600, 600);
+		entity.getComponent(TransformationComp.class).setRotation(1.3f);
 		
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
