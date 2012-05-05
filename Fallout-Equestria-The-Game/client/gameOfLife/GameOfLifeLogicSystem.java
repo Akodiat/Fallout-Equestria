@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import math.Point2;
+import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
 import components.RenderingComp;
@@ -22,17 +23,21 @@ import graphics.Color;
 public class GameOfLifeLogicSystem extends GroupedEntitySystem {
 	
 	private ContentManager contentManager;
+	private float scale;
 	
-	protected GameOfLifeLogicSystem(IEntityWorld world, ContentManager contentManager, int gridBlockSize, Point2 gridSize, String cellArchetype, String group) {
+	public GameOfLifeLogicSystem(IEntityWorld world, ContentManager contentManager, int gridBlockSize, Point2 gridSize, String cellArchetype, String group) {
 		super(world, group, RenderingComp.class, TransformationComp.class);
-		
 		this.cellGrid = new boolean[gridSize.Y][gridSize.X];		
 		this.gridBlockSize = gridBlockSize;
 		this.cellArchetype = cellArchetype;
 		this.contentManager = contentManager;
+		this.scale = (float)(64 / 500.0f);
+		this.gridBlockSize = (int)(0.2 * this.gridBlockSize);
+		
+		
 	}
 	
-	private final int gridBlockSize;
+	private int gridBlockSize;
 	private final String cellArchetype;
 	private boolean[][] cellGrid;
 	
@@ -45,6 +50,7 @@ public class GameOfLifeLogicSystem extends GroupedEntitySystem {
 			for (int column = 0; column < this.cellGrid[0].length; column++) {
 				IEntity entity = this.getEntityManager().createEntity(archetype);
 				entity.setLabel(row + "|" + column);
+				
 				entity.addToGroup(getGroup());
 				this.positionAtCell(entity, row, column);	
 				entity.refresh();
@@ -53,9 +59,13 @@ public class GameOfLifeLogicSystem extends GroupedEntitySystem {
 	}
 
 	private void positionAtCell(IEntity entity, int row, int column) {
+		float x = (column * gridBlockSize + gridBlockSize / 2);
+		float y = (row * gridBlockSize + gridBlockSize / 2);
+		
+		
 		TransformationComp transform = entity.getComponent(TransformationComp.class);
-		transform.setPosition(column * gridBlockSize + gridBlockSize / 2, 
-				row * gridBlockSize + gridBlockSize / 2); 
+		transform.setPosition(x,y); 
+		transform.setScale(new Vector2(scale));
 	}
 	
 	private void clearGrid() {

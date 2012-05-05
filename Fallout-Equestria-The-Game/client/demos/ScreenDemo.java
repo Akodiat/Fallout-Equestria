@@ -3,6 +3,7 @@ package demos;
 import graphics.Color;
 import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
+import screenCore.GOLScreen;
 import screenCore.PausScreen;
 import screenCore.ScreenManager;
 import screenCore.Test2GUIScreen;
@@ -56,11 +57,13 @@ public class ScreenDemo extends Demo{
 		TestGUIScreen screen2 = new TestGUIScreen("gui.tdict");
 		Test2GUIScreen screen3 = new Test2GUIScreen("graygui.tdict");
 		PausScreen screen4 = new PausScreen("gui.tdict");
+		GOLScreen screen5 = new GOLScreen();
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
 		this.screenManager.registerScreen("Test2_Screen", screen3);
 		this.screenManager.registerScreen("PauseScreen", screen4);
+		this.screenManager.registerScreen("GOLScreen", screen5);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

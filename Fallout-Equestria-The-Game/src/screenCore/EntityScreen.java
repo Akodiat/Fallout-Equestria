@@ -44,6 +44,8 @@ public abstract class EntityScreen extends GameScreen{
 	
 	@Override
 	public void render(GameTime time, SpriteBatch spriteBatch) {
+		spriteBatch.begin();
 		this.World.render();
+		spriteBatch.end();
 	}
 }

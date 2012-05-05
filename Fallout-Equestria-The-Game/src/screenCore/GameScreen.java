@@ -92,6 +92,13 @@ public abstract class GameScreen {
 		}
 	}
 
+
+
+	public void reset() {
+		this.exiting = false;
+		this.transitionPosition = 1f;
+	}
+	
 	public ScreenManager getScreenManager() {
 		return ScreenManager;
 	}
@@ -122,4 +129,10 @@ public abstract class GameScreen {
 	public boolean doesOtherScreenHaveFocus() {
 		return otherScreenHasFocus;
 	}
+
+	public void setScreenState(ScreenState state) {
+		this.screenState = state;
+		
+	}
+
 }

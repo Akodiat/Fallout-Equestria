@@ -3,7 +3,7 @@
     <elements>
       <Rendering>
         <texture>
-          <Asset>GUI/button.png</Asset>
+          <Asset>Circle100pxGrey.png</Asset>
         </texture>
         <color>
           <Color>1.0,1.0,1.0,1.0</Color>

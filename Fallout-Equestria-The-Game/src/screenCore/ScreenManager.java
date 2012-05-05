@@ -115,6 +115,10 @@ public class ScreenManager {
 		this.avalibleScreens.remove(screenID);
 	}
 	
+	public void unregisterAllScreens() {
+		this.avalibleScreens.clear();
+	}
+	
 	public void addScreen(String screenID) {
 		GameScreen screen = this.avalibleScreens.get(screenID);
 		
@@ -138,5 +142,16 @@ public class ScreenManager {
 	public void removeScreen(GameScreen screen) {
 		activeScreens.remove(screen);
 		screensToUpdate.remove(screen);
+	}
+
+	public void removeAllScreens() {
+		for (GameScreen screen : this.activeScreens) {
+			screen.reset();
+		}
+		
+		
+		this.activeScreens.clear();
+		
+		
 	}
 }

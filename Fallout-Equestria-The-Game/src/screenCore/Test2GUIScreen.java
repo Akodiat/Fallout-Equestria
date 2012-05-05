@@ -25,6 +25,12 @@ public class Test2GUIScreen extends TransitioningGUIScreen {
 		button0.setText("GameOfLife");
 		this.addGuiControl(button0, new Vector2(vp.Width + 200,40), new Vector2(x,40),new Vector2(-200,40));
 		
+		button0.addClicked(new IEventListener<EventArgs>() {
+			public void onEvent(Object sender, EventArgs e) {
+				showGOL();
+			}
+		});
+		
 		Button button1 = new Button();
 		button1.setBounds(x,140,200,50);
 		button1.setText("Pause Screen");
@@ -46,6 +52,11 @@ public class Test2GUIScreen extends TransitioningGUIScreen {
 				removeThis();
 			}
 		});
+	}
+
+	protected void showGOL() {
+		this.ScreenManager.removeAllScreens();
+		this.ScreenManager.addScreen("GOLScreen");
 	}
 
 	protected void showPauseScreen() {

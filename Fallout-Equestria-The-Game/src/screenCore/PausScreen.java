@@ -30,6 +30,11 @@ public class PausScreen extends GUIScreen {
 		button0.setBounds(x, y - 75,200,50);
 		button0.setText("Resume");
 		this.controlPanel.addChild(button0);
+		button0.addClicked(new IEventListener<EventArgs>() {
+			public void onEvent(Object sender, EventArgs e) {
+				backToGame();
+			}
+		});
 		
 		Button button1 = new Button();
 		button1.setBounds(x,y + 25,200,50);
@@ -43,8 +48,15 @@ public class PausScreen extends GUIScreen {
 		});
 	}
 	
-	protected void backToMenu() {
+	protected void backToGame() {
 		this.exitScreen();
+		
+	}
+
+	protected void backToMenu() {
+		this.ScreenManager.removeAllScreens();
+		this.ScreenManager.addScreen("BG_Screen");
+		this.ScreenManager.addScreen("Test_Screen");
 	}
 
 	@Override
