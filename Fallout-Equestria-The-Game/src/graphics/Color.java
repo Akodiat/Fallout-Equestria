@@ -95,6 +95,6 @@ public class Color {
 	public final static Color Brown 		 = 	 new Color(0xA52A2AFF);
 	public final static Color Red			 = 	 new Color(0xFF0000FF);
 	public final static Color Teal			 = 	 new Color(0x388E8EFF);
-
+	public final static Color Transparent    =   new Color(0x00000000);
 
 }
