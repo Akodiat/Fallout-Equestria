@@ -5,37 +5,29 @@ import org.lwjgl.input.Keyboard;
 
 import GUI.graphics.TextboxRenderer;
 
-
 public class Textfield extends GUITextBase {	
 	private static final TextboxRenderer DEFAULT_RENDERER = new TextboxRenderer();
-	
 	private int markerPosition;
-	private boolean editable;
-	
+	private boolean editable;	
 	public Textfield() {
 		this.markerPosition = 0;
 		this.setRenderer(DEFAULT_RENDERER);
 		this.editable = true;
 	}	
-
 	public int getMarkerPosition() {
 		return markerPosition;
-	}
-		
+	}		
 	 @Override
 	 public void setText(String text) {
 		 super.setText(text);
 		 this.markerPosition = text.length();
 	 }
-	
 	public boolean isEditable() {
 		return editable;
 	}
-
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
-
 	@Override
 	protected void onFocusGained() {
 		super.onFocusGained();
@@ -46,8 +38,7 @@ public class Textfield extends GUITextBase {
 	protected void onFocusLost() {
 		super.onFocusLost();
 		Keyboard.enableRepeatEvents(false);
-	}
-	
+	}	
 	@Override
 	protected void onKeyDown(char keyChar, int key) {	
 		if(this.editable) {
@@ -71,7 +62,6 @@ public class Textfield extends GUITextBase {
 			}
 		}
 	}
-
 	private boolean insertChar(char keyChar) {
 		StringBuilder builder = this.getInternalText();
 		if(builder.length() < this.getMaxLength()) {
@@ -80,7 +70,6 @@ public class Textfield extends GUITextBase {
 		}
 		return false;
 	}
-
 	private boolean deleteChar(int position) {
 		StringBuilder builder = this.getInternalText();
 		if(position >= 0 && position < builder.length()) {

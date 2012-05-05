@@ -10,11 +10,11 @@ public class Scene {
 	
 	private final ImmutableList<TileLayer> tileLayers;
 	private final ImmutableList<CollisionLayer> collisionLayers;
-	private final ImmutableList<ArchetypeNode> nodes;
+	private final ImmutableList<SceneNode> nodes;
 	private final Rectangle bounds;
 	private final int blockSize;
 	
-	public Scene(List<TileLayer> tileLayers, List<CollisionLayer> collisionLayers, List<ArchetypeNode> nodes, Rectangle bounds, int blockSize) {
+	public Scene(List<TileLayer> tileLayers, List<CollisionLayer> collisionLayers, List<SceneNode> nodes, Rectangle bounds, int blockSize) {
 		this.tileLayers = ImmutableList.copyOf(tileLayers);
 		this.collisionLayers = ImmutableList.copyOf(collisionLayers);	
 		this.nodes 			 = ImmutableList.copyOf(nodes);
@@ -38,7 +38,7 @@ public class Scene {
 		return collisionLayers;
 	}
 	
-	public ImmutableList<ArchetypeNode> getNodes() {
+	public ImmutableList<SceneNode> getNodes() {
 		return this.nodes;
 	}
 	

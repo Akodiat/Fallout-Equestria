@@ -1,5 +1,6 @@
 package screenCore;
 
+import graphics.Color;
 import math.Vector2;
 import misc.EventArgs;
 import misc.IEventListener;
@@ -11,7 +12,7 @@ import utils.TimeSpan;
 public class Test2GUIScreen extends TransitioningGUIScreen {
 
 	public Test2GUIScreen(String lookAndFeelPath) {
-		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
+		super(false, TimeSpan.fromSeconds(1.0f), TimeSpan.fromSeconds(.5f), lookAndFeelPath);
 	}
 	
 	public void initialize(ContentManager manager) {
@@ -22,6 +23,7 @@ public class Test2GUIScreen extends TransitioningGUIScreen {
 		
 		Button button0 = new Button();
 		button0.setBounds(x,40,200,50);
+		button0.setBgColor(Color.EmeraldGreen);
 		button0.setText("GameOfLife");
 		this.addGuiControl(button0, new Vector2(vp.Width + 200,900), new Vector2(x,40),new Vector2(-200,40));
 		

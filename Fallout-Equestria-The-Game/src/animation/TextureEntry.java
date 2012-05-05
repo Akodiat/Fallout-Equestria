@@ -7,6 +7,13 @@ public class TextureEntry {
 	private Texture2D texture;
 	private TextureBounds textureBounds;
 
+	public TextureEntry() { }
+	
+	public TextureEntry(Texture2D texture2, TextureBounds textureBounds2) {
+		this.texture = texture2;
+		this.textureBounds = textureBounds2;
+	}
+
 	public boolean isUseDictionary() {
 		return useDictionary;
 	}

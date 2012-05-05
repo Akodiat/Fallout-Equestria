@@ -20,7 +20,7 @@ import entityFramework.IEntitySystemManager;
 import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 
-import gameMap.ArchetypeNode;
+import gameMap.SceneNode;
 import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
@@ -75,13 +75,13 @@ public class MapDemo extends Demo{
 	}
 	
 	private void addArchetypes(IEntityManager manager) {
-		ImmutableList<ArchetypeNode>  nodes = this.scene.getNodes();
-		for (ArchetypeNode node : nodes) {			
+		ImmutableList<SceneNode>  nodes = this.scene.getNodes();
+		for (SceneNode node : nodes) {			
 			createEntity(manager, node);
 		}	
 	}
 
-	private void createEntity(IEntityManager manager, ArchetypeNode node) {
+	private void createEntity(IEntityManager manager, SceneNode node) {
 		IEntity entity = manager.createEntity(node.getArchetype());
 		TransformationComp comp = entity.getComponent(TransformationComp.class);
 		comp.setPosition(node.getPosition());

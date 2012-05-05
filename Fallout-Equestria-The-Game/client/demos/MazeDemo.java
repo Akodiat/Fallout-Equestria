@@ -4,6 +4,8 @@ import math.MathHelper;
 import math.Vector2;
 import animation.Animation;
 import animation.AnimationPlayer;
+import animation.TextureDictionary;
+import animation.TextureEntry;
 import components.*;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
@@ -87,7 +89,7 @@ public class MazeDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		scene = ContentManager.load("MaseScenev1.xml", Scene.class);
+		scene = ContentManager.load("PerspectiveScene.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 
@@ -98,20 +100,27 @@ public class MazeDemo extends Demo {
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
-
+0
 		Texture2D plus = this.ContentManager.loadTexture("GUI/plus.png");
 		
 		Animation animation = ContentManager.load("rdwalk.anim", Animation.class);
+
+		
 		
 		AnimationPlayer player = new AnimationPlayer();
 		player.addAnimation("lol", animation);
 		player.startAnimation("lol");
+
+		TextureDictionary dict = ContentManager.load("gui.tdict", TextureDictionary.class);
+		TextureEntry entiry = new TextureEntry(dict.getTexture(), dict.getTextureBounds("Button_BG"));
+		
+		player.setBoneTexture()
+		
 		
 		entity.addComponent(new RenderingComp(Texture2D.getPixel(), Color.White, null, new Rectangle(0,0,0,0)));		
 		entity.addComponent(new AnimationComp(player));
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(600, 600);
-		entity.getComponent(TransformationComp.class).setRotation(1.3f);
 		
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);

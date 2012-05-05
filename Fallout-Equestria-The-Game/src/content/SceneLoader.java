@@ -1,9 +1,10 @@
 package content;
 
 import entityFramework.IEntityArchetype;
-import gameMap.ArchetypeNode;
+import gameMap.SceneNode;
 import gameMap.CollisionLayer;
 import gameMap.Scene;
+import gameMap.TexturedSceneNode;
 import gameMap.Tile;
 import gameMap.TileLayer;
 
@@ -64,29 +65,56 @@ public class SceneLoader extends ContentLoader<Scene>{
 		Map<String, Texture2D> usedTextures  = extractTextures(rootNode);
 		List<TileLayer> tileLayers		     = extractSortedTileLayers(rootNode, gridBounds, usedTextures);
 		List<CollisionLayer> collisionLayers = extractCollisionLayers(rootNode, gridBounds);
-		List<ArchetypeNode> nodes   		 = extractNodes(rootNode);
+		List<SceneNode> nodes   		 = extractNodes(rootNode);
 
 
 		
 		return new Scene(tileLayers, collisionLayers, nodes, gridBounds, blockSize);
 	}
 
-	private List<ArchetypeNode> extractNodes(Element rootNode) {
+	private List<SceneNode> extractNodes(Element rootNode) {
 		Element nodesElement = rootNode.getChild("Nodes");
 		
 		@SuppressWarnings("unchecked")
 		List<Element> nodeElements = nodesElement.getChildren("Node");
-		List<ArchetypeNode> arechetypes = new ArrayList<>();
+		List<SceneNode> nodes = new ArrayList<>();
 		for (Element nodeElement : nodeElements) {
-			IEntityArchetype arch = extractArchetype(nodeElement);;
+			String name = extractID(nodeElement);
 			Vector2 position = extractPosition(nodeElement);
-			ArchetypeNode node = new ArchetypeNode(arch, position);
-			arechetypes.add(node);
+			SceneNode node = new SceneNode(name, position);
+			nodes.add(node);
 		}
 		
+		@SuppressWarnings("unchecked")
+		List<Element> textredNodeElements = nodesElement.getChildren("TexturedNode");
+		for (Element nodeElement : textredNodeElements) {
+			String name = extractID(nodeElement);
+			Vector2 position = extractPosition(nodeElement);
+			Texture2D texture = extractTexture(nodeElement);
+			Rectangle srcRect = extractSrcRect(nodeElement);
+			SceneNode node = new TexturedSceneNode(name, position, texture,srcRect);
+			nodes.add(node);
+		}
 		
-		return arechetypes;
+		return nodes;
 	}
+
+	private Rectangle extractSrcRect(Element nodeElement) {
+		String[] bounds = split(nodeElement.getAttributeValue("SrcRect"), primarySeparator);
+		return this.parseRect(bounds);
+	}
+
+
+	private Texture2D extractTexture(Element nodeElement) {
+		String assetPath = nodeElement.getAttributeValue("Texture");
+		return this.ContentManager.loadTexture("tilesheets/" + assetPath);
+	}
+
+
+	private String extractID(Element nodeElement) {
+		return nodeElement.getAttributeValue("Value");
+	}
+
 
 	private IEntityArchetype extractArchetype(Element nodeElement) {
 		String name = nodeElement.getAttributeValue("Value") + ".archetype";

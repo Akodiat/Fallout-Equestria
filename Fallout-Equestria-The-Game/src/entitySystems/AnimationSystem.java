@@ -63,7 +63,7 @@ public class AnimationSystem extends EntityProcessingSystem {
 			Bone bone = frame.getRootBone();	
 			bone.setRotation(positionC.getRotation());
 		}
-		
+				
 		animationC.getAnimationPlayer().update(delta);
 		animationC.getAnimationPlayer().draw(batch, positionC.getPosition(), positionC.getMirror(), 
 				0, animationC.getTint(), positionC.getScale());

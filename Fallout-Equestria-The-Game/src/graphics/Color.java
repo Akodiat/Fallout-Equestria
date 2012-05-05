@@ -57,6 +57,15 @@ public class Color {
 				+ this.B + "," + this.A + " }";
 	}
 	
+	public int toHex() {
+		int r = (int)(R*255);
+		int g = (int)(G*255);
+		int b = (int)(B*255);
+		int a = (int)(A*255);
+		
+		return (r << 24 | g << 16 | b << 8 | a);	
+	}
+	
 	public float[] toArray() {
 		return new float[] {
 			R,
