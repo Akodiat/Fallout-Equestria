@@ -3,9 +3,9 @@ package animation;
 import graphics.Color;
 import graphics.SpriteBatch;
 
-import java.util.Dictionary;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Set;
 
 import math.Vector2;
@@ -29,7 +29,7 @@ public class AnimationPlayer
 	private BoneTransitionState[] transitionStates;
 	private BoneTransformation[] boneTransformations;
 
-	private Dictionary<String, Animation> animations = new Hashtable<String, Animation>();
+	private Map<String, Animation> animations = new Hashtable<String, Animation>();
 	
 
 	
@@ -329,5 +329,14 @@ public class AnimationPlayer
 		this.boneTransformations = boneTransformations;
 	}
 
-
+	public void setBoneTexture(String boneName, TextureEntry entry){
+		for (String key : this.animations.keySet()) {
+			this.animations.get(key).getTextures().add(entry);
+			int entryIndex = this.animations.get(key).getTextures().indexOf(entry);
+			
+			for (Keyframe frame : this.animations.get(key).getKeyframes()) {
+				frame.getBone(boneName).setTextureIndex(entryIndex);
+			}
+		}
+	}
 }

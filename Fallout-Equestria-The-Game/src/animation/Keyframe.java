@@ -95,4 +95,12 @@ public class Keyframe {
 		return null;
 	}	
 	
+	public Bone getBone(String boneName){
+		for (Bone bone : this.bones) {
+			if (bone.getName().equals(boneName)){
+				return bone;
+			}
+		}
+		throw new RuntimeException("Didn't find bone named " + boneName + " in keyframe " + this.toString());
+	}
 }
