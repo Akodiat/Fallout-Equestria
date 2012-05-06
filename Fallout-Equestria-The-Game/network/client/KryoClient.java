@@ -95,7 +95,7 @@ public class KryoClient {
 	protected void initialize() {
 		contentManager = new ContentManager("resources");
 		
-		//scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
+		scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
