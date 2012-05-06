@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.newdawn.slick.openal.Audio;
 
-import animation.Animation;
 import animation.AnimationPlayer;
 
 import com.google.common.collect.BiMap;

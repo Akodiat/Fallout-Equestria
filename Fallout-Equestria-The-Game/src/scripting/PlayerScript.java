@@ -3,7 +3,6 @@ package scripting;
 import math.Vector2;
 import anotations.Editable;
 
-import components.AbilityComp;
 import components.InputComp;
 import components.PhysicsComp;
 import components.SpecialComp;

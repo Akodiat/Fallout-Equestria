@@ -87,17 +87,7 @@ public class AnimationLoader extends ContentLoader<Animation>{
 		entry.setTexture(dictionary.getTexture());
 		
 		String boundsID = textureEntryElement.getValue();
-<<<<<<< HEAD
-		int i = boundsID.lastIndexOf('\\');
-		if(i != -1) {
-			boundsID = boundsID.substring(i + 1);
-		}
-		
-		boundsID = boundsID.substring(0, boundsID.length() - 4);
-				
-		TextureBounds bounds = dictionary.getTextureBounds(boundsID);
-		entry.setTextureBounds(bounds);
-=======
+
 		boundsID = boundsID.substring(0, boundsID.length() - 4);
 		int i = boundsID.lastIndexOf('\\');
 		  if(i != -1) {
@@ -107,7 +97,6 @@ public class AnimationLoader extends ContentLoader<Animation>{
 				
 				
 		entry.setTextureBounds(dictionary.getTextureBounds(boundsID));
->>>>>>> Beginning to make new animationloadermethod.
 		return entry;
 	}
 
