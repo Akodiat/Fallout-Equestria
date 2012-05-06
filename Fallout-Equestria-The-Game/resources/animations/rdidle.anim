@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Animation dictionary="rdidle">
+<Animation dictionary="rddict">
   <FrameRate>17</FrameRate>
   <LoopFrame>39</LoopFrame>
   <Texture dictionary="rddict.tdict" name="Pixel">..\..\Pixel.png</Texture>

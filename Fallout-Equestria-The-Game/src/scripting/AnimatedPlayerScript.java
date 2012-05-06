@@ -1,5 +1,6 @@
 package scripting;
 
+import math.MathHelper;
 import math.Vector2;
 import anotations.Editable;
 
@@ -56,7 +57,10 @@ public class AnimatedPlayerScript extends Behavior{
 		if (inpComp.isForwardButtonPressed()){
 			velocity=Vector2.add(velocity, new Vector2(0,-1));
 		}
-		
+		if (inpComp.isLeftButtonPressed()){
+			velocity=Vector2.add(velocity, new Vector2(-1,0));
+			posComp.setMirror(false);
+		}
 		if (inpComp.isRightButtonPressed()){
 			velocity=Vector2.add(velocity, new Vector2(1,0));
 			posComp.setMirror(true);
@@ -68,10 +72,14 @@ public class AnimatedPlayerScript extends Behavior{
 		velocity = Vector2.mul(speedFactor, velocity);
 		physComp.setVelocity(velocity);
 		
-		if (velocity.equals(Vector2.Zero) && animComp.getAnimationPlayer().getCurrentAnimation() != "idle")
-			animComp.changeAnimation("idle", 0.5f);
-		else if (!velocity.equals(Vector2.Zero) && animComp.getAnimationPlayer().getCurrentAnimation() == "idle")
-			animComp.changeAnimation("walk", 0.5f);
+		boolean isMoving = !(MathHelper.roughlyEquals(velocity.X, 0f, 0.01f) && MathHelper.roughlyEquals(velocity.Y, 0f, 0.01f));
+		if(speedFactor>=400 && animComp.getAnimationPlayer().getCurrentAnimation() != "lifted"){
+			animComp.changeAnimation("lifted", 0.001f);
+		}else if (speedFactor< 400 && !isMoving && animComp.getAnimationPlayer().getCurrentAnimation() != "idle")
+			animComp.changeAnimation("idle", 0.001f);
+		else if (speedFactor< 400 && isMoving && animComp.getAnimationPlayer().getCurrentAnimation() != "walk")
+			animComp.changeAnimation("walk", 0.001f);
+		
 		
 	}
 

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Animation dictionary="rdwalk">
+<Animation dictionary="rddict">
   <FrameRate>17</FrameRate>
   <LoopFrame>24</LoopFrame>
   <Texture dictionary="rddict.tdict" name="RDBODY">RDBODY.png</Texture>

@@ -49,6 +49,7 @@ public final class ContentManager {
 		addContentLoader(new AnimationLoader(this, "animations"));
 		addContentLoader(new TextureDictionaryLoader(this,"animations/dictionaries"));
 		addContentLoader(new LookAndFeelLoader(new TextureDictionaryLoader(this,"animations/dictionaries", "GUI"), "lookAndFeels"));
+		addContentLoader(new AnimationSetLoader(this, "animations/animationsets"));
 		
 		//TODO add more if needed!. 
 	}
@@ -198,7 +199,7 @@ public final class ContentManager {
 		return load(path, TextureFont.class);
 	}
 	
-	public AnimationPlayer loadDefaultPlayerAnimations(){
-		return ((AnimationLoader)this.contentLoaders.get(Animation.class)).loadDefaultPlayerAnimations();
+	public AnimationPlayer loadAnimationSet(String path){
+		return load(path, AnimationPlayer.class);
 	}
 }

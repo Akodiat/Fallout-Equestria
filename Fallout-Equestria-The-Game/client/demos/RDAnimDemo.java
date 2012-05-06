@@ -10,7 +10,7 @@ import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import scripting.PlayerScript;
+import scripting.AnimatedPlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
 import utils.Rectangle;
@@ -94,20 +94,22 @@ public class RDAnimDemo extends Demo {
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = gameWorld.getEntityManager().createEntity(archetype);
-		entity.addComponent(new BehaviourComp(new PlayerScript()));
-
-		Animation walkAnimation = ContentManager.load("rdwalk.anim", Animation.class);
+		entity.addComponent(new BehaviourComp(new AnimatedPlayerScript()));
+		entity.getComponent(RenderingComp.class).setTexture(Texture2D.getPixel());
+//		Animation walkAnimation = ContentManager.load("rdwalk.anim", Animation.class);
 //		Animation jumpAnimation = ContentManager.load("rdjump.anim", Animation.class);
 //		Animation idleAnimation = ContentManager.load("rdidle.anim", Animation.class);
 //		Animation liftedAnimation = ContentManager.load("rdlifted.anim", Animation.class);
-
-		AnimationPlayer player = new AnimationPlayer();
+//
+//		AnimationPlayer player = new AnimationPlayer();
 //		player.addAnimation("idle", idleAnimation);
 //		player.addAnimation("jump", jumpAnimation);
 //		player.addAnimation("lifted", liftedAnimation);
-		player.addAnimation("walk", walkAnimation);
-		player.startAnimation("walk");
+//		player.addAnimation("walk", walkAnimation);
+//		player.startAnimation("walk");
 
+		AnimationPlayer player = ContentManager.load("rdset.animset", AnimationPlayer.class);
+		player.startAnimation("idle");
 
 		entity.addComponent(new AnimationComp(player));
 		//END OF ANIMATION UGLY SHIT

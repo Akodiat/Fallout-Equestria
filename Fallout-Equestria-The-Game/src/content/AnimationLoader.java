@@ -13,7 +13,6 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 import animation.Animation;
-import animation.AnimationPlayer;
 import animation.Bone;
 import animation.Keyframe;
 import animation.TextureDictionary;
@@ -100,6 +99,11 @@ public class AnimationLoader extends ContentLoader<Animation>{
 		entry.setTextureBounds(bounds);
 =======
 		boundsID = boundsID.substring(0, boundsID.length() - 4);
+		int i = boundsID.lastIndexOf('\\');
+		  if(i != -1) {
+		   boundsID = boundsID.substring(i + 1);
+		   System.out.println(boundsID);
+		  }
 				
 				
 		entry.setTextureBounds(dictionary.getTextureBounds(boundsID));
@@ -175,12 +179,4 @@ public class AnimationLoader extends ContentLoader<Animation>{
 		return bone; 
 	}
 	
-	public AnimationPlayer loadDefaultPlayerAnimations(){
-		Animation idleAnimation;
-		Animation walkAnimation;
-		Animation jumpAnimation;
-		Animation liftedAnimation;
-		
-		return new AnimationPlayer();
-	}
 }
