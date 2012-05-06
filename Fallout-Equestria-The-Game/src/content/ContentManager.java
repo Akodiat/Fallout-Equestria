@@ -10,6 +10,9 @@ import java.util.Map;
 
 import org.newdawn.slick.openal.Audio;
 
+import animation.Animation;
+import animation.AnimationPlayer;
+
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
@@ -195,4 +198,7 @@ public final class ContentManager {
 		return load(path, TextureFont.class);
 	}
 	
+	public AnimationPlayer loadDefaultPlayerAnimations(){
+		return ((AnimationLoader)this.contentLoaders.get(Animation.class)).loadDefaultPlayerAnimations();
+	}
 }
