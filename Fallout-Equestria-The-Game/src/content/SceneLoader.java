@@ -9,6 +9,8 @@ import gameMap.Tile;
 import gameMap.TileLayer;
 
 import java.io.InputStream;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 import com.google.common.base.Splitter;
+import com.thoughtworks.xstream.converters.basic.FloatConverter;
 
 import utils.Rectangle;
 import graphics.Texture2D;
@@ -123,11 +126,19 @@ public class SceneLoader extends ContentLoader<Scene>{
 	}
 
 	private Vector2 extractPosition(Element nodeElement) {
-		String[] pos = split(nodeElement.getAttributeValue("Position"), ',');
-		float x = Float.parseFloat(pos[0]);
-		float y = Float.parseFloat(pos[1]);
+		String[] pos = split(nodeElement.getAttributeValue("Position"), primarySeparator);
+		NumberFormat format = NumberFormat.getInstance();
+		//Float.parseString cannot parse european float values. So using the numberformater instead.
+		Number nX;
+		Number nY;
+		try {
+			nX = format.parse(pos[0]);
+			nY = format.parse(pos[1]);
+		} catch (ParseException e) {
+			throw new NumberFormatException(pos[0] + "  "  + pos[1]);
+		}
 		
-		return new Vector2(x,y);
+		return new Vector2(nX.floatValue(),nY.floatValue());
 	}
 
 	private int extractBlockSize(Element rootNode) {

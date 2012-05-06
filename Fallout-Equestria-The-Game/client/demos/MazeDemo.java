@@ -10,6 +10,8 @@ import components.*;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
+import gameMap.SceneNode;
+import gameMap.TexturedSceneNode;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
@@ -89,7 +91,7 @@ public class MazeDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		scene = ContentManager.load("PerspectiveScene.xml", Scene.class);
+		scene = ContentManager.load("MaseSceneV1.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 
@@ -100,32 +102,54 @@ public class MazeDemo extends Demo {
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
-0
-		Texture2D plus = this.ContentManager.loadTexture("GUI/plus.png");
+
+		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
+		
+	//	SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
+		//entity.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
+		addTexturedNodes();
+		
 		
 		Animation animation = ContentManager.load("rdwalk.anim", Animation.class);
-
-		
-		
 		AnimationPlayer player = new AnimationPlayer();
 		player.addAnimation("lol", animation);
 		player.startAnimation("lol");
-
 		TextureDictionary dict = ContentManager.load("gui.tdict", TextureDictionary.class);
-		TextureEntry entiry = new TextureEntry(dict.getTexture(), dict.getTextureBounds("Button_BG"));
+		TextureEntry entry = new TextureEntry(dict.getTexture(), dict.getTextureBounds("Scrollbar_BG"));
+		player.setBoneTexture("RIGHTFRONTOOF", entry);
 		
-		player.setBoneTexture()
+		AnimationComp comp = new AnimationComp(player);
+		comp.setTint(Color.Green);
 		
-		
-		entity.addComponent(new RenderingComp(Texture2D.getPixel(), Color.White, null, new Rectangle(0,0,0,0)));		
-		entity.addComponent(new AnimationComp(player));
+		entity.removeComponent(RenderingComp.class);	
+		entity.addComponent(comp);
 		//END OF ANIMATION UGLY SHIT
-		entity.getComponent(TransformationComp.class).setPosition(600, 600);
 		
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
 
+	}
+
+	private void setPlayerPosition() {
+		
+	}
+
+	private void addTexturedNodes() {
+		for (TexturedSceneNode tNode : this.scene.getTexturedNodes()) {
+			IEntity entity = this.gameWorld.getEntityManager().createEmptyEntity();
+			TransformationComp transComp = new TransformationComp();
+			transComp.setPosition(tNode.getPosition());
+			
+			RenderingComp renderComp = new RenderingComp();
+			renderComp.setTexture(tNode.getTexture());
+			
+			entity.addComponent(transComp);
+			entity.addComponent(renderComp);
+			entity.refresh();
+		}
+		
+		
 	}
 
 	private void placeAtRandomPosition(IEntity entity) {

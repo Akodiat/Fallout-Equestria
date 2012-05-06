@@ -1,5 +1,6 @@
 package gameMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import utils.Rectangle;
@@ -36,6 +37,25 @@ public class Scene {
 	 */
 	public ImmutableList<CollisionLayer> getCollisionLayers() {
 		return collisionLayers;
+	}
+	
+	public SceneNode getNodeByID(String id) {
+		for (SceneNode node : this.nodes) {
+			if(node.getNodeID().equals(id)) {
+				return node;
+			}
+		}
+		throw new RuntimeException("Node not found!" + id);
+	}
+	
+	public List<TexturedSceneNode> getTexturedNodes() {
+		List<TexturedSceneNode> tNodes = new ArrayList<>();
+		for (SceneNode node : this.nodes) {
+			if(node instanceof TexturedSceneNode) {
+				tNodes.add((TexturedSceneNode)node);
+			}
+		}
+		return tNodes;
 	}
 	
 	public ImmutableList<SceneNode> getNodes() {
