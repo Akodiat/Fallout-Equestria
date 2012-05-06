@@ -70,22 +70,8 @@ public class MapDemo extends Demo{
 		sm.initialize();
 		
 		
-		addArchetypes(manager);
-		
 	}
 	
-	private void addArchetypes(IEntityManager manager) {
-		ImmutableList<SceneNode>  nodes = this.scene.getNodes();
-		for (SceneNode node : nodes) {			
-			createEntity(manager, node);
-		}	
-	}
-
-	private void createEntity(IEntityManager manager, SceneNode node) {
-		IEntity entity = manager.createEntity(node.getArchetype());
-		TransformationComp comp = entity.getComponent(TransformationComp.class);
-		comp.setPosition(node.getPosition());
-	}
 
 	public static void main(String[] args) throws LWJGLException {
 		MapDemo demo = new MapDemo();

@@ -24,6 +24,11 @@ public class TextureDictionary {
 	}
 
 	public TextureBounds getTextureBounds(String id) {
+		TextureBounds bounds = this.textureCollection.get(id);
+		if(bounds == null) {
+			throw new RuntimeException("The id " + id  + "was not present in the dictionary");
+		}
+		
 		return textureCollection.get(id);
 	}
 	
