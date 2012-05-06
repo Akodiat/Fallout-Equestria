@@ -1,12 +1,7 @@
 package client;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -16,30 +11,15 @@ import utils.Clock;
 import utils.GameTime;
 import utils.Rectangle;
 
-import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
-
-import common.EntityMovedMessage;
-import common.IRemoteServer;
-import common.Network;
-import common.NewPlayerMessage;
-import common.PlayerCharacteristics;
-import common.Utils;
-import components.BehaviourComp;
-import components.InputComp;
-import components.RenderingComp;
-import components.SpecialComp;
+import com.esotericsoftware.kryonet.*;
+import common.*;
+import components.*;
 import content.ContentManager;
-import content.EntityArchetypeLoader;
 import demos.WorldBuilder;
-import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
-import entityFramework.IEntityWorld;
+import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
-import graphics.Color;
-import graphics.SpriteBatch;
+import graphics.*;
 
 /**
  * 
@@ -115,14 +95,14 @@ public class KryoClient {
 	protected void initialize() {
 		contentManager = new ContentManager("resources");
 		
-		scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
+		//scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
 
 		String label = Utils.getPlayerLabel(this.client.getID());
 
-		world = WorldBuilder.buildServerWorld(camera, scene, contentManager, spriteBatch, true, label);
+		world = WorldBuilder.buildClientWorld(camera, scene, contentManager, spriteBatch, true, label);
 		world.initialize();
 
 		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
