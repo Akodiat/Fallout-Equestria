@@ -38,7 +38,7 @@ public class RDAnimDemo extends Demo {
 	public void update(GameTime time) {
 		this.gameWorld.update(time);
 		this.gameWorld.getEntityManager().destoryKilledEntities();
-		
+
 		if(Math.random() < 0.1f) {
 			IEntityDatabase database  = this.gameWorld.getDatabase();
 			if(database.getEntityCount() < 150) {
@@ -51,27 +51,27 @@ public class RDAnimDemo extends Demo {
 	private void spawnManlyMan() {
 
 		IEntityManager manager = this.gameWorld.getEntityManager();
-		
+
 		//MANLYMAN
 		AnimationPlayer manPlayer = new AnimationPlayer();
 		Animation walkAnimation = ContentManager.load("manlymanwalk.anim", Animation.class);
 		manPlayer.addAnimation("walk", walkAnimation);
 		Animation explodeAnimation = ContentManager.load("manlymanexplosion.anim", Animation.class);
 		manPlayer.addAnimation("explode", explodeAnimation);
-		
-		
+
+
 		manPlayer.startAnimation("walk");
 		AnimationComp manAniCom = new AnimationComp(manPlayer);
-		
-		
+
+
 		IEntity manEntity = manager.createEntity(ContentManager.loadArchetype("ManlyMan.archetype"));
 		manEntity.addComponent(manAniCom);
 		manEntity.refresh();
 		//ENDMAN
-		
+
 		placeAtRandomPosition(manEntity);
-		
-		
+
+
 	}
 
 	@Override
@@ -93,20 +93,26 @@ public class RDAnimDemo extends Demo {
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
+		IEntity entity = gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
-		
-		Animation animation = ContentManager.load("rdwalk.anim", Animation.class);
-		
+
+		Animation walkAnimation = ContentManager.load("rdwalk.anim", Animation.class);
+//		Animation jumpAnimation = ContentManager.load("rdjump.anim", Animation.class);
+//		Animation idleAnimation = ContentManager.load("rdidle.anim", Animation.class);
+//		Animation liftedAnimation = ContentManager.load("rdlifted.anim", Animation.class);
+
 		AnimationPlayer player = new AnimationPlayer();
-		player.addAnimation("lol", animation);
-		player.startAnimation("lol");
-		
-		entity.addComponent(new RenderingComp(Texture2D.getPixel(), Color.White, null, new Rectangle(0,0,0,0)));		
+//		player.addAnimation("idle", idleAnimation);
+//		player.addAnimation("jump", jumpAnimation);
+//		player.addAnimation("lifted", liftedAnimation);
+		player.addAnimation("walk", walkAnimation);
+		player.startAnimation("walk");
+
+
 		entity.addComponent(new AnimationComp(player));
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(600, 600);
-		
+
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
