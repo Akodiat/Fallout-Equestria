@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 import math.Point2;
-import misc.EventArgs;
 import misc.IEventListener;
 import graphics.Color;
 import graphics.SpriteBatch;
-import graphics.Texture2D;
-import utils.Camera2D;
 import utils.GameTime;
+import utils.Keyboard;
 import utils.Mouse;
 import utils.Rectangle;
 
@@ -18,7 +16,6 @@ import GUI.GUIFocusManager;
 import GUI.controls.ChatPanel;
 import GUI.graphics.GUIRenderingContext;
 import GUI.graphics.LookAndFeel;
-import GUI.graphics.VisibleElement;
 import GUI.TextEventArgs;
 
 import com.esotericsoftware.kryonet.Client;
@@ -27,8 +24,6 @@ import com.esotericsoftware.kryonet.Listener;
 import common.ChatMessage;
 import common.Network;
 
-import content.ContentManager;
-
 import demos.Demo;
 
 public class ChatClient extends Demo {
@@ -36,10 +31,11 @@ public class ChatClient extends Demo {
 	private ChatPanel panel;
 	
 	private GUIRenderingContext context;
+	@SuppressWarnings("unused")
 	private GUIFocusManager manager;
-	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Mouse mouse;
+	private Keyboard keyboard;
 	
 	private String name;
 	
@@ -54,9 +50,10 @@ public class ChatClient extends Demo {
 	
 	@Override
 	public void update(GameTime time) {
-		this.mouse.poll(camera);
+		this.mouse.poll(sr);
+		this.keyboard.poll();
 		panel.checkMouseInput(new Point2(0,0), mouse);
-		panel.checkKeyboardInput();
+		panel.checkKeyboardInput(this.keyboard);
 	}
 
 	@Override
@@ -67,9 +64,9 @@ public class ChatClient extends Demo {
 
 	@Override
 	protected void initialize() {
-		this.camera = new Camera2D(sr, sr);
 		this.spriteBatch = new SpriteBatch(sr);
 		this.mouse = new Mouse();
+		this.keyboard = new Keyboard();
 		LookAndFeel feel = ContentManager.load("gui.tdict", LookAndFeel.class);
 		context = new GUIRenderingContext(spriteBatch, feel, ContentManager.loadShaderEffect("GrayScale.effect"));
 		

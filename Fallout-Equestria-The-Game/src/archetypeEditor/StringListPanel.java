@@ -9,11 +9,13 @@ import javax.swing.JComboBox;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+@SuppressWarnings("serial")
 public class StringListPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings("rawtypes")
 	public StringListPanel() {
 		setLayout(null);
 		

@@ -1,20 +1,13 @@
 package gameOfLife;
 
-import java.util.Arrays;
 import java.util.Random;
-
 import math.Point2;
 import math.Vector2;
-
 import com.google.common.collect.ImmutableSet;
 import components.RenderingComp;
 import components.TransformationComp;
 import content.ContentManager;
-
-import entityFramework.ComponentMapper;
-import entityFramework.EntityProcessingSystem;
 import entityFramework.GroupedEntitySystem;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
 import entityFramework.IEntityWorld;

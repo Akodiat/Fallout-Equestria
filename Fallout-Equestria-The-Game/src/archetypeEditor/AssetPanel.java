@@ -1,17 +1,13 @@
 package archetypeEditor;
-
-import entityFramework.IComponent;
 import entityFramework.IEntityArchetype;
 import graphics.Texture2D;
 import graphics.TextureFont;
-
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.openal.Audio;
@@ -26,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+@SuppressWarnings("serial")
 public class AssetPanel extends JPanel {
 	private JTextField textField;
 	private String fileEnding;

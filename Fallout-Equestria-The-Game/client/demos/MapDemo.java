@@ -1,33 +1,17 @@
 package demos;
+
 import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import components.BehaviourComp;
-import components.TransformationComp;
-
-import content.ContentManager;
-import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
-import entityFramework.IEntityDatabase;
-import entityFramework.IEntityManager;
-import entityFramework.IEntitySystemManager;
 import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 
-import gameMap.SceneNode;
 import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
 import scripting.PlayerScript;
-import tests.EntityModule;
 import utils.Camera2D;
-import utils.Clock;
 import utils.GameTime;
 import utils.Rectangle;
 
@@ -39,7 +23,6 @@ public class MapDemo extends Demo{
 	private IEntityWorld gameWorld;
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
-	private Clock clock;
 	private Scene scene;
 	
 	public MapDemo() {
@@ -49,30 +32,19 @@ public class MapDemo extends Demo{
 	protected void initialize() {
 		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
-		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
-		
-		Injector injector = Guice.createInjector(new EntityModule());
-		IEntityManager manager = injector.getInstance(IEntityManager.class);
-		IEntityDatabase db = injector.getInstance(IEntityDatabase.class);
-		IEntitySystemManager sm = injector.getInstance(IEntitySystemManager.class);
 		
 		gameWorld = WorldBuilder.buildGameWorld(camera, scene,this.ContentManager, spriteBatch, false);
 		gameWorld.initialize();
 		
 
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
-		IEntity entity = manager.createEntity(archetype);
+		IEntity entity = gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
-		
-		sm.initialize();
-		
-		
 	}
 	
-
 	public static void main(String[] args) throws LWJGLException {
 		MapDemo demo = new MapDemo();
 		demo.start();

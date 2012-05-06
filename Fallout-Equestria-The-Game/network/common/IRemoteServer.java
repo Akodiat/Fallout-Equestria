@@ -1,11 +1,8 @@
 package common;
-
-import java.io.File;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
-
 import components.InputComp;
 import components.PhysicsComp;
 import components.TransformationComp;

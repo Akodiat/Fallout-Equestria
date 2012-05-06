@@ -8,11 +8,13 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 
 
+@SuppressWarnings("serial")
 public class EnumListPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings("rawtypes")
 	public EnumListPanel() {
 		setLayout(null);
 		

@@ -91,15 +91,12 @@ public class AnimationLoader extends ContentLoader<Animation>{
 		int i = boundsID.lastIndexOf('\\');
 		if(i != -1) {
 			boundsID = boundsID.substring(i + 1);
-			System.out.println(boundsID);
 		}
 		
 		boundsID = boundsID.substring(0, boundsID.length() - 4);
 				
 		TextureBounds bounds = dictionary.getTextureBounds(boundsID);
-		System.out.println(boundsID + "  " + bounds);
-		
-		entry.setTextureBounds(dictionary.getTextureBounds(boundsID));
+		entry.setTextureBounds(bounds);
 		return entry;
 	}
 

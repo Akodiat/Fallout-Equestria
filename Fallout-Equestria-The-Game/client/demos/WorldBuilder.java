@@ -1,13 +1,8 @@
 package demos;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 import content.ContentManager;
-
 import debugsystems.DebugSpatialRenderSystem;
 import debugsystems.DebuggMapCollisionGrid;
-
 import entityFramework.*;
 import entitySystems.*;
 import gameMap.Scene;

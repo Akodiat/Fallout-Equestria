@@ -15,20 +15,13 @@ import java.util.Map;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 import scripting.PlayerScript;
-import tests.EntityModule;
 import tests.SystemTester;
 import utils.*;
 import common.IRemoteServer;
 import components.*;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
-import demos.ServerWorld;
-import demos.WorldBuilder;
 import entityFramework.*;
 import entitySystems.*;
 import gameMap.Scene;
@@ -53,7 +46,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Clock clock;
-	
+	private ContentManager ContentManager;
 	private Map<String, String> clientMap; //Key = label, value = RemoteServer.getClientHost()
 	private Map<String, IEntityArchetype> archetypeMap;
 	
@@ -132,7 +125,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		clientMap = new HashMap<String,String>();
 		archetypeMap = new HashMap<String,IEntityArchetype>();
 		
-		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, "Player");
+	//	world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, "Player");
 		world.initialize();
 		
 
@@ -176,10 +169,11 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		return map;
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public void addPlayer(String playerArchString) throws RemoteException {
 		System.out.println("Trying to add a player");
-		EntityArchetypeLoader archLoader = new EntityArchetypeLoader();
+		EntityArchetypeLoader archLoader = null;//new EntityArchetypeLoader();
 		InputStream istream = new ByteArrayInputStream(playerArchString.getBytes());
 		try {	
 			this.addPlayer(archLoader.loadContent(istream));
@@ -236,6 +230,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		this.createdObjectsQueue.get(this.getClientLabel()).add(entityArchetypeString);
 	}
 	
+	@SuppressWarnings("null")
 	public List<String> getOtherPlayerArchetypes(){
 		ArrayList<String> labelList = new ArrayList<String>(this.clientMap.values());
 		labelList.add("Player"); //Add the player that hosts the server
@@ -247,7 +242,7 @@ public class RemoteServer extends UnicastRemoteObject implements IRemoteServer{
 		ArrayList<String> archList = new ArrayList<String>();
 		
 		for (String label : labelList) {
-			EntityArchetypeLoader archLoader = new EntityArchetypeLoader();
+			EntityArchetypeLoader archLoader = null;//new EntityArchetypeLoader();
 			ByteArrayOutputStream ostream = new ByteArrayOutputStream();
 			archLoader.save(ostream, this.archetypeMap.get(label));
 			

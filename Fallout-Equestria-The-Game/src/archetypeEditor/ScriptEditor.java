@@ -1,43 +1,31 @@
 package archetypeEditor;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import scripting.PlayerScript;
 import scripting.Behavior;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-
-import com.thoughtworks.xstream.core.util.Fields;
-
-import entityFramework.IComponent;
-
 import anotations.Editable;
-import anotations.Editable;
-
 import java.awt.Font;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.swing.JScrollPane;
 
+@SuppressWarnings("serial")
 public class ScriptEditor extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	@SuppressWarnings({ "unused", "rawtypes" })
 	private DefaultListModel componentsListModel;
+	@SuppressWarnings("unused")
 	private HashMap<String, Class<Behavior>> scriptMaps = new HashMap<>();
 	
 	private Behavior script;

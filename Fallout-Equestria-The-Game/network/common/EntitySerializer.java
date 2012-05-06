@@ -1,16 +1,14 @@
 package common;
 
 import java.nio.ByteBuffer;
-
-import com.esotericsoftware.kryo.Context;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
-import com.esotericsoftware.kryo.serialize.FieldSerializer;
 import com.esotericsoftware.kryo.serialize.StringSerializer;
 
 import entityFramework.IEntity;
 
 public class EntitySerializer extends Serializer{
+	@SuppressWarnings("unused")
 	private Kryo kryo;
 	
 	public EntitySerializer(Kryo kryo) {
@@ -26,13 +24,9 @@ public class EntitySerializer extends Serializer{
 
 	@Override
 	public void writeObjectData(ByteBuffer arg0, Object entityObj) {
-		Context contex = Kryo.getContext();
 		IEntity entity = (IEntity)entityObj;
 		arg0.putInt(entity.getUniqueID());
 		StringSerializer.put(arg0, entity.getLabel());
-		
-		
-		
 	}
 
 }

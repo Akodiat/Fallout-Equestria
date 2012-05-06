@@ -20,6 +20,7 @@ public class GUIDemo extends Demo {
 	private ContentManager ContentManager;
 	
 	private GUIRenderingContext context;
+	@SuppressWarnings("unused")
 	private GUIFocusManager manager;
 	private ScrollPanel panel;
 	

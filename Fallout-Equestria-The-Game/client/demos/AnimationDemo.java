@@ -1,43 +1,16 @@
 package demos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import math.Vector2;
-
 import animation.Animation;
 import animation.AnimationPlayer;
-import animation.Bone;
-import animation.Keyframe;
-import animation.TextureBounds;
-import animation.TextureEntry;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import components.AnimationComp;
-import components.RenderingComp;
-import components.BehaviourComp;
-import components.TransformationComp;
-
-import content.ContentManager;
-import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
-import entityFramework.IEntityDatabase;
-import entityFramework.IEntityManager;
-import entityFramework.IEntitySystemManager;
-import entityFramework.IEntityWorld;
+import components.*;
+import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
-import graphics.Color;
-import graphics.SpriteBatch;
-import graphics.Texture2D;
+import graphics.*;
 import scripting.PlayerScript;
-import tests.EntityModule;
-import utils.Camera2D;
-import utils.Clock;
-import utils.GameTime;
-import utils.Rectangle;
+import utils.*;
+
 
 public class AnimationDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";

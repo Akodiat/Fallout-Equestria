@@ -32,7 +32,8 @@ public class ReflectionHelper {
         return classes.toArray(new Class[classes.size()]);
     }
     
-    private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
+    @SuppressWarnings("rawtypes")
+	private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
         List<Class> classes = new ArrayList<Class>();
         if (!directory.exists()) {
             return classes;
@@ -49,7 +50,8 @@ public class ReflectionHelper {
         return classes;
     }
     
-    public static Class[] getClassesThatContainAnnotation(Class annotationClass, String packageName) throws ClassNotFoundException, IOException {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Class[] getClassesThatContainAnnotation(Class annotationClass, String packageName) throws ClassNotFoundException, IOException {
     	Class[] classes = getClasses(packageName);
     	List<Class> correctClasses = new ArrayList<>();
     	for (Class clazz : classes) {
@@ -62,7 +64,8 @@ public class ReflectionHelper {
     	return correctClasses.toArray(new Class[correctClasses.size()]);
     }
     
-    public static <T> T createNewInstance(Class clazz) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public static <T> T createNewInstance(Class clazz) {
     	try {
     		Object obj = clazz.newInstance();
     		return (T)obj;

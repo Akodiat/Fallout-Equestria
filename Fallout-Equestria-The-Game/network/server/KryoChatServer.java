@@ -3,10 +3,6 @@ package server;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import client.ChatClient;
-
-import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;

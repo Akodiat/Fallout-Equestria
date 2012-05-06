@@ -1,13 +1,9 @@
 package uinttests;
-
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 import misc.IEventListener;
 import misc.TimerEventArgs;
 
 import org.junit.Test;
-
-import utils.ITimerListener;
 import utils.TimeSpan;
 import utils.Timer;
 
@@ -39,7 +35,7 @@ public class TimerTests {
 			}
 		});
 		timer.start();
-		timer.Update(TimeSpan.fromSeconds(2f));
+		timer.Update(TimeSpan.fromSeconds(1f));
 	}
 	
 	@Test
@@ -54,10 +50,7 @@ public class TimerTests {
 			}
 		});
 		timer.start();
-		for (int i = 0; i < 5; i++) {
-			timer.Update(TimeSpan.fromSeconds(1f));	
-		}
-		
+		timer.Update(TimeSpan.fromSeconds(5f));
 		
 	}
 }

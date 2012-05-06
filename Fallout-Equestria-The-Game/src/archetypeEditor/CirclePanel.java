@@ -10,15 +10,12 @@ import javax.swing.JTextField;
 import math.Vector2;
 
 import utils.Circle;
-
-import entityFramework.IComponent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+@SuppressWarnings("serial")
 public class CirclePanel extends JPanel {
 	private JTextField radiusField;
 	private JTextField xField;
@@ -107,6 +104,7 @@ public class CirclePanel extends JPanel {
 
 	}
 	
+	@SuppressWarnings("unused")
 	private void initCircle() {
 		try {
 			Circle c = (Circle)this.field.get(component);

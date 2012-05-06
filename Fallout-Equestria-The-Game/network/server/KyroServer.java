@@ -3,9 +3,6 @@ package server;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import math.Vector2;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -14,10 +11,6 @@ import utils.Camera2D;
 import utils.Clock;
 import utils.GameTime;
 import utils.Rectangle;
-
-import client.KryoClient;
-
-import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -146,6 +139,7 @@ public class KyroServer {
 		this.addedPlayerMessages.add(message);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void update(GameTime time) {
 		this.world.update(time);
 		this.world.getEntityManager().destoryKilledEntities();

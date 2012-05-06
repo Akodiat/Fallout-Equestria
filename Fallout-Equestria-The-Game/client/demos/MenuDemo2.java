@@ -1,15 +1,10 @@
 package demos;
 
-import java.io.File;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
-
 import components.BehaviourComp;
 import components.RenderingComp;
 import components.TransformationComp;
-
-import math.Vector2;
 import content.ContentManager;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;

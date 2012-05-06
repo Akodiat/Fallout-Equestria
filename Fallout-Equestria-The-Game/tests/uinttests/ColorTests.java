@@ -1,8 +1,6 @@
 package uinttests;
 
 import org.junit.Test;
-
-import utils.Rectangle;
 import static org.junit.Assert.assertTrue;
 
 import graphics.Color;

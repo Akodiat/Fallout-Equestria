@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import entityFramework.IComponent;
 import entityFramework.IEntityArchetype;
 import graphics.Color;
-import graphics.ShaderEffect;
 import graphics.Texture2D;
 import graphics.TextureFont;
 
@@ -22,22 +21,18 @@ import utils.Circle;
 import math.Vector2;
 
 import anotations.Editable;
-
-import com.thoughtworks.xstream.core.util.Fields;
-
 import content.ContentManager;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Font;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+@SuppressWarnings("serial")
 public class ComponentPanel extends JPanel {
+	@SuppressWarnings("unused")
 	private IComponent activeComponent;
 	private JPanel scrollPanel;
 	private JLabel componentName;
@@ -118,6 +113,7 @@ public class ComponentPanel extends JPanel {
 	}
 
 	private void createFieldPanel(IComponent component, Field field) {
+		@SuppressWarnings("rawtypes")
 		Class type = field.getType();
 
 		if(type.isPrimitive() || type.equals(String.class)){

@@ -1,6 +1,6 @@
 package content;
 
-import entityFramework.IEntityArchetype;
+import static utils.StringHelper.*;
 import gameMap.SceneNode;
 import gameMap.CollisionLayer;
 import gameMap.Scene;
@@ -22,10 +22,6 @@ import math.Vector2;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
-
-import com.google.common.base.Splitter;
-import com.thoughtworks.xstream.converters.basic.FloatConverter;
-
 import utils.Rectangle;
 import graphics.Texture2D;
 
@@ -116,13 +112,6 @@ public class SceneLoader extends ContentLoader<Scene>{
 
 	private String extractID(Element nodeElement) {
 		return nodeElement.getAttributeValue("Value");
-	}
-
-
-	private IEntityArchetype extractArchetype(Element nodeElement) {
-		String name = nodeElement.getAttributeValue("Value") + ".archetype";
-		IEntityArchetype archetype = ContentManager.loadArchetype(name);
-		return archetype;
 	}
 
 	private Vector2 extractPosition(Element nodeElement) {
@@ -322,18 +311,5 @@ public class SceneLoader extends ContentLoader<Scene>{
 			}
 		}
 		
-	}
-
-	private String[] split(String toSplit, char separator) {
-		Iterable<String> itr = Splitter.on(separator)
-							   .omitEmptyStrings()
-							   .trimResults()
-							   .split(toSplit);
-		List<String> strings = new ArrayList<>();
-		for (String string : itr) {
-			strings.add(string);
-		}
-		
-		return strings.toArray(new String[strings.size()]);
 	}
 }

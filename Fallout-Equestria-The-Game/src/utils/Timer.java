@@ -42,19 +42,30 @@ public class Timer {
 	public void Update(TimeSpan elapsedTime) {
 		if(this.isActive()) {
 			this.currentTime = this.currentTime.add(elapsedTime);
-			if(this.currentTime.compareTo(tickInterval) >= 0) {
-				this.currentTime = this.currentTime.subtract(tickInterval);
-				this.incrementTicks();
-			}	
+			while(true) {
+				if(this.currentTime.compareTo(tickInterval) >= 0) {
+					this.currentTime = this.currentTime.subtract(tickInterval);
+					boolean atEnd = this.incrementTicks();
+					if(atEnd) {
+						break;
+					}
+				} else {
+					break;
+				}
+				
+			}
+			
 		}
 	}
 	
-	private void incrementTicks() {
+	private boolean incrementTicks() {
 		this.currentTick++;
 		this.onTick();
 		if(this.currentTick >= this.numTicks) {
 			this.stop();
+			return true;
 		}
+		return false;
 	}
 	
 	private void onStart() {

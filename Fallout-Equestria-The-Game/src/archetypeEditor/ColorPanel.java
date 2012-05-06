@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.lang.reflect.Field;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class ColorPanel extends JPanel {
 
 	private Object containingObject;

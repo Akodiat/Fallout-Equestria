@@ -1,20 +1,18 @@
 package archetypeEditor;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import entityFramework.IComponent;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.lang.reflect.Field;
 
+@SuppressWarnings("serial")
 public class PrimitiveTypePanel extends JPanel {
 	private JTextField textField;
+	@SuppressWarnings("rawtypes")
 	private Parser parser;
 	private Object component;
 	private Field field;

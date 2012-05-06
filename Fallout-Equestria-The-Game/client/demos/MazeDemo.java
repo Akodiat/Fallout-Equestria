@@ -11,10 +11,10 @@ import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
 import gameMap.SceneNode;
+
 import gameMap.TexturedSceneNode;
 import graphics.Color;
 import graphics.SpriteBatch;
-import graphics.Texture2D;
 import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
@@ -91,7 +91,7 @@ public class MazeDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		scene = ContentManager.load("MaseSceneV1.xml", Scene.class);
+		scene = ContentManager.load("PerspectiveV1.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 
@@ -105,8 +105,8 @@ public class MazeDemo extends Demo {
 
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
 		
-	//	SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
-		//entity.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
+		SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
+		entity.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
 		addTexturedNodes();
 		
 		
@@ -129,10 +129,6 @@ public class MazeDemo extends Demo {
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
 
-	}
-
-	private void setPlayerPosition() {
-		
 	}
 
 	private void addTexturedNodes() {

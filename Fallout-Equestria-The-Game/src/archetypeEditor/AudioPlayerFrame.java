@@ -1,24 +1,21 @@
 package archetypeEditor;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
 import org.newdawn.slick.openal.Audio;
-
-import content.ContentManager;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class AudioPlayerFrame extends JFrame {
 
 	private JPanel contentPane;
-private Audio sound;
+	@SuppressWarnings("unused")
+	private Audio sound;
 	/**
 	 * Launch the application.
 	 */

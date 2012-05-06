@@ -19,7 +19,6 @@ import common.IRemoteServer;
 import components.*;
 import content.ContentManager;
 import content.EntityArchetypeLoader;
-import demos.WorldBuilder;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
@@ -44,6 +43,7 @@ public class PlayerClient {
 	private SpriteBatch spriteBatch;
 	private Clock clock;
 	private Scene scene;
+	private ContentManager ContentManager;
 
 
 	private List<String> alreadyLoadedArchetypes;
@@ -97,6 +97,7 @@ public class PlayerClient {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	private void gameLoop() {
 		this.clock.update();
 		GameTime time = this.clock.getGameTime();
@@ -112,6 +113,7 @@ public class PlayerClient {
 
 	}
 
+	@SuppressWarnings({ "null" })
 	protected void initialize() {
 		try {
 			server.registerClient();
@@ -133,10 +135,10 @@ public class PlayerClient {
 			e2.printStackTrace();
 		}
 
-		world = WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, label);
+		world = null; //WorldBuilder.buildServerWorld(camera, scene, spriteBatch, true, label);
 		world.initialize();
 
-		this.alreadyLoadedArchetypes = new ArrayList();
+		this.alreadyLoadedArchetypes = new ArrayList<>();
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		this.player = world.getEntityManager().createEntity(archetype);
 
@@ -157,7 +159,7 @@ public class PlayerClient {
 
 		System.out.println("Trying to add a player to server");
 		try {
-			EntityArchetypeLoader archLoader = new EntityArchetypeLoader();
+			EntityArchetypeLoader archLoader = null; // new EntityArchetypeLoader();
 			ByteArrayOutputStream ostream = new ByteArrayOutputStream();
 			archLoader.save(ostream, archetype);
 
@@ -177,12 +179,13 @@ public class PlayerClient {
 			e.printStackTrace();
 		}
 	}
+	@SuppressWarnings("null")
 	private void loadNewArchetypes(List<String> archetypeStringList){
 
 		IEntityManager manager  = this.world.getEntityManager();
 		for (String playerArchString : archetypeStringList) {
 			if(!this.alreadyLoadedArchetypes.contains(playerArchString)){
-				EntityArchetypeLoader archLoader = new EntityArchetypeLoader();
+				EntityArchetypeLoader archLoader = null; //new EntityArchetypeLoader();
 				InputStream istream = new ByteArrayInputStream(playerArchString.getBytes());
 				try {	
 					manager.createEntity(archLoader.loadContent(istream));
@@ -215,8 +218,8 @@ public class PlayerClient {
 	public void updatePositionsFromServer(){
 		System.out.println("Trying to update trans and phys comps for "+this.player.getLabel());
 		try {
-			Map<String,TransformationComp> transMap = this.server.getTranspComps();
-			Map<String,PhysicsComp> physMap = this.server.getPhysComps();
+			Map<String,TransformationComp> transMap = server.getTranspComps();
+			Map<String,PhysicsComp> physMap = server.getPhysComps();
 
 			for (String label: transMap.keySet()) {
 				IEntity entity = world.getEntityManager().getEntity(label);

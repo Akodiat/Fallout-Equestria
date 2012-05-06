@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
@@ -43,16 +42,23 @@ import javax.swing.event.ListSelectionEvent;
 @SuppressWarnings("serial")
 public class ArchetypePanel extends JPanel {
 	private JTextField entityIDTextField;
+	@SuppressWarnings("rawtypes")
 	private JList groupList;
+	@SuppressWarnings("rawtypes")
 	private JList componentList;
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel groupListModel;
+	@SuppressWarnings("rawtypes")
 	private DefaultListModel componentsListModel;
 	private HashMap<String, IComponent> compMap;
 	
+	@SuppressWarnings("unused")
 	private ArchetypeEditor archEd;
 	
 	private Map<String, IComponent> componentMap = new HashMap<>();
+	@SuppressWarnings("rawtypes")
 	private Map<String, Class> componentClassMap = new HashMap<>();
+	@SuppressWarnings("unused")
 	private ContentManager manager;
 
 	@SuppressWarnings("unchecked")
@@ -97,6 +103,7 @@ public class ArchetypePanel extends JPanel {
 	 * @throws IOException 
 	 * @throws ClassNotFoundException 
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ArchetypePanel(final ArchetypeEditor archEd, final ContentManager manager) throws ClassNotFoundException, IOException {
 		setLayout(null);
 		this.manager = manager;
@@ -210,6 +217,7 @@ public class ArchetypePanel extends JPanel {
 		this.componentMap.remove(string);		
 	}
 
+	@SuppressWarnings("rawtypes")
 	protected void createComponent(String componentName) {
 		Class componentClass = this.componentClassMap.get(componentName);
 		IComponent component = ReflectionHelper.createNewInstance(componentClass);

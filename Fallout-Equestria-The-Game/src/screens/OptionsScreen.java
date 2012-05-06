@@ -19,7 +19,6 @@ public class OptionsScreen extends GUIScreen {
 	@Override
 	public void update(GameTime time, boolean isTop) {
 		contentPanel.checkMouseInput(new Point2(0,0), getScreenManager().getMouse());
-		contentPanel.checkKeyboardInput();
 	}
 	
 	@Override
