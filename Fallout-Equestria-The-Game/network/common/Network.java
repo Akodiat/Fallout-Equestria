@@ -33,6 +33,7 @@ public class Network {
 		kryo.register(components.SpatialComp.class);
 		
 		kryo.register(NewPlayerMessage.class);
+		kryo.register(EntityNetworkIDsetMessage.class);
 		kryo.register(EntityMovedMessage.class);
 		kryo.register(PlayerCharacteristics.class);
 		kryo.register(Color.class);

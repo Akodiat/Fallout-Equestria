@@ -42,6 +42,7 @@ public class KryoClient {
 	private Scene scene;
 	
 	private ContentManager contentManager;
+	private IEntityNetworkIDManager entityNetworkIDManager;
 
 	public static void main(String[] args) throws IOException{
 		KryoClient kryoClient = new KryoClient(new Rectangle(0,0,800,600), 60);
@@ -94,6 +95,7 @@ public class KryoClient {
 
 	protected void initialize() {
 		contentManager = new ContentManager("resources");
+		entityNetworkIDManager = new EntityNetworkIDManager();
 		
 		scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
@@ -102,7 +104,7 @@ public class KryoClient {
 
 		String label = Utils.getPlayerLabel(this.client.getID());
 
-		world = WorldBuilder.buildClientWorld(camera, scene, contentManager, spriteBatch, true, label);
+		world = WorldBuilder.buildServerWorld(camera, scene, contentManager, spriteBatch, true, label);
 		world.initialize();
 
 		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
@@ -116,6 +118,7 @@ public class KryoClient {
 		NewPlayerMessage message = new NewPlayerMessage();
 		message.specialComp = player.getComponent(SpecialComp.class);
 		message.playerCharacteristics = new PlayerCharacteristics();
+		message.localClientID = player.getUniqueID();
 
 		message.playerCharacteristics.name = "P"+(int)(Math.random()*21);
 		message.playerCharacteristics.color= new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
@@ -157,12 +160,17 @@ public class KryoClient {
 					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);
 					player.refresh();
 				}
+				else if (object instanceof EntityNetworkIDsetMessage){
+					EntityNetworkIDsetMessage message = (EntityNetworkIDsetMessage) object;
+					entityNetworkIDManager.setNetworkIDToEntity(world.getEntityManager().getEntity(message.localClientID), message.networkID);
+					
+				}
 				else if (object instanceof EntityMovedMessage){
 					EntityMovedMessage message = (EntityMovedMessage) object;
-					
-					IEntity entity = world.getEntityManager().getEntity(message.entityID);
-					entity.addComponent(message.newPhysComp);
-					entity.addComponent(message.newTransfComp); //TODO Create and use setAllToBeLike(...) method
+					IEntity entity = entityNetworkIDManager.getEntityFromNetworkID(message.entityID);
+					entity.getComponent(TransformationComp.class).setAllFieldsToBeLike(message.newTransfComp);
+					entity.getComponent(PhysicsComp.class).setAllFieldsToBeLike(message.newPhysComp);
+	
 					entity.refresh();
 				}
 			};

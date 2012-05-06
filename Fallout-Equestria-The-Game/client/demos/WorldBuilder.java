@@ -50,25 +50,7 @@ public class WorldBuilder {
 	
 		return world;
 	}
-	public static IEntityWorld buildServerWorld(Scene scene, ContentManager contentManager) {
-		IEntityWorld world = buildEmptyWorld();
-		IEntitySystemManager manager = world.getSystemManager();
-		
-		
-		manager.addLogicEntitySystem(new ScriptSystem(world, contentManager));
-		manager.addLogicEntitySystem(new ScriptCollisionSystem(world));
-		
-		
-		//Logic systems!
-		manager.addLogicEntitySystem(new RegenSystem(world, 0.4f));
-		manager.addLogicEntitySystem(new PhysicsSystem(world));
-		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));
-		manager.addLogicEntitySystem(new CollisionSystem(world));
-	
-		return world;
-	}
-	
-	public static IEntityWorld buildClientWorld(Camera2D camera, Scene scene, ContentManager contentManager, SpriteBatch spriteBatch, boolean debugging, String label) {
+	public static IEntityWorld buildServerWorld(Camera2D camera, Scene scene, ContentManager contentManager, SpriteBatch spriteBatch, boolean debugging, String label) {
 		IEntityWorld world = buildEmptyWorld();
 		IEntitySystemManager manager = world.getSystemManager();
 		
@@ -80,7 +62,11 @@ public class WorldBuilder {
 		//Logic systems!
 		manager.addLogicEntitySystem(new RegenSystem(world, 0.4f));
 		manager.addLogicEntitySystem(new CameraControlSystem(world, camera));
-		manager.addLogicEntitySystem(new ServerInputSystem(world, camera, label)); //TODO: A better name would probably be NetworkedInputSystem....
+		manager.addLogicEntitySystem(new ServerInputSystem(world, camera, label));
+		manager.addLogicEntitySystem(new PhysicsSystem(world));
+		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));
+		manager.addLogicEntitySystem(new CollisionSystem(world));
+		
 		
 		//Rendering systems!
 		manager.addRenderEntitySystem(new SceneRenderSystem(world, scene, spriteBatch, camera));
@@ -98,6 +84,7 @@ public class WorldBuilder {
 	
 		return world;
 	}
+
 
 	public static IEntityWorld buildEmptyWorld() {
 		IEntityDatabase database = new EntityDatabase(new ComponentTypeManager());
