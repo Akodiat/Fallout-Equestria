@@ -19,16 +19,12 @@ public class TransformationComp implements IComponent {
 	
 	//Will use vector3 for new Rendering 
 	
-	@Editable
-	private Vector2 	 position;
-	@Editable
-	private Vector2 	 scale;
-	@Editable
-	private Vector2 	 origin;
-	@Editable
-	private float 		 rotation;
-	@Editable
-	private boolean		 mirror;
+	private @Editable Vector2 	 position;
+	private @Editable Vector2 	 scale;
+	private @Editable Vector2 	 origin;
+	private @Editable float 	 rotation;
+	private	@Editable boolean	 mirror;
+	private @Editable float 	 height;
 	
 	public TransformationComp() {
 		this(Vector2.Zero,Vector2.One,0,Vector2.Zero);
@@ -41,7 +37,7 @@ public class TransformationComp implements IComponent {
 		this.scale = scale;
 		this.rotation = rotation;
 		this.origin = origin;
-		
+		this.height = 0;
 		this.mirror = false;
 	}
 	
@@ -116,5 +112,11 @@ public class TransformationComp implements IComponent {
 			+  "Scale:    " + this.scale.toString() + "\n"
 			+  "Origin:   "	+ this.origin.toString() + "n"
 			+  "Rotation: " + this.rotation;
+	}
+	public float getHeight() {
+		return height;
+	}
+	public void setHeight(float height) {
+		this.height = height;
 	}
 }

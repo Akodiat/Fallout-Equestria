@@ -7,7 +7,8 @@ import entityFramework.IEntityManager;
 public abstract class Ability {
 	private final boolean blocking;
 	protected IEntityManager EntityManager;
-	protected IEntity Entity;
+	protected IEntity SorceEntity;
+	protected CreationFactory CreationFactory;
 	
 	public Ability(boolean blocking) {
 		this.blocking = blocking;
@@ -17,9 +18,10 @@ public abstract class Ability {
 		return blocking;
 	}
 	
-	public void initialize(IEntityManager manager, IEntity entity) {
+	public void initialize(IEntityManager manager, IEntity sourceEntity) {
 		this.EntityManager = manager;
-		this.Entity = entity;
+		this.SorceEntity = sourceEntity;
+		this.CreationFactory = new CreationFactory(manager);
 	}
 	
 	public abstract void start();

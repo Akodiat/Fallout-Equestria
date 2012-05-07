@@ -286,10 +286,10 @@ public abstract class GUIControl {
 	
 	public void checkKeyboardInput(Keyboard keyboard) {	
 		for (KeyboardKey pressedKey : keyboard.getPressedKeys()) {
-			this.keyboardRecursive(pressedKey.getCharacter(), pressedKey.getKeyCode(), true);
+			this.keyboardRecursive(pressedKey.getCharacter(), pressedKey.getKey(), true);
 		}
 		for (KeyboardKey releasedKeys : keyboard.getReleasedKeys()) {
-			this.keyboardRecursive(releasedKeys.getCharacter(), releasedKeys.getKeyCode(), false);
+			this.keyboardRecursive(releasedKeys.getCharacter(), releasedKeys.getKey(), false);
 		}
 	}
 	

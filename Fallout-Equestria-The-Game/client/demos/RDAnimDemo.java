@@ -1,6 +1,7 @@
 package demos;
 
 import math.Vector2;
+import misc.SoundManager;
 import animation.Animation;
 import animation.AnimationPlayer;
 import components.*;
@@ -13,6 +14,8 @@ import graphics.Texture2D;
 import scripting.AnimatedPlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
+import utils.Keyboard;
+import utils.Mouse;
 import utils.Rectangle;
 
 public class RDAnimDemo extends Demo {
@@ -88,7 +91,9 @@ public class RDAnimDemo extends Demo {
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 
-		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene,this.ContentManager, spriteBatch, false);
+		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
+		
+		this.gameWorld = WorldBuilder.buildGameWorld(camera,  scene, new Mouse(), new Keyboard(), this.ContentManager,soundManager, spriteBatch, false);
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT

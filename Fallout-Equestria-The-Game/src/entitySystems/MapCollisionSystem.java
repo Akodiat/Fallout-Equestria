@@ -2,6 +2,7 @@ package entitySystems;
 import static math.MathHelper.*;
 
 import utils.Rectangle;
+import math.MathHelper;
 import math.Point2;
 import math.Vector2;
 
@@ -61,7 +62,8 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 										  posiCom.getPosition().Y - spatiCom.getBounds().getRadius());
 			
 			Point2 topLeftIndex = getTopLeftIndex(topLeft, grid);
-			Point2 bottomRight = new Point2(topLeftIndex.X + 1, topLeftIndex.Y + 1);
+			Point2 bottomRight = new Point2(MathHelper.clamp(0, grid[0].length -1, topLeftIndex.X + 1),
+										    MathHelper.clamp(0, grid.length -1 , topLeftIndex.Y + 1));
 			
 			for (int row = topLeftIndex.Y; row <= bottomRight.Y; row++) {
 				for (int column = topLeftIndex.X; column <= bottomRight.X; column++) {
@@ -86,14 +88,10 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 										   blockSize);
 		
 		int r = (int)spatiCom.getBounds().getRadius();
-		int r2 = (int)(spatiCom.getBounds().getRadius()) * 2;
 		int x = (int)posiCom.getPosition().X;
 		int y = (int)posiCom.getPosition().Y;
 		
-		Rectangle playerBounds = new Rectangle(x -r, y- r, r2, r2);
-		
-		
-		
+		Rectangle playerBounds = new Rectangle(x -r, y- r, r*2, r*2);
 				
 		if (playerBounds.intersects(gridRect)) {
 			

@@ -72,7 +72,7 @@ public class BackgroundScreen extends EntityScreen {
 	@Override
 	protected void addLogicSystem(IEntitySystemManager systemManager) {
 		systemManager.addLogicEntitySystem(new CameraControlSystem(this.World, this.camera));
-		systemManager.addLogicEntitySystem(new ScriptSystem(this.World, this.ScreenManager.getContentManager()));
+		systemManager.addLogicEntitySystem(new ScriptSystem(this.World, this.ScreenManager.getContentManager(), this.ScreenManager.getSoundManager()));
 	}
 
 	@Override

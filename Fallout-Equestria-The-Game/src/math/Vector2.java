@@ -203,6 +203,7 @@ public final class Vector2{
         amount = MathHelper.lerp(v1.X, v2.X, amount);
         return new Vector2(amount, y2);
     }
+	
 	/**
 	 * Linear interpolation. Finds and returns a point on a smooth curve 
 	 * between the two points described by the vectors parameters.

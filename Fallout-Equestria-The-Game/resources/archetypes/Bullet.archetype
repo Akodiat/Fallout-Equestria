@@ -14,9 +14,7 @@
           <initialized>false</initialized>
           <enabled>false</enabled>
           <damage>10.0</damage>
-          <soundEffect class="org.newdawn.slick.openal.Audio">
-            <Asset>effects\explosion2.ogg</Asset>
-          </soundEffect>
+          <soundEffect>effects\explosion2.ogg</soundEffect>
         </behavior>
       </Behaviour>
       <Physics>
@@ -27,8 +25,8 @@
       </Physics>
       <Transformation>
         <position reference="../../Physics/velocity"/>
-        <scale>1.0,1.0</scale>
-        <origin reference="../../Physics/velocity"/>
+        <scale>0.5,0.5</scale>
+        <origin>50.0,50.0</origin>
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>

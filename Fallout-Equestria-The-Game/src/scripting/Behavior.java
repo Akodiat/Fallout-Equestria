@@ -9,22 +9,26 @@ import entityFramework.IEntityManager;
 import utils.GameTime;
 import utils.MouseButton;
 import utils.MouseState;
-import content.ContentManager;;
+import content.ContentManager;
+import misc.SoundManager;
 
 public abstract class Behavior implements KeyframeTriggerListener{
 	
 	protected IEntityManager EntityManager;
 	protected IEntity Entity;
 	protected ContentManager ContentManager;
+	protected SoundManager   SoundManager;
 	private boolean initialized;
 	private boolean enabled;
 
-	public final void initialize(IEntityManager manager, ContentManager contentManager, IEntity entity) {
+	public final void initialize(IEntityManager manager, ContentManager contentManager, SoundManager soundManager, IEntity entity) {
 		this.EntityManager = manager;
 		this.ContentManager = contentManager;
 		this.Entity = entity;
+		this.SoundManager = soundManager;
 		this.initialized = true;
 		
+		//This is kind of a hack :S
 		AnimationComp comp = entity.getComponent(AnimationComp.class);
 		if(comp != null){
 			comp.getAnimationPlayer().addListener(this);

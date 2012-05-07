@@ -1,35 +1,66 @@
 package utils;
-import static org.lwjgl.input.Keyboard.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Keyboard {
 
-	final List<KeyboardKey> pressedKeys = new ArrayList<>();
-	final List<KeyboardKey> releasedKeys = new ArrayList<>();
+	private final List<Keys> upKeys = new ArrayList<>();
+	private final List<Keys> downKeys = new ArrayList<>();
+		
+	private final List<KeyboardKey> pressedKeys = new ArrayList<>();
+	private final List<KeyboardKey> releasedKeys = new ArrayList<>();
 	
 	public void poll() {
 		this.pressedKeys.clear();
 		this.releasedKeys.clear();
-		while(next()) {
-			char c = getEventCharacter();
-			int key = getEventKey();
-			boolean pressed = getEventKeyState();
+		while(org.lwjgl.input.Keyboard.next()) {
+			char c = org.lwjgl.input.Keyboard.getEventCharacter();
+			int key = org.lwjgl.input.Keyboard.getEventKey();
+			boolean pressed = org.lwjgl.input.Keyboard.getEventKeyState();
 			if(pressed) {
 				this.pressedKeys.add(new KeyboardKey(c, key));
 			} else {
 				this.releasedKeys.add(new KeyboardKey(c,key));
 			}
 		}	
+		
+		for (Keys key : Keys.values()) {
+			if(this.isKeyDown(key)) {
+				this.downKeys.add(key);
+			} else {
+				this.upKeys.add(key);
+			}
+		}
 	}
 
 	
-	public boolean isKeyDown(int lwjglKeyCode) {
-		return isKeyDown(lwjglKeyCode);
+	public boolean isKeyDown(Keys key) {
+		return org.lwjgl.input.Keyboard.isKeyDown(key.getLwjglKeyCode());
 	}
-	public boolean isKeyUp(int lwjglKeyCode) {
-		return !isKeyDown(lwjglKeyCode);
+	
+	public boolean isKeyUp(Keys key) {
+		return !isKeyDown(key);
+	}
+	
+	public boolean wasKeyPressed(Keys key) {
+		for (KeyboardKey keyboardKey : this.pressedKeys) {
+			if(keyboardKey.getKey() == key.getLwjglKeyCode()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
+	
+	public boolean wasKeyReleased(Keys key) {
+		for (KeyboardKey keyboardKey : this.releasedKeys) {
+			if(keyboardKey.getKey() == key.getLwjglKeyCode()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public List<KeyboardKey> getPressedKeys() {

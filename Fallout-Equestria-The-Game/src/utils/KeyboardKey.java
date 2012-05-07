@@ -9,7 +9,7 @@ public class KeyboardKey {
 		this.keyCode = keyCode;
 	}
 
-	public int getKeyCode() {
+	public int getKey() {
 		return keyCode;
 	}
 

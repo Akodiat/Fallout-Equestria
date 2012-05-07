@@ -50,8 +50,12 @@ public class AnimationComp implements IComponent {
 		this.animationPlayer = animationPlayer;
 	}
 	
-	public void changeAnimation(String animationName, float timeToChange) {
-		this.animationPlayer.transitionToAnimation(animationName, timeToChange);
+	public void changeAnimation(String animationName) {
+		
+		if(this.animationPlayer.getCurrentAnimation() == null ||
+		  !this.animationPlayer.getCurrentAnimation().equals(animationName)) {
+			this.animationPlayer.startAnimation(animationName);
+		}
 	}
 
 	public Color getTint() {

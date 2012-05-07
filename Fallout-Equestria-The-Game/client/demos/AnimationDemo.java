@@ -1,6 +1,7 @@
 package demos;
 
 import math.Vector2;
+import misc.SoundManager;
 import animation.Animation;
 import animation.AnimationPlayer;
 import components.*;
@@ -52,8 +53,9 @@ public class AnimationDemo extends Demo {
 		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
+		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
 		
-		gameWorld = WorldBuilder.buildGameWorld(camera, scene, this.ContentManager, spriteBatch, true);
+		gameWorld = WorldBuilder.buildGameWorld(camera, scene,new Mouse(), new Keyboard(), this.ContentManager,soundManager, spriteBatch, true);
 		gameWorld.initialize();
 
 

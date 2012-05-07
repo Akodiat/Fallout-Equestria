@@ -1,5 +1,7 @@
 package components;
 
+import utils.GameTime;
+import ability.Ability;
 import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -9,22 +11,20 @@ import entityFramework.IComponent;
 
 @Editable @XStreamAlias("Ability")
 public class AbilityComp implements IComponent {
-
 	private static final float DEF_MAX_AP = 100;
 	private static final float DEF_REGEN_SPEED = 10;
 	
-	@Editable
-	private float maxAbilityPoints;
-	
-	@Editable
-	private float regenerationSpeed;
-	
+	private @Editable float maxAbilityPoints;
+	private @Editable float regenerationSpeed;
+		
 	private float abilityPoints;
+	private Ability activeAbility;
 
 	public AbilityComp() {
 		this.maxAbilityPoints = DEF_MAX_AP;
 		this.abilityPoints = DEF_MAX_AP;
 		this.regenerationSpeed = DEF_REGEN_SPEED;
+		this.activeAbility = null;
 	}
 
 	/**
@@ -35,6 +35,7 @@ public class AbilityComp implements IComponent {
 		this.maxAbilityPoints = other.maxAbilityPoints;
 		this.abilityPoints = other.abilityPoints;
 		this.regenerationSpeed = other.regenerationSpeed;
+		this.activeAbility = null;
 	}
 
 	public AbilityComp(int maxAbilityPoints, float abilityPoints,
@@ -43,9 +44,46 @@ public class AbilityComp implements IComponent {
 		this.abilityPoints = abilityPoints;
 		this.regenerationSpeed = regenerationSpeed;
 	}
-	
+		
 	public AbilityComp clone(){
 		return new AbilityComp(this);
+	}
+	
+	public void startAbility(Ability ability) {
+		if(ability == null) {
+			throw new NullPointerException("ability cannot be null");
+		}
+		
+		if(this.activeAbility == null) {
+			System.out.println("...");
+			this.activeAbility = ability;
+			this.activeAbility.start();
+		} else if(!this.activeAbility.isBlocking()) {
+			System.out.println("...");
+			this.activeAbility.stop();
+			this.activeAbility = ability;
+			this.activeAbility.start();
+		}
+	}
+	
+	public void update(GameTime time) {
+		if(this.activeAbility != null) {
+			this.activeAbility.update(time);
+		}
+	}
+	
+	public void stopActiveAbility() {
+		if(this.activeAbility != null) {
+			this.activeAbility.stop();
+			this.activeAbility = null;
+		}
+	}
+	
+	public void stopAbility(Ability ability) {
+		if(this.activeAbility == ability) {
+			this.activeAbility.stop();
+			this.activeAbility = null;
+		}
 	}
 	
 	public float getMaxAbilityPoints() {

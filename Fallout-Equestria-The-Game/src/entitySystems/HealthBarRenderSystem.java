@@ -2,7 +2,6 @@ package entitySystems;
 
 import com.google.common.collect.ImmutableSet;
 import components.HealthComp;
-import components.RenderingComp;
 import components.TransformationComp;
 import content.ContentManager;
 
@@ -22,8 +21,7 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 	private Texture2D healthBarTexture;
 
 	public HealthBarRenderSystem(IEntityWorld world, ContentManager contentManager, SpriteBatch graphics) {
-		super(world, HealthComp.class, RenderingComp.class,
-				TransformationComp.class);
+		super(world, HealthComp.class,	TransformationComp.class);
 		this.spriteBatch = graphics;
 		this.contentManager = contentManager;
 	}
@@ -53,6 +51,7 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 					(int) (-10 - positionC.getOrigin().Y
 							* positionC.getScale().Y + positionC.getPosition().Y),
 					(int) healthC.getHealthPoints(), 10);
+			
 			Rectangle border = new Rectangle(healthBar.X - 1, healthBar.Y - 1,
 					healthBar.Width + 2, healthBar.Height + 2);
 			this.spriteBatch.draw(Texture2D.getPixel(), border, Color.Black,
@@ -66,7 +65,7 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 			} else {
 				color = new Color(1, 2 * healthPercentage, 0, 1);
 			}
-
+			
 			this.spriteBatch
 					.draw(this.healthBarTexture, healthBar, color, null);
 		}

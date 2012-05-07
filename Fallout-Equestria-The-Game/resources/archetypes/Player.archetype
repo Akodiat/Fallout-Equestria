@@ -10,6 +10,12 @@
         <agility>5</agility>
         <luck>5</luck>
       </components.SpecialComp>
+      <Behaviour>
+        <behavior class="scripting.PlayerScript">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+        </behavior>
+      </Behaviour>
       <Rendering>
         <texture>
           <Asset>HEJHEJ.png</Asset>
@@ -18,16 +24,10 @@
           <Color>1.0,1.0,1.0,1.0</Color>
         </color>
       </Rendering>
-      <Behaviour>
-        <behavior class="scripting.PlayerScript">
-          <initialized>false</initialized>
-          <enabled>false</enabled>
-        </behavior>
-      </Behaviour>
       <Physics>
         <immovable>false</immovable>
-        <velocity>0.0,0.0</velocity>
         <mass>1.0</mass>
+        <velocity>0.0,0.0</velocity>
         <torque>0.0</torque>
       </Physics>
       <Ability>
@@ -42,40 +42,18 @@
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>
+      <Input>
+        <backButton>S</backButton>
+        <leftButton>A</leftButton>
+        <rightButton>D</rightButton>
+        <forwardButton>W</forwardButton>
+        <gallopButton>LeftShift</gallopButton>
+      </Input>
       <Health>
         <maxHealth>100.0</maxHealth>
         <regenSpeed>13.0</regenSpeed>
         <healthPoints>100.0</healthPoints>
       </Health>
-      <Input>
-        <mousePosition reference="../../Physics/velocity"/>
-        <leftMouseButtonDown>false</leftMouseButtonDown>
-        <rightMouseButtonDown>false</rightMouseButtonDown>
-        <backButton>
-          <keyID>31</keyID>
-          <pressed>false</pressed>
-        </backButton>
-        <leftButton>
-          <keyID>30</keyID>
-          <pressed>false</pressed>
-        </leftButton>
-        <rightButton>
-          <keyID>32</keyID>
-          <pressed>false</pressed>
-        </rightButton>
-        <forwardButton>
-          <keyID>17</keyID>
-          <pressed>false</pressed>
-        </forwardButton>
-        <pipBuckButton>
-          <keyID>15</keyID>
-          <pressed>false</pressed>
-        </pipBuckButton>
-        <gallopButton>
-          <keyID>42</keyID>
-          <pressed>false</pressed>
-        </gallopButton>
-      </Input>
       <Status/>
       <Spatial>
         <bounds>

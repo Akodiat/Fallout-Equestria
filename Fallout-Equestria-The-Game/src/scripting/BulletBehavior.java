@@ -1,8 +1,5 @@
 package scripting;
 
-import org.newdawn.slick.openal.Audio;
-
-import utils.GameTime;
 
 import components.HealthComp;
 import components.TransformationComp;
@@ -12,6 +9,8 @@ import anotations.Editable;
 
 @Editable
 public class BulletBehavior extends Behavior{
+	private @Editable final float damage;
+	private @Editable final String soundEffect;
 	
 	public BulletBehavior(){
 		this.damage = 10;
@@ -22,31 +21,21 @@ public class BulletBehavior extends Behavior{
 		this.soundEffect = bulletBehavior.soundEffect;
 	}
 	
-	@Editable
-	private final float damage;
-	
-	@Editable
-	private final Audio soundEffect;
 	
 	@Override
 	public void start() {
 		this.Entity.getComponent(TransformationComp.class);
 	}
 
-	@Override
-	public void update(GameTime time) {
-		
-	}
 	
 	@Override
 	public void onCollisionEnter(IEntity other){
-		System.out.println(this.isInitialized());
 		HealthComp otherHealth = other.getComponent(HealthComp.class);
+		
 		if(otherHealth != null){
 			otherHealth.addHealthPoints(-damage);
-			System.out.println(damage);
 		}
-		soundEffect.playAsSoundEffect(1.0f, 0.5f, false);
+		this.SoundManager.playSoundEffect(soundEffect);
 		this.Entity.kill();
 	}
 

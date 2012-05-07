@@ -2,6 +2,8 @@ package client;
 
 import java.io.IOException;
 
+import misc.SoundManager;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -104,7 +106,10 @@ public class KryoClient {
 
 		String label = Utils.getPlayerLabel(this.client.getID());
 
-		world = WorldBuilder.buildServerWorld(camera, scene, contentManager, spriteBatch, true, label);
+		SoundManager soundManager = new SoundManager(this.contentManager,1.0f,1.0f,1.0f);
+		
+
+		world = WorldBuilder.buildServerWorld(camera, scene, contentManager,soundManager, spriteBatch, true, label);
 		world.initialize();
 
 		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);

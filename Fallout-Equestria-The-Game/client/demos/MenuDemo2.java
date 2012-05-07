@@ -1,5 +1,7 @@
 package demos;
 
+import misc.SoundManager;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import components.BehaviourComp;
@@ -69,9 +71,12 @@ public class MenuDemo2 extends Demo{
 		Texture2D backGround = ContentManager.loadTexture("foebackground.png");
 		this.camera = new Camera2D(backGround.getBounds(), screenRect);
 		this.mouse = new Mouse();
+
+		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
+		
 		
 		world = WorldBuilder.buildEmptyWorld();
-		world.getSystemManager().addLogicEntitySystem(new ScriptSystem(world, new ContentManager("resources")));
+		world.getSystemManager().addLogicEntitySystem(new ScriptSystem(world, new ContentManager("resources"), soundManager));
 		world.getSystemManager().addRenderEntitySystem(new CameraControlSystem(world, camera));
 		world.getSystemManager().addRenderEntitySystem(new RenderingSystem(world, spriteBatch));
 		world.initialize();

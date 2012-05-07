@@ -1,5 +1,6 @@
 package entitySystems;
 
+import misc.SoundManager;
 import utils.GameTime;
 import components.BehaviourComp;
 import content.ContentManager;
@@ -11,9 +12,11 @@ import entityFramework.IEntityWorld;
 public class ScriptSystem extends EntitySingleProcessingSystem {
 
 	private ContentManager contentManager;
-	public ScriptSystem(IEntityWorld world, ContentManager contentManager) {
+	private SoundManager soundManager;
+	public ScriptSystem(IEntityWorld world, ContentManager contentManager, SoundManager soundManager) {
 		super(world, BehaviourComp.class);
 		this.contentManager = contentManager;
+		this.soundManager = soundManager;
 	}
 	
 	private ComponentMapper<BehaviourComp>	bCM;	
@@ -41,7 +44,7 @@ public class ScriptSystem extends EntitySingleProcessingSystem {
 				behaviourComp.update(time);
 			}
 		} else {
-			behaviourComp.start(getEntityManager(),contentManager, entity);
+			behaviourComp.start(getEntityManager(),contentManager,soundManager, entity);
 		}
 	}
 }

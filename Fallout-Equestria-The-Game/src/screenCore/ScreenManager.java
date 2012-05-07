@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import misc.SoundManager;
+
 import com.google.common.collect.ImmutableList;
 
 import utils.GameTime;
@@ -23,6 +25,7 @@ public class ScreenManager {
 	private Keyboard keyboard;
 	private SpriteBatch spriteBatch;
 	private ContentManager contentManager;
+	private SoundManager soundManager;
 	private boolean isInitialized;
 	private Rectangle viewport;	
 	private Map<String, GameScreen> avalibleScreens;
@@ -46,7 +49,7 @@ public class ScreenManager {
 		return ImmutableList.copyOf(this.activeScreens);
 	}
 	
-	public ScreenManager(SpriteBatch spriteBatch, ContentManager contentManager,Rectangle viewport, Mouse mouse, Keyboard keyboard) {
+	public ScreenManager(SpriteBatch spriteBatch, ContentManager contentManager, SoundManager soundManager, Rectangle viewport, Mouse mouse, Keyboard keyboard) {
 		this.activeScreens = new ArrayList<>();
 		this.screensToUpdate = new ArrayList<>();
 		this.viewport = viewport;
@@ -55,6 +58,7 @@ public class ScreenManager {
 		this.mouse = mouse;
 		this.keyboard = keyboard;
 		this.avalibleScreens = new HashMap<>();
+		this.soundManager = soundManager;
 	}
 	
 	public void initialize() {
@@ -153,5 +157,11 @@ public class ScreenManager {
 		this.activeScreens.clear();
 		
 		
+	}
+	public SoundManager getSoundManager() {
+		return soundManager;
+	}
+	public void setSoundManager(SoundManager soundManager) {
+		this.soundManager = soundManager;
 	}
 }

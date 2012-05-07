@@ -72,7 +72,7 @@ public class ManlyManScript extends Behavior {
 	}
 
 	private void explode() {
-		animComp.changeAnimation(explodeAnimationName, 0.1f);
+		animComp.changeAnimation(explodeAnimationName);
 		
 		//Remove our behavior making us just sit on the screen.
 		this.Entity.removeComponent(PhysicsComp.class);

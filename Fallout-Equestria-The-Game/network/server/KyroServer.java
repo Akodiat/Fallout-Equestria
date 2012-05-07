@@ -3,6 +3,9 @@ package server;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import misc.SoundManager;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -116,8 +119,11 @@ public class KyroServer {
 		addedPlayerMessages = new ArrayList<NewPlayerMessage>();
 		
 		String label = "server";
+
+		SoundManager soundManager = new SoundManager(this.contentManager,1.0f,1.0f,1.0f);
 		
-		world = WorldBuilder.buildServerWorld(camera, scene, contentManager, spriteBatch, true, label);
+		
+		world = WorldBuilder.buildServerWorld(camera, scene, contentManager,soundManager, spriteBatch, true, label);
 		world.initialize();
 
 		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);

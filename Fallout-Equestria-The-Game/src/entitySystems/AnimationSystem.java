@@ -65,7 +65,7 @@ public class AnimationSystem extends EntityProcessingSystem {
 		}
 				
 		animationC.getAnimationPlayer().update(delta);
-		animationC.getAnimationPlayer().draw(batch, positionC.getPosition(), positionC.getMirror(), 
+		animationC.getAnimationPlayer().draw(batch, new Vector2(positionC.getPosition().X, positionC.getPosition().Y - positionC.getHeight()), positionC.getMirror(), 
 				0, animationC.getTint(), positionC.getScale());
 	}
 	

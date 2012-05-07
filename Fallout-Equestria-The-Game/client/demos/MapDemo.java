@@ -1,5 +1,7 @@
 package demos;
 
+import misc.SoundManager;
+
 import org.lwjgl.LWJGLException;
 import components.BehaviourComp;
 import entityFramework.IEntity;
@@ -13,6 +15,8 @@ import graphics.SpriteBatch;
 import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
+import utils.Keyboard;
+import utils.Mouse;
 import utils.Rectangle;
 
 
@@ -33,8 +37,10 @@ public class MapDemo extends Demo{
 		scene = ContentManager.load("MaseScenev0.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
+		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
 		
-		gameWorld = WorldBuilder.buildGameWorld(camera, scene,this.ContentManager, spriteBatch, false);
+		
+		gameWorld = WorldBuilder.buildGameWorld(camera, scene, new Mouse(), new Keyboard(), this.ContentManager,soundManager, spriteBatch, false);
 		gameWorld.initialize();
 		
 

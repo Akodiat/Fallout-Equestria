@@ -2,6 +2,7 @@ package demos;
 
 import math.MathHelper;
 import math.Vector2;
+import misc.SoundManager;
 import animation.Animation;
 import animation.AnimationPlayer;
 import animation.TextureDictionary;
@@ -18,6 +19,8 @@ import graphics.SpriteBatch;
 import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
+import utils.Keyboard;
+import utils.Mouse;
 import utils.Rectangle;
 
 public class MazeDemo extends Demo {
@@ -28,6 +31,8 @@ public class MazeDemo extends Demo {
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Scene scene;
+	private Mouse mouse;
+	private Keyboard keyboard;
 
 	public static void main(String[] str) {
 		MazeDemo demo = new MazeDemo();
@@ -41,6 +46,8 @@ public class MazeDemo extends Demo {
 
 	@Override
 	public void update(GameTime time) {
+		this.mouse.poll(screenDim);
+		this.keyboard.poll();
 		this.gameWorld.update(time);
 		this.gameWorld.getEntityManager().destoryKilledEntities();
 		
@@ -94,15 +101,18 @@ public class MazeDemo extends Demo {
 		scene = ContentManager.load("PerspectiveV1.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
-
-		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene,this.ContentManager, spriteBatch, false);
+		mouse = new Mouse();
+		keyboard = new Keyboard();
+		SoundManager soundManager = new SoundManager(this.ContentManager,0.1f,1.0f,1.0f);
+		
+		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene ,mouse, keyboard, this.ContentManager,soundManager, spriteBatch, false);
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
-
+		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
 		
 		SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
@@ -110,14 +120,7 @@ public class MazeDemo extends Demo {
 		addTexturedNodes();
 		
 		
-		Animation animation = ContentManager.load("rdwalk.anim", Animation.class);
-		AnimationPlayer player = new AnimationPlayer();
-		player.addAnimation("lol", animation);
-		player.startAnimation("lol");
-		TextureDictionary dict = ContentManager.load("gui.tdict", TextureDictionary.class);
-		TextureEntry entry = new TextureEntry(dict.getTexture(), dict.getTextureBounds("Scrollbar_BG"));
-		player.setBoneTexture("RIGHTFRONTOOF", entry);
-		
+		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
 		AnimationComp comp = new AnimationComp(player);
 		comp.setTint(Color.Green);
 		

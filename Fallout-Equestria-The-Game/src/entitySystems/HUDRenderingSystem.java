@@ -76,8 +76,6 @@ public class HUDRenderingSystem extends LabelEntitySystem {
 				(int) this.apPos.Y, (int) (100.0f * ratio), 20);
 
 		this.batch.draw(Texture2D.getPixel(), rectAp, Color.Gold, null);
-		
-		
 	}
 
 	private void drawHealthBar(IEntity entity) {

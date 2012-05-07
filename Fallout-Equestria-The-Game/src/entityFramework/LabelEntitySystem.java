@@ -47,10 +47,9 @@ public abstract class LabelEntitySystem implements IEntitySystem {
 
 	@Override
 	public void entityDestroyed(IEntity entity) {
-		if(entity.getLabel() == this.label) {
+		if(entity.getLabel().equals(label)) {
 			this.Entity = null;
 		}
-		
 	}
 
 

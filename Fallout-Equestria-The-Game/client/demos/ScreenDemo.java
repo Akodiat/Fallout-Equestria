@@ -1,5 +1,6 @@
 package demos;
 
+import misc.SoundManager;
 import graphics.Color;
 import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
@@ -51,8 +52,10 @@ public class ScreenDemo extends Demo{
 		ContentManager manager = new ContentManager("resources");
 		this.keyboard = new Keyboard();
 		this.mouse = new Mouse();
+		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
 		
-		this.screenManager = new ScreenManager(batch, manager,screenDim, mouse, keyboard);
+		
+		this.screenManager = new ScreenManager(batch, manager, soundManager, screenDim, mouse, keyboard);
 		BackgroundScreen screen = new BackgroundScreen(false, TimeSpan.fromSeconds(15.0f), TimeSpan.Zero, "foebackground.png");
 		TestGUIScreen screen2 = new TestGUIScreen("gui.tdict");
 		Test2GUIScreen screen3 = new Test2GUIScreen("graygui.tdict");
