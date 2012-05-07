@@ -1,5 +1,6 @@
 package animation;
 
+import graphics.Color;
 import math.Vector2;
 
 public class Bone {
@@ -17,6 +18,7 @@ public class Bone {
 	private float rotation;
 	private Vector2 scale;
 	private boolean mirrored;
+	private Color color;
 	
 	public Bone(String name, boolean hidden, int parentIndex, int textureIndex,
 			int selfIndex, int updateIndex, Vector2 position, float rotation,
@@ -31,6 +33,7 @@ public class Bone {
 		this.rotation = rotation;
 		this.scale = scale;
 		this.mirrored = mirrored;
+		this.color = Color.White;
 	}
 	
 	public Bone() {
@@ -95,5 +98,11 @@ public class Bone {
 	}
 	public void setMirrored(boolean textureFlipHorizontal) {
 		this.mirrored = textureFlipHorizontal;
+	}
+	public Color getColor() {
+		return this.color;
+	}
+	public void setColor(Color param) {
+		this.color = param;
 	}
 }

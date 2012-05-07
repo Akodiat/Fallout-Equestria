@@ -31,7 +31,7 @@ public class ShadowRenderingSystem extends EntityProcessingSystem {
 
 	@Override
 	public void initialize() {
-		this.shadowTexture = this.contentManager.loadTexture("UglyShadow.png");
+		this.shadowTexture = this.contentManager.loadTexture("shadow.png");
 		this.transCM = ComponentMapper.create(getDatabase(), TransformationComp.class);
 	}
 
