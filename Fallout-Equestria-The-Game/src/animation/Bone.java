@@ -9,10 +9,7 @@ public class Bone {
 	private boolean hidden;
 	private int parentIndex;
 	private int textureIndex;
-	//TODO Java, how do?
-	//Microsoft.Xna.Framework.Content.ContentSerializerIgnore
 	private int selfIndex;
-	//[Microsoft.Xna.Framework.Content.ContentSerializerIgnore]
 	private int updateIndex;
 	private Vector2 position;
 	private float rotation;
@@ -37,6 +34,7 @@ public class Bone {
 	}
 	
 	public Bone() {
+		this.color = Color.White;
 	}
 	
 	public String getName() {

@@ -2,29 +2,30 @@
 <Animation dictionary="rddict">
   <FrameRate>17</FrameRate>
   <LoopFrame>-1</LoopFrame>
-  <Texture dictionary="rddict.tdict" name="Pixel">..\..\Pixel.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDBODY">RDBODY.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDNECK">RDNECK.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDHEAD">RDHEAD.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDEAR">RDEAR.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDUPPERMANE">RDUPPERMANE.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDLOWERMANE">RDLOWERMANE.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDWINGS">RDWINGS.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDUPPERTAIL">RDUPPERTAIL.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDLOWERTAIL">RDLOWERTAIL.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDEYE">RDEYE.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDIRIS">RDIRIS.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDHIGHLIGHTS">RDHIGHLIGHTS.png</Texture>
-  <Texture dictionary="rddict.tdict" name="frontlegwalk1">FRONTLEGSWALK\frontlegwalk1.png</Texture>
-  <Texture dictionary="rddict.tdict" name="frontlegswalk12">FRONTLEGSWALK\frontlegswalk12.png</Texture>
-  <Texture dictionary="rddict.tdict" name="hindlegswalk_0010_Layer-14">HINDLEGSWALK\hindlegswalk_0010_Layer-14.png</Texture>
-  <Texture dictionary="rddict.tdict" name="hindlegswalk_0020_Layer-4">HINDLEGSWALK\hindlegswalk_0020_Layer-4.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDMOUTH">RDMOUTH.png</Texture>
-  <Texture dictionary="rddict.tdict" name="backhindlegswalk_0011_Layer-13">BACKHINDLEGSWALK\CORRECTEDPLS\backhindlegswalk_0011_Layer-13.png</Texture>
-  <Texture dictionary="rddict.tdict" name="backhindlegswalk_0020_Layer-4">BACKHINDLEGSWALK\CORRECTEDPLS\backhindlegswalk_0020_Layer-4.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDMARK">RDMARK.png</Texture>
-  <Texture dictionary="rddict.tdict" name="ponybone">ponybone.png</Texture>
-  <Texture dictionary="rddict.tdict" name="RDHORN">RDHORN.png</Texture>
+  <Texture>..\..\Pixel.png</Texture>
+  <Texture>RDBODY.png</Texture>
+  <Texture>RDNECK.png</Texture>
+  <Texture>RDHEAD.png</Texture>
+  <Texture>RDEAR.png</Texture>
+  <Texture>RDUPPERMANE.png</Texture>
+  <Texture>RDLOWERMANE.png</Texture>
+  <Texture>RDWINGS.png</Texture>
+  <Texture>RDUPPERTAIL.png</Texture>
+  <Texture>RDLOWERTAIL.png</Texture>
+  <Texture>RDEYE.png</Texture>
+  <Texture>RDIRIS.png</Texture>
+  <Texture>RDHIGHLIGHTS.png</Texture>
+  <Texture>FRONTLEGSWALK\frontlegwalk1.png</Texture>
+  <Texture>FRONTLEGSWALK\frontlegswalk12.png</Texture>
+  <Texture>HINDLEGSWALK\hindlegswalk_0010_Layer-14.png</Texture>
+  <Texture>HINDLEGSWALK\hindlegswalk_0020_Layer-4.png</Texture>
+  <Texture>RDMOUTH.png</Texture>
+  <Texture>BACKHINDLEGSWALK\CORRECTEDPLS\backhindlegswalk_0011_Layer-13.png</Texture>
+  <Texture>BACKHINDLEGSWALK\CORRECTEDPLS\backhindlegswalk_0020_Layer-4.png</Texture>
+  <Texture>RDMARK.png</Texture>
+  <Texture>ponybone.png</Texture>
+  <Texture>RDHORN.png</Texture>
+  <Texture>RDEYEBG.png</Texture>
   <Keyframe frame="0" trigger="" vflip="False" hflip="False">
     <Bone name="RIGIDBODY">
       <Hidden>False</Hidden>
@@ -266,6 +267,22 @@
         <Y>1</Y>
       </Scale>
     </Bone>
+    <Bone name="SCLERA">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>14</ParentIndex>
+      <TextureIndex>23</TextureIndex>
+      <Position>
+        <X>0.8</X>
+        <Y>-13.4</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
     <Bone name="UPPERFRONTLEG">
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
@@ -302,7 +319,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>11</TextureIndex>
       <Position>
         <X>-3.000003</X>
@@ -334,7 +351,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>12</TextureIndex>
       <Position>
         <X>0</X>
@@ -668,6 +685,22 @@
         <Y>1</Y>
       </Scale>
     </Bone>
+    <Bone name="SCLERA">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>14</ParentIndex>
+      <TextureIndex>23</TextureIndex>
+      <Position>
+        <X>0.8</X>
+        <Y>-13.4</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
     <Bone name="UPPERFRONTLEG">
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
@@ -704,7 +737,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>11</TextureIndex>
       <Position>
         <X>-2.880099</X>
@@ -736,7 +769,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>12</TextureIndex>
       <Position>
         <X>0</X>
@@ -1070,6 +1103,22 @@
         <Y>1</Y>
       </Scale>
     </Bone>
+    <Bone name="SCLERA">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>14</ParentIndex>
+      <TextureIndex>23</TextureIndex>
+      <Position>
+        <X>0.8</X>
+        <Y>-13.4</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
     <Bone name="UPPERFRONTLEG">
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
@@ -1106,7 +1155,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>11</TextureIndex>
       <Position>
         <X>-3.000003</X>
@@ -1138,7 +1187,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>12</TextureIndex>
       <Position>
         <X>0</X>
@@ -1472,6 +1521,22 @@
         <Y>1</Y>
       </Scale>
     </Bone>
+    <Bone name="SCLERA">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>14</ParentIndex>
+      <TextureIndex>23</TextureIndex>
+      <Position>
+        <X>0.8</X>
+        <Y>-13.4</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
     <Bone name="UPPERFRONTLEG">
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
@@ -1508,7 +1573,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>11</TextureIndex>
       <Position>
         <X>-3.440397</X>
@@ -1540,7 +1605,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>12</TextureIndex>
       <Position>
         <X>0</X>

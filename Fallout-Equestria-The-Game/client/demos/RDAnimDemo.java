@@ -4,6 +4,7 @@ import math.Vector2;
 import misc.SoundManager;
 import animation.Animation;
 import animation.AnimationPlayer;
+import animation.PonyColorChangeHelper;
 import components.*;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
@@ -11,7 +12,7 @@ import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import scripting.AnimatedPlayerScript;
+import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
 import utils.Keyboard;
@@ -92,31 +93,23 @@ public class RDAnimDemo extends Demo {
 		spriteBatch = new SpriteBatch(screenDim);
 
 		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
-		
+
 		this.gameWorld = WorldBuilder.buildGameWorld(camera,  scene, new Mouse(), new Keyboard(), this.ContentManager,soundManager, spriteBatch, false);
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = gameWorld.getEntityManager().createEntity(archetype);
-		entity.addComponent(new BehaviourComp(new AnimatedPlayerScript()));
+		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.getComponent(RenderingComp.class).setTexture(Texture2D.getPixel());
-//		Animation walkAnimation = ContentManager.load("rdwalk.anim", Animation.class);
-//		Animation jumpAnimation = ContentManager.load("rdjump.anim", Animation.class);
-//		Animation idleAnimation = ContentManager.load("rdidle.anim", Animation.class);
-//		Animation liftedAnimation = ContentManager.load("rdlifted.anim", Animation.class);
-//
-//		AnimationPlayer player = new AnimationPlayer();
-//		player.addAnimation("idle", idleAnimation);
-//		player.addAnimation("jump", jumpAnimation);
-//		player.addAnimation("lifted", liftedAnimation);
-//		player.addAnimation("walk", walkAnimation);
-//		player.startAnimation("walk");
 
 		AnimationPlayer player = ContentManager.load("rdset.animset", AnimationPlayer.class);
 		player.startAnimation("idle");
-
-		entity.addComponent(new AnimationComp(player));
+		AnimationComp animComp = new AnimationComp(player);
+		PonyColorChangeHelper.setBodyColor(Color.Wheat, animComp);
+		PonyColorChangeHelper.setEyeColor(Color.DarkOrange, animComp);
+		PonyColorChangeHelper.setManeColor(Color.Blue, animComp);
+		entity.addComponent(animComp);
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(600, 600);
 

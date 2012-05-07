@@ -23,6 +23,7 @@
   <Texture dictionary="rddict.tdict" name="RDMARK">RDMARK.png</Texture>
   <Texture dictionary="rddict.tdict" name="ponybone">ponybone.png</Texture>
   <Texture dictionary="rddict.tdict" name="RDHORN">RDHORN.png</Texture>
+  <Texture dictionary="rddict.tdict" name="RDEYEBG">RDEYEBG.png</Texture>
   <Keyframe frame="0" trigger="" vflip="False" hflip="False">
     <Bone name="RIGIDBODY">
       <Hidden>False</Hidden>
@@ -264,6 +265,22 @@
         <Y>1</Y>
       </Scale>
     </Bone>
+    <Bone name="SCLERA">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>14</ParentIndex>
+      <TextureIndex>21</TextureIndex>
+      <Position>
+        <X>0.8</X>
+        <Y>-13.2</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
     <Bone name="UPPERFRONTLEG">
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
@@ -300,7 +317,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>11</TextureIndex>
       <Position>
         <X>-3.000003</X>
@@ -332,7 +349,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>12</TextureIndex>
       <Position>
         <X>0</X>
@@ -666,6 +683,22 @@
         <Y>1</Y>
       </Scale>
     </Bone>
+    <Bone name="SCLERA">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>14</ParentIndex>
+      <TextureIndex>21</TextureIndex>
+      <Position>
+        <X>0.8</X>
+        <Y>-13.2</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
     <Bone name="UPPERFRONTLEG">
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
@@ -702,7 +735,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>11</TextureIndex>
       <Position>
         <X>-3.000003</X>
@@ -734,7 +767,7 @@
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>
       <TextureFlipVertical>False</TextureFlipVertical>
-      <ParentIndex>18</ParentIndex>
+      <ParentIndex>19</ParentIndex>
       <TextureIndex>12</TextureIndex>
       <Position>
         <X>0</X>

@@ -15,7 +15,7 @@ import utils.GameTime;
 
 public class AnimationPlayer
 {
-	
+
 	private String currentAnimation;
 	private float currentAnimationTime;
 	private int currentKeyframeIndex;
@@ -30,17 +30,17 @@ public class AnimationPlayer
 	private BoneTransformation[] boneTransformations;
 
 	private Map<String, Animation> animations = new Hashtable<String, Animation>();
-	
 
-	
+
+
 	private Set<KeyframeTriggerListener> listeners = new HashSet<KeyframeTriggerListener>();
 	private KeyframeTriggerEventArgs eventArgs = new KeyframeTriggerEventArgs();
 
-	
+
 	public Animation getCurrentAnimationAnimation() {
 		return this.animations.get(currentAnimation);
 	}
-	
+
 	public AnimationPlayer()
 	{
 		this.playSpeedMultiplier = 1f;
@@ -55,18 +55,18 @@ public class AnimationPlayer
 			int length = animation.getKeyframes().get(0).getBones().size();
 			boneTransformations = new BoneTransformation[length];
 			transitionStates = new BoneTransitionState[length];
-			
+
 			for (int i=0; i< length; i++){
 				boneTransformations[i] = BoneTransformation.Identity;
 				transitionStates[i] = BoneTransitionState.Identity;
 			}
 		}
 	}
-	
+
 	public void addListener(KeyframeTriggerListener listenerToAdd){
 		listeners.add(listenerToAdd);
 	}
-	
+
 	private void invokeTrigger(){
 		for (KeyframeTriggerListener listener : listeners) {
 			listener.onKeyframeTrigger(this, this.eventArgs);
@@ -154,17 +154,17 @@ public class AnimationPlayer
 
 				Animation animation = animations.get(currentAnimation);
 				animation.GetBoneTransformations(boneTransformations, 
-												 transitionStates, 
-												 currentKeyframeIndex, 
-												 currentAnimationTime - animation.getKeyframes().get(currentKeyframeIndex).getFrameTime());
+						transitionStates, 
+						currentKeyframeIndex, 
+						currentAnimationTime - animation.getKeyframes().get(currentKeyframeIndex).getFrameTime());
 			}
 			else
 			{
 				Animation.GetBoneTransformationsTransition(boneTransformations, 
-														   transitionStates, 
-														   animations.get(currentAnimation), 
-														   animations.get(transitionAnimation), 
-														   transitionTime / transitionTotalTime);
+						transitionStates, 
+						animations.get(currentAnimation), 
+						animations.get(transitionAnimation), 
+						transitionTime / transitionTotalTime);
 			}
 		}
 		else
@@ -196,18 +196,18 @@ public class AnimationPlayer
 					currentKeyframeIndex++;
 				}
 			}
-			
+
 			animation.GetBoneTransformations(boneTransformations, 
-											 transitionStates, 
-											 currentKeyframeIndex, 
-											 currentAnimationTime - animation.getKeyframes().get(currentKeyframeIndex).getFrameTime());
+					transitionStates, 
+					currentKeyframeIndex, 
+					currentAnimationTime - animation.getKeyframes().get(currentKeyframeIndex).getFrameTime());
 
 			returnValue = reachedEnd;
 		}
 
 		if (currentKeyframeIndex != startKeyframeIndex && !listeners.isEmpty() &&
 				!(animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger() == null ||
-				  animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger() == ""))
+				animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger() == ""))
 		{
 			eventArgs.triggerString = animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger();
 			invokeTrigger();
@@ -221,17 +221,17 @@ public class AnimationPlayer
 		return update((float)gameTime.getElapsedTime().getTotalSeconds());
 	}
 
-//	public void Draw(SpriteBatch spriteBatch, Vector2 position)
-//	{
-//		Draw(spriteBatch, position, false, false, 0, Color.White, new Vector2(1, 1), Matrix.Identity);
-//	}
+	//	public void Draw(SpriteBatch spriteBatch, Vector2 position)
+	//	{
+	//		Draw(spriteBatch, position, false, false, 0, Color.White, new Vector2(1, 1), Matrix.Identity);
+	//	}
 
 	/** Draw the given animation using the passed in spritebatch. Use this option if you have an existing spritebatch you would like to pass in.
 	/* Make sure that you have backface culling disabled if you want to use bone texture flipping.
 	/* @param spriteBatch Existing active spritebatch. Begin/end will not be called.
 	/* @param tintColor Color to tint the animation.
 	/* @param position Position of the animation to draw.
-	*/
+	 */
 	public void draw(SpriteBatch spriteBatch, Color tintColor, Vector2 position)
 	{
 		Animation animation = animations.get(currentAnimation);
@@ -241,18 +241,18 @@ public class AnimationPlayer
 			Bone bone = animation.getKeyframes().get(currentKeyframeIndex).getBones().get(boneIndex);
 			if (bone.isHidden())
 				continue;
-	
+
 			this.draw(spriteBatch, position, false, 0, tintColor, Vector2.One);
-//			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, boneTransformations[boneIndex].getPosition()), 
-//					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
-//					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
-//					boneTransformations[boneIndex].getScale(), boneTransformations[boneIndex].getRotation(), bone.isMirrored());		
+			//			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), Vector2.add(position, boneTransformations[boneIndex].getPosition()), 
+			//					tintColor, animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getLocation(), 
+			//					animation.getTextures().get(bone.getTextureIndex()).getTextureBounds().getOrigin(), 
+			//					boneTransformations[boneIndex].getScale(), boneTransformations[boneIndex].getRotation(), bone.isMirrored());		
 		}
 	}
 
 	/** Draw the given animation using the passed in spritebatch. Use this option if you have an existing spritebatch you would like to pass in.
 	/* @param spriteBatch Existing active spritebatch. Begin/end will not be called.
-	*/
+	 */
 	public void draw(SpriteBatch spriteBatch, Vector2 position, boolean mirrored, float rotation, Color tintColor, Vector2 scale)
 	{
 		Animation animation = animations.get(currentAnimation);
@@ -262,18 +262,18 @@ public class AnimationPlayer
 			Bone bone = animation.getKeyframes().get(currentKeyframeIndex).getBones().get(boneIndex);
 			if (bone.isHidden())
 				continue;
-			
-			
+
+
 			TextureBounds bounds = animation.getTextures().get(bone.getTextureIndex()).getTextureBounds();
 			Vector2 origin = bounds.getOrigin();
 			if(mirrored) {
 				origin = new Vector2(bounds.getLocation().Width - bounds.getOrigin().X ,
-									 bounds.getOrigin().Y);
+						bounds.getOrigin().Y);
 			}
-			
+
 			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), 
 					getBonePosition(position, mirrored, scale, boneIndex), 
-					tintColor, bounds.getLocation(), 
+					bone.getColor(), bounds.getLocation(), 
 					origin, 
 					Vector2.mul(scale, boneTransformations[boneIndex].getScale()), 
 					getBoneRotation(mirrored, rotation, boneIndex), 
@@ -284,13 +284,13 @@ public class AnimationPlayer
 	private float getBoneRotation(boolean mirrored, float rotation,
 			int boneIndex) {
 		return mirrored?-1*(boneTransformations[boneIndex].getRotation() + rotation):
-				boneTransformations[boneIndex].getRotation() + rotation;
+			boneTransformations[boneIndex].getRotation() + rotation;
 	}
 
 	private Vector2 getBonePosition(Vector2 position, boolean mirrored,
 			Vector2 scale, int boneIndex) {
 		return mirrored?Vector2.add(position, Vector2.mul(scale, Vector2.mul(Vector2.MirrorYAxis, boneTransformations[boneIndex].getPosition()))):
-				Vector2.add(position, Vector2.mul(scale, boneTransformations[boneIndex].getPosition()));
+			Vector2.add(position, Vector2.mul(scale, boneTransformations[boneIndex].getPosition()));
 	}
 
 	public String getCurrentAnimation() {
@@ -333,9 +333,18 @@ public class AnimationPlayer
 		for (String key : this.animations.keySet()) {
 			this.animations.get(key).getTextures().add(entry);
 			int entryIndex = this.animations.get(key).getTextures().indexOf(entry);
-			
+
 			for (Keyframe frame : this.animations.get(key).getKeyframes()) {
 				frame.getBone(boneName).setTextureIndex(entryIndex);
+			}
+		}
+	}
+
+	public void setBoneColor(String boneName, Color color){
+		for (String key : this.animations.keySet()) {
+			for (Keyframe frame : this.animations.get(key).getKeyframes()) {
+				frame.getBone(boneName).setColor(color);
+				System.out.println(frame.getBone(boneName).getColor());
 			}
 		}
 	}

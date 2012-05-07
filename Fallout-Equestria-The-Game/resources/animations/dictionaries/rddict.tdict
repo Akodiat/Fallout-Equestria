@@ -297,6 +297,14 @@
     <OriginX>7</OriginX>
     <OriginY>2</OriginY>
   </Texture>
+  <Texture name="RDEYEBG">
+    <X>237</X>
+    <Y>63</Y>
+    <Width>27</Width>
+    <Height>27</Height>
+    <OriginX>14</OriginX>
+    <OriginY>11</OriginY>
+  </Texture>
   <Texture name="hindlegswalk_0011_Layer-13">
     <X>329</X>
     <Y>55</Y>
@@ -626,8 +634,8 @@
     <OriginY>3</OriginY>
   </Texture>
   <Texture name="RDEAR">
-    <X>237</X>
-    <Y>63</Y>
+    <X>146</X>
+    <Y>218</Y>
     <Width>15</Width>
     <Height>25</Height>
     <OriginX>7</OriginX>
@@ -658,7 +666,7 @@
     <OriginY>13</OriginY>
   </Texture>
   <Texture name="RDMARK">
-    <X>146</X>
+    <X>163</X>
     <Y>218</Y>
     <Width>13</Width>
     <Height>21</Height>
@@ -666,16 +674,16 @@
     <OriginY>10</OriginY>
   </Texture>
   <Texture name="RDHIGHLIGHTS">
-    <X>254</X>
-    <Y>63</Y>
+    <X>122</X>
+    <Y>230</Y>
     <Width>8</Width>
     <Height>10</Height>
     <OriginX>4</OriginX>
     <OriginY>5</OriginY>
   </Texture>
   <Texture name="RDMOUTH">
-    <X>237</X>
-    <Y>90</Y>
+    <X>132</X>
+    <Y>230</Y>
     <Width>8</Width>
     <Height>8</Height>
     <OriginX>4</OriginX>
