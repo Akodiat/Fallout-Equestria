@@ -5,6 +5,7 @@ import graphics.Color;
 import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
 import screenCore.GOLScreen;
+import screenCore.MultiplayerScreen;
 import screenCore.PausScreen;
 import screenCore.ScreenManager;
 import screenCore.Test2GUIScreen;
@@ -61,12 +62,14 @@ public class ScreenDemo extends Demo{
 		Test2GUIScreen screen3 = new Test2GUIScreen("graygui.tdict");
 		PausScreen screen4 = new PausScreen("gui.tdict");
 		GOLScreen screen5 = new GOLScreen();
+		MultiplayerScreen screen6 = new MultiplayerScreen("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
 		this.screenManager.registerScreen("Test2_Screen", screen3);
 		this.screenManager.registerScreen("PauseScreen", screen4);
 		this.screenManager.registerScreen("GOLScreen", screen5);
+		this.screenManager.registerScreen("Multiplayer", screen6);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

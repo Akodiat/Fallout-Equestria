@@ -55,7 +55,11 @@ public abstract class GameScreen {
 			if(updateTransition(time, transitionOnTime, -1)) {
 				screenState = ScreenState.TransitionOn;
 			} else {
+				if(screenState == ScreenState.TransitionOn) {
+					this.onTransitionFinished();
+				}
 				screenState = ScreenState.Active;
+				
 			}
 		}
 		
@@ -92,7 +96,9 @@ public abstract class GameScreen {
 		}
 	}
 
-
+	public void onTransitionFinished() {
+		
+	}
 
 	public void reset() {
 		this.exiting = false;

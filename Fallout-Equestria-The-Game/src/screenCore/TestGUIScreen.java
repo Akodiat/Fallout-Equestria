@@ -42,6 +42,12 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 			}
 		});
 		
+		button1.addClicked(new IEventListener<EventArgs>() {
+			public void onEvent(Object sender, EventArgs e) {
+				gotoMultiplayer();
+			}
+		});
+		
 		button2.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
 				exit();				
@@ -56,6 +62,10 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 
 	protected void gotoTest2() {
 		this.ScreenManager.addScreen("Test2_Screen");
+	}
+	
+	protected void gotoMultiplayer() {
+		this.ScreenManager.addScreen("Multiplayer");
 	}
 
 }
