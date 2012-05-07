@@ -5,8 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableSet;
 
-import components.PhysicsComp;
-import components.TransformationComp;
+import components.*;
 
 /**
  * 
@@ -24,16 +23,25 @@ public final class EntityArchetypeProxy implements IEntityArchetype{
 	private String label;
 	
 	
-	public EntityArchetypeProxy(EntityArchetype realArchetype) {
-		this.components = ImmutableSet.copyOf(new ArrayList<IComponent>());
+	public EntityArchetypeProxy(IEntityArchetype realArchetype) {
+		List<IComponent> componentsList = new ArrayList<IComponent>();
+		
 		List<IComponent> originalComponentList = realArchetype.getComponents().asList();
 		
 		for (IComponent component : originalComponentList) {
-			if((component instanceof TransformationComp) || (component instanceof PhysicsComp))
-				this.components.add(component);
+			if(
+					(component instanceof TransformationComp) || 
+					(component instanceof PhysicsComp) || 
+					(component instanceof HealthComp) ||
+					(component instanceof RenderingComp) ||
+					(component instanceof AnimationComp) ||
+					(component instanceof TextRenderingComp))
+				componentsList.add(component);
 		}
 		this.groups = realArchetype.getGroups();
 		this.label = realArchetype.getLabel();
+		
+		this.components = ImmutableSet.copyOf(componentsList);
 	}
 	
 	

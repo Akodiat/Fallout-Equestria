@@ -141,36 +141,39 @@ public class KyroServer {
 
 		//ANIMATION UGLY SHIT
 				IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
-				IEntity entity = this.world.getEntityManager().createEntity(archetype);
-				entity.addComponent(new BehaviourComp(new PlayerScript()));
-				entity.addComponent(new ShadowComp());
-				entity.getComponent(TransformationComp.class).setPosition(1000,1000);
-				entity.getComponent(InputComp.class).setMouse(mouse);
-				entity.getComponent(InputComp.class).setKeyboard(keyboard);
+				player = this.world.getEntityManager().createEntity(archetype);
+				player.addComponent(new BehaviourComp(new PlayerScript()));
+				player.addComponent(new ShadowComp());
+				player.getComponent(TransformationComp.class).setPosition(1000,1000);
+				player.getComponent(InputComp.class).setMouse(mouse);
+				player.getComponent(InputComp.class).setKeyboard(keyboard);
 				
 				SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
-				entity.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
+				player.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
 				addTexturedNodes();
 				
 				
-				AnimationPlayer player = this.contentManager.loadAnimationSet("rdset.animset");
-				AnimationComp comp = new AnimationComp(player);
+				AnimationPlayer animPlayer = this.contentManager.loadAnimationSet("rdset.animset");
+				AnimationComp comp = new AnimationComp(animPlayer);
 				//comp.setTint(Color.Green);
 				
-				entity.removeComponent(RenderingComp.class);	
-				entity.addComponent(comp);
+				player.removeComponent(RenderingComp.class);	
+				player.addComponent(comp);
 		//END OF ANIMATION UGLY SHIT
-		
-		entity.addToGroup(CameraControlSystem.GROUP_NAME);
-		entity.refresh();
+		player.setLabel("Server");
+		player.addToGroup(CameraControlSystem.GROUP_NAME);
+		player.refresh();
 		
 		NewPlayerMessage message = new NewPlayerMessage();
-		message.specialComp = entity.getComponent(SpecialComp.class);
+		message.specialComp = player.getComponent(SpecialComp.class);
 		message.playerCharacteristics = new PlayerCharacteristics();
 		
 		message.playerCharacteristics.name = "P"+(int)(Math.random()*21);
 		message.playerCharacteristics.color = new Color(); //new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
 		message.playerCharacteristics.archetypePath = playerAsset;
+		message.localClientID = player.getUniqueID();
+		message.networkID = player.getUniqueID();
+		
 		
 		this.addedPlayerMessages.add(message);
 	}
@@ -235,13 +238,39 @@ public class KyroServer {
 						System.out.println(message);
 						connection.sendTCP(message);
 					}
+					EntityNetworkIDsetMessage iDMessage = new EntityNetworkIDsetMessage();
+					iDMessage.localClientID = player.getUniqueID();
+					iDMessage.networkID = player.getUniqueID();
+					server.sendToTCP(connection.getID(), iDMessage);
+					
 					NewPlayerMessage message = (NewPlayerMessage) object;
 					
+					
+					//ANIMATION UGLY SHIT
+					IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
 					IEntity player = world.getEntityManager().createEntity(
 							contentManager.loadArchetype(
 									message.playerCharacteristics.archetypePath));
+					player.addComponent(new BehaviourComp(new PlayerScript()));
+					player.addComponent(new ShadowComp());
+					player.getComponent(TransformationComp.class).setPosition(1000,1000);
+					player.getComponent(InputComp.class).setMouse(mouse);
+					player.getComponent(InputComp.class).setKeyboard(keyboard);
+					
+					SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
+					player.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
+					addTexturedNodes();
+					
+					
+					AnimationPlayer animPlayer = contentManager.loadAnimationSet("rdset.animset");
+					AnimationComp comp = new AnimationComp(animPlayer);
+					//comp.setTint(Color.Green);
+					
+					player.removeComponent(RenderingComp.class);	
+					player.addComponent(comp);
+			//END OF ANIMATION UGLY SHIT
 					player.setLabel(Utils.getPlayerLabel(connection.getID()));
-					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);
+
 					player.refresh();
 					
 					message.networkID = player.getUniqueID();
