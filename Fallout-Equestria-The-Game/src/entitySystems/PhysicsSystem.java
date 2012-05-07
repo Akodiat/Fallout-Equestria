@@ -35,8 +35,10 @@ public class PhysicsSystem extends EntitySingleProcessingSystem {
 
 		Vector2 displacement = Vector2.mul((float)this.getWorld().getTime().getElapsedTime().getTotalSeconds(),
 											physComp.getVelocity());
+		float heightDisplacement = physComp.getHeightVelocity() * (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();
 		
 		posComp.setPosition(Vector2.add(posComp.getPosition(), displacement));
+		posComp.setHeight(posComp.getHeight() + heightDisplacement);
 		posComp.setRotation(posComp.getRotation() + physComp.getTorque());
 
 	}

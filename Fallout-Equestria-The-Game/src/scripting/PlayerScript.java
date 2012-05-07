@@ -36,9 +36,7 @@ public class PlayerScript extends Behavior{
 	
 	private BulletAbility bulletAbility;
 	private PlayerState activeState;
-	private float gravity = 30.0f;
-	private float hightVelo = 0;
-	
+	private float gravity = 1200.0f;
 	
 	@Override
 	public void start() {
@@ -60,7 +58,6 @@ public class PlayerScript extends Behavior{
 	@Override
 	public void update(GameTime time) {
 		inpComp  = Entity.getComponent(InputComp.class);
-		Keyboard keyboard = inpComp.getKeyboard();
 		Mouse mouse = inpComp.getMouse();
 		
 	
@@ -137,7 +134,7 @@ public class PlayerScript extends Behavior{
 			
 			Keyboard keyboard = inputComp.getKeyboard();
 			if(keyboard.wasKeyPressed(Keys.Space)) {
-				hightVelo = 15f;
+				physComp.setHeightVelocity(600.0f);
 				activeState = new JumpState();
 				activeState.enter();
 			}
@@ -169,7 +166,7 @@ public class PlayerScript extends Behavior{
 			
 			Keyboard keyboard = inputComp.getKeyboard();
 			if(keyboard.wasKeyPressed(Keys.Space)) {
-				hightVelo = 15f;
+				physComp.setHeightVelocity(600.0f);
 				activeState = new JumpState();
 				activeState.enter();
 			}
@@ -191,12 +188,9 @@ public class PlayerScript extends Behavior{
 		@Override
 		public void update(GameTime time) {
 			Vector2 velo = updateVelo();
-			float height = posComp.getHeight();
-			height += hightVelo;
-
-			hightVelo -= gravity * (float)time.getElapsedTime().getTotalSeconds();
-			if(height < 0) {
-				height = 0;
+			if(posComp.getHeight() <= 0) {
+				posComp.setHeight(0);
+				physComp.setHeightVelocity(0);
 				if(velo.equals(Vector2.Zero)) {
 					activeState = new IdleState();
 					activeState.enter();
@@ -204,8 +198,11 @@ public class PlayerScript extends Behavior{
 					activeState = new WalkState();
 					activeState.enter();
 				}
+				return;
 			}
-			posComp.setHeight(height);
+
+			physComp.setHeightVelocity( physComp.getHeightVelocity() - 
+										gravity * (float)time.getElapsedTime().getTotalSeconds());
 		}
 
 		@Override

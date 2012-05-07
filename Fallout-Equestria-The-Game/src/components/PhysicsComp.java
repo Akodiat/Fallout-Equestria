@@ -17,6 +17,7 @@ public class PhysicsComp implements IComponent{
 	
 	private Vector2 velocity;
 	private float torque;
+	private float heightVelocity;
 	
 	/**
 	 * @return the mass
@@ -86,5 +87,11 @@ public class PhysicsComp implements IComponent{
 	
 	public String toString(){
 		return "PhysicsComponent\nVelocity: "+this.velocity+"\nMass: "+this.mass;
+	}
+	public float getHeightVelocity() {
+		return heightVelocity;
+	}
+	public void setHeightVelocity(float heightVelocity) {
+		this.heightVelocity = heightVelocity;
 	}
 }
