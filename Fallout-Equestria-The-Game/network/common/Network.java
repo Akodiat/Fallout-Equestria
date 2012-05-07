@@ -1,7 +1,6 @@
 package common;
 
 import math.Vector2;
-import utils.Key;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
@@ -18,7 +17,6 @@ public class Network {
 	public static void registerClasses(EndPoint endPoint) {
 		Kryo kryo = endPoint.getKryo();
 	
-		kryo.register(Key.class);
 		kryo.register(Vector2.class);
 		kryo.register(IEntityArchetype.class);
 		

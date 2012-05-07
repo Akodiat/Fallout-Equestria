@@ -91,8 +91,7 @@ public final class RemoteServer_Stub
     }
     
     // implementation of getOtherPlayerArchetypes()
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-	public java.util.List getOtherPlayerArchetypes()
+    public java.util.List getOtherPlayerArchetypes()
 	throws java.rmi.RemoteException
     {
 	try {
@@ -108,8 +107,7 @@ public final class RemoteServer_Stub
     }
     
     // implementation of getPhysComps()
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public java.util.Map getPhysComps()
+    public java.util.Map getPhysComps()
 	throws java.rmi.RemoteException
     {
 	try {
@@ -125,8 +123,7 @@ public final class RemoteServer_Stub
     }
     
     // implementation of getTranspComps()
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-	public java.util.Map getTranspComps()
+    public java.util.Map getTranspComps()
 	throws java.rmi.RemoteException
     {
 	try {

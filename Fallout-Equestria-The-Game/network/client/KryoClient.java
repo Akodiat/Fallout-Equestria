@@ -11,6 +11,8 @@ import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.Clock;
 import utils.GameTime;
+import utils.Keyboard;
+import utils.Mouse;
 import utils.Rectangle;
 
 import com.esotericsoftware.kryonet.*;
@@ -21,6 +23,7 @@ import demos.WorldBuilder;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
+import gameMap.TexturedSceneNode;
 import graphics.*;
 
 /**
@@ -42,6 +45,9 @@ public class KryoClient {
 	private SpriteBatch spriteBatch;
 	private Clock clock;
 	private Scene scene;
+	
+	private Mouse mouse;
+	private Keyboard keyboard;
 	
 	private ContentManager contentManager;
 	private IEntityNetworkIDManager entityNetworkIDManager;
@@ -99,17 +105,19 @@ public class KryoClient {
 		contentManager = new ContentManager("resources");
 		entityNetworkIDManager = new EntityNetworkIDManager();
 		
-		scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
+		scene = contentManager.load("PerspectiveV1.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
+		mouse = new Mouse();
+		keyboard = new Keyboard();
 
 		String label = Utils.getPlayerLabel(this.client.getID());
 
 		SoundManager soundManager = new SoundManager(this.contentManager,1.0f,1.0f,1.0f);
 		
 
-		world = WorldBuilder.buildServerWorld(camera, scene, contentManager,soundManager, spriteBatch, true, label);
+		world = WorldBuilder.buildServerWorld(camera, scene, mouse, keyboard, contentManager,soundManager, spriteBatch, true, label);
 		world.initialize();
 
 		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
@@ -138,6 +146,9 @@ public class KryoClient {
 	}
 
 	public void update(GameTime time) {
+		this.mouse.poll(screenDim);
+		this.keyboard.poll();
+		
 		this.world.update(time);
 		this.world.getEntityManager().destoryKilledEntities();	
 	}
@@ -150,6 +161,23 @@ public class KryoClient {
 		this.world.render();
 		this.spriteBatch.end();
 
+	}
+	
+	private void addTexturedNodes() {
+		for (TexturedSceneNode tNode : this.scene.getTexturedNodes()) {
+			IEntity entity = this.world.getEntityManager().createEmptyEntity();
+			TransformationComp transComp = new TransformationComp();
+			transComp.setPosition(tNode.getPosition());
+			
+			RenderingComp renderComp = new RenderingComp();
+			renderComp.setTexture(tNode.getTexture());
+			
+			entity.addComponent(transComp);
+			entity.addComponent(renderComp);
+			entity.refresh();
+		}
+		
+		
 	}
 
 	private Listener generateNewListener(){

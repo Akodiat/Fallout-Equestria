@@ -13,7 +13,11 @@ import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.Clock;
 import utils.GameTime;
+import utils.Keyboard;
+import utils.Mouse;
 import utils.Rectangle;
+import animation.AnimationPlayer;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -24,10 +28,12 @@ import common.Network;
 import common.NewPlayerMessage;
 import common.PlayerCharacteristics;
 import common.Utils;
+import components.AnimationComp;
 import components.BehaviourComp;
 import components.InputComp;
 import components.PhysicsComp;
 import components.RenderingComp;
+import components.ShadowComp;
 import components.SpecialComp;
 import components.TransformationComp;
 import content.ContentManager;
@@ -37,6 +43,8 @@ import entityFramework.IEntityArchetype;
 import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
+import gameMap.SceneNode;
+import gameMap.TexturedSceneNode;
 import graphics.Color;
 import graphics.SpriteBatch;
 
@@ -47,7 +55,7 @@ import graphics.SpriteBatch;
  */
 public class KyroServer {
 	private final int fps;
-	private final String playerAsset = "Player.archetype";
+	private static final String playerAsset = "Player.archetype";
 	private Rectangle screenDim = new Rectangle(0,0,800,600);
 
 	private Server server;
@@ -59,6 +67,9 @@ public class KyroServer {
 	private SpriteBatch spriteBatch;
 	private Clock clock;
 	private Scene scene;
+	
+	private Mouse mouse;
+	private Keyboard keyboard;
 	
 	private ContentManager contentManager;
 
@@ -111,10 +122,12 @@ public class KyroServer {
 	protected void initialize() {
 		contentManager = new ContentManager("resources");
 
-		scene = contentManager.load("MaseScenev0.xml", Scene.class);  		//TODO Load scene from server?
+		scene = contentManager.load("PerspectiveV1.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
+		mouse = new Mouse();
+		keyboard = new Keyboard();
 		
 		addedPlayerMessages = new ArrayList<NewPlayerMessage>();
 		
@@ -123,23 +136,40 @@ public class KyroServer {
 		SoundManager soundManager = new SoundManager(this.contentManager,1.0f,1.0f,1.0f);
 		
 		
-		world = WorldBuilder.buildServerWorld(camera, scene, contentManager,soundManager, spriteBatch, true, label);
+		world = WorldBuilder.buildServerWorld(camera, scene, mouse, keyboard, contentManager,soundManager, spriteBatch, true, label);
 		world.initialize();
 
-		IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
-		this.player = world.getEntityManager().createEntity(archetype);
-
-		player.addComponent(new BehaviourComp(new PlayerScript()));
-		player.setLabel(label);
-		player.addToGroup(CameraControlSystem.GROUP_NAME);
-		player.refresh();
+		//ANIMATION UGLY SHIT
+				IEntityArchetype archetype = contentManager.loadArchetype(playerAsset);
+				IEntity entity = this.world.getEntityManager().createEntity(archetype);
+				entity.addComponent(new BehaviourComp(new PlayerScript()));
+				entity.addComponent(new ShadowComp());
+				entity.getComponent(TransformationComp.class).setPosition(1000,1000);
+				entity.getComponent(InputComp.class).setMouse(mouse);
+				entity.getComponent(InputComp.class).setKeyboard(keyboard);
+				
+				SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
+				entity.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
+				addTexturedNodes();
+				
+				
+				AnimationPlayer player = this.contentManager.loadAnimationSet("rdset.animset");
+				AnimationComp comp = new AnimationComp(player);
+				//comp.setTint(Color.Green);
+				
+				entity.removeComponent(RenderingComp.class);	
+				entity.addComponent(comp);
+		//END OF ANIMATION UGLY SHIT
+		
+		entity.addToGroup(CameraControlSystem.GROUP_NAME);
+		entity.refresh();
 		
 		NewPlayerMessage message = new NewPlayerMessage();
-		message.specialComp = player.getComponent(SpecialComp.class);
+		message.specialComp = entity.getComponent(SpecialComp.class);
 		message.playerCharacteristics = new PlayerCharacteristics();
 		
 		message.playerCharacteristics.name = "P"+(int)(Math.random()*21);
-		message.playerCharacteristics.color = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
+		message.playerCharacteristics.color = new Color(); //new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
 		message.playerCharacteristics.archetypePath = playerAsset;
 		
 		this.addedPlayerMessages.add(message);
@@ -149,6 +179,9 @@ public class KyroServer {
 	public void update(GameTime time) {
 		this.world.update(time);
 		this.world.getEntityManager().destoryKilledEntities();
+		
+		this.mouse.poll(screenDim);
+		this.keyboard.poll();
 		
 		for (IEntity entity: this.world.getDatabase().getEntitysContainingComponents(TransformationComp.class, PhysicsComp.class)) {
 			//if(!entity.getComponent(PhysicsComp.class).getVelocity().equals(Vector2.Zero)){
@@ -170,6 +203,23 @@ public class KyroServer {
 		this.world.render();
 		this.spriteBatch.end();
 
+	}
+	
+	private void addTexturedNodes() {
+		for (TexturedSceneNode tNode : this.scene.getTexturedNodes()) {
+			IEntity entity = this.world.getEntityManager().createEmptyEntity();
+			TransformationComp transComp = new TransformationComp();
+			transComp.setPosition(tNode.getPosition());
+			
+			RenderingComp renderComp = new RenderingComp();
+			renderComp.setTexture(tNode.getTexture());
+			
+			entity.addComponent(transComp);
+			entity.addComponent(renderComp);
+			entity.refresh();
+		}
+		
+		
 	}
 
 	private Listener generateNewListener(){

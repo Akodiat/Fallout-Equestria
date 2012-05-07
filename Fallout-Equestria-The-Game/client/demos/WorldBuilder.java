@@ -61,8 +61,7 @@ public class WorldBuilder {
 		IEntitySystemManager manager = world.getSystemManager();
 		
 
-		manager.addLogicEntitySystem(new ScriptSystem(world, contentManager,soundManager));
-		manager.addLogicEntitySystem(new ScriptCollisionSystem(world));
+		
 		
 		
 		//Logic systems!
@@ -75,6 +74,8 @@ public class WorldBuilder {
 		manager.addLogicEntitySystem(new TimerSystem(world));
 		manager.addLogicEntitySystem(new DeathSystem(world));
 		
+		manager.addLogicEntitySystem(new ScriptSystem(world, contentManager,soundManager));
+		manager.addLogicEntitySystem(new ScriptCollisionSystem(world));
 		
 		//Rendering systems!
 		manager.addRenderEntitySystem(new SceneRenderSystem(world, scene, spriteBatch, camera));

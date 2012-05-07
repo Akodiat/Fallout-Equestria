@@ -105,7 +105,7 @@ public class MazeDemo extends Demo {
 		keyboard = new Keyboard();
 		SoundManager soundManager = new SoundManager(this.ContentManager,0.1f,1.0f,1.0f);
 		
-		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene ,mouse, keyboard, this.ContentManager,soundManager, spriteBatch, false);
+		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, mouse, keyboard, this.ContentManager,soundManager, spriteBatch, false);
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT
