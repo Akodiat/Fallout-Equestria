@@ -93,6 +93,13 @@ public class KryoClient {
 	}
 
 	private void gameLoop() {
+//		if(!this.client.isConnected())
+//			try {
+//				this.client.reconnect();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		this.clock.update();
 		GameTime time = this.clock.getGameTime();
 		this.update(time);
@@ -115,7 +122,7 @@ public class KryoClient {
 		mouse = new Mouse();
 		keyboard = new Keyboard();
 
-		this.client = new Client();
+		this.client = new Client(1638400, 2048000);
 		this.client.start();
 		Network.registerClasses(this.client);
 

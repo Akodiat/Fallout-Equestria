@@ -74,7 +74,7 @@ public class KyroServer {
 	private ContentManager contentManager;
 
 	public KyroServer(Rectangle screenDim, int fps) throws IOException{
-		this.server = new Server();
+		this.server = new Server(32768000, 4096000);
 		this.server.start();
 		this.server.bind(54555, 54777);
 
