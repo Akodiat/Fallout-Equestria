@@ -13,7 +13,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class PhysicsComp implements IComponent{
 	
 	private @Editable boolean immovable;
+	private @Editable boolean affectedByGravity;
 	private @Editable float mass;
+	
 	
 	private Vector2 velocity;
 	private float torque;
@@ -34,19 +36,20 @@ public class PhysicsComp implements IComponent{
 
 	//TODO add constructor chaining 
 	public PhysicsComp(){
-		this(Vector2.Zero,1f,0,false);
+		this(Vector2.Zero);
 	}
 	public PhysicsComp(Vector2 velocity){
-		this(velocity,1f,0,false);
+		this(velocity,1f,0,false, true);
 	}	
 	private PhysicsComp(PhysicsComp other){
-		this(other.velocity, other.mass, other.torque, other.immovable);
+		this(other.velocity, other.mass, other.torque, other.immovable, other.affectedByGravity);
 	}
-	public PhysicsComp(Vector2 velocity, float mass, float torque, boolean immovable){
+	public PhysicsComp(Vector2 velocity, float mass, float torque, boolean immovable, boolean affectedByGravity){
 		this.velocity = velocity;
 		this.mass = mass;
 		this.immovable = false;
 		this.torque = torque;
+		this.affectedByGravity = true;
 	}
 	public void setAllFieldsToBeLike(PhysicsComp other){
 		this.velocity = other.velocity;
@@ -93,5 +96,12 @@ public class PhysicsComp implements IComponent{
 	}
 	public void setHeightVelocity(float heightVelocity) {
 		this.heightVelocity = heightVelocity;
+	}
+	public void setAffectedByGravity(boolean affectedByGravity) {
+		this.affectedByGravity = affectedByGravity;
+	}
+	
+	public boolean isAffectedByGravity() {
+		return this.affectedByGravity;
 	}
 }
