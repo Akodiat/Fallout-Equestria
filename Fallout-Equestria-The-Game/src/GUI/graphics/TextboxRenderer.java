@@ -11,19 +11,22 @@ import utils.GameTime;
 import utils.Rectangle;
 
 public class TextboxRenderer implements IGUIRenderer<Textfield>{
-	private static final String DEFAULT_BACKGROUND = LookAndFeelAssets.Button_BG.toString();
+	private static final String DEFAULT_BACKGROUND = LookAndFeelAssets.Textfield_BG.toString();
+	private static final String DEFAULT_FOCUS = LookAndFeelAssets.Textfield_Focus.toString();
 	private static final int borderSpacing = 10;
 	private static final int verticalBorderSpacing = 4;
 	
 	private final String backgroundKey;
+	private final String focusKey;
 	
 	public TextboxRenderer() {
-		this(DEFAULT_BACKGROUND);
+		this(DEFAULT_BACKGROUND, DEFAULT_FOCUS);
 	}
 	
 	
-	public TextboxRenderer(String backgroundKey) {
+	public TextboxRenderer(String backgroundKey, String focusKey) {
 		this.backgroundKey = backgroundKey;
+		this.focusKey = focusKey;
 	}
 
 	
@@ -35,29 +38,35 @@ public class TextboxRenderer implements IGUIRenderer<Textfield>{
 	@Override
 	public void render(SpriteBatch batch, GameTime time, Textfield control,LookAndFeel lookAndFeel, RenderTarget2D target) {
 		VisibleElement backgroundElement = lookAndFeel.getElement(backgroundKey);
+		VisibleElement focusElement = lookAndFeel.getElement(focusKey);
 		
 		String text = control.getText();
 		TextureFont font = control.getFont();
 		
-		batch.draw(backgroundElement.getTexture(), 
-				   control.getDimention(), 
-				   control.getBgColor(), 
-				   backgroundElement.getSrcRect());
 		
 		if(control.isFocused() && control.isEditable()) {
-			renderFocused(batch, control, text, font);	
+			renderFocused(batch, control, text, font, focusElement);	
 		} else {
-			renderNonFocused(batch, control,text, font);
+			renderNonFocused(batch, control,text, font,backgroundElement);
 		}
 	}
 
 	private void renderNonFocused(SpriteBatch batch, Textfield control, String text,
-			TextureFont font) {
+			TextureFont font, VisibleElement backgroundElement) {
+		batch.draw(backgroundElement.getTexture(), 
+				   control.getDimention(), 
+				   control.getBgColor(), 
+				   backgroundElement.getSrcRect());
 		batch.drawString(font, text, new Vector2(borderSpacing, 0), control.getFgColor());
 	}
 
 	private void renderFocused(SpriteBatch batch, Textfield control,
-			String text, TextureFont font) {
+			String text, TextureFont font, VisibleElement focusElement) {
+		
+		batch.draw(focusElement.getTexture(), 
+				   control.getDimention(), 
+				   control.getBgColor(), 
+				   focusElement.getSrcRect());
 		
 		Vector2 messure = font.meassureString(text);
 		if(messure.X > control.getDimention().Width - borderSpacing * 2) {

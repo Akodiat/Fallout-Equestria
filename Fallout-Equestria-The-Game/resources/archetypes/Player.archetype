@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <entityFramework.EntityArchetype>
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
@@ -69,4 +70,77 @@
       <string>Players</string>
     </elements>
   </groups>
+=======
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <components.SpecialComp>
+        <strength>5</strength>
+        <perception>5</perception>
+        <endurance>5</endurance>
+        <charisma>5</charisma>
+        <intelligence>5</intelligence>
+        <agility>5</agility>
+        <luck>5</luck>
+      </components.SpecialComp>
+      <Behaviour>
+        <behavior class="scripting.PlayerScript">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+        </behavior>
+      </Behaviour>
+      <Rendering>
+        <texture>
+          <Asset>HEJHEJ.png</Asset>
+        </texture>
+        <color>
+          <Color>1.0,1.0,1.0,1.0</Color>
+        </color>
+      </Rendering>
+      <Physics>
+        <immovable>false</immovable>
+        <mass>1.0</mass>
+        <velocity>0.0,0.0</velocity>
+        <torque>0.0</torque>
+      </Physics>
+      <Ability>
+        <maxAbilityPoints>100.0</maxAbilityPoints>
+        <regenerationSpeed>10.0</regenerationSpeed>
+        <abilityPoints>100.0</abilityPoints>
+      </Ability>
+      <Transformation>
+        <position reference="../../Physics/velocity"/>
+        <scale>1.0,1.0</scale>
+        <origin>46.0,44.0</origin>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+      </Transformation>
+      <Input>
+        <backButton>S</backButton>
+        <leftButton>A</leftButton>
+        <rightButton>D</rightButton>
+        <forwardButton>W</forwardButton>
+        <gallopButton>LeftShift</gallopButton>
+      </Input>
+      <Health>
+        <maxHealth>100.0</maxHealth>
+        <regenSpeed>13.0</regenSpeed>
+        <healthPoints>100.0</healthPoints>
+      </Health>
+      <Status/>
+      <Spatial>
+	  <bounds>
+		 <Max>60,15,10</Max>
+		 <Min>-60,-15,-10</Min>
+        </bounds>	
+        <trigger>false</trigger>
+      </Spatial>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.SingletonImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <string>Players</string>
+    </elements>
+  </groups>
+>>>>>>> Added 3D collisions
 </entityFramework.EntityArchetype>

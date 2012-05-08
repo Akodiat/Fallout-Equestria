@@ -30,10 +30,10 @@
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>
-      <Spatial>
-        <bounds>
-          <position reference="../../../Physics/velocity"/>
-          <radius>20.0</radius>
+      <Spatial>	 
+	   <bounds>
+		 <Max>70,10,70</Max>
+		 <Min>-70,-10,-70</Min>
         </bounds>
         <trigger>false</trigger>
       </Spatial>

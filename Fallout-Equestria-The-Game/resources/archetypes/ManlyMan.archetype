@@ -39,10 +39,10 @@
         <mirror>false</mirror>
       </Transformation>
       <Spatial>
-        <bounds>
-          <position reference="../../../Physics/velocity"/>
-          <radius>35.0</radius>
-        </bounds>
+	  <bounds>
+		 <Max>35,15,10</Max>
+		 <Min>-35,-15,-10</Min>
+        </bounds>	
         <trigger>true</trigger>
       </Spatial>
     </elements>

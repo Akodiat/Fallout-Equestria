@@ -1,6 +1,8 @@
 package entitySystems;
 
 import math.Vector2;
+import math.Vector3;
+import utils.BoundingBox;
 import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
@@ -45,11 +47,11 @@ public class CollisionSystem extends EntitySingleProcessingSystem{
 			TransformationComp otherTransComp = i.getComponent(TransformationComp.class);
 			PhysicsComp otherPhysComp = i.getComponent(PhysicsComp.class);
 			
-			if(!i.equals(entity) && Circle.intersects(
-					otherSpatComp.getBounds(),
-					otherTransComp.getPosition(),
-					spatComp.getBounds(),
-					transComp.getPosition())){
+			
+			Vector3 otherPos = new Vector3(otherTransComp.getPosition(), otherTransComp.getHeight());
+			Vector3 entityPos = new Vector3(otherTransComp.getPosition(), otherTransComp.getHeight());
+			
+			if(!i.equals(entity) && BoundingBox.intersects(otherSpatComp.getBounds(),otherPos,spatComp.getBounds(),otherPos)){
 				collide(transComp, physComp, spatComp, otherSpatComp,
 						otherTransComp, otherPhysComp);
 			}
@@ -75,7 +77,7 @@ public class CollisionSystem extends EntitySingleProcessingSystem{
 		float m1 = physComp.getMass();
 		float m2 = otherPhysComp.getMass();
 		float M = m1 + m2;
-		Vector2 mT = Vector2.mul((spatComp.getBounds().getRadius() + otherSpatComp.getBounds().getRadius() - distance), Dn);
+		Vector2 mT = Vector2.mul((spatComp.getBounds().getCenter().length() + otherSpatComp.getBounds().getCenter().length() - distance), Dn);
 
 		transComp.setPosition(Vector2.add(transComp.getPosition(), Vector2.mul(m2/M, mT)));
 		otherTransComp.setPosition(Vector2.subtract(otherTransComp.getPosition(), Vector2.mul(m1/M, mT)));

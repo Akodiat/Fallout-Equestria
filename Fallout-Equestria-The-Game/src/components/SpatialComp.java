@@ -1,6 +1,7 @@
 package components;
 
-import utils.Circle;
+import math.Vector3;
+import utils.BoundingBox;
 import entityFramework.IComponent;
 import anotations.Editable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -15,22 +16,16 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @Editable
 public class SpatialComp implements IComponent {
 
-	@Editable
-	private Circle bounds;
+	private BoundingBox bounds;
 	
 	@Editable
 	private boolean trigger;
 	
 	public SpatialComp() {
-		this(Circle.Empty, false);
-	}
-
-	public SpatialComp(float radius) {
-		this(new Circle(radius), false);
+		this(new BoundingBox(Vector3.Zero, Vector3.Zero), false);
 	}
 	
-	
-	public SpatialComp(Circle bounds, boolean isTrigger) {
+	public SpatialComp(BoundingBox bounds, boolean isTrigger) {
 		this.bounds = bounds;
 		this.setTrigger(isTrigger);
 	}
@@ -43,11 +38,11 @@ public class SpatialComp implements IComponent {
 		return new SpatialComp(this);
 	}
 
-	public Circle getBounds() {
+	public BoundingBox getBounds() {
 		return bounds;
 	}
 
-	public void setBounds(Circle bounds) {
+	public void setBounds(BoundingBox bounds) {
 		this.bounds = bounds;
 	}
 	

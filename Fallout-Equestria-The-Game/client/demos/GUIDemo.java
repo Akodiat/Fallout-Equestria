@@ -94,7 +94,7 @@ public class GUIDemo extends Demo {
 		
 
 		final Textfield field = new Textfield();
-		field.setBounds(new Rectangle(200,225,250,23));
+		field.setBounds(new Rectangle(200,225,250,25));
 		field.setText("Testing...");
 		field.setFont(ContentManager.loadFont("Andale Mono20.xml"));
 		field.setFgColor(Color.Goldenrod);

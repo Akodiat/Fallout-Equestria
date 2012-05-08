@@ -1,5 +1,6 @@
 package debugsystems;
 
+import utils.Rectangle;
 import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
@@ -49,11 +50,35 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 
 			// Rectangle source = new
 			// Rectangle((int)attaCom.getBounds().getPosition().X,(int)attaCom.getBounds().getPosition().Y,(int)attaCom.getBounds().getRadius()*2,(int)attaCom.getBounds().getRadius()*2);
-			float radius = spatiCom.getBounds().getRadius();
-			float scale = radius / 50f;
-			graphics.draw(circleTexture, transCom.getPosition(), new Color(Color.Green, 0.3f), null, new Vector2(50,50), scale, 0, false);
+		
+			int x = (int) transCom.getPosition().X;
+			int y = (int)(transCom.getPosition().Y - transCom.getHeight());
+			int w = (int)(spatiCom.getBounds().Max.X - spatiCom.getBounds().Min.X);
+			int h = (int)(spatiCom.getBounds().Max.Y - spatiCom.getBounds().Min.Y);
+			
+			System.out.println(w + " " + h);
+			
+			
+			Color c = getHeightColor(transCom.getHeight());
+			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(Color.Green, 0.3f), null);
+			
+			h = (int)(spatiCom.getBounds().Max.Z - spatiCom.getBounds().Min.Z);
 
+			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(c, 0.3f), null);
 		}
+	}
+
+	private Color getHeightColor(float height) {
+		if(height > 250f) {
+			return Color.Blue;
+		} else if(height > 150f) {
+			return Color.Yellow;	
+		} else if(height > 50f){
+			return Color.Red;
+		} else {
+			return Color.Green;
+		}
+		
 	}
 
 }

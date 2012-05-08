@@ -12,6 +12,7 @@ import com.thoughtworks.xstream.XStream;
 import content.serilazation.ColorConverter;
 import content.serilazation.ContentConverter;
 import content.serilazation.Vector2Converter;
+import content.serilazation.Vector3Converter;
 import entityFramework.IEntityArchetype;
 
 public class EntityArchetypeLoader extends ContentLoader<IEntityArchetype>{
@@ -30,6 +31,7 @@ public class EntityArchetypeLoader extends ContentLoader<IEntityArchetype>{
 
 		xstream.registerConverter(new ContentConverter(contentManager));
 		xstream.registerConverter(new Vector2Converter());
+		xstream.registerConverter(new Vector3Converter());
 		xstream.registerConverter(new ColorConverter());
 		xstream.alias("Set", ImmutableSet.class);
 		

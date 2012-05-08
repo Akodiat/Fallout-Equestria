@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import math.Vector2;
+import math.Vector3;
 import scripting.Behavior;
+import utils.BoundingBox;
 import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
@@ -66,8 +68,8 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 				TransformationComp t1= tCM.getComponent(e1);
 				SpatialComp s1 = sCM.getComponent(e1);
 						
-				boolean collisionResult = testCollision(t0.getPosition(), s0.getBounds(),
-														t1.getPosition(), s1.getBounds());
+				boolean collisionResult = testCollision(t0.getPosition(), t0.getHeight(), s0.getBounds(),
+														t1.getPosition(),t1.getHeight(), s1.getBounds());
 				boolean alreadyColiding = getCollisionStatus(e0,e1);
 				boolean triggerCollision = s0.isTrigger() || s1.isTrigger();
 				
@@ -101,6 +103,17 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 						
 	}
 	
+	private boolean testCollision(Vector2 position, float height,
+			BoundingBox bounds, Vector2 position2, float height2,
+			BoundingBox bounds2) {
+		
+		return BoundingBox.intersects(bounds, new Vector3(position.X, position.Y, height), 
+								      bounds2, new Vector3(position2.X, position2.Y, height2));
+		
+		
+	}
+
+
 	private void enterTrigger(IEntity e0, IEntity e1) {
 		Behavior s0 = this.getScript(e0);
 		if(s0 != null) {

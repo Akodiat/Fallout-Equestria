@@ -25,7 +25,7 @@ import utils.Rectangle;
 
 public class MazeDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";
-	private static Rectangle screenDim 		= new Rectangle(0,0,1920,1020);
+	private static Rectangle screenDim 		= new Rectangle(0,0,1366,768);
 
 	private IEntityWorld gameWorld;
 	private Camera2D camera;
@@ -54,13 +54,15 @@ public class MazeDemo extends Demo {
 		if(Math.random() < 0.5f) {
 			IEntityDatabase database  = this.gameWorld.getDatabase();
 			if(database.getEntityCount() < 850) {
-				spawnManlyMan();
+				IEntity man = spawnManlyMan();
+				if(Math.random() < 0.1) {
+					man.getComponent(TransformationComp.class).setHeight(100);
+				}
 			}
 		}
-
 	}
 
-	private void spawnManlyMan() {
+	private IEntity spawnManlyMan() {
 
 		IEntityManager manager = this.gameWorld.getEntityManager();
 		
@@ -78,13 +80,14 @@ public class MazeDemo extends Demo {
 		
 		IEntity manEntity = manager.createEntity(ContentManager.loadArchetype("ManlyMan.archetype"));
 		manEntity.addComponent(manAniCom);
+		manEntity.addComponent(new ShadowComp());
 
 		manEntity.getComponent(TransformationComp.class).setRotation((float)(MathHelper.Tau * Math.random()));
 		manEntity.refresh();
 		//ENDMAN
 		
 		placeAtRandomPosition(manEntity);
-		
+		return manEntity;
 		
 	}
 
@@ -105,7 +108,11 @@ public class MazeDemo extends Demo {
 		keyboard = new Keyboard();
 		SoundManager soundManager = new SoundManager(this.ContentManager,0.1f,1.0f,1.0f);
 		
+<<<<<<< HEAD
 		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, mouse, keyboard, this.ContentManager,soundManager, spriteBatch, false);
+=======
+		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene ,mouse, keyboard, this.ContentManager,soundManager, spriteBatch, true);
+>>>>>>> Added 3D collisions
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT
@@ -114,11 +121,7 @@ public class MazeDemo extends Demo {
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
-		
-		SceneNode playerPosNode = scene.getNodeByID("PlayerSpawnPosition");
-		entity.getComponent(TransformationComp.class).setPosition(playerPosNode.getPosition());
-		addTexturedNodes();
-		
+	
 		
 		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
 		AnimationComp comp = new AnimationComp(player);
