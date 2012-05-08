@@ -11,6 +11,10 @@ public class MouseState {
 	public final ButtonState RightButtonState;
 	public final ButtonState MiddleButtonState;
 	
+	public MouseState(){ //Default constructor required for network
+		this(new Vector2(), new Vector2(), 0, ButtonState.Depressed, ButtonState.Depressed, ButtonState.Depressed);
+	}
+	
 	public MouseState(Vector2 viewCoords,
 			Vector2 viewDelta, int delthaScroll, ButtonState leftButtonState,
 			ButtonState rightButtonState, ButtonState middleButtonState) {

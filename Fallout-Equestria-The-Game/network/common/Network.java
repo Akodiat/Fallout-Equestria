@@ -36,5 +36,12 @@ public class Network {
 		kryo.register(PlayerCharacteristics.class);
 		kryo.register(Color.class);
 		kryo.register(ChatMessage.class);
+		kryo.register(utils.Keys.class);
+		kryo.register(utils.Keyboard.class);
+		kryo.register(utils.ButtonState.class);
+
+		kryo.register(utils.Mouse.class);
+		kryo.register(utils.MouseState.class);
+		kryo.register(java.util.ArrayList.class);
 	}
 }
