@@ -5,9 +5,11 @@ import graphics.Color;
 import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
 import screenCore.GOLScreen;
+import screenCore.HostScreen;
 import screenCore.MultiplayerScreen;
 import screenCore.PausScreen;
 import screenCore.ScreenManager;
+import screenCore.ServerScreen;
 import screenCore.Test2GUIScreen;
 import screenCore.TestGUIScreen;
 import utils.GameTime;
@@ -63,6 +65,8 @@ public class ScreenDemo extends Demo{
 		PausScreen screen4 = new PausScreen("gui.tdict");
 		GOLScreen screen5 = new GOLScreen();
 		MultiplayerScreen screen6 = new MultiplayerScreen("gui.tdict");
+		HostScreen screen7 = new HostScreen("gui.tdict");
+		ServerScreen screen8 = new ServerScreen("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
@@ -70,6 +74,8 @@ public class ScreenDemo extends Demo{
 		this.screenManager.registerScreen("PauseScreen", screen4);
 		this.screenManager.registerScreen("GOLScreen", screen5);
 		this.screenManager.registerScreen("Multiplayer", screen6);
+		this.screenManager.registerScreen("Host", screen7);
+		this.screenManager.registerScreen("Server", screen8);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

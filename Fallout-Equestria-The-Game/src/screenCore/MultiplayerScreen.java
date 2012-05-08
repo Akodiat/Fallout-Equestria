@@ -11,6 +11,7 @@ import math.Vector2;
 import misc.EventArgs;
 import misc.IEventListener;
 import GUI.controls.Button;
+import GUI.controls.Label;
 import GUI.controls.ListBox;
 import content.ContentManager;
 import utils.Rectangle;
@@ -22,6 +23,7 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 	private Client client;
 	private ListBox<String> serverListBox;
 	private List<InetAddress> addresses;
+	private Label infoLabel;
 
 	public MultiplayerScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -59,6 +61,10 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 		backBtn.setBounds(x,340,200,50);
 		backBtn.setText("Back");
 		this.addGuiControl(backBtn, new Vector2(vp.Width + 200,340), new Vector2(x,340),new Vector2(-200,340));
+		
+		this.infoLabel = new Label();
+		infoLabel.setBounds(100, 450, 400, 30);
+		this.addGuiControl(infoLabel, new Vector2(100,1366), new Vector2(100, 450), new Vector2(100,1366));
 
 		connectBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
@@ -73,13 +79,13 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 		
 		refreshBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-				loader.initialize(client);		
+				onTransitionFinished();		
 			}
 		});
 		
 		hostBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-				System.out.println("HOST");			
+				gotoHostScreen();		
 			}
 		});
 		
@@ -98,13 +104,20 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 		if(loader.getAddresses().size() > 0) {
 			for(int i = 0; i < loader.getAddresses().size(); i++) {
 				serverListBox.addItem(loader.getAddresses().get(i).getHostName());
+				infoLabel.setFgColor(Color.Green);
+				infoLabel.setText(loader.getAddresses().size() + " servers online.");
 			}
 		} else {
-			serverListBox.addItem("No servers online");
+			infoLabel.setText("No servers online.");
+			infoLabel.setFgColor(Color.Red);
 		}
 	}
 	
 	protected void gotoTest2() {
 		this.exitScreen();
+	}
+	
+	protected void gotoHostScreen() {
+		this.ScreenManager.addScreen("Host");
 	}
 }

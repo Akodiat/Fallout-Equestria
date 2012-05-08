@@ -1,6 +1,10 @@
 package common;
 
 import math.Vector2;
+<<<<<<< HEAD
+=======
+import utils.Keys;
+>>>>>>> Moar GUI
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
@@ -17,6 +21,10 @@ public class Network {
 	public static void registerClasses(EndPoint endPoint) {
 		Kryo kryo = endPoint.getKryo();
 	
+<<<<<<< HEAD
+=======
+		kryo.register(Keys.class);
+>>>>>>> Moar GUI
 		kryo.register(Vector2.class);
 		kryo.register(IEntityArchetype.class);
 		
