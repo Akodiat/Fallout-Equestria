@@ -68,9 +68,9 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 
 		connectBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-				String selected = serverListBox.getSelectedItem();
+				int selected = serverListBox.getSelecteItemIndex();
 				try {
-					client.connect(5000, addresses.get(serverListBox.indexOf(selected)), 54555, 54777);
+					client.connect(5000, addresses.get(selected), 54555, 54777);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -101,11 +101,13 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 		this.client = new Client();
 		this.loader = new ServerLoader(client);
 		
+		this.addresses = loader.getAddresses();
+		
 		if(loader.getAddresses().size() > 0) {
-			for(int i = 0; i < loader.getAddresses().size(); i++) {
-				serverListBox.addItem(loader.getAddresses().get(i).getHostName());
+			for(int i = 0; i < this.addresses.size(); i++) {
+				serverListBox.addItem("        " + loader.getAddresses().get(i).getHostName());
 				infoLabel.setFgColor(Color.Green);
-				infoLabel.setText(loader.getAddresses().size() + " servers online.");
+				infoLabel.setText(loader.getAddresses().size() + " server(s) online.");
 			}
 		} else {
 			infoLabel.setText("No servers online.");

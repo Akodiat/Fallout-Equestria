@@ -1,5 +1,7 @@
 package screenCore;
 
+import java.io.IOException;
+
 import graphics.Color;
 import math.Vector2;
 import misc.EventArgs;
@@ -8,6 +10,7 @@ import GUI.controls.Button;
 import GUI.controls.Label;
 import GUI.controls.Textfield;
 import content.ContentManager;
+import server.KyroServer;
 import utils.Rectangle;
 import utils.ServerInfo;
 import utils.TimeSpan;
@@ -46,7 +49,7 @@ public class HostScreen extends TransitioningGUIScreen{
 				if(textField.getText().length() == 0 || textField.getText().matches("Enter server name...")) {
 					
 				} else {
-					gotoServerScreen();
+					startServer();
 					serverInfo = new ServerInfo(textField.getText());
 				}
 			}
@@ -63,7 +66,13 @@ public class HostScreen extends TransitioningGUIScreen{
 		this.exitScreen();
 	}
 	
-	protected void gotoServerScreen() {
-		this.ScreenManager.addScreen("Server");
+	public void startServer() {
+		KyroServer server;
+		
+		try {
+			server = new KyroServer(new Rectangle(0,0,800,600), 60);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
