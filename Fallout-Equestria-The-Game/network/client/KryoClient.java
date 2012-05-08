@@ -221,7 +221,8 @@ public class KryoClient {
 		synchronized(lock){
 			for (EntityMovedMessage message : movementsToImplement) {
 				IEntity entity = entityNetworkIDManager.getEntityFromNetworkID(message.entityID);
-				if(entity != null){
+				if(entity 
+						!= null){
 					entity.getComponent(TransformationComp.class).setAllFieldsToBeLike(message.newTransfComp);
 					entity.getComponent(PhysicsComp.class).setAllFieldsToBeLike(message.newPhysComp);
 
@@ -248,7 +249,7 @@ public class KryoClient {
 				else if (object instanceof EntityNetworkIDsetMessage){
 					EntityNetworkIDsetMessage message = (EntityNetworkIDsetMessage) object;
 					entityNetworkIDManager.setNetworkIDToEntity(world.getEntityManager().getEntity(message.localClientID), message.networkID);
-
+					
 				}
 				else if (object instanceof EntityMovedMessage){
 					EntityMovedMessage message = (EntityMovedMessage) object;
