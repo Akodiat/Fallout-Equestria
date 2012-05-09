@@ -53,9 +53,9 @@ public class MazeDemo extends Demo {
 		
 		if(Math.random() < 0.5f) {
 			IEntityDatabase database  = this.gameWorld.getDatabase();
-			if(database.getEntityCount() < 850) {
+			if(database.getEntityCount() < 150) {
 				IEntity man = spawnManlyMan();
-				if(Math.random() < 0.1) {
+				if(Math.random() < 0.1f) {
 					man.getComponent(TransformationComp.class).setHeight(100);
 				}
 			}
@@ -101,27 +101,24 @@ public class MazeDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		scene = ContentManager.load("PerspectiveV1.xml", Scene.class);
+		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 		mouse = new Mouse();
 		keyboard = new Keyboard();
 		SoundManager soundManager = new SoundManager(this.ContentManager,0.1f,1.0f,1.0f);
 		
-<<<<<<< HEAD
-		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, mouse, keyboard, this.ContentManager,soundManager, spriteBatch, false);
-=======
 		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene ,mouse, keyboard, this.ContentManager,soundManager, spriteBatch, true);
->>>>>>> Added 3D collisions
+
 		gameWorld.initialize();
+		addTexturedNodes();
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());
-		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
-	
+		entity.getComponent(TransformationComp.class).setPosition(1000,1000);	
 		
 		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
 		AnimationComp comp = new AnimationComp(player);
@@ -131,7 +128,6 @@ public class MazeDemo extends Demo {
 		entity.addComponent(comp);
 		//END OF ANIMATION UGLY SHIT
 		
-
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
 
@@ -145,6 +141,7 @@ public class MazeDemo extends Demo {
 			
 			RenderingComp renderComp = new RenderingComp();
 			renderComp.setTexture(tNode.getTexture());
+			renderComp.setSource(tNode.getSrcRectangle());
 			
 			entity.addComponent(transComp);
 			entity.addComponent(renderComp);

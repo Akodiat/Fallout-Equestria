@@ -34,14 +34,14 @@
       <Transformation>
         <position reference="../../Physics/velocity"/>
         <scale>0.1,0.1</scale>
-        <origin reference="../../Physics/velocity"/>
+        <origin>20.0,30.0</origin>
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>
       <Spatial>
 	  <bounds>
-		 <Max>35,15,10</Max>
-		 <Min>-35,-15,-10</Min>
+		 <Max>35,15,40</Max>
+		 <Min>-35,-15,-40</Min>
         </bounds>	
         <trigger>true</trigger>
       </Spatial>

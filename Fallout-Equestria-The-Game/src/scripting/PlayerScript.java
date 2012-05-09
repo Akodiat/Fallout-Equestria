@@ -11,6 +11,7 @@ import components.InputComp;
 import components.PhysicsComp;
 import components.SpecialComp;
 import components.TransformationComp;
+import entityFramework.IEntity;
 
 import utils.GameTime;
 import utils.Keyboard;
@@ -54,7 +55,6 @@ public class PlayerScript extends Behavior{
 		this.bulletAbility.initialize(EntityManager, this.Entity);
 	}
 	
-
 	@Override
 	public void update(GameTime time) {
 		inpComp  = Entity.getComponent(InputComp.class);
@@ -69,6 +69,11 @@ public class PlayerScript extends Behavior{
 		
 		this.activeState.update(time);
 		
+	}
+	
+	@Override
+	public void onGroundCollision() {
+		this.activeState.onGroundCollision();
 	}
 	
 	private Vector2 updateVelo() {
@@ -96,7 +101,6 @@ public class PlayerScript extends Behavior{
 		}
 		
 
-
 		if(velocity.length()!=0)
 			velocity=Vector2.norm(velocity);
 
@@ -105,7 +109,13 @@ public class PlayerScript extends Behavior{
 		
 		return velocity;
 	}
-
+	
+	@Override
+	public void onTriggerEnter(IEntity entity)
+	{
+		this.activeState.onTriggerEnter();
+	}
+	
 	@Override
 	public Object clone() {
 		return new PlayerScript();
@@ -113,6 +123,14 @@ public class PlayerScript extends Behavior{
 	
 	private abstract class PlayerState {
 		public abstract void enter();
+		public void onTriggerEnter() {
+			// TODO Auto-generated method stub
+			
+		}
+		public void onGroundCollision() {
+			// TODO Auto-generated method stub
+			
+		}
 		public abstract void update(GameTime time);
 		public abstract void exit();
 	}
@@ -120,7 +138,7 @@ public class PlayerScript extends Behavior{
 	private class IdleState extends PlayerState {
 		@Override
 		public void enter() {
-			animComp.changeAnimation("idle");
+			animComp.changeAnimation("idle", false );
 		}
 
 		@Override
@@ -153,7 +171,7 @@ public class PlayerScript extends Behavior{
 
 		@Override
 		public void enter() {
-			animComp.changeAnimation("walk");			
+			animComp.changeAnimation("walk", false);	
 		}
 
 		@Override
@@ -172,6 +190,7 @@ public class PlayerScript extends Behavior{
 			}
 			
 		}
+		
 		@Override
 		public void exit() {
 			// TODO Auto-generated method stub
@@ -182,29 +201,35 @@ public class PlayerScript extends Behavior{
 	private class JumpState extends PlayerState {
 		@Override
 		public void enter() {
-			animComp.changeAnimation("jump");
+			animComp.changeAnimation("jump", false);
 		}
 
 		@Override
 		public void update(GameTime time) {
-			Vector2 velo = updateVelo();
-			if(posComp.getHeight() <= 0) {
-				posComp.setHeight(0);
-				physComp.setHeightVelocity(0);
-				if(velo.equals(Vector2.Zero)) {
-					activeState = new IdleState();
-					activeState.enter();
-				} else {
-					activeState = new WalkState();
-					activeState.enter();
-				}
-				return;
-			}
-
-			physComp.setHeightVelocity( physComp.getHeightVelocity() - 
-										gravity * (float)time.getElapsedTime().getTotalSeconds());
+			updateVelo();
 		}
 
+		@Override
+		public void onGroundCollision() {
+			if(physComp.getVelocity().equals(Vector2.Zero)) {
+				activeState = new IdleState();
+				activeState.enter();
+			} else {
+				activeState = new WalkState();
+				activeState.enter();
+			}
+		}
+		
+		@Override
+		public void onTriggerEnter() {
+			if(physComp.getHeightVelocity() < 0) {
+				SoundManager.playSoundEffect("effects/boing.ogg");
+
+				animComp.changeAnimation("jump", true);
+				physComp.setHeightVelocity(600.0f);
+			}
+		}
+		
 		@Override
 		public void exit() {
 			// TODO Auto-generated method stub

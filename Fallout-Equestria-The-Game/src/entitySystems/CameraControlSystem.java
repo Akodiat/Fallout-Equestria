@@ -33,7 +33,7 @@ public class CameraControlSystem extends GroupedEntitySystem{
 		for (IEntity entity : entities) {
 			TransformationComp transformation = this.transCM.getComponent(entity);
 			x -= transformation.getPosition().X;
-			y -= transformation.getPosition().Y;
+			y -= transformation.getPosition().Y - transformation.getHeight();
 		}
 		
 		x /= entities.size();

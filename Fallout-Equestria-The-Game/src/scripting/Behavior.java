@@ -73,6 +73,7 @@ public abstract class Behavior implements KeyframeTriggerListener{
 	public void onTriggerOver(IEntity entity){}
 	public void onTriggerEnter(IEntity entity){}
 	public void onTriggerExit(IEntity entity){}
+	public void onGroundCollision() { }
 	
 	public void onEnable(){}
 	public void onDisable(){}
@@ -83,4 +84,5 @@ public abstract class Behavior implements KeyframeTriggerListener{
 	}
 	
 	public void onKeyframeTrigger(Object sender, KeyframeTriggerEventArgs e){}
+
 }

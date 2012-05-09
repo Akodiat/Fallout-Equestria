@@ -3,6 +3,7 @@ package gameMap;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.HeightMap;
 import utils.Rectangle;
 
 import com.google.common.collect.ImmutableList;
@@ -14,13 +15,15 @@ public class Scene {
 	private final ImmutableList<SceneNode> nodes;
 	private final Rectangle bounds;
 	private final int blockSize;
+	private final HeightMap heightMap;
 	
-	public Scene(List<TileLayer> tileLayers, List<CollisionLayer> collisionLayers, List<SceneNode> nodes, Rectangle bounds, int blockSize) {
+	public Scene(List<TileLayer> tileLayers, List<CollisionLayer> collisionLayers, List<SceneNode> nodes, Rectangle bounds, int blockSize, HeightMap heightMap) {
 		this.tileLayers = ImmutableList.copyOf(tileLayers);
 		this.collisionLayers = ImmutableList.copyOf(collisionLayers);	
 		this.nodes 			 = ImmutableList.copyOf(nodes);
 		this.bounds = bounds;
 		this.blockSize = blockSize;
+		this.heightMap = heightMap;
 	}
 	
 	/**Gets a sorted list of tile layers, sorted by depth.
@@ -80,5 +83,9 @@ public class Scene {
 						     r.Y	  * blockSize,
 						     r.Width  * blockSize,
 						     r.Height * blockSize);
+	}
+
+	public HeightMap getHeightMap() {
+		return heightMap;
 	}
 }

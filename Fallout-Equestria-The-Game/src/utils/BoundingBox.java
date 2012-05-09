@@ -37,6 +37,16 @@ public class BoundingBox {
 	}
 	
 	
+	public float getWidth() {
+		return this.Max.X - this.Min.X;
+	}
+	public float getHeight() {
+		return this.Max.Y - this.Min.Y;
+	}
+	public float getDepth() {
+		return this.Max.Z - this.Min.Z;
+	}
+	
 	public static boolean intersects(BoundingBox first, Vector3 firstOffset, BoundingBox second, Vector3 secondOffset) {
 		BoundingBox box0 = new BoundingBox(Vector3.add(first.Min, firstOffset),Vector3.add(first.Max, firstOffset));
 		BoundingBox box1 = new BoundingBox(Vector3.add(second.Min, secondOffset),Vector3.add(second.Max, secondOffset));

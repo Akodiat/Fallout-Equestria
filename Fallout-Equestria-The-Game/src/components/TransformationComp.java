@@ -68,6 +68,18 @@ public class TransformationComp implements IComponent {
 		this.position = new Vector2(x,y);
 	}
 	
+	public Vector2 getOriginPosition() {
+		return Vector2.subtract(this.position, this.origin);
+	}
+	
+	/**The actual position of the object with height and normal position.
+	 * 
+	 * @return
+	 */
+	public Vector2 getWorldPosition() {
+		return new Vector2(this.position.X, this.position.Y - this.height);
+	}
+	
 	public Vector2 getScale() {
 		return scale;
 	}
@@ -118,5 +130,8 @@ public class TransformationComp implements IComponent {
 	}
 	public void setHeight(float height) {
 		this.height = height;
+	}
+	public void setOriginPosition(Vector2 position) {
+		this.position = Vector2.add(position, this.origin);
 	}
 }

@@ -19,6 +19,8 @@ public class HeightSystemSystem extends EntitySingleProcessingSystem{
 
 	@Override
 	protected void processEntity(IEntity entity) {
+				
+		
 	}
 
 }

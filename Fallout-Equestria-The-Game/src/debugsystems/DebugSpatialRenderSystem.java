@@ -51,34 +51,26 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 			// Rectangle source = new
 			// Rectangle((int)attaCom.getBounds().getPosition().X,(int)attaCom.getBounds().getPosition().Y,(int)attaCom.getBounds().getRadius()*2,(int)attaCom.getBounds().getRadius()*2);
 		
-			int x = (int) transCom.getPosition().X;
-			int y = (int)(transCom.getPosition().Y - transCom.getHeight());
+			int x = (int) transCom.getOriginPosition().X;
+			int y = (int)(transCom.getOriginPosition().Y - transCom.getHeight());
 			int w = (int)(spatiCom.getBounds().Max.X - spatiCom.getBounds().Min.X);
 			int h = (int)(spatiCom.getBounds().Max.Y - spatiCom.getBounds().Min.Y);
-			
-			System.out.println(w + " " + h);
-			
-			
-			Color c = getHeightColor(transCom.getHeight());
-			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(Color.Green, 0.3f), null);
+				
+			Color c = getHeightColor(y);
+			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(c, 0.3f), null);
 			
 			h = (int)(spatiCom.getBounds().Max.Z - spatiCom.getBounds().Min.Z);
 
-			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(c, 0.3f), null);
+			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(Color.Green, 0.3f), null);
 		}
 	}
 
 	private Color getHeightColor(float height) {
-		if(height > 250f) {
-			return Color.Blue;
-		} else if(height > 150f) {
-			return Color.Yellow;	
-		} else if(height > 50f){
-			return Color.Red;
-		} else {
-			return Color.Green;
-		}
+		float max = 2000;
 		
+		float lerpVal = height / max;
+		
+		return Color.lerp(Color.Red, Color.Blue, lerpVal);
 	}
 
 }

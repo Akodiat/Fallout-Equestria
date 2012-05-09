@@ -70,9 +70,14 @@ public class ManlyManScript extends Behavior {
 			explode();
 		}
 	}
+	
+	@Override
+	public void onGroundCollision() {
+		this.physComp.setHeightVelocity(500);
+	}
 
 	private void explode() {
-		animComp.changeAnimation(explodeAnimationName);
+		animComp.changeAnimation(explodeAnimationName, false);
 		
 		//Remove our behavior making us just sit on the screen.
 		this.Entity.removeComponent(PhysicsComp.class);

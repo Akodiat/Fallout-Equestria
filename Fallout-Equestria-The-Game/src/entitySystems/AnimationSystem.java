@@ -64,8 +64,12 @@ public class AnimationSystem extends EntityProcessingSystem {
 			bone.setRotation(positionC.getRotation());
 		}
 				
+		Vector2 position = positionC.getWorldPosition();
+		position = new Vector2(position.X - positionC.getOrigin().X, position.Y - positionC.getOrigin().Y);
+		
+		
 		animationC.getAnimationPlayer().update(delta);
-		animationC.getAnimationPlayer().draw(batch, new Vector2(positionC.getPosition().X, positionC.getPosition().Y - positionC.getHeight()), positionC.getMirror(), 
+		animationC.getAnimationPlayer().draw(batch, position, positionC.getMirror(), 
 				0, animationC.getTint(), positionC.getScale());
 	}
 	
@@ -89,6 +93,9 @@ public class AnimationSystem extends EntityProcessingSystem {
 		for (IEntity entity : sortedEntities) {
 			this.processEntity(entity);
 		}
+		
+		
+		
 	}
 	
 	private boolean isVisible(IEntity entity, Rectangle visibleArea) {
@@ -97,8 +104,7 @@ public class AnimationSystem extends EntityProcessingSystem {
 		
 		//Here animation.getBounds should be.
 		//Below is temporary hack until getBounds is implemented. 
-		Vector2 pos = transComp.getPosition();
-		
+		Vector2 pos = new Vector2(transComp.getPosition().X, transComp.getPosition().Y - transComp.getHeight());
 		Rectangle rect = new Rectangle((int)pos.X , (int)pos.Y , 1, 1);
 		return visibleArea.intersects(rect);
 		

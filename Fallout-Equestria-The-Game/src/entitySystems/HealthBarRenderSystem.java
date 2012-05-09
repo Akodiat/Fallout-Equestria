@@ -47,9 +47,9 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 
 			Rectangle healthBar = new Rectangle(
 					(int) (-healthC.getHealthPoints() / 2 + positionC
-							.getPosition().X),
-					(int) (-10 - positionC.getOrigin().Y
-							* positionC.getScale().Y + positionC.getPosition().Y - positionC.getHeight()),
+							.getOriginPosition().X),
+					(int) (- positionC.getOrigin().Y * 2  
+							* positionC.getScale().Y + positionC.getOriginPosition().Y - positionC.getHeight()),
 					(int) healthC.getHealthPoints(), 10);
 			
 			Rectangle border = new Rectangle(healthBar.X - 1, healthBar.Y - 1,

@@ -21,6 +21,8 @@ import gameMap.Scene;
 
 public class MapCollisionSystem extends EntityProcessingSystem {
 
+	private static final int shadowOffset = 10;
+	
 	private Scene scene;
 
 	public MapCollisionSystem(IEntityWorld world, Scene scene) {
@@ -58,8 +60,9 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 		CollisionLayer colLayer = this.scene.getCollisionLayers().get(0);
 		if(colLayer != null && !spatiCom.isTrigger()) {
 			boolean[][] grid = colLayer.getCollisionGrid();
-			Vector2 topLeft = new Vector2(posiCom.getPosition().X - spatiCom.getBounds().getCenter().length(),
-										  posiCom.getPosition().Y - spatiCom.getBounds().getCenter().length());
+			Vector2 entityPos = posiCom.getOriginPosition();
+			Vector2 topLeft = new Vector2(entityPos.X - spatiCom.getBounds().getWidth() / 2,
+										  entityPos.Y - spatiCom.getBounds().getDepth() / 2);
 			
 			Point2 topLeftIndex = getTopLeftIndex(topLeft, grid);
 			Point2 bottomRight = new Point2(MathHelper.clamp(0, grid[0].length -1, topLeftIndex.X + 1),
@@ -83,60 +86,73 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 		int blockSize = this.scene.getBlockSize();
 		
 		Rectangle gridRect = new Rectangle((column) * blockSize, 
-										   (row) * blockSize, 
+										   (row)    * blockSize, 
 										   blockSize, 
 										   blockSize);
 		
-		int r = (int)spatiCom.getBounds().getCenter().length();
-		int x = (int)posiCom.getPosition().X;
-		int y = (int)posiCom.getPosition().Y;
+		Rectangle entityBounds = createEntityRect(posiCom, spatiCom);
 		
-		Rectangle playerBounds = new Rectangle(x -r, y- r, r*2, r*2);
-				
-		if (playerBounds.intersects(gridRect)) {
-			
-			float time = (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();
-			
+		if (entityBounds.intersects(gridRect)) {
+			float time = (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();		
 			Vector2 invVelo = Vector2.mul(-1 * time, physComp.getVelocity());		
 			posiCom.setPosition(Vector2.add(invVelo, posiCom.getPosition()));
 			return true;
 		}
+		
+		
 		return false;
 		
+	}
+	
+	
+	private Rectangle createEntityRect(TransformationComp posiCom,
+			SpatialComp spatiCom) {
+		Vector2 originPos = posiCom.getOriginPosition();
+		
+		int w = (int)spatiCom.getBounds().getWidth();
+		int h = (int)spatiCom.getBounds().getDepth();
+		int x = (int)(originPos.X - w / 2);
+		int y = (int)(originPos.Y  + h / 2 -scene.getHeightMap().getHeightAt(posiCom.getPosition()) - shadowOffset);
+	    h = shadowOffset;
+		
+		return new Rectangle(x,y,w,h);
 	}
 
 	private Point2 getTopLeftIndex(Vector2 topLeft, boolean[][] grid) {
 		int x, y;
 		x = clamp(0, grid[0].length - 1,(int)(topLeft.X / scene.getBlockSize()));
-		y =  clamp(0, grid.length - 1,(int)(topLeft.Y / scene.getBlockSize()));
+		y =  clamp(0, grid.length - 1,(int)((topLeft.Y - scene.getHeightMap().getHeightAt(topLeft)) / scene.getBlockSize()));
 		return new Point2(x,y);
 	}
 
 	private void keepInsideScene(TransformationComp posiCom,
 			SpatialComp spatiCom) {
+		
+		Rectangle entityBounds = createEntityRect(posiCom, spatiCom);
 		Rectangle worldBounds = this.scene.getWorldBounds();
 		//Check collision against west border
 		int left = worldBounds.getLeft();
-		if (posiCom.getPosition().X - spatiCom.getBounds().getCenter().length() < left ){
-			posiCom.setPosition(new Vector2(spatiCom.getBounds().getCenter().length() + left ,posiCom.getPosition().Y ));
+		if (entityBounds.getLeft() < left ){
+			posiCom.setOriginPosition(new Vector2(left + entityBounds.Width / 2, posiCom.getOriginPosition().Y));
 		}
 		
 		//Check collision against North border
 		int top = worldBounds.getTop();
-		if (posiCom.getPosition().Y - spatiCom.getBounds().getCenter().length() < top){
-			posiCom.setPosition(new Vector2(posiCom.getPosition().X,spatiCom.getBounds().getCenter().length() + top));
+		if (entityBounds.getTop() < top){
+			posiCom.setOriginPosition(new Vector2(posiCom.getOriginPosition().X,top - (spatiCom.getBounds().getDepth() - shadowOffset) / 2));
 		}
 		
 		//Check collision against east border
 		int right = worldBounds.getRight();
-		if (posiCom.getPosition().X + spatiCom.getBounds().getCenter().length() > right){
-			posiCom.setPosition(new Vector2(right - spatiCom.getBounds().getCenter().length(), posiCom.getPosition().Y));
+		if (entityBounds.getRight() > right){
+			posiCom.setOriginPosition(new Vector2(right - entityBounds.Width / 2, posiCom.getOriginPosition().Y));
+			
 		}
 		
 		//Check collision against south border
-		int bottom = worldBounds.getBottom();
-		if (posiCom.getPosition().Y + spatiCom.getBounds().getCenter().length() > bottom){
-			posiCom.setPosition(new Vector2(posiCom.getPosition().X,bottom - spatiCom.getBounds().getCenter().length()));
+		int bottom = (int) (worldBounds.getBottom() - scene.getHeightMap().getHeightAt(entityBounds.getCenter()));
+		if (entityBounds.getBottom() > bottom){
+			posiCom.setOriginPosition(new Vector2(posiCom.getOriginPosition().X, worldBounds.getBottom() - spatiCom.getBounds().getDepth() / 2));
 		}
 	}
 

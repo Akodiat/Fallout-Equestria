@@ -7,7 +7,6 @@ import math.Vector2;
 import math.Vector3;
 import scripting.Behavior;
 import utils.BoundingBox;
-import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -68,8 +67,8 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 				TransformationComp t1= tCM.getComponent(e1);
 				SpatialComp s1 = sCM.getComponent(e1);
 						
-				boolean collisionResult = testCollision(t0.getPosition(), t0.getHeight(), s0.getBounds(),
-														t1.getPosition(),t1.getHeight(), s1.getBounds());
+				boolean collisionResult = testCollision(t0.getOriginPosition(), t0.getHeight(), s0.getBounds(),
+														t1.getOriginPosition(),t1.getHeight(), s1.getBounds());
 				boolean alreadyColiding = getCollisionStatus(e0,e1);
 				boolean triggerCollision = s0.isTrigger() || s1.isTrigger();
 				
@@ -217,10 +216,5 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 		return null;
 	}
 	
-	private boolean testCollision(Vector2 p0, Circle c0,
-								  Vector2 p1, Circle c1) {
-		return Circle.intersects(c0, p0, c1, p1);		
-		
-	}
 
 }

@@ -22,6 +22,8 @@ import math.Vector2;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+
+import utils.HeightMap;
 import utils.Rectangle;
 import graphics.Texture2D;
 
@@ -64,12 +66,34 @@ public class SceneLoader extends ContentLoader<Scene>{
 		Map<String, Texture2D> usedTextures  = extractTextures(rootNode);
 		List<TileLayer> tileLayers		     = extractSortedTileLayers(rootNode, gridBounds, usedTextures);
 		List<CollisionLayer> collisionLayers = extractCollisionLayers(rootNode, gridBounds);
-		List<SceneNode> nodes   		 = extractNodes(rootNode);
+		List<SceneNode> nodes   			 = extractNodes(rootNode);
+		HeightMap heightMap 				 = extractHeightMap(rootNode);
 
 
 		
-		return new Scene(tileLayers, collisionLayers, nodes, gridBounds, blockSize);
+		return new Scene(tileLayers, collisionLayers, nodes, gridBounds, blockSize, heightMap);
 	}
+
+	private HeightMap extractHeightMap(Element rootNode) {
+		Element heightMapElem = rootNode.getChild("HeightMap");
+		
+		@SuppressWarnings("unchecked")
+		List<Element> pointElements = heightMapElem.getChildren("Point");	
+		List<Vector2> points = new ArrayList<>();
+		for (Element element : pointElements) {
+			Vector2 point = extractPoint(element);
+			points.add(point);
+		}
+		
+		return new HeightMap(points, 0f);
+	}
+
+
+	private Vector2 extractPoint(Element element) {
+		String[] point = split(element.getAttributeValue("Value"), primarySeparator);
+		return extractVector2(point);
+	}
+
 
 	private List<SceneNode> extractNodes(Element rootNode) {
 		Element nodesElement = rootNode.getChild("Nodes");
@@ -116,6 +140,11 @@ public class SceneLoader extends ContentLoader<Scene>{
 
 	private Vector2 extractPosition(Element nodeElement) {
 		String[] pos = split(nodeElement.getAttributeValue("Position"), primarySeparator);
+		return extractVector2(pos);
+	}
+
+
+	private Vector2 extractVector2(String[] pos) {
 		NumberFormat format = NumberFormat.getInstance();
 		//Float.parseString cannot parse european float values. So using the numberformater instead.
 		Number nX;

@@ -2,11 +2,10 @@ package components;
 
 import animation.AnimationPlayer;
 import anotations.Editable;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 import entityFramework.IComponent;
 import graphics.Color;
+
 
 @XStreamAlias("Animation") @Editable
 public class AnimationComp implements IComponent {
@@ -50,11 +49,9 @@ public class AnimationComp implements IComponent {
 		this.animationPlayer = animationPlayer;
 	}
 	
-	public void changeAnimation(String animationName) {
-		
-		if(this.animationPlayer.getCurrentAnimation() == null ||
-		  !this.animationPlayer.getCurrentAnimation().equals(animationName)) {
-			this.animationPlayer.startAnimation(animationName);
+	public void changeAnimation(String animationName, boolean restartIfSame) {
+		if(animationName != null) {
+			this.animationPlayer.startAnimation(animationName,restartIfSame);
 		}
 	}
 
@@ -65,4 +62,5 @@ public class AnimationComp implements IComponent {
 	public void setTint(Color tint) {
 		this.tint = tint;
 	}
+
 }

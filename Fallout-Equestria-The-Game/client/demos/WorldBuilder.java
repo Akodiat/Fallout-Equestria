@@ -28,7 +28,7 @@ public class WorldBuilder {
 		manager.addLogicEntitySystem(new RegenSystem(world, 1f));
 		manager.addLogicEntitySystem(new CameraControlSystem(world, camera));
 		manager.addLogicEntitySystem(new InputSystem(world, mouse, keyboard));
-		manager.addLogicEntitySystem(new PhysicsSystem(world));
+		manager.addLogicEntitySystem(new PhysicsSystem(world, scene.getHeightMap()));
 		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));
 		manager.addLogicEntitySystem(new TimerSystem(world));
 		manager.addLogicEntitySystem(new AbilitySystem(world));
@@ -37,7 +37,7 @@ public class WorldBuilder {
 		
 		//Rendering systems!
 		manager.addRenderEntitySystem(new SceneRenderSystem(world, scene, spriteBatch, camera));
-		manager.addRenderEntitySystem(new ShadowRenderingSystem(world, contentManager, spriteBatch));
+		manager.addRenderEntitySystem(new ShadowRenderingSystem(world, contentManager, spriteBatch, scene.getHeightMap()));
 		manager.addRenderEntitySystem(new RenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
@@ -68,7 +68,7 @@ public class WorldBuilder {
 		manager.addLogicEntitySystem(new RegenSystem(world, 1f));
 		manager.addLogicEntitySystem(new CameraControlSystem(world, camera));
 		manager.addLogicEntitySystem(new ServerInputSystem(world,mouse, keyboard, label));
-		manager.addLogicEntitySystem(new PhysicsSystem(world));
+		manager.addLogicEntitySystem(new PhysicsSystem(world, scene.getHeightMap()));
 		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));
 		manager.addLogicEntitySystem(new CollisionSystem(world));
 		manager.addLogicEntitySystem(new TimerSystem(world));
@@ -79,7 +79,7 @@ public class WorldBuilder {
 		
 		//Rendering systems!
 		manager.addRenderEntitySystem(new SceneRenderSystem(world, scene, spriteBatch, camera));
-		manager.addRenderEntitySystem(new ShadowRenderingSystem(world, contentManager, spriteBatch));
+		manager.addRenderEntitySystem(new ShadowRenderingSystem(world, contentManager, spriteBatch, scene.getHeightMap()));
 		manager.addRenderEntitySystem(new RenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
