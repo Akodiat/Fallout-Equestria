@@ -25,8 +25,11 @@ public class Keyboard {
 			}
 		}	
 		
+		this.downKeys.clear();
+		this.upKeys.clear();
+		
 		for (Keys key : Keys.values()) {
-			if(this.isKeyDown(key)) {
+			if(this.isLwgjlKeyDown(key.getLwjglKeyCode())) {
 				this.downKeys.add(key);
 			} else {
 				this.upKeys.add(key);
@@ -34,9 +37,12 @@ public class Keyboard {
 		}
 	}
 
+	private boolean isLwgjlKeyDown(int lwgjlCode) {
+		return org.lwjgl.input.Keyboard.isKeyDown(lwgjlCode);
+	}
 	
 	public boolean isKeyDown(Keys key) {
-		return org.lwjgl.input.Keyboard.isKeyDown(key.getLwjglKeyCode());
+		return this.downKeys.contains(key);
 	}
 	
 	public boolean isKeyUp(Keys key) {

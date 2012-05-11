@@ -44,6 +44,13 @@ public interface IEntityManager {
 	 */
 	public IEntity getEntity(String entityLabel);
 	
+	
+	/**Gets the factory able to create entities.
+	 * 
+	 * @return a entityFactory
+	 */
+	public IEntityFactory getFactory();
+	
 	/**Gets a group of entities.
 	 * 
 	 * @param groupID the groupID of the entities.

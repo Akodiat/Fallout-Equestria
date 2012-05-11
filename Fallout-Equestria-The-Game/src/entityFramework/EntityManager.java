@@ -54,6 +54,11 @@ public class EntityManager implements IEntityManager{
 		IEntity entity = factory.createEntity(components, this, database);
 		return entity;
 	}
+	
+	@Override
+	public IEntityFactory getFactory() {
+		return this.factory;
+	}
 
 	@Override
 	public IEntity getEntity(int entityID) {

@@ -59,6 +59,7 @@ public class TransformationComp implements IComponent {
 		this.rotation = other.rotation;
 		this.origin = other.origin;
 		this.mirror = other.mirror;
+		this.height = other.height;
 	}
 	public void setPosition(Vector2 position) {
 		this.position = position;

@@ -44,9 +44,15 @@ public abstract class Demo {
 				e.printStackTrace();
 			} finally {
 				Display.destroy();
+				end();
 			}
 	}
 	
+	protected void end() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void gameLoop() {
 		this.clock.update();
 		GameTime time = this.clock.getGameTime();

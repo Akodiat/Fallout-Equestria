@@ -16,14 +16,6 @@
           <enabled>false</enabled>
         </behavior>
       </Behaviour>
-      <Rendering>
-        <texture>
-          <Asset>HEJHEJ.png</Asset>
-        </texture>
-        <color>
-          <Color>1.0,1.0,1.0,1.0</Color>
-        </color>
-      </Rendering>
       <Physics>
         <immovable>false</immovable>
         <mass>1.0</mass>

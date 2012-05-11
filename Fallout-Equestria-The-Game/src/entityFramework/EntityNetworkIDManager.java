@@ -1,5 +1,8 @@
 package entityFramework;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.BiMap;
 
@@ -38,4 +41,8 @@ public class EntityNetworkIDManager implements IEntityNetworkIDManager{
 		this.entityMap.inverse().remove(entity);
 	}
 
-}
+	public List<IEntity> getEntities() {
+		return new ArrayList<>(entityMap.values());
+	}
+	
+}	

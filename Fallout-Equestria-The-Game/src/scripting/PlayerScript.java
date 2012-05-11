@@ -60,7 +60,6 @@ public class PlayerScript extends Behavior{
 		inpComp  = Entity.getComponent(InputComp.class);
 		Mouse mouse = inpComp.getMouse();
 		
-	
 		if(mouse.wasButtonPressed(MouseButton.Left)){
 			this.apComp.startAbility(bulletAbility);			
 		} else if(inpComp.getMouse().wasButtonReleased(MouseButton.Left)){

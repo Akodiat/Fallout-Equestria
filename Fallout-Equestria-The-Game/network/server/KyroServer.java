@@ -122,7 +122,7 @@ public class KyroServer {
 	protected void initialize() {
 		contentManager = new ContentManager("resources");
 
-		scene = contentManager.load("PerspectiveV1.xml", Scene.class);  		//TODO Load scene from server?
+		scene = contentManager.load("PerspectiveV5.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
@@ -238,6 +238,7 @@ public class KyroServer {
 						System.out.println(message);
 						connection.sendTCP(message);
 					}
+					
 					EntityNetworkIDsetMessage iDMessage = new EntityNetworkIDsetMessage();
 					iDMessage.localClientID = player.getUniqueID();
 					iDMessage.networkID = player.getUniqueID();
@@ -264,7 +265,7 @@ public class KyroServer {
 					
 					AnimationPlayer animPlayer = contentManager.loadAnimationSet("rdset.animset");
 					AnimationComp comp = new AnimationComp(animPlayer);
-					//comp.setTint(Color.Green);
+					comp.setTint(Color.Green);
 					
 					player.removeComponent(RenderingComp.class);	
 					player.addComponent(comp);

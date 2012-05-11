@@ -115,7 +115,7 @@ public class KryoClient {
 		entityNetworkIDManager = new EntityNetworkIDManager();
 		movementsToImplement = new ArrayList<EntityMovedMessage>();
 
-		scene = contentManager.load("PerspectiveV1.xml", Scene.class);  		//TODO Load scene from server?
+		scene = contentManager.load("PerspectiveV5.xml", Scene.class);  		//TODO Load scene from server?
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		clock = new Clock();
 		spriteBatch = new SpriteBatch(screenDim);
@@ -228,6 +228,7 @@ public class KryoClient {
 		synchronized(lock){
 			for (EntityMovedMessage message : movementsToImplement) {
 				IEntity entity = entityNetworkIDManager.getEntityFromNetworkID(message.entityID);
+				System.out.println(entity);
 				if(entity 
 						!= null){
 					entity.getComponent(TransformationComp.class).setAllFieldsToBeLike(message.newTransfComp);
@@ -245,25 +246,28 @@ public class KryoClient {
 			public void received (Connection connection, Object object) {
 				if (object instanceof NewPlayerMessage){
 					NewPlayerMessage message = (NewPlayerMessage) object;
-
+	
+					
 					IEntity player = world.getEntityManager().createEntity(
 							new EntityArchetypeProxy(contentManager.loadArchetype(
 									message.playerCharacteristics.archetypePath)));
-					player.setLabel(Utils.getPlayerLabel(connection.getID()));
+
+					player.setLabel(Utils.getPlayerLabel(message.networkID));
+					System.out.println(world.getEntityManager().getEntity(Utils.getPlayerLabel(message.networkID)));
+					System.out.println(player);
+					
 					player.getComponent(RenderingComp.class).setColor(message.playerCharacteristics.color);
 					player.refresh();
 				}
 				else if (object instanceof EntityNetworkIDsetMessage){
 					EntityNetworkIDsetMessage message = (EntityNetworkIDsetMessage) object;
-					entityNetworkIDManager.setNetworkIDToEntity(world.getEntityManager().getEntity(message.localClientID), message.networkID);
-					
+					entityNetworkIDManager.setNetworkIDToEntity(world.getEntityManager().getEntity(message.localClientID), message.networkID);				
 				}
 				else if (object instanceof EntityMovedMessage){
 					EntityMovedMessage message = (EntityMovedMessage) object;
-
 					synchronized(lock){
 						movementsToImplement.add(message);
-					}	
+					}
 				}
 			};
 		};

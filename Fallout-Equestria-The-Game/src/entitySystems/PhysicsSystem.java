@@ -79,7 +79,7 @@ public class PhysicsSystem extends EntityProcessingSystem {
 	
 	private void hitGround(IEntity entity) {
 		BehaviourComp comp = entity.getComponent(BehaviourComp.class);
-		if(comp.isInitialized()) {
+		if(comp != null && comp.isInitialized()) {
 			comp.getBehavior().onGroundCollision();
 		}
 	}

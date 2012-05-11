@@ -92,7 +92,6 @@ public class AnimationLoader extends ContentLoader<Animation>{
 		int i = boundsID.lastIndexOf('\\');
 		  if(i != -1) {
 		   boundsID = boundsID.substring(i + 1);
-		   System.out.println(boundsID);
 		  }
 				
 				

@@ -9,7 +9,7 @@ import components.InputComp;
 import entityFramework.IEntityArchetype;
 import graphics.Color;
 /**
- * 
+ * s 
  * @author Joakim Johansson
  *
  */
@@ -30,16 +30,19 @@ public class Network {
 		kryo.register(components.BehaviourComp.class);
 		kryo.register(components.SpecialComp.class);
 		kryo.register(components.SpatialComp.class);
+		kryo.register(InputMessage.class);
 		
 		kryo.register(NewPlayerMessage.class);
 		kryo.register(EntityNetworkIDsetMessage.class);
 		kryo.register(EntityMovedMessage.class);
+		kryo.register(EntityCreatedMessage.class);
+		kryo.register(EntityDestroyedMessage.class);
 		kryo.register(PlayerCharacteristics.class);
 		kryo.register(Color.class);
 		kryo.register(ChatMessage.class);
 		kryo.register(utils.Keyboard.class);
 		kryo.register(utils.ButtonState.class);
-
+		kryo.register(utils.KeyboardKey.class);
 		kryo.register(utils.Mouse.class);
 		kryo.register(utils.MouseState.class);
 		kryo.register(java.util.ArrayList.class);
