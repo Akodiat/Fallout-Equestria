@@ -29,7 +29,7 @@ public class WorldBuilder {
 		//Logic systems!
 		manager.addLogicEntitySystem(new RegenSystem(world, 1f));
 		manager.addLogicEntitySystem(new CameraControlSystem(world, camera));
-		manager.addLogicEntitySystem(new ServerInputSystem(world, mouse, keyboard, label));
+		manager.addLogicEntitySystem(new InputSystem(world, mouse, keyboard));
 		manager.addLogicEntitySystem(new PhysicsSystem(world, scene.getHeightMap()));
 		manager.addLogicEntitySystem(new MapCollisionSystem(world, scene));
 		manager.addLogicEntitySystem(new TimerSystem(world));

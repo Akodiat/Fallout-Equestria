@@ -78,11 +78,10 @@ public class ClientTest extends Demo {
 	@Override
 	public void update(GameTime time) {
 		synchronized (lock) {
-			
-			//System.out.println(this.messages.size());
 			for (Object value : this.messages) {
 				if(value instanceof NewPlayerMessage) {
 					NewPlayerMessage message = (NewPlayerMessage)value;
+					System.out.println(message.networkID);
 					createNewPlayer(message);				
 				} else if(value instanceof EntityMovedMessage) {
 					EntityMovedMessage message = (EntityMovedMessage)value;
@@ -112,13 +111,15 @@ public class ClientTest extends Demo {
 		IEntityArchetype archetype = this.ContentManager.loadArchetype(message.entityArchetypePath);
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(message.transComp);
+		System.out.println(message.networkID);
+		
 		idManager.setNetworkIDToEntity(entity, message.networkID);
 	}
 	
 	private void removeEntity(EntityDestroyedMessage message) {
 		IEntity entity = idManager.getEntityFromNetworkID(message.entityUniqueID);
-		entity.kill();
 		idManager.removeNetworkIDEntity(entity);
+		entity.kill();
 	}
 
 	private void moveEntity(EntityMovedMessage message) {
@@ -172,7 +173,6 @@ public class ClientTest extends Demo {
 		NewPlayerMessage message = new NewPlayerMessage();
 		message.networkID = this.networkID;	
 		message.senderID = this.networkID;
-		System.out.println("mw" + this.networkID);
 		
 		this.client.sendTCP(message);		
 		
@@ -202,12 +202,15 @@ public class ClientTest extends Demo {
 		player.startAnimation("idle");
 		AnimationComp comp = new AnimationComp(player);
 		comp.setTint(Color.Green);
-				
+		
+		System.out.println("Hello friend! " + message.networkID);
 		
 		entity.addComponent(comp);
 		entity.setLabel("Player" + message.senderID);
 		if(message.senderID == this.networkID)
 			entity.addToGroup(CameraControlSystem.GROUP_NAME);
+		
+		
 		entity.refresh();		
 		
 		this.idManager.setNetworkIDToEntity(entity, message.networkID);
@@ -235,15 +238,9 @@ public class ClientTest extends Demo {
 			@Override
 			public void received(Connection connection, Object value) {
 				synchronized (lock) {
-					if(value instanceof Vector2) {
-		
-					} else if(value instanceof EntityNetworkIDsetMessage) {
+					if(value instanceof EntityNetworkIDsetMessage) {
 						EntityNetworkIDsetMessage message = (EntityNetworkIDsetMessage)value;
 						networkID = message.networkID;		
-					} else if(value instanceof NewPlayerMessage) {
-						NewPlayerMessage message = (NewPlayerMessage)value;
-						System.out.println(message.networkID);
-						messages.add(message);					
 					} else {
 						messages.add(value);
 					}
@@ -253,8 +250,7 @@ public class ClientTest extends Demo {
 			@Override
 			public void disconnected(Connection connection) {
 				System.out.println("Disconnected!");
-			}
-			
+			}		
 		};
 	}
 

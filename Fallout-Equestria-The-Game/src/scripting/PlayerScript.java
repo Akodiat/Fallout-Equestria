@@ -13,6 +13,8 @@ import components.SpecialComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
 
+import state.State;
+import state.StateMachine;
 import utils.GameTime;
 import utils.Keyboard;
 import utils.Keys;
@@ -25,6 +27,10 @@ import utils.MouseButton;
  */
 @Editable
 public class PlayerScript extends Behavior{
+	private static final String IDLE_STATE = "IDLE_STATE";
+	private static final String WALK_STATE = "WALK_STATE";
+	private static final String JUMP_STATE = "JUMP_STATE";
+	private static final float JUMP_VELO = 600f;
 	
 	PhysicsComp	  	        physComp;
 	InputComp 		  	     inpComp;
@@ -36,8 +42,12 @@ public class PlayerScript extends Behavior{
 	
 	
 	private BulletAbility bulletAbility;
-	private PlayerState activeState;
 	private float gravity = 1200.0f;
+	
+	@Override
+	public Object clone() {
+		return new PlayerScript();
+	}
 	
 	@Override
 	public void start() {
@@ -48,9 +58,13 @@ public class PlayerScript extends Behavior{
 		apComp      = Entity.getComponent(AbilityComp.class);
 		animComp    = Entity.getComponent(AnimationComp.class);
 		
-		this.activeState = new IdleState();
-		this.activeState.enter();
+				
+		this.StateMachine.registerState(IDLE_STATE, new IdleState());
+		this.StateMachine.registerState(WALK_STATE, new WalkState());
+		this.StateMachine.registerState(JUMP_STATE, new JumpState());
+		this.StateMachine.changeState(IDLE_STATE);
 		
+		this.animComp.changeAnimation("idle", false);
 		this.bulletAbility = new MachineBullet(this.ContentManager.loadArchetype("Bullet.archetype"), 500, new Vector2(160, -20), 0.3f);
 		this.bulletAbility.initialize(EntityManager, this.Entity);
 	}
@@ -64,18 +78,15 @@ public class PlayerScript extends Behavior{
 			this.apComp.startAbility(bulletAbility);			
 		} else if(inpComp.getMouse().wasButtonReleased(MouseButton.Left)){
 			this.apComp.stopAbility(bulletAbility);
-		}
+		}	
 		
-		this.activeState.update(time);
-		
+
+		updateVelo();
+		super.update(time);
 	}
 	
-	@Override
-	public void onGroundCollision() {
-		this.activeState.onGroundCollision();
-	}
 	
-	private Vector2 updateVelo() {
+	private void updateVelo() {
 		Keyboard keyboard = inputComp.getKeyboard();
 
 		int speedFactor = 200;
@@ -98,43 +109,22 @@ public class PlayerScript extends Behavior{
 			velocity=Vector2.add(velocity, new Vector2(1,0));
 			posComp.setMirror(true);
 		}
-		
 
 		if(velocity.length()!=0)
 			velocity=Vector2.norm(velocity);
 
 		velocity = Vector2.mul(speedFactor, velocity);
 		physComp.setVelocity(velocity);
+	}
+	
+	private void jump() {
+		this.physComp.setHeightVelocity(JUMP_VELO);
+		this.StateMachine.changeState(JUMP_STATE);
+	}
+	
 		
-		return velocity;
-	}
 	
-	@Override
-	public void onTriggerEnter(IEntity entity)
-	{
-		this.activeState.onTriggerEnter();
-	}
-	
-	@Override
-	public Object clone() {
-		return new PlayerScript();
-	}
-	
-	private abstract class PlayerState {
-		public abstract void enter();
-		public void onTriggerEnter() {
-			// TODO Auto-generated method stub
-			
-		}
-		public void onGroundCollision() {
-			// TODO Auto-generated method stub
-			
-		}
-		public abstract void update(GameTime time);
-		public abstract void exit();
-	}
-	
-	private class IdleState extends PlayerState {
+	private class IdleState extends BehaviourState {
 		@Override
 		public void enter() {
 			animComp.changeAnimation("idle", false );
@@ -142,32 +132,20 @@ public class PlayerScript extends Behavior{
 
 		@Override
 		public void update(GameTime time) {
-			Vector2 velocity = updateVelo();
+			Vector2 velocity = physComp.getVelocity();
 			
 			if(!velocity.equals(Vector2.Zero)) {
-				activeState = new WalkState();
-				activeState.enter();
-			} 
-			
+				StateMachine.changeState(WALK_STATE);
+			} 	
 			Keyboard keyboard = inputComp.getKeyboard();
 			if(keyboard.wasKeyPressed(Keys.Space)) {
-				physComp.setHeightVelocity(600.0f);
-				activeState = new JumpState();
-				activeState.enter();
-			}
-			
-			
+				jump();
+			}		
 		}
 
-		@Override
-		public void exit() {
-			// TODO Auto-generated method stub
-			
-		}	
 	}
 	
-	private class WalkState extends PlayerState {
-
+	private class WalkState extends BehaviourState {
 		@Override
 		public void enter() {
 			animComp.changeAnimation("walk", false);	
@@ -175,66 +153,40 @@ public class PlayerScript extends Behavior{
 
 		@Override
 		public void update(GameTime time) {
-			Vector2 velocity = updateVelo();
+			Vector2 velocity = physComp.getVelocity();
 			if(velocity.equals(Vector2.Zero)) {
-				activeState = new IdleState();
-				activeState.enter();
-			}
-			
+				StateMachine.changeState(IDLE_STATE);
+			}		
 			Keyboard keyboard = inputComp.getKeyboard();
 			if(keyboard.wasKeyPressed(Keys.Space)) {
-				physComp.setHeightVelocity(600.0f);
-				activeState = new JumpState();
-				activeState.enter();
+				jump();
 			}
-			
-		}
-		
-		@Override
-		public void exit() {
-			// TODO Auto-generated method stub
-			
 		}
 	}
 	
-	private class JumpState extends PlayerState {
+	private class JumpState extends BehaviourState {
 		@Override
 		public void enter() {
 			animComp.changeAnimation("jump", false);
 		}
 
 		@Override
-		public void update(GameTime time) {
-			updateVelo();
-		}
-
-		@Override
 		public void onGroundCollision() {
 			if(physComp.getVelocity().equals(Vector2.Zero)) {
-				activeState = new IdleState();
-				activeState.enter();
+				StateMachine.changeState(IDLE_STATE);
 			} else {
-				activeState = new WalkState();
-				activeState.enter();
+				StateMachine.changeState(WALK_STATE);
 			}
 		}
 		
 		@Override
-		public void onTriggerEnter() {
+		public void onTriggerEnter(IEntity other) {
 			if(physComp.getHeightVelocity() < 0) {
 				SoundManager.playSoundEffect("effects/boing.ogg");
-
 				animComp.changeAnimation("jump", true);
 				physComp.setHeightVelocity(600.0f);
 			}
 		}
-		
-		@Override
-		public void exit() {
-			// TODO Auto-generated method stub
-			
-		}
-		
 	}
 
 }

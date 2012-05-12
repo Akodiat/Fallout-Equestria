@@ -157,6 +157,7 @@ public class ServerTest extends Demo {
 			public void entityDestroyed(IEntity entity) {
 				sendRemoveEntity(entity);
 				newEntityMessages.remove(entity);
+				playerMessages.remove(entity);
 			}
 		});
 		
@@ -183,11 +184,16 @@ public class ServerTest extends Demo {
 	}
 
 	protected void sendEntity(EntityEventArgs entity) {
+		EntityCreatedMessage message = createNewEntityMessage(entity);
+		this.server.sendToAllTCP(message);
+	}
+
+	private EntityCreatedMessage createNewEntityMessage(EntityEventArgs entity) {
 		EntityCreatedMessage message = new EntityCreatedMessage();
 		message.networkID = entity.getEntity().getUniqueID();
 		message.entityArchetypePath = entity.getEntityArchetype();
 		message.transComp = entity.getEntity().getComponent(TransformationComp.class);
-		this.server.sendToAllTCP(message);
+		return message;
 	}
 	
 	protected void sendPlayer(NewPlayerMessage message, Connection connection) {
@@ -196,6 +202,20 @@ public class ServerTest extends Demo {
 	
 	protected void sendNewPlayer(NewPlayerMessage message) {
 		this.server.sendToAllTCP(message);
+	}
+	
+
+	protected void sendAllEntities(Connection connection) {
+		for (EntityEventArgs entityArgs : this.newEntityMessages.values()) {
+			EntityCreatedMessage message = this.createNewEntityMessage(entityArgs);
+			connection.sendTCP(message);
+		}
+	}
+
+	protected void sendAllPlayers(Connection connection) {
+		for (NewPlayerMessage player : this.playerMessages.values()) {
+			connection.sendTCP(player);
+		}
 	}
 	
 	protected boolean containsNetworkedComponents(IEntity entity) {
@@ -247,10 +267,11 @@ public class ServerTest extends Demo {
 		entity.addComponent(comp);
 		entity.setLabel("Player" + message.networkID);
 		
-		System.out.println(message.networkID);
+		System.out.println("Player created" + message.networkID);
 		
 		if(entity.getUniqueID() == 0)
 			entity.addToGroup(CameraControlSystem.GROUP_NAME);
+		
 		entity.refresh();
 		
 		message.networkID = entity.getUniqueID();		
@@ -259,7 +280,6 @@ public class ServerTest extends Demo {
 	}
 
 	protected void updatePlayerInput(InputMessage message) {
-		System.out.println(message.networkID);
 		IEntity entity = this.gameWorld.getEntityManager().getEntity("Player" + message.networkID);
 		
 		if(entity != null) {
@@ -282,14 +302,8 @@ public class ServerTest extends Demo {
 			public void received(Connection connection, Object value) {
 				if(value instanceof NewPlayerMessage) {
 					NewPlayerMessage message = (NewPlayerMessage)value;
-					for (NewPlayerMessage pMessages : playerMessages.values()) {
-						sendPlayer(pMessages, connection);
-					}				
-					
-					for (EntityEventArgs eventArgs : newEntityMessages.values()) {
-						sendEntity(eventArgs);
-					}
-					
+					sendAllPlayers(connection);
+					sendAllEntities(connection);
 
 					playerMessages.put(connection.getID(), message);
 					createNewPlayer(message);		
@@ -302,7 +316,8 @@ public class ServerTest extends Demo {
 			@Override
 			public void disconnected(Connection connection) {
 				NewPlayerMessage message = playerMessages.remove(connection.getID());
-				removePlayer(message);
+				if(message != null)
+					removePlayer(message);
 			}	
 		};
 	}

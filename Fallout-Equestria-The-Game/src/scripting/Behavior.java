@@ -13,11 +13,15 @@ import content.ContentManager;
 import misc.SoundManager;
 
 public abstract class Behavior implements KeyframeTriggerListener{
+	protected static final String NULL_STATE_KEY = "NULL_STATE";
+	
 	
 	protected IEntityManager EntityManager;
 	protected IEntity Entity;
 	protected ContentManager ContentManager;
 	protected SoundManager   SoundManager;
+	protected BehaviourStateMachine StateMachine;
+	
 	private boolean initialized;
 	private boolean enabled;
 
@@ -26,6 +30,10 @@ public abstract class Behavior implements KeyframeTriggerListener{
 		this.ContentManager = contentManager;
 		this.Entity = entity;
 		this.SoundManager = soundManager;
+		this.StateMachine = new BehaviourStateMachine();
+		this.StateMachine.registerState(NULL_STATE_KEY, new NullBehaviourState());
+		this.StateMachine.changeState(NULL_STATE_KEY);
+		
 		this.initialized = true;
 		
 		//This is kind of a hack :S
@@ -55,34 +63,65 @@ public abstract class Behavior implements KeyframeTriggerListener{
 	
 	public abstract void start();
 	public abstract Object clone();
-	public void update(GameTime time) {}
-	
-	public void onMouseOver(MouseState state){}
-	public void onMouseEnter(MouseState state){}
-	public void onMouseExit(MouseState state){}
-	
-	public void onMouseDown(MouseState state, MouseButton button){}
-	public void onMouseUp(MouseState state, MouseButton button){}
-	public void onMouseUpAsButton(MouseState state, MouseButton button){}
-	public void onMouseDrag(MouseState state){}
-	
-	public void onCollisionOver(IEntity entity){}
-	public void onCollisionEnter(IEntity entity){}
-	public void onCollisionExit(IEntity entity){}
-	
-	public void onTriggerOver(IEntity entity){}
-	public void onTriggerEnter(IEntity entity){}
-	public void onTriggerExit(IEntity entity){}
-	public void onGroundCollision() { }
-	
+
+	public void update(GameTime time) {
+		this.StateMachine.update(time);
+	}
+	public void onMouseOver(MouseState state){
+		this.StateMachine.onMouseOver(state);
+	}
+	public void onMouseEnter(MouseState state){
+		this.StateMachine.onMouseEnter(state);
+	}
+	public void onMouseExit(MouseState state){
+		this.StateMachine.onMouseExit(state);
+	}
+	public void onMouseDown(MouseState state, MouseButton button){
+		this.StateMachine.onMouseDown(state, button);
+	}
+	public void onMouseUp(MouseState state, MouseButton button){
+		this.StateMachine.onMouseUp(state, button);
+	}
+	public void onMouseUpAsButton(MouseState state, MouseButton button){
+		this.StateMachine.onMouseUpAsButton(state, button);
+	}
+	public void onMouseDrag(MouseState state){
+		this.StateMachine.onMouseDrag(state);
+	}
+	public void onCollisionOver(IEntity entity){
+		this.StateMachine.onCollisionOver(entity);
+	}
+	public void onCollisionEnter(IEntity entity){
+		this.StateMachine.onCollisionEnter(entity);
+	}
+	public void onCollisionExit(IEntity entity){
+		this.StateMachine.onCollisionExit(entity);
+	}
+	public void onTriggerOver(IEntity entity){
+		this.StateMachine.onTriggerOver(entity);
+	}
+	public void onTriggerEnter(IEntity entity){
+		this.StateMachine.onTriggerEnter(entity);
+	}
+	public void onTriggerExit(IEntity entity){
+		this.StateMachine.onTriggerExit(entity);
+	}
+	public void onGroundCollision() { 
+		this.StateMachine.onGroundCollision();
+	}
+	public void onDestroy(){
+		this.StateMachine.onDestroy();
+	}
+	public void onKeyframeTrigger(Object sender, KeyframeTriggerEventArgs e){
+		this.StateMachine.onKeyframeTrigger(sender, e);
+	}
+		
 	public void onEnable(){}
 	public void onDisable(){}
-	public void onDestroy(){}
 	
 	public <T extends IComponent> T getComponent(Class<T> componentClass) {
 		return this.Entity.getComponent(componentClass);
 	}
 	
-	public void onKeyframeTrigger(Object sender, KeyframeTriggerEventArgs e){}
 
 }
