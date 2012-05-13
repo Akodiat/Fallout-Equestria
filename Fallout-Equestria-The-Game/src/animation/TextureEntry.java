@@ -13,6 +13,15 @@ public class TextureEntry {
 		this.texture = texture2;
 		this.textureBounds = textureBounds2;
 	}
+	
+	private TextureEntry(TextureEntry other) {
+		this.texture = other.texture;
+		this.textureBounds = other.textureBounds;
+	}
+	
+	public TextureEntry clone(){
+		return new TextureEntry(this);
+	}
 
 	public boolean isUseDictionary() {
 		return useDictionary;

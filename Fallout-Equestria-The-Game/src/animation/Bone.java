@@ -37,6 +37,24 @@ public class Bone {
 		this.color = Color.White;
 	}
 	
+	private Bone(Bone other){
+		this.name = other.name;
+		this.hidden = other.hidden;
+		this.parentIndex = other.parentIndex;
+		this.textureIndex = other.textureIndex;
+		this.selfIndex = other.selfIndex;
+		this.updateIndex = other.updateIndex;
+		this.position = other.position;
+		this.rotation = other.rotation;
+		this.scale = other.scale;
+		this.mirrored = other.mirrored;
+		this.color = other.color;
+	}
+	
+	public Bone clone(){
+		return new Bone(this);
+	}
+	
 	public String getName() {
 		return name;
 	}

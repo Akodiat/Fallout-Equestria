@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>monocle.png</TexturePath>
+  <Texture name="MONOCLE">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>47</Width>
+    <Height>52</Height>
+    <OriginX>14</OriginX>
+    <OriginY>18</OriginY>
+  </Texture>
+</TextureDictionary>

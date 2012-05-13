@@ -4,6 +4,7 @@ import math.Vector2;
 import misc.SoundManager;
 import animation.Animation;
 import animation.AnimationPlayer;
+import animation.Bones;
 import animation.PonyColorChangeHelper;
 import components.*;
 import entityFramework.*;
@@ -104,15 +105,17 @@ public class RDAnimDemo extends Demo {
 		entity.getComponent(RenderingComp.class).setTexture(Texture2D.getPixel());
 
 		AnimationPlayer player = ContentManager.load("rdset.animset", AnimationPlayer.class);
+		player.attachAnimationToBone(Bones.EYE.getValue(), ContentManager.load("monocle.anim", Animation.class));
 		player.startAnimation("idle");
 		AnimationComp animComp = new AnimationComp(player);
-		PonyColorChangeHelper.setBodyColor(Color.Wheat, animComp);
-		PonyColorChangeHelper.setEyeColor(Color.DarkOrange, animComp);
-		PonyColorChangeHelper.setManeColor(Color.Blue, animComp);
+		PonyColorChangeHelper.setBodyColor(Color.Violet, animComp);
+		PonyColorChangeHelper.setEyeColor(Color.Gold, animComp);
+		PonyColorChangeHelper.setManeColor(Color.Purple, animComp);
 		entity.addComponent(animComp);
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(600, 600);
 
+		
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();

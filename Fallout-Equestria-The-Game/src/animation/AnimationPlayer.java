@@ -344,8 +344,24 @@ public class AnimationPlayer
 		for (String key : this.animations.keySet()) {
 			for (Keyframe frame : this.animations.get(key).getKeyframes()) {
 				frame.getBone(boneName).setColor(color);
-				System.out.println(frame.getBone(boneName).getColor());
 			}
+		}
+	}
+	
+	public void attachAnimationToBone(String boneName, Animation animation){
+		for (String key : this.animations.keySet()) {
+			Animation clonedTarget = this.animations.get(key).clone();
+			Animation clonedAnim = animation.clone();
+			
+			clonedTarget.getTextures().addAll(clonedAnim.getTextures());
+			
+			for (Bone bone : clonedAnim.getKeyframes().get(0).getBones()) {
+				bone.setTextureIndex(bone.getTextureIndex() + clonedTarget.getTextures().size() - 1);
+			}
+			for (Keyframe frame : clonedTarget.getKeyframes()) {
+				frame.addKeyframeToAnimation(boneName, clonedAnim.getKeyframes().get(0));
+			}
+			this.addAnimation(key, clonedTarget);
 		}
 	}
 }

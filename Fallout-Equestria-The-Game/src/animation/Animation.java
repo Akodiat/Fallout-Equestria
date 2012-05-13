@@ -1,5 +1,6 @@
 package animation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import math.MathHelper;
@@ -16,6 +17,32 @@ public class Animation {
 
 	private List<TextureEntry> textures;
 	private List<Keyframe> keyframes;
+
+	public Animation(){
+
+	}
+
+	private Animation(Animation other){
+		this.version = other.version;
+		this.frameRate = other.frameRate;
+		this.loop = other.loop;
+		this.loopFrame = other.loopFrame;
+		this.loopTime = other.loopTime;
+
+		this.textures = new ArrayList();
+		this.keyframes = new ArrayList();
+
+		for (int i = 0; i < other.textures.size(); i++) {
+			this.textures.add(other.textures.get(i).clone());
+		}
+		for (int i = 0; i < other.keyframes.size(); i++) {
+			this.keyframes.add(other.keyframes.get(i).clone());
+		}
+	}
+
+	public Animation clone(){
+		return new Animation(this);
+	}
 
 	public void GetBoneTransformations(BoneTransformation[] transforms, BoneTransitionState[] transitions, int keyframeIndex, float time)
 	{
@@ -42,45 +69,45 @@ public class Animation {
 		for (int boneIndex = 0; boneIndex < keyframes.get(0).getUpdateOrderBones().size(); boneIndex++)
 		{
 			Vector2 position = Vector2.lerp(currentKeyframe.getUpdateOrderBones().get(boneIndex).getPosition(),
-											nextKeyframe.getUpdateOrderBones().get(boneIndex).getPosition(), t);
+					nextKeyframe.getUpdateOrderBones().get(boneIndex).getPosition(), t);
 			Vector2 scale = Vector2.lerp(currentKeyframe.getUpdateOrderBones().get(boneIndex).getScale(),
-										 	nextKeyframe.getUpdateOrderBones().get(boneIndex).getScale(), t);
+					nextKeyframe.getUpdateOrderBones().get(boneIndex).getScale(), t);
 			float rotation = MathHelper.lerp(currentKeyframe.getUpdateOrderBones().get(boneIndex).getRotation(), 
-											nextKeyframe.getUpdateOrderBones().get(boneIndex).getRotation(), t);
+					nextKeyframe.getUpdateOrderBones().get(boneIndex).getRotation(), t);
 
-			
+
 			transitions[boneIndex].setPosition(position);
 			transitions[boneIndex].setRotation(rotation);
 
 			BoneTransformation parentTransform = currentKeyframe.getUpdateOrderBones().get(boneIndex).getParentIndex() == -1 ? 
-												 BoneTransformation.Identity :
-												 transforms[currentKeyframe.getUpdateOrderBones().get(boneIndex).getParentIndex()];
-			
+					BoneTransformation.Identity :
+						transforms[currentKeyframe.getUpdateOrderBones().get(boneIndex).getParentIndex()];
+
 			BoneTransformation transformation = new BoneTransformation();
-			
+
 			float single = MathHelper.sin(parentTransform.getRotation()), cosgle = MathHelper.cos(parentTransform.getRotation());
 			Vector2 s = parentTransform.getScale();
 			Vector2 p = parentTransform.getPosition();
-			
+
 			float x = s.X*position.X*cosgle - s.Y*position.Y*single + p.X;
 			float y = s.X*position.X*single + s.Y*position.Y*cosgle + p.Y;
-			
+
 			Vector2 realPosition = new Vector2(x,y);
-			
-			
+
+
 			transformation.setPosition(realPosition);
 			transformation.setRotation(rotation + parentTransform.getRotation());
 			transformation.setScale(Vector2.mul(scale, parentTransform.getScale()));
-			
+
 			int drawIndex = currentKeyframe.getUpdateOrderBones().get(boneIndex).getSelfIndex();
-			
+
 			transforms[drawIndex] = transformation;
 		}
 	}
 
 	public static void GetBoneTransformationsTransition(BoneTransformation[] transforms, BoneTransitionState[] transitionState, Animation currentAnimation, Animation stopAnimation, float transitionPosition)
 	{
-		
+
 		for (int boneIndex = 0; boneIndex < currentAnimation.keyframes.get(0).getUpdateOrderBones().size(); boneIndex++)
 		{
 			Bone currentBone = currentAnimation.keyframes.get(0).getUpdateOrderBones().get(boneIndex);
@@ -99,19 +126,19 @@ public class Animation {
 				continue;
 
 			Vector2 position = Vector2.lerp(transitionState[boneIndex].getPosition(), 
-											transitionBone.getPosition(), 
-											transitionPosition);
+					transitionBone.getPosition(), 
+					transitionPosition);
 			Vector2 scale = new Vector2(1, 1);
 			float rotation = MathHelper.lerp(transitionState[boneIndex].getRotation(), 
-											 transitionBone.getRotation(), 
-											 transitionPosition);
+					transitionBone.getRotation(), 
+					transitionPosition);
 
 			BoneTransformation parentTransform = currentBone.getParentIndex() == -1 ? 
-												 BoneTransformation.Identity : 
-												 transforms[currentBone.getParentIndex()];
-			
+					BoneTransformation.Identity : 
+						transforms[currentBone.getParentIndex()];
+
 			int drawIndex = currentBone.getSelfIndex();
-			
+
 			transforms[drawIndex].setPosition(Vector2.add(position, parentTransform.getPosition()));
 			transforms[drawIndex].setRotation(rotation + parentTransform.getRotation());
 			transforms[drawIndex].setScale(Vector2.mul(scale, parentTransform.getScale()));
@@ -138,11 +165,11 @@ public class Animation {
 				continue;
 
 			transitionState[boneIndex].setPosition(Vector2.lerp(transitionState[boneIndex].getPosition(), 
-												   transitionBone.getPosition(), 
-												   transitionPosition));
+					transitionBone.getPosition(), 
+					transitionPosition));
 			transitionState[boneIndex].setRotation(MathHelper.lerp(transitionState[boneIndex].getRotation(), 
-												   transitionBone.getRotation(), 
-												   transitionPosition));
+					transitionBone.getRotation(), 
+					transitionPosition));
 		}
 	}
 

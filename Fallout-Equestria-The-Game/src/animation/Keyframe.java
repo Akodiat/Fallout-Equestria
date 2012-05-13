@@ -18,7 +18,26 @@ public class Keyframe {
 
 	public Keyframe()
 	{
-		updateOrderBones = new ArrayList<Bone>();
+		this.updateOrderBones = new ArrayList<Bone>();
+	}
+	
+	private Keyframe(Keyframe other)
+	{
+		this.frameNumber = other.frameNumber;
+		this.trigger = other.trigger;
+		this.mirrored = other.mirrored;
+		this.frameTime = other.frameTime;
+		
+		this.bones = new ArrayList<Bone>();
+		this.updateOrderBones = new ArrayList<Bone>();
+		for (Bone bone : other.bones) {
+			bones.add(bone.clone());
+		}
+		this.sortBones();
+	}
+	
+	public Keyframe clone(){
+		return new Keyframe(this);
 	}
 
 	public void sortBones()
@@ -102,5 +121,29 @@ public class Keyframe {
 			}
 		}
 		throw new RuntimeException("Didn't find bone named " + boneName + " in keyframe " + this.toString());
+	}
+	
+	private void addBone(Bone bone){
+		bone.setSelfIndex(this.bones.size());
+		this.bones.add(bone);
+		this.boneSortAdd(bone);
+	}
+
+	public void addKeyframeToAnimation(String boneName, Keyframe keyframe) {
+		Bone attachPoint = this.getBone(boneName);
+		int attachIndex = attachPoint.getSelfIndex();
+		Bone root = keyframe.getRootBone().clone();
+		root.setParentIndex(attachIndex);
+		int bonesSize = this.bones.size();
+		
+		this.addBone(root);
+		
+		//OBS!!!! i = 1 to skip root bone.
+		for (int i = 1; i < keyframe.getBones().size(); i++) {
+			
+			Bone bone = keyframe.getBones().get(i).clone();
+			bone.setParentIndex(bonesSize + bone.getParentIndex());
+			this.addBone(bone);
+		}
 	}
 }
