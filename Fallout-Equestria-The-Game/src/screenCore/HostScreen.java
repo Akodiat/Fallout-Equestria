@@ -7,7 +7,6 @@ import math.Vector2;
 import misc.EventArgs;
 import misc.IEventListener;
 import GUI.controls.Button;
-import GUI.controls.Label;
 import GUI.controls.Textfield;
 import content.ContentManager;
 import server.KyroServer;

@@ -19,7 +19,7 @@ import content.ContentManager;
 import utils.Rectangle;
 
 public class ScreenDemo extends Demo{
-	private static Rectangle screenDim = new Rectangle(0,0,1366,768);
+	private static Rectangle screenDim = new Rectangle(0,0,1280,1024);
 	private ScreenManager screenManager;
 	private SpriteBatch batch;
 	private Mouse mouse;

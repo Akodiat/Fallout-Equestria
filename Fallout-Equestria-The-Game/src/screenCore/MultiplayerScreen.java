@@ -105,7 +105,7 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 		
 		if(loader.getAddresses().size() > 0) {
 			for(int i = 0; i < this.addresses.size(); i++) {
-				serverListBox.addItem("        " + loader.getAddresses().get(i).getHostName());
+				serverListBox.addItem("      " + loader.getAddresses().get(i).getHostName());
 				infoLabel.setFgColor(Color.Green);
 				infoLabel.setText(loader.getAddresses().size() + " server(s) online.");
 			}
