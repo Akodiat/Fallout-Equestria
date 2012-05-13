@@ -28,6 +28,8 @@ public class RDAnimDemo extends Demo {
 	private Camera2D camera;
 	private SpriteBatch spriteBatch;
 	private Scene scene;
+	private Mouse mouse;
+	private Keyboard keyboard;
 
 	public static void main(String[] str) {
 		RDAnimDemo demo = new RDAnimDemo();
@@ -41,16 +43,10 @@ public class RDAnimDemo extends Demo {
 
 	@Override
 	public void update(GameTime time) {
+		this.mouse.poll(screenDim);
+		this.keyboard.poll();
 		this.gameWorld.update(time);
 		this.gameWorld.getEntityManager().destoryKilledEntities();
-
-		if(Math.random() < 0.1f) {
-			IEntityDatabase database  = this.gameWorld.getDatabase();
-			if(database.getEntityCount() < 150) {
-				spawnManlyMan();
-			}
-		}
-
 	}
 
 	private void spawnManlyMan() {
@@ -89,21 +85,23 @@ public class RDAnimDemo extends Demo {
 
 	@Override
 	protected void initialize() {
-		scene = ContentManager.load("MaseScenev1.xml", Scene.class);
+		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
+		mouse = new Mouse();
+		keyboard = new Keyboard();
 
 		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
 
-		this.gameWorld = WorldBuilder.buildGameWorld(camera,  scene, new Mouse(), new Keyboard(), this.ContentManager,soundManager, spriteBatch, false);
+		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, mouse, keyboard, this.ContentManager,soundManager, spriteBatch, true, "player");
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
 		IEntity entity = gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
-		entity.getComponent(RenderingComp.class).setTexture(Texture2D.getPixel());
-
+		entity.addComponent(new ShadowComp());	
+		
 		AnimationPlayer player = ContentManager.load("rdset.animset", AnimationPlayer.class);
 		player.attachAnimationToBone(Bones.EYE.getValue(), ContentManager.load("monocle.anim", Animation.class));
 		player.startAnimation("idle");
@@ -113,7 +111,7 @@ public class RDAnimDemo extends Demo {
 		PonyColorChangeHelper.setManeColor(Color.Purple, animComp);
 		entity.addComponent(animComp);
 		//END OF ANIMATION UGLY SHIT
-		entity.getComponent(TransformationComp.class).setPosition(600, 600);
+		entity.getComponent(TransformationComp.class).setPosition(1000, 1000);
 
 		
 
