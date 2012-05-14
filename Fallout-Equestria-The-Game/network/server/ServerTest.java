@@ -16,6 +16,7 @@ import misc.IEventListener;
 import misc.SoundManager;
 
 import animation.AnimationPlayer;
+import animation.PonyColorChangeHelper;
 import client.ClientTest;
 
 import com.esotericsoftware.kryonet.Client;
@@ -32,6 +33,7 @@ import common.InputMessage;
 import common.Network;
 import common.NetworkedEntityFactory;
 import common.NewPlayerMessage;
+import common.PlayerCharacteristics;
 import components.AnimationComp;
 import components.BehaviourComp;
 import components.HealthComp;
@@ -179,7 +181,7 @@ public class ServerTest extends Demo {
 		this.spriteBatch = new SpriteBatch(sr);
 		this.camera = new Camera2D(scene.getWorldBounds(), sr);
 		
-		this.gameWorld = WorldBuilder.buildServerWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, true, "Player0");
+		this.gameWorld = WorldBuilder.buildServerWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, false, "Player0");
 		this.gameWorld.initialize();
 	}
 
@@ -229,7 +231,11 @@ public class ServerTest extends Demo {
 	private void createPlayer() {
 		NewPlayerMessage message = new NewPlayerMessage();
 		message.networkID = 0;
-		//message.playerCharacteristics = "somethign something and something more!"
+		message.playerCharacteristics = new PlayerCharacteristics();
+		message.playerCharacteristics.bodyColor = Color.Gray;
+		message.playerCharacteristics.eyeColor	= Color.Green;
+		message.playerCharacteristics.maneColor = Color.Chocolate;
+		//message.playerCharacteristics = "something something and something more!"
 
 		this.playerMessages.put(0, message);
 		this.createNewPlayer(message);		
@@ -253,11 +259,14 @@ public class ServerTest extends Demo {
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());
-		entity.getComponent(TransformationComp.class).setPosition(1000,1000);	
+		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
 		
 		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
 		AnimationComp comp = new AnimationComp(player);
-		comp.setTint(Color.Green);
+		
+		PonyColorChangeHelper.setBodyColor(message.playerCharacteristics.bodyColor, comp);
+		PonyColorChangeHelper.setEyeColor( message.playerCharacteristics.eyeColor, comp);
+		PonyColorChangeHelper.setManeColor(message.playerCharacteristics.maneColor, comp);
 		
 		entity.getComponent(InputComp.class).setKeyboard(new Keyboard());
 		entity.getComponent(InputComp.class).setMouse(new Mouse());

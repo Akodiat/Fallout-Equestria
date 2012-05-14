@@ -11,6 +11,7 @@ import math.Vector2;
 import misc.SoundManager;
 
 import animation.AnimationPlayer;
+import animation.PonyColorChangeHelper;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -23,6 +24,7 @@ import common.EntityNetworkIDsetMessage;
 import common.InputMessage;
 import common.Network;
 import common.NewPlayerMessage;
+import common.PlayerCharacteristics;
 import components.AnimationComp;
 import components.BehaviourComp;
 import components.RenderingComp;
@@ -174,6 +176,12 @@ public class ClientTest extends Demo {
 		message.networkID = this.networkID;	
 		message.senderID = this.networkID;
 		
+		message.playerCharacteristics = new PlayerCharacteristics();
+		
+		message.playerCharacteristics.bodyColor = Color.Black;
+		message.playerCharacteristics.eyeColor  = Color.Cyan;
+		message.playerCharacteristics.maneColor	= Color.Purple;
+		
 		this.client.sendTCP(message);		
 		
 	}
@@ -186,7 +194,7 @@ public class ClientTest extends Demo {
 		this.spriteBatch = new SpriteBatch(sr);
 		this.camera = new Camera2D(scene.getWorldBounds(), sr);
 		
-		this.gameWorld = WorldBuilder.buildClientWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, true, "Player" + this.networkID);
+		this.gameWorld = WorldBuilder.buildClientWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, false, "Player" + this.networkID);
 		this.gameWorld.initialize();
 	}
 	
@@ -201,7 +209,9 @@ public class ClientTest extends Demo {
 		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
 		player.startAnimation("idle");
 		AnimationComp comp = new AnimationComp(player);
-		comp.setTint(Color.Green);
+		PonyColorChangeHelper.setBodyColor(message.playerCharacteristics.bodyColor, comp);
+		PonyColorChangeHelper.setEyeColor( message.playerCharacteristics.eyeColor, comp);
+		PonyColorChangeHelper.setManeColor(message.playerCharacteristics.maneColor, comp);
 		
 		System.out.println("Hello friend! " + message.networkID);
 		
