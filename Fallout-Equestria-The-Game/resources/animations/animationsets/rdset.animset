@@ -3,4 +3,5 @@
 <Animation key="walk" value="rdwalk.anim"/>
 <Animation key="idle" value="rdidle.anim"/>
 <Animation key="jump" value="rdjump.anim"/>
+<String currentAnimation="jump"/>
 </AnimationSet>

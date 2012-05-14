@@ -44,6 +44,9 @@ public class AnimationSetLoader extends ContentLoader<AnimationPlayer> {
 			Animation animation = this.contentManager.load(animationPath, Animation.class);
 			player.addAnimation(animationKey, animation);
 		}
+		
+		Element currentAnimation = rootNode.getChild("String");
+		player.startAnimation(currentAnimation.getAttributeValue("currentAnimation"));
 		return player;
 	}
 

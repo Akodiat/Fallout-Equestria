@@ -20,6 +20,7 @@ import utils.Circle;
 
 import math.Vector2;
 
+import animation.AnimationPlayer;
 import anotations.Editable;
 import content.ContentManager;
 
@@ -136,7 +137,8 @@ public class ComponentPanel extends JPanel {
 		} else if(type.equals(Texture2D.class)||
 				  type.equals(TextureFont.class)||
 				  type.equals(Audio.class)||
-				  type.equals(IEntityArchetype.class)){
+				  type.equals(IEntityArchetype.class)||
+				  type.equals(AnimationPlayer.class)){
 			AssetPanel aPanel = new AssetPanel(field, component, manager);
 			aPanel.setBounds(0, height, 500, 55);
 			height += 70;

@@ -12,6 +12,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.openal.Audio;
 
+import animation.AnimationPlayer;
+
 
 import content.ContentManager;
 
@@ -52,13 +54,16 @@ public class AssetPanel extends JPanel {
 			fileEnding = "archetype";
 		}else if(field.getType() == TextureFont.class){
 			fileEnding = "xml";
-		}else{
+		}else if(field.getType() == AnimationPlayer.class){
+			fileEnding = "animset";
+		}
+		else{
 			throw new Error("CLASS NOT SUPPORTED BY ASSETPANEL");
 		}
-		
+
 		String textFieldText = this.getTextFieldText();
-		
-		
+
+
 		textField = new JTextField(textFieldText);
 		textField.setBounds(155, 5, 147, 20);
 		add(textField);
@@ -91,13 +96,17 @@ public class AssetPanel extends JPanel {
 				String filePath = "resources" + File.separator;
 
 				//OPEN TEXTFILES WITH NOTEPAD
-				if(getText().endsWith(".script") || getText().endsWith(".archetype"))
+				if(getText().endsWith(".script") || 
+						getText().endsWith(".archetype")||
+						getText().endsWith(".animset"))
 				{
 					if (getText().endsWith(".archetype")){
 						filePath += "archetypes" + File.separator + getText();
 					}
 					else if (getText().endsWith(".script")){
 						filePath += "scripts" + File.separator + getText();
+					}else if(getText().endsWith(".animset")){
+						filePath += "animations" + File.separator + "animationsets" + File.separator + getText();
 					}else{
 						throw new Error("INVALID FILE");
 					}
@@ -117,8 +126,7 @@ public class AssetPanel extends JPanel {
 						Audio sound = ContentManager.loadSound(filePath);
 						AudioPlayerFrame af = new AudioPlayerFrame(sound);
 						af.setVisible(true);						
-					} 
-
+					}
 				}
 
 			}
@@ -152,7 +160,7 @@ public class AssetPanel extends JPanel {
 
 
 	}
-	
+
 	private String getTextFieldText() {
 		try {
 			Object obj = field.get(this.comp);
@@ -187,11 +195,13 @@ public class AssetPanel extends JPanel {
 				int soundsIndex = absolutePath.lastIndexOf("sounds", absolutePath.length());
 				String filePath = absolutePath.substring(soundsIndex + "sounds".length() + 1);
 				newFieldValue = ContentManager.loadSound(filePath);
-			}else if(field.getType() == IEntityArchetype.class){
+			} else if(field.getType() == IEntityArchetype.class){
 				newFieldValue = ContentManager.loadArchetype(getText());
-			}else if(field.getType() == TextureFont.class){
+			} else if(field.getType() == TextureFont.class){
 				newFieldValue = ContentManager.loadFont(getText());
-			}else{
+			} else if (field.getType() == AnimationPlayer.class){
+				newFieldValue = ContentManager.loadAnimationSet(getText());
+			} else {
 				Display.destroy();
 				throw new Error("CLASS NOT SUPPORTED BY ASSETPANEL");
 			} 

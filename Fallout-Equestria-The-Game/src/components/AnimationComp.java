@@ -10,7 +10,7 @@ import graphics.Color;
 @XStreamAlias("Animation") @Editable
 public class AnimationComp implements IComponent {
 
-	private AnimationPlayer animationPlayer;
+	private @Editable AnimationPlayer animationPlayer;
 	
 	private @Editable Color tint;
 	
@@ -23,20 +23,10 @@ public class AnimationComp implements IComponent {
 		this.tint = Color.White;
 	}
 	
-	//TODO Proper cloning
-	/**
-	 * WARNING: SHALLOW CLONING
-	 * @param other
-	 */
 	public AnimationComp(AnimationComp other) {
-		this.animationPlayer = other.animationPlayer;
+		this.animationPlayer = other.animationPlayer.clone();
 	}
 	
-	//TODO Proper cloning
-	/**
-	 * WARNING: SHALLOW CLONING
-	 * @param other
-	 */
 	public AnimationComp clone() {
 		return new AnimationComp(this);
 	}

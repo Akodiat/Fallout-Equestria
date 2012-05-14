@@ -13,7 +13,6 @@ import entitySystems.CameraControlSystem;
 import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
-import graphics.Texture2D;
 import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
