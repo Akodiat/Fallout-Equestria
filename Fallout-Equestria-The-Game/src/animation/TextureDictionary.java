@@ -40,4 +40,8 @@ public class TextureDictionary {
 			Map<String, TextureBounds> textureCollection) {
 		this.textureCollection = textureCollection;
 	}
+	
+	public TextureEntry extractTextureEntry(String name){
+		return new TextureEntry(this.texture, this.textureCollection.get(name));
+	}
 }

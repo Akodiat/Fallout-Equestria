@@ -1,8 +1,6 @@
 package scripting;
 
 import components.AnimationComp;
-import animation.KeyframeTriggerEventArgs;
-import animation.KeyframeTriggerListener;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
@@ -10,9 +8,11 @@ import utils.GameTime;
 import utils.MouseButton;
 import utils.MouseState;
 import content.ContentManager;
+import misc.IEventListener;
+import misc.KeyframeTriggerEventArgs;
 import misc.SoundManager;
 
-public abstract class Behavior implements KeyframeTriggerListener{
+public abstract class Behavior implements IEventListener<KeyframeTriggerEventArgs>{
 	protected static final String NULL_STATE_KEY = "NULL_STATE";
 	
 	
@@ -39,7 +39,7 @@ public abstract class Behavior implements KeyframeTriggerListener{
 		//This is kind of a hack :S
 		AnimationComp comp = entity.getComponent(AnimationComp.class);
 		if(comp != null){
-			comp.getAnimationPlayer().addListener(this);
+			comp.getAnimationPlayer().addKeyframeTriggerListener(this);
 		}
 	}
 	
@@ -112,7 +112,7 @@ public abstract class Behavior implements KeyframeTriggerListener{
 	public void onDestroy(){
 		this.StateMachine.onDestroy();
 	}
-	public void onKeyframeTrigger(Object sender, KeyframeTriggerEventArgs e){
+	public void onEvent(Object sender, KeyframeTriggerEventArgs e){
 		this.StateMachine.onKeyframeTrigger(sender, e);
 	}
 		

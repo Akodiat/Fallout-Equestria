@@ -1,6 +1,6 @@
 package scripting;
 
-import animation.KeyframeTriggerEventArgs;
+import misc.KeyframeTriggerEventArgs;
 import entityFramework.IEntity;
 import state.StateMachine;
 import utils.GameTime;

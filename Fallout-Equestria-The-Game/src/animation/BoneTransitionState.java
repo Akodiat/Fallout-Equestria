@@ -13,6 +13,13 @@ public class BoneTransitionState {
 		this.position = position;
 		this.rotation = rotation;
 	}
+	private BoneTransitionState(BoneTransitionState other) {
+		this.position = other.position;
+		this.rotation = other.rotation;
+	}
+	public BoneTransitionState clone(){
+		return new BoneTransitionState(this);
+	}
 	
 	public Vector2 getPosition() {
 		return position;

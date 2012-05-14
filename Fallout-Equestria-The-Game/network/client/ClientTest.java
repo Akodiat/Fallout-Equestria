@@ -231,7 +231,7 @@ public class ClientTest extends Demo {
 			this.client.addListener(this.generateListener());
 			client.start();
 			Network.registerClasses(client);
-			this.client.connect(5000, "localhost", 54555, 54777);
+			this.client.connect(5000, "169.254.232.186", 54555, 54777);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

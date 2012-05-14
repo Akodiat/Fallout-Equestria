@@ -29,8 +29,8 @@ public class Animation {
 		this.loopFrame = other.loopFrame;
 		this.loopTime = other.loopTime;
 
-		this.textures = new ArrayList();
-		this.keyframes = new ArrayList();
+		this.textures = new ArrayList<TextureEntry>();
+		this.keyframes = new ArrayList<Keyframe>();
 
 		for (int i = 0; i < other.textures.size(); i++) {
 			this.textures.add(other.textures.get(i).clone());

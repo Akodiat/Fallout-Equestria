@@ -16,10 +16,6 @@
           <transitionTime>0.0</transitionTime>
           <transitionTotalTime>0.0</transitionTotalTime>
           <animations class="hashtable"/>
-          <listeners/>
-          <eventArgs>
-            <triggerString></triggerString>
-          </eventArgs>
         </animationPlayer>
       </Animation>
       <Behaviour>

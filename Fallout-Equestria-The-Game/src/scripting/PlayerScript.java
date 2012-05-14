@@ -13,8 +13,6 @@ import components.SpecialComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
 
-import state.State;
-import state.StateMachine;
 import utils.GameTime;
 import utils.Keyboard;
 import utils.Keys;

@@ -6,6 +6,7 @@ import animation.Animation;
 import animation.AnimationPlayer;
 import animation.Bones;
 import animation.PonyColorChangeHelper;
+import animation.TextureDictionary;
 import components.*;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
@@ -22,7 +23,7 @@ import utils.Rectangle;
 
 public class RDAnimDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";
-	private static Rectangle screenDim 		= new Rectangle(0,0,1920,1020);
+	private static Rectangle screenDim 		= new Rectangle(0,0,1337,768);
 
 	private IEntityWorld gameWorld;
 	private Camera2D camera;
@@ -59,8 +60,6 @@ public class RDAnimDemo extends Demo {
 		manPlayer.addAnimation("walk", walkAnimation);
 		Animation explodeAnimation = ContentManager.load("manlymanexplosion.anim", Animation.class);
 		manPlayer.addAnimation("explode", explodeAnimation);
-
-
 		manPlayer.startAnimation("walk");
 		AnimationComp manAniCom = new AnimationComp(manPlayer);
 
@@ -93,7 +92,7 @@ public class RDAnimDemo extends Demo {
 
 		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
 
-		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, mouse, keyboard, this.ContentManager,soundManager, spriteBatch, true, "player");
+		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, mouse, keyboard, this.ContentManager,soundManager, spriteBatch, false, "player");
 		gameWorld.initialize();
 
 		//ANIMATION UGLY SHIT
@@ -103,12 +102,19 @@ public class RDAnimDemo extends Demo {
 		entity.addComponent(new ShadowComp());	
 		
 		AnimationPlayer player = ContentManager.load("rdset.animset", AnimationPlayer.class);
-		player.attachAnimationToBone(Bones.EYE.getValue(), ContentManager.load("monocle.anim", Animation.class));
+//		player.setBoneTexture(Bones.UPPERMANE, asd);
+//		player.attachAnimationToBone(Bones.EYE.getValue(), ContentManager.load("monocle.anim", Animation.class));
 		player.startAnimation("idle");
 		AnimationComp animComp = new AnimationComp(player);
-		PonyColorChangeHelper.setBodyColor(Color.Violet, animComp);
-		PonyColorChangeHelper.setEyeColor(Color.Gold, animComp);
-		PonyColorChangeHelper.setManeColor(Color.Purple, animComp);
+		PonyColorChangeHelper.setBodyColor(Color.Wheat, animComp);
+		PonyColorChangeHelper.setEyeColor(Color.Chocolate, animComp);
+		PonyColorChangeHelper.setManeColor(Color.Chocolate, animComp);
+		TextureDictionary dict = ContentManager.load("rddict.tdict", TextureDictionary.class);
+		player.setBoneTexture(Bones.EYE.getValue(), dict.extractTextureEntry("TSEYE"));
+		player.setBoneTexture(Bones.UPPERMANE.getValue(), dict.extractTextureEntry("TSUPPERMANE"));
+		player.setBoneTexture(Bones.LOWERMANE.getValue(), dict.extractTextureEntry("TSLOWERMANE"));
+		player.setBoneTexture(Bones.UPPERTAIL.getValue(), dict.extractTextureEntry("TSUPPERTAIL"));
+		player.setBoneTexture(Bones.LOWERTAIL.getValue(), dict.extractTextureEntry("TSLOWERTAIL"));
 		entity.addComponent(animComp);
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(1000, 1000);

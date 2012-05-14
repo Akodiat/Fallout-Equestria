@@ -23,10 +23,13 @@ public class BoneTransformation {
 		this.rotation = rotation;
 	}
 	
-	public BoneTransformation(BoneTransformation other) {
+	private BoneTransformation(BoneTransformation other) {
 		this.position = other.position;
 		this.scale = other.scale;
 		this.rotation = other.rotation;
+	}
+	public BoneTransformation clone(){
+		return new BoneTransformation(this);
 	}
 	
 	public Vector2 getPosition() {

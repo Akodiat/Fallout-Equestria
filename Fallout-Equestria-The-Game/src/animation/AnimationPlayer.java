@@ -3,12 +3,14 @@ package animation;
 import graphics.Color;
 import graphics.SpriteBatch;
 
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.Set;
 
 import math.Vector2;
+import misc.AnimationChangeEventArgs;
+import misc.Event;
+import misc.IEventListener;
+import misc.KeyframeTriggerEventArgs;
 
 import utils.GameTime;
 
@@ -31,11 +33,11 @@ public class AnimationPlayer
 
 	private Map<String, Animation> animations = new Hashtable<String, Animation>();
 
-
-
-	private Set<KeyframeTriggerListener> listeners = new HashSet<KeyframeTriggerListener>();
-	private KeyframeTriggerEventArgs eventArgs = new KeyframeTriggerEventArgs();
-
+	private KeyframeTriggerEventArgs keyframeTriggerEventArgs = new KeyframeTriggerEventArgs();
+	private Event<KeyframeTriggerEventArgs> keyframeTriggerEvent = new Event<KeyframeTriggerEventArgs>();
+	
+	private AnimationChangeEventArgs animationChangeEventArgs = new AnimationChangeEventArgs();
+	private Event<AnimationChangeEventArgs> animationChangeEvent = new Event<AnimationChangeEventArgs>();
 
 	public Animation getCurrentAnimationAnimation() {
 		return this.animations.get(currentAnimation);
@@ -44,6 +46,38 @@ public class AnimationPlayer
 	public AnimationPlayer()
 	{
 		this.playSpeedMultiplier = 1f;
+	}
+
+	private AnimationPlayer(AnimationPlayer other)
+	{
+		this.currentAnimation = other.currentAnimation;
+		this.currentAnimationTime = other.currentAnimationTime;
+		this.currentKeyframeIndex = other.currentKeyframeIndex;
+		this.playSpeedMultiplier = other.playSpeedMultiplier;
+		this.transitioning = other.transitioning;
+		this.transitionAnimation = other.transitionAnimation;
+		this.transitionTime = other.transitionTime;
+		this.transitionTotalTime = other.transitionTotalTime;
+
+		this.transitionStates = new BoneTransitionState[other.transitionStates.length];
+		for (int i = 0; i < other.transitionStates.length; i++) {
+			this.transitionStates[i] = other.transitionStates[i].clone();
+		}
+
+		this.boneTransformations = new BoneTransformation[other.transitionStates.length];
+		for (int i = 0; i < other.transitionStates.length; i++) {
+			this.boneTransformations[i] = other.boneTransformations[i];
+		}
+
+		for (String key : other.animations.keySet()) {
+			this.animations.put(key, other.animations.get(key).clone());
+		}
+	}
+	/**
+	 * Does not add ANY listeners!
+	 */
+	public AnimationPlayer clone(){
+		return new AnimationPlayer(this);
 	}
 
 	public void addAnimation(String name, Animation animation)
@@ -63,14 +97,18 @@ public class AnimationPlayer
 		}
 	}
 
-	public void addListener(KeyframeTriggerListener listenerToAdd){
-		listeners.add(listenerToAdd);
+	public void addKeyframeTriggerListener(IEventListener<KeyframeTriggerEventArgs> listenerToAdd){
+		keyframeTriggerEvent.addListener(listenerToAdd);
 	}
-
-	private void invokeTrigger(){
-		for (KeyframeTriggerListener listener : listeners) {
-			listener.onKeyframeTrigger(this, this.eventArgs);
-		}
+	public void removeKeyframeTriggerListener(IEventListener<KeyframeTriggerEventArgs> listenerToRemove){
+		keyframeTriggerEvent.removeListener(listenerToRemove);
+	}
+	
+	public void addAnimationChangeListener(IEventListener<AnimationChangeEventArgs> listenerToAdd){
+		animationChangeEvent.addListener(listenerToAdd);
+	}
+	public void removeAnimationChangeListener(IEventListener<AnimationChangeEventArgs> listenerToRemove){
+		animationChangeEvent.removeListener(listenerToRemove);
 	}
 
 	public void startAnimation(String animation)
@@ -93,14 +131,22 @@ public class AnimationPlayer
 				transitionStates[b.getUpdateIndex()].setPosition(b.getPosition());
 				transitionStates[b.getUpdateIndex()].setRotation(b.getRotation());
 			}
+			
+			invokeAnimationChangeEvent();
 		}
 
 		update(0);
 	}
 
+	private void invokeAnimationChangeEvent() {
+		this.animationChangeEventArgs.newAnimation = this.currentAnimation;
+		this.animationChangeEvent.invoke(this, this.animationChangeEventArgs);
+	}
+
 	public void forceAnimationSwitch(String animation)
 	{
 		currentAnimation = animation;
+		invokeAnimationChangeEvent();
 	}
 
 	public void transitionToAnimation(String animation, float time)
@@ -114,6 +160,7 @@ public class AnimationPlayer
 		transitionTime = 0;
 		transitionTotalTime = time;
 		transitionAnimation = animation;
+		invokeAnimationChangeEvent();
 	}
 
 	public int getBoneTransformIndex(String boneName)
@@ -205,12 +252,12 @@ public class AnimationPlayer
 			returnValue = reachedEnd;
 		}
 
-		if (currentKeyframeIndex != startKeyframeIndex && !listeners.isEmpty() &&
+		if (currentKeyframeIndex != startKeyframeIndex &&
 				!(animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger() == null ||
 				animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger() == ""))
 		{
-			eventArgs.triggerString = animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger();
-			invokeTrigger();
+			this.keyframeTriggerEventArgs.triggerString = animations.get(currentAnimation).getKeyframes().get(currentKeyframeIndex).getTrigger();
+			this.keyframeTriggerEvent.invoke(this, this.keyframeTriggerEventArgs);
 		}
 
 		return returnValue;
@@ -347,14 +394,14 @@ public class AnimationPlayer
 			}
 		}
 	}
-	
+
 	public void attachAnimationToBone(String boneName, Animation animation){
 		for (String key : this.animations.keySet()) {
 			Animation clonedTarget = this.animations.get(key).clone();
 			Animation clonedAnim = animation.clone();
-			
+
 			clonedTarget.getTextures().addAll(clonedAnim.getTextures());
-			
+
 			for (Bone bone : clonedAnim.getKeyframes().get(0).getBones()) {
 				bone.setTextureIndex(bone.getTextureIndex() + clonedTarget.getTextures().size() - 1);
 			}
