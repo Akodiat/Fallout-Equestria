@@ -6,6 +6,7 @@ import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
 import screenCore.GOLScreen;
 import screenCore.HostScreen;
+import screenCore.LobbyGUI;
 import screenCore.MultiplayerScreen;
 import screenCore.PausScreen;
 import screenCore.ScreenManager;
@@ -19,7 +20,7 @@ import content.ContentManager;
 import utils.Rectangle;
 
 public class ScreenDemo extends Demo{
-	private static Rectangle screenDim = new Rectangle(0,0,1280,1024);
+	private static Rectangle screenDim = new Rectangle(0,0,1366,768);
 	private ScreenManager screenManager;
 	private SpriteBatch batch;
 	private Mouse mouse;
@@ -65,6 +66,7 @@ public class ScreenDemo extends Demo{
 		GOLScreen screen5 = new GOLScreen();
 		MultiplayerScreen screen6 = new MultiplayerScreen("gui.tdict");
 		HostScreen screen7 = new HostScreen("gui.tdict");
+		LobbyGUI screen8 = new LobbyGUI("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
@@ -73,6 +75,7 @@ public class ScreenDemo extends Demo{
 		this.screenManager.registerScreen("GOLScreen", screen5);
 		this.screenManager.registerScreen("Multiplayer", screen6);
 		this.screenManager.registerScreen("Host", screen7);
+		this.screenManager.registerScreen("LobbyGUI", screen8);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

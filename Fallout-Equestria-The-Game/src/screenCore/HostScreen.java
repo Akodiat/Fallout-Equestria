@@ -73,5 +73,7 @@ public class HostScreen extends TransitioningGUIScreen{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		this.ScreenManager.addScreen("LobbyGUI");
 	}
 }
