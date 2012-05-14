@@ -67,6 +67,7 @@ public class GUIRenderingContext {
 	private RenderTarget2D renderChildrenToTarget(GUIControl control,
 			GameTime time, RenderTarget2D[] childTargets) {
 		RenderTarget2D target = new RenderTarget2D(control.getBounds().Width, control.getBounds().Height); 
+
 		this.spriteBatch.begin(null, Matrix4.Identity, target);
 		this.renderInternal(control, time, target);
 		
@@ -77,6 +78,7 @@ public class GUIRenderingContext {
 				this.spriteBatch.draw(childTarget.getTexture(), child.getBounds(), Color.White, null);
 			}
 		}
+
 		this.spriteBatch.end();
 		return target;
 	}

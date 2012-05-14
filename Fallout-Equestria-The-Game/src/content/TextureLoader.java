@@ -42,7 +42,9 @@ public final class TextureLoader extends ContentLoader<Texture2D>{
 		int openGLID = glGenTextures();
 		
 		glBindTexture(GL_TEXTURE_2D, openGLID);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		
 		
 		glTexImage2D(GL_TEXTURE_2D, 0,
 					 GL_RGBA, 

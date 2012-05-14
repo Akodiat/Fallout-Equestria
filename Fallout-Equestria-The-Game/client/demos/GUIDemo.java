@@ -183,7 +183,6 @@ public class GUIDemo extends Demo {
 		Button addItemButton = new Button();
 		addItemButton.setBounds(new Rectangle(200,40,158,158));
 		addItemButton.setText("Add item!");
-		addItemButton.setImage(ContentManager.loadTexture("GUI/Fallout-2-icon.png"));
 		addItemButton.setFont(ContentManager.loadFont("Pericles20bi.xml"));
 		panel.addChild(addItemButton);
 		

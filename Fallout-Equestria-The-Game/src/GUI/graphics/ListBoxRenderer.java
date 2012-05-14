@@ -62,7 +62,6 @@ public class ListBoxRenderer implements IGUIRenderer<ListBox>{
 
 		batch.begin(null,Matrix4.Identity,target);
 		
-		System.out.println("Rendering");
 	}
 	
 	private RenderTarget2D createTextTarget(ListBox control) {

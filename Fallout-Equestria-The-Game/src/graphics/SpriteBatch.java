@@ -1,4 +1,7 @@
 package graphics;
+import java.util.Arrays;
+import java.util.Comparator;
+
 import utils.Rectangle;
 
 import math.Matrix4;
@@ -22,15 +25,11 @@ public class SpriteBatch {
 	
 	//VertexBuffers
 	private final DynamicVertexBuffer vertexBuffer;
-	private final DynamicVertexBuffer textureBuffer;
-	private final DynamicVertexBuffer colorBuffer;
+	
 	//IndexBuffer
 	private final IndexBuffer indexBuffer;
 	
 	private boolean renderingToRenderTarget = false;
-	
-	//The texture used for drawing.
-	private Texture2D activeTexture;
 	
 	//The x and y offsets of the different corners.
 	private static final float[] xOffsets  = {
@@ -57,10 +56,46 @@ public class SpriteBatch {
 	
 	//The viewport we are rendering to.
 	private Rectangle viewport;
+	private Rectangle oldViewPort;
+	
 	
 	//SpriteEffects
 	private static ShaderEffect basicEffect;
 	private ShaderEffect activeEffect;
+	
+	private Sprite[] sprites;
+	
+	private SortMode sortMode;
+	private SpriteBatch.TextureSorter textureSorter;
+	
+	private class Sprite {
+		public Texture2D texture;
+		public float[] color;
+		public float[] verticies;
+		public float[] uvCoords;
+		public float depth;
+	}
+	
+	public enum SortMode 
+	{
+		/**No sorting is done.
+		 * 
+		 */
+		None, 
+		/**Sprites are sorted based on their textures.
+		 * 
+		 */
+		Texture
+		
+	}
+	
+	private class TextureSorter implements Comparator<Sprite>
+	{
+		//We basicly just want to see if the textures are the same or not.
+		public int compare(Sprite first, Sprite second) {
+			return Integer.compare(first.texture.OpenGLID, second.texture.OpenGLID);
+		}
+	}
 	
 	//A flag indicating if we are inside of a begin-call sequence.
 	private boolean betweenBeginAndEnd;
@@ -73,11 +108,11 @@ public class SpriteBatch {
 	 */
 	public SpriteBatch(Rectangle viewport) {
 		//Create the buffers with the correct length. 
-		this.vertexBuffer = new DynamicVertexBuffer(this.maxSpriteCount * 8);
-		this.textureBuffer = new DynamicVertexBuffer(this.maxSpriteCount * 8);
-		this.colorBuffer = new DynamicVertexBuffer(this.maxSpriteCount * 16);
+		this.vertexBuffer = new DynamicVertexBuffer(this.maxSpriteCount * 32);
 		this.indexBuffer = new IndexBuffer(this.maxSpriteCount * 12);
-		
+		this.sprites = new Sprite[this.maxSpriteCount];
+		this.textureSorter = new TextureSorter();
+		this.initializeSpriteArray();
 		
 		this.viewport = viewport;
 		
@@ -88,6 +123,16 @@ public class SpriteBatch {
 		this.activeEffect = basicEffect;
 	}
 
+	private void initializeSpriteArray() {
+		for (int i = 0; i < this.sprites.length; i++) {
+			Sprite sprite = new Sprite();
+			sprite.uvCoords = new float[8];
+			sprite.verticies = new float[8];
+			sprite.color = new float[4];
+			this.sprites[i] = sprite;
+		}		
+	}
+
 	private void initializeBuffers() {
 			
 		this.vertexArrayObject = glGenVertexArrays();
@@ -96,20 +141,13 @@ public class SpriteBatch {
 		//Bind the position buffer and prepare the VOA for positional input.
 		this.vertexBuffer.bindGL();
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, false, 0, 0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, false, 32, 0);
 		
-
-		//Bind the textureCoords buffer and prepare the VOA for textureCoord input.
-		this.textureBuffer.bindGL();
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, false, 32, 2 * 4);
 		
-
-		//Bind the color buffer and prepare the VOA for colored input.
-		this.colorBuffer.bindGL();
 		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 4, GL_FLOAT, false, 0, 0);
-		
+		glVertexAttribPointer(2, 4, GL_FLOAT, false, 32, 4 * 4);
 		
 		setupIndexBuffer();
 				
@@ -233,15 +271,16 @@ public class SpriteBatch {
 	
 	/**Prepares the spritebatch for rendering. 
 	 * This overload uses the standard shadereffect and the identity view.
-	 * (note* begin must be called befoure draw or end can be called)
+	 * Blending is activated and the sortmode is none.
 	 */
 	public void begin() {
 		this.begin(null);
 	}
 	
+	
 	/**Prepares the spritebatch for rendering.
 	 * This overload uses the provided effect and the identity view.
-	 * (note* begin must be called before draw or end can be called)
+	 * The default framebuffer is targeted, blending is activated and the sortmode is none.
 	 * @param effect the custom effect used.
 	 */
 	public void begin(ShaderEffect effect) {
@@ -251,7 +290,7 @@ public class SpriteBatch {
 	
 	/**Prepares the spritebatch for rendering.
 	 * This overload uses the provided effect and the provided view.
-	 * (note* begin must be called before draw or end can be called)
+	 * The default framebuffer is targeted, blending is activated and the sortmode is none.
 	 * @param effect the custom effect used.
 	 * @param view the custom view used.
 	 */
@@ -261,20 +300,39 @@ public class SpriteBatch {
 	
 	
 	/**Prepares the spritebatch for rendering.
-	 * This overload uses the provided effect and the provided view.
-	 * (note* begin must be called before draw or end can be called)
+	 * This overload uses the provided effect, view and rendertarget.
+	 * Blending is activated and the sortmode is none.
 	 * @param effect the custom effect used.
 	 * @param view the custom view used.
+	 * @param target the rendertarget rendering to(null means the default render target).
 	 */
 	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target) {
 		this.begin(effect, view, target, true);
 	}
 	
 	
-	private Rectangle oldViewPort;
 	
+	/**Prepares the spritebatch for rendering.
+	 * This overload uses the provided effect,view,rendertarget and blending flag
+	 * The sortmode is none.
+	 * @param effect the custom effect used.
+	 * @param view the custom view used
+	 * @param target the rendertarget rendering to(null means the default render target).
+	 * @param useBlending a flag indicating wether or not we should use blending.
+	 */
 	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target, boolean useBlending) {
+		this.begin(effect, view, target, useBlending, SortMode.None);
+	}
 		
+	/**Prepares the spritebatch for rendering.
+	 * This overload uses the provided effect and the provided view.
+	 * @param effect the custom effect used.
+	 * @param view the custom view used
+	 * @param target the rendertarget rendering to(null means the default render target).
+	 * @param useBlending a flag indicating wether or not we should use blending. 
+	 * @param sortMode the sort mode to be used.
+	 */
+	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target, boolean useBlending, SortMode sortMode) {
 		glEnable(GL_TEXTURE_2D);
 		if(useBlending)	{
 			glEnable(GL_BLEND);
@@ -300,10 +358,11 @@ public class SpriteBatch {
 			this.activeEffect = effect;	
 		}
 		
-		
 		this.setupUniforms();
+		
+		this.sortMode = sortMode;
 	}
-			
+	
 	
 	/** Ends the batch drawing, Draws the batched items to the current renderTarget.
 	 */
@@ -311,12 +370,11 @@ public class SpriteBatch {
 		if(!this.betweenBeginAndEnd) {
 			throw new GraphicsException("Cannot end before you begin...");
 		}
-		
+
+
+		this.renderBatch();
 		this.viewport = oldViewPort;
 		
-		if(this.activeTexture != null) {
-			this.renderBatch();
-		}
 		this.betweenBeginAndEnd = false;
 	}
 	
@@ -501,21 +559,11 @@ public class SpriteBatch {
 	private void internalDraw(Texture2D texture, Vector2 destination, Color color, Rectangle sorceRectangle,
 							  Vector2 origin, Vector2 scale, float rotation, boolean mirror)
 	{
-			//Make sure the texture is not null.
-			if(texture == null) {
-				throw new NullPointerException("Texture cannot be null!");
-			} else if(!this.betweenBeginAndEnd) {
-				throw new GraphicsException("You cannot draw befoure begin is called!");
-			}
+			ensureCanRender(texture);
 			
-			//If the texture is not the active texture render the current batch.
-			if(this.activeTexture != texture) {
-				if(this.activeTexture != null) {
-					this.renderBatch();
-				}
-				this.activeTexture = texture;
-			}
-			
+			Sprite sprite = this.sprites[this.spriteCount];
+			sprite.texture = texture;
+		
 			float destWidth;
 			float destHeight;
 			float texX, texY;
@@ -541,8 +589,8 @@ public class SpriteBatch {
 			float angleY = (float)Math.sin(rotation);
 			float origX = origin.X / destWidth * scale.X;
 			float origY = origin.Y / destHeight * scale.Y;
-			float[] colorValues = color.toArray();
 			
+			sprite.color = color.toArray();
 			for (int i = 0; i < 4; i++) {
 				float num0 = xOffsets[i];
 				float num1 = yOffsets[i];
@@ -561,30 +609,76 @@ public class SpriteBatch {
 					y = this.viewport.Height - y;
 				}
 				
-				this.vertexBuffer.setData(x);
-				this.vertexBuffer.setData(y);
-				
 				float realTexCoordX = texX + num0 * texWidth;
 				float realTexCoordY = texY + num1 * texHeight;
 				
-				
-				
-				this.textureBuffer.setData(realTexCoordX);
-				this.textureBuffer.setData(realTexCoordY);
-				
-				this.colorBuffer.setData(colorValues);				
+				int sX = i * 2, sY = sX + 1;
+				sprite.uvCoords[sX] = realTexCoordX;
+				sprite.uvCoords[sY] = realTexCoordY;
+				sprite.verticies[sX] = x;
+				sprite.verticies[sY] = y;
 			}
 			
 			this.spriteCount++;
 			if(this.spriteCount == this.maxSpriteCount) {
 				this.renderBatch();
 			}
-			
-			
 	}
 
+	private void ensureCanRender(Texture2D texture) {
+		if(texture == null) {
+			throw new NullPointerException("Texture cannot be null!");
+		} else if(!this.betweenBeginAndEnd) {
+			throw new GraphicsException("You cannot draw befoure begin is called!");
+		}
+	}
+	
+	
+	private void fillBuffer(int start, int end) {
+		for (int i = start; i <= end; i++) {
+			Sprite sprite = this.sprites[i];
+			for (int j = 0; j < 4; j++) {
+				int x = j * 2, y = x + 1;
+				this.vertexBuffer.setData(sprite.verticies[x]);
+				this.vertexBuffer.setData(sprite.verticies[y]);
+				this.vertexBuffer.setData(sprite.uvCoords[x]);
+				this.vertexBuffer.setData(sprite.uvCoords[y]);
+				this.vertexBuffer.setData(sprite.color);	
+			}
+		}
+	}
+	
 	private void renderBatch() {
 		
+		if(this.sortMode == SortMode.Texture) {
+			Arrays.sort(this.sprites, 0, this.spriteCount, this.textureSorter);
+		}
+		
+		int start = 0; 
+		Texture2D texture = null;
+		for (int i = 0; i < this.spriteCount; i++) {
+			Sprite sprite = this.sprites[i];
+			Texture2D texture2 = sprite.texture;
+			
+			if(texture2 != texture) {
+				if(i > start) {
+					fillBuffer(start, i);
+					render(texture, (i - start));
+					start = i;
+					texture = sprite.texture;	
+				} 
+				texture = texture2;
+			}
+		}	
+
+		if(start < spriteCount) {
+			fillBuffer(start, spriteCount - 1);
+			render(this.sprites[this.spriteCount - 1].texture, (spriteCount - start));	
+		}
+		this.spriteCount = 0;
+	}
+
+	private void render(Texture2D texture, int count) {
 		glBindVertexArray(this.vertexArrayObject);
 		
 		flushBuffers();
@@ -592,26 +686,18 @@ public class SpriteBatch {
 		this.activeEffect.bindShaderProgram();
 		
 		glActiveTexture(GL_TEXTURE0);
-		this.activeTexture.bindGL();
+		texture.bindGL();
 		
-		glDrawElements(GL_TRIANGLES, this.spriteCount * 6, GL_UNSIGNED_SHORT, 0);
+		glDrawElements(GL_TRIANGLES, count * 6, GL_UNSIGNED_SHORT, 0);
 		
 		this.activeEffect.unbindShaderProgram();
 		
 		glBindVertexArray(0);
-		
-		this.spriteCount = 0;
-		this.activeTexture = null;
 	}
+
 
 	private void flushBuffers() {
 		this.vertexBuffer.bindGL();
 		this.vertexBuffer.flushGL();
-		
-		this.textureBuffer.bindGL();	
-		this.textureBuffer.flushGL();
-		
-		this.colorBuffer.bindGL();
-		this.colorBuffer.flushGL();
 	}
 }

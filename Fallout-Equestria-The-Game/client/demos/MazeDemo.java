@@ -1,5 +1,7 @@
 package demos;
 
+import org.lwjgl.opengl.Display;
+
 import math.MathHelper;
 import math.Vector2;
 import misc.SoundManager;
@@ -16,6 +18,7 @@ import gameMap.SceneNode;
 import gameMap.TexturedSceneNode;
 import graphics.Color;
 import graphics.SpriteBatch;
+import graphics.SpriteBatch.SortMode;
 import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
@@ -40,12 +43,15 @@ public class MazeDemo extends Demo {
 	}
 
 	public MazeDemo() {
-		super(screenDim, 60);
+		super(screenDim, 250);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void update(GameTime time) {
+		
+		Display.setTitle("Elapsed Time: " + time.getElapsedTime().getTotalMiliSeconds());
+		
 		this.mouse.poll(screenDim);
 		this.keyboard.poll();
 		this.gameWorld.update(time);
@@ -53,7 +59,7 @@ public class MazeDemo extends Demo {
 		
 		if(Math.random() < 0.5f) {
 			IEntityDatabase database  = this.gameWorld.getDatabase();
-			if(database.getEntityCount() < 150) {
+			if(database.getEntityCount() < 2000) {
 				IEntity man = spawnManlyMan();
 				if(Math.random() < 0.1f) {
 					man.getComponent(TransformationComp.class).setHeight(100);
@@ -94,13 +100,17 @@ public class MazeDemo extends Demo {
 	@Override
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
-		this.spriteBatch.begin(null, this.camera.getTransformation());
+		this.spriteBatch.begin(this.ContentManager.loadShaderEffect("Negate.effect"), this.camera.getTransformation(), null, true, SortMode.Texture);
 		this.gameWorld.render();
 		this.spriteBatch.end();	
 	}
 
 	@Override
 	protected void initialize() {
+
+		Display.setVSyncEnabled(false);
+		
+		
 		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
