@@ -110,7 +110,7 @@ public class Network {
 		}
 		
 		Client client = (Client)this.endPoint;
-		return client.discoverHosts(udpPort, 10);
+		return client.discoverHosts(udpPort, 200);
 	}
 	
 	public void connectToHost(InetAddress address) {

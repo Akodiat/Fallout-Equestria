@@ -34,7 +34,7 @@ public abstract class Demo {
 			try {
 				Display.setVSyncEnabled(true);
 				Display.setDisplayMode(new DisplayMode(screenDim.Width, screenDim.Height));
-				Display.create(new PixelFormat().withSamples(8));
+				Display.create();
 				this.initialize();
 				
 				while(!Display.isCloseRequested()) {

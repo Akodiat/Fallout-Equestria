@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import math.Vector2;
@@ -145,7 +146,7 @@ public class SceneLoader extends ContentLoader<Scene>{
 
 
 	private Vector2 extractVector2(String[] pos) {
-		NumberFormat format = NumberFormat.getInstance();
+		NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
 		//Float.parseString cannot parse european float values. So using the numberformater instead.
 		Number nX;
 		Number nY;

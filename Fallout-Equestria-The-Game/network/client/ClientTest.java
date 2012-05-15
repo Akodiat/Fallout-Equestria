@@ -17,13 +17,11 @@ import animation.PonyColorChangeHelper;
 
 import com.esotericsoftware.kryonet.*;
 
-<<<<<<< HEAD
 import common.*;
 import components.*;
 
 import scripting.PlayerScript;
 import utils.*;
-=======
 import common.EntityCreatedMessage;
 import common.EntityDestroyedMessage;
 import common.EntityMovedMessage;
@@ -43,7 +41,6 @@ import utils.Keyboard;
 import utils.Mouse;
 import utils.Network;
 import utils.Rectangle;
->>>>>>> Fixel GUI and network stuff
 import demos.Demo;
 import demos.WorldBuilder;
 import entityFramework.*;
@@ -186,18 +183,13 @@ public class ClientTest extends Demo {
 		message.networkID = this.networkID;	
 		message.senderID = this.networkID;
 		
-<<<<<<< HEAD
 		message.playerCharacteristics = new PlayerCharacteristics();
 		
 		message.playerCharacteristics.bodyColor = Color.Black;
 		message.playerCharacteristics.eyeColor  = Color.Cyan;
 		message.playerCharacteristics.maneColor	= Color.Purple;
-		
-		this.client.sendTCP(message);		
-=======
 		Client client = this.network.getClient();
 		client.sendTCP(message);		
->>>>>>> Fixel GUI and network stuff
 		
 	}
 
@@ -243,6 +235,9 @@ public class ClientTest extends Demo {
 	
 	private void connect() {
 		List<InetAddress> adresses = this.network.getAvalibleLanHosts();
+		System.out.println(adresses.get(0));
+		
+		
 		Client client = this.network.getClient();
 		client.addListener(this.generateListener());
 		this.network.connectToHost(adresses.get(0));

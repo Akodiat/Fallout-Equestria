@@ -29,9 +29,11 @@ public class TransformationComp implements IComponent {
 	public TransformationComp() {
 		this(Vector2.Zero,Vector2.One,0,Vector2.Zero);
 	}
+	
 	public TransformationComp(Vector2 position, Vector2 scale, float rotation, Vector2 origin) {
 		this(position,scale,rotation,origin, false);
 	}
+	
 	public TransformationComp(Vector2 position, Vector2 scale, float rotation, Vector2 origin, boolean mirror) {
 		this.position = position;
 		this.scale = scale;
@@ -127,6 +129,7 @@ public class TransformationComp implements IComponent {
 			+  "Rotation: " + this.rotation;
 	}
 	public float getHeight() {
+		
 		return height;
 	}
 	public void setHeight(float height) {

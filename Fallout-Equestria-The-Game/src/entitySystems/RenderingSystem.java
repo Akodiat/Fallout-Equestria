@@ -91,7 +91,7 @@ public class RenderingSystem extends EntityProcessingSystem {
 		public int compare(IEntity o1, IEntity o2) {
 			TransformationComp trans1 = posCM.getComponent(o1);
 			TransformationComp trans2 = posCM.getComponent(o2);
-			return (int) ((trans1.getPosition().Y - trans2.getPosition().Y));
+			return Float.compare(trans1.getPosition().Y,trans2.getPosition().Y);
 		}
 	
 	}
