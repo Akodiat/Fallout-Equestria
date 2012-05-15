@@ -1,6 +1,5 @@
 package demos;
 
-
 import math.Point2;
 import misc.IEventListener;
 import GUI.*;
@@ -29,7 +28,7 @@ public class GUIDemo extends Demo {
 	}
 	
 	public GUIDemo() {
-		super(screenDim, 60);
+		super(screenDim, 30);
 	}
 
 	@Override
@@ -48,6 +47,7 @@ public class GUIDemo extends Demo {
 
 	@Override
 	protected void initialize() {
+		
 		this.spriteBatch = new SpriteBatch(screenDim);
 		this.mouse = new Mouse();
 		this.keyboard = new Keyboard();
@@ -115,7 +115,6 @@ public class GUIDemo extends Demo {
 	
 		Slider slider = new Slider();
 		slider.setBounds(new Rectangle(200,455,250,30));
-		slider.setFgColor(Color.Red);
 		slider.setScrollMax(255);
 		slider.setHorizontal(true);
 		slider.addScrollListener(new IEventListener<ScrollEventArgs>() {
@@ -226,8 +225,8 @@ public class GUIDemo extends Demo {
 		this.panel.addChild(chatPanelLabel);
 		
 		ChatPanel chatPanel = new ChatPanel();
-		chatPanel.setBounds(1000,400,250,250);
-		chatPanel.setFont(ContentManager.loadFont("Courier New20.xml"));
+		chatPanel.setBounds(800,400,500,300);
+		chatPanel.setFont(ContentManager.loadFont("Andale Mono20.xml"));
 		this.panel.addChild(chatPanel);
 		
 		final ImageBox imageBox1 = new ImageBox();
@@ -272,7 +271,7 @@ public class GUIDemo extends Demo {
 		});
 	
 		this.panel.addChild(comboBox);
-		
+
 	}
 
 }

@@ -89,7 +89,7 @@ public class TextAreaRenderer implements IGUIRenderer<TextArea>{
 		batch.drawString(control.getFont(), 
 						 builder.toString(), 
 						 offset,
-						 Color.White);
+						 control.getFgColor());
 		
 		
 

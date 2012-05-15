@@ -31,8 +31,8 @@ public class ComboBox<T> extends Panel implements ISelector<T>  {
 		this.selectButton = new Button();
 		this.selectorBox = new ListBox<>();
 		
-		this.selectorBox.enabled = false;
-		this.selectorBox.visible = false;
+		this.selectorBox.setEnabled(false);
+		this.selectorBox.setEnabled(false);
 		this.selectorBox.setBgColor(new Color(200,200,200,255));
 		this.selectorBox.setFgColor(Color.Black);
 		this.setBgColor(new Color(0,0,0,0));
@@ -131,6 +131,7 @@ public class ComboBox<T> extends Panel implements ISelector<T>  {
 	private void setActualBounds(Rectangle bounds) {
 		this.bounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, 
 														bounds.Height + selectorBox.getBounds().Height);
+		this.fixRenderTarget();
 		
 	}
 

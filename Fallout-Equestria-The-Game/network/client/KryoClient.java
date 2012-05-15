@@ -15,6 +15,7 @@ import utils.Clock;
 import utils.GameTime;
 import utils.Keyboard;
 import utils.Mouse;
+import utils.Network;
 import utils.Rectangle;
 
 import animation.AnimationPlayer;

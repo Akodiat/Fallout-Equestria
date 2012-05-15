@@ -5,7 +5,9 @@ import graphics.Color;
 import graphics.SpriteBatch;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.List;
 
 import math.Vector2;
 import misc.SoundManager;
@@ -15,11 +17,33 @@ import animation.PonyColorChangeHelper;
 
 import com.esotericsoftware.kryonet.*;
 
+<<<<<<< HEAD
 import common.*;
 import components.*;
 
 import scripting.PlayerScript;
 import utils.*;
+=======
+import common.EntityCreatedMessage;
+import common.EntityDestroyedMessage;
+import common.EntityMovedMessage;
+import common.EntityNetworkIDsetMessage;
+import common.InputMessage;
+import common.NewPlayerMessage;
+import components.AnimationComp;
+import components.BehaviourComp;
+import components.RenderingComp;
+import components.ShadowComp;
+import components.TransformationComp;
+
+import scripting.PlayerScript;
+import utils.Camera2D;
+import utils.GameTime;
+import utils.Keyboard;
+import utils.Mouse;
+import utils.Network;
+import utils.Rectangle;
+>>>>>>> Fixel GUI and network stuff
 import demos.Demo;
 import demos.WorldBuilder;
 import entityFramework.*;
@@ -28,7 +52,6 @@ import entitySystems.CameraControlSystem;
 public class ClientTest extends Demo {
 	
 	private static final Rectangle sr = new Rectangle(0,0, 800, 600);
-	private Client client;
 	
 	
 	private Object lock = new Object();
@@ -41,6 +64,8 @@ public class ClientTest extends Demo {
 	private Keyboard keyboard;
 	private SoundManager soundManager;
 	private int networkID = -1;
+	private Network network;
+	
 	private EntityNetworkIDManager idManager;
 	
 	public static void main(String[] args) {
@@ -51,11 +76,12 @@ public class ClientTest extends Demo {
 		super(sr, 30);
 		messages = new ArrayList<>();
 		this.idManager = new EntityNetworkIDManager();
+		this.network = new Network(54555, 54777);
 	}
 
 	@Override
 	protected void end() {
-		client.stop();
+		this.network.reset();
 	}
 	@Override
 	public void update(GameTime time) {
@@ -120,6 +146,7 @@ public class ClientTest extends Demo {
 		message.keyboard = this.keyboard;
 		message.mouse = this.mouse;
 		
+		Client client = this.network.getClient();
 		client.sendTCP(message);
 	}
 
@@ -134,8 +161,8 @@ public class ClientTest extends Demo {
 
 	@Override
 	protected void initialize() {
-		client = new Client();
 		this.connect();
+		System.out.println("awda");
 			
 		waitUntilIDISReal();
 		
@@ -159,6 +186,7 @@ public class ClientTest extends Demo {
 		message.networkID = this.networkID;	
 		message.senderID = this.networkID;
 		
+<<<<<<< HEAD
 		message.playerCharacteristics = new PlayerCharacteristics();
 		
 		message.playerCharacteristics.bodyColor = Color.Black;
@@ -166,6 +194,10 @@ public class ClientTest extends Demo {
 		message.playerCharacteristics.maneColor	= Color.Purple;
 		
 		this.client.sendTCP(message);		
+=======
+		Client client = this.network.getClient();
+		client.sendTCP(message);		
+>>>>>>> Fixel GUI and network stuff
 		
 	}
 
@@ -210,15 +242,10 @@ public class ClientTest extends Demo {
 	}
 	
 	private void connect() {
-		try {
-			this.client.addListener(this.generateListener());
-			client.start();
-			Network.registerClasses(client);
-			this.client.connect(5000, "localhost", 54555, 54777);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		List<InetAddress> adresses = this.network.getAvalibleLanHosts();
+		Client client = this.network.getClient();
+		client.addListener(this.generateListener());
+		this.network.connectToHost(adresses.get(0));
 	}
 	
 	private Listener generateListener() {

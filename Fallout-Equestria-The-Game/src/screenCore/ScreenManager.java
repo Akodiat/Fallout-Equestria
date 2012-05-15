@@ -14,22 +14,26 @@ import com.google.common.collect.ImmutableList;
 import utils.GameTime;
 import utils.Keyboard;
 import utils.Mouse;
+import utils.Network;
 import utils.Rectangle;
 import content.ContentManager;
 
 public class ScreenManager {
 	
-	private List<GameScreen> activeScreens;
-	private List<GameScreen> screensToUpdate;
-	private Mouse mouse;
-	private Keyboard keyboard;
-	private SpriteBatch spriteBatch;
-	private ContentManager contentManager;
-	private SoundManager soundManager;
+	private final List<GameScreen> activeScreens;
+	private final List<GameScreen> screensToUpdate;
+	private final Mouse mouse;
+	private final Keyboard keyboard;
+	private final SpriteBatch spriteBatch;
+	private final ContentManager contentManager;
+	private final SoundManager soundManager;
+	private final Network network;
+	private final Map<String, GameScreen> avalibleScreens;
+	
 	private boolean isInitialized;
 	private Rectangle viewport;	
-	private Map<String, GameScreen> avalibleScreens;
-	
+
+
 	public Rectangle getViewport() {
 		return this.viewport;
 	}
@@ -49,7 +53,15 @@ public class ScreenManager {
 		return ImmutableList.copyOf(this.activeScreens);
 	}
 	
-	public ScreenManager(SpriteBatch spriteBatch, ContentManager contentManager, SoundManager soundManager, Rectangle viewport, Mouse mouse, Keyboard keyboard) {
+	public SoundManager getSoundManager() {
+		return soundManager;
+	}
+	
+	public Network getNetwork() {
+		return network;
+	}
+	
+	public ScreenManager(SpriteBatch spriteBatch, ContentManager contentManager, SoundManager soundManager, Network network, Rectangle viewport, Mouse mouse, Keyboard keyboard) {
 		this.activeScreens = new ArrayList<>();
 		this.screensToUpdate = new ArrayList<>();
 		this.viewport = viewport;
@@ -59,6 +71,7 @@ public class ScreenManager {
 		this.keyboard = keyboard;
 		this.avalibleScreens = new HashMap<>();
 		this.soundManager = soundManager;
+		this.network = network;
 	}
 	
 	public void initialize() {
@@ -156,14 +169,6 @@ public class ScreenManager {
 		}
 		
 		
-		this.activeScreens.clear();
-		
-		
-	}
-	public SoundManager getSoundManager() {
-		return soundManager;
-	}
-	public void setSoundManager(SoundManager soundManager) {
-		this.soundManager = soundManager;
+		this.activeScreens.clear();	
 	}
 }

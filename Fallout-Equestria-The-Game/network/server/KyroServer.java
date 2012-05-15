@@ -15,6 +15,7 @@ import utils.Clock;
 import utils.GameTime;
 import utils.Keyboard;
 import utils.Mouse;
+import utils.Network;
 import utils.Rectangle;
 import animation.AnimationPlayer;
 
@@ -24,7 +25,6 @@ import com.esotericsoftware.kryonet.Server;
 
 import common.EntityMovedMessage;
 import common.EntityNetworkIDsetMessage;
-import common.Network;
 import common.NewPlayerMessage;
 import common.PlayerCharacteristics;
 import common.Utils;

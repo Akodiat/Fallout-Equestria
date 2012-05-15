@@ -10,6 +10,7 @@ import math.Vector2;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
+import static org.lwjgl.opengl.GL14.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
@@ -85,7 +86,11 @@ public class SpriteBatch {
 		/**Sprites are sorted based on their textures.
 		 * 
 		 */
-		Texture
+		Texture,
+		/**Sprites are sorted based on their depth value.
+		 * 
+		 */
+		Depth
 		
 	}
 	
@@ -176,10 +181,7 @@ public class SpriteBatch {
 		basicEffect = this.createBasicEffect();
 	}
 
-	/**This is a hack. 
-	 * 
-	 * @return
-	 */
+	
 	private ShaderEffect createBasicEffect() {
 		String vertexShaderSource    = "#version 330 core \n layout(location = 0) in vec2 position; layout(location = 1) in vec2 textureCoord; layout(location = 2) in vec4 color; uniform mat4 projection; uniform mat4 view; uniform vec2 viewport; out vec2 _textureCoord; out vec4 _color; void main() { vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f); realPos =  view  * realPos; realPos.xy -= viewport.xy / 2;  gl_Position = projection * realPos; _textureCoord.xy = textureCoord.xy; _color = color;}";
 		String fragmentShaderSource  ="#version 330 core \n uniform sampler2D colorTexture; in vec2 _textureCoord; in vec4 _color; out vec4 outputColor; void main() {outputColor = texture(colorTexture, _textureCoord) * _color;}";
@@ -334,6 +336,9 @@ public class SpriteBatch {
 	 */
 	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target, boolean useBlending, SortMode sortMode) {
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_MULTISAMPLE);
+		glHint(GL_FRAGMENT_SHADER_DERIVATIVE_HINT, GL_NICEST);
+		
 		if(useBlending)	{
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -371,9 +376,11 @@ public class SpriteBatch {
 			throw new GraphicsException("Cannot end before you begin...");
 		}
 
-
+		
+		
 		this.renderBatch();
 		this.viewport = oldViewPort;
+		
 		
 		this.betweenBeginAndEnd = false;
 	}
@@ -385,7 +392,7 @@ public class SpriteBatch {
 	 * @param color the tint.
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color) {
-		this.internalDraw(texture, position, color, null, Vector2.Zero, Vector2.One, 0.0f, false);
+		this.internalDraw(texture, position, color, null, Vector2.Zero, Vector2.One, 0.0f, false,0.0f);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -400,7 +407,7 @@ public class SpriteBatch {
 		
 		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
 				
-		this.internalDraw(texture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false);
+		this.internalDraw(texture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false,0.0f);
 	}
 	
 	private Vector2 GetRectangleScale(Texture2D texture,
@@ -429,7 +436,25 @@ public class SpriteBatch {
 					 float rotation, boolean mirror) {
 		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
 		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
-		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror);
+		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror,0.0f);
+	}
+	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture the texture.
+	 * @param destRectangle the bounds of the sprite.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 * @param origin the origin (rendering offset)
+	 * @param rotation the rotation in a counterclockwise system Range 0 to 2Pi
+	 * @param mirror a flag indicating if the texture should be horizontally flipped.
+	 * @param depth depth of the sprite.
+	 */
+	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle, Vector2 origin,
+					 float rotation, boolean mirror, float depth) {
+		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
+		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
+		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror,depth);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -440,7 +465,7 @@ public class SpriteBatch {
 	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle) {
-		this.internalDraw(texture, position, color, sorceRectangle, Vector2.Zero, Vector2.One, 0.0f, false);
+		this.internalDraw(texture, position, color, sorceRectangle, Vector2.Zero, Vector2.One, 0.0f, false,0.0f);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -451,7 +476,7 @@ public class SpriteBatch {
 	 * @param origin the origin (rendering offset)
 	 */
 	public void draw(Texture2D texture, Vector2 position,  Color color, Vector2 origin) {
-		this.internalDraw(texture, position, color, null, origin, Vector2.One, 0.0f, false);
+		this.internalDraw(texture, position, color, null, origin, Vector2.One, 0.0f, false,0.0f);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -463,7 +488,7 @@ public class SpriteBatch {
 	 * @param origin the origin (rendering offset)
 	 */
 	public void draw(Texture2D texture, Vector2 position,  Color color, Rectangle sorceRectangle, Vector2 origin) {
-		this.internalDraw(texture, position, color, sorceRectangle, origin, Vector2.One, 0.0f, false);
+		this.internalDraw(texture, position, color, sorceRectangle, origin, Vector2.One, 0.0f, false,0.0f);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -479,7 +504,7 @@ public class SpriteBatch {
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 			 float scale, float rotation, boolean mirror) {
-		this.internalDraw(texture, position, color, sorceRectangle, origin, new Vector2(scale, scale), rotation, mirror);
+		this.internalDraw(texture, position, color, sorceRectangle, origin, new Vector2(scale, scale), rotation, mirror,0.0f);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -495,31 +520,53 @@ public class SpriteBatch {
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 					 Vector2 scale, float rotation, boolean mirror) {
-		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror);
+		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror,0.0f);
 	}
 	
+	/**Adds a sprite to the batch with the specified arguments.
+	 * 
+	 * @param texture the texture.
+	 * @param position the top-left position.
+	 * @param color the tint.
+	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
+	 * @param origin the origin (rendering offset)
+	 * @param scale the scale.
+	 * @param rotation the rotation in a counterclockwise system Range 0 to Tau
+	 * @param mirror a flag indicating if the texture should be horizontally flipped.
+	 * @param depth the depth of the sprite. In SortMode depth the sprites are sorted by this value.
+	 */
+	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
+					 Vector2 scale, float rotation, boolean mirror, float depth) {
+		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror, depth);
+	}
+	
+	
+	
+	
 	public void drawString(TextureFont font , String text, Vector2 position, Color color) {		
-		this.internalDrawString(font, text, position, color, Vector2.Zero, Vector2.One, 0.0f, false);	
+		this.internalDrawString(font, text, position, color, Vector2.Zero, Vector2.One, 0.0f, false,0.0f);	
 	}
 	
 	public void drawString(TextureFont font , String text, Vector2 position, Color color, Vector2 origin) {		
-		this.internalDrawString(font, text, position, color, origin, Vector2.One, 0.0f, false);	
+		this.internalDrawString(font, text, position, color, origin, Vector2.One, 0.0f, false,0.0f);	
 	}
 	
 	public void drawString(TextureFont font , String text, Vector2 position, Color color, Vector2 origin, Vector2 scale) {		
-		this.internalDrawString(font, text, position, color, origin, scale, 0.0f, false);	
+		this.internalDrawString(font, text, position, color, origin, scale, 0.0f, false,0.0f);	
 	}
 	
 	public void drawString(TextureFont font , String text, Vector2 position, Color color, Vector2 origin, Vector2 scale, float rotation, boolean mirror) {		
-		this.internalDrawString(font, text, position, color, origin, scale, rotation, mirror);	
+		this.internalDrawString(font, text, position, color, origin, scale, rotation, mirror, 0.0f);	
 	}
+	
+	public void drawString(TextureFont font , String text, Vector2 position, Color color, Vector2 origin, Vector2 scale, float rotation, boolean mirror, float depth) {		
+		this.internalDrawString(font, text, position, color, origin, scale, rotation, mirror, depth);	
+	}
+	
 	
 	private void internalDrawString(TextureFont font, String text,
 			Vector2 destination, Color color, Vector2 origin, Vector2 scale, float rotation,
-			boolean mirror) {
-		
-		//TODO this is unreadable dosn't work correctly and so on but other then that  like it!'
-		
+			boolean mirror, float depth) {
 		Vector2 textDim = font.meassureString(text);
 		textDim = new Vector2(textDim.X * scale.X, textDim.Y * scale.Y);
 		float x = 0, y = 0, rx = 0;
@@ -549,7 +596,7 @@ public class SpriteBatch {
 			}
 			
 			this.internalDraw(font.getTexture(), new Vector2(rx,y),
-						      color, srcRect, rorig, scale, rotation, mirror);
+						      color, srcRect, rorig, scale, rotation, mirror, depth);
 			
 			dist += (srcRect.Width + font.getCharacterSpacing()) * scale.X;
 			
@@ -557,13 +604,14 @@ public class SpriteBatch {
 	}
 
 	private void internalDraw(Texture2D texture, Vector2 destination, Color color, Rectangle sorceRectangle,
-							  Vector2 origin, Vector2 scale, float rotation, boolean mirror)
+							  Vector2 origin, Vector2 scale, float rotation, boolean mirror, float depth)
 	{
 			ensureCanRender(texture);
 			
 			Sprite sprite = this.sprites[this.spriteCount];
 			sprite.texture = texture;
-		
+			sprite.depth = depth;
+			
 			float destWidth;
 			float destHeight;
 			float texX, texY;
@@ -691,6 +739,8 @@ public class SpriteBatch {
 		glDrawElements(GL_TRIANGLES, count * 6, GL_UNSIGNED_SHORT, 0);
 		
 		this.activeEffect.unbindShaderProgram();
+		
+		
 		
 		glBindVertexArray(0);
 	}

@@ -11,7 +11,7 @@ import graphics.TextureFont;
 
 public class ChatPanel extends Panel {
 	private static final int textBoxSize = 25;
-	private static final int buttonWidth = 35;
+	private static final int buttonWidth = 100;
 	private final TextArea area;
 	private final Button sendButton;
 	private final Textfield inputField;
@@ -21,9 +21,15 @@ public class ChatPanel extends Panel {
 		super();
 		this.area = new TextArea();
 		this.sendButton = new Button();
+		this.sendButton.setText("Send");
+		this.sendButton.setBgColor(new Color(1.0f,1.0f,1.0f,0.9f));
 		this.inputField = new Textfield();
+		this.area.setBgColor(Color.Black);
+		this.area.setFgColor(Color.Cyan);
+		
+		
 		this.sendTextEvent = new Event<>();
-		this.setBgColor(new Color(0,0,0,0));
+		this.setBgColor(new Color(255,255,255,0));
 		this.initializeComponents();
 	}
 
@@ -54,8 +60,8 @@ public class ChatPanel extends Panel {
 		super.onResized(bounds);
 		
 		this.area.setBounds(0, 0, bounds.Width, bounds.Height - textBoxSize);
-		this.inputField.setBounds(0,this.area.getBounds().Height,this.bounds.Width - buttonWidth, textBoxSize);
-		this.sendButton.setBounds(inputField.bounds.Width,area.bounds.Height,buttonWidth,textBoxSize);
+		this.inputField.setBounds(12,this.area.getBounds().Height,this.bounds.Width - buttonWidth - 12, textBoxSize);
+		this.sendButton.setBounds(this.bounds.Width - buttonWidth,area.bounds.Height,buttonWidth,textBoxSize);
 		
 	}
 

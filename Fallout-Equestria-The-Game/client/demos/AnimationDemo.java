@@ -83,9 +83,7 @@ public class AnimationDemo extends Demo {
 			entity = gameWorld.getEntityManager().createEntity(archetype);
 			placeAtRandomPosition(entity);
 			entity.refresh();
-
 		}
-
 	}
 
 	private void placeAtRandomPosition(IEntity entity) {

@@ -2,6 +2,8 @@ package demos;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.PixelFormat;
+
 import content.ContentManager;
 
 import utils.Clock;
@@ -32,7 +34,7 @@ public abstract class Demo {
 			try {
 				Display.setVSyncEnabled(true);
 				Display.setDisplayMode(new DisplayMode(screenDim.Width, screenDim.Height));
-				Display.create();
+				Display.create(new PixelFormat().withSamples(8));
 				this.initialize();
 				
 				while(!Display.isCloseRequested()) {

@@ -34,7 +34,6 @@ public class GUIRenderingContext {
 		this.spriteBatch.draw(target.getTexture(), control.getBounds(), Color.White, null);
 		this.spriteBatch.end();
 		
-		target.destroy();
 	}
 	
 	public RenderTarget2D renderChildrenRecursivly(GUIControl control, GameTime time) {
@@ -54,21 +53,17 @@ public class GUIRenderingContext {
 			
 			RenderTarget2D target = renderChildrenToTarget(control, time,
 															childTargets);
-			
-			for (RenderTarget2D renderTarget2D : childTargets) {
-				if(renderTarget2D != null)
-					renderTarget2D.destroy();
-			}
-			
+	
 			return target;
 		}
 	}
 
 	private RenderTarget2D renderChildrenToTarget(GUIControl control,
 			GameTime time, RenderTarget2D[] childTargets) {
-		RenderTarget2D target = new RenderTarget2D(control.getBounds().Width, control.getBounds().Height); 
+		RenderTarget2D target = control.getRenderTarget();
 
 		this.spriteBatch.begin(null, Matrix4.Identity, target);
+		this.spriteBatch.clearScreen(Color.Transparent);
 		this.renderInternal(control, time, target);
 		
 		for (int i = 0; i < control.getChildren().size(); i++) {
@@ -84,13 +79,15 @@ public class GUIRenderingContext {
 	}
 
 	private RenderTarget2D renderControl(GUIControl control, GameTime time) {
-		RenderTarget2D target = new RenderTarget2D(control.getBounds().Width, control.getBounds().Height);
+		RenderTarget2D target = control.getRenderTarget();
 		if(!control.isEnabled()) {
 			this.spriteBatch.begin(disabledEffect, Matrix4.Identity, target);
+			this.spriteBatch.clearScreen(Color.Transparent);
 			this.renderInternal(control, time, target);
 			this.spriteBatch.end();
 		} else {
 			this.spriteBatch.begin(null, Matrix4.Identity, target);
+			this.spriteBatch.clearScreen(Color.Transparent);
 			this.renderInternal(control, time, target);
 			this.spriteBatch.end();
 		}

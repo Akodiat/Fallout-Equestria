@@ -4,7 +4,6 @@ import java.net.InetAddress;
 import java.util.List;
 
 import com.esotericsoftware.kryonet.Client;
-import common.Network;
 
 public class ServerLoader {
 

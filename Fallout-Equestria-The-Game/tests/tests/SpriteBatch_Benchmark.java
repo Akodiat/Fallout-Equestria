@@ -14,6 +14,8 @@ import math.Vector2;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import utils.Clock;
 import utils.GameTime;
@@ -91,7 +93,7 @@ public class SpriteBatch_Benchmark {
 	
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
-		this.spriteBatch.begin(null, Matrix4.Identity, null, true, SortMode.Texture);
+		this.spriteBatch.begin(null, Matrix4.Identity, null, true, SortMode.Depth);
 		for (Sprite sprite : this.sprites) {
 			this.spriteBatch.draw(sprite.texture, sprite.pos, sprite.color);
 		}		
@@ -101,7 +103,9 @@ public class SpriteBatch_Benchmark {
 	
 	protected  void initialize() {
 		this.spriteBatch = new SpriteBatch(this.screenDim);
-
+		
+		System.out.println(GL11.glGetInteger(GL12.GL_MAX_ELEMENTS_VERTICES));
+		
 		List<Texture2D> texture = new ArrayList<>();
 		texture.add(this.ContentManager.loadTexture("HEJHEJ.png"));
 		texture.add(this.ContentManager.loadTexture("shadow.png"));
@@ -118,6 +122,5 @@ public class SpriteBatch_Benchmark {
 			this.sprites[i] = sprite;
 		}
 	}
-	
 	
 }

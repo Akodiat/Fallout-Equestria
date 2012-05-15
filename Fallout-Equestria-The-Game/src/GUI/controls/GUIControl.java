@@ -1,6 +1,8 @@
 package GUI.controls;
 
 import graphics.Color;
+import graphics.RenderTarget2D;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +39,9 @@ public abstract class GUIControl {
 	private String name;
 	private float rotation;
 	private boolean focused;
-	public boolean visible;
-	public boolean enabled;
+	private boolean visible;
+	private boolean enabled;
+	private RenderTarget2D renderTarget;
 	
 	public GUIControl() {
 		this.parent = null;
@@ -101,9 +104,12 @@ public abstract class GUIControl {
 		this.onChildRemoved(child);
 	}	
 	public void setBounds(Rectangle rectangle) {
-		this.bounds = rectangle;
+		this.bounds = rectangle;		
+		this.fixRenderTarget();
 		this.onResized(this.bounds);
 	}
+
+
 	public void setBounds(int x, int y, int width, int height) {
 		this.setBounds(new Rectangle(x, y, width, height));
 	}	
@@ -201,7 +207,18 @@ public abstract class GUIControl {
 		this.enabled = enabled;
 	}
 
-
+	public RenderTarget2D getRenderTarget() {
+		return this.renderTarget;
+	}
+	
+	protected void fixRenderTarget() {
+		if(this.renderTarget != null) {
+			this.renderTarget.destroy();
+		}
+		if(this.bounds.Width > 0 && this.bounds.Height > 0)
+			this.renderTarget = new RenderTarget2D(this.bounds.Width, this.bounds.Height);
+	}
+	
 	public IGUIRenderer<?> getRenderer() {
 		return renderer;
 	}

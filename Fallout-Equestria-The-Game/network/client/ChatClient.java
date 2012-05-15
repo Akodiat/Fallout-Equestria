@@ -10,6 +10,7 @@ import graphics.SpriteBatch;
 import utils.GameTime;
 import utils.Keyboard;
 import utils.Mouse;
+import utils.Network;
 import utils.Rectangle;
 
 import GUI.GUIFocusManager;
@@ -22,7 +23,6 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import common.ChatMessage;
-import common.Network;
 
 import demos.Demo;
 

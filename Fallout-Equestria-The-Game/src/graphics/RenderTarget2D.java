@@ -25,6 +25,7 @@ public class RenderTarget2D {
 		this.frameBufferObjectOpenGLID = glGenFramebuffers();
 		glBindFramebuffer(GL_FRAMEBUFFER, this.frameBufferObjectOpenGLID);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.OpenGLID, 0);
+		glRenderbufferStorageMultisample(GL_RENDERBUFFER, 8, GL_RGBA, width, height);
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 		
 		this.validateBuffer();
@@ -35,13 +36,13 @@ public class RenderTarget2D {
 	private Texture2D createTexture(int width, int height) {
 		int textureID = glGenTextures();
 		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 
 				 0, 
-				 GL_RGBA16, 
+				 GL_RGBA, 
 				 width, 
 				 height, 
 				 0, 
