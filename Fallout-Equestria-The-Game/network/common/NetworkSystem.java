@@ -17,12 +17,14 @@ import entityFramework.IEntityWorld;
  * @param <T> Generic variable indicating the type of network message that the system should handle.
  */
 public abstract class NetworkSystem<T extends NetworkMessage> extends Listener{
+	private Object lock = new Object();
+	
 	protected List<T> messageList;
 	protected Class<T> usingClass;
 	protected IEntityWorld world;
 	protected EntityNetworkIDManager idManager;
 	protected ContentManager contentManager;
-	
+
 	public NetworkSystem(Class<T> usingClass, IEntityWorld world, EntityNetworkIDManager idManager, ContentManager contentManager){
 		this.usingClass = usingClass;
 		this.world = world;
@@ -30,14 +32,16 @@ public abstract class NetworkSystem<T extends NetworkMessage> extends Listener{
 		this.contentManager = contentManager;
 		this.messageList = new ArrayList<T>();
 	}
-	
+
 	@Override
 	public void received(Connection connection, Object obj) {
 		super.received(connection, obj);
-		if(obj.getClass().equals(usingClass)){
-			this.process((T) obj);
+		synchronized (lock) {
+			if(obj.getClass().equals(usingClass)){
+				this.process((T) obj);
+			}
 		}
 	}
-	
+
 	public abstract void process(T message);
 }
