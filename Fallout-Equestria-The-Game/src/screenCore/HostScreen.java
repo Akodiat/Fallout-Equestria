@@ -10,6 +10,7 @@ import GUI.controls.Button;
 import GUI.controls.Textfield;
 import content.ContentManager;
 import server.KyroServer;
+import server.ServerTest;
 import utils.Rectangle;
 import utils.ServerInfo;
 import utils.TimeSpan;
@@ -66,14 +67,11 @@ public class HostScreen extends TransitioningGUIScreen{
 	}
 	
 	public void startServer() {
-		KyroServer server;
+		new ServerTest().start();
 		
-		try {
-			server = new KyroServer(new Rectangle(0,0,800,600), 60);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.ScreenManager.removeAllScreens();
 		
+		this.ScreenManager.addScreen("LobbyWorld");
 		this.ScreenManager.addScreen("LobbyGUI");
 	}
 }

@@ -26,13 +26,13 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		Button closeButton = new Button();
 		closeButton.setBounds(x, 568, 200, 50);
 		closeButton.setText("Close server");
-		this.addGuiControl(closeButton, new Vector2(vp.Width + 200, 568), new Vector2(x, 568), new Vector2(-200, 568));
+		this.addGuiControl(closeButton, new Vector2(vp.Width + 200, 678), new Vector2(x, 678),new Vector2(-200, 678));
 		
 		//CHECK IF HOST
 		Button playButton = new Button();
 		playButton.setBounds(x, 678, 200, 50);
 		playButton.setText("Start the game!");
-		this.addGuiControl(playButton, new Vector2(vp.Width + 200, 678), new Vector2(x, 678),new Vector2(-200, 678));
+		this.addGuiControl(playButton, new Vector2(vp.Width + 200, 568), new Vector2(x, 568), new Vector2(-200, 568));
 		
 		ChatPanel chat = new ChatPanel();
 		chat.setBounds(0,500,1016,228);
