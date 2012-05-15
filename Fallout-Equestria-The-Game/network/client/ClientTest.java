@@ -13,36 +13,16 @@ import misc.SoundManager;
 import animation.AnimationPlayer;
 import animation.PonyColorChangeHelper;
 
-import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.*;
 
-import common.EntityCreatedMessage;
-import common.EntityDestroyedMessage;
-import common.EntityMovedMessage;
-import common.EntityNetworkIDsetMessage;
-import common.InputMessage;
-import common.Network;
-import common.NewPlayerMessage;
-import common.PlayerCharacteristics;
-import components.AnimationComp;
-import components.BehaviourComp;
-import components.RenderingComp;
-import components.ShadowComp;
-import components.TransformationComp;
+import common.*;
+import components.*;
 
 import scripting.PlayerScript;
-import utils.Camera2D;
-import utils.GameTime;
-import utils.Keyboard;
-import utils.Mouse;
-import utils.Rectangle;
+import utils.*;
 import demos.Demo;
 import demos.WorldBuilder;
-import entityFramework.EntityNetworkIDManager;
-import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
-import entityFramework.IEntityWorld;
+import entityFramework.*;
 import entitySystems.CameraControlSystem;
 
 public class ClientTest extends Demo {
@@ -82,17 +62,20 @@ public class ClientTest extends Demo {
 		synchronized (lock) {
 			for (Object value : this.messages) {
 				if(value instanceof NewPlayerMessage) {
-					NewPlayerMessage message = (NewPlayerMessage)value;
+					NewPlayerMessage message = (NewPlayerMessage) value;
 					System.out.println(message.networkID);
 					createNewPlayer(message);				
 				} else if(value instanceof EntityMovedMessage) {
-					EntityMovedMessage message = (EntityMovedMessage)value;
+					EntityMovedMessage message = (EntityMovedMessage) value;
 					moveEntity(message);
+				} else if(value instanceof AnimationChangedMessage) {
+					AnimationChangedMessage message = (AnimationChangedMessage) value;
+					//TODO Do something here... or don't
 				} else if(value instanceof EntityCreatedMessage) {
-					EntityCreatedMessage message = (EntityCreatedMessage)value;
+					EntityCreatedMessage message = (EntityCreatedMessage) value;
 					createNewEntity(message);
 				} else if(value instanceof EntityDestroyedMessage) {
-					EntityDestroyedMessage message = (EntityDestroyedMessage)value;
+					EntityDestroyedMessage message = (EntityDestroyedMessage) value;
 					removeEntity(message);
 				}
 			}			
@@ -231,7 +214,7 @@ public class ClientTest extends Demo {
 			this.client.addListener(this.generateListener());
 			client.start();
 			Network.registerClasses(client);
-			this.client.connect(5000, "169.254.232.186", 54555, 54777);
+			this.client.connect(5000, "localhost", 54555, 54777);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
