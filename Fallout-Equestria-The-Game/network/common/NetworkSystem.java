@@ -6,6 +6,8 @@ import java.util.List;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import content.ContentManager;
+
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntityWorld;
 
@@ -14,11 +16,13 @@ public abstract class NetworkSystem<T extends NetworkMessage> extends Listener{
 	protected Class<T> usingClass;
 	protected IEntityWorld world;
 	protected EntityNetworkIDManager idManager;
+	protected ContentManager contentManager;
 	
-	public NetworkSystem(Class<T> usingClass, IEntityWorld world, EntityNetworkIDManager idManager){
+	public NetworkSystem(Class<T> usingClass, IEntityWorld world, EntityNetworkIDManager idManager, ContentManager contentManager){
 		this.usingClass = usingClass;
 		this.world = world;
 		this.idManager = idManager;
+		this.contentManager = contentManager;
 		this.messageList = new ArrayList<T>();
 	}
 	
