@@ -235,12 +235,20 @@ public class ClientTest extends Demo {
 	
 	private void connect() {
 		List<InetAddress> adresses = this.network.getAvalibleLanHosts();
-		System.out.println(adresses.get(0));
+		//System.out.println(adresses.get(0));
 		
 		
 		Client client = this.network.getClient();
 		client.addListener(this.generateListener());
-		this.network.connectToHost(adresses.get(0));
+		InetAddress adr = client.discoverHost(54777, 100);
+		System.out.println(adr);
+		try {
+			client.connect(5000, "localhost", 54555, 54777);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//this.network.connectToHost(adresses.get(0));
 	}
 	
 	private Listener generateListener() {

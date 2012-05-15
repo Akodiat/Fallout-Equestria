@@ -169,9 +169,9 @@ public class KyroServer {
 		message.playerCharacteristics = new PlayerCharacteristics();
 		
 		message.playerCharacteristics.name = "P"+(int)(Math.random()*21);
-		message.playerCharacteristics.color = new Color(); //new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
+	//	message.playerCharacteristics.color = new Color(); //new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255), 255);
 		message.playerCharacteristics.archetypePath = playerAsset;
-		message.localClientID = player.getUniqueID();
+		//message.localClientID = player.getUniqueID();
 		message.networkID = player.getUniqueID();
 		
 		
@@ -280,7 +280,7 @@ public class KyroServer {
 					server.sendToAllExceptTCP(connection.getID(), message);
 					
 					EntityNetworkIDsetMessage returnMessage = new EntityNetworkIDsetMessage();
-					returnMessage.localClientID = message.localClientID;
+				//	returnMessage.localClientID = message.localClientID;
 					returnMessage.networkID = message.networkID;
 					
 					server.sendToTCP(connection.getID(), returnMessage);

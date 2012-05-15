@@ -129,9 +129,10 @@ public class ServerTest extends Demo {
 	@Override
 	protected void initialize() {
 		server = new Server();
+
+		this.startAndBindServer();
 		server.addListener(getListener());
 		
-		this.startAndBindServer();
 		
 		createWorld();
 		createPlayer();
@@ -248,6 +249,7 @@ public class ServerTest extends Demo {
 			server.start();
 			Network.registerClasses(server);
 			server.bind(54555, 54777);
+			System.out.println("yay");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -99,8 +99,6 @@ public class Network {
 		client.start();
 		registerClasses(client);	
 		this.endPoint = client;
-
-		System.out.println("...");
 	}
 	
 	public List<InetAddress> getAvalibleLanHosts() {
@@ -110,7 +108,7 @@ public class Network {
 		}
 		
 		Client client = (Client)this.endPoint;
-		return client.discoverHosts(udpPort, 200);
+		return client.discoverHosts(this.udpPort, 100);
 	}
 	
 	public void connectToHost(InetAddress address) {
