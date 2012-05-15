@@ -1,5 +1,5 @@
 package common;
 
-public class EntityDestroyedMessage {
+public class EntityDestroyedMessage extends NetworkMessage{
 	public int entityUniqueID;
 }

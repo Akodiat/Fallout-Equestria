@@ -4,7 +4,11 @@ import components.AnimationComp;
 import content.ContentManager;
 
 import entityFramework.*;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class AnimationsNetworkSystem extends NetworkSystem<AnimationChangedMessage>{
 
 	public AnimationsNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, ContentManager contentManager) {

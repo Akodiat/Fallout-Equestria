@@ -2,7 +2,11 @@ package common;
 
 import content.ContentManager;
 import entityFramework.*;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class EntityCreationNetworkSystem extends NetworkSystem<EntityCreatedMessage>{
 
 	public EntityCreationNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, ContentManager contentManager) {

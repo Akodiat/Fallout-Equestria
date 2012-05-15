@@ -6,7 +6,11 @@ import content.ContentManager;
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ */
 public class MovementNetworkSystem extends NetworkSystem<EntityMovedMessage>{
 
 	public MovementNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, ContentManager contentManager) {

@@ -10,7 +10,12 @@ import content.ContentManager;
 
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntityWorld;
-
+/**
+ * 
+ * @author Joakim Johansson
+ *
+ * @param <T> Generic variable indicating the type of network message that the system should handle.
+ */
 public abstract class NetworkSystem<T extends NetworkMessage> extends Listener{
 	protected List<T> messageList;
 	protected Class<T> usingClass;
