@@ -2,6 +2,8 @@ package screenCore;
 
 import java.util.Random;
 
+import components.TransformationComp;
+
 import GUI.GUIFocusManager;
 import GUI.controls.Button;
 import GUI.controls.Panel;
@@ -17,11 +19,11 @@ import utils.Mouse;
 import utils.Rectangle;
 import utils.TimeSpan;
 import content.ContentManager;
+import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
 import entitySystems.AnimationSystem;
 import entitySystems.RenderingSystem;
-import gameOfLife.GameOfLifeLogicSystem;
 import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
@@ -29,11 +31,15 @@ import graphics.SpriteBatch;
 
 public class PonyCreatorScreen extends EntityScreen {
 
+	
+	public static final String playerBasePath = "player.archetype";
 	private GUIRenderingContext context;
 	private Panel panel;
 	private Button button;
 	private Button button2;
 	private AnimationSystem animSys;
+	private ContentManager contentManager = new ContentManager("resources");
+//	private IEntity pony
 	
 	
 	public PonyCreatorScreen() {
@@ -65,7 +71,6 @@ public class PonyCreatorScreen extends EntityScreen {
 		ShaderEffect dissabledEffect = contentManager.loadShaderEffect("GrayScale.effect");
 		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
 		
-		final Random random = new Random();
 		this.button.addClicked(new IEventListener<EventArgs>() {
 			@Override
 			public void onEvent(Object sender, EventArgs e) {
@@ -114,6 +119,9 @@ public class PonyCreatorScreen extends EntityScreen {
 
 	@Override
 	protected void addEntities(IEntityManager entityManager) {	
+		IEntity pony = entityManager.createEntity(this.contentManager.loadArchetype(playerBasePath));
+		TransformationComp transformationComp = pony.getComponent(TransformationComp.class);
+		transformationComp.setPosition(this.ScreenManager.getViewport().Width - (transformationComp.getOrigin().X*2), this.ScreenManager.getViewport().Height - (transformationComp.getOrigin().Y*2));
 	}
 
 	@Override
