@@ -68,10 +68,12 @@ public abstract class EntitySystem implements IEntitySystem{
 
 	@Override
 	public void entityChanged(IEntity entity) {
+		if(this.componentBits.isEmpty())
+			return;
+		
 		BitSet changedSet = (BitSet)this.componentBits.clone();
 		changedSet.and(entity.getComponentBits());
 
-		
 		if(changedSet.equals(this.componentBits)) {
 			if(!this.entities.containsKey(entity.getUniqueID())) {
 				this.entities.put(entity.getUniqueID(), entity);
@@ -83,7 +85,6 @@ public abstract class EntitySystem implements IEntitySystem{
 				this.entityRemoved(entity);
 			}
 		}
-		
 	}
 
 	protected void entityAdded(IEntity entity) { }

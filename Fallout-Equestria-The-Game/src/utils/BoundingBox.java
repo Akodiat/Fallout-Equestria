@@ -2,6 +2,12 @@ package utils;
 
 import math.Vector3;
 
+
+/**
+ * 
+ * @author Lukas
+ *
+ */
 public class BoundingBox {
 	
 	public final Vector3 Min;

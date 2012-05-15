@@ -17,8 +17,9 @@ public class AnimationsNetworkSystem extends NetworkSystem<AnimationChangedMessa
 
 	@Override
 	public void process(AnimationChangedMessage message) {
+		System.out.println(message.newAnimation);
 		IEntity entity = this.idManager.getEntityFromNetworkID(message.changedEntityNetworkID);
-		entity.getComponent(AnimationComp.class).changeAnimation(message.newAnimation, false); //TODO Should it be true instead?
+		entity.getComponent(AnimationComp.class).changeAnimation(message.newAnimation, true); //TODO Should it be true instead?
 	}	
 
 }

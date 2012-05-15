@@ -12,6 +12,7 @@ import java.util.Map;
 
 import math.MathHelper;
 import math.Vector2;
+import misc.AnimationChangeEventArgs;
 import misc.IEventListener;
 import misc.SoundManager;
 
@@ -24,6 +25,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
+import common.AnimationChangedMessage;
 import common.EntityCreatedMessage;
 import common.EntityDestroyedMessage;
 import common.EntityEventArgs;
@@ -145,18 +147,13 @@ public class ServerTest extends Demo {
 		factory.addCreatedListener(new IEventListener<EntityEventArgs>() {
 			@Override
 			public void onEvent(Object sender, EntityEventArgs e) {
-				if(!e.getEntity().isInGroup("Players") && containsNetworkedComponents(e.getEntity())) {
-					newEntityMessages.put(e.getEntity(), e);
-					sendEntity(e);
-					idManager.setNetworkIDToEntity(e.getEntity(), e.getEntity().getUniqueID());
-					System.out.println("Gasp");
-				}
+				entitySetup(e);
+				
 			}
 		});
 		
 		IEntityManager manager = this.gameWorld.getEntityManager();
-		manager.addEntityDestoryedListener(new EntityDestroyedListener() {
-			
+		manager.addEntityDestoryedListener(new EntityDestroyedListener() {	
 			public void entityDestroyed(IEntity entity) {
 				sendRemoveEntity(entity);
 				newEntityMessages.remove(entity);
@@ -182,7 +179,7 @@ public class ServerTest extends Demo {
 		this.spriteBatch = new SpriteBatch(sr);
 		this.camera = new Camera2D(scene.getWorldBounds(), sr);
 		
-		this.gameWorld = WorldBuilder.buildServerWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, false, "Player0");
+		this.gameWorld = WorldBuilder.buildServerWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, true, "Player0");
 		this.gameWorld.initialize();
 	}
 
@@ -249,7 +246,6 @@ public class ServerTest extends Demo {
 			server.start();
 			Network.registerClasses(server);
 			server.bind(54555, 54777);
-			System.out.println("yay");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -258,13 +254,23 @@ public class ServerTest extends Demo {
 	
 	protected void createNewPlayer(NewPlayerMessage message) {
 		IEntityArchetype archetype = ContentManager.loadArchetype("Player.archetype");
-		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
+		final IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
 		
-		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
+		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset").clone();
 		AnimationComp comp = new AnimationComp(player);
+		
+		comp.getAnimationPlayer().addAnimationChangeListener(new IEventListener<AnimationChangeEventArgs>() {
+			@Override
+			public void onEvent(Object sender, AnimationChangeEventArgs e) {
+				sendAnimationChanged(entity, e);
+			}
+		});
+		
+		
+		
 		
 		PonyColorChangeHelper.setBodyColor(message.playerCharacteristics.bodyColor, comp);
 		PonyColorChangeHelper.setEyeColor( message.playerCharacteristics.eyeColor, comp);
@@ -336,5 +342,33 @@ public class ServerTest extends Demo {
 	protected void removePlayer(NewPlayerMessage message) {
 		IEntity player = this.gameWorld.getEntityManager().getEntity(message.networkID);
 		player.kill();
+	}
+
+	private void entitySetup(EntityEventArgs e) {
+		
+		if(!e.getEntity().isInGroup("Players") && containsNetworkedComponents(e.getEntity())) {
+			newEntityMessages.put(e.getEntity(), e);
+			sendEntity(e);
+			idManager.setNetworkIDToEntity(e.getEntity(), e.getEntity().getUniqueID());
+		}
+		
+		final EntityEventArgs copy = e;
+		AnimationComp animationComp = e.getEntity().getComponent(AnimationComp.class);
+		if(animationComp != null) {
+			animationComp.getAnimationPlayer().addAnimationChangeListener(new IEventListener<AnimationChangeEventArgs>() {
+				@Override
+				public void onEvent(Object sender, AnimationChangeEventArgs e) {
+					sendAnimationChanged(copy.getEntity(), e);
+				}
+			});
+		}
+	}
+
+	protected void sendAnimationChanged(IEntity entity,
+			AnimationChangeEventArgs e) {
+		AnimationChangedMessage message = new AnimationChangedMessage();
+		message.changedEntityNetworkID =entity.getUniqueID();
+		message.newAnimation = e.newAnimation;
+		this.server.sendToAllTCP(message);
 	}
 }

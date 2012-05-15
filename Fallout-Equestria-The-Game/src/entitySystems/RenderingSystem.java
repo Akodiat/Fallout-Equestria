@@ -66,7 +66,7 @@ public class RenderingSystem extends EntityProcessingSystem {
 
 	private void draw(RenderingComp renderC, TransformationComp transformation) {
 		this.spriteBatch.draw(renderC.getTexture(), 
-							  transformation.getPosition(), 
+							  transformation.getOriginPosition(), 
 							  renderC.getColor(), 
 							  renderC.getSource(),
 							  transformation.getOrigin(),

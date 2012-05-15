@@ -5,6 +5,7 @@ import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
 
+import utils.BoundingBox;
 import utils.Circle;
 
 import components.RadiationComp;
@@ -17,7 +18,7 @@ import entityFramework.IEntityWorld;
 
 public class RadiationSystem extends EntitySingleProcessingSystem {
 	private static final float RADIATIONRATE = 0.001f;
-	private Circle entityBounds;
+	private BoundingBox entityBounds;
 	
 	public RadiationSystem(IEntityWorld world) {
 		super(world, SpatialComp.class, TransformationComp.class);
@@ -38,7 +39,7 @@ public class RadiationSystem extends EntitySingleProcessingSystem {
 			Circle radiationBounds = i.getComponent(RadiationComp.class).getBounds();
 
 			if(!i.equals(entity) 
-					&& Circle.intersects(entityBounds, entity.getComponent(TransformationComp.class).getPosition(), radiationBounds, i.getComponent(TransformationComp.class).getPosition()) 
+					&& BoundingBox.intersects(entityBounds, entity.getComponent(TransformationComp.class).getPosition(), radiationBounds, i.getComponent(TransformationComp.class).getPosition()) 
 					&& i.getComponent(RadiationComp.class).getRadiationLevel() > 0) {
 				
 				RadiationComp eRad = entity.getComponent(RadiationComp.class);

@@ -32,8 +32,8 @@
       </Transformation>
       <Spatial>	 
 	   <bounds>
-		 <Max>70,10,70</Max>
-		 <Min>-70,-10,-70</Min>
+		 <Max>20,10,20</Max>
+		 <Min>-20,-10,-20</Min>
         </bounds>
         <trigger>false</trigger>
       </Spatial>

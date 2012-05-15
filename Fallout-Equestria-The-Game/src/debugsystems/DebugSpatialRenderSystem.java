@@ -1,12 +1,10 @@
 package debugsystems;
 
 import utils.Rectangle;
-import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
 import components.SpatialComp;
 import components.TransformationComp;
-import content.ContentManager;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
@@ -17,15 +15,11 @@ import graphics.SpriteBatch;
 import graphics.Texture2D;
 
 public class DebugSpatialRenderSystem extends EntityProcessingSystem {
-
-	private Texture2D circleTexture;
 	private SpriteBatch graphics;
 
-	private ContentManager contentManager;
-	public DebugSpatialRenderSystem(IEntityWorld world,ContentManager contentManager, SpriteBatch graphics) {
+	public DebugSpatialRenderSystem(IEntityWorld world, SpriteBatch graphics) {
 		super(world, SpatialComp.class, TransformationComp.class);
 		this.graphics = graphics;
-		this.contentManager = contentManager;
 	}
 
 	private ComponentMapper<SpatialComp> sCM;
@@ -37,8 +31,6 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 				SpatialComp.class);
 		tCM = ComponentMapper.create(this.getWorld().getDatabase(),
 				TransformationComp.class);
-
-		this.circleTexture = contentManager.loadTexture("Circle100pxGrey.png");
 	}
 
 	@Override

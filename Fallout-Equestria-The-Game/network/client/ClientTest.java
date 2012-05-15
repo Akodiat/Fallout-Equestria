@@ -9,7 +9,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import math.Vector2;
 import misc.SoundManager;
 
 import animation.AnimationPlayer;
@@ -18,10 +17,8 @@ import animation.PonyColorChangeHelper;
 import com.esotericsoftware.kryonet.*;
 
 import common.*;
-import components.*;
 
 import scripting.PlayerScript;
-import utils.*;
 import common.EntityCreatedMessage;
 import common.EntityDestroyedMessage;
 import common.EntityMovedMessage;
@@ -30,11 +27,8 @@ import common.InputMessage;
 import common.NewPlayerMessage;
 import components.AnimationComp;
 import components.BehaviourComp;
-import components.RenderingComp;
 import components.ShadowComp;
 import components.TransformationComp;
-
-import scripting.PlayerScript;
 import utils.Camera2D;
 import utils.GameTime;
 import utils.Keyboard;
@@ -65,6 +59,7 @@ public class ClientTest extends Demo {
 	
 	private EntityNetworkIDManager idManager;
 	
+	
 	public static void main(String[] args) {
 		new ClientTest().start();
 	}
@@ -88,9 +83,9 @@ public class ClientTest extends Demo {
 					NewPlayerMessage message = (NewPlayerMessage) value;
 					System.out.println(message.networkID);
 					createNewPlayer(message);				
-				} else if(value instanceof EntityMovedMessage) {
+					/*}  else if(value instanceof EntityMovedMessage) {
 					EntityMovedMessage message = (EntityMovedMessage) value;
-					moveEntity(message);
+					moveEntity(message);*/
 				} else if(value instanceof AnimationChangedMessage) {
 					AnimationChangedMessage message = (AnimationChangedMessage) value;
 					//TODO Do something here... or don't
@@ -202,18 +197,30 @@ public class ClientTest extends Demo {
 		this.camera = new Camera2D(scene.getWorldBounds(), sr);
 		
 		this.gameWorld = WorldBuilder.buildClientWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, false, "Player" + this.networkID);
+		MovementNetworkSystem system = new MovementNetworkSystem(this.gameWorld, this.idManager, this.ContentManager);
+		this.network.getClient().addListener(system.getListener());
+		this.gameWorld.getSystemManager().addLogicEntitySystem(system);
+		AnimationsNetworkSystem system2 = new AnimationsNetworkSystem(this.gameWorld, this.idManager, this.ContentManager);
+		this.network.getClient().addListener(system2.getListener());
+		this.gameWorld.getSystemManager().addLogicEntitySystem(system2);
+		
+		
+		
 		this.gameWorld.initialize();
 	}
 	
 
 	protected void createNewPlayer(NewPlayerMessage message) {
+		System.out.println(message.playerCharacteristics.bodyColor);
+		
+		
 		IEntityArchetype archetype = ContentManager.loadArchetype("Player.archetype");
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);	
 		
-		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
+		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset").clone();
 		player.startAnimation("idle");
 		AnimationComp comp = new AnimationComp(player);
 		PonyColorChangeHelper.setBodyColor(message.playerCharacteristics.bodyColor, comp);

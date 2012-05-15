@@ -51,7 +51,7 @@ public class WorldBuilder {
 		//Debug systems!
 		if(debugging) {
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
-			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world,contentManager, spriteBatch));
+			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world, spriteBatch));
 		}
 	
 		return world;
@@ -79,7 +79,7 @@ public class WorldBuilder {
 		
 		if(debugging) {
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
-			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world,contentManager, spriteBatch));
+			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world, spriteBatch));
 		}
 		
 		return world;
@@ -128,7 +128,7 @@ public class WorldBuilder {
 		//Debug systems!
 		if(debugging) {
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
-			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world,contentManager, spriteBatch));
+			manager.addRenderEntitySystem(new DebugSpatialRenderSystem(world, spriteBatch));
 		}
 		
 		return world;

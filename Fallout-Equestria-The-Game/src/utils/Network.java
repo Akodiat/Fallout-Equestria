@@ -11,6 +11,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Server;
 
+import common.AnimationChangedMessage;
 import common.ChatMessage;
 import common.EntityCreatedMessage;
 import common.EntityDestroyedMessage;
@@ -141,6 +142,7 @@ public class Network {
 		kryo.register(components.SpatialComp.class);
 		kryo.register(InputMessage.class);
 		
+		kryo.register(AnimationChangedMessage.class);
 		kryo.register(NewPlayerMessage.class);
 		kryo.register(EntityNetworkIDsetMessage.class);
 		kryo.register(EntityMovedMessage.class);
