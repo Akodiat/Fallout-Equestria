@@ -8,6 +8,7 @@ import screenCore.GOLScreen;
 import screenCore.HostScreen;
 import screenCore.LobbyGUI;
 import screenCore.LobbyWorld;
+import screenCore.ConnectScreen;
 import screenCore.MultiplayerScreen;
 import screenCore.PausScreen;
 import screenCore.ScreenManager;
@@ -66,20 +67,22 @@ public class ScreenDemo extends Demo{
 		Test2GUIScreen screen3 = new Test2GUIScreen("graygui.tdict");
 		PausScreen screen4 = new PausScreen("gui.tdict");
 		GOLScreen screen5 = new GOLScreen();
-		MultiplayerScreen screen6 = new MultiplayerScreen("gui.tdict");
+		ConnectScreen screen6 = new ConnectScreen("gui.tdict");
 		HostScreen screen7 = new HostScreen("gui.tdict");
 		LobbyGUI screen8 = new LobbyGUI("gui.tdict");
 		LobbyWorld screen9 = new LobbyWorld();
+		MultiplayerScreen screen10 = new MultiplayerScreen("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
 		this.screenManager.registerScreen("Test2_Screen", screen3);
 		this.screenManager.registerScreen("PauseScreen", screen4);
 		this.screenManager.registerScreen("GOLScreen", screen5);
-		this.screenManager.registerScreen("Multiplayer", screen6);
+		this.screenManager.registerScreen("Connect", screen6);
 		this.screenManager.registerScreen("Host", screen7);
 		this.screenManager.registerScreen("LobbyGUI", screen8);
 		this.screenManager.registerScreen("LobbyWorld", screen9);
+		this.screenManager.registerScreen("Multiplayer", screen10);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

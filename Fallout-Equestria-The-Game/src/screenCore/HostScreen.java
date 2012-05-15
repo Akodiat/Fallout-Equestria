@@ -2,6 +2,8 @@ package screenCore;
 
 import java.io.IOException;
 
+import com.esotericsoftware.kryonet.Server;
+
 import graphics.Color;
 import math.Vector2;
 import misc.EventArgs;
@@ -28,7 +30,7 @@ public class HostScreen extends TransitioningGUIScreen{
 		
 		this.textField = new Textfield();
 		textField.setBounds(1366/2 -200, 240, 400, 40);
-		textField.setText("Enter server name...");
+		textField.setText("");
 		textField.setFont(manager.loadFont("Andale Mono20.xml"));
 		textField.setFgColor(Color.Goldenrod);
 		textField.setMaxLength(25);
@@ -46,7 +48,7 @@ public class HostScreen extends TransitioningGUIScreen{
 		
 		hostBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-				if(textField.getText().length() == 0 || textField.getText().matches("Enter server name...")) {
+				if(textField.getText().length() == 0) {
 					
 				} else {
 					startServer();
@@ -67,7 +69,12 @@ public class HostScreen extends TransitioningGUIScreen{
 	}
 	
 	public void startServer() {
-		new ServerTest().start();
+		KyroServer server;
+		try {
+			server = new KyroServer(new Rectangle(0,0,1366,768), 60);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		this.ScreenManager.removeAllScreens();
 		

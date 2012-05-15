@@ -13,8 +13,8 @@ import demos.WorldBuilder;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
 import entityFramework.IEntityWorld;
+import entitySystems.RenderingSystem;
 import gameMap.Scene;
-import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 
@@ -37,33 +37,15 @@ public class LobbyWorld extends EntityScreen {
 	@Override
 	protected void loadContent(ContentManager manager) {
 		this.scene = manager.load("PerspectiveV5.xml", Scene.class);
-		this.mouse = new Mouse();
-		this.keyboard = new Keyboard();
-		this.soundManager = new SoundManager(manager, 0.1f,1.0f,1.0f);
-		this.camera = new Camera2D(scene.getWorldBounds(), 
-				   this.ScreenManager.getSpriteBatch().getViewport());
-		
-		this.spriteBatch = this.ScreenManager.getSpriteBatch();
-		
-		LookAndFeel feel = manager.load("gui.tdict", LookAndFeel.class);
-		feel.setDefaultFont(manager.loadFont("arialb20.xml"));
-		ShaderEffect dissabledEffect = manager.loadShaderEffect("GrayScale.effect");
-		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
-		
-		this.gameWorld = WorldBuilder.buildServerWorld(camera, scene, mouse, keyboard, manager, this.soundManager, spriteBatch, false, "Player0");
-		this.gameWorld.initialize();
 	}
 
 	@Override
 	protected void addRenderingSystem(IEntitySystemManager systemManager) {
-		// TODO Auto-generated method stub
-		
+		systemManager.addRenderEntitySystem(new RenderingSystem(this.World, this.ScreenManager.getSpriteBatch()));
 	}
 
 	@Override
 	protected void addLogicSystem(IEntitySystemManager systemManager) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
