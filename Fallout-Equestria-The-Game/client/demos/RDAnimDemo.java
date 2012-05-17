@@ -106,8 +106,8 @@ public class RDAnimDemo extends Demo {
 		player.startAnimation("idle");
 		AnimationComp animComp = new AnimationComp(player);
 		PonyColorChangeHelper.setBodyColor(Color.Wheat, animComp);
-		PonyColorChangeHelper.setEyeColor(Color.Chocolate, animComp);
-		PonyColorChangeHelper.setManeColor(Color.Chocolate, animComp);
+		PonyColorChangeHelper.setEyeColor(Color.Gray, animComp);
+		PonyColorChangeHelper.setManeColor(Color.Brown, animComp);
 		TextureDictionary dict = ContentManager.load("rddict.tdict", TextureDictionary.class);
 		player.setBoneTexture(Bones.EYE.getValue(), dict.extractTextureEntry("TSEYE"));
 		player.setBoneTexture(Bones.UPPERMANE.getValue(), dict.extractTextureEntry("TSUPPERMANE"));

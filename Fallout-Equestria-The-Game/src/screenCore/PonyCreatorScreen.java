@@ -45,7 +45,11 @@ public class PonyCreatorScreen extends EntityScreen {
 	private Button button;
 	private Button button2;
 	private Textfield textfield;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> Removed annoying debugsysos
 	private AnimationSystem animSys;
 	private ContentManager contentManager = new ContentManager("resources");
 	private IEntity pony;
@@ -60,9 +64,15 @@ public class PonyCreatorScreen extends EntityScreen {
 
 		panel = new Panel();
 		panel.setBounds(this.ScreenManager.getViewport());
+<<<<<<< HEAD
 		panel.setBgColor(new Color(0,0,0,0));
 
 
+=======
+		panel.setBgColor(Color.);
+		
+		
+>>>>>>> Removed annoying debugsysos
 		this.button = new Button();
 		this.button.setText("Do stuff");
 		this.button.setBounds(0,710,200,50);
@@ -73,6 +83,7 @@ public class PonyCreatorScreen extends EntityScreen {
 		this.button2.setText("Do other stuff?");
 		this.button2.setBounds(250,710,200,50);
 		this.panel.addChild(button2);
+<<<<<<< HEAD
 
 		this.textfield = new Textfield();
 		this.textfield.setText("");
@@ -82,6 +93,11 @@ public class PonyCreatorScreen extends EntityScreen {
 		this.textfield.setMaxLength(25);
 		this.panel.addChild(this.textfield);
 
+=======
+		
+		
+		
+>>>>>>> Removed annoying debugsysos
 		LookAndFeel feel = contentManager.load("gui.tdict", LookAndFeel.class);
 		feel.setDefaultFont(contentManager.loadFont("arialb20.xml"));
 		ShaderEffect dissabledEffect = contentManager.loadShaderEffect("GrayScale.effect");
@@ -124,7 +140,11 @@ public class PonyCreatorScreen extends EntityScreen {
 		TransformationComp transformationComp = pony.getComponent(TransformationComp.class);
 		transformationComp.setPosition(this.ScreenManager.getViewport().Width - (transformationComp.getOrigin().X*4), (transformationComp.getOrigin().Y)*7);
 		transformationComp.setScale(new Vector2(2,2));
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> Removed annoying debugsysos
 		AnimationPlayer player = this.contentManager.load("rdset.animset", AnimationPlayer.class);;
 		player.startAnimation("idle");
 		AnimationComp animComp = new AnimationComp(player);
@@ -134,7 +154,11 @@ public class PonyCreatorScreen extends EntityScreen {
 		TextureDictionary dict = this.contentManager.load("rddict.tdict", TextureDictionary.class);
 		player.setBoneTexture(Bones.EYE.getValue(), dict.extractTextureEntry("TSEYE"));
 		this.pony.addComponent(animComp); 
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> Removed annoying debugsysos
 		this.pony.refresh();
 	}
 
