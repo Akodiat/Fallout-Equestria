@@ -25,14 +25,17 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	
 	public void initialize(ContentManager manager) {
 		super.initialize(manager);
-		this.connections = this.ScreenManager.getNetwork().getServer().getConnections();
 		
-		this.ScreenManager.getNetwork().getServer().addListener(new Listener() {	
-			@Override
-			public void connected(Connection arg0) {
-				updatePlayerList();
-			}
-		});
+		if(this.ScreenManager.getNetwork().isServer()) {
+			this.connections = this.ScreenManager.getNetwork().getServer().getConnections();
+			
+			this.ScreenManager.getNetwork().getServer().addListener(new Listener() {	
+				@Override
+				public void connected(Connection arg0) {
+					updatePlayerList();
+				}
+			});
+		}
 		
 		Rectangle vp = this.ScreenManager.getViewport();
 		int x = vp.Width - 250;
@@ -55,6 +58,13 @@ public class LobbyGUI extends TransitioningGUIScreen{
 			closeButton.setBounds(x, 678, 200, 50);
 			closeButton.setText("Close server");
 			this.addGuiControl(closeButton, new Vector2(vp.Width + 200, 678), new Vector2(x, 678),new Vector2(-200, 678));
+			
+			closeButton.addClicked(new IEventListener<EventArgs>() {
+				@Override
+				public void onEvent(Object sender, EventArgs e) {
+					closeServer();
+				}
+			});
 			
 		} else {
 			
@@ -86,11 +96,6 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		playerListBox.setBgColor(new Color(0,0,0,255));
 		playerListBox.setFgColor(Color.Black);
 		this.addGuiControl(playerListBox, new Vector2(vp.Width, 60), new Vector2(x, 60), new Vector2(vp.Width, 60));
-		
-		for(int i = 0; i < connections.length; i++) {
-			if(connections[i].isConnected())
-				playerListBox.addItem(connections[i].getRemoteAddressTCP().getHostName());
-		}
 	}
 	
 	public void updatePlayerList() {
@@ -99,6 +104,11 @@ public class LobbyGUI extends TransitioningGUIScreen{
 			if(connections[i].isConnected())
 				playerListBox.addItem(connections[i].getRemoteAddressTCP().getHostName());
 		}
+	}
+	
+	public void closeServer() {
+		this.getScreenManager().getNetwork().getServer().stop();
+		System.exit(0);
 	}
 	
 	public void gotoConnectScreen() {

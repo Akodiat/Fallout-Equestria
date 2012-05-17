@@ -17,19 +17,19 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 		super.initialize(manager);
 		
 		Button joinBtn = new Button();
-		joinBtn.setBounds(1366/2 - 200, 240, 400, 40);
+		joinBtn.setBounds(1366/2 - 100, 240, 200, 50);
 		joinBtn.setText("Join game");
-		this.addGuiControl(joinBtn, new Vector2(1366/2-200, 768), new Vector2(1366/2 -200, 240), new Vector2(1366/2-200, 768));
+		this.addGuiControl(joinBtn, new Vector2(1366/2-100, 768), new Vector2(1366/2 -100, 240), new Vector2(1366/2-100, 768));
 		
 		Button hostBtn = new Button();
-		hostBtn.setBounds(1366/2 -200, 300, 400, 40);
+		hostBtn.setBounds(1366/2 -100, 340, 200, 50);
 		hostBtn.setText("Host game");
-		this.addGuiControl(hostBtn, new Vector2(1366/2-200, 768), new Vector2(1366/2 -200, 300), new Vector2(1366/2-200, 768));
+		this.addGuiControl(hostBtn, new Vector2(1366/2-100, 768), new Vector2(1366/2 -100, 340), new Vector2(1366/2-100, 768));
 		
 		Button backBtn = new Button(); 
-		backBtn.setBounds(1366/2 -200, 360, 400, 40);
+		backBtn.setBounds(1366/2 -100, 440, 200, 50);
 		backBtn.setText("Cancel");
-		this.addGuiControl(backBtn, new Vector2(1366/2-200, 768), new Vector2(1366/2-200, 360), new Vector2(1366/2-200, 768));
+		this.addGuiControl(backBtn, new Vector2(1366/2-100, 768), new Vector2(1366/2-100, 440), new Vector2(1366/2-100, 768));
 		
 		joinBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
@@ -51,7 +51,11 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 	}
 	
 	public void gotoHostScreen() {
-		this.ScreenManager.addScreen("Host");
+		this.ScreenManager.getNetwork().HostGame();
+		
+		this.ScreenManager.removeAllScreens();
+		this.ScreenManager.addScreen("Lobby");
+		this.ScreenManager.addScreen("LobbyGUI");
 	}
 	
 	public void gotoConnectScreen() {
