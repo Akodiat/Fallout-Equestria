@@ -119,8 +119,6 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	}
 	
 	public void updatePlayerList() {
-		
-		
 		this.connections = this.ScreenManager.getNetwork().getServer().getConnections();
 		for(int i = 0; i < connections.length; i++) {
 			if(connections[i].isConnected()) {
@@ -139,6 +137,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	public void gotoConnectScreen() {
 		this.ScreenManager.addScreen("Connect");
 	}
+	
 	
 	@Override
 	public void onTransitionFinished() {
