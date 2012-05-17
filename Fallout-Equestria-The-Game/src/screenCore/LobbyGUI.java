@@ -43,20 +43,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				}
 			});
 		}
-		if(this.ScreenManager.getNetwork().isClient()){
-			this.ScreenManager.getNetwork().getClient().addListener(new Listener(){
-				@Override
-				public void received(Connection connection, Object message) {
-					super.received(connection, message);
-					if(message instanceof GoToScreenMessage){
-						GoToScreenMessage screenMessage = (GoToScreenMessage) message;
-						ScreenManager.getNetwork().removeAllListeners();
-						ScreenManager.addScreen(screenMessage.newScreen);
-					}
-				}
-				
-			});
-		}
+		
 		
 		Rectangle vp = this.ScreenManager.getViewport();
 		int x = vp.Width - 250;
@@ -70,8 +57,13 @@ public class LobbyGUI extends TransitioningGUIScreen{
 			playButton.addClicked(new IEventListener<EventArgs>() {
 				@Override
 				public void onEvent(Object sender, EventArgs e) {
+					String screenName = "Level1";
 					LobbyGUI.this.getScreenManager().removeAllScreens();
-					LobbyGUI.this.getScreenManager().addScreen("Level1");
+					LobbyGUI.this.getScreenManager().addScreen(screenName);
+					
+					GoToScreenMessage message = new GoToScreenMessage();
+					message.newScreen = screenName;
+					ScreenManager.getNetwork().getServer().sendToAllTCP(message);
 				}
 			});
 			
@@ -139,6 +131,22 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	
 	public void gotoConnectScreen() {
 		this.ScreenManager.addScreen("Connect");
+	}
+	
+	@Override
+	public void onTransitionFinished() {
+		if(this.ScreenManager.getNetwork().isClient()){
+			this.ScreenManager.getNetwork().getClient().addListener(new Listener(){
+				@Override
+				public void received(Connection connection, Object message) {
+					if(message instanceof GoToScreenMessage){
+						GoToScreenMessage screenMessage = (GoToScreenMessage) message;
+						ScreenManager.getNetwork().removeAllListeners();
+						ScreenManager.addScreen(screenMessage.newScreen);
+					}
+				}	
+			});
+		}
 	}
 
 }
