@@ -6,6 +6,21 @@ import components.AnimationComp;
 public class PonyColorChangeHelper {
 	public static void setBodyColor(Color color, AnimationComp animComp){
 		AnimationPlayer player = animComp.getAnimationPlayer();
+		setBodyColor(color, player);
+	}
+
+	public static void setManeColor(Color color, AnimationComp animComp){
+		AnimationPlayer player = animComp.getAnimationPlayer();
+		setManeColor(color, player);
+	}
+
+	public static void setEyeColor(Color color, AnimationComp animComp){
+		AnimationPlayer player = animComp.getAnimationPlayer();
+		setEyeColor(color, player);
+	}
+	
+	//Same but with player instead of comp
+	public static void setBodyColor(Color color, AnimationPlayer player){
 		player.setBoneColor(Bones.ROOT.getValue(), color);
 		player.setBoneColor(Bones.BODY.getValue(), color);
 		player.setBoneColor(Bones.EAR.getValue(), color);
@@ -21,16 +36,14 @@ public class PonyColorChangeHelper {
 		player.setBoneColor(Bones.WINGS.getValue(), color);
 	}
 
-	public static void setManeColor(Color color, AnimationComp animComp){
-		AnimationPlayer player = animComp.getAnimationPlayer();
+	public static void setManeColor(Color color, AnimationPlayer player){
 		player.setBoneColor(Bones.LOWERMANE.getValue(), color);
 		player.setBoneColor(Bones.LOWERTAIL.getValue(), color);
 		player.setBoneColor(Bones.UPPERMANE.getValue(), color);
 		player.setBoneColor(Bones.UPPERTAIL.getValue(), color);
 	}
 
-	public static void setEyeColor(Color color, AnimationComp animComp){
-		AnimationPlayer player = animComp.getAnimationPlayer();
+	public static void setEyeColor(Color color, AnimationPlayer player){
 		player.setBoneColor(Bones.IRIS.getValue(), color);
 	}
 }
