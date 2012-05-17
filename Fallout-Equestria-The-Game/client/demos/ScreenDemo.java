@@ -12,6 +12,7 @@ import screenCore.LobbyWorld;
 import screenCore.ConnectScreen;
 import screenCore.MultiplayerScreen;
 import screenCore.PausScreen;
+import screenCore.PonySelector;
 import screenCore.ScreenManager;
 import screenCore.Test2GUIScreen;
 import screenCore.TestGUIScreen;
@@ -73,6 +74,7 @@ public class ScreenDemo extends Demo{
 		MultiplayerScreen screen10 = new MultiplayerScreen("gui.tdict");
 		Level screen11 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "PerspectiveV5.xml");
 		Level screen12 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "Lobby.xml");
+		PonySelector screen13 = new PonySelector("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
@@ -86,6 +88,7 @@ public class ScreenDemo extends Demo{
 		this.screenManager.registerScreen("Multiplayer", screen10);
 		this.screenManager.registerScreen("Level1", screen11);
 		this.screenManager.registerScreen("Lobby", screen12);
+		this.screenManager.registerScreen("PonySelector", screen13);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

@@ -59,6 +59,12 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 			}
 		});
 		
+		ponyButton.addClicked(new IEventListener<EventArgs>() {
+			public void onEvent(Object sender, EventArgs e) {
+				gotoPonySelector();			
+			}
+		});
+		
 	}
 
 	protected void exit() {
@@ -71,6 +77,10 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 	
 	protected void gotoMultiplayer() {
 		this.ScreenManager.addScreen("Multiplayer");
+	}
+	
+	protected void gotoPonySelector() {
+		this.ScreenManager.addScreen("PonySelector");
 	}
 
 }

@@ -42,7 +42,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		
 		if(this.ScreenManager.getNetwork().isServer()) {
 			Button playButton = new Button();
-			playButton.setBounds(x, 568, 200, 50);
+			playButton.setBounds(-1000, -1000, 200, 50);
 			playButton.setText("Start the game!");
 			this.addGuiControl(playButton, new Vector2(vp.Width + 200, 568), new Vector2(x, 568), new Vector2(-200, 568));
 			
@@ -55,7 +55,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 			});
 			
 			Button closeButton = new Button();
-			closeButton.setBounds(x, 678, 200, 50);
+			closeButton.setBounds(-1000, -1000, 200, 50);
 			closeButton.setText("Close server");
 			this.addGuiControl(closeButton, new Vector2(vp.Width + 200, 678), new Vector2(x, 678),new Vector2(-200, 678));
 			
@@ -69,7 +69,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		} else {
 			
 			Button backBtn = new Button();
-			backBtn.setBounds(x, 678, 200, 50);
+			backBtn.setBounds(-1000, -1000, 200, 50);
 			backBtn.setText("Back");
 			this.addGuiControl(backBtn, new Vector2(vp.Width + 200), new Vector2(x,678), new Vector2(-200, 678));
 			backBtn.addClicked(new IEventListener<EventArgs>() {
@@ -81,17 +81,17 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		}
 		
 		ChatPanel chat = new ChatPanel();
-		chat.setBounds(0,500,1016,228);
+		chat.setBounds(-1016, -1000,1016,228);
 		chat.setFont(manager.loadFont("arialb20.xml"));
 		this.addGuiControl(chat, new Vector2(0,768), new Vector2(0,500), new Vector2(0,768));
 		
 		Label playersLabel = new Label();
-		playersLabel.setBounds(x, 30, 200, 30);
+		playersLabel.setBounds(-1000, -1000, 200, 30);
 		playersLabel.setText("Connected players:");
 		this.addGuiControl(playersLabel, new Vector2(x, -30), new Vector2(x, 30), new Vector2(x, -30));
 		
 		this.playerListBox = new ListBox<String>();
-		playerListBox.setBounds(x, 60, 200, 400);
+		playerListBox.setBounds(-1000, -1000, 200, 400);
 		playerListBox.setFont(manager.loadFont("Andale Mono20.xml"));
 		playerListBox.setBgColor(new Color(0,0,0,255));
 		playerListBox.setFgColor(Color.Black);

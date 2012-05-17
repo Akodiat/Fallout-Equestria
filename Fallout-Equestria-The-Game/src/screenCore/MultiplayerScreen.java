@@ -17,17 +17,17 @@ public class MultiplayerScreen extends TransitioningGUIScreen{
 		super.initialize(manager);
 		
 		Button joinBtn = new Button();
-		joinBtn.setBounds(1366/2 - 100, 240, 200, 50);
+		joinBtn.setBounds(-1000, -1000, 200, 50);
 		joinBtn.setText("Join game");
 		this.addGuiControl(joinBtn, new Vector2(1366/2-100, 768), new Vector2(1366/2 -100, 240), new Vector2(1366/2-100, 768));
 		
 		Button hostBtn = new Button();
-		hostBtn.setBounds(1366/2 -100, 340, 200, 50);
+		hostBtn.setBounds(-1000, -1000, 200, 50);
 		hostBtn.setText("Host game");
 		this.addGuiControl(hostBtn, new Vector2(1366/2-100, 768), new Vector2(1366/2 -100, 340), new Vector2(1366/2-100, 768));
 		
 		Button backBtn = new Button(); 
-		backBtn.setBounds(1366/2 -100, 440, 200, 50);
+		backBtn.setBounds(-1000, -1000, 200, 50);
 		backBtn.setText("Cancel");
 		this.addGuiControl(backBtn, new Vector2(1366/2-100, 768), new Vector2(1366/2-100, 440), new Vector2(1366/2-100, 768));
 		

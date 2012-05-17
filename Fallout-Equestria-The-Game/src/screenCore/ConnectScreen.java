@@ -37,29 +37,29 @@ public class ConnectScreen extends TransitioningGUIScreen{
 		int x = vp.Width - 250;
 		
 		this.serverListBox = new ListBox<>();
-		serverListBox.setBounds(50, 30, 1016, 400);
+		serverListBox.setBounds(-1000, -1000, 1016, 400);
 		serverListBox.setFont(manager.loadFont("Andale Mono20.xml"));
 		serverListBox.setBgColor(new Color(0,0,0,255));
 		serverListBox.setFgColor(Color.White);
 		this.addGuiControl(serverListBox, new Vector2(50, -400), new Vector2(50, 30), new Vector2(50, 800));
 		
 		Button connectBtn = new Button();
-		connectBtn.setBounds(x, 50, 200, 50);
+		connectBtn.setBounds(-1000, -1000, 200, 50);
 		connectBtn.setText("Connect to server");
 		this.addGuiControl(connectBtn, new Vector2(vp.Width + 200, 50), new Vector2(x,50),new Vector2(-200, 50));
 		
 		Button refreshBtn = new Button();
-		refreshBtn.setBounds(x,140,200,50);
+		refreshBtn.setBounds(-1000, -1000,200,50);
 		refreshBtn.setText("Refresh the list");
 		this.addGuiControl(refreshBtn, new Vector2(vp.Width + 200,140), new Vector2(x,140),new Vector2(-200,140));
 		
 		Button backBtn = new Button();
-		backBtn.setBounds(x,350,200,50);
+		backBtn.setBounds(-1000, -1000,200,50);
 		backBtn.setText("Back");
 		this.addGuiControl(backBtn, new Vector2(vp.Width + 200,350), new Vector2(x,350),new Vector2(-200,350));
 		
 		this.infoLabel = new Label();
-		infoLabel.setBounds(100, 450, 400, 30);
+		infoLabel.setBounds(-1000, -1000, 400, 30);
 		this.addGuiControl(infoLabel, new Vector2(100,1366), new Vector2(100, 450), new Vector2(100,1366));
 
 		connectBtn.addClicked(new IEventListener<EventArgs>() {
