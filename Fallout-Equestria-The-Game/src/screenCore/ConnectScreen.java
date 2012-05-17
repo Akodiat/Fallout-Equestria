@@ -1,8 +1,6 @@
 package screenCore;
 
-import java.io.IOException;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.esotericsoftware.kryonet.Client;
@@ -12,6 +10,7 @@ import math.Vector2;
 import misc.EventArgs;
 import misc.IEventListener;
 import GUI.controls.Button;
+import GUI.controls.GUIControl;
 import GUI.controls.Label;
 import GUI.controls.ListBox;
 import content.ContentManager;
@@ -95,6 +94,10 @@ public class ConnectScreen extends TransitioningGUIScreen{
 
 	@Override
 	public void onTransitionFinished() {
+		for(GUIControl g : serverListBox.getChildren()) {
+			serverListBox.removeChild(g);
+		}
+		
 		List<InetAddress> addresses = this.ScreenManager.getNetwork().getAvalibleLanHosts();
 		this.addresses = addresses;
 		if(addresses.size() > 0) {

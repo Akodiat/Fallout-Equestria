@@ -103,10 +103,15 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	}
 	
 	public void updatePlayerList() {
+		
+		
 		this.connections = this.ScreenManager.getNetwork().getServer().getConnections();
 		for(int i = 0; i < connections.length; i++) {
-			if(connections[i].isConnected())
+			if(connections[i].isConnected()) {
 				playerListBox.addItem(connections[i].getRemoteAddressTCP().getHostName());
+			} else {
+				playerListBox.removeItem(connections[i].getRemoteAddressTCP().getHostName());
+			}
 		}
 	}
 	
