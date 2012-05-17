@@ -100,8 +100,8 @@ public class ConnectScreen extends TransitioningGUIScreen{
 				infoLabel.setText(addresses.size() + " server(s) online.");
 			}
 		} else {
-			infoLabel.setText("No servers online.");
 			infoLabel.setFgColor(Color.Red);
+			infoLabel.setText("No servers online.");
 		}
 	}
 	
