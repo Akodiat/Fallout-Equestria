@@ -54,8 +54,8 @@
       <Status/>
       <Spatial>
 	  <bounds>
-		 <Max>60,15,55</Max>
-		 <Min>-60,-15,-55</Min>
+		 <Max>40,15,50</Max>
+		 <Min>-40,-15,-50</Min>
         </bounds>	
         <trigger>false</trigger>
       </Spatial>

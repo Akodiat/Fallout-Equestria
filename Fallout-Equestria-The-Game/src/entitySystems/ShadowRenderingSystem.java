@@ -1,6 +1,7 @@
 package entitySystems;
 
 import utils.HeightMap;
+import utils.Rectangle;
 import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
@@ -50,16 +51,14 @@ public class ShadowRenderingSystem extends EntityProcessingSystem {
 			
 			float heightMapHeight = heightMap.getHeightAt(trans.getPosition());
 			
-			float h = spatial.getBounds().getDepth() / 2 - shadowTexture.Height / 2 - 4;
-			
 			Vector2 pos = new Vector2(trans.getPosition().X - trans.getOrigin().X,
 									  trans.getPosition().Y - heightMapHeight);
 			
-			float scale = 1 - 0.001f * (trans.getHeight() - heightMapHeight);
-						
+			float scale = 1 - 0.001f * (trans.getHeight() - heightMapHeight) ;
+			Rectangle dest = new Rectangle((int)pos.X, (int)pos.Y, (int)(spatial.getBounds().getWidth() * scale), this.shadowTexture.Height);
 			
 			
-			this.spriteBatch.draw(shadowTexture, pos, Color.White, null, shadowTexture.getBounds().getCenter(), scale, 0f, !trans.getMirror());	
+			this.spriteBatch.draw(shadowTexture, dest, Color.White, null, shadowTexture.getBounds().getCenter(), 0f, !trans.getMirror());	
 		}
 						
 	}

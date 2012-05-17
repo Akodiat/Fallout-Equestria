@@ -28,7 +28,7 @@
 		 <Max>35,15,40</Max>
 		 <Min>-35,-15,-40</Min>
         </bounds>	
-        <trigger>true</trigger>
+        <trigger>false</trigger>
       </Spatial>
     </elements>
   </components>
