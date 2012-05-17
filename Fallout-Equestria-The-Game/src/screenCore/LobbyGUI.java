@@ -58,12 +58,13 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				@Override
 				public void onEvent(Object sender, EventArgs e) {
 					String screenName = "Level1";
-					LobbyGUI.this.getScreenManager().removeAllScreens();
-					LobbyGUI.this.getScreenManager().addScreen(screenName);
 					
 					GoToScreenMessage message = new GoToScreenMessage();
 					message.newScreen = screenName;
 					ScreenManager.getNetwork().getServer().sendToAllTCP(message);
+					
+					LobbyGUI.this.getScreenManager().removeAllScreens();
+					LobbyGUI.this.getScreenManager().addScreen(screenName);
 				}
 			});
 			
