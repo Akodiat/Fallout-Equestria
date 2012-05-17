@@ -19,6 +19,7 @@ import common.EntityCreatedMessage;
 import common.EntityDestroyedMessage;
 import common.EntityMovedMessage;
 import common.EntityNetworkIDsetMessage;
+import common.GoToScreenMessage;
 import common.InputMessage;
 import common.NewPlayerMessage;
 import common.PlayerCharacteristics;
@@ -154,6 +155,7 @@ public class Network {
 		kryo.register(EntityMovedMessage.class);
 		kryo.register(EntityCreatedMessage.class);
 		kryo.register(EntityDestroyedMessage.class);
+		kryo.register(GoToScreenMessage.class);
 		kryo.register(PlayerCharacteristics.class);
 		kryo.register(Color.class);
 		kryo.register(ChatMessage.class);
@@ -164,6 +166,7 @@ public class Network {
 		kryo.register(utils.MouseState.class);
 		kryo.register(java.util.ArrayList.class);
 		kryo.register(common.HealthChangedMessage.class);
+		
 	}
 
 	public void addListener(Listener listener) {
