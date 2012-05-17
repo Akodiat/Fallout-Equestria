@@ -188,6 +188,10 @@ public class BehaviourComp implements IComponent {
 		return behavior.isInitialized();
 	}
 	
+	public void onMapCollision() {
+		this.behavior.onMapCollision();
+	}
+	
 	/** Gets the Behavior of the component.
 	 * @param the entity colliding with.
 	 */

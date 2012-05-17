@@ -8,6 +8,7 @@ import math.Vector2;
 
 import com.google.common.collect.ImmutableSet;
 
+import components.BehaviourComp;
 import components.PhysicsComp;
 import components.SpatialComp;
 import components.TransformationComp;
@@ -49,14 +50,17 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			TransformationComp posiCom = tCM.getComponent(entity);
 			SpatialComp spatiCom = sCM.getComponent(entity);
 			PhysicsComp physCom = pCM.getComponent(entity);
-			keepInsideScene(posiCom, spatiCom);
-			checkSceneGridCollision(posiCom, spatiCom, physCom);		
+			keepInsideScene(posiCom, spatiCom, entity);
+			checkSceneGridCollision(posiCom, spatiCom, physCom, entity);		
 		}
 
 	}
 
 	private void checkSceneGridCollision(TransformationComp posiCom,
-			SpatialComp spatiCom, PhysicsComp physCom) {
+			SpatialComp spatiCom, PhysicsComp physCom, IEntity entity) {
+		if(this.scene.getCollisionLayers().size() == 0)
+			return;
+		
 		CollisionLayer colLayer = this.scene.getCollisionLayers().get(0);
 		if(colLayer != null && !spatiCom.isTrigger()) {
 			boolean[][] grid = colLayer.getCollisionGrid();
@@ -71,7 +75,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			for (int row = topLeftIndex.Y; row <= bottomRight.Y; row++) {
 				for (int column = topLeftIndex.X; column <= bottomRight.X; column++) {
 					if(grid[row][column]) {
-						boolean wasColidedWith = checkAndResolveBlockCollision(posiCom, spatiCom,physCom, row, column);
+						boolean wasColidedWith = checkAndResolveBlockCollision(posiCom, spatiCom,physCom, row, column, entity);
 						if(wasColidedWith) 
 							return;
 					}
@@ -81,7 +85,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 	}
 
 	private boolean checkAndResolveBlockCollision(TransformationComp posiCom,
-			SpatialComp spatiCom,PhysicsComp physComp, int row, int column) {
+			SpatialComp spatiCom,PhysicsComp physComp, int row, int column, IEntity entity) {
 		
 		int blockSize = this.scene.getBlockSize();
 		
@@ -96,6 +100,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 			float time = (float)this.getWorld().getTime().getElapsedTime().getTotalSeconds();		
 			Vector2 invVelo = Vector2.mul(-1 * time, physComp.getVelocity());		
 			posiCom.setPosition(Vector2.add(invVelo, posiCom.getPosition()));
+			notifyBehaviour(entity);
 			return true;
 		}
 		
@@ -105,6 +110,13 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 	}
 	
 	
+	private void notifyBehaviour(IEntity entity) {
+		BehaviourComp comp = entity.getComponent(BehaviourComp.class);	
+		if(comp != null && comp.isInitialized() && comp.isEnabled()) {
+			comp.onMapCollision();
+		}
+	}
+
 	private Rectangle createEntityRect(TransformationComp posiCom,
 			SpatialComp spatiCom) {
 		Vector2 originPos = posiCom.getOriginPosition();
@@ -126,7 +138,7 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 	}
 
 	private void keepInsideScene(TransformationComp posiCom,
-			SpatialComp spatiCom) {
+			SpatialComp spatiCom, IEntity entity) {
 		
 		Rectangle entityBounds = createEntityRect(posiCom, spatiCom);
 		Rectangle worldBounds = this.scene.getWorldBounds();
@@ -134,25 +146,28 @@ public class MapCollisionSystem extends EntityProcessingSystem {
 		int left = worldBounds.getLeft();
 		if (entityBounds.getLeft() < left ){
 			posiCom.setOriginPosition(new Vector2(left + entityBounds.Width / 2, posiCom.getOriginPosition().Y));
+			this.notifyBehaviour(entity);
 		}
 		
 		//Check collision against North border
 		int top = worldBounds.getTop();
 		if (entityBounds.getTop() < top){
 			posiCom.setOriginPosition(new Vector2(posiCom.getOriginPosition().X,top - (spatiCom.getBounds().getDepth() - shadowOffset) / 2));
+			this.notifyBehaviour(entity);
 		}
 		
 		//Check collision against east border
 		int right = worldBounds.getRight();
 		if (entityBounds.getRight() > right){
 			posiCom.setOriginPosition(new Vector2(right - entityBounds.Width / 2, posiCom.getOriginPosition().Y));
-			
+			this.notifyBehaviour(entity);
 		}
 		
 		//Check collision against south border
 		int bottom = (int) (worldBounds.getBottom() - scene.getHeightMap().getHeightAt(entityBounds.getCenter()));
 		if (entityBounds.getBottom() > bottom){
 			posiCom.setOriginPosition(new Vector2(posiCom.getOriginPosition().X, worldBounds.getBottom() - spatiCom.getBounds().getDepth() / 2));
+			this.notifyBehaviour(entity);
 		}
 	}
 

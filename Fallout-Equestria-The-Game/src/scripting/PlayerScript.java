@@ -40,7 +40,6 @@ public class PlayerScript extends Behavior{
 	
 	
 	private BulletAbility bulletAbility;
-	private float gravity = 1200.0f;
 	
 	@Override
 	public Object clone() {

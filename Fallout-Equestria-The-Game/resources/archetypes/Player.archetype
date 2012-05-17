@@ -10,6 +10,11 @@
         <agility>5</agility>
         <luck>5</luck>
       </components.SpecialComp>
+      <Animation>
+      	<animationPlayer>
+          <Asset>rdset.animset</Asset>
+        </animationPlayer>
+      </Animation>
       <Behaviour>
         <behavior class="scripting.PlayerScript">
           <initialized>false</initialized>

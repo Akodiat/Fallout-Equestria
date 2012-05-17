@@ -7,13 +7,10 @@ import math.Vector2;
 import misc.SoundManager;
 import animation.Animation;
 import animation.AnimationPlayer;
-import animation.TextureDictionary;
-import animation.TextureEntry;
 import components.*;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
 import gameMap.Scene;
-import gameMap.SceneNode;
 
 import gameMap.TexturedSceneNode;
 import graphics.Color;

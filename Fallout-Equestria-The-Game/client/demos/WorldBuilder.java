@@ -86,6 +86,16 @@ public class WorldBuilder {
 		
 	}
 	
+	public static IEntityWorld buildEmptyNetworkedWorld(ContentManager contentManager) {
+		IEntityDatabase database = new EntityDatabase(new ComponentTypeManager());
+		IEntityManager entityManager = new EntityManager(new EntityLabelManager(), 
+												   new EntityGroupManager(), 
+												   new NetworkedEntityFactory(contentManager), database);
+		IEntitySystemManager manager = new EntitySystemManager(entityManager);
+
+		return new EntityWorld(entityManager, manager, database);
+	}
+	
 	
 	public static IEntityWorld buildServerWorld(Camera2D camera, Scene scene,  Mouse mouse, Keyboard keyboard, 
 												ContentManager contentManager,SoundManager soundManager, 

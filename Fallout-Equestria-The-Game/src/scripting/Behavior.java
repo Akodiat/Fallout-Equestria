@@ -115,6 +115,9 @@ public abstract class Behavior implements IEventListener<KeyframeTriggerEventArg
 	public void onEvent(Object sender, KeyframeTriggerEventArgs e){
 		this.StateMachine.onKeyframeTrigger(sender, e);
 	}
+	public void onMapCollision() {
+		this.StateMachine.onMapCollision();
+	}
 		
 	public void onEnable(){}
 	public void onDisable(){}

@@ -7,6 +7,7 @@ import java.util.Comparator;
 import com.google.common.collect.ImmutableSet;
 
 import math.Matrix4;
+import math.Vector2;
 import components.RenderingComp;
 import components.TransformationComp;
 
@@ -26,11 +27,8 @@ public class RenderingSystem extends EntityProcessingSystem {
 		this.spriteBatch = graphics;
 	}
 
-	
 	private ComponentMapper<TransformationComp> posCM;
 	private ComponentMapper<RenderingComp> renderCM; 
-	
-	
 	
 	@Override
 	public void initialize() {
@@ -66,7 +64,7 @@ public class RenderingSystem extends EntityProcessingSystem {
 
 	private void draw(RenderingComp renderC, TransformationComp transformation) {
 		this.spriteBatch.draw(renderC.getTexture(), 
-							  transformation.getOriginPosition(), 
+							  new Vector2(transformation.getOriginPosition().X, transformation.getOriginPosition().Y - transformation.getHeight()), 
 							  renderC.getColor(), 
 							  renderC.getSource(),
 							  transformation.getOrigin(),

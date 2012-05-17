@@ -61,6 +61,14 @@ public class ScreenManager {
 		return network;
 	}
 	
+	public Mouse getMouse() {
+		return this.mouse;
+	}
+	
+	public Keyboard getKeyboard() {
+		return this.keyboard;
+	}
+	
 	public ScreenManager(SpriteBatch spriteBatch, ContentManager contentManager, SoundManager soundManager, Network network, Rectangle viewport, Mouse mouse, Keyboard keyboard) {
 		this.activeScreens = new ArrayList<>();
 		this.screensToUpdate = new ArrayList<>();

@@ -6,6 +6,7 @@ import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
 import screenCore.GOLScreen;
 import screenCore.HostScreen;
+import screenCore.Level;
 import screenCore.LobbyGUI;
 import screenCore.LobbyWorld;
 import screenCore.ConnectScreen;
@@ -50,8 +51,6 @@ public class ScreenDemo extends Demo{
 		screenManager.render(time);
 	}
 
-	
-	
 	@Override
 	protected void initialize() {
 		this.batch = new SpriteBatch(screenDim);
@@ -72,6 +71,8 @@ public class ScreenDemo extends Demo{
 		LobbyGUI screen8 = new LobbyGUI("gui.tdict");
 		LobbyWorld screen9 = new LobbyWorld();
 		MultiplayerScreen screen10 = new MultiplayerScreen("gui.tdict");
+		Level screen11 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "PerspectiveV5.xml");
+		Level screen12 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "Lobby.xml");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
@@ -83,6 +84,8 @@ public class ScreenDemo extends Demo{
 		this.screenManager.registerScreen("LobbyGUI", screen8);
 		this.screenManager.registerScreen("LobbyWorld", screen9);
 		this.screenManager.registerScreen("Multiplayer", screen10);
+		this.screenManager.registerScreen("Level1", screen11);
+		this.screenManager.registerScreen("Lobby", screen12);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

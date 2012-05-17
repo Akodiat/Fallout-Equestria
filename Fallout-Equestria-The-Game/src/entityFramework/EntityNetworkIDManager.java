@@ -1,48 +1,34 @@
 package entityFramework;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.BiMap;
 
-public class EntityNetworkIDManager implements IEntityNetworkIDManager{
-	private final BiMap<Integer, IEntity> entityMap;
+public class EntityNetworkIDManager{
+	private final Map<Integer, IEntity> entityMap;
 	
 	public EntityNetworkIDManager() {
-		this.entityMap = HashBiMap.create();
+		this.entityMap = new HashMap<>();
 	}
 	
-	
-	@Override
 	public void setNetworkIDToEntity(IEntity entity, int networkID) {
-		this.entityMap.inverse().remove(entity);
 		if(this.entityMap.containsKey(networkID)) {
 			throw new IllegalArgumentException("The key + " + networkID + "is already present");
 		}
-		
 		this.entityMap.put(networkID, entity);
 	}
 
-	@Override
 	public IEntity getEntityFromNetworkID(int networkID) {
 		return this.entityMap.get(networkID);
 	}
 
-	@Override
-	public int getNetworkIDFromEntity(IEntity entity) {
-		
-		Integer networkID = this.entityMap.inverse().get(entity);
-		return (networkID  != null) ? networkID.intValue() : -1; //TODO: Is this really a good thing to do?
-	}
-
-	@Override
-	public void removeNetworkIDEntity(IEntity entity) {
-		this.entityMap.inverse().remove(entity);
+	public void removeNetworkIDEntity(int entityID) {
+		this.entityMap.remove(entityID);
 	}
 
 	public List<IEntity> getEntities() {
 		return new ArrayList<>(entityMap.values());
 	}
-	
 }	

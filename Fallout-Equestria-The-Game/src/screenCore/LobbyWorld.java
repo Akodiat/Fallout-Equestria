@@ -39,14 +39,12 @@ public class LobbyWorld extends EntityScreen {
 		this.scene = manager.load("PerspectiveV5.xml", Scene.class);
 	}
 
-	@Override
-	protected void addRenderingSystem(IEntitySystemManager systemManager) {
-		systemManager.addRenderEntitySystem(new RenderingSystem(this.World, this.ScreenManager.getSpriteBatch()));
-	}
 
 	@Override
-	protected void addLogicSystem(IEntitySystemManager systemManager) {
+	protected void addEntitySystems(IEntitySystemManager manager) {
+		manager.addRenderEntitySystem(new RenderingSystem(this.World, this.ScreenManager.getSpriteBatch()));
 	}
+	
 
 	@Override
 	protected void addEntities(IEntityManager entityManager) {
@@ -62,7 +60,7 @@ public class LobbyWorld extends EntityScreen {
 	
 	@Override
 	public void render(GameTime time, SpriteBatch batch) {
-		super.render(time, batch);
 	}
+
 
 }

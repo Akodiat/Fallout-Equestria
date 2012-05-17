@@ -2,6 +2,8 @@ package screenCore;
 
 import graphics.Color;
 import math.Vector2;
+import misc.EventArgs;
+import misc.IEventListener;
 import GUI.controls.Button;
 import GUI.controls.ChatPanel;
 import GUI.controls.Label;
@@ -32,6 +34,14 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		Button playButton = new Button();
 		playButton.setBounds(x, 678, 200, 50);
 		playButton.setText("Start the game!");
+		playButton.addClicked(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				LobbyGUI.this.getScreenManager().removeAllScreens();
+				LobbyGUI.this.getScreenManager().addScreen("Level1");
+			}
+		});
+		
 		this.addGuiControl(playButton, new Vector2(vp.Width + 200, 568), new Vector2(x, 568), new Vector2(-200, 568));
 		
 		ChatPanel chat = new ChatPanel();

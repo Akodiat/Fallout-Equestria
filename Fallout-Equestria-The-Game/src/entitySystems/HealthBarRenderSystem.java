@@ -52,10 +52,6 @@ public class HealthBarRenderSystem extends EntityProcessingSystem {
 							* positionC.getScale().Y + positionC.getOriginPosition().Y - positionC.getHeight()),
 					(int) healthC.getHealthPoints(), 10);
 			
-			Rectangle border = new Rectangle(healthBar.X - 1, healthBar.Y - 1,
-					healthBar.Width + 2, healthBar.Height + 2);
-		//	this.spriteBatch.draw(Texture2D.getPixel(), border, Color.Black,
-			//		null);
 
 			float healthPercentage = healthC.getHealthPoints()
 					/ healthC.getMaxHealth();

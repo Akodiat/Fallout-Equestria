@@ -63,14 +63,9 @@ public class BackgroundScreen extends EntityScreen {
 		cameraTarget.refresh();
 
 	}
-	
-	@Override
-	protected void addRenderingSystem(IEntitySystemManager systemManager) {
-		//No rendering systems are needed here. Since the rendering is so basic.
-	}
 
 	@Override
-	protected void addLogicSystem(IEntitySystemManager systemManager) {
+	protected void addEntitySystems(IEntitySystemManager systemManager) {
 		systemManager.addLogicEntitySystem(new CameraControlSystem(this.World, this.camera));
 		systemManager.addLogicEntitySystem(new ScriptSystem(this.World, this.ScreenManager.getContentManager(), this.ScreenManager.getSoundManager()));
 	}
@@ -87,7 +82,6 @@ public class BackgroundScreen extends EntityScreen {
 
 	@Override
 	public void render(GameTime time, SpriteBatch spriteBatch) {	
-		super.render(time, spriteBatch);
 		float alpha = 1.0f - this.getTransitionPosition();
 		
 		spriteBatch.begin(null, camera.getTransformation());

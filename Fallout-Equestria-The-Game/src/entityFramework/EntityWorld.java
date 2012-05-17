@@ -16,6 +16,7 @@ public class EntityWorld implements IEntityWorld {
 		this.entityManager = entityManager;
 		this.systemManager = systemManager;
 		this.database = database;
+		this.gameTime = GameTime.Zero;
 	}
 
 	/* (non-Javadoc)

@@ -62,7 +62,6 @@ public class RandomMoving extends Behavior {
 
 		float amountToLerp = (float)(time.getElapsedTime().getTotalSeconds()/lerpSpeed);
 		lerpAmount += amountToLerp;
-		System.out.println(previousPos + "WDASDASD" + targetPos);
 		Vector2 newPos = Vector2.smoothLerp(previousPos, targetPos, lerpAmount);
 
 		transComp.setPosition(newPos);

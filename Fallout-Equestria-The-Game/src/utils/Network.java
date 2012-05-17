@@ -9,6 +9,7 @@ import math.Vector2;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.EndPoint;
+import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import common.AnimationChangedMessage;
@@ -75,6 +76,7 @@ public class Network {
 		registerClasses(server);
 		try {
 			server.bind(tpcPort, udpPort);
+			this.endPoint = server;
 		} catch (IOException e) {
 			throw new RuntimeException("The server could not be started!", e);
 		}
@@ -141,7 +143,7 @@ public class Network {
 		kryo.register(components.SpecialComp.class);
 		kryo.register(components.SpatialComp.class);
 		kryo.register(InputMessage.class);
-		
+		kryo.register(common.SoundMessage.class);
 		kryo.register(AnimationChangedMessage.class);
 		kryo.register(NewPlayerMessage.class);
 		kryo.register(EntityNetworkIDsetMessage.class);
@@ -157,5 +159,26 @@ public class Network {
 		kryo.register(utils.Mouse.class);
 		kryo.register(utils.MouseState.class);
 		kryo.register(java.util.ArrayList.class);
+		kryo.register(common.HealthChangedMessage.class);
+	}
+
+	public void addListener(Listener listener) {
+		if(this.isClient()) {
+			((Client)this.endPoint).addListener(listener);
+		} else if(this.isServer()) {
+			((Server)this.endPoint).addListener(listener);
+		} else {
+			throw new RuntimeException("No Connection is avalible to add listeners to.");
+		}
+	}
+	
+	public void removeListener(Listener listener) {
+		if(this.isClient()) {
+			((Client)this.endPoint).removeListener(listener);
+		} else if(this.isServer()) {
+			((Server)this.endPoint).removeListener(listener);
+		} else {
+			throw new RuntimeException("No Connection is avalible to remove listeners from.");
+		}
 	}
 }

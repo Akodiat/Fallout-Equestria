@@ -2,6 +2,7 @@ package screenCore;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.esotericsoftware.kryonet.Client;
@@ -63,12 +64,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 
 		connectBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-				int selected = serverListBox.getSelecteItemIndex();
-				try {
-					client.connect(5000, addresses.get(selected), 54555, 54777);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				connectToServer();
 			}
 		});
 		
@@ -85,18 +81,23 @@ public class ConnectScreen extends TransitioningGUIScreen{
 		});
 	}
 	
+	protected void connectToServer() {
+		int selected = serverListBox.getSelecteItemIndex();
+		if(selected != -1) {
+			this.ScreenManager.getNetwork().connectToHost(this.addresses.get(selected));
+			System.out.println("OP!");
+		}
+	}
+
 	@Override
 	public void onTransitionFinished() {
-		this.client = new Client();
-		this.loader = new ServerLoader(client);
-		
-		this.addresses = loader.getAddresses();
-		
-		if(loader.getAddresses().size() > 0) {
-			for(int i = 0; i < this.addresses.size(); i++) {
-				serverListBox.addItem("      " + loader.getAddresses().get(i).getHostName());
+		List<InetAddress> addresses = this.ScreenManager.getNetwork().getAvalibleLanHosts();
+		this.addresses = addresses;
+		if(addresses.size() > 0) {
+			for(int i = 0; i < addresses.size(); i++) {
+				serverListBox.addItem("      " + addresses.get(i).getHostName());
 				infoLabel.setFgColor(Color.Green);
-				infoLabel.setText(loader.getAddresses().size() + " server(s) online.");
+				infoLabel.setText(addresses.size() + " server(s) online.");
 			}
 		} else {
 			infoLabel.setText("No servers online.");
@@ -105,6 +106,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 	}
 	
 	protected void gotoTest2() {
+		this.ScreenManager.getNetwork().reset();
 		this.exitScreen();
 	}
 }

@@ -3,7 +3,6 @@ package entitySystems;
 import math.Vector2;
 import math.Vector3;
 import utils.BoundingBox;
-import utils.Circle;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -49,9 +48,9 @@ public class CollisionSystem extends EntitySingleProcessingSystem{
 			
 			
 			Vector3 otherPos = new Vector3(otherTransComp.getPosition(), otherTransComp.getHeight());
-			Vector3 entityPos = new Vector3(otherTransComp.getPosition(), otherTransComp.getHeight());
+			Vector3 entityPos = new Vector3(transComp.getPosition(), transComp.getHeight());
 			
-			if(!i.equals(entity) && BoundingBox.intersects(otherSpatComp.getBounds(),otherPos,spatComp.getBounds(),otherPos)){
+			if(!i.equals(entity) && BoundingBox.intersects(otherSpatComp.getBounds(),otherPos,spatComp.getBounds(),entityPos)){
 				collide(transComp, physComp, spatComp, otherSpatComp,
 						otherTransComp, otherPhysComp);
 			}

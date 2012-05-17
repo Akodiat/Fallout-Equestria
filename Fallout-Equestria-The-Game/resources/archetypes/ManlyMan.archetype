@@ -7,17 +7,6 @@
         <mass>1.0</mass>
         <torque>0.0</torque>
       </Physics>
-      <Animation>
-        <animationPlayer>
-          <currentAnimationTime>0.0</currentAnimationTime>
-          <currentKeyframeIndex>0</currentKeyframeIndex>
-          <playSpeedMultiplier>1.0</playSpeedMultiplier>
-          <transitioning>false</transitioning>
-          <transitionTime>0.0</transitionTime>
-          <transitionTotalTime>0.0</transitionTotalTime>
-          <animations class="hashtable"/>
-        </animationPlayer>
-      </Animation>
       <Behaviour>
         <behavior class="scripting.ManlyManScript">
           <initialized>false</initialized>

@@ -11,12 +11,16 @@ public class SoundManager {
 	private float musicVolume;
 	private float soundEffectVolume;
 	
+	private Event<SoundEventArgs> soundEvent;
+	
 	public SoundManager(ContentManager contentManager, float masterVolume, float musicVolume, float soundEffectVolume) {
 		this.contentManager = contentManager;
 		this.activeMusic = null;
 		this.setMasterVolume(masterVolume);
 		this.setMusicVolume(musicVolume);
 		this.setSoundEffectVolume(soundEffectVolume);
+		
+		this.soundEvent = new Event<>();
 	}
 
 	public float getMasterVolume() {
@@ -44,28 +48,52 @@ public class SoundManager {
 	}
 	
 	public void playMusic(String sound) {
+		this.playMusic(sound, 1.0f, true);
+	
+	}
+	
+	public void playMusic(String sound, float pitch, boolean loop) {
+		this.createSoundEvent(sound, pitch, loop, true);	
 		if(this.activeMusic != null) {
 			this.activeMusic.stop();
-		} 
+		}
+		
 		Audio music = this.contentManager.loadSound(sound);
 		this.activeMusic = music;
 		
-		startMusic();
+		startMusic(pitch,loop);
 	}
-	
-	private void startMusic() {
+
+	private void startMusic(float pitch, boolean loop) {
 		float effectiveVolume = this.masterVolume * this.musicVolume;
-		this.activeMusic.playAsMusic(1.0f, effectiveVolume, false);
+		this.activeMusic.playAsMusic(pitch, effectiveVolume, loop);
 	}
 
 	public void playSoundEffect(String sound) {
+		this.playSoundEffect(sound, 1.0f, false);
+	}
+	
+	public void playSoundEffect(String sound, float pitch, boolean loop) {
 		Audio soundEffect = this.contentManager.loadSound(sound);
-		startSoundEffect(soundEffect);
+		startSoundEffect(soundEffect, pitch, loop);
+		
+		this.createSoundEvent(sound, pitch, loop, false);
 	}
 
-	private void startSoundEffect(Audio soundEffect) {
+	private void startSoundEffect(Audio soundEffect, float pitch, boolean loop) {
 		float effectiveVolume = this.masterVolume * this.soundEffectVolume;
-		soundEffect.playAsSoundEffect(1.0f, effectiveVolume, false);
+		soundEffect.playAsSoundEffect(pitch, effectiveVolume, false);
+	}
+
+	private void createSoundEvent(String sound, float pitch, boolean loop, boolean isMusic) {
+		SoundEventArgs args = new SoundEventArgs(isMusic, sound, pitch, loop);
+		this.soundEvent.invoke(this, args);		
+	}
+	
+	public void addSoundEventListener(IEventListener<SoundEventArgs> listener) {
+		this.soundEvent.addListener(listener);
+	}
+	public void removeSoundEventListener(IEventListener<SoundEventArgs> listener) {
+		this.soundEvent.removeListener(listener);
 	}
 }
-

@@ -26,11 +26,13 @@ public class BehaviourState extends State {
 	public void onTriggerEnter(IEntity entity){}
 	public void onTriggerExit(IEntity entity){}
 	public void onGroundCollision() { }
-	
+	public void onMapCollision() { }
+
 	public void onDestroy(){}
 	
 	public void onKeyframeTrigger(Object sender, KeyframeTriggerEventArgs e){}
 
 	protected void enter() { }
 	protected void exit() { }
+
 }

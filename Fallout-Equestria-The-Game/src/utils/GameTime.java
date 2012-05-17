@@ -7,9 +7,10 @@ package utils;
  */
 public class GameTime {
 		
+	
 	private final TimeSpan totalTime;
 	private final TimeSpan elapsedTime;
-	
+		
 	protected GameTime(TimeSpan totalTime, TimeSpan elapsedTime) {
 		this.totalTime = totalTime;
 		this.elapsedTime = elapsedTime;
@@ -30,4 +31,6 @@ public class GameTime {
 	public TimeSpan getElapsedTime() {
 		return elapsedTime;
 	}
+	
+	public static final GameTime Zero = new GameTime(TimeSpan.Zero, TimeSpan.Zero);
 }

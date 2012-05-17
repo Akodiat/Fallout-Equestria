@@ -97,14 +97,9 @@ public class GOLScreen extends EntityScreen {
 		}
 	}
 	
-	
-	@Override
-	protected void addRenderingSystem(IEntitySystemManager systemManager) {
-		systemManager.addRenderEntitySystem(new RenderingSystem(this.World, this.ScreenManager.getSpriteBatch()));
-	}
 
 	@Override
-	protected void addLogicSystem(IEntitySystemManager systemManager) {
+	protected void addEntitySystems(IEntitySystemManager manager) {
 		Rectangle vp = this.ScreenManager.getViewport();
 		Rectangle worldBounds = new Rectangle(0, 0, vp.Width * worldSize, vp.Height * worldSize);
 
@@ -116,7 +111,8 @@ public class GOLScreen extends EntityScreen {
 				   groupName);
 		
 		
-		systemManager.addLogicEntitySystem(golSystem);
+		manager.addLogicEntitySystem(golSystem);
+		manager.addRenderEntitySystem(new RenderingSystem(this.World, this.ScreenManager.getSpriteBatch()));
 	}
 
 	@Override
@@ -131,8 +127,12 @@ public class GOLScreen extends EntityScreen {
 	
 	@Override
 	public void render(GameTime time, SpriteBatch batch) {
-		super.render(time, batch);
+		batch.begin();
+		this.World.render();
+		batch.end();
+		
 		this.panel.render(context, time);
 	}
+
 
 }

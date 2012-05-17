@@ -59,4 +59,7 @@ public class BehaviourStateMachine extends StateMachine<BehaviourState>{
 	public void onKeyframeTrigger(Object sender, KeyframeTriggerEventArgs e){
 		this.activeState.onKeyframeTrigger(sender, e);
 	}
+	public void onMapCollision() {
+		this.activeState.onMapCollision();
+	}
 }

@@ -59,18 +59,8 @@ public class AnimationPlayer
 		this.transitionTime = other.transitionTime;
 		this.transitionTotalTime = other.transitionTotalTime;
 
-		this.transitionStates = new BoneTransitionState[other.transitionStates.length];
-		for (int i = 0; i < other.transitionStates.length; i++) {
-			this.transitionStates[i] = other.transitionStates[i].clone();
-		}
-
-		this.boneTransformations = new BoneTransformation[other.transitionStates.length];
-		for (int i = 0; i < other.transitionStates.length; i++) {
-			this.boneTransformations[i] = other.boneTransformations[i].clone();
-		}
-
 		for (String key : other.animations.keySet()) {
-			this.animations.put(key, other.animations.get(key).clone());
+			this.addAnimation(key, other.animations.get(key).clone());
 		}
 	}
 	/**

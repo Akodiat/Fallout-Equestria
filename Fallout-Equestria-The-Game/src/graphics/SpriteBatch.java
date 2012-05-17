@@ -10,7 +10,6 @@ import math.Vector2;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
-import static org.lwjgl.opengl.GL14.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
@@ -74,7 +73,6 @@ public class SpriteBatch {
 		public float[] color;
 		public float[] verticies;
 		public float[] uvCoords;
-		public float depth;
 	}
 	
 	public enum SortMode 
@@ -87,11 +85,6 @@ public class SpriteBatch {
 		 * 
 		 */
 		Texture,
-		/**Sprites are sorted based on their depth value.
-		 * 
-		 */
-		Depth
-		
 	}
 	
 	private class TextureSorter implements Comparator<Sprite>
@@ -376,11 +369,8 @@ public class SpriteBatch {
 			throw new GraphicsException("Cannot end before you begin...");
 		}
 
-		
-		
 		this.renderBatch();
 		this.viewport = oldViewPort;
-		
 		
 		this.betweenBeginAndEnd = false;
 	}
@@ -392,7 +382,7 @@ public class SpriteBatch {
 	 * @param color the tint.
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color) {
-		this.internalDraw(texture, position, color, null, Vector2.Zero, Vector2.One, 0.0f, false,0.0f);
+		this.internalDraw(texture, position, color, null, Vector2.Zero, Vector2.One, 0.0f, false);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -407,7 +397,7 @@ public class SpriteBatch {
 		
 		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
 				
-		this.internalDraw(texture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false,0.0f);
+		this.internalDraw(texture, pos, color, sorceRectangle, Vector2.Zero, scale, 0.0f, false);
 	}
 	
 	private Vector2 GetRectangleScale(Texture2D texture,
@@ -436,25 +426,7 @@ public class SpriteBatch {
 					 float rotation, boolean mirror) {
 		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
 		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
-		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror,0.0f);
-	}
-	
-	/**Adds a sprite to the batch with the specified arguments.
-	 * 
-	 * @param texture the texture.
-	 * @param destRectangle the bounds of the sprite.
-	 * @param color the tint.
-	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
-	 * @param origin the origin (rendering offset)
-	 * @param rotation the rotation in a counterclockwise system Range 0 to 2Pi
-	 * @param mirror a flag indicating if the texture should be horizontally flipped.
-	 * @param depth depth of the sprite.
-	 */
-	public void draw(Texture2D texture, Rectangle destRectangle, Color color, Rectangle sorceRectangle, Vector2 origin,
-					 float rotation, boolean mirror, float depth) {
-		Vector2 pos = new Vector2(destRectangle.X, destRectangle.Y);
-		Vector2 scale = this.GetRectangleScale(texture, destRectangle, sorceRectangle);
-		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror,depth);
+		this.internalDraw(texture, pos, color, sorceRectangle, origin, scale, rotation, mirror);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -465,7 +437,7 @@ public class SpriteBatch {
 	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle) {
-		this.internalDraw(texture, position, color, sorceRectangle, Vector2.Zero, Vector2.One, 0.0f, false,0.0f);
+		this.internalDraw(texture, position, color, sorceRectangle, Vector2.Zero, Vector2.One, 0.0f, false);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -476,7 +448,7 @@ public class SpriteBatch {
 	 * @param origin the origin (rendering offset)
 	 */
 	public void draw(Texture2D texture, Vector2 position,  Color color, Vector2 origin) {
-		this.internalDraw(texture, position, color, null, origin, Vector2.One, 0.0f, false,0.0f);
+		this.internalDraw(texture, position, color, null, origin, Vector2.One, 0.0f, false);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -488,7 +460,7 @@ public class SpriteBatch {
 	 * @param origin the origin (rendering offset)
 	 */
 	public void draw(Texture2D texture, Vector2 position,  Color color, Rectangle sorceRectangle, Vector2 origin) {
-		this.internalDraw(texture, position, color, sorceRectangle, origin, Vector2.One, 0.0f, false,0.0f);
+		this.internalDraw(texture, position, color, sorceRectangle, origin, Vector2.One, 0.0f, false);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -504,7 +476,7 @@ public class SpriteBatch {
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 			 float scale, float rotation, boolean mirror) {
-		this.internalDraw(texture, position, color, sorceRectangle, origin, new Vector2(scale, scale), rotation, mirror,0.0f);
+		this.internalDraw(texture, position, color, sorceRectangle, origin, new Vector2(scale, scale), rotation, mirror);
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.
@@ -520,24 +492,7 @@ public class SpriteBatch {
 	 */
 	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
 					 Vector2 scale, float rotation, boolean mirror) {
-		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror,0.0f);
-	}
-	
-	/**Adds a sprite to the batch with the specified arguments.
-	 * 
-	 * @param texture the texture.
-	 * @param position the top-left position.
-	 * @param color the tint.
-	 * @param sorceRectangle the part of the texture to draw. (null makes the whole texture draw)
-	 * @param origin the origin (rendering offset)
-	 * @param scale the scale.
-	 * @param rotation the rotation in a counterclockwise system Range 0 to Tau
-	 * @param mirror a flag indicating if the texture should be horizontally flipped.
-	 * @param depth the depth of the sprite. In SortMode depth the sprites are sorted by this value.
-	 */
-	public void draw(Texture2D texture, Vector2 position, Color color, Rectangle sorceRectangle, Vector2 origin,
-					 Vector2 scale, float rotation, boolean mirror, float depth) {
-		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror, depth);
+		this.internalDraw(texture, position, color, sorceRectangle, origin, scale, rotation, mirror);
 	}
 	
 	
@@ -596,7 +551,7 @@ public class SpriteBatch {
 			}
 			
 			this.internalDraw(font.getTexture(), new Vector2(rx,y),
-						      color, srcRect, rorig, scale, rotation, mirror, depth);
+						      color, srcRect, rorig, scale, rotation, mirror);
 			
 			dist += (srcRect.Width + font.getCharacterSpacing()) * scale.X;
 			
@@ -604,13 +559,12 @@ public class SpriteBatch {
 	}
 
 	private void internalDraw(Texture2D texture, Vector2 destination, Color color, Rectangle sorceRectangle,
-							  Vector2 origin, Vector2 scale, float rotation, boolean mirror, float depth)
+							  Vector2 origin, Vector2 scale, float rotation, boolean mirror)
 	{
 			ensureCanRender(texture);
 			
 			Sprite sprite = this.sprites[this.spriteCount];
 			sprite.texture = texture;
-			sprite.depth = depth;
 			
 			float destWidth;
 			float destHeight;

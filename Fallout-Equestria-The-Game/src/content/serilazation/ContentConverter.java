@@ -6,6 +6,8 @@ import graphics.ShaderEffect;
 import graphics.Texture2D;
 import graphics.TextureFont;
 
+import animation.AnimationPlayer;
+
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -27,6 +29,7 @@ public class ContentConverter implements Converter{
 		return (Texture2D.class.isAssignableFrom(clazz)) 		||
 			   (Audio.class.isAssignableFrom(clazz))     		||
 			   (ShaderEffect.class.isAssignableFrom(clazz))		||
+			   (AnimationPlayer.class.isAssignableFrom(clazz))  ||
 			   (TextureFont.class.isAssignableFrom(clazz));
 	}
 

@@ -1,9 +1,4 @@
 package screenCore;
-
-import java.io.IOException;
-
-import com.esotericsoftware.kryonet.Server;
-
 import graphics.Color;
 import math.Vector2;
 import misc.EventArgs;
@@ -11,9 +6,6 @@ import misc.IEventListener;
 import GUI.controls.Button;
 import GUI.controls.Textfield;
 import content.ContentManager;
-import server.KyroServer;
-import server.ServerTest;
-import utils.Rectangle;
 import utils.ServerInfo;
 import utils.TimeSpan;
 
@@ -69,16 +61,10 @@ public class HostScreen extends TransitioningGUIScreen{
 	}
 	
 	public void startServer() {
-		KyroServer server;
-		try {
-			server = new KyroServer(new Rectangle(0,0,1366,768), 60);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.ScreenManager.getNetwork().HostGame();
 		
 		this.ScreenManager.removeAllScreens();
-		
-		this.ScreenManager.addScreen("LobbyWorld");
+		this.ScreenManager.addScreen("Lobby");
 		this.ScreenManager.addScreen("LobbyGUI");
 	}
 }

@@ -11,7 +11,6 @@ import components.TransformationComp;
 
 import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
-import entityFramework.EntitySingleProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 

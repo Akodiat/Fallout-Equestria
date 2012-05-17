@@ -28,11 +28,12 @@ public class BulletAbility extends Ability {
 		Vector2 direction = trans.getMirror() ? Vector2.UnitX : new Vector2(-1, 0);
 		Vector2 velocity = Vector2.mul(this.speed, direction);
 		
+		
 		float posX = direction.X * fireOffset.X + trans.getPosition().X;
 		float posY = fireOffset.Y + trans.getPosition().Y;
 		System.out.println(posX + "|" + posY);
 		
-		this.CreationFactory.createMovingEntity(bulletArchetype, new Vector2(posX,posY), velocity);		
+		this.CreationFactory.createMovingEntity(bulletArchetype, new Vector2(posX,posY),trans.getHeight(), velocity);		
 	}
 	
 	public void update(GameTime time) {	}

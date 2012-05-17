@@ -93,7 +93,7 @@ public class SpriteBatch_Benchmark {
 	
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
-		this.spriteBatch.begin(null, Matrix4.Identity, null, true, SortMode.Depth);
+		this.spriteBatch.begin(null, Matrix4.Identity, null, true, SortMode.Texture);
 		for (Sprite sprite : this.sprites) {
 			this.spriteBatch.draw(sprite.texture, sprite.pos, sprite.color);
 		}		

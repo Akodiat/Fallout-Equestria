@@ -6,7 +6,6 @@ import math.Point2;
 import math.Vector2;
 import GUI.LookAndFeelAssets;
 import GUI.controls.TextArea;
-import graphics.Color;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import utils.GameTime;
