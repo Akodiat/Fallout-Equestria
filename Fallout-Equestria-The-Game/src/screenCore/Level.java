@@ -94,12 +94,14 @@ public class Level extends EntityScreen {
 		InputMessage message = new InputMessage();
 		message.mouse = mouse;
 		message.keyboard = keyboard;
+		message.networkID = this.ScreenManager.getNetwork().getClient().getID();
 		this.ScreenManager.getNetwork().getClient().sendUDP(message);
 	}
 
 	@Override
 	public void update(GameTime time, boolean otherScreeenHasFocus, boolean coveredByOtherScreen) {
 		super.update(time, otherScreeenHasFocus, false);
+		this.handleInput(this.ScreenManager.getMouse(), this.ScreenManager.getKeyboard());
 	}
 	
 	@Override
