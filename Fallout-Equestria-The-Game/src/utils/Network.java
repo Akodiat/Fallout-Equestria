@@ -2,6 +2,7 @@ package utils;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 import math.Vector2;
@@ -36,9 +37,12 @@ public class Network {
 	private final int udpPort;
 	private EndPoint endPoint;
 	
+	private List<Listener> addedListeners;
+	
 	public Network(int tpcport, int udpPort) {
 		this.tpcPort = tpcport;
 		this.udpPort = udpPort;
+		this.addedListeners = new ArrayList<Listener>();
 	}
 		
 	public EndPoint getEndPoint() {
@@ -170,6 +174,8 @@ public class Network {
 		} else {
 			throw new RuntimeException("No Connection is avalible to add listeners to.");
 		}
+		
+		this.addedListeners.add(listener);
 	}
 	
 	public void removeListener(Listener listener) {
@@ -179,6 +185,15 @@ public class Network {
 			((Server)this.endPoint).removeListener(listener);
 		} else {
 			throw new RuntimeException("No Connection is avalible to remove listeners from.");
+		}
+	}
+	
+	public void removeAllListeners() {
+		if(this.endPoint == null)
+			return;
+		
+		for (Listener listener : this.addedListeners) {
+			this.endPoint.removeListener(listener);
 		}
 	}
 }

@@ -97,7 +97,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		this.playerListBox = new ListBox<String>();
 		playerListBox.setBounds(-1000, -1000, 200, 400);
 		playerListBox.setFont(manager.loadFont("Andale Mono20.xml"));
-		playerListBox.setBgColor(new Color(0,0,0,255));
+		playerListBox.setBgColor(Color.White);
 		playerListBox.setFgColor(Color.Black);
 		this.addGuiControl(playerListBox, new Vector2(vp.Width, 60), new Vector2(x, 60), new Vector2(vp.Width, 60));
 	}
