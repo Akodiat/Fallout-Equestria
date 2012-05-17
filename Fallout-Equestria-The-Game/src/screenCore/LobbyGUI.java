@@ -15,12 +15,15 @@ import GUI.controls.ChatPanel;
 import GUI.controls.Label;
 import GUI.controls.ListBox;
 import content.ContentManager;
+import utils.GameTime;
 import utils.Rectangle;
 import utils.TimeSpan;
 
 public class LobbyGUI extends TransitioningGUIScreen{
 	private ListBox<String> playerListBox;
 	private Connection[] connections;
+	private Object lock = new Object();
+	private GoToScreenMessage message = null;
 
 	public LobbyGUI(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -142,11 +145,28 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				public void received(Connection connection, Object message) {
 					if(message instanceof GoToScreenMessage){
 						GoToScreenMessage screenMessage = (GoToScreenMessage) message;
-						ScreenManager.getNetwork().removeAllListeners();
-						ScreenManager.addScreen(screenMessage.newScreen);
+						LobbyGUI.this.message = screenMessage;
 					}
 				}	
 			});
+		}
+	}
+	private void changeScreen(String newScreen){
+		synchronized(lock){
+			
+			ScreenManager.getNetwork().removeAllListeners();
+			ScreenManager.addScreen(newScreen);
+		}
+	}
+	@Override
+	public void update(GameTime time, boolean otherScreeenHasFocus,
+			boolean coveredByOtherScreen) {
+		super.update(time, otherScreeenHasFocus, coveredByOtherScreen);
+		
+		synchronized(lock){
+			if(this.message != null){
+				changeScreen(this.message.newScreen);
+			}
 		}
 	}
 
