@@ -121,6 +121,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	public void render(GameTime time, SpriteBatch batch) {
 		batch.begin();
 		this.pony.draw(batch, ponyPosition, false, 0, Color.White, ponyScale);
+		batch.end();
 		super.render(time, batch);
 	}
 
