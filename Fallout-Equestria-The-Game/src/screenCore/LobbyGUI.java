@@ -1,7 +1,10 @@
 package screenCore;
 
+import clientNetworkSystems.ClientScreenChangeNetworkSystem;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import common.GoToScreenMessage;
 
 import graphics.Color;
 import math.Vector2;
@@ -38,6 +41,20 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				public void disconnected(Connection arg0) {
 					updatePlayerList();
 				}
+			});
+		}
+		if(this.ScreenManager.getNetwork().isClient()){
+			this.ScreenManager.getNetwork().getClient().addListener(new Listener(){
+				@Override
+				public void received(Connection connection, Object message) {
+					super.received(connection, message);
+					if(message instanceof GoToScreenMessage){
+						GoToScreenMessage screenMessage = (GoToScreenMessage) message;
+						ScreenManager.getNetwork().removeAllListeners();
+						ScreenManager.addScreen(screenMessage.newScreen);
+					}
+				}
+				
 			});
 		}
 		
@@ -97,8 +114,8 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		this.playerListBox = new ListBox<String>();
 		playerListBox.setBounds(-1000, -1000, 200, 400);
 		playerListBox.setFont(manager.loadFont("Andale Mono20.xml"));
-		playerListBox.setBgColor(Color.White);
-		playerListBox.setFgColor(Color.Black);
+		playerListBox.setBgColor(new Color(0,0,0,255));
+		playerListBox.setFgColor(Color.White);
 		this.addGuiControl(playerListBox, new Vector2(vp.Width, 60), new Vector2(x, 60), new Vector2(vp.Width, 60));
 	}
 	
