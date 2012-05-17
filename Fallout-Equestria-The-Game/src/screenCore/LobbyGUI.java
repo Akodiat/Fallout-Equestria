@@ -34,6 +34,10 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				public void connected(Connection arg0) {
 					updatePlayerList();
 				}
+				@Override
+				public void disconnected(Connection arg0) {
+					updatePlayerList();
+				}
 			});
 		}
 		

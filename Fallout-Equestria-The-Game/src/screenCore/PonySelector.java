@@ -28,7 +28,7 @@ public class PonySelector extends TransitioningGUIScreen{
 		myPoniesLabel.setText("Select a pony:");
 		this.addGuiControl(myPoniesLabel, new Vector2(-200, 50), new Vector2(50, 50), new Vector2(-200, 50));
 
-		//TODO LOAD PONY BUTTONS!
+		//TODO LOAD PONY BUTTONS! 
 		
 //		if(characters != null) {
 //			for(int i = 0; i < 3; i++) {
