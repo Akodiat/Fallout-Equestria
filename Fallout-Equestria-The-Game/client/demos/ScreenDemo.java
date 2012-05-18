@@ -62,6 +62,7 @@ public class ScreenDemo extends Demo{
 		this.mouse = new Mouse();
 		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
 		
+		soundManager.playMusic("music\\DrDissonanceBGmusic.ogg");
 		
 		this.screenManager = new ScreenManager(batch, manager, soundManager,new Network(45777,43567), screenDim, mouse, keyboard);
 		BackgroundScreen screen = new BackgroundScreen(false, TimeSpan.fromSeconds(15.0f), TimeSpan.Zero, "foebackground.png");
