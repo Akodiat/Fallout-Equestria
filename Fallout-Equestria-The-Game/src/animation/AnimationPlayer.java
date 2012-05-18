@@ -384,6 +384,15 @@ public class AnimationPlayer
 			}
 		}
 	}
+	
+	public void setBoneHidden(String boneName, boolean isHidden){
+		for (String key : this.animations.keySet()) {
+			for (Keyframe frame : this.animations.get(key).getKeyframes()) {
+				frame.getBone(boneName).setHidden(isHidden);
+			}
+		}
+	}
+
 
 	public void attachAnimationToBone(String boneName, Animation animation){
 		for (String key : this.animations.keySet()) {

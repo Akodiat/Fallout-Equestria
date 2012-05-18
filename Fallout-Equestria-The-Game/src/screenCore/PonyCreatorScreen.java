@@ -9,6 +9,7 @@ import common.PlayerCharacteristics;
 import GUI.ScrollEventArgs;
 import GUI.controls.Button;
 import GUI.controls.ImageBox;
+import GUI.controls.PonyBox;
 import GUI.controls.Slider;
 import GUI.controls.Spinner;
 import GUI.controls.Textfield;
@@ -70,6 +71,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		super.addGuiControl(this.bG, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(0,0), 
 								new Vector2(0,this.ScreenManager.getViewport().Height));
 		addPony();
+		
+		PonyBox test = new PonyBox();
+		test.setPonyName("PLAYERPONY");
+		test.setPonyPlayer(pony.clone());
+		test.setBounds(0, 0, 1366, 768);
+		super.addGuiControl(test, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(200,200), 
+				new Vector2(0,this.ScreenManager.getViewport().Height));
+
 
 		this.textfield = new Textfield();
 		this.textfield.setBounds(0,0,250,25);
@@ -225,9 +234,20 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 				setManeColor();
 			}
 		});
-
-//		this.maneStyleSpinner = new Spinner();
 		
+		Texture2D minus = contentManager.loadTexture("GUI/minus.png");
+		Texture2D plus = contentManager.loadTexture("GUI/plus.png");
+
+		this.maneStyleSpinner = new Spinner(20,0,1,10,plus,minus);
+		this.maneStyleSpinner.setBounds(20, 20, 160, 40);
+		this.maneStyleSpinner.setBgColor(Color.Transparent);
+		this.maneStyleSpinner.setFont(contentManager.loadFont("arialb20.xml"));
+		super.addGuiControl(this.maneStyleSpinner, 
+				new Vector2(250, this.ScreenManager.getViewport().Height), 
+				new Vector2(250,this.ScreenManager.getViewport().Height-100), 
+				new Vector2(250, this.ScreenManager.getViewport().Height));
+
+
 		this.button2 = new Button();
 		this.button2.setText("Back");
 		this.button2.setBounds(250,710,200,50);

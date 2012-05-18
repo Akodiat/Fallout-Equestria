@@ -1,5 +1,6 @@
 package demos;
 
+import animation.PonyColorChangeHelper;
 import misc.SoundManager;
 import graphics.Color;
 import graphics.SpriteBatch;
@@ -12,6 +13,7 @@ import screenCore.LobbyWorld;
 import screenCore.ConnectScreen;
 import screenCore.MultiplayerScreen;
 import screenCore.PausScreen;
+import screenCore.PonyCreatorScreen;
 import screenCore.PonySelector;
 import screenCore.ScreenManager;
 import screenCore.Test2GUIScreen;
@@ -74,7 +76,7 @@ public class ScreenDemo extends Demo{
 		MultiplayerScreen screen10 = new MultiplayerScreen("gui.tdict");
 		Level screen11 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "PerspectiveV5.xml");
 		Level screen12 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "Lobby.xml");
-		PonySelector screen13 = new PonySelector("gui.tdict");
+		PonyCreatorScreen screen13 = new PonyCreatorScreen("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
