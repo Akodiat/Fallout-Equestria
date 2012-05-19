@@ -97,7 +97,7 @@ public class ClientTest extends Demo {
 		
 		
 		this.gameWorld = WorldBuilder.buildClientWorld(camera, scene, mouse, keyboard, ContentManager, this.soundManager, spriteBatch, false, "Player" + this.network.getClient().getID());
-		NetworkSystemBuilder.createClientSystems(gameWorld, this.network.getClient(), idManager, soundManager, ContentManager, playerChars);
+		NetworkSystemBuilder.createClientSystems(gameWorld, this.network, idManager, soundManager, ContentManager, playerChars);
 		
 		this.gameWorld.initialize();
 	}
