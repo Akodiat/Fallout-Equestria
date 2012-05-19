@@ -73,7 +73,7 @@ public abstract class ClientNetworkSystem<T extends NetworkMessage> extends Enti
 		}
 	}
 	
-	public final void process() {
+	public void process() {
 		synchronized(lock) {
 			for (T message : this.MessageList) {
 				this.processMessage(message);
