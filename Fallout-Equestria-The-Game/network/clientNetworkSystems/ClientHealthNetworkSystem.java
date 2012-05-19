@@ -1,6 +1,8 @@
 package clientNetworkSystems;
 
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Client;
 
 import common.HealthChangedMessage;
@@ -16,7 +18,7 @@ import entityFramework.IEntityWorld;
 public class ClientHealthNetworkSystem extends ClientNetworkSystem<HealthChangedMessage>{
 
 	public ClientHealthNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager,
-			Client client) {
+			Network client) {
 		super(world, HealthChangedMessage.class, idManager, client);
 		// TODO Auto-generated constructor stub
 	}

@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Connection;
 
 import misc.EntityGroups;
@@ -28,7 +31,7 @@ public class ServerEntityCreationNetwork extends ServerNetworkSystem{
 	
 	
 	
-	public ServerEntityCreationNetwork(IEntityWorld world, Server server) {
+	public ServerEntityCreationNetwork(IEntityWorld world, Network server) {
 		super(world, server);
 		this.entityCreatedMessages = new HashMap<>();
 		this.messages = new ArrayList<>();
@@ -94,7 +97,7 @@ public class ServerEntityCreationNetwork extends ServerNetworkSystem{
 	public void process() {	
 		synchronized (lock) {
 			for (Object message : this.messages) {	
-				this.Server.sendToAllTCP(message);
+				this.getServer().sendToAllTCP(message);
 			}
 			this.messages.clear();
 		}		

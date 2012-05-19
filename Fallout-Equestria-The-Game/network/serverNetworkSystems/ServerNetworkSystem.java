@@ -1,5 +1,7 @@
 package serverNetworkSystems;
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -11,12 +13,16 @@ import entityFramework.IEntityWorld;
 public abstract class ServerNetworkSystem  extends EntitySystem {
 
 	private final Listener listener;	
-	protected final Server Server;
+	private final Network network;
+	
+	protected Server getServer() {
+		return this.network.getServer();
+	}
 	
 	@SafeVarargs
-	protected ServerNetworkSystem(IEntityWorld world, Server server, Class<? extends IComponent>... componentsClasses) {
+	protected ServerNetworkSystem(IEntityWorld world, Network network, Class<? extends IComponent>... componentsClasses) {
 		super(world, componentsClasses);
-		this.Server = server;
+		this.network = network;
 		this.listener = new Listener() {
 			public void connected(Connection connection) {
 				ServerNetworkSystem.this.connected(connection);
@@ -28,7 +34,7 @@ public abstract class ServerNetworkSystem  extends EntitySystem {
 				ServerNetworkSystem.this.disconnected(connection);
 			}			
 		};
-		this.Server.addListener(listener);		
+		this.network.addListener(listener);		
 	}
 
 	@Override

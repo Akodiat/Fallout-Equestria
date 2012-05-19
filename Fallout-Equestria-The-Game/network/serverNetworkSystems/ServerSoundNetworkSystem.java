@@ -1,5 +1,6 @@
 package serverNetworkSystems;
 
+import utils.Network;
 import misc.IEventListener;
 import misc.SoundEventArgs;
 import misc.SoundManager;
@@ -12,7 +13,7 @@ public class ServerSoundNetworkSystem extends ServerNetworkSystem {
 	private final SoundManager soundManager;
 	
 	public ServerSoundNetworkSystem(IEntityWorld world,
-			Server server, SoundManager soundManager) {
+			Network server, SoundManager soundManager) {
 		super(world, server);
 		this.soundManager = soundManager;
 	}
@@ -33,7 +34,7 @@ public class ServerSoundNetworkSystem extends ServerNetworkSystem {
 		message.loop = e.isLoop();
 		message.pitch = e.getPitch();
 		message.sound = e.getSoundPath();
-		this.Server.sendToAllUDP(message);
+		this.getServer().sendToAllUDP(message);
 	}
 
 	@Override

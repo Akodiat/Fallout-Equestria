@@ -1,6 +1,8 @@
 package clientNetworkSystems;
 
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Client;
 
 import common.EntityMovedMessage;
@@ -16,7 +18,7 @@ import entityFramework.IEntityWorld;
  */
 public class ClientMovementNetworkSystem extends ClientNetworkSystem<EntityMovedMessage>{
 
-	public ClientMovementNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, Client client) {
+	public ClientMovementNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, Network client) {
 		super(world, EntityMovedMessage.class, idManager, client);
 	}
 

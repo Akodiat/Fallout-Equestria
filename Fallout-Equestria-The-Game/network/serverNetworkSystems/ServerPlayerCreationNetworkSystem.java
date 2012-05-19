@@ -5,6 +5,7 @@ import java.util.Map;
 import scripting.PlayerScript;
 import utils.Keyboard;
 import utils.Mouse;
+import utils.Network;
 import animation.PonyColorChangeHelper;
 import com.esotericsoftware.kryonet.Server;
 import entityFramework.IEntity;
@@ -28,7 +29,7 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 	private final PlayerCharacteristics playerProperties;
 	
 	
-	public ServerPlayerCreationNetworkSystem(IEntityWorld world, Server server, ContentManager manager, PlayerCharacteristics pcars) {
+	public ServerPlayerCreationNetworkSystem(IEntityWorld world, Network server, ContentManager manager, PlayerCharacteristics pcars) {
 		super(world, server);
 		this.contentManager = manager;
 		this.playerProperties = pcars;
@@ -48,6 +49,11 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 	
 	
 	protected void createNewPlayer(NewPlayerMessage message) {
+		if(this.getEntityManager().getEntity("Player" + message.senderID) != null)
+			return;
+		
+		System.out.println("Creating Player " + message.messageID);
+		
 		IEntityArchetype archetype = contentManager.loadArchetype("Player.archetype");
 		final IEntity entity = this.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
@@ -68,7 +74,7 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 		
 		entity.refresh();
 		message.messageID = entity.getUniqueID();	
-		this.Server.sendToAllTCP(message);
+		this.getServer().sendToAllTCP(message);
 	}
 		
 	@Override

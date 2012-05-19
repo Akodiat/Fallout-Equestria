@@ -1,6 +1,7 @@
 package common;
 
 import serverNetworkSystems.*;
+import utils.Network;
 import misc.SoundManager;
 
 import clientNetworkSystems.ClientAnimationsNetworkSystem;
@@ -22,7 +23,7 @@ import entityFramework.IEntityWorld;
 
 public class NetworkSystemBuilder {
 	
-	public static void createClientSystems(IEntityWorld world, Client client, EntityNetworkIDManager idmanager, 
+	public static void createClientSystems(IEntityWorld world, Network client, EntityNetworkIDManager idmanager, 
 										   SoundManager soundManager, ContentManager contentManager, 
 										   PlayerCharacteristics playerch) {
 		
@@ -36,7 +37,7 @@ public class NetworkSystemBuilder {
 		sysManager.addLogicEntitySystem(new ClientSoundNetworkSystem(world, idmanager, client, soundManager));
 	}
 	
-	public static void createServerSystems(IEntityWorld world, Server server, SoundManager soundManager, ContentManager contentManager, PlayerCharacteristics playerch) {
+	public static void createServerSystems(IEntityWorld world, Network server, SoundManager soundManager, ContentManager contentManager, PlayerCharacteristics playerch) {
 		
 		IEntitySystemManager sysManager = world.getSystemManager();
 		sysManager.addLogicEntitySystem(new ServerMovementNetworkSystem(world, server));

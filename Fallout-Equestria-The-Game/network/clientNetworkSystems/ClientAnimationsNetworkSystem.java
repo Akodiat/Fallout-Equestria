@@ -1,5 +1,7 @@
 package clientNetworkSystems;
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Client;
 import common.AnimationChangedMessage;
 import components.AnimationComp;
@@ -12,7 +14,7 @@ import entityFramework.*;
  */
 public class ClientAnimationsNetworkSystem extends ClientNetworkSystem<AnimationChangedMessage>{
 
-	public ClientAnimationsNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, Client client) {
+	public ClientAnimationsNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, Network client) {
 		super(world, AnimationChangedMessage.class, idManager, client);
 	}
 

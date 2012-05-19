@@ -1,5 +1,7 @@
 package serverNetworkSystems;
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Server;
 
 import common.EntityMovedMessage;
@@ -10,7 +12,7 @@ import entityFramework.IEntityWorld;
 
 public class ServerMovementNetworkSystem extends ServerNetworkSystem{
 	
-	public ServerMovementNetworkSystem(IEntityWorld world, Server server) {
+	public ServerMovementNetworkSystem(IEntityWorld world, Network server) {
 		super(world, server, TransformationComp.class);
 		
 	}
@@ -28,7 +30,7 @@ public class ServerMovementNetworkSystem extends ServerNetworkSystem{
 			message.entityID = entity.getUniqueID();
 			message.newTransfComp = this.transCM.getComponent(entity);
 			
-			this.Server.sendToAllUDP(message);
+			this.getServer().sendToAllUDP(message);
 		}			
 	}
 

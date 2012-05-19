@@ -1,5 +1,6 @@
 package clientNetworkSystems;
 
+import utils.Network;
 import misc.SoundManager;
 
 import com.esotericsoftware.kryonet.Client;
@@ -13,7 +14,7 @@ public class ClientSoundNetworkSystem extends ClientNetworkSystem<SoundMessage>{
 	private final SoundManager soundManager;
 	
 	public ClientSoundNetworkSystem(IEntityWorld world,EntityNetworkIDManager idManager,
-			Client client, SoundManager soundManager) {
+			Network client, SoundManager soundManager) {
 		super(world, SoundMessage.class, idManager, client);
 		this.soundManager = soundManager;
 	}

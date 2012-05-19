@@ -3,6 +3,8 @@ package clientNetworkSystems;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -24,17 +26,21 @@ public abstract class ClientNetworkSystem<T extends NetworkMessage> extends Enti
 	private final Class<T> usingClass;
 	
 	protected final List<T> MessageList;
-	protected final Client client;	
+	private final Network network;	
 	protected final EntityNetworkIDManager IdManager;
+	
+	protected Client getClient() {
+		return this.network.getClient();
+	}
 
 	@SafeVarargs
-	public ClientNetworkSystem(IEntityWorld world, Class<T> usingClass, EntityNetworkIDManager idManager, Client client,  Class<? extends IComponent> ... components ){
+	public ClientNetworkSystem(IEntityWorld world, Class<T> usingClass, EntityNetworkIDManager idManager, Network client,  Class<? extends IComponent> ... components ){
 		super(world, components);
 		
 		this.usingClass = usingClass;
 		this.IdManager = idManager;
 		this.MessageList = new ArrayList<T>();
-		this.client = client;
+		this.network = client;
 		
 		this.listener = new Listener() {
 				public void received(Connection connection, Object obj) {
@@ -48,7 +54,7 @@ public abstract class ClientNetworkSystem<T extends NetworkMessage> extends Enti
 				}
 		};
 		
-		this.client.addListener(this.listener);
+		this.network.addListener(this.listener);
 	}
 
 
@@ -74,9 +80,5 @@ public abstract class ClientNetworkSystem<T extends NetworkMessage> extends Enti
 			}
 			this.MessageList.clear();
 		}
-	}
-
-	protected void cleanup() {
-		this.client.removeListener(this.listener);
 	}
 }

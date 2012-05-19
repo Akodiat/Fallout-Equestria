@@ -64,10 +64,13 @@ public class LobbyGUI extends TransitioningGUIScreen{
 					
 					GoToScreenMessage message = new GoToScreenMessage();
 					message.newScreen = screenName;
-					ScreenManager.getNetwork().getServer().sendToAllTCP(message);
+					
+					ScreenManager.getNetwork().removeAllListeners();
 					
 					LobbyGUI.this.getScreenManager().removeAllScreens();
 					LobbyGUI.this.getScreenManager().addScreen(screenName);
+					
+					ScreenManager.getNetwork().getServer().sendToAllTCP(message);
 				}
 			});
 			
@@ -153,7 +156,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	}
 	private void changeScreen(String newScreen){
 		synchronized(lock){
-			
+			ScreenManager.removeAllScreens();
 			ScreenManager.getNetwork().removeAllListeners();
 			ScreenManager.addScreen(newScreen);
 		}

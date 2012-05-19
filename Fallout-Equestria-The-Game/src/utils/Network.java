@@ -177,7 +177,6 @@ public class Network {
 		} else {
 			throw new RuntimeException("No Connection is avalible to add listeners to.");
 		}
-		
 		this.addedListeners.add(listener);
 	}
 	
@@ -196,7 +195,8 @@ public class Network {
 			return;
 		
 		for (Listener listener : this.addedListeners) {
-			this.endPoint.removeListener(listener);
+			System.out.println(listener);
+			this.removeListener(listener);
 		}
 	}
 }

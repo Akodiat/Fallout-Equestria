@@ -1,6 +1,7 @@
 package clientNetworkSystems;
 
 import scripting.PlayerScript;
+import utils.Network;
 import animation.PonyColorChangeHelper;
 
 import com.esotericsoftware.kryonet.Client;
@@ -23,7 +24,7 @@ public class ClientPlayerCreatingNetworkSystem extends ClientNetworkSystem<NewPl
 	private final PlayerCharacteristics playerCharacteristics;
 	private final ContentManager contentManager;
 	
-	public ClientPlayerCreatingNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, Client client,
+	public ClientPlayerCreatingNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, Network client,
 											 ContentManager contentManager, PlayerCharacteristics pchars) {
 		super(world, NewPlayerMessage.class, idManager, client);
 		this.playerCharacteristics = pchars;
@@ -33,12 +34,16 @@ public class ClientPlayerCreatingNetworkSystem extends ClientNetworkSystem<NewPl
 	@Override
 	public void initialize() {
 		NewPlayerMessage message = new NewPlayerMessage();
-		message.senderID = this.client.getID();
+		message.senderID = this.getClient().getID();
 		message.playerCharacteristics = this.playerCharacteristics;
-		this.client.sendTCP(message);
+		this.getClient().sendTCP(message);
 	}
 
 	private void createPlayer(NewPlayerMessage message) {
+		if(this.getEntityManager().getEntity("Player" + message.senderID) != null)
+			return;
+		
+		
 		IEntityArchetype archetype = this.contentManager.loadArchetype("Player.archetype");
 		IEntity entity = this.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
@@ -52,12 +57,15 @@ public class ClientPlayerCreatingNetworkSystem extends ClientNetworkSystem<NewPl
 		PonyColorChangeHelper.setManeColor(message.playerCharacteristics.maneColor, animComp);
 		
 		entity.setLabel("Player" + message.senderID);
-		if(message.senderID == this.client.getID())
+		if(message.senderID == this.getClient().getID())
 			entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		entity.refresh();		
 		
-		this.IdManager.setNetworkIDToEntity(entity, message.messageID);
+		if(this.IdManager.getEntityFromNetworkID(message.messageID) == null) {
+			this.IdManager.setNetworkIDToEntity(entity, message.messageID);			
+		}
+		
 	}
 	
 	@Override

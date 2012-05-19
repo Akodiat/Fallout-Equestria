@@ -2,6 +2,7 @@ package clientNetworkSystems;
 
 import screenCore.LobbyGUI;
 import screenCore.ScreenManager;
+import utils.Network;
 
 import com.esotericsoftware.kryonet.Client;
 
@@ -14,7 +15,7 @@ public class ClientScreenChangeNetworkSystem extends ClientNetworkSystem<GoToScr
 	private ScreenManager screenManager;
 
 	//TODO Is any of these inputs really needed, I think not /Joakim
-	public ClientScreenChangeNetworkSystem(IEntityWorld world,EntityNetworkIDManager idManager, ScreenManager screenManager, Client client, Class<? extends IComponent>[] components) {
+	public ClientScreenChangeNetworkSystem(IEntityWorld world,EntityNetworkIDManager idManager, ScreenManager screenManager, Network client, Class<? extends IComponent>[] components) {
 		super(world, GoToScreenMessage.class, idManager, client, components);
 		this.screenManager = screenManager;
 	}

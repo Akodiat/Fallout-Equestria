@@ -1,5 +1,6 @@
 package serverNetworkSystems;
 
+import utils.Network;
 import common.HealthChangedMessage;
 import components.HealthComp;
 import com.esotericsoftware.kryonet.Server;
@@ -10,7 +11,7 @@ import entityFramework.IEntityWorld;
 
 public class ServerHealthNetworkSystem extends ServerNetworkSystem {
 
-	public ServerHealthNetworkSystem(IEntityWorld world, Server server) {
+	public ServerHealthNetworkSystem(IEntityWorld world, Network server) {
 		super(world, server, HealthComp.class);
 		// TODO Auto-generated constructor stub
 	}
@@ -28,7 +29,7 @@ public class ServerHealthNetworkSystem extends ServerNetworkSystem {
 			HealthChangedMessage message = new HealthChangedMessage();
 			message.entityID = entity.getUniqueID();
 			message.health = this.healthCM.getComponent(entity).getHealthPoints();
-			this.Server.sendToAllUDP(message);
+			this.getServer().sendToAllUDP(message);
 		}
 	}
 }

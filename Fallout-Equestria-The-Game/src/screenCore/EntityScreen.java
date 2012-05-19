@@ -28,10 +28,14 @@ public abstract class EntityScreen extends GameScreen{
 		this.addEntities(this.World.getEntityManager());
 	}
 	
+	@Override
+	public void onTransitionFinished() {
+		
+	}
+	
 	protected abstract void loadContent(ContentManager contentManager);
 	protected abstract void addEntitySystems(IEntitySystemManager manager);
 	protected void addEntities(IEntityManager entityManager) { }
-	
 
 	@Override
 	public void update(GameTime time, boolean otherScreeenHasFocus,

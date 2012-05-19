@@ -1,5 +1,7 @@
 package clientNetworkSystems;
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Client;
 import common.EntityCreatedMessage;
 import content.ContentManager;
@@ -13,7 +15,7 @@ public class ClientEntityCreationNetworkSystem extends ClientNetworkSystem<Entit
 
 	private ContentManager contentManager;
 	
-	public ClientEntityCreationNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, ContentManager contentManager, Client client) {
+	public ClientEntityCreationNetworkSystem(IEntityWorld world, EntityNetworkIDManager idManager, ContentManager contentManager, Network client) {
 		super(world, EntityCreatedMessage.class, idManager, client);
 		this.contentManager = contentManager;
 		
@@ -21,6 +23,8 @@ public class ClientEntityCreationNetworkSystem extends ClientNetworkSystem<Entit
 
 	@Override
 	public void processMessage(EntityCreatedMessage message) {
+		System.out.println("Entity Created: " + message.messageID);
+		
 		IEntityArchetype archetype = this.contentManager.loadArchetype(message.entityArchetypePath);
 		IEntity entity = this.getWorld().getEntityManager().createEntity(archetype);
 		entity.addComponent(message.transComp);

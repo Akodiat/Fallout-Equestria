@@ -1,5 +1,6 @@
 package serverNetworkSystems;
 
+import utils.Network;
 import common.InputMessage;
 import components.InputComp;
 import entityFramework.IEntity;
@@ -8,7 +9,7 @@ import entityFramework.IEntityWorld;
 public class ServerInputNetworkSystem extends ServerNetworkSystem {
 
 	public ServerInputNetworkSystem(IEntityWorld world,
-			com.esotericsoftware.kryonet.Server server) {
+			Network server) {
 		super(world, server);
 		// TODO Auto-generated constructor stub
 	}

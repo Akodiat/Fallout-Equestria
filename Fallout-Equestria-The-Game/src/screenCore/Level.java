@@ -37,6 +37,15 @@ public class Level extends EntityScreen {
 
 	@Override
 	protected void addEntitySystems(IEntitySystemManager systemManager) {
+	
+	}
+
+	@Override
+	public void onTransitionFinished() {
+		
+		System.out.println("NOW WE ARE FINISHED!");
+		this.World.getDatabase().clear();
+		
 		if(this.ScreenManager.getNetwork().isServer()) {
 			EntitySystemBuilder.buildServerSystems(this.World, 
 												   camera, 
@@ -49,7 +58,7 @@ public class Level extends EntityScreen {
 												   false, "Player0");
 		
 			NetworkSystemBuilder.createServerSystems(World,
-													 this.ScreenManager.getNetwork().getServer(), 
+													 this.ScreenManager.getNetwork(), 
 													 this.ScreenManager.getSoundManager(), 
 													 this.ScreenManager.getContentManager(), 
 													 this.createPlayerCharacteristics());
@@ -65,13 +74,14 @@ public class Level extends EntityScreen {
 					   false, "Player" + this.ScreenManager.getNetwork().getClient().getID());
 
 			NetworkSystemBuilder.createClientSystems(World,
-						 this.ScreenManager.getNetwork().getClient(), 
+						 this.ScreenManager.getNetwork(), 
 						 new EntityNetworkIDManager(), this.ScreenManager.getSoundManager(), 
 						 this.ScreenManager.getContentManager(), 
 						 this.createPlayerCharacteristics());
 		}
+		this.World.initialize();
 	}
-
+	
 	private PlayerCharacteristics createPlayerCharacteristics() {
 		Random rand = new Random();
 		

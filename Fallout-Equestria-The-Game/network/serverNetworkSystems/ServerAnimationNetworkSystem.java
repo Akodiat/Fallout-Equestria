@@ -1,5 +1,6 @@
 package serverNetworkSystems;
 
+import utils.Network;
 import misc.AnimationChangeEventArgs;
 import misc.IEventListener;
 import entityFramework.IEntity;
@@ -12,7 +13,7 @@ import components.AnimationComp;
 public class ServerAnimationNetworkSystem extends ServerNetworkSystem {
 
 	
-	public ServerAnimationNetworkSystem(IEntityWorld world, Server server) {
+	public ServerAnimationNetworkSystem(IEntityWorld world, Network server) {
 		super(world, server, AnimationComp.class);
 	}
 	
@@ -20,7 +21,7 @@ public class ServerAnimationNetworkSystem extends ServerNetworkSystem {
 		AnimationChangedMessage message = new AnimationChangedMessage();
 		message.messageID = entity.getUniqueID();
 		message.newAnimation = e.newAnimation;
-		this.Server.sendToAllTCP(message);
+		this.getServer().sendToAllTCP(message);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package clientNetworkSystems;
 
+import utils.Network;
+
 import com.esotericsoftware.kryonet.Client;
 
 import common.EntityDestroyedMessage;
@@ -13,7 +15,7 @@ import entityFramework.*;
 public class ClientEntityDestructionNetworkSystem extends ClientNetworkSystem<EntityDestroyedMessage>{
 
 	public ClientEntityDestructionNetworkSystem(IEntityWorld world,
-			EntityNetworkIDManager idManager, Client client) {
+			EntityNetworkIDManager idManager, Network client) {
 		super(world, EntityDestroyedMessage.class, idManager, client);
 	}
 	
