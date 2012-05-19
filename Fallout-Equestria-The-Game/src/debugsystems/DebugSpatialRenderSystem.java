@@ -53,7 +53,7 @@ public class DebugSpatialRenderSystem extends EntityProcessingSystem {
 			
 			h = (int)(spatiCom.getBounds().Max.Z - spatiCom.getBounds().Min.Z);
 
-			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(Color.Green, 0.3f), null);
+			graphics.draw(Texture2D.getPixel(), new Rectangle(x  -w / 2,y - h/ 2, w,h) , new Color(Color.White, 0.3f), null);
 		}
 	}
 

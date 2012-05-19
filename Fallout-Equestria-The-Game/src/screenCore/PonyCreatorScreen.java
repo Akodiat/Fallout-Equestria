@@ -597,6 +597,10 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		batch.begin();
 		this.pony.draw(batch, ponyPosition, false, 0, Color.White, ponyScale);
 		batch.end();
+<<<<<<< HEAD
+=======
+		super.render(time, batch);
+>>>>>>> Changed from normal alpha blending to pre multiplied alpha blending.
 	}
 	
 	private class ManeEntries{

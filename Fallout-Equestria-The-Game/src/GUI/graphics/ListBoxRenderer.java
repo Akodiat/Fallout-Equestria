@@ -38,7 +38,8 @@ public class ListBoxRenderer implements IGUIRenderer<ListBox>{
 		
 		RenderTarget2D innerTarget = createTextTarget(control);		
 		batch.begin(null,Matrix4.Identity,innerTarget);
-
+		batch.clearScreen(Color.Transparent);
+		
 		@SuppressWarnings("unchecked")
 		ImmutableList<String> itemStrings = control.getItemsAsStrings();
 		for (int i = 0; i < itemStrings.size(); i++) {

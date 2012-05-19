@@ -49,10 +49,15 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 	
 	
 	protected void createNewPlayer(NewPlayerMessage message) {
+<<<<<<< HEAD
 		if(this.getEntityManager().getEntity("Player" + message.senderID) != null)
 			return;
 		
 		System.out.println("Creating Player " + message.messageID);
+=======
+		
+		System.out.println("Player Created " + message.senderID);
+>>>>>>> Changed from normal alpha blending to pre multiplied alpha blending.
 		
 		IEntityArchetype archetype = contentManager.loadArchetype("Player.archetype");
 		final IEntity entity = this.getEntityManager().createEntity(archetype);

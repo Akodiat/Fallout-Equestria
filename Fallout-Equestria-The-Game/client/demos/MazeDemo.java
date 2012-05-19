@@ -97,7 +97,7 @@ public class MazeDemo extends Demo {
 	@Override
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
-		this.spriteBatch.begin(this.ContentManager.loadShaderEffect("Negate.effect"), this.camera.getTransformation(), null, true, SortMode.Texture);
+		this.spriteBatch.begin(null, this.camera.getTransformation(), null, true, SortMode.Texture);
 		this.gameWorld.render();
 		this.spriteBatch.end();	
 	}

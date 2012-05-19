@@ -6,6 +6,7 @@ import math.Point2;
 import math.Vector2;
 import GUI.LookAndFeelAssets;
 import GUI.controls.TextArea;
+import graphics.Color;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import utils.GameTime;
@@ -48,6 +49,7 @@ public class TextAreaRenderer implements IGUIRenderer<TextArea>{
 
 
 		RenderTarget2D innerTarget = new RenderTarget2D(correct.Width, correct.Height);
+		
 		drawText(batch, control, backgroundElement,correctedBG, innerTarget);
 		
 
@@ -73,6 +75,7 @@ public class TextAreaRenderer implements IGUIRenderer<TextArea>{
 		}
 		
 		batch.begin(null,Matrix4.Identity,innerTarget);
+		batch.clearScreen(Color.Transparent);
 		
 		//Text have a habit of not playing nice with the rendertargets so we repaint and blit the targets instead.
 		

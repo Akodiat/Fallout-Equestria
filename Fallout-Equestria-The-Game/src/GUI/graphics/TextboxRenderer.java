@@ -57,6 +57,7 @@ public class TextboxRenderer implements IGUIRenderer<Textfield>{
 				   control.getDimention(), 
 				   control.getBgColor(), 
 				   backgroundElement.getSrcRect());
+		
 		batch.drawString(font, text, new Vector2(borderSpacing, 0), control.getFgColor());
 	}
 

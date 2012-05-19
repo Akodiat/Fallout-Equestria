@@ -62,7 +62,7 @@ public class PausScreen extends GUIScreen {
 	@Override
 	public void render(GameTime time, SpriteBatch batch) {
 		batch.begin();
-		batch.draw(Texture2D.getPixel(), this.ScreenManager.getViewport(), new Color(Color.Green, 0.3f), null);
+		batch.draw(Texture2D.getPixel(), this.ScreenManager.getViewport(), new Color(Color.Green, 0.0f), null);
 		batch.end();
 		
 		super.render(time, batch);

@@ -91,7 +91,7 @@ public class ScreenDemo extends Demo{
 		this.screenManager.registerScreen("Multiplayer", screen10);
 		this.screenManager.registerScreen("Level1", screen11);
 		this.screenManager.registerScreen("Lobby", screen12);
-		this.screenManager.registerScreen("PonySelector", screen13);
+		this.screenManager.registerScreen("PonySelector", new PonyCreatorScreen("gui.tdict"));
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");

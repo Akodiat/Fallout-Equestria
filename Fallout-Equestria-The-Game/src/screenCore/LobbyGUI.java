@@ -146,19 +146,25 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				@Override
 				public void received(Connection connection, Object message) {
 					if(message instanceof GoToScreenMessage){
-						GoToScreenMessage screenMessage = (GoToScreenMessage) message;
-						LobbyGUI.this.message = screenMessage;
+						synchronized (lock) {
+							System.out.println("!!!");
+							LobbyGUI.this.ScreenManager.getNetwork().removeAllListeners();
+							GoToScreenMessage screenMessage = (GoToScreenMessage) message;
+							LobbyGUI.this.message = screenMessage;			
+						}
 					}
 				}	
 			});
 		}
 	}
 	private void changeScreen(String newScreen){
+<<<<<<< HEAD
 		synchronized(lock){
 			ScreenManager.removeAllScreens();
+=======
+>>>>>>> Changed from normal alpha blending to pre multiplied alpha blending.
 			ScreenManager.getNetwork().removeAllListeners();
 			ScreenManager.addScreen(newScreen);
-		}
 	}
 	@Override
 	public void update(GameTime time, boolean otherScreeenHasFocus,

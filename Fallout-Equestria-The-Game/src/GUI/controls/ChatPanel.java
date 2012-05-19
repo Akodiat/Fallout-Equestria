@@ -22,7 +22,7 @@ public class ChatPanel extends Panel {
 		this.area = new TextArea();
 		this.sendButton = new Button();
 		this.sendButton.setText("Send");
-		this.sendButton.setBgColor(new Color(1.0f,1.0f,1.0f,0.9f));
+		this.sendButton.setBgColor(new Color(1.0f,1.0f,1.0f,0.6f));
 		this.inputField = new Textfield();
 		this.area.setBgColor(Color.Black);
 		this.area.setFgColor(Color.Cyan);

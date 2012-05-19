@@ -177,7 +177,7 @@ public class SpriteBatch {
 	
 	private ShaderEffect createBasicEffect() {
 		String vertexShaderSource    = "#version 330 core \n layout(location = 0) in vec2 position; layout(location = 1) in vec2 textureCoord; layout(location = 2) in vec4 color; uniform mat4 projection; uniform mat4 view; uniform vec2 viewport; out vec2 _textureCoord; out vec4 _color; void main() { vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f); realPos =  view  * realPos; realPos.xy -= viewport.xy / 2;  gl_Position = projection * realPos; _textureCoord.xy = textureCoord.xy; _color = color;}";
-		String fragmentShaderSource  ="#version 330 core \n uniform sampler2D colorTexture; in vec2 _textureCoord; in vec4 _color; out vec4 outputColor; void main() {outputColor = texture(colorTexture, _textureCoord) * _color;}";
+		String fragmentShaderSource  ="#version 330 core \n uniform sampler2D colorTexture; in vec2 _textureCoord; in vec4 _color; out vec4 outputColor; void main() {outputColor = texture(colorTexture, _textureCoord); outputColor.rgb *= outputColor.a * _color.a; outputColor *=  _color;}";
 		
 		int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertexShader, vertexShaderSource);
@@ -328,13 +328,17 @@ public class SpriteBatch {
 	 * @param sortMode the sort mode to be used.
 	 */
 	public void begin(ShaderEffect effect, Matrix4 view, RenderTarget2D target, boolean useBlending, SortMode sortMode) {
+		if(this.betweenBeginAndEnd) {
+			throw new GraphicsException("You are already drawing you cannot begin again!");
+		}
+		
+		
 		glEnable(GL_TEXTURE_2D);
-		glEnable(GL_MULTISAMPLE);
 		glHint(GL_FRAGMENT_SHADER_DERIVATIVE_HINT, GL_NICEST);
 		
 		if(useBlending)	{
 			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		}
 		
 		this.betweenBeginAndEnd = true;
@@ -371,6 +375,7 @@ public class SpriteBatch {
 
 		this.renderBatch();
 		this.viewport = oldViewPort;
+		glDisable(GL_BLEND);
 		
 		this.betweenBeginAndEnd = false;
 	}
@@ -593,6 +598,7 @@ public class SpriteBatch {
 			float origY = origin.Y / destHeight * scale.Y;
 			
 			sprite.color = color.toArray();
+			
 			for (int i = 0; i < 4; i++) {
 				float num0 = xOffsets[i];
 				float num1 = yOffsets[i];
