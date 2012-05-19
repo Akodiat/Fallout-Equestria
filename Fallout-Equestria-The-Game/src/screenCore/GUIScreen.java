@@ -31,7 +31,7 @@ public class GUIScreen extends GameScreen {
 	@Override
 	public void initialize(ContentManager contentManager) {
 		LookAndFeel feel = contentManager.load(lookAndFeelPath, LookAndFeel.class);
-		feel.setDefaultFont(contentManager.loadFont("arialb20.xml"));
+		feel.setDefaultFont(contentManager.loadFont("Monofonto24.xml"));
 		ShaderEffect dissabledEffect = contentManager.loadShaderEffect("GrayScale.effect");
 		renderingContext = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
 		

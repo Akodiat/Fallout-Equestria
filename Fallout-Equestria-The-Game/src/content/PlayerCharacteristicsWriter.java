@@ -14,13 +14,12 @@ public class PlayerCharacteristicsWriter {
 	private final String characterPath;
 	private ContentManager contentManager;
 	private XStream xstream = new XStream();
-
-	public PlayerCharacteristicsWriter(ContentManager contentManager, String folderPath) {
-		this(contentManager, folderPath, "characters");
+	
+	public PlayerCharacteristicsWriter(ContentManager contentManager) {
+		this(contentManager, "characters");
 	}
 
-
-	public PlayerCharacteristicsWriter(ContentManager contentManager, String folderPath, String characterSubFolderPath) {
+	public PlayerCharacteristicsWriter(ContentManager contentManager, String characterSubFolderPath) {
 		this.characterPath = characterSubFolderPath + "/";
 		this.contentManager = contentManager;
 
@@ -34,7 +33,7 @@ public class PlayerCharacteristicsWriter {
 
 	public void savePlayerCharacteristics(PlayerCharacteristics pChar) {
 		File file = new File(this.contentManager.getResourceFolderPath() + File.separator + this.characterPath + File.separator +
-				"Player.pchar");
+				pChar.name + ".pchar");
 		
 
 		String s = 	xstream.toXML(pChar);
