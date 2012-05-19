@@ -1,8 +1,13 @@
 package screenCore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import animation.AnimationPlayer;
+import animation.Bones;
 import animation.PonyColorChangeHelper;
 import animation.TextureDictionary;
+import animation.TextureEntry;
 
 import common.PlayerCharacteristics;
 
@@ -56,6 +61,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private Slider maneBlueSlider;
 	
 	private Spinner maneStyleSpinner;
+	
+	private List<ManeEntries> maneStyles;
 
 	public PonyCreatorScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1d), TimeSpan.fromSeconds(0.5d), lookAndFeelPath);
@@ -71,6 +78,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		super.addGuiControl(this.bG, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(0,0), 
 								new Vector2(0,this.ScreenManager.getViewport().Height));
 		addPony();
+		
+		maneStyles = new ArrayList<ManeEntries>();
+		ManeEntries rDManeStyle = new ManeEntries(this.assetDictionary.extractTextureEntry("RDUPPERMANE"), this.assetDictionary.extractTextureEntry("RDLOWERMANE"), 
+				this.assetDictionary.extractTextureEntry("RDUPPERTAIL"), this.assetDictionary.extractTextureEntry("RDLOWERTAIL"));
+		maneStyles.add(rDManeStyle);	
+		ManeEntries tSManeStyle = new ManeEntries(this.assetDictionary.extractTextureEntry("TSUPPERMANE"), this.assetDictionary.extractTextureEntry("TSLOWERMANE"), 
+				this.assetDictionary.extractTextureEntry("TSUPPERTAIL"), this.assetDictionary.extractTextureEntry("TSLOWERTAIL"));
+		maneStyles.add(tSManeStyle);
 		
 		PonyBox test = new PonyBox();
 		test.setPonyName("PLAYERPONY");
@@ -238,7 +253,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		Texture2D minus = contentManager.loadTexture("GUI/minus.png");
 		Texture2D plus = contentManager.loadTexture("GUI/plus.png");
 
-		this.maneStyleSpinner = new Spinner(20,0,1,10,plus,minus);
+		this.maneStyleSpinner = new Spinner(this.maneStyles.size(),1,1,1,plus,minus);
 		this.maneStyleSpinner.setBounds(20, 20, 160, 40);
 		this.maneStyleSpinner.setBgColor(Color.Transparent);
 		this.maneStyleSpinner.setFont(contentManager.loadFont("arialb20.xml"));
@@ -246,7 +261,13 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 				new Vector2(250, this.ScreenManager.getViewport().Height), 
 				new Vector2(250,this.ScreenManager.getViewport().Height-100), 
 				new Vector2(250, this.ScreenManager.getViewport().Height));
+		this.maneStyleSpinner.addClicked(new IEventListener<EventArgs>() {
 
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				setManeStyle();
+			}
+		});
 
 		this.button2 = new Button();
 		this.button2.setText("Back");
@@ -273,6 +294,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		setEyeColor();
 		setManeColor();
 	}
+	protected void setManeStyle() {
+		int maneIndex = (int)this.maneStyleSpinner.getValue()-1;
+		this.pony.setBoneTexture(Bones.UPPERMANE.getValue(), this.maneStyles.get(maneIndex).upperManeEntry);
+		this.pony.setBoneTexture(Bones.LOWERMANE.getValue(), this.maneStyles.get(maneIndex).lowerManeEntry);
+		this.pony.setBoneTexture(Bones.UPPERTAIL.getValue(), this.maneStyles.get(maneIndex).upperTailEntry);
+		this.pony.setBoneTexture(Bones.LOWERTAIL.getValue(), this.maneStyles.get(maneIndex).lowerTailEntry);
+	}
+
 	public void goBack() {
 		this.exitScreen();
 	}
@@ -315,5 +344,21 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		batch.begin();
 		this.pony.draw(batch, ponyPosition, false, 0, Color.White, ponyScale);
 		batch.end();
+	}
+	
+	private class ManeEntries{
+		TextureEntry upperManeEntry;
+		TextureEntry lowerManeEntry;
+		TextureEntry upperTailEntry;
+		TextureEntry lowerTailEntry;
+		public ManeEntries(TextureEntry upperManeEntry,
+				TextureEntry lowerManeEntry, TextureEntry upperTailEntry,
+				TextureEntry lowerTailEntry) {
+			super();
+			this.upperManeEntry = upperManeEntry;
+			this.lowerManeEntry = lowerManeEntry;
+			this.upperTailEntry = upperTailEntry;
+			this.lowerTailEntry = lowerTailEntry;
+		}
 	}
 }
