@@ -3,17 +3,13 @@ package screenCore;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.esotericsoftware.kryonet.Listener;
-
 import common.PlayerCharacteristics;
 
-import graphics.Color;
 import math.Vector2;
 import misc.EventArgs;
 import misc.IEventListener;
 import GUI.controls.Button;
 import GUI.controls.Label;
-import GUI.controls.ListBox;
 import GUI.controls.Panel;
 import content.ContentManager;
 import utils.TimeSpan;
@@ -43,7 +39,7 @@ public class PonySelector extends TransitioningGUIScreen{
 			p.addFocusGainedEvent(new IEventListener<EventArgs>() {
 				@Override
 				public void onEvent(Object sender, EventArgs e) {
-					System.out.println("I gained focus!");
+					System.out.println("I gained focus! :0");
 				}
 			});
 
