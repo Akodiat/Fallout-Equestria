@@ -5,11 +5,15 @@ import java.util.List;
 
 import animation.AnimationPlayer;
 import animation.Bones;
+import animation.ManeStyle;
 import animation.PonyColorChangeHelper;
 import animation.TextureDictionary;
 import animation.TextureEntry;
 
 import common.PlayerCharacteristics;
+import common.Race;
+import common.SpecialStats;
+import components.SpecialComp;
 
 import GUI.ScrollEventArgs;
 import GUI.controls.Button;
@@ -27,6 +31,7 @@ import utils.GameTime;
 import utils.Rectangle;
 import utils.TimeSpan;
 import content.ContentManager;
+import entityFramework.IEntityArchetype;
 import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
@@ -35,18 +40,23 @@ import graphics.Texture2D;
 
 public class PonyCreatorScreen extends TransitioningGUIScreen {
 
-
-	public static final Vector2 ponyPosition = new Vector2(1150,200);
-	public static final Vector2 ponyScale = new Vector2(2,2);
+	public static final String PonyArchetypePath = "Player.archetype";
 	private GUIRenderingContext context;
-	private Button button;
-	private Button button2;
-	private Textfield textfield;
+
 	private ContentManager contentManager = new ContentManager("resources");
 	private AnimationPlayer pony;
-	private PlayerCharacteristics character;
-	TextureDictionary assetDictionary = this.contentManager.load("rddict.tdict", TextureDictionary.class);
+	private PlayerCharacteristics character = new PlayerCharacteristics();
+	private TextureDictionary assetDictionary = this.contentManager.load("rddict.tdict", TextureDictionary.class);
+
+	private Vector2 ponyPosition = new Vector2(1150,200);
+	private Vector2 ponyScale = new Vector2(2,2);
+	
 	private ImageBox bG;
+	
+	private Button button;
+	private Button button2;
+	private Button button3;
+	private Textfield textfield;
 	
 	private Slider bodyRedSlider;
 	private Slider bodyGreenSlider;
@@ -61,8 +71,10 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private Slider maneBlueSlider;
 	
 	private Spinner maneStyleSpinner;
+	private Spinner eyeStyleSpinner;
 	
 	private List<ManeEntries> maneStyles;
+	private List<EyeEntries> eyeStyles;
 
 	public PonyCreatorScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1d), TimeSpan.fromSeconds(0.5d), lookAndFeelPath);
@@ -80,12 +92,16 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		addPony();
 		
 		maneStyles = new ArrayList<ManeEntries>();
-		ManeEntries rDManeStyle = new ManeEntries(this.assetDictionary.extractTextureEntry("RDUPPERMANE"), this.assetDictionary.extractTextureEntry("RDLOWERMANE"), 
-				this.assetDictionary.extractTextureEntry("RDUPPERTAIL"), this.assetDictionary.extractTextureEntry("RDLOWERTAIL"));
+		ManeEntries rDManeStyle = new ManeEntries(new ManeStyle("RDUPPERMANE", "RDLOWERMANE", "RDUPPERTAIL", "RDLOWERTAIL"), this.assetDictionary);
 		maneStyles.add(rDManeStyle);	
-		ManeEntries tSManeStyle = new ManeEntries(this.assetDictionary.extractTextureEntry("TSUPPERMANE"), this.assetDictionary.extractTextureEntry("TSLOWERMANE"), 
-				this.assetDictionary.extractTextureEntry("TSUPPERTAIL"), this.assetDictionary.extractTextureEntry("TSLOWERTAIL"));
+		ManeEntries tSManeStyle = new ManeEntries(new ManeStyle("TSUPPERMANE", "TSLOWERMANE", "TSUPPERTAIL", "TSLOWERTAIL"), this.assetDictionary);
 		maneStyles.add(tSManeStyle);
+		
+		eyeStyles = new ArrayList<EyeEntries>();
+		EyeEntries rDEyeStyle = new EyeEntries("RDEYE", this.assetDictionary);
+		eyeStyles.add(rDEyeStyle);
+		EyeEntries tSEyeStyle = new EyeEntries("TSEYE", this.assetDictionary);
+		eyeStyles.add(tSEyeStyle);
 		
 		PonyBox test = new PonyBox();
 		test.setPonyName("PLAYERPONY");
@@ -268,6 +284,43 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 				setManeStyle();
 			}
 		});
+		
+		this.eyeStyleSpinner = new Spinner(this.eyeStyles.size(),1,1,1,plus,minus);
+		this.eyeStyleSpinner.setBounds(20, 20, 160, 40);
+		this.eyeStyleSpinner.setBgColor(Color.Transparent);
+		this.eyeStyleSpinner.setFont(contentManager.loadFont("arialb20.xml"));
+		super.addGuiControl(this.eyeStyleSpinner, 
+				new Vector2(250, this.ScreenManager.getViewport().Height), 
+				new Vector2(450,this.ScreenManager.getViewport().Height-100), 
+				new Vector2(250, this.ScreenManager.getViewport().Height));
+		this.eyeStyleSpinner.addClicked(new IEventListener<EventArgs>() {
+
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				setEyeStyle();
+			}
+		});
+		this.button = new Button();
+		this.button.setText("Done!");
+		this.button.setBounds(250,710,200,50);
+		super.addGuiControl(button, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height), 
+									 new Vector2(this.ScreenManager.getViewport().Width - 250,this.ScreenManager.getViewport().Height-200), 
+									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height));
+
+		LookAndFeel feel = contentManager.load(this.lookAndFeelPath, LookAndFeel.class);
+		
+		feel.setDefaultFont(contentManager.loadFont("arialb20.xml"));
+		ShaderEffect dissabledEffect = contentManager.loadShaderEffect("GrayScale.effect");
+		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
+
+		this.button.addClicked(new IEventListener<EventArgs>() {
+
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				savePlayerCharacteristics();
+				goBack();
+			}
+		});
 
 		this.button2 = new Button();
 		this.button2.setText("Back");
@@ -275,10 +328,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		super.addGuiControl(button2, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height), 
 									 new Vector2(this.ScreenManager.getViewport().Width - 250,this.ScreenManager.getViewport().Height-100), 
 									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height));
-
-		LookAndFeel feel = contentManager.load("gui.tdict", LookAndFeel.class);
 		feel.setDefaultFont(contentManager.loadFont("arialb20.xml"));
-		ShaderEffect dissabledEffect = contentManager.loadShaderEffect("GrayScale.effect");
 		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
 
 		this.button2.addClicked(new IEventListener<EventArgs>() {
@@ -288,12 +338,55 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 				goBack();
 			}
 		});
+		
+		this.button3 = new Button();
+		this.button3.setText("Randomize");
+		this.button3.setBounds(250,710,200,50);
+		super.addGuiControl(button2, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height), 
+									 new Vector2(this.ScreenManager.getViewport().Width - 250,this.ScreenManager.getViewport().Height-100), 
+									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height));
+		feel.setDefaultFont(contentManager.loadFont("arialb20.xml"));
+		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
+
+		this.button3.addClicked(new IEventListener<EventArgs>() {
+
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				randomizeAttributes();
+			}
+		});
 
 		
 		setBodyColor();
 		setEyeColor();
 		setManeColor();
 	}
+	protected void randomizeAttributes() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void savePlayerCharacteristics() {
+		this.character.archetypePath = PonyArchetypePath;
+		
+		this.character.bodyColor = getBodyColor();
+		this.character.eyeColor = getEyeColor();
+		this.character.maneColor = getManeColor();
+		
+		this.character.maneStyle = this.maneStyles.get((int)this.maneStyleSpinner.getValue()-1).maneStyle;
+		this.character.eyeTexture = this.eyeStyles.get((int)this.eyeStyleSpinner.getValue()-1).eyePath;
+		
+		this.character.name = this.textfield.getText();
+		this.character.race = Race.EARTHPONY.getValue();
+		
+		this.character.special = new SpecialStats(5, 3, 6, 7, 5, 7, 8);
+	}
+
+	protected void setEyeStyle() {
+		int eyeIndex = (int)this.eyeStyleSpinner.getValue()-1;
+		this.pony.setBoneTexture(Bones.EYE.getValue(), this.eyeStyles.get(eyeIndex).eyeEntry);
+	}
+
 	protected void setManeStyle() {
 		int maneIndex = (int)this.maneStyleSpinner.getValue()-1;
 		this.pony.setBoneTexture(Bones.UPPERMANE.getValue(), this.maneStyles.get(maneIndex).upperManeEntry);
@@ -317,6 +410,19 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	protected void setManeColor() {
 		Color color = new Color(this.maneRedSlider.getScrollValue(),this.maneGreenSlider.getScrollValue(),this.maneBlueSlider.getScrollValue(),255);
 		PonyColorChangeHelper.setManeColor(color, pony);
+	}
+	
+	protected Color getBodyColor() {
+		Color color = new Color(this.bodyRedSlider.getScrollValue(),this.bodyGreenSlider.getScrollValue(),this.bodyBlueSlider.getScrollValue(),255);
+		return color;
+	}
+	protected Color getEyeColor() {
+		Color color = new Color(this.eyeRedSlider.getScrollValue(),this.eyeGreenSlider.getScrollValue(),this.eyeBlueSlider.getScrollValue(),255);
+		return color;
+	}
+	protected Color getManeColor() {
+		Color color = new Color(this.maneRedSlider.getScrollValue(),this.maneGreenSlider.getScrollValue(),this.maneBlueSlider.getScrollValue(),255);
+		return color;
 	}
 
 	protected void showPauseScreen() {
@@ -351,14 +457,23 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		TextureEntry lowerManeEntry;
 		TextureEntry upperTailEntry;
 		TextureEntry lowerTailEntry;
-		public ManeEntries(TextureEntry upperManeEntry,
-				TextureEntry lowerManeEntry, TextureEntry upperTailEntry,
-				TextureEntry lowerTailEntry) {
-			super();
-			this.upperManeEntry = upperManeEntry;
-			this.lowerManeEntry = lowerManeEntry;
-			this.upperTailEntry = upperTailEntry;
-			this.lowerTailEntry = lowerTailEntry;
+		ManeStyle maneStyle;
+		public ManeEntries(ManeStyle maneStyle, TextureDictionary assetDict) {
+			this.upperManeEntry = assetDict.extractTextureEntry(maneStyle.upperManeStyle);
+			this.lowerManeEntry = assetDict.extractTextureEntry(maneStyle.lowerManeStyle);
+			this.upperTailEntry = assetDict.extractTextureEntry(maneStyle.upperTailStyle);
+			this.lowerTailEntry = assetDict.extractTextureEntry(maneStyle.lowerTailStyle);
+			this.maneStyle = maneStyle;
 		}
 	}
+	
+	private class EyeEntries{
+		TextureEntry eyeEntry;
+		String eyePath;
+		public EyeEntries(String eyePath, TextureDictionary assetDict) {
+			this.eyeEntry = assetDict.extractTextureEntry(eyePath);
+			this.eyePath = eyePath;
+		}
+	}
+	
 }

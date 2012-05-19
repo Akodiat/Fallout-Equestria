@@ -12,4 +12,14 @@ public class ManeStyle {
 		this.upperTailStyle = upperTailStyle;
 		this.lowerTailStyle = lowerTailStyle;
 	}
+	public ManeStyle(ManeStyle other) {
+		this.upperManeStyle = other.upperManeStyle;
+		this.lowerManeStyle = other.lowerManeStyle;
+		this.upperTailStyle = other.upperTailStyle;
+		this.lowerTailStyle = other.lowerTailStyle;
+	}
+	public ManeStyle clone(){
+		return new ManeStyle(this);
+	}
+	
 }
