@@ -268,6 +268,10 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 
+		
+		setBodyColor();
+		setEyeColor();
+		setManeColor();
 	}
 	public void goBack() {
 		this.exitScreen();

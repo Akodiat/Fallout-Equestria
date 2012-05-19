@@ -9,10 +9,10 @@ public class PonyTextureChangeHelper {
 	}
 	
 	public static void setManeStyle(ManeStyle style, AnimationPlayer player, TextureDictionary dict){
-		player.setBoneTexture(Bones.UPPERMANE.getValue(), dict.extractTextureEntry(style.UpperManeStyle));
-		player.setBoneTexture(Bones.LOWERMANE.getValue(), dict.extractTextureEntry(style.LoweManeStyle));
-		player.setBoneTexture(Bones.UPPERTAIL.getValue(), dict.extractTextureEntry(style.UpperTailStyle));
-		player.setBoneTexture(Bones.LOWERTAIL.getValue(), dict.extractTextureEntry(style.LowerTailStyle));
+		player.setBoneTexture(Bones.UPPERMANE.getValue(), dict.extractTextureEntry(style.upperManeStyle));
+		player.setBoneTexture(Bones.LOWERMANE.getValue(), dict.extractTextureEntry(style.lowerManeStyle));
+		player.setBoneTexture(Bones.UPPERTAIL.getValue(), dict.extractTextureEntry(style.upperTailStyle));
+		player.setBoneTexture(Bones.LOWERTAIL.getValue(), dict.extractTextureEntry(style.lowerTailStyle));
 	}
 	
 	public static void setEyeStyle(String eyeTexture, AnimationComp comp, TextureDictionary dict){

@@ -49,6 +49,7 @@ public final class ContentManager {
 		addContentLoader(new TextureDictionaryLoader(this,"animations/dictionaries"));
 		addContentLoader(new LookAndFeelLoader(new TextureDictionaryLoader(this,"animations/dictionaries", "GUI"), "lookAndFeels"));
 		addContentLoader(new AnimationSetLoader(this, "animations/animationsets"));
+		addContentLoader(new PlayerCharacteristicsLoader("characters"));
 		
 		//TODO add more if needed!. 
 	}

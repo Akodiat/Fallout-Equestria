@@ -1,0 +1,21 @@
+<common.PlayerCharacteristics>
+  <name>TEST</name>
+  <archetypePath>TEST</archetypePath>
+  <bodyColor>
+    <Color>0.08235294,0.09019608,0.18039216,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.08235294,0.09019608,0.18039216,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.08235294,0.09019608,0.18039216,1.0</Color>
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>TEST</upperManeStyle>
+    <lowerManeStyle>TEST</lowerManeStyle>
+    <upperTailStyle>TEST</upperTailStyle>
+    <lowerTailStyle>TEST</lowerTailStyle>
+  </maneStyle>
+  <eyeTexture>TEST</eyeTexture>
+  <race>EARTHPONY</race>
+</common.PlayerCharacteristics>
