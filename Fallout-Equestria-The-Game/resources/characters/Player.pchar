@@ -1,21 +1,30 @@
 <common.PlayerCharacteristics>
-  <name>TEST</name>
-  <archetypePath>TEST</archetypePath>
+  <name></name>
+  <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
-    <Color>0.08235294,0.09019608,0.18039216,1.0</Color>
+    <Color>0.8509804,1.0,1.0,1.0</Color>
   </bodyColor>
   <eyeColor>
-    <Color>0.08235294,0.09019608,0.18039216,1.0</Color>
+    <Color>0.6862745,0.36078432,0.40392157,1.0</Color>
   </eyeColor>
   <maneColor>
-    <Color>0.08235294,0.09019608,0.18039216,1.0</Color>
+    <Color>0.23921569,1.0,1.0,1.0</Color>
   </maneColor>
   <maneStyle>
-    <upperManeStyle>TEST</upperManeStyle>
-    <lowerManeStyle>TEST</lowerManeStyle>
-    <upperTailStyle>TEST</upperTailStyle>
-    <lowerTailStyle>TEST</lowerTailStyle>
+    <upperManeStyle>TSUPPERMANE</upperManeStyle>
+    <lowerManeStyle>TSLOWERMANE</lowerManeStyle>
+    <upperTailStyle>TSUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>TSLOWERTAIL</lowerTailStyle>
   </maneStyle>
-  <eyeTexture>TEST</eyeTexture>
+  <eyeTexture>TSEYE</eyeTexture>
   <race>EARTHPONY</race>
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
 </common.PlayerCharacteristics>
