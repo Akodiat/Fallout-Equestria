@@ -14,17 +14,16 @@ import animation.TextureEntry;
 import common.PlayerCharacteristics;
 import common.Race;
 import common.SpecialStats;
-import components.SpecialComp;
 
 import GUI.IItemFormater;
 import GUI.ItemEventArgs;
 import GUI.ScrollEventArgs;
+import GUI.controls.AnimationBox;
 import GUI.controls.Button;
 import GUI.controls.ComboBox;
 import GUI.controls.ImageBox;
 import GUI.controls.Label;
 import GUI.controls.Panel;
-import GUI.controls.PonyBox;
 import GUI.controls.Slider;
 import GUI.controls.Spinner;
 import GUI.controls.Textfield;
@@ -39,7 +38,6 @@ import utils.Rectangle;
 import utils.TimeSpan;
 import content.ContentManager;
 import content.PlayerCharacteristicsWriter;
-import entityFramework.IEntityArchetype;
 import graphics.Color;
 import graphics.ShaderEffect;
 import graphics.SpriteBatch;
@@ -52,7 +50,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private GUIRenderingContext context;
 
 	private ContentManager contentManager = new ContentManager("resources");
-	private PlayerCharacteristicsWriter charWriter = new PlayerCharacteristicsWriter(contentManager,"trololo");
+	private PlayerCharacteristicsWriter charWriter = new PlayerCharacteristicsWriter(contentManager);
 	
 	private AnimationPlayer pony;
 	private PlayerCharacteristics character = new PlayerCharacteristics();
@@ -82,6 +80,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	
 	private Spinner maneStyleSpinner;
 	private Spinner eyeStyleSpinner;
+	
+	private AnimationBox ponyBox;
 	
 	private ComboBox<ManeEntries> maneComboBox;
 	private ComboBox<EyeEntries> eyeComboBox;
@@ -456,10 +456,18 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.manePanel.addChild(this.maneBlueSlider);
 		super.addGuiControl(this.manePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(650,300), 
 		new Vector2(0,this.ScreenManager.getViewport().Height));
+		
+		this.ponyBox = new AnimationBox();
+		this.ponyBox.setBounds(0,0,400,400);
+		this.ponyBox.setAnimationPlayer(pony);
+		super.addGuiControl(this.ponyBox,  new Vector2(650,300), new Vector2(650,300), 
+				 new Vector2(650,300));
 
 		setBodyColor();
 		setEyeColor();
 		setManeColor();
+		changeRaceToEarthpony();
+		this.earthPonyButton.setToggled(true);
 	}
 	protected void changeRaceToEarthpony() {
 		this.pony.setBoneHidden(Bones.WINGS.getValue(), true);
@@ -480,11 +488,6 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.pony.setBoneHidden(Bones.HORN.getValue(), false);
 	}
 
-	protected void setRace() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	protected void randomizeAttributes() {
 		Random random = new Random();
 		this.bodyRedSlider.setScrollValue(random.nextInt(this.bodyRedSlider.getScrollMax()));
@@ -501,6 +504,18 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		
 		this.maneComboBox.setSelectedIndex(random.nextInt(this.maneComboBox.itemCount()));
 		this.eyeComboBox.setSelectedIndex(random.nextInt(this.eyeComboBox.itemCount()));
+		
+		int rand = random.nextInt(3);
+		if (rand <= 0){
+			changeRaceToEarthpony();
+			this.earthPonyButton.setToggled(true);
+		} else if (rand <= 1){
+			changeRaceToPegasus();
+			this.pegasusButton.setToggled(true);
+		} else {
+			changeRaceToUnicorn();
+			this.unicornButton.setToggled(true);
+		}
 	}
 
 	protected void savePlayerCharacteristics() {
