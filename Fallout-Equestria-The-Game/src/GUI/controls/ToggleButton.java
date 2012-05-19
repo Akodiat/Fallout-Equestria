@@ -19,6 +19,8 @@ public class ToggleButton extends ButtonBase {
 	}
 	public void setToggled(boolean toggled) {
 		this.toggled = toggled;
+		this.setMouseHover(toggled);
+		this.setPressed(toggled);
 	}
 	
 	@Override

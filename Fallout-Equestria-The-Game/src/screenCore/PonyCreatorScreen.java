@@ -2,6 +2,7 @@ package screenCore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import animation.AnimationPlayer;
 import animation.Bones;
@@ -27,6 +28,7 @@ import GUI.controls.PonyBox;
 import GUI.controls.Slider;
 import GUI.controls.Spinner;
 import GUI.controls.Textfield;
+import GUI.controls.ToggleButton;
 import GUI.graphics.GUIRenderingContext;
 import GUI.graphics.LookAndFeel;
 import math.Vector2;
@@ -64,7 +66,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private Button button;
 	private Button button2;
 	private Button button3;
-	private Textfield textfield;
+	private Textfield nameField;
 	
 	private Slider bodyRedSlider;
 	private Slider bodyGreenSlider;
@@ -84,6 +86,10 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private ComboBox<ManeEntries> maneComboBox;
 	private ComboBox<EyeEntries> eyeComboBox;
 	
+	private ToggleButton earthPonyButton;
+	private ToggleButton pegasusButton;
+	private ToggleButton unicornButton;
+	
 	private List<ManeEntries> maneStyles;
 	private List<EyeEntries> eyeStyles;
 	
@@ -92,6 +98,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private Label eyeLabel;
 	private Label maneLabel;
 
+	private Panel namePanel;
+	private Panel racePanel;
 	private Panel bodyPanel;
 	private Panel eyePanel;
 	private Panel manePanel;
@@ -137,6 +145,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 				setManeStyle();
 			}
 		});
+		this.maneComboBox.setSelectedIndex(0);
 		
 		eyeStyles = new ArrayList<EyeEntries>();
 		EyeEntries rDEyeStyle = new EyeEntries("Rainbow style!", "RDEYE", this.assetDictionary);
@@ -162,28 +171,18 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 				setEyeStyle();
 			}
 		});
+		this.eyeComboBox.setSelectedIndex(0);
 		
-		PonyBox test = new PonyBox();
-		test.setPonyName("PLAYERPONY");
-		test.setPonyPlayer(pony.clone());
-		test.setBounds(0, 0, 1366, 768);
-		super.addGuiControl(test, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(200,200), 
-				new Vector2(0,this.ScreenManager.getViewport().Height));
-
-
-		this.textfield = new Textfield();
-		this.textfield.setBounds(0,0,250,25);
-		this.textfield.setText("");
-		this.textfield.setFont(contentManager.loadFont("Monofonto24.xml"));
-		this.textfield.setFgColor(Color.White);
-		this.textfield.setMaxLength(25);
-		super.addGuiControl(this.textfield, new Vector2(-100,this.ScreenManager.getViewport().Height), new Vector2(100,25), 
-				new Vector2(0,this.ScreenManager.getViewport().Height));
+		this.nameField = new Textfield();
+		this.nameField.setBounds(0,50,250,25);
+		this.nameField.setText("Name goes here :)");
+		this.nameField.setFont(contentManager.loadFont("Monofonto24.xml"));
+		this.nameField.setFgColor(Color.White);
+		this.nameField.setMaxLength(25);
 		
 		this.bodyRedSlider = new Slider();
 		this.bodyRedSlider.setFgColor(new Color(255,50,50,255));
-		this.bodyRedSlider.setBounds(0, 50, 200, 30);
-		this.bodyRedSlider.setBounds(new Rectangle(0,0,250,30));
+		this.bodyRedSlider.setBounds(0, 50, 250, 30);
 		this.bodyRedSlider.setScrollMax(255);
 		this.bodyRedSlider.setScrollValue(255);
 		this.bodyRedSlider.setHorizontal(true);
@@ -195,7 +194,6 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		this.bodyGreenSlider = new Slider();
-		this.bodyGreenSlider.setBounds(0, 0, 200, 30);
 		this.bodyGreenSlider.setFgColor(new Color(50,255,50,255));
 		this.bodyGreenSlider.setBounds(new Rectangle(0,100,250,30));
 		this.bodyGreenSlider.setScrollMax(255);
@@ -209,7 +207,6 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		this.bodyBlueSlider = new Slider();
-		this.bodyBlueSlider.setBounds(0, 0, 200, 30);
 		this.bodyBlueSlider.setFgColor(new Color(50,50,255,255));
 		this.bodyBlueSlider.setBounds(new Rectangle(0,150,250,30));
 		this.bodyBlueSlider.setScrollMax(255);
@@ -224,11 +221,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		});
 
 		this.eyeRedSlider = new Slider();
-		this.eyeRedSlider.setBounds(0, 0, 200, 30);
+		this.eyeRedSlider.setBounds(0, 50, 250, 30);
 		this.eyeRedSlider.setFgColor(new Color(255,50,50,255));
-		super.addGuiControl(this.eyeRedSlider, new Vector2(-100,this.ScreenManager.getViewport().Height), new Vector2(100,300), 
-				new Vector2(0,this.ScreenManager.getViewport().Height));
-		this.eyeRedSlider.setBounds(new Rectangle(0,0,250,30));
 		this.eyeRedSlider.setScrollMax(255);
 		this.eyeRedSlider.setScrollValue(255);
 		this.eyeRedSlider.setHorizontal(true);
@@ -240,11 +234,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		this.eyeGreenSlider = new Slider();
-		this.eyeGreenSlider.setBounds(0, 0, 200, 30);
+		this.eyeGreenSlider.setBounds(0, 100, 250, 30);
 		this.eyeGreenSlider.setFgColor(new Color(50,255,50,255));
-		super.addGuiControl(this.eyeGreenSlider, new Vector2(-100,this.ScreenManager.getViewport().Height), new Vector2(100,350), 
-				new Vector2(0,this.ScreenManager.getViewport().Height));
-		this.eyeGreenSlider.setBounds(new Rectangle(0,0,250,30));
 		this.eyeGreenSlider.setScrollMax(255);
 		this.eyeGreenSlider.setScrollValue(255);
 		this.eyeGreenSlider.setHorizontal(true);
@@ -256,11 +247,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		this.eyeBlueSlider = new Slider();
-		this.eyeBlueSlider.setBounds(0, 0, 200, 30);
+		this.eyeBlueSlider.setBounds(0, 150, 250, 30);
 		this.eyeBlueSlider.setFgColor(new Color(50,50,255,255));
-		super.addGuiControl(this.eyeBlueSlider, new Vector2(-100,this.ScreenManager.getViewport().Height), new Vector2(100,400), 
-				new Vector2(0,this.ScreenManager.getViewport().Height));
-		this.eyeBlueSlider.setBounds(new Rectangle(0,0,250,30));
 		this.eyeBlueSlider.setScrollMax(255);
 		this.eyeBlueSlider.setScrollValue(255);
 		this.eyeBlueSlider.setHorizontal(true);
@@ -273,11 +261,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		});
 		
 		this.maneRedSlider = new Slider();
-		this.maneRedSlider.setBounds(0, 50, 200, 30);
+		this.maneRedSlider.setBounds(0, 50, 250, 30);
 		this.maneRedSlider.setFgColor(new Color(255,50,50,255));
-//		super.addGuiControl(this.maneRedSlider, new Vector2(-100,this.ScreenManager.getViewport().Height), new Vector2(100,500), 
-//				new Vector2(0,this.ScreenManager.getViewport().Height));
-		this.maneRedSlider.setBounds(new Rectangle(0,0,250,30));
 		this.maneRedSlider.setScrollMax(255);
 		this.maneRedSlider.setScrollValue(255);
 		this.maneRedSlider.setHorizontal(true);
@@ -289,11 +274,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		this.maneGreenSlider = new Slider();
-		this.maneGreenSlider.setBounds(0, 0, 200, 30);
+		this.maneGreenSlider.setBounds(0, 100, 250, 30);
 		this.maneGreenSlider.setFgColor(new Color(50,255,50,255));
-//		super.addGuiControl(this.maneGreenSlider, new Vector2(-100,this.ScreenManager.getViewport().Height), new Vector2(100,550), 
-//				new Vector2(0,this.ScreenManager.getViewport().Height));
-		this.maneGreenSlider.setBounds(new Rectangle(0,0,250,30));
 		this.maneGreenSlider.setScrollMax(255);
 		this.maneGreenSlider.setScrollValue(255);
 		this.maneGreenSlider.setHorizontal(true);
@@ -304,11 +286,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		this.maneBlueSlider = new Slider();
-		this.maneBlueSlider.setBounds(0, 0, 200, 30);
+		this.maneBlueSlider.setBounds(0, 150, 250, 30);
 		this.maneBlueSlider.setFgColor(new Color(50,50,255,255));
-//		super.addGuiControl(this.maneBlueSlider, new Vector2(-100,this.ScreenManager.getViewport().Height), new Vector2(100,600), 
-//				new Vector2(0,this.ScreenManager.getViewport().Height));
-		this.maneBlueSlider.setBounds(new Rectangle(0,0,250,30));
 		this.maneBlueSlider.setScrollMax(255);
 		this.maneBlueSlider.setScrollValue(255);
 		this.maneBlueSlider.setHorizontal(true);
@@ -321,8 +300,28 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		});
 		
 		this.bodyLabel = new Label();
+		this.bodyLabel.setFgColor(Color.White);
+		this.bodyLabel.setBounds(0, 0, 250, 30);
 		this.bodyLabel.setText("Body");
 		this.bodyLabel.setBgColor(Color.Transparent);
+		
+		this.eyeLabel = new Label();
+		this.eyeLabel.setFgColor(Color.White);
+		this.eyeLabel.setBounds(0, 0, 250, 30);
+		this.eyeLabel.setText("Eyes");
+		this.eyeLabel.setBgColor(Color.Transparent);
+		
+		this.maneLabel = new Label();
+		this.maneLabel.setFgColor(Color.White);
+		this.maneLabel.setBounds(0, 0, 250, 30);
+		this.maneLabel.setText("Mane");
+		this.maneLabel.setBgColor(Color.Transparent);
+		
+		this.nameLabel = new Label();
+		this.nameLabel.setFgColor(Color.White);
+		this.nameLabel.setBounds(0, 0, 250, 30);
+		this.nameLabel.setText("Name");
+		this.nameLabel.setBgColor(Color.Transparent);
 		
 		this.button = new Button();
 		this.button.setText("Done!");
@@ -380,51 +379,128 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		
+		this.earthPonyButton = new ToggleButton();
+		this.earthPonyButton.setBounds(0, 0, 55, 55);
+		this.earthPonyButton.setImage(contentManager.loadTexture("Earthponybuttonimage.png"));
+		this.earthPonyButton.addClicked(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				changeRaceToEarthpony();
+			}
+		});		
+		this.pegasusButton = new ToggleButton();
+		this.pegasusButton.setBounds(55, 0, 55, 55);
+		this.pegasusButton.setImage(contentManager.loadTexture("Pegasusbuttonimage.png"));
+		this.pegasusButton.addClicked(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				changeRaceToPegasus();
+			}
+		});
+		this.unicornButton = new ToggleButton();
+		this.unicornButton.setBounds(110, 0, 55, 55);
+		this.unicornButton.setImage(contentManager.loadTexture("Unicornbuttonimage.png"));
+		this.unicornButton.addClicked(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				changeRaceToUnicorn();
+			}
+		});
+		
+		this.racePanel = new Panel();
+		this.racePanel.setBounds(0, 0, 165, 55);
+		this.racePanel.setBgColor(new Color(0,0,0,0.05f));
+		this.racePanel.addChild(nameLabel);
+		this.racePanel.addChild(this.earthPonyButton);
+		this.racePanel.addChild(this.pegasusButton);
+		this.racePanel.addChild(this.unicornButton);
+		super.addGuiControl(this.racePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(50,200), 
+		new Vector2(0,this.ScreenManager.getViewport().Height));
+		
+		this.namePanel = new Panel();
+		this.namePanel.setBounds(0, 0, 250, 100);
+		this.namePanel.setBgColor(new Color(0,0,0,0.05f));
+		this.namePanel.addChild(nameLabel);
+		this.namePanel.addChild(this.nameField);
+		super.addGuiControl(this.namePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(100,50), 
+		new Vector2(0,this.ScreenManager.getViewport().Height));
+		
 		this.bodyPanel = new Panel();
 		this.bodyPanel.setBounds(0, 0, 250, 500);
-		this.bodyPanel.setBgColor(new Color(0,0,0,0.3f));
+		this.bodyPanel.setBgColor(new Color(0,0,0,0.05f));
+		this.bodyPanel.addChild(bodyLabel);
 		this.bodyPanel.addChild(this.bodyRedSlider);
 		this.bodyPanel.addChild(this.bodyGreenSlider);
 		this.bodyPanel.addChild(this.bodyBlueSlider);
-		super.addGuiControl(this.bodyPanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(0,300), 
+		super.addGuiControl(this.bodyPanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(50,300), 
 		new Vector2(0,this.ScreenManager.getViewport().Height));
 		
 		this.eyePanel = new Panel();
 		this.eyePanel.setBounds(0, 0, 250, 500);
-		this.eyePanel.setBgColor(new Color(0,0,0,0.3f));
+		this.eyePanel.setBgColor(new Color(0,0,0,0.05f));
+		this.eyePanel.addChild(eyeLabel);
 		this.eyePanel.addChild(this.eyeComboBox);
 		this.eyePanel.addChild(this.eyeRedSlider);
 		this.eyePanel.addChild(this.eyeGreenSlider);
 		this.eyePanel.addChild(this.eyeBlueSlider);
-		super.addGuiControl(this.eyePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(300,300), 
+		super.addGuiControl(this.eyePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(350,300), 
 		new Vector2(0,this.ScreenManager.getViewport().Height));
 		
 		this.manePanel = new Panel();
 		this.manePanel.setBounds(0, 0, 250, 500);
-		this.manePanel.setBgColor(new Color(0,0,0,0.3f));
+		this.manePanel.setBgColor(new Color(0,0,0,0.05f));
+		this.manePanel.addChild(maneLabel);
 		this.manePanel.addChild(this.maneComboBox);
 		this.manePanel.addChild(this.maneRedSlider);
 		this.manePanel.addChild(this.maneGreenSlider);
 		this.manePanel.addChild(this.maneBlueSlider);
-		super.addGuiControl(this.manePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(300,300), 
+		super.addGuiControl(this.manePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(650,300), 
 		new Vector2(0,this.ScreenManager.getViewport().Height));
 
 		setBodyColor();
 		setEyeColor();
 		setManeColor();
 	}
+	protected void changeRaceToEarthpony() {
+		this.pony.setBoneHidden(Bones.WINGS.getValue(), true);
+		this.pegasusButton.setToggled(false);
+		this.pony.setBoneHidden(Bones.HORN.getValue(), true);
+		this.unicornButton.setToggled(false);
+	}
+	protected void changeRaceToPegasus() {
+		this.earthPonyButton.setToggled(false);
+		this.pony.setBoneHidden(Bones.WINGS.getValue(), false);
+		this.pony.setBoneHidden(Bones.HORN.getValue(), true);
+		this.unicornButton.setToggled(false);
+	}	
+	protected void changeRaceToUnicorn() {
+		this.earthPonyButton.setToggled(false);
+		this.pony.setBoneHidden(Bones.WINGS.getValue(), true);
+		this.pegasusButton.setToggled(false);
+		this.pony.setBoneHidden(Bones.HORN.getValue(), false);
+	}
+
+	protected void setRace() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	protected void randomizeAttributes() {
-		this.bodyRedSlider.setScrollValue((int)(Math.random()*this.bodyRedSlider.getScrollMax()));
-		this.bodyGreenSlider.setScrollValue((int)(Math.random()*this.bodyGreenSlider.getScrollMax()));
-		this.bodyBlueSlider.setScrollValue((int)(Math.random()*this.bodyBlueSlider.getScrollMax()));
+		Random random = new Random();
+		this.bodyRedSlider.setScrollValue(random.nextInt(this.bodyRedSlider.getScrollMax()));
+		this.bodyGreenSlider.setScrollValue(random.nextInt(this.bodyGreenSlider.getScrollMax()));
+		this.bodyBlueSlider.setScrollValue(random.nextInt(this.bodyBlueSlider.getScrollMax()));
 		
-		this.eyeRedSlider.setScrollValue((int)(Math.random()*this.eyeRedSlider.getScrollMax()));
-		this.eyeGreenSlider.setScrollValue((int)(Math.random()*this.eyeGreenSlider.getScrollMax()));
-		this.eyeBlueSlider.setScrollValue((int)(Math.random()*this.eyeBlueSlider.getScrollMax()));
+		this.eyeRedSlider.setScrollValue(random.nextInt(this.eyeRedSlider.getScrollMax()));
+		this.eyeGreenSlider.setScrollValue(random.nextInt(this.eyeGreenSlider.getScrollMax()));
+		this.eyeBlueSlider.setScrollValue(random.nextInt(this.eyeBlueSlider.getScrollMax()));
 		
-		this.maneRedSlider.setScrollValue((int)(Math.random()*this.maneRedSlider.getScrollMax()));
-		this.maneGreenSlider.setScrollValue((int)(Math.random()*this.maneGreenSlider.getScrollMax()));
-		this.maneBlueSlider.setScrollValue((int)(Math.random()*this.maneBlueSlider.getScrollMax()));
+		this.maneRedSlider.setScrollValue(random.nextInt(this.maneRedSlider.getScrollMax()));
+		this.maneGreenSlider.setScrollValue(random.nextInt(this.maneGreenSlider.getScrollMax()));
+		this.maneBlueSlider.setScrollValue(random.nextInt(this.maneBlueSlider.getScrollMax()));
+		
+		this.maneComboBox.setSelectedIndex(random.nextInt(this.maneComboBox.itemCount()));
+		this.eyeComboBox.setSelectedIndex(random.nextInt(this.eyeComboBox.itemCount()));
 	}
 
 	protected void savePlayerCharacteristics() {
@@ -437,7 +513,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.character.maneStyle = this.maneComboBox.getSelectedItem().maneStyle;
 		this.character.eyeTexture = this.eyeComboBox.getSelectedItem().eyePath;
 		
-		this.character.name = this.textfield.getText();
+		this.character.name = this.nameField.getText();
 		this.character.race = Race.EARTHPONY.getValue();
 		
 		this.character.special = new SpecialStats(5, 3, 6, 7, 5, 7, 8);
