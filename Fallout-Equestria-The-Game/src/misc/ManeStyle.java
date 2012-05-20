@@ -5,6 +5,9 @@ public class ManeStyle {
 	public String lowerManeStyle;
 	public String upperTailStyle;
 	public String lowerTailStyle;
+	
+	public ManeStyle() {}
+	
 	public ManeStyle(String upperManeStyle, String lowerManeStyle,
 			String upperTailStyle, String lowerTailStyle) {
 		this.upperManeStyle = upperManeStyle;
