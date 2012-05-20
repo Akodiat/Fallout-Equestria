@@ -94,9 +94,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 
 	@Override
 	public void onTransitionFinished() {
-		for(GUIControl g : serverListBox.getChildren()) {
-			serverListBox.removeChild(g);
-		}
+		serverListBox.clear();
 		
 		List<InetAddress> addresses = this.ScreenManager.getNetwork().getAvalibleLanHosts();
 		this.addresses = addresses;

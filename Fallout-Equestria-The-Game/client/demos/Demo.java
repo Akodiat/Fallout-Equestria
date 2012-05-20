@@ -34,6 +34,7 @@ public abstract class Demo {
 			try {
 				Display.setVSyncEnabled(true);
 				Display.setDisplayMode(new DisplayMode(screenDim.Width, screenDim.Height));
+				Display.setFullscreen(true);
 				Display.create();
 				this.initialize();
 				

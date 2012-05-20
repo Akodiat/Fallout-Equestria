@@ -232,4 +232,13 @@ public class ListBox<T> extends GUISelector<T> {
 	public void setSelectedItemColor(Color selectedItemColor) {
 		this.selectedItemColor = selectedItemColor;
 	}
+
+
+	public void clear() {
+		List<T> items = this.getItems();
+		for (T item : items) {
+			this.removeItem(item);
+		}
+		
+	}
 }

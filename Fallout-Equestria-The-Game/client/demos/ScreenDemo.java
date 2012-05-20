@@ -78,6 +78,7 @@ public class ScreenDemo extends Demo{
 		Level screen11 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "PerspectiveV5.xml");
 		Level screen12 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "Lobby.xml");
 		PonyCreatorScreen screen13 = new PonyCreatorScreen("gui.tdict");
+		PonySelector screen14 = new PonySelector("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
@@ -91,7 +92,12 @@ public class ScreenDemo extends Demo{
 		this.screenManager.registerScreen("Multiplayer", screen10);
 		this.screenManager.registerScreen("Level1", screen11);
 		this.screenManager.registerScreen("Lobby", screen12);
+<<<<<<< HEAD
 		this.screenManager.registerScreen("PonySelector", new PonyCreatorScreen("gui.tdict"));
+=======
+		this.screenManager.registerScreen("PonySelector", screen13);
+		this.screenManager.registerScreen("PonySelector", screen14);
+>>>>>>> Small changes to connect screen
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");
