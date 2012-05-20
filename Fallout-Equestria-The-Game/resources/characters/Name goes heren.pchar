@@ -1,0 +1,31 @@
+<common.PlayerCharacteristics>
+  <name>Name goes heren</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.8980392,0.99607843,0.0,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.99607843,0.10980392,0.3372549,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.21568628,0.6901961,0.09803922,1.0</Color>
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>RDUPPERMANE</upperManeStyle>
+    <lowerManeStyle>RDLOWERMANE</lowerManeStyle>
+    <upperTailStyle>RDUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
+  </maneStyle>
+  <eyeTexture>RDEYE</eyeTexture>
+  <markTexture>RDMARK</markTexture>
+  <race>UNICORN</race>
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
+</common.PlayerCharacteristics>

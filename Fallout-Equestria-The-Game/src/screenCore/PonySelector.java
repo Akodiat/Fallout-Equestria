@@ -28,7 +28,9 @@ public class PonySelector extends TransitioningGUIScreen{
 	private List<Panel> ponyPanelsList;
 	private List<Label> ponyLabelsList;
 	private List<AnimationBox> ponyBoxesList;
+	private int numOfPonies;
 	private int selectedPony;
+	private File[] characterFiles;
 
 	private Button selectBtn;
 	private Button deleteBtn;
@@ -43,10 +45,10 @@ public class PonySelector extends TransitioningGUIScreen{
 		super.initialize(manager);
 
 		File characterFolder = new File("resources\\characters");
-		final File[] characterFiles = characterFolder.listFiles();
+		this.characterFiles = characterFolder.listFiles();
 		this.characters = new ArrayList<PlayerCharacteristics>();
 
-		int numOfPonies = characterFiles.length < 3 ? characterFiles.length : 3;
+		this.numOfPonies = characterFiles.length < 3 ? characterFiles.length : 3;
 
 		for (int i = 0; i < numOfPonies  ; i++) {
 			characters.add(manager.load(characterFiles[i].getName(), PlayerCharacteristics.class));
@@ -66,10 +68,10 @@ public class PonySelector extends TransitioningGUIScreen{
 		selectBtn.setText("Select");
 		selectBtn.setEnabled(false);
 		this.addGuiControl(selectBtn, new Vector2(1366/2 -100, 768), new Vector2(1366/2 -100, 500), new Vector2(1366/2 -100, 768));
-		
+
 		selectBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-				
+
 			}
 		});
 
@@ -78,10 +80,10 @@ public class PonySelector extends TransitioningGUIScreen{
 		deleteBtn.setText("Delete");
 		deleteBtn.setEnabled(false);
 		this.addGuiControl(deleteBtn, new Vector2(1366/2 -100, 768), new Vector2(1366/2 -100, 570), new Vector2(1366/2 -100, 768));
-		
+
 		deleteBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-				
+				delete();
 			}
 		});
 
@@ -114,34 +116,34 @@ public class PonySelector extends TransitioningGUIScreen{
 			p.setBgColor(new Color(0,0,0,0.1f));
 
 			Label l = new Label();
-			l.setText(characters.get(i).name);
 			l.setBounds(-1000, -1000, 250, 50);
-			
+			l.setText("Empty");
+
 			final AnimationBox a = new AnimationBox();
 			AnimationPlayer player = AnimationFromCharacterHelper.animationPlayerFromCharacter(characters.get(i), manager).clone();
 			player.startAnimation("idle");
 			a.setAnimationPlayer(player);
 			a.setScale(new Vector2(2,2));
 			a.setBounds(0, 0, 250, 208);
-			
+			l.setText(characters.get(i).name);
+
 			if(numOfPonies == 3) {
 				disableCreateBtn();
 			}
-			
-			a.addFocusGainedEvent(new IEventListener<EventArgs>() {
+
+			a.addClicked(new IEventListener<EventArgs>() {
 				@Override
 				public void onEvent(Object sender, EventArgs e) {
-					onFocusGained(a.getAnimationPlayer());
+					for(int i = 0; i < numOfPonies; i++) {
+						ponyBoxesList.get(i).getAnimationPlayer().startAnimation("idle");
+					}
+
+					onClicked(a.getAnimationPlayer());
+					selectedPony = ponyBoxesList.indexOf(sender);
 				}
 			});
 
-			a.addFocusLostEvent(new IEventListener<EventArgs>() {
-				@Override
-				public void onEvent(Object sender, EventArgs e) {
-					onFocusLost(a.getAnimationPlayer());
-				}
-			});
-			
+
 			this.ponyBoxesList.add(a);
 			this.ponyPanelsList.add(p);
 			this.ponyLabelsList.add(l);
@@ -161,22 +163,21 @@ public class PonySelector extends TransitioningGUIScreen{
 			this.addGuiControl(ponyBoxesList.get(2), new Vector2(1366, 130), new Vector2(966, 130), new Vector2(1366, 130));
 			this.addGuiControl(ponyLabelsList.get(2), new Vector2(1366, 390), new Vector2(966, 390), new Vector2(1366, 390));
 		}
-
-
 	}
 
-	public void onFocusGained(AnimationPlayer player) {
+	protected void delete() {
+		characterFiles[selectedPony].delete();
+		this.ponyBoxesList.get(selectedPony).setVisible(false);
+		this.ponyLabelsList.get(selectedPony).setText("Empty");
+		numOfPonies -= 1;
+	}
+
+	public void onClicked(AnimationPlayer player) {
 		this.selectBtn.setEnabled(true);
 		this.deleteBtn.setEnabled(true);
 		player.startAnimation("walk");
 	}
 
-	public void onFocusLost(AnimationPlayer player) {
-		this.selectBtn.setEnabled(false);
-		this.deleteBtn.setEnabled(false);
-		player.startAnimation("idle");
-	}
-	
 	public void disableCreateBtn() {
 		this.createBtn.setEnabled(false);
 	}
@@ -188,4 +189,5 @@ public class PonySelector extends TransitioningGUIScreen{
 	public void goBack() {
 		this.exitScreen();
 	}
+	
 }

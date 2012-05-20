@@ -1,0 +1,31 @@
+<common.PlayerCharacteristics>
+  <name>Name goes here nn</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.09411765,0.84313726,0.5921569,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.41568628,0.38431373,0.050980393,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.2509804,0.9019608,0.078431375,1.0</Color>
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>RDUPPERMANE</upperManeStyle>
+    <lowerManeStyle>RDLOWERMANE</lowerManeStyle>
+    <upperTailStyle>RDUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
+  </maneStyle>
+  <eyeTexture>RDEYE</eyeTexture>
+  <markTexture>RDMARK</markTexture>
+  <race>EARTHPONY</race>
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
+</common.PlayerCharacteristics>
