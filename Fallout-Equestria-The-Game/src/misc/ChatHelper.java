@@ -11,8 +11,8 @@ import com.esotericsoftware.kryonet.Listener;
 import common.Network;
 import common.messages.ChatMessage;
 
+import GUI.ChatPanel;
 import GUI.TextEventArgs;
-import GUI.controls.ChatPanel;
 
 public class ChatHelper {
 	private final Object lock = new Object();

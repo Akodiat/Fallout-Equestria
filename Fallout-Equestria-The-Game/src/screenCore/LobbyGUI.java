@@ -2,18 +2,15 @@ package screenCore;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-
-import common.messages.ChatMessage;
 import common.messages.GoToScreenMessage;
 
 import graphics.Color;
 import math.Vector2;
 import misc.ChatHelper;
-import GUI.TextEventArgs;
-import GUI.controls.Button;
-import GUI.controls.ChatPanel;
-import GUI.controls.Label;
-import GUI.controls.ListBox;
+import GUI.Button;
+import GUI.ChatPanel;
+import GUI.Label;
+import GUI.ListBox;
 import content.ContentManager;
 import utils.EventArgs;
 import utils.IEventListener;
@@ -164,8 +161,6 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		this.chatHelper.intiialize();
 	}
 	private void changeScreen(String newScreen){
-		if(!newScreen.equals("Level1"))
-			throw new Error(newScreen);
 			ScreenManager.getNetwork().removeAllListeners();
 			ScreenManager.removeAllScreens();
 			ScreenManager.addScreen(newScreen);

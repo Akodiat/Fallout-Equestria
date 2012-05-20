@@ -2,11 +2,11 @@ package screenCore;
 
 import java.util.Random;
 
+import GUI.Button;
 import GUI.GUIFocusManager;
-import GUI.controls.Button;
-import GUI.controls.Panel;
-import GUI.graphics.GUIRenderingContext;
-import GUI.graphics.LookAndFeel;
+import GUI.GUIRenderingContext;
+import GUI.LookAndFeel;
+import GUI.Panel;
 import math.Point2;
 import utils.EventArgs;
 import utils.IEventListener;

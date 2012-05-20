@@ -38,7 +38,10 @@ public class BehaviourComp implements IComponent {
 	 * @param entityManager manager in use.
 	 * @param entity 
 	 */
-	public void start(IEntityManager entityManager, ContentManager contentManager, SoundManager soundManager, IEntity entity) {
+	public void start(IEntityManager entityManager, 
+					  ContentManager contentManager, 
+					  SoundManager soundManager, 
+					  IEntity entity) {
 		behavior.initialize(entityManager, contentManager, soundManager, entity);
 		behavior.start();
 		behavior.setEnabled(true);

@@ -10,7 +10,6 @@ import com.google.common.collect.ImmutableSet;
 import com.thoughtworks.xstream.XStream;
 
 import content.serilazation.ColorConverter;
-import content.serilazation.ContentConverter;
 import content.serilazation.Vector2Converter;
 import content.serilazation.Vector3Converter;
 import entityFramework.IEntityArchetype;

@@ -2,9 +2,6 @@ package demos;
 
 import math.Point2;
 import GUI.*;
-import GUI.controls.*;
-import GUI.graphics.*;
-
 import content.ContentManager;
 import graphics.*;
 import utils.*;

@@ -2,7 +2,7 @@ package screenCore;
 
 import graphics.Color;
 import math.Vector2;
-import GUI.controls.Button;
+import GUI.Button;
 import content.ContentManager;
 import utils.EventArgs;
 import utils.IEventListener;

@@ -1,18 +1,12 @@
 package screenCore;
 
-import java.util.List;
-
-import com.esotericsoftware.kryonet.Client;
-
 import content.ContentManager;
 import math.Vector2;
-import GUI.controls.Button;
+import GUI.Button;
 import utils.Rectangle;
 import utils.time.TimeSpan;
 
 public class ServerScreen extends TransitioningGUIScreen{
-	private List<Client> clients;
-	private String serverName;
 	
 	public ServerScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);

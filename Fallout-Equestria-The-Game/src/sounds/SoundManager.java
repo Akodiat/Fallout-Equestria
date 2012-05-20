@@ -1,5 +1,4 @@
 package sounds;
-import misc.SoundEventArgs;
 
 import org.newdawn.slick.openal.Audio;
 

@@ -7,13 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import misc.PlayerCharacteristics;
+
 
 import com.google.common.collect.ImmutableList;
-<<<<<<< HEAD
-import common.PlayerCharacteristics;
-=======
 import common.Network;
->>>>>>> Started a dependency refactoring of the project makng sure classes are where they should be
 
 import sounds.SoundManager;
 import utils.Rectangle;

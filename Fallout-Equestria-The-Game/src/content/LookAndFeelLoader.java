@@ -5,8 +5,8 @@ import java.io.InputStream;
 
 import animation.TextureBounds;
 import animation.TextureDictionary;
-import GUI.graphics.LookAndFeel;
-import GUI.graphics.VisibleElement;
+import GUI.LookAndFeel;
+import GUI.VisibleElement;
 
 public class LookAndFeelLoader extends ContentLoader<LookAndFeel>{
 

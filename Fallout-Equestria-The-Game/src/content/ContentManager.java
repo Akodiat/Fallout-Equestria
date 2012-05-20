@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,13 +13,6 @@ import animation.AnimationPlayer;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-
-import components.PhysicsComp;
-import components.SpatialComp;
-import components.TransformationComp;
-
-import entityFramework.EntityArchetype;
-import entityFramework.IComponent;
 import entityFramework.IEntityArchetype;
 
 import graphics.ShaderEffect;
@@ -157,27 +149,6 @@ public final class ContentManager {
 	 */
 	public IEntityArchetype loadArchetype(String path) {
 		return load(path, IEntityArchetype.class);
-	}
-	
-	/**Loads a archetype from disc. Does the same thing as loadArchetype(String path),
-	 * except that the returned archetype only contains a few selected (logical) components
-	 * @param path path the path of the script.
-	 * @return a ILineScript object.
-	 */
-	public IEntityArchetype loadArchetypeForServer(String path){
-		IEntityArchetype originalArchetype = this.loadArchetype(path);
-		
-		ArrayList<IComponent> selectedComponents = new ArrayList<>();
-		for (IComponent comp : originalArchetype.getComponents()) {
-			if(
-					comp.getClass() == TransformationComp.class || 
-					comp.getClass() == SpatialComp.class || 
-					comp.getClass() == PhysicsComp.class){
-				selectedComponents.add(comp);
-			}
-		}
-		
-		return new EntityArchetype(selectedComponents);
 	}
 	
 	/**Loads a sound from disc.

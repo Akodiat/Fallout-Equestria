@@ -3,7 +3,7 @@ package screenCore;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import GUI.controls.Button;
+import GUI.Button;
 import content.ContentManager;
 import utils.EventArgs;
 import utils.IEventListener;

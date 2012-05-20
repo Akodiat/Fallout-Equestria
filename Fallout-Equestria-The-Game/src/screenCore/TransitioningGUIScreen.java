@@ -3,7 +3,7 @@ package screenCore;
 import java.util.ArrayList;
 import java.util.List;
 
-import GUI.controls.GUIControl;
+import GUI.GUIControl;
 import math.Point2;
 import math.Vector2;
 import utils.time.GameTime;

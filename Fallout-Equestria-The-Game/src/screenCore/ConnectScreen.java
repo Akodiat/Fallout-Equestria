@@ -2,14 +2,11 @@ package screenCore;
 
 import java.net.InetAddress;
 import java.util.List;
-
-import com.esotericsoftware.kryonet.Client;
-
 import graphics.Color;
 import math.Vector2;
-import GUI.controls.Button;
-import GUI.controls.Label;
-import GUI.controls.ListBox;
+import GUI.Button;
+import GUI.Label;
+import GUI.ListBox;
 import content.ContentManager;
 import utils.EventArgs;
 import utils.IEventListener;
@@ -17,7 +14,6 @@ import utils.Rectangle;
 import utils.time.TimeSpan;
 
 public class ConnectScreen extends TransitioningGUIScreen{
-	private Client client;
 	private ListBox<String> serverListBox;
 	private List<InetAddress> addresses;
 	private Label infoLabel;

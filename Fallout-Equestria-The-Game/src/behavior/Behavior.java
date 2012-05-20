@@ -36,7 +36,7 @@ public abstract class Behavior implements IEventListener<KeyframeTriggerEventArg
 		
 		this.initialized = true;
 		
-		//This is kind of a hack :S
+		
 		AnimationComp comp = entity.getComponent(AnimationComp.class);
 		if(comp != null){
 			comp.getAnimationPlayer().addKeyframeTriggerListener(this);

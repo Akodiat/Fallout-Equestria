@@ -10,9 +10,9 @@ import utils.input.Mouse;
 import utils.time.GameTime;
 import utils.time.TimeSpan;
 import GUI.GUIFocusManager;
-import GUI.controls.Panel;
-import GUI.graphics.GUIRenderingContext;
-import GUI.graphics.LookAndFeel;
+import GUI.GUIRenderingContext;
+import GUI.LookAndFeel;
+import GUI.Panel;
 
 public class GUIScreen extends GameScreen {
 	private GUIRenderingContext renderingContext;

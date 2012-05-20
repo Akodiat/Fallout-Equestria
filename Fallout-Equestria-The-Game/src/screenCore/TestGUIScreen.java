@@ -1,8 +1,8 @@
 package screenCore;
 
 import math.Vector2;
-import GUI.controls.Button;
-import GUI.controls.ImageBox;
+import GUI.Button;
+import GUI.ImageBox;
 import content.ContentManager;
 import utils.EventArgs;
 import utils.IEventListener;

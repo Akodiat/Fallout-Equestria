@@ -1,8 +1,8 @@
 package serverNetworkSystems;
 
+import sounds.SoundEventArgs;
 import sounds.SoundManager;
 import utils.IEventListener;
-import misc.SoundEventArgs;
 import entityFramework.IEntityWorld;
 
 import common.Network;

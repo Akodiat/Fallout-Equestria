@@ -1,15 +1,8 @@
 package demos;
 
-<<<<<<< HEAD
-import common.PlayerCharacteristics;
-
-import animation.PonyColorChangeHelper;
-import misc.SoundManager;
-=======
 import common.Network;
 
-import misc.PonyColorChangeHelper;
->>>>>>> Started a dependency refactoring of the project makng sure classes are where they should be
+import misc.PlayerCharacteristics;
 import graphics.Color;
 import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;

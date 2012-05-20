@@ -1,13 +1,12 @@
 package screenCore;
 
-import java.util.Random;
 
-import misc.NetworkSystemBuilder;
 import misc.PlayerCharacteristics;
 
 import common.messages.InputMessage;
 
 import systembuilders.EntitySystemBuilder;
+import systembuilders.NetworkSystemBuilder;
 import utils.Camera2D;
 import utils.input.Keyboard;
 import utils.input.Mouse;
@@ -17,7 +16,6 @@ import content.ContentManager;
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntitySystemManager;
 import gameMap.Scene;
-import graphics.Color;
 import graphics.SpriteBatch;
 
 public class Level extends EntityScreen {

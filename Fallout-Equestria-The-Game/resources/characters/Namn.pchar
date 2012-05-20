@@ -1,4 +1,4 @@
-<common.PlayerCharacteristics>
+<misc.PlayerCharacteristics>
   <name>Namn</name>
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
@@ -28,4 +28,4 @@
     <Agility>7</Agility>
     <Luck>8</Luck>
   </special>
-</common.PlayerCharacteristics>
+</misc.PlayerCharacteristics>
