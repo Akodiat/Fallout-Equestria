@@ -28,9 +28,12 @@ public class PonySelector extends TransitioningGUIScreen{
 	private List<Panel> ponyPanelsList;
 	private List<Label> ponyLabelsList;
 	private List<AnimationBox> ponyBoxesList;
+	private int selectedPony;
 
 	private Button selectBtn;
 	private Button deleteBtn;
+	private Button createBtn;
+	private AnimationBox a;
 
 	public PonySelector(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -40,7 +43,7 @@ public class PonySelector extends TransitioningGUIScreen{
 		super.initialize(manager);
 
 		File characterFolder = new File("resources\\characters");
-		File[] characterFiles = characterFolder.listFiles();
+		final File[] characterFiles = characterFolder.listFiles();
 		this.characters = new ArrayList<PlayerCharacteristics>();
 
 		int numOfPonies = characterFiles.length < 3 ? characterFiles.length : 3;
@@ -63,14 +66,26 @@ public class PonySelector extends TransitioningGUIScreen{
 		selectBtn.setText("Select");
 		selectBtn.setEnabled(false);
 		this.addGuiControl(selectBtn, new Vector2(1366/2 -100, 768), new Vector2(1366/2 -100, 500), new Vector2(1366/2 -100, 768));
+		
+		selectBtn.addClicked(new IEventListener<EventArgs>() {
+			public void onEvent(Object sender, EventArgs e) {
+				
+			}
+		});
 
 		this.deleteBtn = new Button();
 		deleteBtn.setBounds(-1000, -1000, 200, 50);
 		deleteBtn.setText("Delete");
 		deleteBtn.setEnabled(false);
 		this.addGuiControl(deleteBtn, new Vector2(1366/2 -100, 768), new Vector2(1366/2 -100, 570), new Vector2(1366/2 -100, 768));
+		
+		deleteBtn.addClicked(new IEventListener<EventArgs>() {
+			public void onEvent(Object sender, EventArgs e) {
+				
+			}
+		});
 
-		Button createBtn = new Button();
+		this.createBtn = new Button();
 		createBtn.setBounds(-1000, -1000, 200, 50);
 		createBtn.setText("Create new pony");
 		this.addGuiControl(createBtn, new Vector2(1366/2 + 150, 768), new Vector2(1366/2 + 150, 535), new Vector2(1366/2 + 150, 768));
@@ -97,30 +112,35 @@ public class PonySelector extends TransitioningGUIScreen{
 			Panel p = new Panel();
 			p.setBounds(-1000, -1000, 250, 208);
 			p.setBgColor(new Color(0,0,0,0.1f));
-			p.addFocusGainedEvent(new IEventListener<EventArgs>() {
-				@Override
-				public void onEvent(Object sender, EventArgs e) {
-					enableButtons();
-				}
-			});
-
-			p.addFocusLostEvent(new IEventListener<EventArgs>() {
-				@Override
-				public void onEvent(Object sender, EventArgs e) {
-					disableButtons();
-				}
-			});
 
 			Label l = new Label();
 			l.setText(characters.get(i).name);
 			l.setBounds(-1000, -1000, 250, 50);
 			
-			AnimationBox a = new AnimationBox();
+			final AnimationBox a = new AnimationBox();
 			AnimationPlayer player = AnimationFromCharacterHelper.animationPlayerFromCharacter(characters.get(i), manager).clone();
 			player.startAnimation("idle");
 			a.setAnimationPlayer(player);
 			a.setScale(new Vector2(2,2));
 			a.setBounds(0, 0, 250, 208);
+			
+			if(numOfPonies == 3) {
+				disableCreateBtn();
+			}
+			
+			a.addFocusGainedEvent(new IEventListener<EventArgs>() {
+				@Override
+				public void onEvent(Object sender, EventArgs e) {
+					onFocusGained(a.getAnimationPlayer());
+				}
+			});
+
+			a.addFocusLostEvent(new IEventListener<EventArgs>() {
+				@Override
+				public void onEvent(Object sender, EventArgs e) {
+					onFocusLost(a.getAnimationPlayer());
+				}
+			});
 			
 			this.ponyBoxesList.add(a);
 			this.ponyPanelsList.add(p);
@@ -145,14 +165,20 @@ public class PonySelector extends TransitioningGUIScreen{
 
 	}
 
-	public void enableButtons() {
+	public void onFocusGained(AnimationPlayer player) {
 		this.selectBtn.setEnabled(true);
 		this.deleteBtn.setEnabled(true);
+		player.startAnimation("walk");
 	}
 
-	public void disableButtons() {
+	public void onFocusLost(AnimationPlayer player) {
 		this.selectBtn.setEnabled(false);
 		this.deleteBtn.setEnabled(false);
+		player.startAnimation("idle");
+	}
+	
+	public void disableCreateBtn() {
+		this.createBtn.setEnabled(false);
 	}
 
 	public void gotoCreator() {
