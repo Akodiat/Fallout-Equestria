@@ -70,7 +70,8 @@ public class PonySelector extends TransitioningGUIScreen{
 
 		selectBtn.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
-
+				setPlayerCharacteristics();
+				gotoMultiplayer();
 			}
 		});
 
@@ -108,6 +109,15 @@ public class PonySelector extends TransitioningGUIScreen{
 				goBack();
 			}
 		});
+	}
+
+	protected void gotoMultiplayer() {
+		this.ScreenManager.addScreen("Multiplayer");
+	}
+
+	protected void setPlayerCharacteristics() {
+		PlayerCharacteristics pc = characters.get(selectedPony);
+		this.ScreenManager.setPlayerCharacteristics(pc);
 	}
 
 	protected void delete() {

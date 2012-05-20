@@ -1,5 +1,7 @@
 package demos;
 
+import common.PlayerCharacteristics;
+
 import animation.PonyColorChangeHelper;
 import misc.SoundManager;
 import graphics.Color;
@@ -32,6 +34,7 @@ public class ScreenDemo extends Demo{
 	private SpriteBatch batch;
 	private Mouse mouse;
 	private Keyboard keyboard;
+	private PlayerCharacteristics playerCharacteristics;
 	
 	public static void main(String[] args) {
 		new ScreenDemo().start();
@@ -61,10 +64,11 @@ public class ScreenDemo extends Demo{
 		this.keyboard = new Keyboard();
 		this.mouse = new Mouse();
 		SoundManager soundManager = new SoundManager(this.ContentManager,1.0f,1.0f,1.0f);
+		this.playerCharacteristics = new PlayerCharacteristics();
 		
 		soundManager.playMusic("music\\DrDissonanceBGmusic.ogg");
 		
-		this.screenManager = new ScreenManager(batch, manager, soundManager,new Network(45777,43567), screenDim, mouse, keyboard);
+		this.screenManager = new ScreenManager(batch, manager, soundManager,new Network(45777,43567), screenDim, mouse, keyboard, playerCharacteristics);
 		BackgroundScreen screen = new BackgroundScreen(false, TimeSpan.fromSeconds(15.0f), TimeSpan.Zero, "foebackground.png");
 		TestGUIScreen screen2 = new TestGUIScreen("gui.tdict");
 		Test2GUIScreen screen3 = new Test2GUIScreen("graygui.tdict");

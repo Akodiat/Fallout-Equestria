@@ -27,13 +27,8 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 		
 		Button button1 = new Button();
 		button1.setBounds(x,140,200,50);
-		button1.setText("Multiplayer");
+		button1.setText("PonySelector");
 		this.addGuiControl(button1, new Vector2(vp.Width,140), new Vector2(x,140),new Vector2(vp.Width,140));
-		
-		Button ponyButton = new Button();
-		ponyButton.setBounds(x,240,200,50);
-		ponyButton.setText("My little ponies");
-		this.addGuiControl(ponyButton, new Vector2(vp.Width,240), new Vector2(x,240),new Vector2(vp.Width,240));
 		
 		Button button2 = new Button();
 		button2.setBounds(x,340,200,50);
@@ -56,12 +51,6 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 		button2.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {
 				exit();				
-			}
-		});
-		
-		ponyButton.addClicked(new IEventListener<EventArgs>() {
-			public void onEvent(Object sender, EventArgs e) {
-				gotoPonySelector();			
 			}
 		});
 		

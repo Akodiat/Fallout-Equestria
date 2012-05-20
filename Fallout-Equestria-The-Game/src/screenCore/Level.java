@@ -23,6 +23,7 @@ public class Level extends EntityScreen {
 	private Camera2D camera;
 	private Scene scene;
 	private final String level;
+	private PlayerCharacteristics playerChars;
 	
 	public Level(boolean popup, TimeSpan transOnTime, TimeSpan transOffTime, String level) {
 		super(popup, transOnTime, transOffTime);
@@ -83,13 +84,7 @@ public class Level extends EntityScreen {
 	}
 	
 	private PlayerCharacteristics createPlayerCharacteristics() {
-		Random rand = new Random();
-		
-		PlayerCharacteristics playerChars = new PlayerCharacteristics();
-		playerChars.bodyColor	= new Color(rand.nextFloat(), rand.nextFloat(),rand.nextFloat(),1.0f);
-		playerChars.eyeColor 	= new Color(rand.nextFloat(), rand.nextFloat(),rand.nextFloat(),1.0f);
-		playerChars.maneColor	= new Color(rand.nextFloat(), rand.nextFloat(),rand.nextFloat(),1.0f);
-		
+		this.playerChars = this.ScreenManager.getPlayerCharacteristics();
 		return playerChars;
 	}
 

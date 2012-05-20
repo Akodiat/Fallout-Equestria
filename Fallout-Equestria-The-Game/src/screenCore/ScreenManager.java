@@ -10,6 +10,7 @@ import java.util.Map;
 import misc.SoundManager;
 
 import com.google.common.collect.ImmutableList;
+import common.PlayerCharacteristics;
 
 import utils.GameTime;
 import utils.Keyboard;
@@ -29,6 +30,7 @@ public class ScreenManager {
 	private final SoundManager soundManager;
 	private final Network network;
 	private final Map<String, GameScreen> avalibleScreens;
+	private PlayerCharacteristics playerCharacteristics;
 	
 	private boolean isInitialized;
 	private Rectangle viewport;	
@@ -69,7 +71,7 @@ public class ScreenManager {
 		return this.keyboard;
 	}
 	
-	public ScreenManager(SpriteBatch spriteBatch, ContentManager contentManager, SoundManager soundManager, Network network, Rectangle viewport, Mouse mouse, Keyboard keyboard) {
+	public ScreenManager(SpriteBatch spriteBatch, ContentManager contentManager, SoundManager soundManager, Network network, Rectangle viewport, Mouse mouse, Keyboard keyboard, PlayerCharacteristics playerCharacteristics) {
 		this.activeScreens = new ArrayList<>();
 		this.screensToUpdate = new ArrayList<>();
 		this.viewport = viewport;
@@ -80,6 +82,7 @@ public class ScreenManager {
 		this.avalibleScreens = new HashMap<>();
 		this.soundManager = soundManager;
 		this.network = network;
+		this.playerCharacteristics = playerCharacteristics;
 	}
 	
 	public void initialize() {
@@ -179,5 +182,12 @@ public class ScreenManager {
 		
 		
 		this.activeScreens.clear();	
+	}
+	public PlayerCharacteristics getPlayerCharacteristics() {
+		return playerCharacteristics;
+	}
+	
+	public void setPlayerCharacteristics(PlayerCharacteristics pc) {
+		this.playerCharacteristics = pc;
 	}
 }
