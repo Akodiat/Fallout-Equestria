@@ -1,14 +1,14 @@
 <common.PlayerCharacteristics>
-  <name>Name goes heren</name>
+  <name>Name goes heredd</name>
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
-    <Color>0.8980392,0.99607843,0.0,1.0</Color>
+    <Color>0.79607844,0.9843137,0.62352943,1.0</Color>
   </bodyColor>
   <eyeColor>
-    <Color>0.99607843,0.10980392,0.3372549,1.0</Color>
+    <Color>0.654902,0.68235296,0.73333335,1.0</Color>
   </eyeColor>
   <maneColor>
-    <Color>0.21568628,0.6901961,0.09803922,1.0</Color>
+    <Color>0.29411766,0.85490197,0.22352941,1.0</Color>
   </maneColor>
   <maneStyle>
     <upperManeStyle>RDUPPERMANE</upperManeStyle>
@@ -16,9 +16,9 @@
     <upperTailStyle>RDUPPERTAIL</upperTailStyle>
     <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
   </maneStyle>
-  <eyeTexture>RDEYE</eyeTexture>
-  <markTexture>RDMARK</markTexture>
-  <race>UNICORN</race>
+  <eyeTexture>TSEYE</eyeTexture>
+  <markTexture>MCMARK</markTexture>
+  <race>EARTHPONY</race>
   <special>
     <Strength>5</Strength>
     <Perception>3</Perception>

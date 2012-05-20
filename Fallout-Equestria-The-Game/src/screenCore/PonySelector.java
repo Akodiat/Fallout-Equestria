@@ -18,9 +18,7 @@ import GUI.controls.AnimationBox;
 import GUI.controls.Button;
 import GUI.controls.Label;
 import GUI.controls.Panel;
-import GUI.controls.PonyBox;
 import content.ContentManager;
-import utils.ServerInfo;
 import utils.TimeSpan;
 
 public class PonySelector extends TransitioningGUIScreen{
@@ -31,11 +29,11 @@ public class PonySelector extends TransitioningGUIScreen{
 	private int numOfPonies;
 	private int selectedPony;
 	private File[] characterFiles;
+	private ContentManager manager;
 
 	private Button selectBtn;
 	private Button deleteBtn;
 	private Button createBtn;
-	private AnimationBox a;
 
 	public PonySelector(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -43,6 +41,7 @@ public class PonySelector extends TransitioningGUIScreen{
 
 	public void initialize(ContentManager manager) {
 		super.initialize(manager);
+		this.manager = manager;
 
 		File characterFolder = new File("resources\\characters");
 		this.characterFiles = characterFolder.listFiles();
@@ -109,7 +108,36 @@ public class PonySelector extends TransitioningGUIScreen{
 				goBack();
 			}
 		});
+	}
 
+	protected void delete() {
+		characterFiles[selectedPony].delete();
+		this.ponyBoxesList.get(selectedPony).setVisible(false);
+		this.ponyPanelsList.get(selectedPony).setVisible(false);
+		this.ponyLabelsList.get(selectedPony).setVisible(false);
+		numOfPonies -= 1;
+	}
+
+	public void onClicked(AnimationPlayer player) {
+		this.selectBtn.setEnabled(true);
+		this.deleteBtn.setEnabled(true);
+		player.startAnimation("walk");
+	}
+
+	public void disableCreateBtn() {
+		this.createBtn.setEnabled(false);
+	}
+
+	public void gotoCreator() {
+		this.ScreenManager.addScreen("PonyCreator");
+	}
+
+	public void goBack() {
+		this.exitScreen();
+	}
+	
+	@Override
+	public void onEnter() {
 		for(int i = 0; i < numOfPonies; i++) {
 			Panel p = new Panel();
 			p.setBounds(-1000, -1000, 250, 208);
@@ -143,7 +171,6 @@ public class PonySelector extends TransitioningGUIScreen{
 				}
 			});
 
-
 			this.ponyBoxesList.add(a);
 			this.ponyPanelsList.add(p);
 			this.ponyLabelsList.add(l);
@@ -163,31 +190,6 @@ public class PonySelector extends TransitioningGUIScreen{
 			this.addGuiControl(ponyBoxesList.get(2), new Vector2(1366, 130), new Vector2(966, 130), new Vector2(1366, 130));
 			this.addGuiControl(ponyLabelsList.get(2), new Vector2(1366, 390), new Vector2(966, 390), new Vector2(1366, 390));
 		}
-	}
-
-	protected void delete() {
-		characterFiles[selectedPony].delete();
-		this.ponyBoxesList.get(selectedPony).setVisible(false);
-		this.ponyLabelsList.get(selectedPony).setText("Empty");
-		numOfPonies -= 1;
-	}
-
-	public void onClicked(AnimationPlayer player) {
-		this.selectBtn.setEnabled(true);
-		this.deleteBtn.setEnabled(true);
-		player.startAnimation("walk");
-	}
-
-	public void disableCreateBtn() {
-		this.createBtn.setEnabled(false);
-	}
-
-	public void gotoCreator() {
-		this.ScreenManager.addScreen("PonyCreator");
-	}
-
-	public void goBack() {
-		this.exitScreen();
 	}
 	
 }
