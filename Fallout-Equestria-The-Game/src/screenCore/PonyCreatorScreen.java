@@ -211,7 +211,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		
 		this.nameField = new Textfield();
 		this.nameField.setBounds(0,50,250,25);
-		this.nameField.setText("Name goes here :)");
+		this.nameField.setText("Name goes here");
 		this.nameField.setFont(contentManager.loadFont("Monofonto24.xml"));
 		this.nameField.setFgColor(Color.White);
 		this.nameField.setMaxLength(25);
