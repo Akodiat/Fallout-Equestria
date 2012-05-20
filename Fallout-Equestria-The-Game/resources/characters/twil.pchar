@@ -1,0 +1,31 @@
+<common.PlayerCharacteristics>
+  <name>twil</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.5568628,0.015686275,0.8392157,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.2784314,0.7647059,0.5882353,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.9529412,0.6039216,0.7058824,1.0</Color>
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>TSUPPERMANE</upperManeStyle>
+    <lowerManeStyle>TSLOWERMANE</lowerManeStyle>
+    <upperTailStyle>TSUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>TSLOWERTAIL</lowerTailStyle>
+  </maneStyle>
+  <eyeTexture>RDEYE</eyeTexture>
+  <markTexture>TSMARK</markTexture>
+  <race>UNICORN</race>
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
+</common.PlayerCharacteristics>

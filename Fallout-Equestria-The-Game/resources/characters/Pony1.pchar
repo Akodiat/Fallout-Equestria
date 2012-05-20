@@ -1,14 +1,14 @@
 <common.PlayerCharacteristics>
-  <name></name>
+  <name>Pony1</name>
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
-    <Color>0.8509804,1.0,1.0,1.0</Color>
+    <Color>0.0627451,0.5411765,0.3254902,1.0</Color>
   </bodyColor>
   <eyeColor>
-    <Color>0.6862745,0.36078432,0.40392157,1.0</Color>
+    <Color>0.7921569,0.1764706,0.21568628,1.0</Color>
   </eyeColor>
   <maneColor>
-    <Color>0.23921569,1.0,1.0,1.0</Color>
+    <Color>0.6,0.105882354,0.23137255,1.0</Color>
   </maneColor>
   <maneStyle>
     <upperManeStyle>TSUPPERMANE</upperManeStyle>
@@ -16,8 +16,9 @@
     <upperTailStyle>TSUPPERTAIL</upperTailStyle>
     <lowerTailStyle>TSLOWERTAIL</lowerTailStyle>
   </maneStyle>
-  <eyeTexture>TSEYE</eyeTexture>
-  <race>EARTHPONY</race>
+  <eyeTexture>RDEYE</eyeTexture>
+  <markTexture>RDMARK</markTexture>
+  <race>PEGASUS</race>
   <special>
     <Strength>5</Strength>
     <Perception>3</Perception>

@@ -1,0 +1,31 @@
+<common.PlayerCharacteristics>
+  <name>Pony239</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.7254902,0.9607843,0.36078432,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.11764706,0.24705882,0.91764706,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.5686275,0.10980392,0.48235294,1.0</Color>
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>RDUPPERMANE</upperManeStyle>
+    <lowerManeStyle>RDLOWERMANE</lowerManeStyle>
+    <upperTailStyle>RDUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
+  </maneStyle>
+  <eyeTexture>TSEYE</eyeTexture>
+  <markTexture>MCMARK</markTexture>
+  <race>PEGASUS</race>
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
+</common.PlayerCharacteristics>
