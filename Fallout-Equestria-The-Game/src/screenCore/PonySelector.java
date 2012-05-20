@@ -28,6 +28,7 @@ public class PonySelector extends TransitioningGUIScreen{
 	private List<AnimationBox> ponyBoxesList;
 	private int numOfPonies;
 	private int selectedPony;
+	private static final File characterFolder = new File("resources\\characters");
 	private File[] characterFiles;
 	private ContentManager manager;
 
@@ -43,7 +44,6 @@ public class PonySelector extends TransitioningGUIScreen{
 		super.initialize(manager);
 		this.manager = manager;
 
-		File characterFolder = new File("resources\\characters");
 		this.characterFiles = characterFolder.listFiles();
 		this.characters = new ArrayList<PlayerCharacteristics>();
 
@@ -121,11 +121,14 @@ public class PonySelector extends TransitioningGUIScreen{
 	}
 
 	protected void delete() {
-		characterFiles[selectedPony].delete();
+		
 		this.ponyBoxesList.get(selectedPony).setVisible(false);
 		this.ponyPanelsList.get(selectedPony).setVisible(false);
 		this.ponyLabelsList.get(selectedPony).setVisible(false);
 		numOfPonies -= 1;
+		if(!characterFiles[selectedPony].delete()) {
+			throw new Error();
+		}
 	}
 
 	public void onClicked(AnimationPlayer player) {
@@ -147,43 +150,41 @@ public class PonySelector extends TransitioningGUIScreen{
 	}
 	
 	@Override
+	public void onTransitionFinished(){
+		File[] files = characterFolder.listFiles();
+		if(this.numOfPonies<files.length){
+			if(numOfPonies == 0){
+				numOfPonies++;
+				characters.add(this.manager.load(files[0].getName(), PlayerCharacteristics.class));
+				addPonyPanel(0);
+				this.addGuiControl(ponyPanelsList.get(0), new Vector2(-250, 130), new Vector2(150, 130), new Vector2(-250, 130));
+				this.addGuiControl(ponyBoxesList.get(0), new Vector2(-250, 130), new Vector2(150, 130), new Vector2(-250, 130));
+				this.addGuiControl(ponyLabelsList.get(0), new Vector2(-250, 390), new Vector2(150, 390), new Vector2(-250, 390));
+				this.characterFiles[0] = files[0];
+			}else if(numOfPonies == 1){
+				numOfPonies++;
+				characters.add(this.manager.load(files[1].getName(), PlayerCharacteristics.class));
+				addPonyPanel(1);
+				this.addGuiControl(ponyPanelsList.get(1), new Vector2(1366/2-125, -250), new Vector2(1366/2-125, 130), new Vector2(1366/2-125, -250));
+				this.addGuiControl(ponyBoxesList.get(1), new Vector2(1366/2-125, -250), new Vector2(1366/2-125, 130), new Vector2(1366/2-125, -250));
+				this.addGuiControl(ponyLabelsList.get(1), new Vector2(1366/2-125, -250), new Vector2(1366/2-125, 390), new Vector2(1366/2-125, -250));
+				this.characterFiles[1] = files[1];
+			}else if(numOfPonies == 2){
+				numOfPonies++;
+				characters.add(this.manager.load(files[2].getName(), PlayerCharacteristics.class));
+				addPonyPanel(2);
+				this.addGuiControl(ponyPanelsList.get(2), new Vector2(1366, 130), new Vector2(966, 130), new Vector2(1366, 130));
+				this.addGuiControl(ponyBoxesList.get(2), new Vector2(1366, 130), new Vector2(966, 130), new Vector2(1366, 130));
+				this.addGuiControl(ponyLabelsList.get(2), new Vector2(1366, 390), new Vector2(966, 390), new Vector2(1366, 390));
+				this.characterFiles[2] = files[2];
+			}
+		}
+	}
+	
+	@Override
 	public void onEnter() {
 		for(int i = 0; i < numOfPonies; i++) {
-			Panel p = new Panel();
-			p.setBounds(-1000, -1000, 250, 208);
-			p.setBgColor(new Color(0,0,0,0.1f));
-
-			Label l = new Label();
-			l.setBounds(-1000, -1000, 250, 50);
-			l.setText("Empty");
-
-			final AnimationBox a = new AnimationBox();
-			AnimationPlayer player = AnimationFromCharacterHelper.animationPlayerFromCharacter(characters.get(i), manager).clone();
-			player.startAnimation("idle");
-			a.setAnimationPlayer(player);
-			a.setScale(new Vector2(2,2));
-			a.setBounds(0, 0, 250, 208);
-			l.setText(characters.get(i).name);
-
-			if(numOfPonies == 3) {
-				disableCreateBtn();
-			}
-
-			a.addClicked(new IEventListener<EventArgs>() {
-				@Override
-				public void onEvent(Object sender, EventArgs e) {
-					for(int i = 0; i < numOfPonies; i++) {
-						ponyBoxesList.get(i).getAnimationPlayer().startAnimation("idle");
-					}
-
-					onClicked(a.getAnimationPlayer());
-					selectedPony = ponyBoxesList.indexOf(sender);
-				}
-			});
-
-			this.ponyBoxesList.add(a);
-			this.ponyPanelsList.add(p);
-			this.ponyLabelsList.add(l);
+			addPonyPanel(i);
 		}
 		if(numOfPonies > 0){
 			this.addGuiControl(ponyPanelsList.get(0), new Vector2(-250, 130), new Vector2(150, 130), new Vector2(-250, 130));
@@ -200,6 +201,47 @@ public class PonySelector extends TransitioningGUIScreen{
 			this.addGuiControl(ponyBoxesList.get(2), new Vector2(1366, 130), new Vector2(966, 130), new Vector2(1366, 130));
 			this.addGuiControl(ponyLabelsList.get(2), new Vector2(1366, 390), new Vector2(966, 390), new Vector2(1366, 390));
 		}
+		
 	}
+
+	private void addPonyPanel(int i) {
+		Panel p = new Panel();
+		p.setBounds(-1000, -1000, 250, 208);
+		p.setBgColor(new Color(0,0,0,0.1f));
+
+		Label l = new Label();
+		l.setBounds(-1000, -1000, 250, 50);
+		l.setText("Empty");
+
+		final AnimationBox a = new AnimationBox();
+		AnimationPlayer player = AnimationFromCharacterHelper.animationPlayerFromCharacter(characters.get(i), manager).clone();
+		player.startAnimation("idle");
+		a.setAnimationPlayer(player);
+		a.setScale(new Vector2(2,2));
+		a.setBounds(0, 0, 250, 208);
+		l.setText(characters.get(i).name);
+
+		if(numOfPonies == 3) {
+			disableCreateBtn();
+		}
+
+		a.addClicked(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				for(int i = 0; i < numOfPonies; i++) {
+					ponyBoxesList.get(i).getAnimationPlayer().startAnimation("idle");
+				}
+
+				onClicked(a.getAnimationPlayer());
+				selectedPony = ponyBoxesList.indexOf(sender);
+			}
+		});
+
+		this.ponyBoxesList.add(a);
+		this.ponyPanelsList.add(p);
+		this.ponyLabelsList.add(l);
+	}
+	
+	
 	
 }

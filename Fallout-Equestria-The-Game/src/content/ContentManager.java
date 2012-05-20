@@ -108,6 +108,7 @@ public final class ContentManager {
 		try {
 			content = loader.loadContent(stream);
 			//Place it in the loaded content if successful.
+			stream.close();
 			loadedContent.put(path, content);
 			return content;
 		} catch (Exception e) {

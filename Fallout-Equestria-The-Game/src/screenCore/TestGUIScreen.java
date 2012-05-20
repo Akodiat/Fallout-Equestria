@@ -4,6 +4,7 @@ import math.Vector2;
 import misc.EventArgs;
 import misc.IEventListener;
 import GUI.controls.Button;
+import GUI.controls.ImageBox;
 import content.ContentManager;
 import utils.Rectangle;
 import utils.TimeSpan;
@@ -35,6 +36,10 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 		button2.setText("Exit");
 		this.addGuiControl(button2, new Vector2(vp.Width,340), new Vector2(x,340),new Vector2(vp.Width,340));
 		
+		ImageBox logo = new ImageBox();
+		logo.setBounds(-1000, -1000, 804, 451);
+		logo.setImage(manager.loadTexture("logo.png"));
+		this.addGuiControl(logo, new Vector2(vp.Width, vp.Height), new Vector2(0,0), new Vector2(vp.Width, vp.Height));
 		
 		button0.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {

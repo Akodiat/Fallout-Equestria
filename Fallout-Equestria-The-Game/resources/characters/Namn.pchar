@@ -1,14 +1,14 @@
 <common.PlayerCharacteristics>
-  <name>Name goes here</name>
+  <name>Namn</name>
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
-    <Color>1.0,1.0,1.0,1.0</Color>
+    <Color>0.81960785,0.70980394,0.39215687,1.0</Color>
   </bodyColor>
   <eyeColor>
-    <Color>1.0,1.0,1.0,1.0</Color>
+    <Color>0.74509805,0.47058824,0.7137255,1.0</Color>
   </eyeColor>
   <maneColor>
-    <Color>1.0,1.0,1.0,1.0</Color>
+    <Color>0.5647059,0.8156863,0.38039216,1.0</Color>
   </maneColor>
   <maneStyle>
     <upperManeStyle>RDUPPERMANE</upperManeStyle>
@@ -16,9 +16,9 @@
     <upperTailStyle>RDUPPERTAIL</upperTailStyle>
     <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
   </maneStyle>
-  <eyeTexture>RDEYE</eyeTexture>
-  <markTexture>RDMARK</markTexture>
-  <race>EARTHPONY</race>
+  <eyeTexture>TSEYE</eyeTexture>
+  <markTexture>MCMARK</markTexture>
+  <race>UNICORN</race>
   <special>
     <Strength>5</Strength>
     <Perception>3</Perception>
