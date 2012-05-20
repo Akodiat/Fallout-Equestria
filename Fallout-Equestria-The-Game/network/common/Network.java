@@ -159,6 +159,9 @@ public class Network {
 		kryo.register(EntityDestroyedMessage.class);
 		kryo.register(GoToScreenMessage.class);
 		kryo.register(PlayerCharacteristics.class);
+		kryo.register(misc.ManeStyle.class);
+		kryo.register(misc.SpecialStats.class);
+		kryo.register(misc.Race.class);
 		kryo.register(Color.class);
 		kryo.register(ChatMessage.class);
 		kryo.register(utils.input.Keyboard.class);
