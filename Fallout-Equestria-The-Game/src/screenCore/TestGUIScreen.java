@@ -27,7 +27,7 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 		
 		Button button1 = new Button();
 		button1.setBounds(x,140,200,50);
-		button1.setText("PonySelector");
+		button1.setText("Multiplayer");
 		this.addGuiControl(button1, new Vector2(vp.Width,140), new Vector2(x,140),new Vector2(vp.Width,140));
 		
 		Button button2 = new Button();
@@ -65,10 +65,6 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 	}
 	
 	protected void gotoMultiplayer() {
-		this.ScreenManager.addScreen("Multiplayer");
-	}
-	
-	protected void gotoPonySelector() {
 		this.ScreenManager.addScreen("PonySelector");
 	}
 
