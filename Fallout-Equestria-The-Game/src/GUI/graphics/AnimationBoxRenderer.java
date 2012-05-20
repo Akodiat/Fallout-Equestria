@@ -17,6 +17,6 @@ public class AnimationBoxRenderer implements IGUIRenderer<AnimationBox>{
 	@Override
 	public void render(SpriteBatch batch, GameTime time, AnimationBox control, LookAndFeel lookAndFeel, RenderTarget2D target) {
 		control.getAnimationPlayer().update(time);
-		control.getAnimationPlayer().draw(batch, control.getDimention().getCenter(), false, 0, Color.White, new Vector2(3,3));
+		control.getAnimationPlayer().draw(batch, control.getDimention().getCenter(), false, 0, Color.White, control.getScale());
 	}
 }

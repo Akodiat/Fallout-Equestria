@@ -55,7 +55,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private PlayerCharacteristics character = new PlayerCharacteristics();
 	private TextureDictionary assetDictionary = this.contentManager.load("rddict.tdict", TextureDictionary.class);
 
-	private Vector2 ponyPosition = new Vector2(1150,200);
+	private Vector2 ponyPosition = new Vector2(1025,96);
 	private Vector2 ponyScale = new Vector2(2,2);
 	
 	private ImageBox bG;
@@ -89,6 +89,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private List<EyeEntries> eyeStyles;
 	private List<MarkEntries> markStyles;
 	
+	private ToggleButton walkButton;
+	
 	private Label nameLabel;
 	private Label bodyLabel;
 	private Label eyeLabel;
@@ -120,9 +122,10 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		addPony();
 		
 		this.ponyBox = new AnimationBox();
-		this.ponyBox.setBounds(0,0,250,250);
+		this.ponyBox.setBounds(0,0,250,208);
+		this.ponyBox.setScale(ponyScale);
 		this.ponyBox.setAnimationPlayer(ponyPlayer);
-		super.addGuiControl(this.ponyBox, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(0,0), 
+		super.addGuiControl(this.ponyBox, new Vector2(0,this.ScreenManager.getViewport().Height), ponyPosition, 
 				new Vector2(0,this.ScreenManager.getViewport().Height));
 		
 		this.maneStyles = new ArrayList<ManeEntries>();
@@ -440,6 +443,18 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		
+		this.walkButton = new ToggleButton();
+		this.walkButton.setBounds(0, 0, 110, 40);
+		this.walkButton.setText("Walk");
+		this.walkButton.addClicked(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				toggleWalkAnimation();
+			}
+		});
+		super.addGuiControl(this.walkButton, new Vector2(0,this.ScreenManager.getViewport().Height), Vector2.add(ponyPosition, new Vector2(70,208)), 
+				new Vector2(0,this.ScreenManager.getViewport().Height));
+		
 		this.racePanel = new Panel();
 		this.racePanel.setBounds(0, 0, 165, 55);
 		this.racePanel.setBgColor(new Color(0,0,0,0.05f));
@@ -497,6 +512,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		
 		changeRaceToEarthpony();
 		this.earthPonyButton.setToggled(true);
+	}
+
+	protected void toggleWalkAnimation() {
+		if(!this.walkButton.isToggled()){
+		this.ponyPlayer.startAnimation("walk");
+		}else{
+			this.ponyPlayer.startAnimation("idle");
+		}
 	}
 
 	protected void changeRaceToEarthpony() {
@@ -639,7 +662,6 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			boolean coveredByOtherScreen) {
 		if(!otherScreeenHasFocus) {
 			super.update(time, otherScreeenHasFocus, coveredByOtherScreen);
-			this.ponyPlayer.update(time);
 		}
 	}
 
@@ -650,10 +672,6 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	
 	@Override
 	public void render(GameTime time, SpriteBatch batch) {
-		super.render(time, batch);
-		batch.begin();
-		this.ponyPlayer.draw(batch, ponyPosition, false, 0, Color.White, ponyScale);
-		batch.end();
 		super.render(time, batch);
 	}
 	

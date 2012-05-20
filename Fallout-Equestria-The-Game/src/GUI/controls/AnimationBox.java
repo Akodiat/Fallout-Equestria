@@ -1,5 +1,6 @@
 package GUI.controls;
 
+import math.Vector2;
 import GUI.graphics.AnimationBoxRenderer;
 import animation.AnimationPlayer;
 
@@ -7,6 +8,7 @@ public class AnimationBox extends GUIControl {
 
 	private AnimationBoxRenderer DEFAULT_RENDERER = new AnimationBoxRenderer();
 	private AnimationPlayer player;
+	private Vector2 scale;
 	
 	public AnimationPlayer getAnimationPlayer() {
 		return player;
@@ -18,5 +20,13 @@ public class AnimationBox extends GUIControl {
 		
 	public AnimationBox() {
 		this.setRenderer(DEFAULT_RENDERER);
+	}
+
+	public Vector2 getScale() {
+		return scale;
+	}
+
+	public void setScale(Vector2 scale) {
+		this.scale = scale;
 	}	
 }
