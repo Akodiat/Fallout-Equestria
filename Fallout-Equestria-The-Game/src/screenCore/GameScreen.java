@@ -105,6 +105,14 @@ public abstract class GameScreen {
 		this.transitionPosition = 1f;
 	}
 	
+	public void onEnter(){
+		
+	}
+	
+	public void onExit(){
+		
+	}
+	
 	public ScreenManager getScreenManager() {
 		return ScreenManager;
 	}

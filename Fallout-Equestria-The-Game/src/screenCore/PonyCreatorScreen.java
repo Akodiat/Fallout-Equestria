@@ -27,7 +27,6 @@ import GUI.controls.Panel;
 import GUI.controls.Slider;
 import GUI.controls.Textfield;
 import GUI.controls.ToggleButton;
-import GUI.graphics.GUIRenderingContext;
 import GUI.graphics.LookAndFeel;
 import math.Vector2;
 import misc.EventArgs;
@@ -38,7 +37,6 @@ import utils.TimeSpan;
 import content.ContentManager;
 import content.PlayerCharacteristicsWriter;
 import graphics.Color;
-import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 
@@ -46,7 +44,6 @@ import graphics.Texture2D;
 public class PonyCreatorScreen extends TransitioningGUIScreen {
 
 	public static final String PonyArchetypePath = "Player.archetype";
-	private GUIRenderingContext context;
 
 	private ContentManager contentManager = new ContentManager("resources");
 	private PlayerCharacteristicsWriter charWriter = new PlayerCharacteristicsWriter(contentManager);
@@ -60,9 +57,9 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	
 	private ImageBox bG;
 	
-	private Button button;
-	private Button button2;
-	private Button button3;
+	private Button prominentDoneButton;
+	private Button backButton;
+	private Button randomButton;
 	private Textfield nameField;
 	
 	private Slider bodyRedSlider;
@@ -125,8 +122,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.ponyBox.setBounds(0,0,250,208);
 		this.ponyBox.setScale(ponyScale);
 		this.ponyBox.setAnimationPlayer(ponyPlayer);
-		super.addGuiControl(this.ponyBox, new Vector2(0,this.ScreenManager.getViewport().Height), ponyPosition, 
-				new Vector2(0,this.ScreenManager.getViewport().Height));
+		super.addGuiControl(this.ponyBox, Vector2.add(ponyPosition, new Vector2(0,this.ScreenManager.getViewport().Height)), ponyPosition, 
+				Vector2.add(ponyPosition, new Vector2(0,this.ScreenManager.getViewport().Height)));
 		
 		this.maneStyles = new ArrayList<ManeEntries>();
 		ManeEntries rDManeStyle = new ManeEntries("Rainbow style!", new ManeStyle("RDUPPERMANE", "RDLOWERMANE", "RDUPPERTAIL", "RDLOWERTAIL"), this.assetDictionary);
@@ -359,20 +356,18 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.nameLabel.setText("Name");
 		this.nameLabel.setBgColor(Color.Transparent);
 		
-		this.button = new Button();
-		this.button.setText("Done!");
-		this.button.setBounds(250,710,200,50);
-		super.addGuiControl(button, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height), 
+		this.prominentDoneButton = new Button();
+		this.prominentDoneButton.setText("Done!");
+		this.prominentDoneButton.setBounds(250,710,200,50);
+		super.addGuiControl(prominentDoneButton, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height + this.ScreenManager.getViewport().Height-200), 
 									 new Vector2(this.ScreenManager.getViewport().Width - 250,this.ScreenManager.getViewport().Height-200), 
-									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height));
+									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height + this.ScreenManager.getViewport().Height-200));
 
 		LookAndFeel feel = contentManager.load(this.lookAndFeelPath, LookAndFeel.class);
 		
 		feel.setDefaultFont(contentManager.loadFont("Monofonto24.xml"));
-		ShaderEffect dissabledEffect = contentManager.loadShaderEffect("GrayScale.effect");
-		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
 
-		this.button.addClicked(new IEventListener<EventArgs>() {
+		this.prominentDoneButton.addClicked(new IEventListener<EventArgs>() {
 
 			@Override
 			public void onEvent(Object sender, EventArgs e) {
@@ -381,16 +376,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 
-		this.button2 = new Button();
-		this.button2.setText("Back");
-		this.button2.setBounds(250,710,200,50);
-		super.addGuiControl(button2, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height), 
+		this.backButton = new Button();
+		this.backButton.setText("Back");
+		this.backButton.setBounds(250,710,200,50);
+		super.addGuiControl(backButton, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height + this.ScreenManager.getViewport().Height-100), 
 									 new Vector2(this.ScreenManager.getViewport().Width - 250,this.ScreenManager.getViewport().Height-100), 
-									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height));
-		feel.setDefaultFont(contentManager.loadFont("Monofonto24.xml"));
-		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
+									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height + this.ScreenManager.getViewport().Height-100));
 
-		this.button2.addClicked(new IEventListener<EventArgs>() {
+		this.backButton.addClicked(new IEventListener<EventArgs>() {
 
 			@Override
 			public void onEvent(Object sender, EventArgs e) {
@@ -398,16 +391,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		
-		this.button3 = new Button();
-		this.button3.setText("Randomize");
-		this.button3.setBounds(250,710,200,50);
-		super.addGuiControl(button3, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height), 
+		this.randomButton = new Button();
+		this.randomButton.setText("Randomize");
+		this.randomButton.setBounds(250,710,200,50);
+		super.addGuiControl(randomButton, new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height + this.ScreenManager.getViewport().Height-300), 
 									 new Vector2(this.ScreenManager.getViewport().Width - 250,this.ScreenManager.getViewport().Height-300), 
-									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height));
-		feel.setDefaultFont(contentManager.loadFont("Monofonto24.xml"));
-		context = new GUIRenderingContext(this.ScreenManager.getSpriteBatch(), feel, dissabledEffect);
+									 new Vector2(this.ScreenManager.getViewport().Width - 250, this.ScreenManager.getViewport().Height + this.ScreenManager.getViewport().Height-300));
 
-		this.button3.addClicked(new IEventListener<EventArgs>() {
+		this.randomButton.addClicked(new IEventListener<EventArgs>() {
 
 			@Override
 			public void onEvent(Object sender, EventArgs e) {
@@ -452,8 +443,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 				toggleWalkAnimation();
 			}
 		});
-		super.addGuiControl(this.walkButton, new Vector2(0,this.ScreenManager.getViewport().Height), Vector2.add(ponyPosition, new Vector2(70,208)), 
-				new Vector2(0,this.ScreenManager.getViewport().Height));
+		super.addGuiControl(this.walkButton, Vector2.add(Vector2.add(ponyPosition, new Vector2(70,208)), new Vector2(0,this.ScreenManager.getViewport().Height)), Vector2.add(ponyPosition, new Vector2(70,208)), 
+				Vector2.add(Vector2.add(ponyPosition, new Vector2(70,208)), new Vector2(0,this.ScreenManager.getViewport().Height)));
 		
 		this.racePanel = new Panel();
 		this.racePanel.setBounds(0, 0, 165, 55);
@@ -462,16 +453,16 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.racePanel.addChild(this.earthPonyButton);
 		this.racePanel.addChild(this.pegasusButton);
 		this.racePanel.addChild(this.unicornButton);
-		super.addGuiControl(this.racePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(50,200), 
-		new Vector2(0,this.ScreenManager.getViewport().Height));
+		super.addGuiControl(this.racePanel, Vector2.add(new Vector2(50,200), new Vector2(0,this.ScreenManager.getViewport().Height)), new Vector2(50,200), 
+				Vector2.add(new Vector2(50,200), new Vector2(0,this.ScreenManager.getViewport().Height)));
 		
 		this.namePanel = new Panel();
 		this.namePanel.setBounds(0, 0, 250, 100);
 		this.namePanel.setBgColor(new Color(0,0,0,0.05f));
 		this.namePanel.addChild(nameLabel);
 		this.namePanel.addChild(this.nameField);
-		super.addGuiControl(this.namePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(100,50), 
-		new Vector2(0,this.ScreenManager.getViewport().Height));
+		super.addGuiControl(this.namePanel, new Vector2(100,this.ScreenManager.getViewport().Height + 50), new Vector2(100,50), 
+		new Vector2(100,this.ScreenManager.getViewport().Height + 50));
 		
 		this.bodyPanel = new Panel();
 		this.bodyPanel.setBounds(0, 0, 250, 500);
@@ -481,8 +472,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.bodyPanel.addChild(this.bodyGreenSlider);
 		this.bodyPanel.addChild(this.bodyBlueSlider);
 		this.bodyPanel.addChild(this.markComboBox);
-		super.addGuiControl(this.bodyPanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(50,300), 
-		new Vector2(0,this.ScreenManager.getViewport().Height));
+		super.addGuiControl(this.bodyPanel, new Vector2(50,this.ScreenManager.getViewport().Height + 300), new Vector2(50,300), 
+		new Vector2(50,this.ScreenManager.getViewport().Height + 300));
 		
 		this.eyePanel = new Panel();
 		this.eyePanel.setBounds(0, 0, 250, 500);
@@ -492,8 +483,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.eyePanel.addChild(this.eyeRedSlider);
 		this.eyePanel.addChild(this.eyeGreenSlider);
 		this.eyePanel.addChild(this.eyeBlueSlider);
-		super.addGuiControl(this.eyePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(350,300), 
-		new Vector2(0,this.ScreenManager.getViewport().Height));
+		super.addGuiControl(this.eyePanel, new Vector2(350,this.ScreenManager.getViewport().Height + 300), new Vector2(350,300), 
+		new Vector2(350,this.ScreenManager.getViewport().Height + 300));
 		
 		this.manePanel = new Panel();
 		this.manePanel.setBounds(0, 0, 250, 500);
@@ -503,8 +494,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.manePanel.addChild(this.maneRedSlider);
 		this.manePanel.addChild(this.maneGreenSlider);
 		this.manePanel.addChild(this.maneBlueSlider);
-		super.addGuiControl(this.manePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(650,300), 
-		new Vector2(0,this.ScreenManager.getViewport().Height));
+		super.addGuiControl(this.manePanel, new Vector2(650,this.ScreenManager.getViewport().Height + 300), new Vector2(650,300), 
+		new Vector2(650 ,this.ScreenManager.getViewport().Height + 300));
 		
 		setBodyColor();
 		setEyeColor();

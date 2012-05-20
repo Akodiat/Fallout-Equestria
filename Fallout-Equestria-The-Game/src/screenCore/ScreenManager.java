@@ -154,13 +154,14 @@ public class ScreenManager {
 		if(this.isInitialized) {
 			screen.initialize(this.contentManager);
 		}
-		
+		screen.onEnter();
 		System.out.println("Screen:" + screenID);
 	}
 	
 	public void removeScreen(String screenID) {
 		GameScreen screen = this.avalibleScreens.get(screenID);
 		if(screen != null) {
+			screen.onExit();
 			activeScreens.remove(screen);
 			screensToUpdate.remove(screen);
 		}
