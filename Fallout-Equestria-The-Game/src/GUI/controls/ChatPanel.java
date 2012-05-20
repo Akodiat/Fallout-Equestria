@@ -76,7 +76,8 @@ public class ChatPanel extends Panel {
 		this.area.appendText(text);
 		this.area.setScrollOffset(this.area.getMaxScrollOffset());
 	}
-
+	
+	
 	protected void sendPressed() {
 		String text = this.inputField.getText();
 		if(text.length() > 0) {

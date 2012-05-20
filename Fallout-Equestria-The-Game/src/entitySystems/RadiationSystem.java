@@ -31,7 +31,7 @@ public class RadiationSystem extends EntitySingleProcessingSystem {
 
 	@Override
 	protected void processEntity(IEntity entity) {
-		ImmutableSet<IEntity> radiatingEntities = this.getWorld().getDatabase().getEntitysContainingComponent(RadiationComp.class);
+		/*ImmutableSet<IEntity> radiatingEntities = this.getWorld().getDatabase().getEntitysContainingComponent(RadiationComp.class);
 
 		entityBounds = entity.getComponent(SpatialComp.class).getBounds();
 
@@ -52,15 +52,15 @@ public class RadiationSystem extends EntitySingleProcessingSystem {
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	private void assignRadiationComp(IEntity entityToRadiate, IEntity radiatingEntity) {
 		if(entityToRadiate.getComponent(RadiationComp.class) == null) {
-			float radius = entityToRadiate.getComponent(SpatialComp.class).getBounds().getRadius();
+	/*		float radius = entityToRadiate.getComponent(SpatialComp.class).getBounds().getRadius();
 
 			entityToRadiate.addComponent(new RadiationComp(new Circle(Vector2.Zero, radius), 1));
-			entityToRadiate.refresh();
+			entityToRadiate.refresh();*/
 		} 
 	}
 }

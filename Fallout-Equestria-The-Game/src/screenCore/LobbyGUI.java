@@ -1,15 +1,17 @@
 package screenCore;
 
-import clientNetworkSystems.ClientScreenChangeNetworkSystem;
-
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+
+import common.ChatMessage;
 import common.GoToScreenMessage;
 
 import graphics.Color;
 import math.Vector2;
+import misc.ChatHelper;
 import misc.EventArgs;
 import misc.IEventListener;
+import GUI.TextEventArgs;
 import GUI.controls.Button;
 import GUI.controls.ChatPanel;
 import GUI.controls.Label;
@@ -24,7 +26,8 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	private Connection[] connections;
 	private Object lock = new Object();
 	private GoToScreenMessage message = null;
-
+	private ChatHelper chatHelper;
+	
 	public LobbyGUI(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
 	}
@@ -105,6 +108,8 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		chat.setFont(manager.loadFont("arialb20.xml"));
 		this.addGuiControl(chat, new Vector2(0,768), new Vector2(0,500), new Vector2(0,768));
 		
+		this.chatHelper = new ChatHelper(chat, this.ScreenManager.getNetwork());
+		
 		Label playersLabel = new Label();
 		playersLabel.setBounds(-1000, -1000, 200, 30);
 		playersLabel.setText("Connected players:");
@@ -118,11 +123,12 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		this.addGuiControl(playerListBox, new Vector2(vp.Width, 60), new Vector2(x, 60), new Vector2(vp.Width, 60));
 	}
 	
+	
 	public void updatePlayerList() {
 		this.connections = this.ScreenManager.getNetwork().getServer().getConnections();
 		for(int i = 0; i < connections.length; i++) {
 			if(connections[i].isConnected()) {
-				playerListBox.addItem(connections[i].getRemoteAddressTCP().getHostName());
+				//playerListBox.addItem(connections[i].getRemoteAddressTCP().getHostName());
 			} else {
 				playerListBox.removeItem(connections[i].getRemoteAddressTCP().getHostName());
 			}
@@ -156,6 +162,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				}	
 			});
 		}
+		this.chatHelper.intiialize();
 	}
 	private void changeScreen(String newScreen){
 			ScreenManager.getNetwork().removeAllListeners();
@@ -165,6 +172,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	public void update(GameTime time, boolean otherScreeenHasFocus,
 			boolean coveredByOtherScreen) {
 		super.update(time, otherScreeenHasFocus, coveredByOtherScreen);
+		this.chatHelper.update();
 		
 		synchronized(lock){
 			if(this.message != null){
