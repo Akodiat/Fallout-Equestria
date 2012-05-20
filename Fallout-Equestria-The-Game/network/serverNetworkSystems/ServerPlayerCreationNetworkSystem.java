@@ -60,7 +60,7 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
 		AnimationComp animComp = entity.getComponent(AnimationComp.class);
-		animComp.setAnimationPlayer(AnimationFromCharacterHelper.animationPlayerFromCharacter(playerProperties, contentManager));
+		animComp.setAnimationPlayer(AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager));
 
 		entity.getComponent(InputComp.class).setKeyboard(new Keyboard());
 		entity.getComponent(InputComp.class).setMouse(new Mouse());
