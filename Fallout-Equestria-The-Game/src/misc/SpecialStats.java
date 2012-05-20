@@ -8,6 +8,9 @@ public class SpecialStats {
 	public int Intelligence;
 	public int Agility;
 	public int Luck;
+	
+	public SpecialStats() { }
+	
 	public SpecialStats(int strength, int perception, int endurance,
 			int charisma, int intelligence, int agility, int luck) {
 		Strength = strength;
