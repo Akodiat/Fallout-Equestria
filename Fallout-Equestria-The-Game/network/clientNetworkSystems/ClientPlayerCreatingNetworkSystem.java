@@ -1,5 +1,6 @@
 package clientNetworkSystems;
 
+import misc.AnimationFromCharacterHelper;
 import misc.PlayerCharacteristics;
 import misc.PonyColorChangeHelper;
 import behavior.PlayerScript;
@@ -48,11 +49,8 @@ public class ClientPlayerCreatingNetworkSystem extends ClientNetworkSystem<NewPl
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);	
 		AnimationComp animComp = entity.getComponent(AnimationComp.class);
+		animComp.setAnimationPlayer(AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager));
 		animComp.changeAnimation("idle", true);
-		
-		PonyColorChangeHelper.setBodyColor(message.playerCharacteristics.bodyColor, animComp);
-		PonyColorChangeHelper.setEyeColor( message.playerCharacteristics.eyeColor, animComp);
-		PonyColorChangeHelper.setManeColor(message.playerCharacteristics.maneColor, animComp);
 		
 		if(message.senderID == this.getClient().getID())
 			entity.addToGroup(CameraControlSystem.GROUP_NAME);

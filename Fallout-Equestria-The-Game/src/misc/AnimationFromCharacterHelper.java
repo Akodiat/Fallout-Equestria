@@ -10,7 +10,7 @@ public class AnimationFromCharacterHelper {
 	public static final String animSetPath = "rdset.animset";
 
 	public static AnimationPlayer animationPlayerFromCharacter(PlayerCharacteristics pChar, ContentManager manager){
-		AnimationPlayer player = manager.load(animSetPath, AnimationPlayer.class);
+		AnimationPlayer player = manager.load(animSetPath, AnimationPlayer.class).clone();
 		TextureDictionary assetDictionary = manager.load(assetDictionaryPath, TextureDictionary.class);
 
 		PonyColorChangeHelper.setBodyColor(pChar.bodyColor, player);
