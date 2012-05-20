@@ -10,7 +10,6 @@ import screenCore.GOLScreen;
 import screenCore.HostScreen;
 import screenCore.Level;
 import screenCore.LobbyGUI;
-import screenCore.LobbyWorld;
 import screenCore.ConnectScreen;
 import screenCore.MultiplayerScreen;
 import screenCore.PausScreen;
@@ -76,7 +75,6 @@ public class ScreenDemo extends Demo{
 		ConnectScreen screen6 = new ConnectScreen("gui.tdict");
 		HostScreen screen7 = new HostScreen("gui.tdict");
 		LobbyGUI screen8 = new LobbyGUI("gui.tdict");
-		LobbyWorld screen9 = new LobbyWorld();
 		MultiplayerScreen screen10 = new MultiplayerScreen("gui.tdict");
 		Level screen11 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "PerspectiveV5.xml");
 		Level screen12 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "Lobby.xml");
@@ -91,7 +89,6 @@ public class ScreenDemo extends Demo{
 		this.screenManager.registerScreen("Connect", screen6);
 		this.screenManager.registerScreen("Host", screen7);
 		this.screenManager.registerScreen("LobbyGUI", screen8);
-		this.screenManager.registerScreen("LobbyWorld", screen9);
 		this.screenManager.registerScreen("Multiplayer", screen10);
 		this.screenManager.registerScreen("Level1", screen11);
 		this.screenManager.registerScreen("Lobby", screen12);
