@@ -2,6 +2,7 @@ package serverNetworkSystems;
 
 import java.util.HashMap;
 import java.util.Map;
+<<<<<<< HEAD
 import scripting.PlayerScript;
 import utils.Keyboard;
 import utils.Mouse;
@@ -9,13 +10,24 @@ import utils.Network;
 import animation.AnimationFromCharacterHelper;
 import animation.PonyColorChangeHelper;
 import com.esotericsoftware.kryonet.Server;
+=======
+
+import misc.PlayerCharacteristics;
+import misc.PonyColorChangeHelper;
+
+import utils.input.Keyboard;
+import utils.input.Mouse;
+import behavior.PlayerScript;
+
+>>>>>>> Started a dependency refactoring of the project makng sure classes are where they should be
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
 import entityFramework.IEntityWorld;
 import entitySystems.CameraControlSystem;
 import com.esotericsoftware.kryonet.Connection;
-import common.NewPlayerMessage;
-import common.PlayerCharacteristics;
+
+import common.Network;
+import common.messages.NewPlayerMessage;
 import components.AnimationComp;
 import components.BehaviourComp;
 import components.InputComp;

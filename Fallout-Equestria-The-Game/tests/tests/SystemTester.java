@@ -1,7 +1,7 @@
 package tests;
 
-import utils.Clock;
-import utils.GameTime;
+import utils.time.Clock;
+import utils.time.GameTime;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

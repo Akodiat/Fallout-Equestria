@@ -1,6 +1,6 @@
 package GUI;
 
-import misc.EventArgs;
+import utils.EventArgs;
 
 public class ItemEventArgs<T> extends EventArgs{
 	private final T item;

@@ -1,6 +1,6 @@
 package GUI;
 
-import misc.EventArgs;
+import utils.EventArgs;
 import utils.Rectangle;
 
 public class ResizedEventArgs extends EventArgs{

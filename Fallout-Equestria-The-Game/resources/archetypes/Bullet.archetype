@@ -10,7 +10,7 @@
         </color>
       </Rendering>
       <Behaviour>
-        <behavior class="scripting.BulletBehavior">
+        <behavior class="behavior.BulletBehavior">
           <initialized>false</initialized>
           <enabled>false</enabled>
           <damage>10.0</damage>

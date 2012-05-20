@@ -13,9 +13,9 @@ import math.Point2;
 import math.Vector2;
 import graphics.Color;
 import graphics.TextureFont;
-import utils.Mouse;
-import utils.MouseButton;
 import utils.Rectangle;
+import utils.input.Mouse;
+import utils.input.MouseButton;
 
 public class ListBox<T> extends GUISelector<T> {
 	private static final ListBoxRenderer DEFAULT_RENDERER = new ListBoxRenderer();

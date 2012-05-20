@@ -8,7 +8,7 @@ import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import graphics.TextureFont;
-import utils.GameTime;
+import utils.time.GameTime;
 
 public class ButtonRenderer implements IGUIRenderer<ButtonBase>{
 

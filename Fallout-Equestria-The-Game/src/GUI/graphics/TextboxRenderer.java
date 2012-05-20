@@ -7,8 +7,8 @@ import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import graphics.TextureFont;
-import utils.GameTime;
 import utils.Rectangle;
+import utils.time.GameTime;
 
 public class TextboxRenderer implements IGUIRenderer<Textfield>{
 	private static final String DEFAULT_BACKGROUND = LookAndFeelAssets.Textfield_BG.toString();

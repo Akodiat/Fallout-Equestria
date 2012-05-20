@@ -1,11 +1,12 @@
 package uinttests;
 import static org.junit.Assert.*;
-import misc.IEventListener;
-import misc.TimerEventArgs;
 
 import org.junit.Test;
-import utils.TimeSpan;
-import utils.Timer;
+
+import utils.IEventListener;
+import utils.TimerEventArgs;
+import utils.time.TimeSpan;
+import utils.time.Timer;
 
 public class TimerTests {
 

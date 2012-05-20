@@ -4,7 +4,7 @@ import GUI.LookAndFeelAssets;
 import GUI.controls.ScrollBar;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import utils.GameTime;
+import utils.time.GameTime;
 
 public class ScrollBarRenderer implements IGUIRenderer<ScrollBar>{
 	

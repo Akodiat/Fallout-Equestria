@@ -3,12 +3,13 @@ package clientNetworkSystems;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Network;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import common.NetworkMessage;
+
+import common.Network;
+import common.messages.NetworkMessage;
 
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.EntitySystem;

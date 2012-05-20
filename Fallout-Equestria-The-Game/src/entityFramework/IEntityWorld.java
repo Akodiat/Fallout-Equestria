@@ -1,6 +1,6 @@
 package entityFramework;
 
-import utils.GameTime;
+import utils.time.GameTime;
 
 public interface IEntityWorld {
 

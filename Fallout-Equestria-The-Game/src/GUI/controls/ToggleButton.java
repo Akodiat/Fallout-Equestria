@@ -1,7 +1,7 @@
 package GUI.controls;
 
-import utils.Mouse;
-import utils.MouseButton;
+import utils.input.Mouse;
+import utils.input.MouseButton;
 import GUI.graphics.ButtonRenderer;
 
 public class ToggleButton extends ButtonBase {

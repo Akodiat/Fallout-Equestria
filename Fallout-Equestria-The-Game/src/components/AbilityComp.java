@@ -1,6 +1,6 @@
 package components;
 
-import utils.GameTime;
+import utils.time.GameTime;
 import ability.Ability;
 import anotations.Editable;
 

@@ -1,13 +1,13 @@
 package screenCore;
 
 import math.Vector2;
-import misc.EventArgs;
-import misc.IEventListener;
 import GUI.controls.Button;
 import GUI.controls.ImageBox;
 import content.ContentManager;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
-import utils.TimeSpan;
+import utils.time.TimeSpan;
 
 public class TestGUIScreen extends TransitioningGUIScreen {
 

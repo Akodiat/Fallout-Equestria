@@ -11,7 +11,7 @@ import java.util.List;
 
 import GUI.controls.GUIControl;
 import math.Matrix4;
-import utils.GameTime;
+import utils.time.GameTime;
 
 public class GUIRenderingContext {
 

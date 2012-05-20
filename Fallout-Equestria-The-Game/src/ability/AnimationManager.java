@@ -1,6 +1,6 @@
 package ability;
 
-import utils.GameTime;
+import utils.time.GameTime;
 
 public class AnimationManager {
 	private Ability activeAbility;

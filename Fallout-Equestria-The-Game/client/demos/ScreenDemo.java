@@ -1,9 +1,15 @@
 package demos;
 
+<<<<<<< HEAD
 import common.PlayerCharacteristics;
 
 import animation.PonyColorChangeHelper;
 import misc.SoundManager;
+=======
+import common.Network;
+
+import misc.PonyColorChangeHelper;
+>>>>>>> Started a dependency refactoring of the project makng sure classes are where they should be
 import graphics.Color;
 import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
@@ -20,13 +26,13 @@ import screenCore.PonySelector;
 import screenCore.ScreenManager;
 import screenCore.Test2GUIScreen;
 import screenCore.TestGUIScreen;
-import utils.GameTime;
-import utils.Keyboard;
-import utils.Mouse;
-import utils.Network;
-import utils.TimeSpan;
+import sounds.SoundManager;
 import content.ContentManager;
 import utils.Rectangle;
+import utils.input.Keyboard;
+import utils.input.Mouse;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 
 public class ScreenDemo extends Demo{
 	private static Rectangle screenDim = new Rectangle(0,0,1366,768);

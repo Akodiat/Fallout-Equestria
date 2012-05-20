@@ -1,26 +1,28 @@
 package serverNetworkSystems;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import utils.Network;
+import utils.IEventListener;
+
 
 import com.esotericsoftware.kryonet.Connection;
 
 import misc.EntityGroups;
-import misc.IEventListener;
 
 import entityFramework.EntityDestroyedListener;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import entityFramework.IEntityWorld;
-import com.esotericsoftware.kryonet.Server;
-import common.EntityCreatedMessage;
-import common.EntityDestroyedMessage;
 import common.EntityEventArgs;
+import common.Network;
 import common.NetworkedEntityFactory;
-import common.NewPlayerMessage;
+import common.messages.EntityCreatedMessage;
+import common.messages.EntityDestroyedMessage;
+import common.messages.NewPlayerMessage;
 import components.TransformationComp;
 
 public class ServerEntityCreationNetwork extends ServerNetworkSystem{

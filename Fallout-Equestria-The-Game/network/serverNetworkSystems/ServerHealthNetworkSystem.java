@@ -1,9 +1,8 @@
 package serverNetworkSystems;
 
-import utils.Network;
-import common.HealthChangedMessage;
+import common.Network;
+import common.messages.HealthChangedMessage;
 import components.HealthComp;
-import com.esotericsoftware.kryonet.Server;
 
 import entityFramework.ComponentMapper;
 import entityFramework.IEntity;

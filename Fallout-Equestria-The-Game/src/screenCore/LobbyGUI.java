@@ -3,23 +3,23 @@ package screenCore;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import common.ChatMessage;
-import common.GoToScreenMessage;
+import common.messages.ChatMessage;
+import common.messages.GoToScreenMessage;
 
 import graphics.Color;
 import math.Vector2;
 import misc.ChatHelper;
-import misc.EventArgs;
-import misc.IEventListener;
 import GUI.TextEventArgs;
 import GUI.controls.Button;
 import GUI.controls.ChatPanel;
 import GUI.controls.Label;
 import GUI.controls.ListBox;
 import content.ContentManager;
-import utils.GameTime;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
-import utils.TimeSpan;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 
 public class LobbyGUI extends TransitioningGUIScreen{
 	private ListBox<String> playerListBox;
@@ -72,7 +72,6 @@ public class LobbyGUI extends TransitioningGUIScreen{
 					
 					LobbyGUI.this.getScreenManager().removeAllScreens();
 					LobbyGUI.this.getScreenManager().addScreen(screenName);
-					
 					ScreenManager.getNetwork().getServer().sendToAllTCP(message);
 				}
 			});
@@ -165,7 +164,10 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		this.chatHelper.intiialize();
 	}
 	private void changeScreen(String newScreen){
+		if(!newScreen.equals("Level1"))
+			throw new Error(newScreen);
 			ScreenManager.getNetwork().removeAllListeners();
+			ScreenManager.removeAllScreens();
 			ScreenManager.addScreen(newScreen);
 	}
 	@Override

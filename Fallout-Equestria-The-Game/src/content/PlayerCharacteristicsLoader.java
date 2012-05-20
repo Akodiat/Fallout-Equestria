@@ -2,9 +2,11 @@ package content;
 
 import java.io.InputStream;
 
+import misc.PlayerCharacteristics;
+
+
 import com.thoughtworks.xstream.XStream;
 
-import common.PlayerCharacteristics;
 
 import content.serilazation.ColorConverter;
 

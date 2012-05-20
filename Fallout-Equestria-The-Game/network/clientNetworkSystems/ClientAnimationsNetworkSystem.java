@@ -1,9 +1,7 @@
 package clientNetworkSystems;
 
-import utils.Network;
-
-import com.esotericsoftware.kryonet.Client;
-import common.AnimationChangedMessage;
+import common.Network;
+import common.messages.AnimationChangedMessage;
 import components.AnimationComp;
 import entityFramework.*;
 

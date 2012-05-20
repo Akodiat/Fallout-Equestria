@@ -1,7 +1,6 @@
 package demos;
 
 import math.Point2;
-import misc.IEventListener;
 import GUI.*;
 import GUI.controls.*;
 import GUI.graphics.*;
@@ -9,6 +8,9 @@ import GUI.graphics.*;
 import content.ContentManager;
 import graphics.*;
 import utils.*;
+import utils.input.Keyboard;
+import utils.input.Mouse;
+import utils.time.GameTime;
 
 public class GUIDemo extends Demo {
 	private static Rectangle screenDim = new Rectangle(0,0,1366,768);

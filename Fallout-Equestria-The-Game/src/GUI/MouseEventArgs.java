@@ -1,8 +1,8 @@
 package GUI;
 
-import utils.MouseButton;
-import utils.MouseState;
-import misc.EventArgs;
+import utils.EventArgs;
+import utils.input.MouseButton;
+import utils.input.MouseState;
 
 public class MouseEventArgs extends EventArgs{
 	private final MouseState ms;

@@ -17,9 +17,9 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import utils.Clock;
-import utils.GameTime;
 import utils.Rectangle;
+import utils.time.Clock;
+import utils.time.GameTime;
 import content.ContentManager;
 
 public class SpriteBatch_Benchmark {

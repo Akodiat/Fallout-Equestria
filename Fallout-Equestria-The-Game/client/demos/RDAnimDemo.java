@@ -1,11 +1,11 @@
 package demos;
 
+import behavior.PlayerScript;
 import math.Vector2;
-import misc.SoundManager;
+import misc.PonyColorChangeHelper;
 import animation.Animation;
 import animation.AnimationPlayer;
 import animation.Bones;
-import animation.PonyColorChangeHelper;
 import animation.TextureDictionary;
 import components.*;
 import entityFramework.*;
@@ -13,12 +13,13 @@ import entitySystems.CameraControlSystem;
 import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
-import scripting.PlayerScript;
+import sounds.SoundManager;
+import systembuilders.WorldBuilder;
 import utils.Camera2D;
-import utils.GameTime;
-import utils.Keyboard;
-import utils.Mouse;
 import utils.Rectangle;
+import utils.input.Keyboard;
+import utils.input.Mouse;
+import utils.time.GameTime;
 
 public class RDAnimDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";

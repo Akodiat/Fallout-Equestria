@@ -2,11 +2,11 @@ package GUI.controls;
 
 import graphics.Texture2D;
 import graphics.TextureFont;
+import utils.Event;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
 import GUI.MouseEventArgs;
-import misc.Event;
-import misc.EventArgs;
-import misc.IEventListener;
 
 public class Spinner extends Panel {
 	private static final int margin = 5;

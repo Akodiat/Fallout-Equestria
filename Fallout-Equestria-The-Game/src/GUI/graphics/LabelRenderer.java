@@ -6,7 +6,7 @@ import math.Vector2;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.TextureFont;
-import utils.GameTime;
+import utils.time.GameTime;
 
 public class LabelRenderer implements IGUIRenderer<Label>{
 	

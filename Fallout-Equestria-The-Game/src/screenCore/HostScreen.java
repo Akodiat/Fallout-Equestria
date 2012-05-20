@@ -1,17 +1,15 @@
 package screenCore;
 import graphics.Color;
 import math.Vector2;
-import misc.EventArgs;
-import misc.IEventListener;
 import GUI.controls.Button;
 import GUI.controls.Textfield;
 import content.ContentManager;
-import utils.ServerInfo;
-import utils.TimeSpan;
+import utils.EventArgs;
+import utils.IEventListener;
+import utils.time.TimeSpan;
 
 public class HostScreen extends TransitioningGUIScreen{
 	private Textfield textField;
-	private ServerInfo serverInfo;
 	
 	public HostScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -44,7 +42,6 @@ public class HostScreen extends TransitioningGUIScreen{
 					
 				} else {
 					startServer();
-					serverInfo = new ServerInfo(textField.getText());
 				}
 			}
 		});

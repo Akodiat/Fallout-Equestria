@@ -1,9 +1,7 @@
 package graphics;
 
 import java.util.Map;
-
 import math.Vector2;
-
 import utils.Rectangle;
 
 public class TextureFont {

@@ -4,8 +4,8 @@ import GUI.LookAndFeelAssets;
 import GUI.controls.Slider;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import utils.GameTime;
 import utils.Rectangle;
+import utils.time.GameTime;
 
 public class SliderRenderer implements IGUIRenderer<Slider>{
 	public static final String DEFAULT_SLIDER_BACKGROUND = LookAndFeelAssets.Slider_BG.toString();

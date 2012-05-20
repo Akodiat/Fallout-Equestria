@@ -4,7 +4,7 @@ import components.TransformationComp;
 
 import math.Vector2;
 import entityFramework.IEntityArchetype;
-import utils.GameTime;
+import utils.time.GameTime;
 
 public class BulletAbility extends Ability {
 	private IEntityArchetype bulletArchetype;

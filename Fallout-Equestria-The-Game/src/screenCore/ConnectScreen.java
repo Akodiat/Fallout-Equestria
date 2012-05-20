@@ -7,19 +7,16 @@ import com.esotericsoftware.kryonet.Client;
 
 import graphics.Color;
 import math.Vector2;
-import misc.EventArgs;
-import misc.IEventListener;
 import GUI.controls.Button;
-import GUI.controls.GUIControl;
 import GUI.controls.Label;
 import GUI.controls.ListBox;
 import content.ContentManager;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
-import utils.ServerLoader;
-import utils.TimeSpan;
+import utils.time.TimeSpan;
 
 public class ConnectScreen extends TransitioningGUIScreen{
-	private ServerLoader loader;
 	private Client client;
 	private ListBox<String> serverListBox;
 	private List<InetAddress> addresses;

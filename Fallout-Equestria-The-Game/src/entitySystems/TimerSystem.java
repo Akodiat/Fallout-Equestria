@@ -2,8 +2,8 @@ package entitySystems;
 
 import java.util.List;
 
-import utils.TimeSpan;
-import utils.Timer;
+import utils.time.TimeSpan;
+import utils.time.Timer;
 
 
 import components.TimerComp;

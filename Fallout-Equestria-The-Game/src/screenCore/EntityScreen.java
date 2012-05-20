@@ -1,10 +1,10 @@
 package screenCore;
 
+import systembuilders.WorldBuilder;
 import utils.Camera2D;
-import utils.GameTime;
-import utils.TimeSpan;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 import content.ContentManager;
-import demos.WorldBuilder;
 import entityFramework.IEntityManager;
 import entityFramework.IEntitySystemManager;
 import entityFramework.IEntityWorld;

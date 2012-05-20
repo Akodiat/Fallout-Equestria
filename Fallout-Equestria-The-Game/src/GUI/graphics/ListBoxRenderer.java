@@ -12,8 +12,8 @@ import com.google.common.collect.ImmutableList;
 import graphics.Color;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import utils.GameTime;
 import utils.Rectangle;
+import utils.time.GameTime;
 
 @SuppressWarnings("rawtypes")
 public class ListBoxRenderer implements IGUIRenderer<ListBox>{

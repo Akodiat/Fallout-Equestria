@@ -2,12 +2,12 @@ package screenCore;
 
 import graphics.Color;
 import math.Vector2;
-import misc.EventArgs;
-import misc.IEventListener;
 import GUI.controls.Button;
 import content.ContentManager;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
-import utils.TimeSpan;
+import utils.time.TimeSpan;
 
 public class Test2GUIScreen extends TransitioningGUIScreen {
 

@@ -1,13 +1,12 @@
 package serverNetworkSystems;
 
-import utils.Network;
-import misc.AnimationChangeEventArgs;
-import misc.IEventListener;
+import animation.AnimationChangeEventArgs;
+import utils.IEventListener;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
-import com.esotericsoftware.kryonet.Server;
 
-import common.AnimationChangedMessage;
+import common.Network;
+import common.messages.AnimationChangedMessage;
 import components.AnimationComp;
 
 public class ServerAnimationNetworkSystem extends ServerNetworkSystem {

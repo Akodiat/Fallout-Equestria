@@ -9,10 +9,10 @@ import graphics.Color;
 import graphics.TextureFont;
 import GUI.IItemFormater;
 import GUI.ItemEventArgs;
-import misc.EventArgs;
-import misc.IEventListener;
-import utils.Mouse;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
+import utils.input.Mouse;
 
 
 public class ComboBox<T> extends Panel implements ISelector<T>  {

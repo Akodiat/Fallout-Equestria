@@ -15,17 +15,17 @@ import GUI.graphics.IGUIRenderer;
 
 
 import math.Point2;
-import misc.Event;
-import misc.EventArgs;
-import misc.IEventListener;
 
-import utils.GameTime;
-import utils.Keyboard;
-import utils.KeyboardKey;
-import utils.Mouse;
-import utils.MouseButton;
-import utils.MouseState;
+import utils.Event;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
+import utils.input.Keyboard;
+import utils.input.KeyboardKey;
+import utils.input.Mouse;
+import utils.input.MouseButton;
+import utils.input.MouseState;
+import utils.time.GameTime;
 
 public abstract class GUIControl {
 	private GUIControl parent;

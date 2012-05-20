@@ -1,12 +1,6 @@
 package entitySystems;
 
-
-import math.Vector2;
-
-import com.google.common.collect.ImmutableSet;
-
 import utils.BoundingBox;
-import utils.Circle;
 
 import components.RadiationComp;
 import components.SpatialComp;
@@ -17,7 +11,9 @@ import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
 
 public class RadiationSystem extends EntitySingleProcessingSystem {
+	@SuppressWarnings("unused")
 	private static final float RADIATIONRATE = 0.001f;
+	@SuppressWarnings("unused")
 	private BoundingBox entityBounds;
 	
 	public RadiationSystem(IEntityWorld world) {
@@ -55,6 +51,7 @@ public class RadiationSystem extends EntitySingleProcessingSystem {
 		}*/
 	}
 
+	@SuppressWarnings("unused")
 	private void assignRadiationComp(IEntity entityToRadiate, IEntity radiatingEntity) {
 		if(entityToRadiate.getComponent(RadiationComp.class) == null) {
 	/*		float radius = entityToRadiate.getComponent(SpatialComp.class).getBounds().getRadius();

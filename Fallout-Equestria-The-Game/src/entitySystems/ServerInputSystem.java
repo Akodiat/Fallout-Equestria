@@ -1,6 +1,6 @@
 package entitySystems;
-import utils.Keyboard;
-import utils.Mouse;
+import utils.input.Keyboard;
+import utils.input.Mouse;
 
 import entityFramework.*;
 import components.InputComp;

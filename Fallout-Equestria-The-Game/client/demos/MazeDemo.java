@@ -2,9 +2,10 @@ package demos;
 
 import org.lwjgl.opengl.Display;
 
+import behavior.PlayerScript;
+
 import math.MathHelper;
 import math.Vector2;
-import misc.SoundManager;
 import animation.Animation;
 import animation.AnimationPlayer;
 import components.*;
@@ -16,12 +17,13 @@ import gameMap.TexturedSceneNode;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.SpriteBatch.SortMode;
-import scripting.PlayerScript;
+import sounds.SoundManager;
+import systembuilders.WorldBuilder;
 import utils.Camera2D;
-import utils.GameTime;
-import utils.Keyboard;
-import utils.Mouse;
 import utils.Rectangle;
+import utils.input.Keyboard;
+import utils.input.Mouse;
+import utils.time.GameTime;
 
 public class MazeDemo extends Demo {
 	private static final String playerAsset = "Player.archetype";

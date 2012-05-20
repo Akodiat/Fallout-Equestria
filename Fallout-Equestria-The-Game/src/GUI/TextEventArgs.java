@@ -1,6 +1,6 @@
 package GUI;
 
-import misc.EventArgs;
+import utils.EventArgs;
 
 public class TextEventArgs extends EventArgs {
 	private final String text;

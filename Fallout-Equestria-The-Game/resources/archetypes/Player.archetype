@@ -16,7 +16,7 @@
         </animationPlayer>
       </Animation>
       <Behaviour>
-        <behavior class="scripting.PlayerScript">
+        <behavior class="behavior.PlayerScript">
           <initialized>false</initialized>
           <enabled>false</enabled>
         </behavior>

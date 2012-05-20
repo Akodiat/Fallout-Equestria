@@ -6,7 +6,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import utils.TimeSpan;
+import utils.time.TimeSpan;
 
 public class TimeSpanTest {
 

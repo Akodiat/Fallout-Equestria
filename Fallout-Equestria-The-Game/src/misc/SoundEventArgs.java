@@ -1,5 +1,7 @@
 package misc;
 
+import utils.EventArgs;
+
 public class SoundEventArgs extends EventArgs {
 	private final boolean isMusic;
 	private final String soundPath;

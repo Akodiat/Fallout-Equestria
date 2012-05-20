@@ -2,16 +2,17 @@ package screenCore;
 
 import java.util.Random;
 
-import common.InputMessage;
-import common.NetworkSystemBuilder;
-import common.PlayerCharacteristics;
+import misc.NetworkSystemBuilder;
+import misc.PlayerCharacteristics;
 
+import common.messages.InputMessage;
+
+import systembuilders.EntitySystemBuilder;
 import utils.Camera2D;
-import utils.EntitySystemBuilder;
-import utils.GameTime;
-import utils.Keyboard;
-import utils.Mouse;
-import utils.TimeSpan;
+import utils.input.Keyboard;
+import utils.input.Mouse;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 import content.ContentManager;
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntitySystemManager;

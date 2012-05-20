@@ -7,11 +7,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import scripting.PlayerScript;
-import scripting.Behavior;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import anotations.Editable;
+import behavior.Behavior;
+import behavior.PlayerScript;
+
 import java.awt.Font;
 import java.io.IOException;
 import java.lang.annotation.Annotation;

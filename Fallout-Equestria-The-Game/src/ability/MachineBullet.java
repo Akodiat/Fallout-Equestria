@@ -2,10 +2,10 @@ package ability;
 
 import components.TimerComp;
 
-import utils.Timer;
+import utils.IEventListener;
+import utils.TimerEventArgs;
+import utils.time.Timer;
 import math.Vector2;
-import misc.IEventListener;
-import misc.TimerEventArgs;
 import entityFramework.IEntityArchetype;
 
 public class MachineBullet extends BulletAbility {

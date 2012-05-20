@@ -1,7 +1,7 @@
 package entitySystems;
 
-import misc.SoundManager;
-import utils.GameTime;
+import sounds.SoundManager;
+import utils.time.GameTime;
 import components.BehaviourComp;
 import content.ContentManager;
 import entityFramework.ComponentMapper;

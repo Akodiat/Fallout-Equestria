@@ -1,12 +1,12 @@
 package serverNetworkSystems;
 
-import utils.Network;
-import misc.IEventListener;
+import sounds.SoundManager;
+import utils.IEventListener;
 import misc.SoundEventArgs;
-import misc.SoundManager;
 import entityFramework.IEntityWorld;
-import com.esotericsoftware.kryonet.*;
-import common.SoundMessage;
+
+import common.Network;
+import common.messages.SoundMessage;
 
 public class ServerSoundNetworkSystem extends ServerNetworkSystem {
 

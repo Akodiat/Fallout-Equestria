@@ -1,6 +1,6 @@
 package GUI;
 
-import misc.EventArgs;
+import utils.EventArgs;
 
 public class KeyboardEventArgs extends EventArgs{
 	private final char keyChar;

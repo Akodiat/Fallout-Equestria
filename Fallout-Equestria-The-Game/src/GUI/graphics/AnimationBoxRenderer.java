@@ -1,11 +1,10 @@
 package GUI.graphics;
 
-import math.Vector2;
 import GUI.controls.AnimationBox;
 import graphics.Color;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import utils.GameTime;
+import utils.time.GameTime;
 
 public class AnimationBoxRenderer implements IGUIRenderer<AnimationBox>{
 	

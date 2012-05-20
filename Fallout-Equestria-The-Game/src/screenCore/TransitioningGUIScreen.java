@@ -6,8 +6,8 @@ import java.util.List;
 import GUI.controls.GUIControl;
 import math.Point2;
 import math.Vector2;
-import utils.GameTime;
-import utils.TimeSpan;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 
 public abstract class TransitioningGUIScreen extends GUIScreen {
 	List<TranslationHelper> translations;

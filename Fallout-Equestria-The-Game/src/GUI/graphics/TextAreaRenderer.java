@@ -9,8 +9,8 @@ import GUI.controls.TextArea;
 import graphics.Color;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import utils.GameTime;
 import utils.Rectangle;
+import utils.time.GameTime;
 
 public class TextAreaRenderer implements IGUIRenderer<TextArea>{
 	private static final String DEfAULT_TEXTAREA_BACKGROUND = LookAndFeelAssets.Textarea_BG.toString();

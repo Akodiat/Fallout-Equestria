@@ -1,12 +1,9 @@
 package clientNetworkSystems;
 
-import screenCore.LobbyGUI;
 import screenCore.ScreenManager;
-import utils.Network;
 
-import com.esotericsoftware.kryonet.Client;
-
-import common.GoToScreenMessage;
+import common.Network;
+import common.messages.GoToScreenMessage;
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IComponent;
 import entityFramework.IEntityWorld;

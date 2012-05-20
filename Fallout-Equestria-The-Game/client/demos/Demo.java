@@ -6,9 +6,9 @@ import org.lwjgl.opengl.PixelFormat;
 
 import content.ContentManager;
 
-import utils.Clock;
-import utils.GameTime;
 import utils.Rectangle;
+import utils.time.Clock;
+import utils.time.GameTime;
 
 
 public abstract class Demo {

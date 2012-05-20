@@ -1,7 +1,7 @@
 package GUI;
 
+import utils.EventArgs;
 import GUI.controls.GUIControl;
-import misc.EventArgs;
 
 public class ControlEventArgs extends EventArgs{
 	private final GUIControl control;

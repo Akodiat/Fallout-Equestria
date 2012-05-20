@@ -3,14 +3,16 @@ package misc;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.IEventListener;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import common.ChatMessage;
+import common.Network;
+import common.messages.ChatMessage;
 
 import GUI.TextEventArgs;
 import GUI.controls.ChatPanel;
-import utils.Network;
 
 public class ChatHelper {
 	private final Object lock = new Object();

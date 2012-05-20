@@ -1,7 +1,7 @@
 package serverNetworkSystems;
 
-import utils.Network;
-import common.InputMessage;
+import common.Network;
+import common.messages.InputMessage;
 import components.InputComp;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;

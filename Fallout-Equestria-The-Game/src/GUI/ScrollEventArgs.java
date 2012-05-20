@@ -1,6 +1,6 @@
 package GUI;
 
-import misc.EventArgs;
+import utils.EventArgs;
 
 public class ScrollEventArgs extends EventArgs {
 	private final int newValue;

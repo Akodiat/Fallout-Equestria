@@ -1,15 +1,13 @@
 package clientNetworkSystems;
 
 
-import utils.Network;
-
-import com.esotericsoftware.kryonet.Client;
-
-import common.HealthChangedMessage;
+import common.Network;
+import common.messages.HealthChangedMessage;
 import components.HealthComp;
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
+
 /**
  * 
  * @author Joakim Johansson

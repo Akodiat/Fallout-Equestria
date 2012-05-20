@@ -13,8 +13,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import scripting.Behavior;
 import anotations.Editable;
+import behavior.Behavior;
+
 import org.newdawn.slick.openal.Audio;
 import content.ContentManager;
 import entityFramework.IEntityArchetype;

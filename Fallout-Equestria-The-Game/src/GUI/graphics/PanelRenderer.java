@@ -4,8 +4,8 @@ import GUI.controls.Panel;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import utils.GameTime;
 import utils.Rectangle;
+import utils.time.GameTime;
 
 public class PanelRenderer implements IGUIRenderer<Panel>{
 	@Override

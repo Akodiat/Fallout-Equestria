@@ -1,11 +1,8 @@
 package clientNetworkSystems;
 
-import utils.Network;
-import misc.SoundManager;
-
-import com.esotericsoftware.kryonet.Client;
-
-import common.SoundMessage;
+import sounds.SoundManager;
+import common.Network;
+import common.messages.SoundMessage;
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntityWorld;
 

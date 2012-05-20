@@ -3,7 +3,7 @@ package GUI.graphics;
 import GUI.controls.GUIControl;
 import graphics.RenderTarget2D;
 import graphics.SpriteBatch;
-import utils.GameTime;
+import utils.time.GameTime;
 
 public interface IGUIRenderer<T extends GUIControl> {
 	public Class<T> getRenderedType();

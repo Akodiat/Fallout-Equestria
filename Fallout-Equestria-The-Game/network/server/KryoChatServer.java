@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Network;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import common.ChatMessage;
+import common.Network;
+import common.messages.ChatMessage;
 
 public class KryoChatServer{
 	private List<Connection> clients = new ArrayList<>();

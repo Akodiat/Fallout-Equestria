@@ -10,7 +10,7 @@ import GUI.graphics.PanelRenderer;
 
 import math.MathHelper;
 import math.Point2;
-import misc.IEventListener;
+import utils.IEventListener;
 import utils.Rectangle;
 
 public class ScrollPanel extends Panel implements IScrollable {

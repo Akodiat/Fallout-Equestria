@@ -1,6 +1,6 @@
 package common;
 
-import misc.EventArgs;
+import utils.EventArgs;
 import entityFramework.IEntity;
 
 public class EntityEventArgs extends EventArgs{

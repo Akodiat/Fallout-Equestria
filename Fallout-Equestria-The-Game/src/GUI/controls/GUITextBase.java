@@ -1,8 +1,8 @@
 package GUI.controls;
 
-import misc.Event;
-import misc.EventArgs;
-import misc.IEventListener;
+import utils.Event;
+import utils.EventArgs;
+import utils.IEventListener;
 import graphics.TextureFont;
 
 public abstract class GUITextBase extends GUIControl {

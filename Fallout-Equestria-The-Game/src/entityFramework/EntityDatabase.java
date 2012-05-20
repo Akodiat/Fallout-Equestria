@@ -5,7 +5,6 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import utils.ResizableGrid;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.*;

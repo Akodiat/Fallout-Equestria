@@ -1,10 +1,8 @@
 package clientNetworkSystems;
 
-import utils.Network;
 
-import com.esotericsoftware.kryonet.Client;
-
-import common.EntityDestroyedMessage;
+import common.Network;
+import common.messages.EntityDestroyedMessage;
 import entityFramework.*;
 
 /**

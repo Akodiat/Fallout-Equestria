@@ -1,11 +1,11 @@
 package screenCore;
 
 import math.Vector2;
-import misc.EventArgs;
-import misc.IEventListener;
 import GUI.controls.Button;
 import content.ContentManager;
-import utils.TimeSpan;
+import utils.EventArgs;
+import utils.IEventListener;
+import utils.time.TimeSpan;
 
 public class MultiplayerScreen extends TransitioningGUIScreen{
 

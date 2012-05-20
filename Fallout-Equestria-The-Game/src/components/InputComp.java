@@ -1,9 +1,9 @@
 package components;
 
 import entityFramework.IComponent;
-import utils.Keyboard;
-import utils.Keys;
-import utils.Mouse;
+import utils.input.Keyboard;
+import utils.input.Keys;
+import utils.input.Mouse;
 import anotations.Editable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;

@@ -15,7 +15,8 @@ import javax.swing.JScrollPane;
 
 import org.newdawn.slick.openal.Audio;
 
-import scripting.Behavior;
+import behavior.Behavior;
+
 import utils.Circle;
 
 import math.Vector2;

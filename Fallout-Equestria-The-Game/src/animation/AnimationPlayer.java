@@ -7,12 +7,10 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import math.Vector2;
-import misc.AnimationChangeEventArgs;
-import misc.Event;
-import misc.IEventListener;
-import misc.KeyframeTriggerEventArgs;
 
-import utils.GameTime;
+import utils.Event;
+import utils.IEventListener;
+import utils.time.GameTime;
 
 
 public class AnimationPlayer

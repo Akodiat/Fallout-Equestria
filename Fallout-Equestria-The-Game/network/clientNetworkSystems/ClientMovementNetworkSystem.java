@@ -1,11 +1,10 @@
 package clientNetworkSystems;
 
 
-import utils.Network;
 
-import com.esotericsoftware.kryonet.Client;
 
-import common.EntityMovedMessage;
+import common.Network;
+import common.messages.EntityMovedMessage;
 import components.TransformationComp;
 
 import entityFramework.EntityNetworkIDManager;

@@ -1,13 +1,11 @@
 package clientNetworkSystems;
 
-import scripting.PlayerScript;
-import utils.Network;
-import animation.PonyColorChangeHelper;
+import misc.PlayerCharacteristics;
+import misc.PonyColorChangeHelper;
+import behavior.PlayerScript;
 
-import com.esotericsoftware.kryonet.Client;
-
-import common.NewPlayerMessage;
-import common.PlayerCharacteristics;
+import common.Network;
+import common.messages.NewPlayerMessage;
 import components.AnimationComp;
 import components.BehaviourComp;
 import components.ShadowComp;

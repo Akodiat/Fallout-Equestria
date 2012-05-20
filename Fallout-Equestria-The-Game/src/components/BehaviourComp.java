@@ -1,16 +1,17 @@
 package components;
 
-import misc.SoundManager;
+
+import behavior.Behavior;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import content.ContentManager;
 
 import anotations.Editable;
-import scripting.Behavior;
-import utils.GameTime;
-import utils.MouseButton;
-import utils.MouseState;
+import sounds.SoundManager;
+import utils.input.MouseButton;
+import utils.input.MouseState;
+import utils.time.GameTime;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;

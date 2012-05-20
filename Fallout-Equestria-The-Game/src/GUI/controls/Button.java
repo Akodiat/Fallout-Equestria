@@ -1,8 +1,8 @@
 package GUI.controls;
 
 import GUI.graphics.ButtonRenderer;
-import utils.Mouse;
-import utils.MouseButton;
+import utils.input.Mouse;
+import utils.input.MouseButton;
 
 public class Button extends ButtonBase {
 	private static ButtonRenderer DEFAULT_RENDERER = new ButtonRenderer();

@@ -1,9 +1,10 @@
 package demos;
 
-import misc.SoundManager;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
+
+import behavior.RandomMoving;
 import components.BehaviourComp;
 import components.RenderingComp;
 import components.TransformationComp;
@@ -16,11 +17,12 @@ import entitySystems.ScriptSystem;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
-import scripting.RandomMoving;
+import sounds.SoundManager;
+import systembuilders.WorldBuilder;
 import utils.Camera2D;
-import utils.GameTime;
-import utils.Mouse;
 import utils.Rectangle;
+import utils.input.Mouse;
+import utils.time.GameTime;
 
 public class MenuDemo2 extends Demo{
 

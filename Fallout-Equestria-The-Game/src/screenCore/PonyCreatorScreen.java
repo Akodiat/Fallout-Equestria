@@ -6,14 +6,9 @@ import java.util.Random;
 
 import animation.AnimationPlayer;
 import animation.Bones;
-import animation.ManeStyle;
-import animation.PonyColorChangeHelper;
 import animation.TextureDictionary;
 import animation.TextureEntry;
 
-import common.PlayerCharacteristics;
-import common.Race;
-import common.SpecialStats;
 
 import GUI.IItemFormater;
 import GUI.ItemEventArgs;
@@ -29,11 +24,16 @@ import GUI.controls.Textfield;
 import GUI.controls.ToggleButton;
 import GUI.graphics.LookAndFeel;
 import math.Vector2;
-import misc.EventArgs;
-import misc.IEventListener;
-import utils.GameTime;
+import misc.ManeStyle;
+import misc.PlayerCharacteristics;
+import misc.PonyColorChangeHelper;
+import misc.Race;
+import misc.SpecialStats;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
-import utils.TimeSpan;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 import content.ContentManager;
 import content.PlayerCharacteristicsWriter;
 import graphics.Color;

@@ -5,11 +5,11 @@ import GUI.ScrollEventArgs;
 import GUI.graphics.ButtonRenderer;
 import GUI.graphics.ScrollBarRenderer;
 import math.MathHelper;
-import misc.Event;
-import misc.IEventListener;
-import utils.Mouse;
-import utils.MouseButton;
+import utils.Event;
+import utils.IEventListener;
 import utils.Rectangle;
+import utils.input.Mouse;
+import utils.input.MouseButton;
 
 public class ScrollBar extends GUIControl {
 	private static final ScrollBarRenderer DEFAULT_RENDERER = new ScrollBarRenderer();

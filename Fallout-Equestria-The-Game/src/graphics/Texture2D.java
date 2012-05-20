@@ -1,11 +1,8 @@
 package graphics;
 
 import java.nio.ByteBuffer;
-
 import org.lwjgl.BufferUtils;
-
 import utils.Rectangle;
-
 import static org.lwjgl.opengl.GL11.*;
 
 public final class Texture2D {

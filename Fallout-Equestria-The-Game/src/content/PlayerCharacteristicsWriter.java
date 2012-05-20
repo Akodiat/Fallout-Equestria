@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import misc.PlayerCharacteristics;
+
+
 import com.thoughtworks.xstream.XStream;
 
-import common.PlayerCharacteristics;
 import content.serilazation.ColorConverter;
 
 public class PlayerCharacteristicsWriter {

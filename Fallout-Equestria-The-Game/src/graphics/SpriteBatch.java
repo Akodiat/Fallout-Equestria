@@ -1,9 +1,9 @@
 package graphics;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
 import utils.Rectangle;
-
 import math.Matrix4;
 import math.Vector2;
 

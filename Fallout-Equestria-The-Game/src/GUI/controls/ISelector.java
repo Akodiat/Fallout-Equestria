@@ -3,7 +3,8 @@ package GUI.controls;
 import java.util.Collection;
 import java.util.Comparator;
 
-import misc.IEventListener;
+import utils.IEventListener;
+
 import GUI.ItemEventArgs;
 
 import com.google.common.collect.ImmutableList;

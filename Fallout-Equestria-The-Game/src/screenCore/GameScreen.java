@@ -2,10 +2,10 @@ package screenCore;
 
 import graphics.SpriteBatch;
 import math.MathHelper;
-import utils.GameTime;
-import utils.Keyboard;
-import utils.Mouse;
-import utils.TimeSpan;
+import utils.input.Keyboard;
+import utils.input.Mouse;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 import content.ContentManager;
 
 public abstract class GameScreen {

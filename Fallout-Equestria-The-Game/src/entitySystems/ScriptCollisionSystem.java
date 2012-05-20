@@ -5,8 +5,9 @@ import java.util.List;
 
 import math.Vector2;
 import math.Vector3;
-import scripting.Behavior;
 import utils.BoundingBox;
+
+import behavior.Behavior;
 
 import com.google.common.collect.ImmutableSet;
 

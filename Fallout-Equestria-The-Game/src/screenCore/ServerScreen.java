@@ -8,7 +8,7 @@ import content.ContentManager;
 import math.Vector2;
 import GUI.controls.Button;
 import utils.Rectangle;
-import utils.TimeSpan;
+import utils.time.TimeSpan;
 
 public class ServerScreen extends TransitioningGUIScreen{
 	private List<Client> clients;

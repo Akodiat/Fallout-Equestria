@@ -6,20 +6,20 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import animation.AnimationFromCharacterHelper;
 import animation.AnimationPlayer;
 
-import common.PlayerCharacteristics;
 
 import math.Vector2;
-import misc.EventArgs;
-import misc.IEventListener;
+import misc.AnimationFromCharacterHelper;
+import misc.PlayerCharacteristics;
 import GUI.controls.AnimationBox;
 import GUI.controls.Button;
 import GUI.controls.Label;
 import GUI.controls.Panel;
 import content.ContentManager;
-import utils.TimeSpan;
+import utils.EventArgs;
+import utils.IEventListener;
+import utils.time.TimeSpan;
 
 public class PonySelector extends TransitioningGUIScreen{
 	private List<PlayerCharacteristics> characters;

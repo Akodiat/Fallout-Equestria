@@ -1,10 +1,7 @@
 package serverNetworkSystems;
 
-import utils.Network;
-
-import com.esotericsoftware.kryonet.Server;
-
-import common.EntityMovedMessage;
+import common.Network;
+import common.messages.EntityMovedMessage;
 import components.TransformationComp;
 import entityFramework.ComponentMapper;
 import entityFramework.IEntity;

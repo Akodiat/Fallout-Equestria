@@ -1,15 +1,15 @@
 package screenCore;
 
-import misc.EventArgs;
-import misc.IEventListener;
 import graphics.Color;
 import graphics.SpriteBatch;
 import graphics.Texture2D;
 import GUI.controls.Button;
 import content.ContentManager;
-import utils.GameTime;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.Rectangle;
-import utils.TimeSpan;
+import utils.time.GameTime;
+import utils.time.TimeSpan;
 
 public class PausScreen extends GUIScreen {
 
