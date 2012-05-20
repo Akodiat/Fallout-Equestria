@@ -56,13 +56,7 @@ public class ClientPlayerCreatingNetworkSystem extends ClientNetworkSystem<NewPl
 		PonyColorChangeHelper.setEyeColor( message.playerCharacteristics.eyeColor, animComp);
 		PonyColorChangeHelper.setManeColor(message.playerCharacteristics.maneColor, animComp);
 		
-<<<<<<< HEAD
-		entity.setLabel("Player" + message.senderID);
 		if(message.senderID == this.getClient().getID())
-=======
-		//entity.setLabel("Player" + message.senderID);
-		if(message.senderID == this.client.getID())
->>>>>>> Changed from normal alpha blending to pre multiplied alpha blending.
 			entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		
 		entity.refresh();		

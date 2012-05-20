@@ -23,4 +23,13 @@ public class PonyTextureChangeHelper {
 	public static void setEyeStyle(String eyeTexture, AnimationPlayer player, TextureDictionary dict){
 		player.setBoneTexture(Bones.EYE.getValue(), dict.extractTextureEntry(eyeTexture));
 	}
+
+	public static void setMarkStyle(String markTexture, AnimationComp comp, TextureDictionary dict) {
+		AnimationPlayer player = comp.getAnimationPlayer();
+		setMarkStyle(markTexture, player, dict);
+	}
+	
+	public static void setMarkStyle(String markTexture, AnimationPlayer player, TextureDictionary dict) {
+		player.setBoneTexture(Bones.MARK.getValue(), dict.extractTextureEntry(markTexture));
+	}
 }
