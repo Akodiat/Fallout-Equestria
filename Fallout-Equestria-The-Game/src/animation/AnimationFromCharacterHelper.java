@@ -23,13 +23,13 @@ public class AnimationFromCharacterHelper {
 		PonyTextureChangeHelper.setEyeStyle(pChar.eyeTexture, player, assetDictionary);
 		PonyTextureChangeHelper.setManeStyle(pChar.maneStyle, player, assetDictionary);
 		
-		if(pChar.race == Race.EARTHPONY.getValue()){
+		if(pChar.race.equals(Race.EARTHPONY.getValue())){
 			player.setBoneHidden(Bones.WINGS.getValue(), true);
 			player.setBoneHidden(Bones.HORN.getValue(), true);
-		}else if(pChar.race == Race.PEGASUS.getValue()){
+		}else if(pChar.race.equals(Race.PEGASUS.getValue())){
 			player.setBoneHidden(Bones.WINGS.getValue(), false);
 			player.setBoneHidden(Bones.HORN.getValue(), true);
-		}else if(pChar.race == Race.UNICORN.getValue()){
+		}else if(pChar.race.equals(Race.UNICORN.getValue())){
 			player.setBoneHidden(Bones.WINGS.getValue(), true);
 			player.setBoneHidden(Bones.HORN.getValue(), false);
 		}
