@@ -51,7 +51,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private ContentManager contentManager = new ContentManager("resources");
 	private PlayerCharacteristicsWriter charWriter = new PlayerCharacteristicsWriter(contentManager);
 	
-	private AnimationPlayer pony;
+	private AnimationPlayer ponyPlayer;
 	private PlayerCharacteristics character = new PlayerCharacteristics();
 	private TextureDictionary assetDictionary = this.contentManager.load("rddict.tdict", TextureDictionary.class);
 
@@ -100,6 +100,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private Panel eyePanel;
 	private Panel manePanel;
 	
+	private AnimationBox ponyBox;
+	
 	public PonyCreatorScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1d), TimeSpan.fromSeconds(0.5d), lookAndFeelPath);
 	}
@@ -116,6 +118,12 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		super.addGuiControl(this.bG, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(0,0), 
 								new Vector2(0,this.ScreenManager.getViewport().Height));
 		addPony();
+		
+		this.ponyBox = new AnimationBox();
+		this.ponyBox.setBounds(0,0,250,250);
+		this.ponyBox.setAnimationPlayer(ponyPlayer);
+		super.addGuiControl(this.ponyBox, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(0,0), 
+				new Vector2(0,this.ScreenManager.getViewport().Height));
 		
 		this.maneStyles = new ArrayList<ManeEntries>();
 		ManeEntries rDManeStyle = new ManeEntries("Rainbow style!", new ManeStyle("RDUPPERMANE", "RDLOWERMANE", "RDUPPERTAIL", "RDLOWERTAIL"), this.assetDictionary);
@@ -492,22 +500,22 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	}
 
 	protected void changeRaceToEarthpony() {
-		this.pony.setBoneHidden(Bones.WINGS.getValue(), true);
+		this.ponyPlayer.setBoneHidden(Bones.WINGS.getValue(), true);
 		this.pegasusButton.setToggled(false);
-		this.pony.setBoneHidden(Bones.HORN.getValue(), true);
+		this.ponyPlayer.setBoneHidden(Bones.HORN.getValue(), true);
 		this.unicornButton.setToggled(false);
 	}
 	protected void changeRaceToPegasus() {
 		this.earthPonyButton.setToggled(false);
-		this.pony.setBoneHidden(Bones.WINGS.getValue(), false);
-		this.pony.setBoneHidden(Bones.HORN.getValue(), true);
+		this.ponyPlayer.setBoneHidden(Bones.WINGS.getValue(), false);
+		this.ponyPlayer.setBoneHidden(Bones.HORN.getValue(), true);
 		this.unicornButton.setToggled(false);
 	}	
 	protected void changeRaceToUnicorn() {
 		this.earthPonyButton.setToggled(false);
-		this.pony.setBoneHidden(Bones.WINGS.getValue(), true);
+		this.ponyPlayer.setBoneHidden(Bones.WINGS.getValue(), true);
 		this.pegasusButton.setToggled(false);
-		this.pony.setBoneHidden(Bones.HORN.getValue(), false);
+		this.ponyPlayer.setBoneHidden(Bones.HORN.getValue(), false);
 	}
 
 	protected void randomizeAttributes() {
@@ -569,16 +577,16 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	}
 
 	protected void setEyeStyle() {
-		this.pony.setBoneTexture(Bones.EYE.getValue(), this.eyeComboBox.getSelectedItem().eyeEntry);
+		this.ponyPlayer.setBoneTexture(Bones.EYE.getValue(), this.eyeComboBox.getSelectedItem().eyeEntry);
 	}
 	protected void setManeStyle() {
-		this.pony.setBoneTexture(Bones.UPPERMANE.getValue(), this.maneComboBox.getSelectedItem().upperManeEntry);
-		this.pony.setBoneTexture(Bones.LOWERMANE.getValue(), this.maneComboBox.getSelectedItem().lowerManeEntry);
-		this.pony.setBoneTexture(Bones.UPPERTAIL.getValue(), this.maneComboBox.getSelectedItem().upperTailEntry);
-		this.pony.setBoneTexture(Bones.LOWERTAIL.getValue(), this.maneComboBox.getSelectedItem().lowerTailEntry);
+		this.ponyPlayer.setBoneTexture(Bones.UPPERMANE.getValue(), this.maneComboBox.getSelectedItem().upperManeEntry);
+		this.ponyPlayer.setBoneTexture(Bones.LOWERMANE.getValue(), this.maneComboBox.getSelectedItem().lowerManeEntry);
+		this.ponyPlayer.setBoneTexture(Bones.UPPERTAIL.getValue(), this.maneComboBox.getSelectedItem().upperTailEntry);
+		this.ponyPlayer.setBoneTexture(Bones.LOWERTAIL.getValue(), this.maneComboBox.getSelectedItem().lowerTailEntry);
 	}
 	protected void setMarkStyle() {
-		this.pony.setBoneTexture(Bones.MARK.getValue(), this.markComboBox.getSelectedItem().markEntry);
+		this.ponyPlayer.setBoneTexture(Bones.MARK.getValue(), this.markComboBox.getSelectedItem().markEntry);
 	}
 
 	public void goBack() {
@@ -590,21 +598,21 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		setBodyColor(color);
 	}
 	protected void setBodyColor(Color color) {
-		PonyColorChangeHelper.setBodyColor(color, pony);
+		PonyColorChangeHelper.setBodyColor(color, ponyPlayer);
 	}
 	protected void setEyeColor() {
 		Color color = new Color(this.eyeRedSlider.getScrollValue(),this.eyeGreenSlider.getScrollValue(),this.eyeBlueSlider.getScrollValue(),255);
 		setEyeColor(color);
 	}
 	protected void setEyeColor(Color color) {
-		PonyColorChangeHelper.setEyeColor(color, pony);
+		PonyColorChangeHelper.setEyeColor(color, ponyPlayer);
 	}
 	protected void setManeColor() {
 		Color color = new Color(this.maneRedSlider.getScrollValue(),this.maneGreenSlider.getScrollValue(),this.maneBlueSlider.getScrollValue(),255);
 		setManeColor(color);
 	}
 	protected void setManeColor(Color color) {
-		PonyColorChangeHelper.setManeColor(color, pony);
+		PonyColorChangeHelper.setManeColor(color, ponyPlayer);
 	}
 	
 	
@@ -631,25 +639,22 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			boolean coveredByOtherScreen) {
 		if(!otherScreeenHasFocus) {
 			super.update(time, otherScreeenHasFocus, coveredByOtherScreen);
-			this.pony.update(time);
+			this.ponyPlayer.update(time);
 		}
 	}
 
 	private void addPony() {	
-		this.pony = this.contentManager.load("rdset.animset", AnimationPlayer.class);;
-		this.pony.startAnimation("idle");
+		this.ponyPlayer = this.contentManager.load("rdset.animset", AnimationPlayer.class);;
+		this.ponyPlayer.startAnimation("idle");
 	}
 	
 	@Override
 	public void render(GameTime time, SpriteBatch batch) {
 		super.render(time, batch);
 		batch.begin();
-		this.pony.draw(batch, ponyPosition, false, 0, Color.White, ponyScale);
+		this.ponyPlayer.draw(batch, ponyPosition, false, 0, Color.White, ponyScale);
 		batch.end();
-<<<<<<< HEAD
-=======
 		super.render(time, batch);
->>>>>>> Changed from normal alpha blending to pre multiplied alpha blending.
 	}
 	
 	private class ManeEntries{

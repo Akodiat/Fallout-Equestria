@@ -158,11 +158,6 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		}
 	}
 	private void changeScreen(String newScreen){
-<<<<<<< HEAD
-		synchronized(lock){
-			ScreenManager.removeAllScreens();
-=======
->>>>>>> Changed from normal alpha blending to pre multiplied alpha blending.
 			ScreenManager.getNetwork().removeAllListeners();
 			ScreenManager.addScreen(newScreen);
 	}
