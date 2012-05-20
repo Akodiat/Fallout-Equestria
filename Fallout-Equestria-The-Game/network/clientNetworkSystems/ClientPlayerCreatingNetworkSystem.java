@@ -51,6 +51,9 @@ public class ClientPlayerCreatingNetworkSystem extends ClientNetworkSystem<NewPl
 		AnimationComp animComp = entity.getComponent(AnimationComp.class);
 		animComp.setAnimationPlayer(AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager));
 		animComp.changeAnimation("idle", true);
+		entity.removeComponent(animComp);
+		entity.refresh();
+		entity.addComponent(animComp);
 		
 		if(message.senderID == this.getClient().getID())
 			entity.addToGroup(CameraControlSystem.GROUP_NAME);
