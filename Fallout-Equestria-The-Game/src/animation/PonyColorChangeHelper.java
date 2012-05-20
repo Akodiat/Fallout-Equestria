@@ -45,5 +45,6 @@ public class PonyColorChangeHelper {
 
 	public static void setEyeColor(Color color, AnimationPlayer player){
 		player.setBoneColor(Bones.IRIS.getValue(), color);
+		player.setBoneColor(Bones.MARK.getValue(), color);
 	}
 }

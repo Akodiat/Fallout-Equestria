@@ -201,24 +201,32 @@
     <OriginX>8</OriginX>
     <OriginY>-3</OriginY>
   </Texture>
-  <Texture name="hindlegswalk_0008_Layer-16">
+  <Texture name="TSEYE">
     <X>151</X>
     <Y>164</Y>
+    <Width>32</Width>
+    <Height>32</Height>
+    <OriginX>16</OriginX>
+    <OriginY>14</OriginY>
+  </Texture>
+  <Texture name="hindlegswalk_0008_Layer-16">
+    <X>221</X>
+    <Y>110</Y>
     <Width>31</Width>
     <Height>60</Height>
     <OriginX>9</OriginX>
     <OriginY>9</OriginY>
   </Texture>
   <Texture name="hindlegswalk_0022_Layer-2">
-    <X>221</X>
-    <Y>110</Y>
+    <X>149</X>
+    <Y>198</Y>
     <Width>31</Width>
     <Height>55</Height>
     <OriginX>10</OriginX>
     <OriginY>10</OriginY>
   </Texture>
   <Texture name="backhindlegswalk_0008_Layer-16">
-    <X>184</X>
+    <X>185</X>
     <Y>164</Y>
     <Width>31</Width>
     <Height>48</Height>
@@ -226,20 +234,12 @@
     <OriginY>-3</OriginY>
   </Texture>
   <Texture name="backhindlegswalk_0022_Layer-2">
-    <X>217</X>
-    <Y>167</Y>
+    <X>218</X>
+    <Y>172</Y>
     <Width>31</Width>
     <Height>41</Height>
     <OriginX>10</OriginX>
     <OriginY>-4</OriginY>
-  </Texture>
-  <Texture name="TSEYE">
-    <X>184</X>
-    <Y>214</Y>
-    <Width>30</Width>
-    <Height>30</Height>
-    <OriginX>15</OriginX>
-    <OriginY>13</OriginY>
   </Texture>
   <Texture name="hindlegswalk_0009_Layer-15">
     <X>255</X>
@@ -322,8 +322,8 @@
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="RDEYEBG">
-    <X>149</X>
-    <Y>226</Y>
+    <X>182</X>
+    <Y>214</Y>
     <Width>27</Width>
     <Height>27</Height>
     <OriginX>14</OriginX>
@@ -370,16 +370,16 @@
     <OriginY>9</OriginY>
   </Texture>
   <Texture name="frontlegswalk7">
-    <X>217</X>
-    <Y>210</Y>
+    <X>435</X>
+    <Y>0</Y>
     <Width>25</Width>
     <Height>41</Height>
     <OriginX>7</OriginX>
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="backhindlegswalk_0020_Layer-4">
-    <X>435</X>
-    <Y>0</Y>
+    <X>211</X>
+    <Y>215</Y>
     <Width>25</Width>
     <Height>38</Height>
     <OriginX>11</OriginX>
@@ -402,7 +402,7 @@
     <OriginY>10</OriginY>
   </Texture>
   <Texture name="backhindlegswalk_0012_Layer-12">
-    <X>250</X>
+    <X>251</X>
     <Y>203</Y>
     <Width>24</Width>
     <Height>48</Height>
@@ -435,7 +435,7 @@
   </Texture>
   <Texture name="hindlegswalk_0013_Layer-11">
     <X>435</X>
-    <Y>40</Y>
+    <Y>43</Y>
     <Width>23</Width>
     <Height>59</Height>
     <OriginX>9</OriginX>
@@ -475,7 +475,7 @@
   </Texture>
   <Texture name="hindlegswalk_0018_Layer-6">
     <X>423</X>
-    <Y>103</Y>
+    <Y>104</Y>
     <Width>21</Width>
     <Height>56</Height>
     <OriginX>10</OriginX>
@@ -490,23 +490,23 @@
     <OriginY>-4</OriginY>
   </Texture>
   <Texture name="backhindlegswalk_0017_Layer-7">
-    <X>446</X>
-    <Y>101</Y>
+    <X>356</X>
+    <Y>205</Y>
     <Width>21</Width>
     <Height>47</Height>
     <OriginX>10</OriginX>
     <OriginY>-3</OriginY>
   </Texture>
   <Texture name="backhindlegswalk_0018_Layer-6">
-    <X>356</X>
-    <Y>205</Y>
+    <X>393</X>
+    <Y>164</Y>
     <Width>21</Width>
     <Height>43</Height>
     <OriginX>10</OriginX>
     <OriginY>-4</OriginY>
   </Texture>
   <Texture name="frontlegswalk24">
-    <X>393</X>
+    <X>416</X>
     <Y>164</Y>
     <Width>21</Width>
     <Height>42</Height>
@@ -514,23 +514,23 @@
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="hindlegswalk_0016_Layer-8">
-    <X>416</X>
-    <Y>164</Y>
+    <X>439</X>
+    <Y>162</Y>
     <Width>20</Width>
     <Height>60</Height>
     <OriginX>10</OriginX>
     <OriginY>9</OriginY>
   </Texture>
   <Texture name="hindlegswalk_0015_Layer-9">
-    <X>446</X>
-    <Y>150</Y>
+    <X>72</X>
+    <Y>235</Y>
     <Width>20</Width>
     <Height>59</Height>
     <OriginX>9</OriginX>
     <OriginY>8</OriginY>
   </Texture>
   <Texture name="RDLOWERMANE">
-    <X>72</X>
+    <X>94</X>
     <Y>235</Y>
     <Width>20</Width>
     <Height>49</Height>
@@ -554,31 +554,31 @@
     <OriginY>0</OriginY>
   </Texture>
   <Texture name="frontlegswalk20">
-    <X>94</X>
-    <Y>235</Y>
+    <X>116</X>
+    <Y>231</Y>
     <Width>19</Width>
     <Height>43</Height>
     <OriginX>12</OriginX>
     <OriginY>3</OriginY>
   </Texture>
   <Texture name="frontlegswalk23">
-    <X>115</X>
-    <Y>231</Y>
+    <X>182</X>
+    <Y>243</Y>
     <Width>19</Width>
     <Height>42</Height>
     <OriginX>7</OriginX>
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="TSLOWERMANE">
-    <X>178</X>
-    <Y>246</Y>
+    <X>277</X>
+    <Y>215</Y>
     <Width>19</Width>
     <Height>42</Height>
     <OriginX>5</OriginX>
     <OriginY>13</OriginY>
   </Texture>
   <Texture name="frontlegswalk17">
-    <X>199</X>
+    <X>238</X>
     <Y>253</Y>
     <Width>19</Width>
     <Height>41</Height>
@@ -594,7 +594,7 @@
     <OriginY>-1</OriginY>
   </Texture>
   <Texture name="frontlegswalk12">
-    <X>136</X>
+    <X>137</X>
     <Y>255</Y>
     <Width>19</Width>
     <Height>37</Height>
@@ -602,39 +602,39 @@
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="frontlegswalk22">
-    <X>276</X>
-    <Y>215</Y>
+    <X>298</X>
+    <Y>240</Y>
     <Width>18</Width>
     <Height>43</Height>
     <OriginX>8</OriginX>
     <OriginY>3</OriginY>
   </Texture>
   <Texture name="frontlegswalk18">
-    <X>220</X>
-    <Y>253</Y>
+    <X>379</X>
+    <Y>209</Y>
     <Width>18</Width>
     <Height>42</Height>
     <OriginX>15</OriginX>
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="frontlegswalk19">
-    <X>240</X>
-    <Y>253</Y>
+    <X>399</X>
+    <Y>209</Y>
     <Width>18</Width>
     <Height>42</Height>
     <OriginX>13</OriginX>
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="frontlegswalk21">
-    <X>296</X>
-    <Y>240</Y>
+    <X>419</X>
+    <Y>208</Y>
     <Width>18</Width>
     <Height>42</Height>
     <OriginX>9</OriginX>
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="frontlegswalk9">
-    <X>157</X>
+    <X>158</X>
     <Y>255</Y>
     <Width>18</Width>
     <Height>40</Height>
@@ -642,15 +642,15 @@
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="frontlegswalk13">
-    <X>316</X>
-    <Y>254</Y>
+    <X>203</X>
+    <Y>255</Y>
     <Width>18</Width>
     <Height>37</Height>
     <OriginX>16</OriginX>
     <OriginY>0</OriginY>
   </Texture>
   <Texture name="frontlegswalk10">
-    <X>336</X>
+    <X>318</X>
     <Y>254</Y>
     <Width>17</Width>
     <Height>40</Height>
@@ -658,55 +658,71 @@
     <OriginY>3</OriginY>
   </Texture>
   <Texture name="frontlegswalk11">
-    <X>379</X>
-    <Y>208</Y>
+    <X>259</X>
+    <Y>253</Y>
     <Width>16</Width>
     <Height>39</Height>
     <OriginX>13</OriginX>
     <OriginY>3</OriginY>
   </Texture>
   <Texture name="RDEAR">
-    <X>260</X>
-    <Y>260</Y>
+    <X>277</X>
+    <Y>259</Y>
     <Width>15</Width>
     <Height>25</Height>
     <OriginX>7</OriginX>
     <OriginY>17</OriginY>
   </Texture>
   <Texture name="ponybone">
-    <X>94</X>
-    <Y>280</Y>
+    <X>116</X>
+    <Y>276</Y>
     <Width>15</Width>
     <Height>15</Height>
     <OriginX>7</OriginX>
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="RDIRIS">
-    <X>115</X>
-    <Y>275</Y>
+    <X>446</X>
+    <Y>104</Y>
     <Width>14</Width>
     <Height>18</Height>
     <OriginX>7</OriginX>
     <OriginY>9</OriginY>
   </Texture>
   <Texture name="RDHORN">
-    <X>277</X>
-    <Y>260</Y>
+    <X>446</X>
+    <Y>124</Y>
     <Width>14</Width>
     <Height>16</Height>
     <OriginX>11</OriginX>
     <OriginY>13</OriginY>
   </Texture>
   <Texture name="RDMARK">
-    <X>397</X>
-    <Y>208</Y>
+    <X>223</X>
+    <Y>255</Y>
     <Width>13</Width>
     <Height>21</Height>
     <OriginX>6</OriginX>
     <OriginY>10</OriginY>
   </Texture>
+  <Texture name="MCMARK">
+    <X>337</X>
+    <Y>254</Y>
+    <Width>13</Width>
+    <Height>19</Height>
+    <OriginX>6</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="TSMARK">
+    <X>352</X>
+    <Y>254</Y>
+    <Width>12</Width>
+    <Height>21</Height>
+    <OriginX>6</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
   <Texture name="RDHIGHLIGHTS">
-    <X>136</X>
+    <X>137</X>
     <Y>231</Y>
     <Width>8</Width>
     <Height>10</Height>

@@ -25,7 +25,6 @@ import GUI.controls.ImageBox;
 import GUI.controls.Label;
 import GUI.controls.Panel;
 import GUI.controls.Slider;
-import GUI.controls.Spinner;
 import GUI.controls.Textfield;
 import GUI.controls.ToggleButton;
 import GUI.graphics.GUIRenderingContext;
@@ -78,13 +77,9 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	private Slider maneGreenSlider;
 	private Slider maneBlueSlider;
 	
-	private Spinner maneStyleSpinner;
-	private Spinner eyeStyleSpinner;
-	
-	private AnimationBox ponyBox;
-	
 	private ComboBox<ManeEntries> maneComboBox;
 	private ComboBox<EyeEntries> eyeComboBox;
+	private ComboBox<MarkEntries> markComboBox;
 	
 	private ToggleButton earthPonyButton;
 	private ToggleButton pegasusButton;
@@ -92,6 +87,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	
 	private List<ManeEntries> maneStyles;
 	private List<EyeEntries> eyeStyles;
+	private List<MarkEntries> markStyles;
 	
 	private Label nameLabel;
 	private Label bodyLabel;
@@ -121,11 +117,11 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 								new Vector2(0,this.ScreenManager.getViewport().Height));
 		addPony();
 		
-		maneStyles = new ArrayList<ManeEntries>();
+		this.maneStyles = new ArrayList<ManeEntries>();
 		ManeEntries rDManeStyle = new ManeEntries("Rainbow style!", new ManeStyle("RDUPPERMANE", "RDLOWERMANE", "RDUPPERTAIL", "RDLOWERTAIL"), this.assetDictionary);
-		maneStyles.add(rDManeStyle);	
+		this.maneStyles.add(rDManeStyle);	
 		ManeEntries tSManeStyle = new ManeEntries("Twilight style!", new ManeStyle("TSUPPERMANE", "TSLOWERMANE", "TSUPPERTAIL", "TSLOWERTAIL"), this.assetDictionary);
-		maneStyles.add(tSManeStyle);
+		this.maneStyles.add(tSManeStyle);
 		
 		this.maneComboBox = new ComboBox<ManeEntries>();
 		this.maneComboBox.setBounds(0,200, 250, 30);
@@ -147,11 +143,11 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		});
 		this.maneComboBox.setSelectedIndex(0);
 		
-		eyeStyles = new ArrayList<EyeEntries>();
+		this.eyeStyles = new ArrayList<EyeEntries>();
 		EyeEntries rDEyeStyle = new EyeEntries("Rainbow style!", "RDEYE", this.assetDictionary);
-		eyeStyles.add(rDEyeStyle);
+		this.eyeStyles.add(rDEyeStyle);
 		EyeEntries tSEyeStyle = new EyeEntries("Twilight style!", "TSEYE", this.assetDictionary);
-		eyeStyles.add(tSEyeStyle);
+		this.eyeStyles.add(tSEyeStyle);
 		
 		this.eyeComboBox = new ComboBox<EyeEntries>();
 		this.eyeComboBox.setBounds(0,200, 250, 30);
@@ -172,6 +168,35 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 			}
 		});
 		this.eyeComboBox.setSelectedIndex(0);
+		
+		this.markStyles = new ArrayList<MarkEntries>();
+		MarkEntries rDMarkStyle = new MarkEntries("Rainbow style!", "RDMARK", this.assetDictionary);
+		this.markStyles.add(rDMarkStyle);
+		MarkEntries tSMarkStyle = new MarkEntries("Twilight style!", "TSMARK", this.assetDictionary);
+		this.markStyles.add(tSMarkStyle);
+		MarkEntries mCMarkStyle = new MarkEntries("Hammer time!", "MCMARK", this.assetDictionary);
+		this.markStyles.add(mCMarkStyle);
+		
+		this.markComboBox = new ComboBox<MarkEntries>();
+		this.markComboBox.setBounds(0,200, 250, 30);
+		this.markComboBox.setBgColor(new Color(0,0,0,0));
+		this.markComboBox.setFont(contentManager.loadFont("Monofonto24.xml"));
+		this.markComboBox.addItem(rDMarkStyle);
+		this.markComboBox.addItem(tSMarkStyle);
+		this.markComboBox.addItem(mCMarkStyle);
+		this.markComboBox.setItemFormater(new IItemFormater<MarkEntries>(){
+			@Override
+			public String formatItem(MarkEntries item) {
+				return item.name;
+			}
+		});
+		markComboBox.addSelectedChangedListener(new IEventListener<ItemEventArgs<MarkEntries>>() {
+			@Override
+			public void onEvent(Object sender, ItemEventArgs<MarkEntries> e) {
+				setMarkStyle();
+			}
+		});
+		this.markComboBox.setSelectedIndex(0);
 		
 		this.nameField = new Textfield();
 		this.nameField.setBounds(0,50,250,25);
@@ -432,6 +457,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.bodyPanel.addChild(this.bodyRedSlider);
 		this.bodyPanel.addChild(this.bodyGreenSlider);
 		this.bodyPanel.addChild(this.bodyBlueSlider);
+		this.bodyPanel.addChild(this.markComboBox);
 		super.addGuiControl(this.bodyPanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(50,300), 
 		new Vector2(0,this.ScreenManager.getViewport().Height));
 		
@@ -457,18 +483,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		super.addGuiControl(this.manePanel, new Vector2(0,this.ScreenManager.getViewport().Height), new Vector2(650,300), 
 		new Vector2(0,this.ScreenManager.getViewport().Height));
 		
-		this.ponyBox = new AnimationBox();
-		this.ponyBox.setBounds(0,0,400,400);
-		this.ponyBox.setAnimationPlayer(pony);
-		super.addGuiControl(this.ponyBox,  new Vector2(650,300), new Vector2(650,300), 
-				 new Vector2(650,300));
-
 		setBodyColor();
 		setEyeColor();
 		setManeColor();
+		
 		changeRaceToEarthpony();
 		this.earthPonyButton.setToggled(true);
 	}
+
 	protected void changeRaceToEarthpony() {
 		this.pony.setBoneHidden(Bones.WINGS.getValue(), true);
 		this.pegasusButton.setToggled(false);
@@ -504,6 +526,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		
 		this.maneComboBox.setSelectedIndex(random.nextInt(this.maneComboBox.itemCount()));
 		this.eyeComboBox.setSelectedIndex(random.nextInt(this.eyeComboBox.itemCount()));
+		this.markComboBox.setSelectedIndex(random.nextInt(this.markComboBox.itemCount()));
 		
 		int rand = random.nextInt(3);
 		if (rand <= 0){
@@ -529,7 +552,16 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		this.character.eyeTexture = this.eyeComboBox.getSelectedItem().eyePath;
 		
 		this.character.name = this.nameField.getText();
-		this.character.race = Race.EARTHPONY.getValue();
+		
+		this.character.markTexture = this.markComboBox.getSelectedItem().markPath;
+		
+		if(this.earthPonyButton.isToggled()){
+			this.character.race = Race.EARTHPONY.getValue();
+		}else if(this.pegasusButton.isToggled()){
+			this.character.race = Race.PEGASUS.getValue();
+		}else if(this.unicornButton.isToggled()){
+			this.character.race = Race.UNICORN.getValue();
+		}
 		
 		this.character.special = new SpecialStats(5, 3, 6, 7, 5, 7, 8);
 		
@@ -539,12 +571,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	protected void setEyeStyle() {
 		this.pony.setBoneTexture(Bones.EYE.getValue(), this.eyeComboBox.getSelectedItem().eyeEntry);
 	}
-
 	protected void setManeStyle() {
 		this.pony.setBoneTexture(Bones.UPPERMANE.getValue(), this.maneComboBox.getSelectedItem().upperManeEntry);
 		this.pony.setBoneTexture(Bones.LOWERMANE.getValue(), this.maneComboBox.getSelectedItem().lowerManeEntry);
 		this.pony.setBoneTexture(Bones.UPPERTAIL.getValue(), this.maneComboBox.getSelectedItem().upperTailEntry);
 		this.pony.setBoneTexture(Bones.LOWERTAIL.getValue(), this.maneComboBox.getSelectedItem().lowerTailEntry);
+	}
+	protected void setMarkStyle() {
+		this.pony.setBoneTexture(Bones.MARK.getValue(), this.markComboBox.getSelectedItem().markEntry);
 	}
 
 	public void goBack() {
@@ -646,4 +680,14 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 		}
 	}
 	
+	private class MarkEntries{
+		String name;
+		TextureEntry markEntry;
+		String markPath;
+		public MarkEntries(String name, String markPath, TextureDictionary assetDict) {
+			this.name = name;
+			this.markEntry = assetDict.extractTextureEntry(markPath);
+			this.markPath = markPath;
+		}
+	}
 }
