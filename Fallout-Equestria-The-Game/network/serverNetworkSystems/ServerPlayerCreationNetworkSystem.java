@@ -6,6 +6,7 @@ import scripting.PlayerScript;
 import utils.Keyboard;
 import utils.Mouse;
 import utils.Network;
+import animation.AnimationFromCharacterHelper;
 import animation.PonyColorChangeHelper;
 import com.esotericsoftware.kryonet.Server;
 import entityFramework.IEntity;
@@ -57,10 +58,7 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
 		AnimationComp animComp = entity.getComponent(AnimationComp.class);
-		
-		PonyColorChangeHelper.setBodyColor(message.playerCharacteristics.bodyColor, animComp);
-		PonyColorChangeHelper.setEyeColor( message.playerCharacteristics.eyeColor, animComp);
-		PonyColorChangeHelper.setManeColor(message.playerCharacteristics.maneColor, animComp);
+		animComp.setAnimationPlayer(AnimationFromCharacterHelper.animationPlayerFromCharacter(playerProperties, contentManager));
 		
 		entity.getComponent(InputComp.class).setKeyboard(new Keyboard());
 		entity.getComponent(InputComp.class).setMouse(new Mouse());
