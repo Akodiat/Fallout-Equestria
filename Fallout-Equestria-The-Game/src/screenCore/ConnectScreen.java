@@ -17,6 +17,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 	private ListBox<String> serverListBox;
 	private List<InetAddress> addresses;
 	private Label infoLabel;
+	private Button connectBtn;
 
 	public ConnectScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -35,7 +36,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 		serverListBox.setFgColor(Color.White);
 		this.addGuiControl(serverListBox, new Vector2(50, -400), new Vector2(50, 30), new Vector2(50, 800));
 		
-		Button connectBtn = new Button();
+		this.connectBtn = new Button();
 		connectBtn.setBounds(-1000, -1000, 200, 50);
 		connectBtn.setText("Connect to server");
 		this.addGuiControl(connectBtn, new Vector2(vp.Width + 200, 50), new Vector2(x,50),new Vector2(-200, 50));
@@ -98,6 +99,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 				infoLabel.setText(addresses.size() + " server(s) online.");
 			}
 		} else {
+			connectBtn.setEnabled(false);
 			infoLabel.setFgColor(Color.Red);
 			infoLabel.setText("No servers online.");
 		}
