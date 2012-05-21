@@ -119,7 +119,7 @@ public class ScriptPanel extends JPanel {
 		Class[] clazzes;
 		
 		try {
-			clazzes = ReflectionHelper.getClassesThatContainAnnotation(Editable.class, "scripting");
+			clazzes = ReflectionHelper.getClassesThatContainAnnotation(Editable.class, "behavior");
 			for (Class clazz : clazzes) {
 				classNames.add(clazz.getSimpleName());
 				this.scriptTypes.put(clazz.getSimpleName(), clazz);

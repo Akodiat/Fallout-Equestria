@@ -1,0 +1,47 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Rendering>
+        <texture>
+          <Asset>HEJHEJ.png</Asset>
+        </texture>
+        <color>
+          <Color>1.0,0.0,1.0,1.0</Color>
+        </color>
+      </Rendering>
+      <Behaviour>
+        <behavior class="behavior.PortalBehavior">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+        </behavior>
+      </Behaviour>
+      <Physics>
+        <immovable>false</immovable>
+        <affectedByGravity>true</affectedByGravity>
+        <mass>1.0</mass>
+        <velocity>0.0,0.0</velocity>
+        <torque>0.0</torque>
+        <heightVelocity>0.0</heightVelocity>
+      </Physics>
+      <Transformation>
+        <position reference="../../Physics/velocity"/>
+        <scale>1.0,1.0</scale>
+        <origin reference="../../Physics/velocity"/>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+        <height>0.0</height>
+      </Transformation>
+      <Spatial>
+        <bounds>
+          <Min>-50,-40,-50</Min>
+          <Max>50,40,50</Max>
+        </bounds>
+        <trigger>false</trigger>
+      </Spatial>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>

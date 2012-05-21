@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import behavior.Behavior;
 import behavior.ChangelingAIScript;
 import behavior.PlayerScript;
+import behavior.PortalBehavior;
 
 import math.MathHelper;
 import math.Vector2;
@@ -119,9 +120,15 @@ public class MazeDemo extends Demo {
 	protected void initialize() {
 
 		Display.setVSyncEnabled(false);
+<<<<<<< HEAD
 
 		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
 
+=======
+
+
+		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
+>>>>>>> Added portals
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 		mouse = new Mouse();
@@ -143,14 +150,26 @@ public class MazeDemo extends Demo {
 		AnimationPlayer player = this.ContentManager.loadAnimationSet("cactuar.animset");
 		AnimationComp comp = new AnimationComp(player);
 		comp.setTint(Color.Green);
-
+		
 		entity.removeComponent(RenderingComp.class);	
 		entity.addComponent(comp);
 		//END OF ANIMATION UGLY SHIT
 
 		entity.addToGroup(CameraControlSystem.GROUP_NAME);
 		entity.refresh();
-
+		
+		
+		IEntityArchetype entityArchtype = ContentManager.loadArchetype("Portal.archetype");
+		
+		IEntity portalA = gameWorld.getEntityManager().createEntity(entityArchtype);
+		portalA.addComponent(new BehaviourComp(new PortalBehavior("PortalA", "PortalB")));
+		portalA.getComponent(TransformationComp.class).setPosition(100, 1000);
+		portalA.refresh();
+		
+		IEntity portalB = gameWorld.getEntityManager().createEntity(entityArchtype);
+		portalB.addComponent(new BehaviourComp(new PortalBehavior("PortalB", "PortalA")));
+		portalB.getComponent(TransformationComp.class).setPosition(5000, 1000);
+		portalB.refresh();
 	}
 
 	private void addTexturedNodes() {

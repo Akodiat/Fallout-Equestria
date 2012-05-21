@@ -69,12 +69,16 @@ public class ChangelingAIScript extends Behavior{
 
 	@Override
 	public void update(GameTime time) {
+<<<<<<< HEAD
 		IEntity targetEntity = findRandomTarget();
 		if(targetEntity != null) {
 			copyTargetAppearance(targetEntity);
 		}
 		
 		targetEntity = findNearestTarget();
+=======
+		IEntity targetEntity = findNearestTarget();
+>>>>>>> Added portals
 		if(targetEntity != null) {
 			moveTowardsTarget(targetEntity.getComponent(TransformationComp.class).getPosition());
 		}
