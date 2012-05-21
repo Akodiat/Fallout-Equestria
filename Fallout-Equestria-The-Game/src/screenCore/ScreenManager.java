@@ -158,8 +158,9 @@ public class ScreenManager {
 		if(this.isInitialized) {
 			screen.initialize(this.contentManager);
 		}
-		screen.onEnter();
 		System.out.println("Screen:" + screenID);
+
+		screen.onEnter();
 	}
 	
 	public void removeScreen(String screenID) {
@@ -168,20 +169,23 @@ public class ScreenManager {
 			screen.onExit();
 			activeScreens.remove(screen);
 			screensToUpdate.remove(screen);
-		}
+		} 
 	}
 	
 	public void removeScreen(GameScreen screen) {
 		activeScreens.remove(screen);
 		screensToUpdate.remove(screen);
+		
+		if(!this.activeScreens.isEmpty()) {
+			this.activeScreens.get(this.activeScreens.size() - 1).onEnter();
+		}
 	}
 
 	public void removeAllScreens() {
 		for (GameScreen screen : this.activeScreens) {
 			screen.reset();
 		}
-		
-		
+
 		this.activeScreens.clear();	
 	}
 	public PlayerCharacteristics getPlayerCharacteristics() {

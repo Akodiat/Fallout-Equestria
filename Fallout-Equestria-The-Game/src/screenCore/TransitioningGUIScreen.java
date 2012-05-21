@@ -51,4 +51,9 @@ public abstract class TransitioningGUIScreen extends GUIScreen {
 		this.translations.add(helper);
 		this.controlPanel.addChild(control);
 	}
+	
+	protected void removeGuiControl(GUIControl control){
+		this.translations.remove(control);
+		this.controlPanel.removeChild(control);
+	}
 }

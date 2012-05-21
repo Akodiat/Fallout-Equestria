@@ -1,14 +1,19 @@
+<<<<<<< HEAD:Fallout-Equestria-The-Game/resources/characters/Namn.pchar
 <misc.PlayerCharacteristics>
   <name>Namn</name>
+=======
+<common.PlayerCharacteristics>
+  <name>Name goes here12344</name>
+>>>>>>> Removed all bugs i could remember in ponyselector.:Fallout-Equestria-The-Game/resources/characters/Name goes here12344.pchar
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
-    <Color>0.81960785,0.70980394,0.39215687,1.0</Color>
+    <Color>1.0,1.0,1.0,1.0</Color>
   </bodyColor>
   <eyeColor>
-    <Color>0.74509805,0.47058824,0.7137255,1.0</Color>
+    <Color>1.0,1.0,1.0,1.0</Color>
   </eyeColor>
   <maneColor>
-    <Color>0.5647059,0.8156863,0.38039216,1.0</Color>
+    <Color>1.0,1.0,1.0,1.0</Color>
   </maneColor>
   <maneStyle>
     <upperManeStyle>RDUPPERMANE</upperManeStyle>
@@ -16,9 +21,9 @@
     <upperTailStyle>RDUPPERTAIL</upperTailStyle>
     <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
   </maneStyle>
-  <eyeTexture>TSEYE</eyeTexture>
-  <markTexture>MCMARK</markTexture>
-  <race>UNICORN</race>
+  <eyeTexture>RDEYE</eyeTexture>
+  <markTexture>RDMARK</markTexture>
+  <race>EARTHPONY</race>
   <special>
     <Strength>5</Strength>
     <Perception>3</Perception>

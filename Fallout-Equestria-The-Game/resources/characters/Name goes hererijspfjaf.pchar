@@ -1,0 +1,51 @@
+<<<<<<< HEAD:Fallout-Equestria-The-Game/resources/characters/Name goes here.pchar
+<misc.PlayerCharacteristics>
+  <name>Name goes here</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.023529412,0.18039216,0.9098039,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.8235294,0.8980392,0.18039216,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.98039216,0.07058824,0.4745098,1.0</Color>
+=======
+<common.PlayerCharacteristics>
+  <name>Name goes hererijspfjaf</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.007843138,0.92941177,0.81960785,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.89411765,0.81960785,0.27058825,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.8392157,0.8235294,0.74509805,1.0</Color>
+>>>>>>> Removed all bugs i could remember in ponyselector.:Fallout-Equestria-The-Game/resources/characters/Name goes hererijspfjaf.pchar
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>TSUPPERMANE</upperManeStyle>
+    <lowerManeStyle>TSLOWERMANE</lowerManeStyle>
+    <upperTailStyle>TSUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>TSLOWERTAIL</lowerTailStyle>
+  </maneStyle>
+<<<<<<< HEAD:Fallout-Equestria-The-Game/resources/characters/Name goes here.pchar
+  <eyeTexture>RDEYE</eyeTexture>
+  <markTexture>TSMARK</markTexture>
+  <race>PEGASUS</race>
+=======
+  <eyeTexture>TSEYE</eyeTexture>
+  <markTexture>MCMARK</markTexture>
+  <race>EARTHPONY</race>
+>>>>>>> Removed all bugs i could remember in ponyselector.:Fallout-Equestria-The-Game/resources/characters/Name goes hererijspfjaf.pchar
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
+</misc.PlayerCharacteristics>
