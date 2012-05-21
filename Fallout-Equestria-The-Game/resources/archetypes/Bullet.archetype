@@ -36,6 +36,7 @@
 		 <Min>-20,-10,-20</Min>
         </bounds>
         <trigger>false</trigger>
+	<collideable>true</collideable>
       </Spatial>
     </elements>
   </components>

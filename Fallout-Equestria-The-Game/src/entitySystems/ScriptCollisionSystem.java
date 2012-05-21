@@ -62,11 +62,15 @@ public class ScriptCollisionSystem extends  EntityProcessingSystem{
 			IEntity e0 = indexedEntities.get(i);
 			TransformationComp t0 = tCM.getComponent(e0);
 			SpatialComp s0 = sCM.getComponent(e0);
+			if (!s0.isCollideable())
+				continue;
 			
 			for (int j = i + 1; j < indexedEntities.size(); j++) {				
 				IEntity e1 = indexedEntities.get(j);
 				TransformationComp t1= tCM.getComponent(e1);
 				SpatialComp s1 = sCM.getComponent(e1);
+				if (!s1.isCollideable())
+					continue;
 						
 				boolean collisionResult = testCollision(t0.getOriginPosition(), t0.getHeight(), s0.getBounds(),
 														t1.getOriginPosition(),t1.getHeight(), s1.getBounds());

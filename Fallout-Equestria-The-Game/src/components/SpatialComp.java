@@ -1,5 +1,7 @@
 package components;
 
+import javax.print.attribute.standard.MediaSize.Other;
+
 import math.Vector3;
 import utils.BoundingBox;
 import entityFramework.IComponent;
@@ -19,7 +21,9 @@ public class SpatialComp implements IComponent {
 	private BoundingBox bounds;
 	
 	@Editable
-	private boolean trigger;
+	private boolean trigger;	
+	@Editable
+	private boolean collideable;
 	
 	public SpatialComp() {
 		this(new BoundingBox(Vector3.Zero, Vector3.Zero), false);
@@ -28,11 +32,13 @@ public class SpatialComp implements IComponent {
 	public SpatialComp(BoundingBox bounds, boolean isTrigger) {
 		this.bounds = bounds;
 		this.setTrigger(isTrigger);
+		this.setCollideable(true);
 	}
 	
 	public SpatialComp(SpatialComp toBeCloned) {
 		this.bounds = toBeCloned.bounds;
 		this.trigger = toBeCloned.trigger;
+		this.collideable = toBeCloned.collideable;
 	}
 	public Object clone(){
 		return new SpatialComp(this);
@@ -57,5 +63,13 @@ public class SpatialComp implements IComponent {
 
 	public void setTrigger(boolean trigger) {
 		this.trigger = trigger;
+	}
+
+	public boolean isCollideable() {
+		return collideable;
+	}
+
+	public void setCollideable(boolean collideable) {
+		this.collideable = collideable;
 	}
 }

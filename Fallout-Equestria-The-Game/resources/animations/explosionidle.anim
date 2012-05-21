@@ -2,24 +2,24 @@
 <Animation dictionary="explosionidle">
   <FrameRate>30</FrameRate>
   <LoopFrame>-1</LoopFrame>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled1">explosionscaled1.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled2">explosionscaled2.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled3">explosionscaled3.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled4">explosionscaled4.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled5">explosionscaled5.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled6">explosionscaled6.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled7">explosionscaled7.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled8">explosionscaled8.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled9">explosionscaled9.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled10">explosionscaled10.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled11">explosionscaled11.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled12">explosionscaled12.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled13">explosionscaled13.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled14">explosionscaled14.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled15">explosionscaled15.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled16">explosionscaled16.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="explosionscaled17">explosionscaled17.png</Texture>
-  <Texture dictionary="explosionidle.tdict" name="Pixeltransparent">..\Pixeltransparent.png</Texture>
+  <Texture>explosionscaled1.png</Texture>
+  <Texture>explosionscaled2.png</Texture>
+  <Texture>explosionscaled3.png</Texture>
+  <Texture>explosionscaled4.png</Texture>
+  <Texture>explosionscaled5.png</Texture>
+  <Texture>explosionscaled6.png</Texture>
+  <Texture>explosionscaled7.png</Texture>
+  <Texture>explosionscaled8.png</Texture>
+  <Texture>explosionscaled9.png</Texture>
+  <Texture>explosionscaled10.png</Texture>
+  <Texture>explosionscaled11.png</Texture>
+  <Texture>explosionscaled12.png</Texture>
+  <Texture>explosionscaled13.png</Texture>
+  <Texture>explosionscaled14.png</Texture>
+  <Texture>explosionscaled15.png</Texture>
+  <Texture>explosionscaled16.png</Texture>
+  <Texture>explosionscaled17.png</Texture>
+  <Texture>..\Pixeltransparent.png</Texture>
   <Keyframe frame="0" trigger="" vflip="False" hflip="False">
     <Bone name="EXPLOSION">
       <Hidden>False</Hidden>
@@ -326,7 +326,7 @@
       </Scale>
     </Bone>
   </Keyframe>
-  <Keyframe frame="17" trigger="" vflip="False" hflip="False">
+  <Keyframe frame="17" trigger="kill" vflip="False" hflip="False">
     <Bone name="EXPLOSION">
       <Hidden>False</Hidden>
       <TextureFlipHorizontal>False</TextureFlipHorizontal>

@@ -37,6 +37,7 @@
           <Max>50,40,50</Max>
         </bounds>
         <trigger>false</trigger>
+	<collideable>true</collideable>
       </Spatial>
     </elements>
   </components>

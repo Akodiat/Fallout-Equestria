@@ -1,11 +1,16 @@
 package behavior;
 
 
+import math.Vector2;
+import utils.IEventListener;
 import components.AnimationComp;
 import components.HealthComp;
 import components.PhysicsComp;
+import components.SpatialComp;
 import entityFramework.IEntity;
+import graphics.Color;
 
+import animation.KeyframeTriggerEventArgs;
 import anotations.Editable;
 
 @Editable
@@ -41,6 +46,22 @@ public class BulletBehavior extends Behavior{
 			otherHealth.addHealthPoints(-damage);
 		}
 		this.SoundManager.playSoundEffect(soundEffect);
+		AnimationComp aCom = this.Entity.getComponent(AnimationComp.class);
+		aCom.setAnimationPlayer(this.ContentManager.loadAnimationSet("explosion.animset").clone());
+		aCom.getAnimationPlayer().addKeyframeTriggerListener(new IEventListener<KeyframeTriggerEventArgs>() {
+			@Override
+			public void onEvent(Object sender, KeyframeTriggerEventArgs e) {
+				killEntity();
+				
+			}
+		});
+		PhysicsComp pCom = this.Entity.getComponent(PhysicsComp.class);
+		pCom.setVelocity(Vector2.Zero);
+		
+		this.Entity.getComponent(SpatialComp.class).setCollideable(false);
+	}
+	
+	protected void killEntity() {
 		this.Entity.kill();
 	}
 
