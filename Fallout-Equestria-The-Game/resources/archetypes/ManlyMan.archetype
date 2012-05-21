@@ -8,7 +8,7 @@
         <torque>0.0</torque>
       </Physics>
       <Behaviour>
-        <behavior class="scripting.ManlyManScript">
+        <behavior class="behavior.ManlyManScript">
           <initialized>false</initialized>
           <enabled>false</enabled>
           <explodeAnimationName>explode</explodeAnimationName>
