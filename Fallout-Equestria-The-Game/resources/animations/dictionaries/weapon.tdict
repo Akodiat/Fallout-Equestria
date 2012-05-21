@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>weapon.png</TexturePath>
+  <Texture name="weapon">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>57</Width>
+    <Height>34</Height>
+    <OriginX>28</OriginX>
+    <OriginY>17</OriginY>
+  </Texture>
+  <Texture name="Pixeltransparent">
+    <X>0</X>
+    <Y>36</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>

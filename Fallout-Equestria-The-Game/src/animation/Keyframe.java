@@ -134,9 +134,10 @@ public class Keyframe {
 		int attachIndex = attachPoint.getSelfIndex();
 		Bone root = keyframe.getRootBone().clone();
 		root.setParentIndex(attachIndex);
-		int bonesSize = this.bones.size();
 		
 		this.addBone(root);
+		
+		int bonesSize = this.bones.size();
 		
 		//OBS!!!! i = 1 to skip root bone.
 		for (int i = 1; i < keyframe.getBones().size(); i++) {

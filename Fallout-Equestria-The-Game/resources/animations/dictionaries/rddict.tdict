@@ -650,8 +650,8 @@
     <OriginY>0</OriginY>
   </Texture>
   <Texture name="frontlegswalk10">
-    <X>318</X>
-    <Y>254</Y>
+    <X>446</X>
+    <Y>104</Y>
     <Width>17</Width>
     <Height>40</Height>
     <OriginX>11</OriginX>
@@ -665,9 +665,17 @@
     <OriginX>13</OriginX>
     <OriginY>3</OriginY>
   </Texture>
-  <Texture name="RDEAR">
+  <Texture name="pipbuck">
     <X>277</X>
     <Y>259</Y>
+    <Width>15</Width>
+    <Height>25</Height>
+    <OriginX>7</OriginX>
+    <OriginY>12</OriginY>
+  </Texture>
+  <Texture name="RDEAR">
+    <X>318</X>
+    <Y>254</Y>
     <Width>15</Width>
     <Height>25</Height>
     <OriginX>7</OriginX>
@@ -682,16 +690,16 @@
     <OriginY>2</OriginY>
   </Texture>
   <Texture name="RDIRIS">
-    <X>446</X>
-    <Y>104</Y>
+    <X>335</X>
+    <Y>254</Y>
     <Width>14</Width>
     <Height>18</Height>
     <OriginX>7</OriginX>
     <OriginY>9</OriginY>
   </Texture>
   <Texture name="RDHORN">
-    <X>446</X>
-    <Y>124</Y>
+    <X>351</X>
+    <Y>254</Y>
     <Width>14</Width>
     <Height>16</Height>
     <OriginX>11</OriginX>
@@ -706,15 +714,15 @@
     <OriginY>10</OriginY>
   </Texture>
   <Texture name="MCMARK">
-    <X>337</X>
-    <Y>254</Y>
+    <X>335</X>
+    <Y>274</Y>
     <Width>13</Width>
     <Height>19</Height>
     <OriginX>6</OriginX>
     <OriginY>10</OriginY>
   </Texture>
   <Texture name="TSMARK">
-    <X>352</X>
+    <X>367</X>
     <Y>254</Y>
     <Width>12</Width>
     <Height>21</Height>
