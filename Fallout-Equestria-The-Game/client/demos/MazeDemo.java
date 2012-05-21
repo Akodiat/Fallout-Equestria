@@ -120,15 +120,9 @@ public class MazeDemo extends Demo {
 	protected void initialize() {
 
 		Display.setVSyncEnabled(false);
-<<<<<<< HEAD
 
 		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
 
-=======
-
-
-		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
->>>>>>> Added portals
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 		mouse = new Mouse();
