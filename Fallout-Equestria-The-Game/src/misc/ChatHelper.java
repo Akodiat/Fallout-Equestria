@@ -34,8 +34,8 @@ public class ChatHelper {
 				@Override
 				public void onEvent(Object sender, TextEventArgs e) {
 					ChatMessage message = new ChatMessage();
-					message.senderID = network.getClient().getID();;
-					message.playerName = 0 + ""; //Should be playercharacteristics.getName();
+					message.senderID = network.getClient().getID();
+					message.playerName = playerName;
 					message.message = e.getText();
 					network.getClient().sendTCP(message);
 				}	
