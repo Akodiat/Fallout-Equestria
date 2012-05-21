@@ -69,6 +69,10 @@ public class ChangelingAIScript extends Behavior{
 
 	@Override
 	public void update(GameTime time) {
+		IEntity targetEntity = findRandomTarget();
+		if(targetEntity != null) {
+			copyTargetAppearance(targetEntity);
+		}
 		
 		targetEntity = findNearestTarget();
 		if(targetEntity != null) {

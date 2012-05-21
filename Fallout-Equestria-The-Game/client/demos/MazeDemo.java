@@ -119,15 +119,9 @@ public class MazeDemo extends Demo {
 	protected void initialize() {
 
 		Display.setVSyncEnabled(false);
-<<<<<<< HEAD
-
 
 		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
-=======
-		
-		
-		scene = ContentManager.load("MapMapMap.xml", Scene.class);
->>>>>>> Minor stuff in script and so on
+
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 		mouse = new Mouse();
