@@ -1,0 +1,34 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Behaviour/>
+      <Physics>
+        <immovable>true</immovable>
+        <affectedByGravity>false</affectedByGravity>
+        <mass>1.0</mass>
+        <velocity>0.0,0.0</velocity>
+        <torque>0.0</torque>
+        <heightVelocity>0.0</heightVelocity>
+      </Physics>
+      <Transformation>
+        <position reference="../../Physics/velocity"/>
+        <scale>1.0,1.0</scale>
+        <origin reference="../../Physics/velocity"/>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+        <height>0.0</height>
+      </Transformation>
+      <Spatial>
+        <bounds>
+          <Min>math.Vector3@17cf7aa0</Min>
+          <Max reference="../Min"/>
+        </bounds>
+        <trigger>true</trigger>
+      </Spatial>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>
