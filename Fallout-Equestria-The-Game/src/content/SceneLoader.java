@@ -154,8 +154,16 @@ public class SceneLoader extends ContentLoader<Scene>{
 			nX = format.parse(pos[0]);
 			nY = format.parse(pos[1]);
 		} catch (ParseException e) {
-			throw new NumberFormatException(pos[0] + "  "  + pos[1]);
+			format = NumberFormat.getInstance(Locale.ENGLISH);
+			try {
+			nX = format.parse(pos[0]);
+			nY = format.parse(pos[1]);
+			} catch(ParseException e2) {
+				throw new RuntimeException(e2);
+			}
 		}
+		
+		System.out.println("x" + nX + " | y" + nY);
 		
 		return new Vector2(nX.floatValue(),nY.floatValue());
 	}

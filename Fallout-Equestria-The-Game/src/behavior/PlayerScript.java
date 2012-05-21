@@ -85,7 +85,8 @@ public class PlayerScript extends Behavior{
 	
 	private void updateVelo() {
 		Keyboard keyboard = inputComp.getKeyboard();
-
+		
+		
 		int speedFactor = 200;
 		if(keyboard.isKeyDown(inpComp.getGallopButton())){
 			speedFactor=400;
