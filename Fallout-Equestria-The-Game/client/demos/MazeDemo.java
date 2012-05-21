@@ -140,7 +140,7 @@ public class MazeDemo extends Demo {
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);	
 
-		AnimationPlayer player = this.ContentManager.loadAnimationSet("rdset.animset");
+		AnimationPlayer player = this.ContentManager.loadAnimationSet("cactuar.animset");
 		AnimationComp comp = new AnimationComp(player);
 		comp.setTint(Color.Green);
 

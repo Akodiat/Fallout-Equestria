@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<AnimationSet>
+<Animation key="walk" value="cactuarwalk.anim"/>
+<Animation key="idle" value="cactuaridle.anim"/>
+<Animation key="jump" value="cactuarjump.anim"/>
+<String currentAnimation="jump"/>
+</AnimationSet>

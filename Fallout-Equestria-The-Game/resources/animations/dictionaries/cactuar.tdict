@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>cactuar.png</TexturePath>
+  <Texture name="cactuarbody">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>39</Width>
+    <Height>106</Height>
+    <OriginX>19</OriginX>
+    <OriginY>53</OriginY>
+  </Texture>
+  <Texture name="cactuarhand">
+    <X>41</X>
+    <Y>0</Y>
+    <Width>29</Width>
+    <Height>24</Height>
+    <OriginX>3</OriginX>
+    <OriginY>12</OriginY>
+  </Texture>
+  <Texture name="cactuararm">
+    <X>41</X>
+    <Y>26</Y>
+    <Width>28</Width>
+    <Height>20</Height>
+    <OriginX>3</OriginX>
+    <OriginY>10</OriginY>
+  </Texture>
+  <Texture name="Pixel">
+    <X>72</X>
+    <Y>0</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>
