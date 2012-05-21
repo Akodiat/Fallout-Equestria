@@ -32,7 +32,7 @@ public class FollowAIScript extends Behavior{
 		
 		if(physComp == null) {
 			this.physComp = new PhysicsComp();
-			this.Entity.addComponent(new PhysicsComp());
+			this.Entity.addComponent(this.physComp);
 		}
 		if(this.transComp == null) {
 			throw new NullPointerException("transComp");
