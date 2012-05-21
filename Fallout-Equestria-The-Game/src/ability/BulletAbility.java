@@ -1,8 +1,11 @@
 package ability;
 
+import animation.Bones;
+import components.AnimationComp;
 import components.TransformationComp;
 
 import math.Vector2;
+import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
 import utils.time.GameTime;
 
@@ -33,7 +36,11 @@ public class BulletAbility extends Ability {
 		float posY = fireOffset.Y + trans.getPosition().Y;
 		System.out.println(posX + "|" + posY);
 		
-		this.CreationFactory.createMovingEntity(bulletArchetype, new Vector2(posX,posY),trans.getHeight(), velocity);		
+		IEntity bullet = this.CreationFactory.createMovingEntity(bulletArchetype, new Vector2(posX,posY),trans.getHeight(), velocity);
+		
+		System.out.println(this.SorceEntity.getComponent(AnimationComp.class).getAnimationPlayer().getBoneColor(Bones.BODY.getValue()));
+		bullet.getComponent(AnimationComp.class).setTint(
+				this.SorceEntity.getComponent(AnimationComp.class).getAnimationPlayer().getBoneColor(Bones.BODY.getValue()));
 	}
 	
 	public void update(GameTime time) {	}

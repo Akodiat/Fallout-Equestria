@@ -1,7 +1,9 @@
 package behavior;
 
 
+import components.AnimationComp;
 import components.HealthComp;
+import components.PhysicsComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
 
@@ -24,7 +26,11 @@ public class BulletBehavior extends Behavior{
 	
 	@Override
 	public void start() {
-		this.Entity.getComponent(TransformationComp.class);
+		AnimationComp aCom = this.Entity.getComponent(AnimationComp.class);
+		PhysicsComp pCom = this.Entity.getComponent(PhysicsComp.class);
+		aCom.getAnimationPlayer().setBoneHidden("RIGIDBODY", true);
+		if(pCom.getVelocity().X>0)
+			aCom.getAnimationPlayer().setBoneMirrored("BALL", true);
 	}
 
 	

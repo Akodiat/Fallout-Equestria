@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>fireballsheet.png</TexturePath>
+  <Texture name="fireballscaled2">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>100</Width>
+    <Height>45</Height>
+    <OriginX>50</OriginX>
+    <OriginY>22</OriginY>
+  </Texture>
+  <Texture name="fireballscaled1">
+    <X>0</X>
+    <Y>47</Y>
+    <Width>96</Width>
+    <Height>45</Height>
+    <OriginX>50</OriginX>
+    <OriginY>22</OriginY>
+  </Texture>
+  <Texture name="fireballscaled3">
+    <X>98</X>
+    <Y>47</Y>
+    <Width>90</Width>
+    <Height>45</Height>
+    <OriginX>50</OriginX>
+    <OriginY>22</OriginY>
+  </Texture>
+  <Texture name="Pixel">
+    <X>102</X>
+    <Y>0</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>

@@ -1,14 +1,14 @@
 <entityFramework.EntityArchetype>
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
-      <Rendering>
-        <texture>
-          <Asset>Circle100pxGrey.png</Asset>
-        </texture>
-        <color>
-          <Color>0.0,0.8,1.0,1.0</Color>
-        </color>
-      </Rendering>
+      <Animation>
+      	<animationPlayer>
+          <Asset>fireball.animset</Asset>
+        </animationPlayer>
+	<tint>
+	  <Color>1.0,1.0,1.0,1.0</Color>
+	</tint>
+      </Animation>
       <Behaviour>
         <behavior class="behavior.BulletBehavior">
           <initialized>false</initialized>
@@ -25,7 +25,7 @@
       </Physics>
       <Transformation>
         <position reference="../../Physics/velocity"/>
-        <scale>0.5,0.5</scale>
+        <scale>1.0,1.0</scale>
         <origin>50.0,50.0</origin>
         <rotation>0.0</rotation>
         <mirror>false</mirror>

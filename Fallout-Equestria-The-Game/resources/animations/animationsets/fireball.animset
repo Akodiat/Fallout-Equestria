@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<AnimationSet>
+<Animation key="moving" value="fireball.anim"/>
+<String currentAnimation="moving"/>
+</AnimationSet>

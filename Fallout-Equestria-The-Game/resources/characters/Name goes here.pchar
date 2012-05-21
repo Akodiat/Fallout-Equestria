@@ -1,0 +1,31 @@
+<misc.PlayerCharacteristics>
+  <name>Name goes here</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.8509804,0.7764706,0.1254902,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.42352942,0.8980392,0.67058825,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.42745098,0.9529412,0.09803922,1.0</Color>
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>RDUPPERMANE</upperManeStyle>
+    <lowerManeStyle>RDLOWERMANE</lowerManeStyle>
+    <upperTailStyle>RDUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
+  </maneStyle>
+  <eyeTexture>RDEYE</eyeTexture>
+  <markTexture>MCMARK</markTexture>
+  <race>PEGASUS</race>
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
+</misc.PlayerCharacteristics>

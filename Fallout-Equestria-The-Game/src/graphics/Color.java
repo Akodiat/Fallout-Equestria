@@ -42,6 +42,15 @@ public class Color {
 		A = ((hex >> 0)  & 0xFF)   / (float)0xFF;
 	}
 	
+	public static Color mul(Color c1, Color c2) {
+		float r = c1.R*c2.R;
+		float g = c1.G*c2.G;
+		float b = c1.B*c2.B;
+		float a = c1.A*c2.A;
+		
+		return new Color(r, g, b, a);
+	}
+	
 	public static Color lerp(Color c1, Color c2, float t) {
 		float r = MathHelper.lerp(c1.R, c2.R, t);
 		float g = MathHelper.lerp(c1.G, c2.G, t);

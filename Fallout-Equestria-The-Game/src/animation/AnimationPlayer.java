@@ -305,14 +305,13 @@ public class AnimationPlayer
 				origin = new Vector2(bounds.getLocation().Width - bounds.getOrigin().X ,
 						bounds.getOrigin().Y);
 			}
-
 			spriteBatch.draw(animation.getTextures().get(bone.getTextureIndex()).getTexture(), 
 					getBonePosition(position, mirrored, scale, boneIndex), 
-					bone.getColor(), bounds.getLocation(), 
+					Color.mul(tintColor, bone.getColor()), bounds.getLocation(), 
 					origin, 
 					Vector2.mul(scale, boneTransformations[boneIndex].getScale()), 
 					getBoneRotation(mirrored, rotation, boneIndex), 
-					bone.isMirrored() ^ mirrored);		
+					bone.isMirrored() ^ mirrored);
 		}
 	}
 
@@ -374,6 +373,24 @@ public class AnimationPlayer
 			}
 		}
 	}
+	
+	/**
+	 * Gets bone color.
+	 * Returns transparent if color isn't the same for all anims/keyframes.
+	 * @param boneName
+	 */
+	public Color getBoneColor(String boneName){
+		Color color = null;
+		for (String key : this.animations.keySet()) {
+			for (Keyframe frame : this.animations.get(key).getKeyframes()) {
+				Color boneColor = frame.getBone(boneName).getColor();
+				if (!boneColor.equals(color) && !(color == null))
+					return Color.Transparent;
+				color = boneColor;
+			}
+		}
+		return color;
+	}
 
 	public void setBoneColor(String boneName, Color color){
 		for (String key : this.animations.keySet()) {
@@ -390,7 +407,14 @@ public class AnimationPlayer
 			}
 		}
 	}
-
+	
+	public void setBoneMirrored(String boneName, boolean isMirrored){
+		for (String key : this.animations.keySet()) {
+			for (Keyframe frame : this.animations.get(key).getKeyframes()) {
+				frame.getBone(boneName).setMirrored(isMirrored);
+			}
+		}
+	}
 
 	public void attachAnimationToBone(String boneName, Animation animation){
 		for (String key : this.animations.keySet()) {

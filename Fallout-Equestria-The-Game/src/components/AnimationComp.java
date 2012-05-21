@@ -16,6 +16,7 @@ public class AnimationComp implements IComponent {
 	
 	public AnimationComp() {
 		this.animationPlayer = new AnimationPlayer();
+		this.tint = Color.White;
 	}
 	
 	public AnimationComp(AnimationPlayer animationPlayer) {
@@ -25,6 +26,7 @@ public class AnimationComp implements IComponent {
 	
 	public AnimationComp(AnimationComp other) {
 		this.animationPlayer = other.animationPlayer.clone();
+		this.tint = other.tint;
 	}
 	
 	public AnimationComp clone() {

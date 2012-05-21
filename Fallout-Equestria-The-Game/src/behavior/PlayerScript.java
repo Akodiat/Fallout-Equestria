@@ -62,7 +62,7 @@ public class PlayerScript extends Behavior{
 		this.StateMachine.changeState(IDLE_STATE);
 		
 		this.animComp.changeAnimation("idle", false);
-		this.bulletAbility = new MachineBullet(this.ContentManager.loadArchetype("Bullet.archetype"), 500, new Vector2(160, -20), 0.3f);
+		this.bulletAbility = new MachineBullet(this.ContentManager.loadArchetype("Bullet.archetype"), 1000, new Vector2(160, -20), 0.3f);
 		this.bulletAbility.initialize(EntityManager, this.Entity);
 	}
 	
