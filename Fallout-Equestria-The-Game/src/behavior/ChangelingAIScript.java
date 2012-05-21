@@ -48,15 +48,12 @@ public class ChangelingAIScript extends Behavior{
 		IEntity targetEntity = findNearestTarget(this.Entity.getComponent(TransformationComp.class).getPosition());
 		if(targetEntity != null) {
 			TransformationComp playerTrans = targetEntity.getComponent(TransformationComp.class);
-			if(targetInRange(playerTrans.getPosition())) {
-				copyTargetAppearance(targetEntity);
-			}
+			copyTargetAppearance(targetEntity);
 		}
 
 	}
 	private IEntity findNearestTarget(Vector2 position){
 		IEntity nearestTarget = null;
-
 		//		ComponentMapper<TransformationComp> tCM;
 		//		tCM = ComponentMapper.create(NO DATABASE), TransformationComp.class);
 
@@ -73,12 +70,9 @@ public class ChangelingAIScript extends Behavior{
 	}
 
 	private void copyTargetAppearance(IEntity targetEntity) {
+
 		AnimationPlayer animPlayer = targetEntity.getComponent(AnimationComp.class).getAnimationPlayer().clone();
 		this.Entity.getComponent(AnimationComp.class).setAnimationPlayer(animPlayer);
-	}
-
-	private boolean targetInRange(Vector2 targetPos) {
-		return Vector2.distanceSquared(this.transComp.getPosition(), targetPos) < this.sightRange * this.sightRange;
 	}
 
 

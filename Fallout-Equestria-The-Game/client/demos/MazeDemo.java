@@ -94,6 +94,7 @@ public class MazeDemo extends Demo {
 		if(Math.random() < 0.3){
 			Behavior behavior = new ChangelingAIScript();
 			behavior.initialize(this.gameWorld.getEntityManager(), this.ContentManager, new SoundManager(this.ContentManager, 1, 1, 1), manEntity); //TODO BAD!!! I guess...
+			behavior.setEnabled(true);
 			behavior.start();
 			manEntity.getComponent(BehaviourComp.class).setBehavior(behavior);
 		}
