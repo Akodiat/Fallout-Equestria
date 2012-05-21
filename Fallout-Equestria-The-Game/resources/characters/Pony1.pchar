@@ -1,14 +1,14 @@
 <misc.PlayerCharacteristics>
-  <name>Name goes herewefwefwefwe</name>
+  <name>Pony1</name>
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
-    <Color>0.20784314,0.5372549,0.23921569,1.0</Color>
+    <Color>0.3764706,0.36862746,0.7647059,1.0</Color>
   </bodyColor>
   <eyeColor>
-    <Color>0.019607844,0.011764706,0.80784315,1.0</Color>
+    <Color>0.5882353,0.047058824,0.69803923,1.0</Color>
   </eyeColor>
   <maneColor>
-    <Color>0.64705884,0.09411765,0.2784314,1.0</Color>
+    <Color>0.23921569,0.07058824,0.043137256,1.0</Color>
   </maneColor>
   <maneStyle>
     <upperManeStyle>RDUPPERMANE</upperManeStyle>
