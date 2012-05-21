@@ -39,7 +39,7 @@ public class TestGUIScreen extends TransitioningGUIScreen {
 		ImageBox logo = new ImageBox();
 		logo.setBounds(-1000, -1000, 804, 451);
 		logo.setImage(manager.loadTexture("logo.png"));
-		this.addGuiControl(logo, new Vector2(vp.Width, vp.Height), new Vector2(0,0), new Vector2(vp.Width, vp.Height));
+		this.addGuiControl(logo, new Vector2(vp.Width, vp.Height), new Vector2(175,80), new Vector2(vp.Width, vp.Height));
 		
 		button0.addClicked(new IEventListener<EventArgs>() {
 			public void onEvent(Object sender, EventArgs e) {

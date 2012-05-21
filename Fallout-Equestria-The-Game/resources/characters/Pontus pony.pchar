@@ -1,0 +1,31 @@
+<misc.PlayerCharacteristics>
+  <name>Pontus pony</name>
+  <archetypePath>Player.archetype</archetypePath>
+  <bodyColor>
+    <Color>0.7764706,0.77254903,0.22352941,1.0</Color>
+  </bodyColor>
+  <eyeColor>
+    <Color>0.23921569,0.6313726,0.4627451,1.0</Color>
+  </eyeColor>
+  <maneColor>
+    <Color>0.70980394,0.40392157,0.4509804,1.0</Color>
+  </maneColor>
+  <maneStyle>
+    <upperManeStyle>TSUPPERMANE</upperManeStyle>
+    <lowerManeStyle>TSLOWERMANE</lowerManeStyle>
+    <upperTailStyle>TSUPPERTAIL</upperTailStyle>
+    <lowerTailStyle>TSLOWERTAIL</lowerTailStyle>
+  </maneStyle>
+  <eyeTexture>TSEYE</eyeTexture>
+  <markTexture>RDMARK</markTexture>
+  <race>EARTHPONY</race>
+  <special>
+    <Strength>5</Strength>
+    <Perception>3</Perception>
+    <Endurance>6</Endurance>
+    <Charisma>7</Charisma>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <Luck>8</Luck>
+  </special>
+</misc.PlayerCharacteristics>
