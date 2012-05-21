@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<AnimationSet>
+<Animation key="walk" value="pillwalk.anim"/>
+<Animation key="idle" value="pillidle.anim"/>
+<Animation key="jump" value="pilljump.anim"/>
+<String currentAnimation="jump"/>
+</AnimationSet>

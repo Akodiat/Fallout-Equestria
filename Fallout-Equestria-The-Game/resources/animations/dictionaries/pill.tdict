@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>pillsheet.png</TexturePath>
+  <Texture name="pillbubble">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>125</Width>
+    <Height>85</Height>
+    <OriginX>62</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="pillbubble2">
+    <X>127</X>
+    <Y>0</Y>
+    <Width>125</Width>
+    <Height>85</Height>
+    <OriginX>62</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="pillscaled">
+    <X>0</X>
+    <Y>87</Y>
+    <Width>50</Width>
+    <Height>23</Height>
+    <OriginX>25</OriginX>
+    <OriginY>11</OriginY>
+  </Texture>
+  <Texture name="Pixel">
+    <X>52</X>
+    <Y>87</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>
