@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<AnimationSet>
+<Animation key="idle" value="explosionidle.anim"/>
+<String currentAnimation="idle"/>
+</AnimationSet>

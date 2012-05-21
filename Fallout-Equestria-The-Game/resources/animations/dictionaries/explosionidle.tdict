@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>explosionidle.png</TexturePath>
+  <Texture name="explosionscaled8">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>69</Width>
+    <Height>85</Height>
+    <OriginX>31</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="explosionscaled7">
+    <X>71</X>
+    <Y>0</Y>
+    <Width>67</Width>
+    <Height>85</Height>
+    <OriginX>29</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="explosionscaled10">
+    <X>140</X>
+    <Y>0</Y>
+    <Width>66</Width>
+    <Height>85</Height>
+    <OriginX>31</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="explosionscaled9">
+    <X>0</X>
+    <Y>87</Y>
+    <Width>66</Width>
+    <Height>83</Height>
+    <OriginX>31</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="explosionscaled5">
+    <X>68</X>
+    <Y>87</Y>
+    <Width>64</Width>
+    <Height>82</Height>
+    <OriginX>30</OriginX>
+    <OriginY>41</OriginY>
+  </Texture>
+  <Texture name="explosionscaled11">
+    <X>134</X>
+    <Y>87</Y>
+    <Width>62</Width>
+    <Height>85</Height>
+    <OriginX>30</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="explosionscaled6">
+    <X>208</X>
+    <Y>0</Y>
+    <Width>61</Width>
+    <Height>82</Height>
+    <OriginX>29</OriginX>
+    <OriginY>40</OriginY>
+  </Texture>
+  <Texture name="explosionscaled4">
+    <X>68</X>
+    <Y>171</Y>
+    <Width>56</Width>
+    <Height>78</Height>
+    <OriginX>29</OriginX>
+    <OriginY>38</OriginY>
+  </Texture>
+  <Texture name="explosionscaled12">
+    <X>198</X>
+    <Y>87</Y>
+    <Width>55</Width>
+    <Height>80</Height>
+    <OriginX>30</OriginX>
+    <OriginY>37</OriginY>
+  </Texture>
+  <Texture name="explosionscaled13">
+    <X>0</X>
+    <Y>172</Y>
+    <Width>53</Width>
+    <Height>60</Height>
+    <OriginX>30</OriginX>
+    <OriginY>39</OriginY>
+  </Texture>
+  <Texture name="explosionscaled17">
+    <X>0</X>
+    <Y>234</Y>
+    <Width>51</Width>
+    <Height>12</Height>
+    <OriginX>24</OriginX>
+    <OriginY>41</OriginY>
+  </Texture>
+  <Texture name="explosionscaled16">
+    <X>126</X>
+    <Y>174</Y>
+    <Width>50</Width>
+    <Height>17</Height>
+    <OriginX>26</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="explosionscaled14">
+    <X>126</X>
+    <Y>193</Y>
+    <Width>48</Width>
+    <Height>54</Height>
+    <OriginX>29</OriginX>
+    <OriginY>40</OriginY>
+  </Texture>
+  <Texture name="explosionscaled15">
+    <X>255</X>
+    <Y>84</Y>
+    <Width>47</Width>
+    <Height>38</Height>
+    <OriginX>25</OriginX>
+    <OriginY>40</OriginY>
+  </Texture>
+  <Texture name="explosionscaled3">
+    <X>178</X>
+    <Y>174</Y>
+    <Width>46</Width>
+    <Height>59</Height>
+    <OriginX>27</OriginX>
+    <OriginY>23</OriginY>
+  </Texture>
+  <Texture name="explosionscaled2">
+    <X>255</X>
+    <Y>124</Y>
+    <Width>40</Width>
+    <Height>36</Height>
+    <OriginX>25</OriginX>
+    <OriginY>4</OriginY>
+  </Texture>
+  <Texture name="explosionscaled1">
+    <X>271</X>
+    <Y>0</Y>
+    <Width>13</Width>
+    <Height>13</Height>
+    <OriginX>7</OriginX>
+    <OriginY>-10</OriginY>
+  </Texture>
+  <Texture name="Pixeltransparent">
+    <X>55</X>
+    <Y>172</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>
