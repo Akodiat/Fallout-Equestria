@@ -22,6 +22,9 @@ import entityFramework.IEntity;
 import utils.EventArgs;
 import utils.IEventListener;
 import utils.Rectangle;
+import utils.input.Keyboard;
+import utils.input.Keys;
+import utils.input.Mouse;
 import utils.time.GameTime;
 import utils.time.TimeSpan;
 
@@ -32,6 +35,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	private GoToScreenMessage message = null;
 	private ChatHelper chatHelper;
 	private List<Level> levels = new ArrayList<Level>();
+	private ChatPanel chat;
 	
 	public LobbyGUI(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -114,7 +118,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 			});
 		}
 		
-		ChatPanel chat = new ChatPanel();
+		this.chat = new ChatPanel();
 		chat.setBounds(-1016, -1000,1016,228);
 		chat.setFont(manager.loadFont("arialb20.xml"));
 		this.addGuiControl(chat, new Vector2(0,768), new Vector2(0,500), new Vector2(0,768));
@@ -221,4 +225,13 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		}
 	}
 
+	@Override
+	public void handleInput(Mouse m, Keyboard k) {
+		super.handleInput(m, k);
+		
+		if(k.wasKeyPressed(Keys.Enter)) {
+			chat.setFocused(!chat.isFocused());
+		}
+	}
+	
 }

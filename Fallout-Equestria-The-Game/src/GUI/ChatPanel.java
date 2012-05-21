@@ -97,4 +97,10 @@ public class ChatPanel extends Panel {
 		this.sendTextEvent.addListener(listener);
 	}
 	
+	@Override
+	public void setFocused(boolean focused) {
+		super.setFocused(focused);
+		this.inputField.setFocused(focused);
+	}
+	
 }
