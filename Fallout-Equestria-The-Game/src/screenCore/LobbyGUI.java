@@ -123,17 +123,18 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		chat.setFont(manager.loadFont("arialb20.xml"));
 		this.addGuiControl(chat, new Vector2(0,768), new Vector2(0,500), new Vector2(0,768));
 		
-		this.chatHelper = new ChatHelper(chat, this.ScreenManager.getNetwork());
+		this.chatHelper = new ChatHelper(chat, this.ScreenManager.getNetwork(), this.ScreenManager.getPlayerCharacteristics().name);
 		
 		chat.addFocusGainedEvent(new IEventListener<EventArgs>() {
 			@Override
 			public void onEvent(Object sender, EventArgs e) {
 				for(int i = 0; i < levels.size(); i++) {
 					levels.get(i).setTyping(true);
-					Set<IEntity> entities = levels.get(i).World.getEntityManager().getEntityGroup(EntityGroups.Players.toString());
-					
-					for(IEntity entity : entities) {
-						entity.getComponent(BehaviourComp.class).setEnabled(false);
+					if(ScreenManager.getNetwork().isServer()) {
+						Set<IEntity> entities = levels.get(i).World.getEntityManager().getEntityGroup(EntityGroups.Players.toString());
+						for(IEntity entity : entities) {
+							entity.getComponent(BehaviourComp.class).setEnabled(false);
+						}
 					}
 				}
 			}	
@@ -144,10 +145,11 @@ public class LobbyGUI extends TransitioningGUIScreen{
 			public void onEvent(Object sender, EventArgs e) {
 				for(int i = 0; i < levels.size(); i++) {
 					levels.get(i).setTyping(false);
-					Set<IEntity> entities = levels.get(i).World.getEntityManager().getEntityGroup(EntityGroups.Players.toString());
-					
-					for(IEntity entity : entities) {
-						entity.getComponent(BehaviourComp.class).setEnabled(true);
+					if(ScreenManager.getNetwork().isServer()) {
+						Set<IEntity> entities = levels.get(i).World.getEntityManager().getEntityGroup(EntityGroups.Players.toString());
+						for(IEntity entity : entities) {
+							entity.getComponent(BehaviourComp.class).setEnabled(true);
+						}
 					}
 				}
 			}	

@@ -6,7 +6,6 @@ import components.TransformationComp;
 
 import math.Vector2;
 
-import utils.Rectangle;
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
 import anotations.Editable;
@@ -27,7 +26,8 @@ public class SpawnBehaviour extends Behavior{
 	}
 	
 	public SpawnBehaviour(SpawnBehaviour spawnBehaviour) {
-		// TODO Auto-generated constructor stub
+		this.archtypeID = spawnBehaviour.archtypeID;
+		this.numEntities = spawnBehaviour.numEntities;
 	}
 
 	@Override

@@ -4,7 +4,6 @@ package behavior;
 import components.AnimationComp;
 import components.HealthComp;
 import components.PhysicsComp;
-import components.TransformationComp;
 import entityFramework.IEntity;
 
 import anotations.Editable;

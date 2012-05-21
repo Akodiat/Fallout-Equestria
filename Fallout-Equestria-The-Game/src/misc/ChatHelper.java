@@ -19,11 +19,13 @@ public class ChatHelper {
 	private final Network network;
 	private final ChatPanel panel;
 	private final List<ChatMessage> messageBuffer;
+	private final String playerName;
 
-	public ChatHelper(ChatPanel chatPanel, Network network) {
+	public ChatHelper(ChatPanel chatPanel, Network network, String name) {
 		this.panel = chatPanel;
 		this.network = network;
 		this.messageBuffer = new ArrayList<>();
+		this.playerName = name;
 	}
 
 	public void intiialize() {
@@ -44,7 +46,7 @@ public class ChatHelper {
 				public void onEvent(Object sender, TextEventArgs e) {
 					ChatMessage message = new ChatMessage();
 					message.senderID = 0;
-					message.playerName = 0 + ""; //Should be playercharacteristics.getName();
+					message.playerName = playerName;
 					message.message = e.getText();
 					network.getServer().sendToAllTCP(message);
 				}	
