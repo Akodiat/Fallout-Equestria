@@ -23,10 +23,12 @@ public class Level extends EntityScreen {
 	private Scene scene;
 	private final String level;
 	private PlayerCharacteristics playerChars;
+	private boolean typing;
 	
 	public Level(boolean popup, TimeSpan transOnTime, TimeSpan transOffTime, String level) {
 		super(popup, transOnTime, transOffTime);
 		this.level = level;
+		this.typing = false;
 	}
 
 	@Override
@@ -90,7 +92,7 @@ public class Level extends EntityScreen {
 	@Override
 	public void handleInput(Mouse mouse, Keyboard keyboard) {
 		if(this.ScreenManager.getNetwork().isClient()) {
-			this.sendInput(mouse, keyboard);
+				this.sendInput(mouse, keyboard);
 		} 
 	}
 
@@ -99,7 +101,10 @@ public class Level extends EntityScreen {
 		message.mouse = mouse;
 		message.keyboard = keyboard;
 		message.networkID = this.ScreenManager.getNetwork().getClient().getID();
-		this.ScreenManager.getNetwork().getClient().sendUDP(message);
+		
+		if(!isTyping()) {
+			this.ScreenManager.getNetwork().getClient().sendUDP(message);
+		}
 	}
 
 	@Override
@@ -114,5 +119,12 @@ public class Level extends EntityScreen {
 		this.World.render();
 		spriteBatch.end();
 	}
+	
+	public boolean isTyping() {
+		return typing;
+	}
 
+	public void setTyping(boolean typing) {
+		this.typing = typing;
+	}
 }

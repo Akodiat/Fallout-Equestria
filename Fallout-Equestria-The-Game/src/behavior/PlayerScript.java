@@ -187,5 +187,17 @@ public class PlayerScript extends Behavior{
 			}
 		}
 	}
+	
+	@Override
+	public void onEnable() {
+		this.StateMachine.changeState(IDLE_STATE);
+	}
+	
+	@Override
+	public void onDisable() {
+		this.StateMachine.changeState(IDLE_STATE);
+		this.physComp.setVelocity(Vector2.Zero);
+		this.apComp.stopAbility(bulletAbility);
+	}
 
 }

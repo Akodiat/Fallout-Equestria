@@ -1,17 +1,24 @@
 package screenCore;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import common.messages.GoToScreenMessage;
+import components.BehaviourComp;
 
 import graphics.Color;
 import math.Vector2;
 import misc.ChatHelper;
+import misc.EntityGroups;
 import GUI.Button;
 import GUI.ChatPanel;
 import GUI.Label;
 import GUI.ListBox;
 import content.ContentManager;
+import entityFramework.IEntity;
 import utils.EventArgs;
 import utils.IEventListener;
 import utils.Rectangle;
@@ -24,6 +31,7 @@ public class LobbyGUI extends TransitioningGUIScreen{
 	private Object lock = new Object();
 	private GoToScreenMessage message = null;
 	private ChatHelper chatHelper;
+	private List<Level> levels = new ArrayList<Level>();
 	
 	public LobbyGUI(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(2.0f), TimeSpan.fromSeconds(1.0f), lookAndFeelPath);
@@ -47,6 +55,13 @@ public class LobbyGUI extends TransitioningGUIScreen{
 			});
 		}
 		
+		for(int i = 0; i < this.ScreenManager.getScreens().size(); i++) {
+			GameScreen screen = this.ScreenManager.getScreens().get(i);
+			
+			if(screen instanceof Level) {
+				levels.add((Level) screen);
+			}
+		}
 		
 		Rectangle vp = this.ScreenManager.getViewport();
 		int x = vp.Width - 250;
@@ -105,6 +120,34 @@ public class LobbyGUI extends TransitioningGUIScreen{
 		this.addGuiControl(chat, new Vector2(0,768), new Vector2(0,500), new Vector2(0,768));
 		
 		this.chatHelper = new ChatHelper(chat, this.ScreenManager.getNetwork());
+		
+		chat.addFocusGainedEvent(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				for(int i = 0; i < levels.size(); i++) {
+					levels.get(i).setTyping(true);
+					Set<IEntity> entities = levels.get(i).World.getEntityManager().getEntityGroup(EntityGroups.Players.toString());
+					
+					for(IEntity entity : entities) {
+						entity.getComponent(BehaviourComp.class).setEnabled(false);
+					}
+				}
+			}	
+		});
+		
+		chat.addFocusLostEvent(new IEventListener<EventArgs>() {
+			@Override
+			public void onEvent(Object sender, EventArgs e) {
+				for(int i = 0; i < levels.size(); i++) {
+					levels.get(i).setTyping(false);
+					Set<IEntity> entities = levels.get(i).World.getEntityManager().getEntityGroup(EntityGroups.Players.toString());
+					
+					for(IEntity entity : entities) {
+						entity.getComponent(BehaviourComp.class).setEnabled(true);
+					}
+				}
+			}	
+		});
 		
 		Label playersLabel = new Label();
 		playersLabel.setBounds(-1000, -1000, 200, 30);

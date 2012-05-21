@@ -2,13 +2,13 @@
   <name>Name goes here</name>
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
-    <Color>0.8509804,0.7764706,0.1254902,1.0</Color>
+    <Color>0.9019608,0.7176471,0.03137255,1.0</Color>
   </bodyColor>
   <eyeColor>
-    <Color>0.42352942,0.8980392,0.67058825,1.0</Color>
+    <Color>0.9843137,0.3764706,0.6745098,1.0</Color>
   </eyeColor>
   <maneColor>
-    <Color>0.42745098,0.9529412,0.09803922,1.0</Color>
+    <Color>0.5137255,0.1882353,0.81960785,1.0</Color>
   </maneColor>
   <maneStyle>
     <upperManeStyle>RDUPPERMANE</upperManeStyle>
@@ -16,9 +16,9 @@
     <upperTailStyle>RDUPPERTAIL</upperTailStyle>
     <lowerTailStyle>RDLOWERTAIL</lowerTailStyle>
   </maneStyle>
-  <eyeTexture>RDEYE</eyeTexture>
+  <eyeTexture>TSEYE</eyeTexture>
   <markTexture>MCMARK</markTexture>
-  <race>PEGASUS</race>
+  <race>UNICORN</race>
   <special>
     <Strength>5</Strength>
     <Perception>3</Perception>
