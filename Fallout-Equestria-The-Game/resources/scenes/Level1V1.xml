@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TileMap>
+  <Dimention>19|7</Dimention>
+  <BlockSize>128</BlockSize>
+  <Textures>floor.png|PPiePoster.png|wall.png</Textures>
+  <TileLayer DrawOrder="0">
+    <Tiles>
+      <Tile Texture="wall.png">0|128|128|128</Tile>
+      <Tile Texture="wall.png">0|256|128|128</Tile>
+      <Tile Texture="wall.png">0|384|128|128</Tile>
+      <Tile Texture="wall.png">0|0|128|128</Tile>
+      <Tile Texture="wall.png">128|128|128|128</Tile>
+      <Tile Texture="wall.png">128|256|128|128</Tile>
+      <Tile Texture="wall.png">128|384|128|128</Tile>
+      <Tile Texture="wall.png">128|0|128|128</Tile>
+      <Tile Texture="floor.png">768|128|128|128</Tile>
+      <Tile Texture="floor.png">768|256|128|128</Tile>
+      <Tile Texture="floor.png">768|0|128|128</Tile>
+      <Tile Texture="floor.png">896|128|128|128</Tile>
+      <Tile Texture="floor.png">896|256|128|128</Tile>
+      <Tile Texture="floor.png">896|0|128|128</Tile>
+      <Tile Texture="floor.png">0|128|128|128</Tile>
+      <Tile Texture="floor.png">0|256|128|128</Tile>
+      <Tile Texture="floor.png">0|0|128|128</Tile>
+      <Tile Texture="floor.png">128|128|128|128</Tile>
+      <Tile Texture="floor.png">128|256|128|128</Tile>
+      <Tile Texture="floor.png">128|0|128|128</Tile>
+      <Tile Texture="floor.png">256|128|128|128</Tile>
+      <Tile Texture="floor.png">256|256|128|128</Tile>
+      <Tile Texture="floor.png">256|0|128|128</Tile>
+      <Tile Texture="floor.png">384|128|128|128</Tile>
+      <Tile Texture="floor.png">384|256|128|128</Tile>
+      <Tile Texture="floor.png">384|0|128|128</Tile>
+      <Tile Texture="floor.png">512|128|128|128</Tile>
+      <Tile Texture="floor.png">512|256|128|128</Tile>
+      <Tile Texture="floor.png">512|0|128|128</Tile>
+      <Tile Texture="floor.png">640|128|128|128</Tile>
+      <Tile Texture="floor.png">640|256|128|128</Tile>
+      <Tile Texture="floor.png">640|0|128|128</Tile>
+    </Tiles>
+    <TileGrid>3$255|7$255|3$255|7$255|3$255|7$255|3$255|7$255|3$255|7$255|3$255|7$255|3$255|7$255|3$255|7$255|3$255|7$255|-1$0|
+0$255|4$255|0$255|4$255|0$255|4$255|0$255|4$255|0$255|4$255|0$255|4$255|0$255|4$255|0$255|4$255|0$255|4$255|-1$0|
+1$255|5$255|1$255|5$255|1$255|5$255|1$255|5$255|1$255|-1$0|1$255|5$255|1$255|5$255|1$255|5$255|1$255|5$255|-1$0|
+2$255|6$255|2$255|6$255|2$255|6$255|2$255|6$255|2$255|6$255|2$255|6$255|2$255|6$255|2$255|6$255|2$255|6$255|-1$0|
+16$255|19$255|22$255|25$255|28$255|31$255|10$255|13$255|16$255|19$255|22$255|25$255|28$255|31$255|10$255|13$255|16$255|19$255|22$255|
+14$255|17$255|20$255|23$255|26$255|29$255|8$255|11$255|14$255|17$255|20$255|23$255|26$255|29$255|8$255|11$255|14$255|17$255|20$255|
+15$255|18$255|21$255|24$255|27$255|30$255|9$255|12$255|15$255|18$255|21$255|24$255|27$255|30$255|9$255|12$255|15$255|18$255|21$255
+</TileGrid>
+  </TileLayer>
+  <TileLayer DrawOrder="2">
+    <Tiles>
+      <Tile Texture="PPiePoster.png">128|256|128|128</Tile>
+      <Tile Texture="PPiePoster.png">128|0|128|128</Tile>
+      <Tile Texture="PPiePoster.png">128|128|128|128</Tile>
+      <Tile Texture="PPiePoster.png">0|256|128|128</Tile>
+      <Tile Texture="PPiePoster.png">0|0|128|128</Tile>
+      <Tile Texture="PPiePoster.png">0|128|128|128</Tile>
+    </Tiles>
+    <TileGrid>-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|
+-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|4$255|1$255|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|
+-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|5$255|2$255|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|
+-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|3$255|0$255|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|
+-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|
+-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|
+-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0|-1$0
+</TileGrid>
+  </TileLayer>
+  <Nodes>
+    <TexturedNode Texture="PPiePoster.png" SrcRect="0|0|256|386" Position="630|276" Value="TexturedNode" />
+  </Nodes>
+  <HeightMap />
+</TileMap>

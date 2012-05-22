@@ -45,21 +45,7 @@ public class RenderingSystem extends EntityProcessingSystem {
 		RenderingComp renderC = this.renderCM.getComponent(entity);
 		TransformationComp positionC = this.posCM.getComponent(entity);
 		
-		
-		if(renderC.getEffect() != null) {
-			this.spriteBatch.end();
-			ShaderEffect effect = this.spriteBatch.getActiveEffect();
-			Matrix4 view = this.spriteBatch.getView();
-			
-			this.spriteBatch.begin(renderC.getEffect(),this.spriteBatch.getView());
-
-			draw(renderC, positionC);
-			
-			this.spriteBatch.end();
-			this.spriteBatch.begin(effect, view);
-		} else {
-			this.draw(renderC, positionC);
-		}
+		this.draw(renderC, positionC);
 	}
 
 	private void draw(RenderingComp renderC, TransformationComp transformation) {

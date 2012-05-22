@@ -14,8 +14,8 @@ public class MachineBullet extends BulletAbility {
 	private Timer timer;
 	
 	public MachineBullet(IEntityArchetype bulletArchetype, int speed,
-			Vector2 fireOffset, float fireInterval) {
-		super(bulletArchetype, speed, fireOffset, true);
+			float fireInterval) {
+		super(bulletArchetype, speed, true);
 		this.fireInterval = fireInterval;
 	}
 

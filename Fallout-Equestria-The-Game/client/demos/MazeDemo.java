@@ -61,7 +61,7 @@ public class MazeDemo extends Demo {
 
 		if(Math.random() < 0.5f) {
 			IEntityDatabase database  = this.gameWorld.getDatabase();
-			if(database.getEntityCount() < 2000) {
+			if(database.getEntityCount() < 20) {
 				IEntity man = spawnManlyMan();
 				if(Math.random() < 0.1f) {
 					man.getComponent(TransformationComp.class).setHeight(100);
@@ -111,7 +111,7 @@ public class MazeDemo extends Demo {
 	@Override
 	public void render(GameTime time) {
 		this.spriteBatch.clearScreen(Color.Black);
-		this.spriteBatch.begin(null, this.camera.getTransformation(), null, true, SortMode.Texture);
+		this.spriteBatch.begin(null, this.camera.getTransformation(), null, true, SortMode.None);
 		this.gameWorld.render();
 		this.spriteBatch.end();	
 	}
@@ -121,7 +121,7 @@ public class MazeDemo extends Demo {
 
 		Display.setVSyncEnabled(false);
 
-		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
+		scene = ContentManager.load("Level1V1.xml", Scene.class);
 
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
@@ -170,8 +170,9 @@ public class MazeDemo extends Demo {
 		for (TexturedSceneNode tNode : this.scene.getTexturedNodes()) {
 			IEntity entity = this.gameWorld.getEntityManager().createEmptyEntity();
 			TransformationComp transComp = new TransformationComp();
+			System.out.println(tNode.getPosition());
 			transComp.setPosition(tNode.getPosition());
-
+			transComp.setOrigin(tNode.getSrcRectangle().getCenter());
 			RenderingComp renderComp = new RenderingComp();
 			renderComp.setTexture(tNode.getTexture());
 			renderComp.setSource(tNode.getSrcRectangle());
@@ -179,6 +180,8 @@ public class MazeDemo extends Demo {
 			entity.addComponent(transComp);
 			entity.addComponent(renderComp);
 			entity.refresh();
+			
+			System.out.println("WAS ADDED!");
 		}
 
 

@@ -141,6 +141,7 @@ public class SceneLoader extends ContentLoader<Scene>{
 
 	private Vector2 extractPosition(Element nodeElement) {
 		String[] pos = split(nodeElement.getAttributeValue("Position"), primarySeparator);
+		System.out.println(nodeElement.getAttributeValue("Position"));
 		return extractVector2(pos);
 	}
 

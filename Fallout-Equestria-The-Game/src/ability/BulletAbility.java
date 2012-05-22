@@ -2,6 +2,7 @@ package ability;
 
 import animation.Bones;
 import components.AnimationComp;
+import components.SpatialComp;
 import components.TransformationComp;
 
 import math.Vector2;
@@ -14,7 +15,7 @@ public class BulletAbility extends Ability {
 	private final int speed;
 	private Vector2 fireOffset;
 	
-	public BulletAbility(IEntityArchetype bulletArchetype, int speed, Vector2 fireOffset, boolean blocking) {
+	public BulletAbility(IEntityArchetype bulletArchetype, int speed, boolean blocking) {
 		super(blocking);
 		this.bulletArchetype = bulletArchetype;
 		this.speed = speed;
@@ -28,16 +29,18 @@ public class BulletAbility extends Ability {
 	
 	protected void createBullet() {
 		TransformationComp trans = this.SorceEntity.getComponent(TransformationComp.class);
+		SpatialComp spatialComp = this.SorceEntity.getComponent(SpatialComp.class);
 		Vector2 direction = trans.getMirror() ? Vector2.UnitX : new Vector2(-1, 0);
 		Vector2 velocity = Vector2.mul(this.speed, direction);
 		
+		IEntity bullet = this.CreationFactory.createMovingEntity(bulletArchetype, Vector2.Zero,trans.getHeight(), velocity);
 		
-		float posX = direction.X * fireOffset.X + trans.getPosition().X;
-		float posY = fireOffset.Y + trans.getPosition().Y;
-		System.out.println(posX + "|" + posY);
 		
-		IEntity bullet = this.CreationFactory.createMovingEntity(bulletArchetype, new Vector2(posX,posY),trans.getHeight(), velocity);
+		float posX = direction.X *spatialComp.getBounds().getWidth() +  trans.getPosition().X;
+		float posY = trans.getPosition().Y + bullet.getComponent(SpatialComp.class).getBounds().getHeight() / 2;
 		
+		bullet.getComponent(TransformationComp.class).setPosition(posX,posY);
+	
 		System.out.println(this.SorceEntity.getComponent(AnimationComp.class).getAnimationPlayer().getBoneColor(Bones.BODY.getValue()));
 		bullet.getComponent(AnimationComp.class).setTint(
 				this.SorceEntity.getComponent(AnimationComp.class).getAnimationPlayer().getBoneColor(Bones.BODY.getValue()));

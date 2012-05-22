@@ -63,7 +63,7 @@ public class ChangelingAIScript extends Behavior{
 			this.Entity.addComponent(this.abComp);
 		}
 		
-		this.bulletAbility = new MachineBullet(this.ContentManager.loadArchetype("Bullet.archetype"), 1000, new Vector2(160, -20), 0.3f);
+		this.bulletAbility = new MachineBullet(this.ContentManager.loadArchetype("Bullet.archetype"), 1000, 0.3f);
 		this.bulletAbility.initialize(EntityManager, this.Entity);
 	}
 

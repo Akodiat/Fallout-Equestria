@@ -35,7 +35,6 @@ public class SceneRenderSystem extends EntitySystem {
 	@Override
 	public void process() {
 		List<TileLayer> tileLayers = scene.getTileLayers();
-
 		Point2 tileGridDim = new Point2(scene.getGridBounds().Width, scene.getGridBounds().Height);
 		Point2 minIndex = getMinIndex(tileGridDim);
 		Point2 maxIndex = getMaxIndex(tileGridDim);
