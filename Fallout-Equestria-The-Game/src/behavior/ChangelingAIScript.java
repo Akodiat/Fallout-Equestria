@@ -232,7 +232,16 @@ public class ChangelingAIScript extends Behavior{
 
 		@Override
 		public void exit(){
-			AnimationPlayer animPlayer = targetEntity.getComponent(AnimationComp.class).getAnimationPlayer().clone();
+			AnimationPlayer animPlayer;
+			if(targetEntity != null){
+				AnimationComp animComp = targetEntity.getComponent(AnimationComp.class);
+				if(animComp != null){
+					animPlayer = animComp.getAnimationPlayer().clone();
+				}else{
+					return;
+				}
+			}else
+				return;
 			Entity.getComponent(AnimationComp.class).setAnimationPlayer(animPlayer);
 			TransformationComp targetTransCom = targetEntity.getComponent(TransformationComp.class);
 			transComp.setScale(targetTransCom.getScale());
