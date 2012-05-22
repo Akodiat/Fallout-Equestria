@@ -154,7 +154,7 @@ public class MazeDemo extends Demo {
 		this.renderTarget = new RenderTarget2D(screenDim.Width, screenDim.Height);
 		
 		
-		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
+		scene = ContentManager.load("Level1V2.xml", Scene.class);
 
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
@@ -185,8 +185,8 @@ public class MazeDemo extends Demo {
 		effect4.setAppliedListener(new IShaderEvent() {	
 			@Override
 			public void onApply() {
-				effect4.setUniform("bloomIntensity", 0.8f);
-				effect4.setUniform("bloomSaturation", 0.5f);
+				effect4.setUniform("bloomIntensity", 0.4f);
+				effect4.setUniform("bloomSaturation", 0.9f);
 			}
 		});
 		
@@ -199,10 +199,10 @@ public class MazeDemo extends Demo {
 		
 		
 		
-		this.postManager.pushPostProcessingEffect(effect3);
-		this.postManager.pushPostProcessingEffect(effect);
-		this.postManager.pushPostProcessingEffect(effect2);
-		this.postManager.pushPostProcessingEffect(effect4);
+		//this.postManager.pushPostProcessingEffect(effect3);
+		//this.postManager.pushPostProcessingEffect(effect);
+	//	this.postManager.pushPostProcessingEffect(effect2);
+	//	this.postManager.pushPostProcessingEffect(effect4);
 		
 		
 		mouse = new Mouse();
@@ -219,7 +219,7 @@ public class MazeDemo extends Demo {
 		IEntity entity = this.gameWorld.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());
-		entity.getComponent(TransformationComp.class).setPosition(1000,1000);	
+		entity.getComponent(TransformationComp.class).setPosition(1000,2000);	
 
 		AnimationPlayer player = this.ContentManager.loadAnimationSet("cactuar.animset");
 		AnimationComp comp = new AnimationComp(player);
@@ -259,10 +259,12 @@ public class MazeDemo extends Demo {
 			TransformationComp transComp = new TransformationComp();
 			System.out.println(tNode.getPosition());
 			transComp.setPosition(tNode.getPosition());
-			transComp.setOrigin(tNode.getSrcRectangle().getCenter());
+			transComp.setOrigin(new Vector2(tNode.getSrcRectangle().Width/4,tNode.getSrcRectangle().Height/4));
 			RenderingComp renderComp = new RenderingComp();
 			renderComp.setTexture(tNode.getTexture());
 			renderComp.setSource(tNode.getSrcRectangle());
+			System.out.println(tNode.getSrcRectangle());
+			
 
 			entity.addComponent(transComp);
 			entity.addComponent(renderComp);
