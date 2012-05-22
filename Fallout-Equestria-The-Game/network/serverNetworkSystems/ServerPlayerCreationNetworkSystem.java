@@ -8,6 +8,9 @@ import misc.PlayerCharacteristics;
 
 import utils.input.Keyboard;
 import utils.input.Mouse;
+import animation.Animation;
+import animation.AnimationPlayer;
+import animation.Bones;
 import behavior.PlayerScript;
 
 import entityFramework.IEntity;
@@ -59,7 +62,9 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
 		AnimationComp animComp = entity.getComponent(AnimationComp.class);
-		animComp.setAnimationPlayer(AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager));
+		AnimationPlayer player = AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager);
+		player.attachAnimationToBone(Bones.BODY.getValue(), contentManager.load("weapon.anim", Animation.class));
+		animComp.setAnimationPlayer(player);
 		entity.removeComponent(animComp);
 		entity.refresh();
 		entity.addComponent(animComp);

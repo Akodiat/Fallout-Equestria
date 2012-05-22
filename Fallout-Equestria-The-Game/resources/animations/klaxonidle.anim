@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<Animation dictionary="klaxon">
+  <FrameRate>25</FrameRate>
+  <LoopFrame>-1</LoopFrame>
+  <Texture dictionary="klaxon.tdict" name="Pixeltransparent">..\Pixeltransparent.png</Texture>
+  <Texture dictionary="klaxon.tdict" name="klaxoninactive">klaxoninactive.png</Texture>
+  <Keyframe frame="0" trigger="" vflip="False" hflip="False">
+    <Bone name="SHINE">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="LAMP">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>2</ParentIndex>
+      <TextureIndex>1</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+</Animation>

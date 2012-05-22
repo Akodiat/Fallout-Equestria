@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<Animation dictionary="changeling">
+  <FrameRate>20</FrameRate>
+  <LoopFrame>2</LoopFrame>
+  <Texture dictionary="changeling.tdict" name="Pixeltransparent">..\Pixeltransparent.png</Texture>
+  <Texture dictionary="changeling.tdict" name="changeling1">..\Changeling\changeling1.png</Texture>
+  <Texture dictionary="changeling.tdict" name="changeling2">..\Changeling\changeling2.png</Texture>
+  <Keyframe frame="0" trigger="" vflip="False" hflip="False">
+    <Bone name="BODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>1</ParentIndex>
+      <TextureIndex>1</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="1" trigger="" vflip="False" hflip="False">
+    <Bone name="BODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>1</ParentIndex>
+      <TextureIndex>2</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+</Animation>

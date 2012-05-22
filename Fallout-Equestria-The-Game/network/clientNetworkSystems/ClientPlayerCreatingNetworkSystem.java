@@ -3,6 +3,9 @@ package clientNetworkSystems;
 import misc.AnimationFromCharacterHelper;
 import misc.PlayerCharacteristics;
 import misc.PonyColorChangeHelper;
+import animation.Animation;
+import animation.AnimationPlayer;
+import animation.Bones;
 import behavior.PlayerScript;
 
 import common.Network;
@@ -49,7 +52,9 @@ public class ClientPlayerCreatingNetworkSystem extends ClientNetworkSystem<NewPl
 		entity.addComponent(new ShadowComp());
 		entity.getComponent(TransformationComp.class).setPosition(1000,1000);	
 		AnimationComp animComp = entity.getComponent(AnimationComp.class);
-		animComp.setAnimationPlayer(AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager));
+		AnimationPlayer player = AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager);
+		player.attachAnimationToBone(Bones.BODY.getValue(), contentManager.load("weapon.anim", Animation.class));
+		animComp.setAnimationPlayer(player);
 		animComp.changeAnimation("idle", true);
 		entity.removeComponent(animComp);
 		entity.refresh();

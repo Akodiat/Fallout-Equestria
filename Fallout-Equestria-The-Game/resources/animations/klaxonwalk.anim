@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<Animation dictionary="klaxon">
+  <FrameRate>100</FrameRate>
+  <LoopFrame>200</LoopFrame>
+  <Texture dictionary="klaxon.tdict" name="Pixeltransparent">..\Pixeltransparent.png</Texture>
+  <Texture dictionary="klaxon.tdict" name="klaxoninactive">klaxoninactive.png</Texture>
+  <Texture dictionary="klaxon.tdict" name="klaxon">klaxon.png</Texture>
+  <Texture dictionary="klaxon.tdict" name="klaxonshine">klaxonshine.png</Texture>
+  <Keyframe frame="0" trigger="" vflip="False" hflip="False">
+    <Bone name="LAMP">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>1</ParentIndex>
+      <TextureIndex>2</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="SHINE">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>3</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="199" trigger="" vflip="False" hflip="False">
+    <Bone name="LAMP">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>1</ParentIndex>
+      <TextureIndex>2</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="SHINE">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>3</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>6.250002</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+</Animation>

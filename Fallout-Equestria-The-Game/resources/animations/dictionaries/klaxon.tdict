@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>klaxonsheet.png</TexturePath>
+  <Texture name="klaxonshine">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>255</Width>
+    <Height>256</Height>
+    <OriginX>128</OriginX>
+    <OriginY>128</OriginY>
+  </Texture>
+  <Texture name="klaxon">
+    <X>257</X>
+    <Y>0</Y>
+    <Width>54</Width>
+    <Height>84</Height>
+    <OriginX>27</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="klaxoninactive">
+    <X>257</X>
+    <Y>86</Y>
+    <Width>54</Width>
+    <Height>84</Height>
+    <OriginX>27</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="Pixeltransparent">
+    <X>257</X>
+    <Y>172</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>

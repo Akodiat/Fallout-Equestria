@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<AnimationSet>
+<Animation key="jump" value="klaxonwalk.anim"/>
+<Animation key="walk" value="klaxonwalk.anim"/>
+<Animation key="idle" value="klaxonidle.anim"/>
+<String currentAnimation="idle"/>
+</AnimationSet>

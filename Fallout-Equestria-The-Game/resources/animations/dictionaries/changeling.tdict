@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>changelingsheet.png</TexturePath>
+  <Texture name="changeling1">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>104</Width>
+    <Height>131</Height>
+    <OriginX>52</OriginX>
+    <OriginY>65</OriginY>
+  </Texture>
+  <Texture name="changeling2">
+    <X>106</X>
+    <Y>0</Y>
+    <Width>104</Width>
+    <Height>131</Height>
+    <OriginX>52</OriginX>
+    <OriginY>65</OriginY>
+  </Texture>
+  <Texture name="Pixeltransparent">
+    <X>0</X>
+    <Y>133</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<AnimationSet>
+<Animation key="idle" value="changeling.anim"/>
+<Animation key="walk" value="changeling.anim"/>
+<Animation key="jump" value="changeling.anim"/>
+<String currentAnimation="idle"/>
+</AnimationSet>

@@ -101,28 +101,28 @@ public class RDAnimDemo extends Demo {
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());	
 		
-		AnimationPlayer player = ContentManager.load("rdset.animset", AnimationPlayer.class);
+		AnimationPlayer player = ContentManager.load("changeling.animset", AnimationPlayer.class);
 		
 ////		player.setBoneTexture(Bones.UPPERMANE, asd);
 ////		player.attachAnimationToBone(Bones.EYE.getValue(), ContentManager.load("monocle.anim", Animation.class));
 		player.startAnimation("idle");
 		AnimationComp animComp = new AnimationComp(player);
-		PonyColorChangeHelper.setBodyColor(Color.Wheat, animComp);
-		PonyColorChangeHelper.setEyeColor(Color.Gray, animComp);
-		PonyColorChangeHelper.setManeColor(Color.Brown, animComp);
-		TextureDictionary dict = ContentManager.load("rddict.tdict", TextureDictionary.class);
-		player.setBoneTexture(Bones.EYE.getValue(), dict.extractTextureEntry("TSEYE"));
-		player.setBoneTexture(Bones.UPPERMANE.getValue(), dict.extractTextureEntry("TSUPPERMANE"));
-		player.setBoneTexture(Bones.LOWERMANE.getValue(), dict.extractTextureEntry("TSLOWERMANE"));
-		player.setBoneTexture(Bones.UPPERTAIL.getValue(), dict.extractTextureEntry("TSUPPERTAIL"));
-		player.setBoneTexture(Bones.LOWERTAIL.getValue(), dict.extractTextureEntry("TSLOWERTAIL"));
-		player.setBoneTexture(Bones.PIPBUCK.getValue(), dict.extractTextureEntry("pipbuck"));
-		player.setBoneHidden(Bones.LEFTFOOT.getValue(), true);
-		player.setBoneHidden(Bones.LEFTHAND.getValue(), true);
-		player.setBoneHidden(Bones.RIGHTFOOT.getValue(), true);
-		player.setBoneHidden(Bones.RIGHTHAND.getValue(), true);
-
-		player.attachAnimationToBone(Bones.BODY.getValue(), ContentManager.load("weapon.anim", Animation.class));
+//		PonyColorChangeHelper.setBodyColor(Color.Wheat, animComp);
+//		PonyColorChangeHelper.setEyeColor(Color.Gray, animComp);
+//		PonyColorChangeHelper.setManeColor(Color.Brown, animComp);
+//		TextureDictionary dict = ContentManager.load("rddict.tdict", TextureDictionary.class);
+//		player.setBoneTexture(Bones.EYE.getValue(), dict.extractTextureEntry("TSEYE"));
+//		player.setBoneTexture(Bones.UPPERMANE.getValue(), dict.extractTextureEntry("TSUPPERMANE"));
+//		player.setBoneTexture(Bones.LOWERMANE.getValue(), dict.extractTextureEntry("TSLOWERMANE"));
+//		player.setBoneTexture(Bones.UPPERTAIL.getValue(), dict.extractTextureEntry("TSUPPERTAIL"));
+//		player.setBoneTexture(Bones.LOWERTAIL.getValue(), dict.extractTextureEntry("TSLOWERTAIL"));
+//		player.setBoneTexture(Bones.PIPBUCK.getValue(), dict.extractTextureEntry("pipbuck"));
+//		player.setBoneHidden(Bones.LEFTFOOT.getValue(), true);
+//		player.setBoneHidden(Bones.LEFTHAND.getValue(), true);
+//		player.setBoneHidden(Bones.RIGHTFOOT.getValue(), true);
+//		player.setBoneHidden(Bones.RIGHTHAND.getValue(), true);
+//
+//		player.attachAnimationToBone(Bones.BODY.getValue(), ContentManager.load("weapon.anim", Animation.class));
 		entity.addComponent(animComp);
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(1000, 1000);

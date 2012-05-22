@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<TextureDictionary>
+  <TexturePath>custcloudsheet.png</TexturePath>
+  <Texture name="DUSTCLOUD_0010_Layer-2">
+    <X>0</X>
+    <Y>0</Y>
+    <Width>158</Width>
+    <Height>147</Height>
+    <OriginX>79</OriginX>
+    <OriginY>73</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0009_Layer-2-copy">
+    <X>160</X>
+    <Y>0</Y>
+    <Width>152</Width>
+    <Height>143</Height>
+    <OriginX>74</OriginX>
+    <OriginY>69</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0008_Layer-2-copy-2">
+    <X>0</X>
+    <Y>149</Y>
+    <Width>149</Width>
+    <Height>132</Height>
+    <OriginX>70</OriginX>
+    <OriginY>66</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0007_Layer-2-copy-3">
+    <X>0</X>
+    <Y>283</Y>
+    <Width>140</Width>
+    <Height>119</Height>
+    <OriginX>61</OriginX>
+    <OriginY>56</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0006_Layer-2-copy-5">
+    <X>151</X>
+    <Y>149</Y>
+    <Width>133</Width>
+    <Height>110</Height>
+    <OriginX>57</OriginX>
+    <OriginY>52</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0005_Layer-2-copy-4">
+    <X>151</X>
+    <Y>261</Y>
+    <Width>117</Width>
+    <Height>114</Height>
+    <OriginX>48</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0004_Layer-2-copy-6">
+    <X>286</X>
+    <Y>145</Y>
+    <Width>113</Width>
+    <Height>112</Height>
+    <OriginX>49</OriginX>
+    <OriginY>48</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0003_Layer-2-copy-7">
+    <X>270</X>
+    <Y>261</Y>
+    <Width>98</Width>
+    <Height>98</Height>
+    <OriginX>42</OriginX>
+    <OriginY>45</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0002_Layer-2-copy-8">
+    <X>314</X>
+    <Y>0</Y>
+    <Width>85</Width>
+    <Height>86</Height>
+    <OriginX>39</OriginX>
+    <OriginY>43</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0001_Layer-2-copy-9">
+    <X>270</X>
+    <Y>361</Y>
+    <Width>69</Width>
+    <Height>72</Height>
+    <OriginX>34</OriginX>
+    <OriginY>42</OriginY>
+  </Texture>
+  <Texture name="DUSTCLOUD_0000_Layer-2-copy-10">
+    <X>341</X>
+    <Y>361</Y>
+    <Width>55</Width>
+    <Height>61</Height>
+    <OriginX>29</OriginX>
+    <OriginY>41</OriginY>
+  </Texture>
+  <Texture name="Pixeltransparent">
+    <X>160</X>
+    <Y>145</Y>
+    <Width>1</Width>
+    <Height>1</Height>
+    <OriginX>0</OriginX>
+    <OriginY>0</OriginY>
+  </Texture>
+</TextureDictionary>

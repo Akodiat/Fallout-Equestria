@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<Animation dictionary="dustcloud">
+  <FrameRate>40</FrameRate>
+  <LoopFrame>11</LoopFrame>
+  <Texture dictionary="dustcloud.tdict" name="Pixeltransparent">..\Pixeltransparent.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0000_Layer-2-copy-10">DUSTCLOUD_0000_Layer-2-copy-10.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0001_Layer-2-copy-9">DUSTCLOUD_0001_Layer-2-copy-9.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0002_Layer-2-copy-8">DUSTCLOUD_0002_Layer-2-copy-8.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0003_Layer-2-copy-7">DUSTCLOUD_0003_Layer-2-copy-7.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0004_Layer-2-copy-6">DUSTCLOUD_0004_Layer-2-copy-6.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0005_Layer-2-copy-4">DUSTCLOUD_0005_Layer-2-copy-4.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0006_Layer-2-copy-5">DUSTCLOUD_0006_Layer-2-copy-5.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0007_Layer-2-copy-3">DUSTCLOUD_0007_Layer-2-copy-3.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0008_Layer-2-copy-2">DUSTCLOUD_0008_Layer-2-copy-2.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0009_Layer-2-copy">DUSTCLOUD_0009_Layer-2-copy.png</Texture>
+  <Texture dictionary="dustcloud.tdict" name="DUSTCLOUD_0010_Layer-2">DUSTCLOUD_0010_Layer-2.png</Texture>
+  <Keyframe frame="0" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>11</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="1" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>10</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="2" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>9</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="3" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>8</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="4" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>7</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="5" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>6</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="6" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>5</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="7" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>4</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="8" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>3</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="9" trigger="" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>2</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+  <Keyframe frame="10" trigger="kill" vflip="False" hflip="False">
+    <Bone name="RIGIDBODY">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>-1</ParentIndex>
+      <TextureIndex>0</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+    <Bone name="CLOUD">
+      <Hidden>False</Hidden>
+      <TextureFlipHorizontal>False</TextureFlipHorizontal>
+      <TextureFlipVertical>False</TextureFlipVertical>
+      <ParentIndex>0</ParentIndex>
+      <TextureIndex>1</TextureIndex>
+      <Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Position>
+      <Rotation>0</Rotation>
+      <Scale>
+        <X>1</X>
+        <Y>1</Y>
+      </Scale>
+    </Bone>
+  </Keyframe>
+</Animation>
