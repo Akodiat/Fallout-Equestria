@@ -1,0 +1,47 @@
+#version 330 core
+
+layout(location = 0) in vec2 position;
+layout(location = 1) in vec2 textureCoord;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform vec2 viewport;
+
+
+out vec2 _textureCoord;
+
+
+void main() {
+	vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f);
+	realPos =  view  * realPos;
+	realPos.xy -= viewport.xy / 2; 
+	
+	gl_Position = projection * realPos;
+	_textureCoord.xy = textureCoord.xy;
+}
+
+split
+
+
+#version 330 core
+
+uniform sampler2D colorTexture;
+
+uniform float bloomIntensity;
+uniform float bloomSaturation;
+
+
+in vec2 _textureCoord;
+out vec4 outputColor;
+
+void main() 
+{	
+	vec4 color = texture2D(colorTexture, _textureCoord);
+	
+	float grey = dot(color.rgb, vec3(0.3, 0.59, 0.11));
+	color = vec4(mix(vec3(grey,grey,grey), color.rgb, bloomSaturation), color.a) * bloomIntensity;
+	
+	outputColor = color + color;
+	outputColor.rgb *= outputColor.a;	
+}
+

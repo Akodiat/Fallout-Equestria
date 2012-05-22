@@ -1,0 +1,56 @@
+#version 330 core
+
+layout(location = 0) in vec2 position;
+layout(location = 1) in vec2 textureCoord;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform vec2 viewport;
+
+
+out vec2 _textureCoord;
+
+
+void main() {
+	vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f);
+	realPos =  view  * realPos;
+	realPos.xy -= viewport.xy / 2; 
+	
+	gl_Position = projection * realPos;
+	_textureCoord.xy = textureCoord.xy;
+}
+
+split
+
+uniform sampler2D colorTexture;
+
+in vec2 _textureCoord;
+void main()
+{
+   vec4 sum = vec4(0);
+   int j;
+   int i;
+
+   for( i= -4 ;i < 4; i++)
+   {
+        for (j = -3; j < 3; j++)
+        {
+            sum += texture2D(colorTexture, _textureCoord + vec2(j, i)*0.004) * 0.25;
+        }
+   }
+       if (texture2D(colorTexture, _textureCoord).r < 0.3)
+    {
+       gl_FragColor = sum*sum*0.012 + texture2D(colorTexture, _textureCoord);
+    }
+    else
+    {
+        if (texture2D(colorTexture, _textureCoord).r < 0.5)
+        {
+            gl_FragColor = sum*sum*0.009 + texture2D(colorTexture, _textureCoord);
+        }
+        else
+        {
+            gl_FragColor = sum*sum*0.0075 + texture2D(colorTexture, _textureCoord);
+        }
+    }
+}

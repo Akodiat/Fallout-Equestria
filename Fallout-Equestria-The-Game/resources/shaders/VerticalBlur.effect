@@ -1,0 +1,49 @@
+#version 330 core
+
+layout(location = 0) in vec2 position;
+layout(location = 1) in vec2 textureCoord;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform vec2 viewport;
+
+out vec2 _textureCoord;
+
+void main() {
+	vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f);
+	realPos =  view  * realPos;
+	realPos.xy -= viewport.xy / 2; 
+	
+	gl_Position = projection * realPos;
+	_textureCoord.xy = textureCoord.xy;
+}
+
+split
+
+
+#version 330 core
+
+uniform sampler2D colorTexture;
+uniform vec4 _color2;
+uniform float blurSize;
+
+in vec2 _textureCoord;
+
+out vec4 outputColor;
+void main() 
+{	
+       vec4 sum = vec4(0.0);
+ 		
+ 	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y - 4.0*blurSize)) * 0.05;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y - 3.0*blurSize)) * 0.09;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y - 2.0*blurSize)) * 0.12;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y - blurSize)) * 0.15;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y)) * 0.16;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y + blurSize)) * 0.15;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y + 2.0*blurSize)) * 0.12;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y + 3.0*blurSize)) * 0.09;
+	   sum += texture2D(colorTexture, vec2(_textureCoord.x, _textureCoord.y + 4.0*blurSize)) * 0.05;
+
+	   sum.rgb *= sum.a;
+	   outputColor = sum;
+}

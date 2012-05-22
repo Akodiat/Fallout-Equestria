@@ -1,6 +1,8 @@
 package demos;
 
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
 
 import behavior.Behavior;
 import behavior.ChangelingAIScript;
@@ -157,26 +159,50 @@ public class MazeDemo extends Demo {
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
 		postManager = new PostProcessingManager(this.spriteBatch);
-		final ShaderEffect effect = this.ContentManager.loadShaderEffect("TintLerp.effect");
+		final ShaderEffect effect = this.ContentManager.loadShaderEffect("HorizontalBlur.effect");
 
 		effect.setAppliedListener(new IShaderEvent() {			
 			@Override
 			public void onApply() {
-				effect.setUniform("_colorLeft", Color.Red.toVector4());
-				effect.setUniform("_colorRight", Color.Green.toVector4());
-				effect.setUniform("time", (float)MazeDemo.this.clock.getGameTime().getTotalTime().getTotalSeconds());
+				effect.setUniform("blurSize",1.0f  / (float)screenDim.Width);
 			}
 		});
-		
-		final ShaderEffect effect2 = effect.clone();
+		final ShaderEffect effect2 = this.ContentManager.loadShaderEffect("VerticalBlur.effect");
 		effect2.setAppliedListener(new IShaderEvent() {	
 			@Override
 			public void onApply() {
-				effect.setUniform("_colorLeft", Color.Blue.toVector4());
-				effect.setUniform("_colorRight", Color.Orange.toVector4());
-				effect.setUniform("time", (float)MazeDemo.this.clock.getGameTime().getTotalTime().getTotalSeconds());
+				effect2.setUniform("blurSize",1.0f / (float)screenDim.Height);
 			}
 		});
+		final ShaderEffect effect3 = this.ContentManager.loadShaderEffect("BloomExtract.effect");
+		effect3.setAppliedListener(new IShaderEvent() {	
+			@Override
+			public void onApply() {
+				effect3.setUniform("bloomThreshold", 0.4f);
+			}
+		});
+		final ShaderEffect effect4 = this.ContentManager.loadShaderEffect("BloomFinal.effect");
+		effect4.setAppliedListener(new IShaderEvent() {	
+			@Override
+			public void onApply() {
+				effect4.setUniform("bloomIntensity", 0.8f);
+				effect4.setUniform("bloomSaturation", 0.5f);
+			}
+		});
+		
+		final ShaderEffect effect5 = this.ContentManager.loadShaderEffect("ExperimentalBloom.effect");
+		effect5.setAppliedListener(new IShaderEvent() {	
+			@Override
+			public void onApply() {
+			}
+		});
+		
+		
+		
+		this.postManager.pushPostProcessingEffect(effect3);
+		this.postManager.pushPostProcessingEffect(effect);
+		this.postManager.pushPostProcessingEffect(effect2);
+		this.postManager.pushPostProcessingEffect(effect4);
 		
 		
 		mouse = new Mouse();
