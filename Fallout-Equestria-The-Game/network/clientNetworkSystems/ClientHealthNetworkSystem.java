@@ -24,8 +24,11 @@ public class ClientHealthNetworkSystem extends ClientNetworkSystem<HealthChanged
 	@Override
 	public void processMessage(HealthChangedMessage message) {
 		IEntity entity = IdManager.getEntityFromNetworkID(message.entityID);
-		if(entity != null) //Have to do a nullcheck since you cannot be sure the messages are sent in order.
-			entity.getComponent(HealthComp.class).setHealthPoints(message.health);
+		if(entity != null){ //Have to do a nullcheck since you cannot be sure the messages are sent in order.
+			HealthComp hComp = entity.getComponent(HealthComp.class);
+					if(hComp != null)
+						entity.getComponent(HealthComp.class).setHealthPoints(message.health);
+		}
 	}
 
 }
