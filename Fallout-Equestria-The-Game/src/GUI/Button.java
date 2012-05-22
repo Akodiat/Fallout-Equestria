@@ -1,10 +1,14 @@
 package GUI;
 
+import content.ContentManager;
+import sounds.SoundManager;
 import utils.input.Mouse;
 import utils.input.MouseButton;
 
 public class Button extends ButtonBase {
 	private static ButtonRenderer DEFAULT_RENDERER = new ButtonRenderer();
+	private ContentManager cm = new ContentManager("resources");
+	private SoundManager sm = new SoundManager(cm, 1.0f, 1.0f, 2.0f);
 	
 	public Button() {
 		this.setMouseHover(false);
@@ -28,6 +32,7 @@ public class Button extends ButtonBase {
 	protected void onMouseDown(Mouse mouse, MouseButton button) {
 		super.onMouseDown(mouse, button);
 		this.setPressed(true);
+		sm.playSoundEffect("effects/buttonsound.ogg");
 	}
 	
 
