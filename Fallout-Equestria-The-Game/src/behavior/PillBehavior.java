@@ -73,7 +73,7 @@ public class PillBehavior extends Behavior {
 					animComp.setAnimationPlayer(oldPlayer);
 				}
 			});
-			
+			timer.start();
 			comp.addTimer(timer);
 		}
 		

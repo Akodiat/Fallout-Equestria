@@ -2,10 +2,13 @@ package behavior;
 
 import math.Vector2;
 import utils.IEventListener;
+import utils.TimerEventArgs;
+import utils.time.Timer;
 import components.AnimationComp;
 import components.HealthComp;
 import components.PhysicsComp;
 import components.SpatialComp;
+import components.TimerComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
 
@@ -61,10 +64,28 @@ public class BulletBehavior extends Behavior{
 		aCom.getAnimationPlayer().addKeyframeTriggerListener(new IEventListener<KeyframeTriggerEventArgs>() {
 			@Override
 			public void onEvent(Object sender, KeyframeTriggerEventArgs e) {
+				killEntity();		
+			}
+		});
+		Timer timer = new Timer(1, 1.0f);
+		timer.addCompleteListener(new IEventListener<TimerEventArgs>() {
+			
+			@Override
+			public void onEvent(Object sender, TimerEventArgs e) {
 				killEntity();
 				
 			}
 		});
+		TimerComp timerComp = this.Entity.getComponent(TimerComp.class);
+		
+		if(timerComp == null) 
+		{
+			timerComp = new TimerComp();
+			this.Entity.addComponent(timerComp);
+			this.Entity.refresh();
+		}
+		timerComp.addTimer(timer);
+		
 		PhysicsComp pCom = this.Entity.getComponent(PhysicsComp.class);
 		pCom.setVelocity(Vector2.Zero);
 		

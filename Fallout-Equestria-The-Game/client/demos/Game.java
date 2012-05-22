@@ -11,6 +11,7 @@ import common.Network;
 import graphics.Color;
 import graphics.SpriteBatch;
 import screenCore.BackgroundScreen;
+import screenCore.ChatScreen;
 import screenCore.GOLScreen;
 import screenCore.HostScreen;
 import screenCore.Level;
@@ -85,6 +86,7 @@ public class Game extends Demo{
 		Level screen12 = new Level(false, TimeSpan.Zero, TimeSpan.Zero, "Lobby.xml");
 		PonyCreatorScreen screen13 = new PonyCreatorScreen("gui.tdict");
 		PonySelector screen14 = new PonySelector("gui.tdict");
+		ChatScreen screen15 = new ChatScreen("gui.tdict");
 		
 		this.screenManager.registerScreen("BG_Screen", screen);
 		this.screenManager.registerScreen("Test_Screen", screen2);
@@ -97,9 +99,9 @@ public class Game extends Demo{
 		this.screenManager.registerScreen("Multiplayer", screen10);
 		this.screenManager.registerScreen("Level1", screen11);
 		this.screenManager.registerScreen("Lobby", screen12);
-		this.screenManager.registerScreen("PonyCreator", new PonyCreatorScreen("gui.tdict"));
+		this.screenManager.registerScreen("PonyCreator", screen13);
 		this.screenManager.registerScreen("PonySelector", screen14);
-
+		this.screenManager.registerScreen("ChatScreen", screen15);
 		
 		this.screenManager.addScreen("BG_Screen");
 		this.screenManager.addScreen("Test_Screen");
