@@ -1,13 +1,10 @@
 package demos;
 
-import player.PonyColorChangeHelper;
 import behavior.PlayerScript;
 import builders.WorldBuilder;
 import math.Vector2;
 import animation.Animation;
 import animation.AnimationPlayer;
-import animation.Bones;
-import animation.TextureDictionary;
 import components.*;
 import entityFramework.*;
 import entitySystems.CameraControlSystem;
@@ -50,6 +47,7 @@ public class RDAnimDemo extends Demo {
 		this.gameWorld.getEntityManager().destoryKilledEntities();
 	}
 
+	@SuppressWarnings("unused")
 	private void spawnManlyMan() {
 
 		IEntityManager manager = this.gameWorld.getEntityManager();

@@ -2,7 +2,6 @@ package demos;
 
 import math.Point2;
 import GUI.*;
-import content.ContentManager;
 import graphics.*;
 import utils.*;
 import utils.input.Keyboard;

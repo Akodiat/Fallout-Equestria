@@ -9,10 +9,8 @@ import components.AbilityComp;
 import components.AnimationComp;
 import components.InputComp;
 import components.PhysicsComp;
-import components.SpecialComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
-import entityFramework.IEntityArchetype;
 
 import utils.input.Keyboard;
 import utils.input.Keys;
@@ -34,7 +32,6 @@ public class PlayerScript extends Behavior{
 	private PhysicsComp	  	        physComp;
 	private InputComp 		  	     inpComp;
 	private TransformationComp       posComp;
-	private SpecialComp			 specialComp;
 	private InputComp			   inputComp;
 	private AbilityComp 			  apComp;
 	private AnimationComp			animComp;
@@ -51,7 +48,6 @@ public class PlayerScript extends Behavior{
 	public void start() {
 		physComp  = Entity.getComponent(PhysicsComp.class);
 		posComp  = Entity.getComponent(TransformationComp.class);
-		specialComp = Entity.getComponent(SpecialComp.class);
 		inputComp	= Entity.getComponent(InputComp.class);
 		apComp      = Entity.getComponent(AbilityComp.class);
 		animComp    = Entity.getComponent(AnimationComp.class);

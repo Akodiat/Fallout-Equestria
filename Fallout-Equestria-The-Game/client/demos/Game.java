@@ -1,32 +1,13 @@
 package demos;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-
 import player.PlayerCharacteristics;
 
 import common.Network;
 
 import graphics.Color;
 import graphics.SpriteBatch;
-import screenCore.BackgroundScreen;
-import screenCore.ChatScreen;
-import screenCore.GOLScreen;
-import screenCore.HostScreen;
-import screenCore.Level;
-import screenCore.Level1;
-import screenCore.LobbyGUI;
-import screenCore.ConnectScreen;
-import screenCore.MultiplayerScreen;
-import screenCore.PausScreen;
-import screenCore.PonyCreatorScreen;
-import screenCore.PonySelector;
-import screenCore.ScreenManager;
-import screenCore.SinglePlayerScreen;
-import screenCore.StartGUIScreen;
+import screenCore.*;
 import sounds.SoundManager;
-import content.ContentManager;
 import utils.Rectangle;
 import utils.input.Keyboard;
 import utils.input.Mouse;

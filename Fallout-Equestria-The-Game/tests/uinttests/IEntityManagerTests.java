@@ -5,8 +5,6 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableSet;
-
 import entityFramework.EntityChangedListener;
 import entityFramework.EntityManager;
 import entityFramework.IEntity;

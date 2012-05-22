@@ -35,7 +35,7 @@ public class StateMachine<T extends State> {
 	
 	public String getActiveState() {
 		Set<String> keys = this.stateMap.keySet();
-		String key;
+
 		for (String string : keys) {
 			if(this.stateMap.get(string).equals(activeState))
 				return string;

@@ -2,11 +2,9 @@ package content;
 
 import static org.junit.Assert.*;
 
-import gameMap.CollisionLayer;
 import gameMap.Scene;
 import gameMap.Tile;
 import gameMap.TileLayer;
-import graphics.Texture2D;
 
 import java.io.InputStream;
 

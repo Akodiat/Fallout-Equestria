@@ -107,6 +107,7 @@ public class ChangelingAIScript extends Behavior{
 
 	}
 
+	@SuppressWarnings("unused")
 	private IEntity findNearestTarget(){
 		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
 

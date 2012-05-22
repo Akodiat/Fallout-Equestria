@@ -2,7 +2,6 @@ package demos;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.PixelFormat;
 
 import builders.ContentManagerBuilder;
 

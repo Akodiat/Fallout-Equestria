@@ -1,8 +1,6 @@
 package demos;
 
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL13;
 
 import behavior.Behavior;
 import behavior.ChangelingAIScript;
@@ -13,7 +11,6 @@ import behavior.SpawnBehaviour;
 import builders.WorldBuilder;
 
 import math.MathHelper;
-import math.Matrix3;
 import math.Matrix4;
 import math.Vector2;
 import animation.Animation;
@@ -198,11 +195,12 @@ public class MazeDemo extends Demo {
 		});
 		
 		
+		this.postManager.pushPostProcessingEffect(this.ContentManager.loadShaderEffect("Negate.effect"));
 		
-		//this.postManager.pushPostProcessingEffect(effect3);
-		//this.postManager.pushPostProcessingEffect(effect);
-	//	this.postManager.pushPostProcessingEffect(effect2);
-	//	this.postManager.pushPostProcessingEffect(effect4);
+		this.postManager.pushPostProcessingEffect(effect3);
+		this.postManager.pushPostProcessingEffect(effect);
+		this.postManager.pushPostProcessingEffect(effect2);
+		this.postManager.pushPostProcessingEffect(effect4);
 		
 		
 		mouse = new Mouse();
