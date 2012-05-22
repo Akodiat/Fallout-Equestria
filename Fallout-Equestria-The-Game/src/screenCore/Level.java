@@ -20,7 +20,7 @@ import graphics.SpriteBatch;
 
 public class Level extends EntityScreen {
 	private Camera2D camera;
-	private Scene scene;
+	protected Scene scene;
 	private final String level;
 	private PlayerCharacteristics playerChars;
 	private boolean typing;

@@ -9,9 +9,9 @@ import utils.IEventListener;
 import utils.Rectangle;
 import utils.time.TimeSpan;
 
-public class TestGUIScreen extends TransitioningGUIScreen {
+public class StartGUIScreen extends TransitioningGUIScreen {
 
-	public TestGUIScreen(String lookAndFeelPath) {
+	public StartGUIScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1.0f), TimeSpan.fromSeconds(.5f), lookAndFeelPath);
 	}
 	

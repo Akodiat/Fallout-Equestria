@@ -9,9 +9,9 @@ import utils.IEventListener;
 import utils.Rectangle;
 import utils.time.TimeSpan;
 
-public class Test2GUIScreen extends TransitioningGUIScreen {
+public class SinglePlayerScreen extends TransitioningGUIScreen {
 
-	public Test2GUIScreen(String lookAndFeelPath) {
+	public SinglePlayerScreen(String lookAndFeelPath) {
 		super(false, TimeSpan.fromSeconds(1.0f), TimeSpan.fromSeconds(.5f), lookAndFeelPath);
 	}
 	

@@ -44,6 +44,17 @@ public class BulletBehavior extends Behavior{
 		if(otherHealth != null){
 			otherHealth.addHealthPoints(-damage);
 		}
+		this.destroy();
+	
+	}
+	
+	@Override
+	public void onMapCollision() {
+		super.onMapCollision();
+		this.destroy();
+	}
+	
+	private void destroy() {	
 		this.SoundManager.playSoundEffect(soundEffect);
 		AnimationComp aCom = this.Entity.getComponent(AnimationComp.class);
 		aCom.setAnimationPlayer(this.ContentManager.loadAnimationSet("explosion.animset").clone());
@@ -58,8 +69,8 @@ public class BulletBehavior extends Behavior{
 		pCom.setVelocity(Vector2.Zero);
 		
 		this.Entity.getComponent(SpatialComp.class).setCollideable(false);
+			
 	}
-	
 	protected void killEntity() {
 		this.Entity.kill();
 	}

@@ -237,12 +237,12 @@ public class MazeDemo extends Demo {
 		
 		IEntity portalA = gameWorld.getEntityManager().createEntity(entityArchtype);
 		portalA.addComponent(new BehaviourComp(new PortalBehavior("PortalA", "PortalB")));
-		portalA.getComponent(TransformationComp.class).setPosition(100, 1000);
+		portalA.getComponent(TransformationComp.class).setPosition(800, 700);
 		portalA.refresh();
 		
 		IEntity portalB = gameWorld.getEntityManager().createEntity(entityArchtype);
 		portalB.addComponent(new BehaviourComp(new PortalBehavior("PortalB", "PortalA")));
-		portalB.getComponent(TransformationComp.class).setPosition(5000, 1000);
+		portalB.getComponent(TransformationComp.class).setPosition(800, 1000);
 		portalB.refresh();
 		
 		

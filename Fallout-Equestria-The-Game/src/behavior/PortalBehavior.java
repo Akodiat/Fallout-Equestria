@@ -36,7 +36,7 @@ public class PortalBehavior extends Behavior{
 	
 	
 	@Override
-	public void onCollisionEnter(IEntity entity) {
+	public void onTriggerEnter(IEntity entity) {
 		IEntity linkedPortal = this.EntityManager.getEntity(linkedPortalName);
 		if(linkedPortal != null) {
 			TransformationComp linkedTransformation = linkedPortal.getComponent(TransformationComp.class);
@@ -47,7 +47,7 @@ public class PortalBehavior extends Behavior{
 			
 			Vector2 sendPos = new Vector2(linkedTransformation.getPosition().X,
 										  linkedTransformation.getPosition().Y + linkedSpatial.getBounds().getHeight()
-										  + sendSpatial.getBounds().getHeight());
+										  + sendSpatial.getBounds().getHeight() + 50);
 			sendTrans.setPosition(sendPos);
 		}
 	}
