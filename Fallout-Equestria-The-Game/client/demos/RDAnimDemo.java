@@ -1,8 +1,9 @@
 package demos;
 
+import player.PonyColorChangeHelper;
 import behavior.PlayerScript;
+import builders.WorldBuilder;
 import math.Vector2;
-import misc.PonyColorChangeHelper;
 import animation.Animation;
 import animation.AnimationPlayer;
 import animation.Bones;
@@ -14,7 +15,6 @@ import gameMap.Scene;
 import graphics.Color;
 import graphics.SpriteBatch;
 import sounds.SoundManager;
-import systembuilders.WorldBuilder;
 import utils.Camera2D;
 import utils.Rectangle;
 import utils.input.Keyboard;

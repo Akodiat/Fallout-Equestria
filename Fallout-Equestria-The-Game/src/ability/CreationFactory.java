@@ -1,8 +1,9 @@
 package ability;
 
-import math.Vector2;
 import components.PhysicsComp;
 import components.TransformationComp;
+
+import math.Vector2;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;

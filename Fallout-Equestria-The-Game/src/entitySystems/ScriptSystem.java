@@ -1,8 +1,9 @@
 package entitySystems;
 
+import components.BehaviourComp;
+
 import sounds.SoundManager;
 import utils.time.GameTime;
-import components.BehaviourComp;
 import content.ContentManager;
 import entityFramework.ComponentMapper;
 import entityFramework.EntitySingleProcessingSystem;
@@ -44,7 +45,9 @@ public class ScriptSystem extends EntitySingleProcessingSystem {
 				behaviourComp.update(time);
 			}
 		} else {
-			behaviourComp.start(getEntityManager(),contentManager,soundManager, entity);
+			behaviourComp.getBehavior().initialize(getEntityManager(),contentManager,soundManager, entity);
+			behaviourComp.getBehavior().start();
+			behaviourComp.getBehavior().setEnabled(true);
 		}
 	}
 }

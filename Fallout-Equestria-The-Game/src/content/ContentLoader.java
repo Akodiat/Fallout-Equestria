@@ -1,4 +1,5 @@
 package content;
+
 public abstract class ContentLoader<T> implements IContentLoader<T>{
 
 	private final String folder;

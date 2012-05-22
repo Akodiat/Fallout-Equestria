@@ -2,7 +2,8 @@ package content;
 
 import java.io.InputStream;
 
-import misc.PlayerCharacteristics;
+import player.PlayerCharacteristics;
+
 
 
 import com.thoughtworks.xstream.XStream;

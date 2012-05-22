@@ -10,6 +10,7 @@ import behavior.PillBehavior;
 import behavior.PlayerScript;
 import behavior.PortalBehavior;
 import behavior.SpawnBehaviour;
+import builders.WorldBuilder;
 
 import math.MathHelper;
 import math.Matrix3;
@@ -32,7 +33,6 @@ import graphics.SpriteBatch;
 import graphics.SpriteBatch.SortMode;
 import graphics.Texture2D;
 import sounds.SoundManager;
-import systembuilders.WorldBuilder;
 import utils.Camera2D;
 import utils.Rectangle;
 import utils.input.Keyboard;

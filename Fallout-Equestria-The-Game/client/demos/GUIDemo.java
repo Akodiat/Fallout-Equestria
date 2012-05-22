@@ -15,7 +15,6 @@ public class GUIDemo extends Demo {
 	private SpriteBatch spriteBatch;
 	private Mouse mouse;
 	private Keyboard keyboard;
-	private ContentManager ContentManager;
 	
 	private GUIRenderingContext context;
 	@SuppressWarnings("unused")
@@ -50,7 +49,6 @@ public class GUIDemo extends Demo {
 		this.spriteBatch = new SpriteBatch(screenDim);
 		this.mouse = new Mouse();
 		this.keyboard = new Keyboard();
-		this.ContentManager = new ContentManager("resources");
 		
 		LookAndFeel lookAndFeel = ContentManager.load("gui.tdict", LookAndFeel.class);
 		lookAndFeel.setDefaultFont(ContentManager.loadFont("arialb20.xml"));

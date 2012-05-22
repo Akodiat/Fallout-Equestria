@@ -1,8 +1,8 @@
 package clientNetworkSystems;
 
-import misc.AnimationFromCharacterHelper;
-import misc.PlayerCharacteristics;
-import misc.PonyColorChangeHelper;
+import player.AnimationFromCharacterHelper;
+import player.PlayerCharacteristics;
+import player.PonyColorChangeHelper;
 import animation.Animation;
 import animation.AnimationPlayer;
 import animation.Bones;

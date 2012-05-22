@@ -1,20 +1,14 @@
 package components;
 
 
+
 import behavior.Behavior;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-
-import content.ContentManager;
-
 import anotations.Editable;
-import sounds.SoundManager;
-import utils.input.MouseButton;
-import utils.input.MouseState;
 import utils.time.GameTime;
 import entityFramework.IComponent;
 import entityFramework.IEntity;
-import entityFramework.IEntityManager;
 
 @Editable @XStreamAlias("Behaviour")
 public class BehaviourComp implements IComponent {
@@ -32,20 +26,6 @@ public class BehaviourComp implements IComponent {
 	public BehaviourComp(BehaviourComp other) {
 		this.setBehavior((Behavior)other.getBehavior().clone());		
 	}	
-	
-	/**Initializes the active behavior.
-	 * 
-	 * @param entityManager manager in use.
-	 * @param entity 
-	 */
-	public void start(IEntityManager entityManager, 
-					  ContentManager contentManager, 
-					  SoundManager soundManager, 
-					  IEntity entity) {
-		behavior.initialize(entityManager, contentManager, soundManager, entity);
-		behavior.start();
-		behavior.setEnabled(true);
-	}
 	
 	/** Delegates to the active behavior, updateBehaviour method.
 	 * This is identical to calling getBehaviour.update

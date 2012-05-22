@@ -1,5 +1,6 @@
 package ability;
 
+
 import utils.time.GameTime;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;

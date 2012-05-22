@@ -6,9 +6,9 @@ import entityFramework.IComponent;
 import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import sounds.SoundManager;
+import content.ContentManager;
 import utils.IEventListener;
 import utils.time.GameTime;
-import content.ContentManager;
 
 public abstract class Behavior implements IEventListener<KeyframeTriggerEventArgs>{
 	protected static final String NULL_STATE_KEY = "NULL_STATE";

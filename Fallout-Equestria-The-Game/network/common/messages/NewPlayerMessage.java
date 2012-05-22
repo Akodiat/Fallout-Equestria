@@ -1,6 +1,6 @@
 package common.messages;
 
-import misc.PlayerCharacteristics;
+import player.PlayerCharacteristics;
 import components.SpecialComp;
 
 /**

@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import com.google.common.collect.ImmutableSet;
-
-import math.Matrix4;
 import math.Vector2;
 import components.RenderingComp;
 import components.TransformationComp;
@@ -15,7 +13,6 @@ import entityFramework.ComponentMapper;
 import entityFramework.EntityProcessingSystem;
 import entityFramework.IEntity;
 import entityFramework.IEntityWorld;
-import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 
 public class RenderingSystem extends EntityProcessingSystem {
@@ -32,7 +29,6 @@ public class RenderingSystem extends EntityProcessingSystem {
 	
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
 		posCM = ComponentMapper.create(
 				this.getWorld().getDatabase(), TransformationComp.class);
 		
@@ -44,7 +40,7 @@ public class RenderingSystem extends EntityProcessingSystem {
 	protected void processEntity(IEntity entity) {
 		RenderingComp renderC = this.renderCM.getComponent(entity);
 		TransformationComp positionC = this.posCM.getComponent(entity);
-		
+				
 		this.draw(renderC, positionC);
 	}
 

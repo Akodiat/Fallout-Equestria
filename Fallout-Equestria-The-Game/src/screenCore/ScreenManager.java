@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import misc.PlayerCharacteristics;
+import player.PlayerCharacteristics;
+
 
 
 import com.google.common.collect.ImmutableList;

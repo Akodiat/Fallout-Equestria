@@ -48,7 +48,7 @@ public class Scene {
 				return node;
 			}
 		}
-		throw new RuntimeException("Node not found!" + id);
+		return null;
 	}
 	
 	public List<TexturedSceneNode> getTexturedNodes() {

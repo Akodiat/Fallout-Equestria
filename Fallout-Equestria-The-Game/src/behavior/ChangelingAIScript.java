@@ -82,8 +82,6 @@ public class ChangelingAIScript extends Behavior{
 		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
 		
 		IEntity nearestTarget = null;
-		//		ComponentMapper<TransformationComp> tCM;
-		//		tCM = ComponentMapper.create(NO DATABASE), TransformationComp.class);
 
 		for (IEntity player : this.EntityManager.getEntityGroup(this.targetGroup)) {
 			if(Vector2.distance(position, player.getComponent(TransformationComp.class).getPosition()) < this.sightRange){
@@ -117,6 +115,7 @@ public class ChangelingAIScript extends Behavior{
 		this.Entity.getComponent(TransformationComp.class).setRotation(0f);
 	}
 	
+	@SuppressWarnings("unused")
 	private void moveRandomly() {
 
 		double angle = this.physComp.getVelocity().angle() + (MathHelper.Tau / 40 - Math.random() * MathHelper.Tau / 20);
@@ -149,16 +148,5 @@ public class ChangelingAIScript extends Behavior{
 	@Override
 	public Object clone() {
 		return new ChangelingAIScript();
-	}
-
-	
-	private class Idlestate extends BehaviourState{
-		@Override
-		public void update(GameTime time) {
-			IEntity targetEntity = findRandomTarget();
-			if(targetEntity != null) {
-				copyTargetAppearance(targetEntity);
-			}
-		}
 	}
 }

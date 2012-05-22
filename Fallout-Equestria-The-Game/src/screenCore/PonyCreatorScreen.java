@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import player.ManeStyle;
+import player.PlayerCharacteristics;
+import player.PonyColorChangeHelper;
+import player.Race;
+import player.SpecialStats;
+
 import animation.AnimationPlayer;
 import animation.Bones;
 import animation.TextureDictionary;
@@ -24,11 +30,6 @@ import GUI.Slider;
 import GUI.Textfield;
 import GUI.ToggleButton;
 import math.Vector2;
-import misc.ManeStyle;
-import misc.PlayerCharacteristics;
-import misc.PonyColorChangeHelper;
-import misc.Race;
-import misc.SpecialStats;
 import utils.EventArgs;
 import utils.IEventListener;
 import utils.Rectangle;
@@ -44,13 +45,11 @@ import graphics.Texture2D;
 public class PonyCreatorScreen extends TransitioningGUIScreen {
 
 	public static final String PonyArchetypePath = "Player.archetype";
-
-	private ContentManager contentManager = new ContentManager("resources");
-	private PlayerCharacteristicsWriter charWriter = new PlayerCharacteristicsWriter(contentManager);
+	private PlayerCharacteristicsWriter charWriter;
 	
 	private AnimationPlayer ponyPlayer;
 	private PlayerCharacteristics character = new PlayerCharacteristics();
-	private TextureDictionary assetDictionary = this.contentManager.load("rddict.tdict", TextureDictionary.class);
+	private TextureDictionary assetDictionary;
 
 	private Vector2 ponyPosition = new Vector2(1025,96);
 	private Vector2 ponyScale = new Vector2(2,2);
@@ -108,7 +107,8 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	@Override
 	public void initialize(ContentManager contentManager) {
 		super.initialize(contentManager);
-		
+		charWriter = new PlayerCharacteristicsWriter(contentManager);
+		assetDictionary = contentManager.load("rddict.tdict", TextureDictionary.class);
 		
 		
 		this.bG = new ImageBox();
@@ -684,7 +684,7 @@ public class PonyCreatorScreen extends TransitioningGUIScreen {
 	}
 
 	private void addPony() {	
-		this.ponyPlayer = this.contentManager.load("rdset.animset", AnimationPlayer.class);;
+		this.ponyPlayer = this.ScreenManager.getContentManager().load("rdset.animset", AnimationPlayer.class);;
 		this.ponyPlayer.startAnimation("idle");
 		this.ponyPlayer.setBoneTexture(Bones.PIPBUCK.getValue(), assetDictionary.extractTextureEntry("pipbuck"));
 		this.ponyPlayer.setBoneHidden(Bones.LEFTFOOT.getValue(), true);

@@ -92,7 +92,7 @@ j  org.lwjgl.opengl.DrawableGL.destroy()V+24
 j  org.lwjgl.opengl.Display$5.destroy()V+19
 j  org.lwjgl.opengl.Display.destroy()V+9
 j  demos.Demo.start()V+70
-j  demos.ScreenDemo.main([Ljava/lang/String;)V+7
+j  demos.Game.main([Ljava/lang/String;)V+7
 v  ~StubRoutines::call_stub
 
 ---------------  P R O C E S S  ---------------
@@ -255,7 +255,7 @@ Dynamic libraries:
 
 VM Arguments:
 jvm_args: -Djava.library.path=D:\Fallout Equestria\Fallout-Equestria\Fallout-Equestria-The-Game\lib\lwjgl-2.8.3\native\windows -Dfile.encoding=Cp1252 
-java_command: demos.ScreenDemo
+java_command: demos.Game
 Launcher Type: SUN_STANDARD
 
 Environment Variables:

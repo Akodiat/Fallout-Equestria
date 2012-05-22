@@ -2,8 +2,9 @@ package content;
 
 import static org.junit.Assert.*;
 import entityFramework.IEntityArchetype;
+
 import org.junit.Test;
-import content.EntityArchetypeLoader;
+
 
 public class EntityArchetypeLoaderTests {
 

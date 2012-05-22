@@ -9,12 +9,11 @@ import java.util.Map;
 
 import org.newdawn.slick.openal.Audio;
 
-import animation.AnimationPlayer;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import entityFramework.IEntityArchetype;
-
+import animation.AnimationPlayer;
 import graphics.ShaderEffect;
 import graphics.Texture2D;
 import graphics.TextureFont;
@@ -30,25 +29,8 @@ public final class ContentManager {
 	private final BiMap<String, Object> loadedContent = HashBiMap.create();
 	private String resourceFolderPath;
 	
-	private void initializeLoaders() {
-		addContentLoader(new TextureLoader("textures"));
-		addContentLoader(new ShaderLoader("shaders"));
-		addContentLoader(new SoundLoader("sounds"));
-		addContentLoader(new TextureFontLoader(this, "fonts"));
-		addContentLoader(new EntityArchetypeLoader(this,"archetypes"));
-		addContentLoader(new SceneLoader(this, "scenes"));
-		addContentLoader(new AnimationLoader(this, "animations"));
-		addContentLoader(new TextureDictionaryLoader(this,"animations/dictionaries"));
-		addContentLoader(new LookAndFeelLoader(new TextureDictionaryLoader(this,"animations/dictionaries", "GUI"), "lookAndFeels"));
-		addContentLoader(new AnimationSetLoader(this, "animations/animationsets"));
-		addContentLoader(new PlayerCharacteristicsLoader("characters"));
-		
-		//TODO add more if needed!. 
-	}
-	
 	public ContentManager(String rootContentFolderPath) {
 		this.resourceFolderPath = rootContentFolderPath;
-		this.initializeLoaders();
 	}
 	
 	
@@ -91,7 +73,7 @@ public final class ContentManager {
 		
 		//If we don't have a way to load the type specified throw an exception!.
 		if(loader == null) {
-			throw new RuntimeException("No loader able to load the specified type was found.");
+			throw new RuntimeException("No loader able to load the specified type was found." + contentType);
 		} 
 		
 		//Try to open a stream.

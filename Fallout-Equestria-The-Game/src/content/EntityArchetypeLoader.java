@@ -4,10 +4,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import components.*;
 
 import com.google.common.collect.ImmutableSet;
 import com.thoughtworks.xstream.XStream;
+
+import components.AbilityComp;
+import components.AnimationComp;
+import components.BehaviourComp;
+import components.HealthComp;
+import components.InputComp;
+import components.PhysicsComp;
+import components.RenderingComp;
+import components.SpatialComp;
+import components.StatusComp;
+import components.TransformationComp;
 
 import content.serilazation.ColorConverter;
 import content.serilazation.Vector2Converter;

@@ -4,6 +4,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.PixelFormat;
 
+import builders.ContentManagerBuilder;
+
 import content.ContentManager;
 
 import utils.Rectangle;
@@ -26,7 +28,7 @@ public abstract class Demo {
 		this.screenDim = screenDim;
 		this.fps = fps;
 		this.clock = new Clock();
-		this.ContentManager = new ContentManager("resources");
+		this.ContentManager = ContentManagerBuilder.buildStandardContentManager("resources");
 	}	
 	
 	public void start() {

@@ -1,6 +1,6 @@
 package screenCore;
 
-import systembuilders.WorldBuilder;
+import builders.WorldBuilder;
 import utils.Camera2D;
 import utils.time.GameTime;
 import utils.time.TimeSpan;

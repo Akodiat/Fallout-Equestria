@@ -3,6 +3,9 @@ package screenCore;
 import java.util.ArrayList;
 import java.util.List;
 
+import math.Vector2;
+import misc.EntityGroups;
+
 import behavior.PortalBehavior;
 import behavior.SpawnBehaviour;
 
@@ -32,11 +35,22 @@ public class Level1 extends Level{
 	public void initialize(ContentManager contentManager) {
 		super.initialize(contentManager);
 		
-		
+	}
+	
+	@Override
+	public void onTransitionFinished() {
+		super.onTransitionFinished();	
 		SpawnTextureNodes();
 		SpawnOther();
-		
-		
+		PlacePlayers();
+	
+	}
+
+	private void PlacePlayers() {
+		Vector2 spawnPoint = this.scene.getNodeByID("Spawn_Player").getPosition();
+		for (IEntity  entity :this.World.getEntityManager().getEntityGroup(EntityGroups.Players.toString())) {
+			entity.getComponent(TransformationComp.class).setPosition(spawnPoint);
+		}
 	}
 
 	private void SpawnOther() {
@@ -89,11 +103,11 @@ public class Level1 extends Level{
 				
 				String archetypeName = data[1];
 				int count = Integer.parseInt(data[2]);
-				
+			/*	
 				SpawnBehaviour behaviour = new SpawnBehaviour(archetypeName, count);
 				IEntity entity = this.World.getEntityManager().createEntity(triggerSpawnArchetype);
 				entity.addComponent(new BehaviourComp(behaviour));
-				entity.refresh();
+				entity.refresh();*/
 				nodes.remove(i);
 			}
 		}
@@ -102,15 +116,18 @@ public class Level1 extends Level{
 	
 	
 	private void SpawnTextureNodes() {
-		for (TexturedSceneNode node : this.scene.getTexturedNodes()) {
+		for (TexturedSceneNode tNode : this.scene.getTexturedNodes()) {
 			IEntity entity = this.World.getEntityManager().createEmptyEntity();
 			TransformationComp transComp = new TransformationComp();
-			transComp.setPosition(node.getPosition());
-			transComp.setOrigin(node.getSrcRectangle().getCenter());
+			transComp.setPosition(tNode.getPosition());
+			transComp.setOrigin(new Vector2(tNode.getSrcRectangle().Width/4,tNode.getSrcRectangle().Height/4));
 			RenderingComp renderComp = new RenderingComp();
-			renderComp.setTexture(node.getTexture());
-			renderComp.setSource(node.getSrcRectangle());
+			renderComp.setTexture(tNode.getTexture());
+			renderComp.setSource(tNode.getSrcRectangle());
 
+			System.out.println("Added a node!");
+
+			
 			entity.addComponent(transComp);
 			entity.addComponent(renderComp);
 			entity.refresh();

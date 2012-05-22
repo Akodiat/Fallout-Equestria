@@ -6,12 +6,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import player.AnimationFromCharacterHelper;
+import player.PlayerCharacteristics;
+
 import animation.AnimationPlayer;
 
 
 import math.Vector2;
-import misc.AnimationFromCharacterHelper;
-import misc.PlayerCharacteristics;
 import GUI.AnimationBox;
 import GUI.Button;
 import GUI.Label;

@@ -3,8 +3,11 @@ package serverNetworkSystems;
 import java.util.HashMap;
 import java.util.Map;
 
-import misc.AnimationFromCharacterHelper;
-import misc.PlayerCharacteristics;
+import math.Vector2;
+
+import player.AnimationFromCharacterHelper;
+import player.PlayerCharacteristics;
+
 
 import utils.input.Keyboard;
 import utils.input.Mouse;
@@ -33,13 +36,15 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 	private final ContentManager contentManager;
 	private final Map<Integer, NewPlayerMessage> playerMessages;	
 	private final PlayerCharacteristics playerProperties;
+	private final Vector2 spawnPoint;
 
 
-	public ServerPlayerCreationNetworkSystem(IEntityWorld world, Network server, ContentManager manager, PlayerCharacteristics pcars) {
+	public ServerPlayerCreationNetworkSystem(IEntityWorld world, Network server, ContentManager manager, PlayerCharacteristics pcars, Vector2 spawnPosition) {
 		super(world, server);
 		this.contentManager = manager;
 		this.playerProperties = pcars;
 		this.playerMessages = new HashMap<>();
+		this.spawnPoint = spawnPosition;
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 		final IEntity entity = this.getEntityManager().createEntity(archetype);
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());
-		entity.getComponent(TransformationComp.class).setPosition(1000,1000);
+		entity.getComponent(TransformationComp.class).setPosition(this.spawnPoint);
 		AnimationComp animComp = entity.getComponent(AnimationComp.class);
 		AnimationPlayer player = AnimationFromCharacterHelper.animationPlayerFromCharacter(message.playerCharacteristics, contentManager);
 		player.attachAnimationToBone(Bones.BODY.getValue(), contentManager.load("weapon.anim", Animation.class));

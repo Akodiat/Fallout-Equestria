@@ -1,9 +1,11 @@
 package ability;
 
-import animation.Bones;
+
 import components.AnimationComp;
 import components.SpatialComp;
 import components.TransformationComp;
+
+import animation.Bones;
 
 import math.Vector2;
 import entityFramework.IEntity;

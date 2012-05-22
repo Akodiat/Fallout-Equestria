@@ -1,7 +1,5 @@
 package components;
 
-import javax.print.attribute.standard.MediaSize.Other;
-
 import math.Vector3;
 import utils.BoundingBox;
 import entityFramework.IComponent;

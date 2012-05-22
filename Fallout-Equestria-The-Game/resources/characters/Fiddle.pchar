@@ -1,4 +1,4 @@
-<misc.PlayerCharacteristics>
+<player.PlayerCharacteristics>
   <name>Fiddle</name>
   <archetypePath>Player.archetype</archetypePath>
   <bodyColor>
@@ -28,4 +28,4 @@
     <Agility>7</Agility>
     <Luck>8</Luck>
   </special>
-</misc.PlayerCharacteristics>
+</player.PlayerCharacteristics>

@@ -1,12 +1,13 @@
 package screenCore;
 
 
-import misc.PlayerCharacteristics;
+import math.Vector2;
+import player.PlayerCharacteristics;
+import builders.EntitySystemBuilder;
+import builders.NetworkSystemBuilder;
 
 import common.messages.InputMessage;
 
-import systembuilders.EntitySystemBuilder;
-import systembuilders.NetworkSystemBuilder;
 import utils.Camera2D;
 import utils.input.Keyboard;
 import utils.input.Mouse;
@@ -16,6 +17,7 @@ import content.ContentManager;
 import entityFramework.EntityNetworkIDManager;
 import entityFramework.IEntitySystemManager;
 import gameMap.Scene;
+import gameMap.SceneNode;
 import graphics.SpriteBatch;
 
 public class Level extends EntityScreen {
@@ -57,11 +59,14 @@ public class Level extends EntityScreen {
 												   this.ScreenManager.getSpriteBatch(), 
 												   false, "Player0");
 		
+			Vector2 playerSpawnPosition = this.extractPlayerSpawnPosition();
+			
 			NetworkSystemBuilder.createServerSystems(World,
 													 this.ScreenManager.getNetwork(), 
 													 this.ScreenManager.getSoundManager(), 
 													 this.ScreenManager.getContentManager(), 
-													 this.createPlayerCharacteristics());
+													 this.createPlayerCharacteristics(),
+													 playerSpawnPosition);
 		} else {
 			EntitySystemBuilder.buildClientWorld(this.World, 
 					   camera, 
@@ -82,6 +87,15 @@ public class Level extends EntityScreen {
 		this.World.initialize();
 	}
 	
+	private Vector2 extractPlayerSpawnPosition() {
+		SceneNode spawnPoint = this.scene.getNodeByID("Spawn_Player");
+		if(spawnPoint != null) {
+			return spawnPoint.getPosition();
+		}
+		
+		return new Vector2(1000,1000);
+	}
+
 	private PlayerCharacteristics createPlayerCharacteristics() {
 		this.playerChars = this.ScreenManager.getPlayerCharacteristics();
 		return playerChars;

@@ -5,10 +5,11 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import player.PlayerCharacteristics;
+
 import utils.input.Keys;
 
 import math.Vector2;
-import misc.PlayerCharacteristics;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
@@ -159,9 +160,9 @@ public class Network {
 		kryo.register(EntityDestroyedMessage.class);
 		kryo.register(GoToScreenMessage.class);
 		kryo.register(PlayerCharacteristics.class);
-		kryo.register(misc.ManeStyle.class);
-		kryo.register(misc.SpecialStats.class);
-		kryo.register(misc.Race.class);
+		kryo.register(player.ManeStyle.class);
+		kryo.register(player.SpecialStats.class);
+		kryo.register(player.Race.class);
 		kryo.register(Color.class);
 		kryo.register(ChatMessage.class);
 		kryo.register(utils.input.Keyboard.class);

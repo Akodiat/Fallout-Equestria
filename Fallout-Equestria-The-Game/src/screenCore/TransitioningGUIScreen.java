@@ -3,9 +3,12 @@ package screenCore;
 import java.util.ArrayList;
 import java.util.List;
 
+import GUI.Button;
 import GUI.GUIControl;
 import math.Point2;
 import math.Vector2;
+import utils.EventArgs;
+import utils.IEventListener;
 import utils.time.GameTime;
 import utils.time.TimeSpan;
 
@@ -50,6 +53,15 @@ public abstract class TransitioningGUIScreen extends GUIScreen {
 		helper.transitionEndPos = endPos;
 		this.translations.add(helper);
 		this.controlPanel.addChild(control);
+		
+		if(control instanceof Button) {
+			control.addClicked(new IEventListener<EventArgs>() {
+				@Override
+				public void onEvent(Object sender, EventArgs e) {
+					ScreenManager.getSoundManager().playSoundEffect("effects/buttonsound.ogg");
+				}
+			});
+		}
 	}
 	
 	protected void removeGuiControl(GUIControl control){
