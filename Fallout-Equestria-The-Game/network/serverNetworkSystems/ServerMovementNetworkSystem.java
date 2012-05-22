@@ -22,6 +22,7 @@ public class ServerMovementNetworkSystem extends ServerNetworkSystem{
 	
 	@Override
 	public void process() {
+		try {
 		for (IEntity entity : this.getEntities().values()) {
 			EntityMovedMessage message = new EntityMovedMessage();
 			message.entityID = entity.getUniqueID();
@@ -29,6 +30,9 @@ public class ServerMovementNetworkSystem extends ServerNetworkSystem{
 			
 			this.getServer().sendToAllUDP(message);
 		}			
+		} catch(Exception e) {
+			System.out.println("Failed but we ignore it since it's not important");
+		}
 	}
 
 }
