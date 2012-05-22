@@ -257,20 +257,16 @@ public class MazeDemo extends Demo {
 		for (TexturedSceneNode tNode : this.scene.getTexturedNodes()) {
 			IEntity entity = this.gameWorld.getEntityManager().createEmptyEntity();
 			TransformationComp transComp = new TransformationComp();
-			System.out.println(tNode.getPosition());
 			transComp.setPosition(tNode.getPosition());
 			transComp.setOrigin(new Vector2(tNode.getSrcRectangle().Width/4,tNode.getSrcRectangle().Height/4));
 			RenderingComp renderComp = new RenderingComp();
 			renderComp.setTexture(tNode.getTexture());
 			renderComp.setSource(tNode.getSrcRectangle());
-			System.out.println(tNode.getSrcRectangle());
 			
 
 			entity.addComponent(transComp);
 			entity.addComponent(renderComp);
 			entity.refresh();
-			
-			System.out.println("WAS ADDED!");
 		}
 
 

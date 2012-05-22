@@ -198,7 +198,6 @@ public class LobbyGUI extends TransitioningGUIScreen{
 				public void received(Connection connection, Object message) {
 					if(message instanceof GoToScreenMessage){
 						synchronized (lock) {
-							System.out.println("!!!");
 							LobbyGUI.this.ScreenManager.getNetwork().removeAllListeners();
 							GoToScreenMessage screenMessage = (GoToScreenMessage) message;
 							LobbyGUI.this.message = screenMessage;			

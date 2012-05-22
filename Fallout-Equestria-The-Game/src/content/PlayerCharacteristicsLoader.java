@@ -35,7 +35,6 @@ public class PlayerCharacteristicsLoader extends ContentLoader<PlayerCharacteris
 	public PlayerCharacteristics loadContent(InputStream in) throws Exception {
 
 		PlayerCharacteristics pChar = (PlayerCharacteristics)xstream.fromXML(in);
-		System.out.println(pChar);
 		return pChar;
 	}
 }

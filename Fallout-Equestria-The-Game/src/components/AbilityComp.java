@@ -55,11 +55,9 @@ public class AbilityComp implements IComponent {
 		}
 		
 		if(this.activeAbility == null) {
-			System.out.println("...");
 			this.activeAbility = ability;
 			this.activeAbility.start();
 		} else if(!this.activeAbility.isBlocking()) {
-			System.out.println("...");
 			this.activeAbility.stop();
 			this.activeAbility = ability;
 			this.activeAbility.start();

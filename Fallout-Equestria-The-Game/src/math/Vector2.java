@@ -162,9 +162,8 @@ public final class Vector2{
 		return (float)Math.atan2(Y, X);
 	}
 	
-	public static float twoPiAngle(Vector2 vector0, Vector2 vector1){
+	public static float tanAngle(Vector2 vector0, Vector2 vector1){
 		float temp = (float) Math.atan2(vector0.Y - vector1.Y, vector0.X - vector1.X);
-		System.out.println(temp);
 		return temp;
 	}
 	/**

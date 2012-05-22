@@ -158,7 +158,6 @@ public class ScreenManager {
 		if(this.isInitialized) {
 			screen.initialize(this.contentManager);
 		}
-		System.out.println("Screen:" + screenID);
 
 		screen.onEnter();
 	}

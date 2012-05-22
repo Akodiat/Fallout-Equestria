@@ -44,8 +44,6 @@ public class Level extends EntityScreen {
 
 	@Override
 	public void onTransitionFinished() {
-		
-		System.out.println("NOW WE ARE FINISHED!");
 		this.World.getDatabase().clear();
 		
 		if(this.ScreenManager.getNetwork().isServer()) {

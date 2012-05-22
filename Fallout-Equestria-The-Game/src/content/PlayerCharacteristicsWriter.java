@@ -36,8 +36,6 @@ public class PlayerCharacteristicsWriter {
 	public void savePlayerCharacteristics(PlayerCharacteristics pChar) {
 		File file = new File(this.contentManager.getResourceFolderPath() + File.separator + this.characterPath + File.separator +
 				pChar.name + ".pchar");
-		
-
 		String s = 	xstream.toXML(pChar);
 		System.out.println(s);
 		try {

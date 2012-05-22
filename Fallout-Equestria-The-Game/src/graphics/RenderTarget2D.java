@@ -86,7 +86,7 @@ public class RenderTarget2D {
 	private void validateBuffer() {
 		int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if(status != GL_FRAMEBUFFER_COMPLETE) {
-			System.out.println("huh...");
+			System.out.println("RenderTarget does not work!");
 			if(status == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT) {
 				System.out.println("inc Attatchment!");
 			} if(status == GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER) {

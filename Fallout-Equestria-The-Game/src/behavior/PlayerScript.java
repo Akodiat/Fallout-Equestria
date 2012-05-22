@@ -153,7 +153,6 @@ public class PlayerScript extends Behavior{
 		public void update(GameTime time) {
 			Vector2 velocity = physComp.getVelocity();
 			if(velocity.equals(Vector2.Zero)) {
-				System.out.println("idle");
 				StateMachine.changeState(IDLE_STATE);
 			}		
 			Keyboard keyboard = inputComp.getKeyboard();

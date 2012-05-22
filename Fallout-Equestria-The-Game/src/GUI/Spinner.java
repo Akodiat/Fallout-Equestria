@@ -100,8 +100,6 @@ public class Spinner extends Panel {
 
 		this.label.setBounds(margin, this.getBounds().Height/2 - textHeight/2, 
 				             this.getBounds().Width/2, textHeight);
-		
-		System.out.println(this.label.getBounds());
 	}
 
 	public void updateButtons() {
