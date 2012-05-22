@@ -36,7 +36,8 @@ public class BulletAbility extends Ability {
 		IEntity bullet = this.CreationFactory.createMovingEntity(bulletArchetype, Vector2.Zero,trans.getHeight(), velocity);
 		
 		float posX = direction.X *spatialComp.getBounds().getWidth() +  trans.getPosition().X;
-		float posY = trans.getPosition().Y + bullet.getComponent(SpatialComp.class).getBounds().getHeight() / 2;
+		System.out.println(bullet.getComponent(SpatialComp.class).getBounds().getHeight());
+		float posY = trans.getPosition().Y + bullet.getComponent(SpatialComp.class).getBounds().getHeight();
 		
 		bullet.getComponent(TransformationComp.class).setPosition(posX,posY);
 	

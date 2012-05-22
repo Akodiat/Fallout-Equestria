@@ -31,6 +31,13 @@ public class AnimationFromCharacterHelper {
 			player.setBoneHidden(Bones.WINGS.getValue(), true);
 			player.setBoneHidden(Bones.HORN.getValue(), false);
 		}
+		
+		player.setBoneTexture(Bones.PIPBUCK.getValue(), assetDictionary.extractTextureEntry("pipbuck"));
+		player.setBoneHidden(Bones.LEFTFOOT.getValue(), true);
+		player.setBoneHidden(Bones.LEFTHAND.getValue(), true);
+		player.setBoneHidden(Bones.RIGHTFOOT.getValue(), true);
+		player.setBoneHidden(Bones.RIGHTHAND.getValue(), true);
+
 
 		return player;
 	}

@@ -117,8 +117,12 @@ public class RDAnimDemo extends Demo {
 		player.setBoneTexture(Bones.UPPERTAIL.getValue(), dict.extractTextureEntry("TSUPPERTAIL"));
 		player.setBoneTexture(Bones.LOWERTAIL.getValue(), dict.extractTextureEntry("TSLOWERTAIL"));
 		player.setBoneTexture(Bones.PIPBUCK.getValue(), dict.extractTextureEntry("pipbuck"));
+		player.setBoneHidden(Bones.LEFTFOOT.getValue(), true);
+		player.setBoneHidden(Bones.LEFTHAND.getValue(), true);
+		player.setBoneHidden(Bones.RIGHTFOOT.getValue(), true);
+		player.setBoneHidden(Bones.RIGHTHAND.getValue(), true);
 
-		player.attachAnimationToBone(Bones.ROOT.getValue(), ContentManager.load("weapon.anim", Animation.class));
+		player.attachAnimationToBone(Bones.BODY.getValue(), ContentManager.load("weapon.anim", Animation.class));
 		entity.addComponent(animComp);
 		//END OF ANIMATION UGLY SHIT
 		entity.getComponent(TransformationComp.class).setPosition(1000, 1000);
