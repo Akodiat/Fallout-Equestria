@@ -45,9 +45,6 @@ public class WorldBuilder {
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
 		manager.addRenderEntitySystem(new HealthBarRenderSystem(world, contentManager, spriteBatch));
 
-		
-		manager.addRenderEntitySystem(new HUDRenderingSystem(world, contentManager, spriteBatch, "Player"));
-
 		//Debug systems!
 		if(debugging) {
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
@@ -74,8 +71,7 @@ public class WorldBuilder {
 		manager.addRenderEntitySystem(new RenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new TextRenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
-		manager.addRenderEntitySystem(new HealthBarRenderSystem(world, contentManager, spriteBatch));
-		manager.addRenderEntitySystem(new HUDRenderingSystem(world, contentManager, spriteBatch, label));		
+		manager.addRenderEntitySystem(new HealthBarRenderSystem(world, contentManager, spriteBatch));	
 		
 		if(debugging) {
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
@@ -133,7 +129,6 @@ public class WorldBuilder {
 		manager.addRenderEntitySystem(new HealthBarRenderSystem(world, contentManager, spriteBatch));
 
 		
-		manager.addRenderEntitySystem(new HUDRenderingSystem(world, contentManager, spriteBatch, label));
 
 		//Debug systems!
 		if(debugging) {

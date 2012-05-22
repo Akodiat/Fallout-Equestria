@@ -44,8 +44,6 @@ public class EntitySystemBuilder {
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
 		manager.addRenderEntitySystem(new HealthBarRenderSystem(world, contentManager, spriteBatch));
 
-		
-		manager.addRenderEntitySystem(new HUDRenderingSystem(world, contentManager, spriteBatch, label));
 
 		//Debug systems!
 		if(debugging) {
@@ -70,7 +68,6 @@ public class EntitySystemBuilder {
 		manager.addRenderEntitySystem(new TextRenderingSystem(world, spriteBatch));
 		manager.addRenderEntitySystem(new AnimationSystem(world, spriteBatch, camera));
 		manager.addRenderEntitySystem(new HealthBarRenderSystem(world, contentManager, spriteBatch));
-		manager.addRenderEntitySystem(new HUDRenderingSystem(world, contentManager, spriteBatch, label));		
 		
 		if(debugging) {
 			manager.addRenderEntitySystem(new DebuggMapCollisionGrid(world, scene, spriteBatch,camera));
