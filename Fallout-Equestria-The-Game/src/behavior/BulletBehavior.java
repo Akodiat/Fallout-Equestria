@@ -1,14 +1,13 @@
 package behavior;
 
-
 import math.Vector2;
 import utils.IEventListener;
 import components.AnimationComp;
 import components.HealthComp;
 import components.PhysicsComp;
 import components.SpatialComp;
+import components.TransformationComp;
 import entityFramework.IEntity;
-import graphics.Color;
 
 import animation.KeyframeTriggerEventArgs;
 import anotations.Editable;
@@ -34,7 +33,7 @@ public class BulletBehavior extends Behavior{
 		PhysicsComp pCom = this.Entity.getComponent(PhysicsComp.class);
 		aCom.getAnimationPlayer().setBoneHidden("RIGIDBODY", true);
 		if(pCom.getVelocity().X>0)
-			aCom.getAnimationPlayer().setBoneMirrored("BALL", true);
+			this.getComponent(TransformationComp.class).setMirror(true);
 	}
 
 	

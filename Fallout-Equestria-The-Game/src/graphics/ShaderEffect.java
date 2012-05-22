@@ -4,6 +4,7 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
+
 import math.Matrix3;
 import math.Matrix4;
 import math.Vector2;
@@ -13,14 +14,35 @@ import math.Vector4;
 import static org.lwjgl.opengl.GL20.*;
 
 public class ShaderEffect {
-	
+		
 	public final int ShaderProgramOpenGLID;
 	private static FloatBuffer matrix3Buffer = BufferUtils.createFloatBuffer(9);
 	private static FloatBuffer matrix4Buffer = BufferUtils.createFloatBuffer(16);
+	private IShaderEvent applyEvent;
+	
+		
+	
 	
 	public ShaderEffect(int shaderProgram) {
 		this.ShaderProgramOpenGLID = shaderProgram;		
 	}
+	
+	
+	public ShaderEffect clone() {
+		return new ShaderEffect(this.ShaderProgramOpenGLID);
+	}
+	
+
+	/** Should be overrided by any specialsed shader.
+	 * 
+	 */
+	public void apply() {
+		if(this.applyEvent != null) {
+			this.applyEvent.onApply();
+		}
+	}	
+	
+	
 	
 	public void bindShaderProgram() {
 		glUseProgram(this.ShaderProgramOpenGLID);
@@ -58,6 +80,16 @@ public class ShaderEffect {
 				value0, value1, value2);
 	}
 	
+	public void setUniformArray(String uniform, float[] values) {
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(values.length);
+		buffer.put(values);		
+		buffer.flip();
+		glUniform1(this.getUniformLocation(uniform), buffer);
+		
+		buffer.clear();
+		buffer = null; //Native so need to clean up.
+	}
+	
 	public void setUniform(String uniform, Vector3 value) {
 		this.setUniform(uniform, value.X, value.Y, value.Z);
 	}
@@ -86,6 +118,10 @@ public class ShaderEffect {
 	
 	public void setUniformSampler(String unifrom, int sampler) {
 		glUniform1i(this.getUniformLocation(unifrom), sampler);
+	}
+
+	public void setAppliedListener(IShaderEvent shaderEvent) {
+		this.applyEvent = shaderEvent;
 	}
 	
 }

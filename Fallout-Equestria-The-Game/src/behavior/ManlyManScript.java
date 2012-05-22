@@ -2,7 +2,6 @@ package behavior;
 
 import utils.IEventListener;
 import utils.TimerEventArgs;
-import utils.input.MouseState;
 import utils.time.GameTime;
 import utils.time.Timer;
 import anotations.Editable;
@@ -53,11 +52,6 @@ public class ManlyManScript extends Behavior {
 		}
 	}
 	
-	
-	@Override
-	public void onMouseOver(MouseState ms) {
-		System.out.println("Mouse is over me " + this.Entity);
-	}
 	
 	@Override
 	public Object clone() {

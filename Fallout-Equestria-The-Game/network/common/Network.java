@@ -200,7 +200,6 @@ public class Network {
 			return;
 		
 		for (Listener listener : this.addedListeners) {
-			System.out.println(listener);
 			this.removeListener(listener);
 		}
 	}

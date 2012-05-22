@@ -62,7 +62,6 @@ public class MenuDemo2 extends Demo{
 	@Override
 	protected void initialize() {
 		try {
-			System.out.println(Display.getDisplayMode().isFullscreenCapable());
 			Display.setVSyncEnabled(true);
 			Display.setFullscreen(true);
 		} catch (LWJGLException e1) {

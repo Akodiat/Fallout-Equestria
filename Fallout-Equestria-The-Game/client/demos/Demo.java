@@ -14,7 +14,7 @@ import utils.time.GameTime;
 public abstract class Demo {
 
 	private final Rectangle screenDim;
-	private final Clock clock;
+	protected final Clock clock;
 	private final int fps;
 	protected ContentManager ContentManager;
 	

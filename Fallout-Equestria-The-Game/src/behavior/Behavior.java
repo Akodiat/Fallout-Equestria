@@ -7,8 +7,6 @@ import entityFramework.IEntity;
 import entityFramework.IEntityManager;
 import sounds.SoundManager;
 import utils.IEventListener;
-import utils.input.MouseButton;
-import utils.input.MouseState;
 import utils.time.GameTime;
 import content.ContentManager;
 
@@ -67,27 +65,7 @@ public abstract class Behavior implements IEventListener<KeyframeTriggerEventArg
 	public void update(GameTime time) {
 		this.StateMachine.update(time);
 	}
-	public void onMouseOver(MouseState state){
-		this.StateMachine.onMouseOver(state);
-	}
-	public void onMouseEnter(MouseState state){
-		this.StateMachine.onMouseEnter(state);
-	}
-	public void onMouseExit(MouseState state){
-		this.StateMachine.onMouseExit(state);
-	}
-	public void onMouseDown(MouseState state, MouseButton button){
-		this.StateMachine.onMouseDown(state, button);
-	}
-	public void onMouseUp(MouseState state, MouseButton button){
-		this.StateMachine.onMouseUp(state, button);
-	}
-	public void onMouseUpAsButton(MouseState state, MouseButton button){
-		this.StateMachine.onMouseUpAsButton(state, button);
-	}
-	public void onMouseDrag(MouseState state){
-		this.StateMachine.onMouseDrag(state);
-	}
+	
 	public void onCollisionOver(IEntity entity){
 		this.StateMachine.onCollisionOver(entity);
 	}

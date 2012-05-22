@@ -1,0 +1,47 @@
+
+#version 330 core
+
+layout(location = 0) in vec2 position;
+layout(location = 1) in vec2 textureCoord;
+layout(location = 2) in vec4 color;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform vec2 viewport;
+
+
+out vec2 _textureCoord;
+out vec4 _color;
+
+
+void main() {
+	vec4 realPos = vec4(position.x,position.y, 0.0f, 1.0f);
+	realPos =  view  * realPos;
+	realPos.xy -= viewport.xy / 2; 
+	
+	gl_Position = projection * realPos;
+	_textureCoord.xy = textureCoord.xy;
+	_color = color;
+}
+
+split
+
+
+#version 330 core
+
+uniform sampler2D colorTexture;
+uniform vec4 _color2;
+
+in vec4 _color;
+in vec2 _textureCoord;
+
+out vec4 outputColor;
+void main() 
+{	
+	outputColor = texture(colorTexture, _textureCoord);
+	outputColor.rgb *= outputColor.a * _color.a * _color2.a;
+	
+	outputColor *= _color * _color2;
+}
+
+

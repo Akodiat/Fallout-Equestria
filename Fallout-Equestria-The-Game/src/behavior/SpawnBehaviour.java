@@ -5,6 +5,7 @@ import java.util.Random;
 import components.TransformationComp;
 
 import math.Vector2;
+import misc.EntityGroups;
 
 import entityFramework.IEntity;
 import entityFramework.IEntityArchetype;
@@ -43,6 +44,10 @@ public class SpawnBehaviour extends Behavior{
 
 	@Override
 	public void onTriggerEnter(IEntity entity) {
+		if(!entity.isInGroup(EntityGroups.Players.toString()))
+			return;
+		
+		
 		for (int i = 0; i < this.numEntities; i++) {
 			Vector2 randomPos = createRandomPos();
 			IEntity spawnedEntity = this.EntityManager.createEntity(this.archetype);

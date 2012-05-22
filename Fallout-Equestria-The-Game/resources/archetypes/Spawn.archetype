@@ -1,7 +1,6 @@
 <entityFramework.EntityArchetype>
   <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
     <elements>
-      <Behaviour/>
       <Physics>
         <immovable>true</immovable>
         <affectedByGravity>false</affectedByGravity>
@@ -20,8 +19,8 @@
       </Transformation>
       <Spatial>
         <bounds>
-          <Min>math.Vector3@17cf7aa0</Min>
-          <Max reference="../Min"/>
+          <Min>-150,-150,-150</Min>
+          <Max>150,150,150</Max>
         </bounds>
         <trigger>true</trigger>
    <collideable>true</collideable>   </Spatial>

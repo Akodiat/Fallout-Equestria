@@ -35,7 +35,6 @@ public class KryoChatServer{
 			public void connected(Connection arg0) {
 				clients.add(arg0);
 				arg0.sendTCP("Player" + arg0.getID());
-				System.out.println("Player" + arg0.getID());
 			}
 			
 			@Override

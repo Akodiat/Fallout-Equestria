@@ -2,21 +2,10 @@ package behavior;
 import animation.KeyframeTriggerEventArgs;
 import entityFramework.IEntity;
 import utils.State;
-import utils.input.MouseButton;
-import utils.input.MouseState;
 import utils.time.GameTime;
 
 public class BehaviourState extends State {
 	public void update(GameTime time) {}
-	
-	public void onMouseOver(MouseState state){}
-	public void onMouseEnter(MouseState state){}
-	public void onMouseExit(MouseState state){}
-	
-	public void onMouseDown(MouseState state, MouseButton button){}
-	public void onMouseUp(MouseState state, MouseButton button){}
-	public void onMouseUpAsButton(MouseState state, MouseButton button){}
-	public void onMouseDrag(MouseState state){}
 	
 	public void onCollisionOver(IEntity entity){}
 	public void onCollisionEnter(IEntity entity){}

@@ -135,7 +135,12 @@ public class EntityManager implements IEntityManager{
 	public void groupEntity(IEntity entity, String entityGroup) {
 		this.groupManager.addEntityToGroup(entity, entityGroup);
 	}
-
+	
+	@Override
+	public ImmutableSet<IEntity> getAllEntitysContainingComponents(@SuppressWarnings("unchecked") Class<? extends IComponent>... components) {
+		return this.database.getEntitysContainingComponents(components);
+	}
+	
 	@Override
 	public void unLabelEntity(IEntity entity) {
 		this.labelManager.removeLabelEntity(entity);

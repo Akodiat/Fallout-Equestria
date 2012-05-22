@@ -4,10 +4,14 @@ import org.lwjgl.opengl.Display;
 
 import behavior.Behavior;
 import behavior.ChangelingAIScript;
+import behavior.PillBehavior;
 import behavior.PlayerScript;
 import behavior.PortalBehavior;
+import behavior.SpawnBehaviour;
 
 import math.MathHelper;
+import math.Matrix3;
+import math.Matrix4;
 import math.Vector2;
 import animation.Animation;
 import animation.AnimationPlayer;
@@ -18,8 +22,13 @@ import gameMap.Scene;
 
 import gameMap.TexturedSceneNode;
 import graphics.Color;
+import graphics.IShaderEvent;
+import graphics.PostProcessingManager;
+import graphics.RenderTarget2D;
+import graphics.ShaderEffect;
 import graphics.SpriteBatch;
 import graphics.SpriteBatch.SortMode;
+import graphics.Texture2D;
 import sounds.SoundManager;
 import systembuilders.WorldBuilder;
 import utils.Camera2D;
@@ -38,6 +47,8 @@ public class MazeDemo extends Demo {
 	private Scene scene;
 	private Mouse mouse;
 	private Keyboard keyboard;
+	private PostProcessingManager postManager;
+	private RenderTarget2D renderTarget;
 
 	public static void main(String[] str) {
 		MazeDemo demo = new MazeDemo();
@@ -94,10 +105,14 @@ public class MazeDemo extends Demo {
 
 		if(Math.random() < 0.3){
 			Behavior behavior = new ChangelingAIScript();
-			behavior.initialize(this.gameWorld.getEntityManager(), this.ContentManager, new SoundManager(this.ContentManager, 1, 1, 1), manEntity); //TODO BAD!!! I guess...
-			behavior.setEnabled(true);
-			behavior.start();
 			manEntity.getComponent(BehaviourComp.class).setBehavior(behavior);
+		} else if(Math.random() < 0.1) {
+			Behavior behavior = new PillBehavior();
+			manEntity.getComponent(BehaviourComp.class).setBehavior(behavior);
+			
+			AnimationPlayer player = ContentManager.loadAnimationSet("pill.animset").clone();
+			manAniCom.setAnimationPlayer(player);		
+			manEntity.getComponent(TransformationComp.class).setScale(1,1);
 		}
 
 		manEntity.refresh();
@@ -110,21 +125,60 @@ public class MazeDemo extends Demo {
 
 	@Override
 	public void render(GameTime time) {
+
+		Vector2 cameraRenderTarget2Dpos = new Vector2(-this.camera.getWorldPosition().X,
+													  this.camera.getWorldPosition().Y);
+		
 		this.spriteBatch.clearScreen(Color.Black);
-		this.spriteBatch.begin(null, this.camera.getTransformation(), null, true, SortMode.None);
+		this.spriteBatch.begin(null, Matrix4.createTranslation(cameraRenderTarget2Dpos), this.renderTarget, true, SortMode.None);
 		this.gameWorld.render();
 		this.spriteBatch.end();	
+		
+		
+		this.postManager.applyEffectsToTarget(renderTarget);
+		
+		
+		Texture2D texture = this.renderTarget.getTexture();
+		
+		this.spriteBatch.begin();
+		this.spriteBatch.draw(texture, Vector2.Zero, Color.White);		
+		this.spriteBatch.end();
+		
 	}
 
 	@Override
 	protected void initialize() {
-
 		Display.setVSyncEnabled(false);
-
-		scene = ContentManager.load("Level1V1.xml", Scene.class);
+		this.renderTarget = new RenderTarget2D(screenDim.Width, screenDim.Height);
+		
+		
+		scene = ContentManager.load("PerspectiveV5.xml", Scene.class);
 
 		camera = new Camera2D(scene.getWorldBounds(), screenDim);
 		spriteBatch = new SpriteBatch(screenDim);
+		postManager = new PostProcessingManager(this.spriteBatch);
+		final ShaderEffect effect = this.ContentManager.loadShaderEffect("TintLerp.effect");
+
+		effect.setAppliedListener(new IShaderEvent() {			
+			@Override
+			public void onApply() {
+				effect.setUniform("_colorLeft", Color.Red.toVector4());
+				effect.setUniform("_colorRight", Color.Green.toVector4());
+				effect.setUniform("time", (float)MazeDemo.this.clock.getGameTime().getTotalTime().getTotalSeconds());
+			}
+		});
+		
+		final ShaderEffect effect2 = effect.clone();
+		effect2.setAppliedListener(new IShaderEvent() {	
+			@Override
+			public void onApply() {
+				effect.setUniform("_colorLeft", Color.Blue.toVector4());
+				effect.setUniform("_colorRight", Color.Orange.toVector4());
+				effect.setUniform("time", (float)MazeDemo.this.clock.getGameTime().getTotalTime().getTotalSeconds());
+			}
+		});
+		
+		
 		mouse = new Mouse();
 		keyboard = new Keyboard();
 		SoundManager soundManager = new SoundManager(this.ContentManager,0.1f,1.0f,1.0f);
@@ -164,6 +218,13 @@ public class MazeDemo extends Demo {
 		portalB.addComponent(new BehaviourComp(new PortalBehavior("PortalB", "PortalA")));
 		portalB.getComponent(TransformationComp.class).setPosition(5000, 1000);
 		portalB.refresh();
+		
+		
+		IEntity spawnPoint = gameWorld.getEntityManager().createEntity(ContentManager.loadArchetype("Spawn.archetype"));
+		spawnPoint.addComponent(new BehaviourComp(new SpawnBehaviour("Bullet.archetype", 10)));
+		spawnPoint.getComponent(TransformationComp.class).setPosition(1000, 1500);
+		spawnPoint.refresh();
+		
 	}
 
 	private void addTexturedNodes() {

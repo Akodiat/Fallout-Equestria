@@ -35,15 +35,18 @@ public class BulletAbility extends Ability {
 		
 		IEntity bullet = this.CreationFactory.createMovingEntity(bulletArchetype, Vector2.Zero,trans.getHeight(), velocity);
 		
-		
 		float posX = direction.X *spatialComp.getBounds().getWidth() +  trans.getPosition().X;
 		float posY = trans.getPosition().Y + bullet.getComponent(SpatialComp.class).getBounds().getHeight() / 2;
 		
 		bullet.getComponent(TransformationComp.class).setPosition(posX,posY);
 	
-		System.out.println(this.SorceEntity.getComponent(AnimationComp.class).getAnimationPlayer().getBoneColor(Bones.BODY.getValue()));
-		bullet.getComponent(AnimationComp.class).setTint(
-				this.SorceEntity.getComponent(AnimationComp.class).getAnimationPlayer().getBoneColor(Bones.BODY.getValue()));
+		
+		try {
+			bullet.getComponent(AnimationComp.class).setTint(
+					this.SorceEntity.getComponent(AnimationComp.class).getAnimationPlayer().getBoneColor(Bones.BODY.getValue()));
+		} catch(Exception e) {
+			System.out.println("Failed to set a correct color!");
+		}
 	}
 	
 	public void update(GameTime time) {	}

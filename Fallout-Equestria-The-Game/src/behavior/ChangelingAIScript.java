@@ -11,9 +11,7 @@ import math.Vector2;
 import components.AbilityComp;
 import components.AnimationComp;
 import components.PhysicsComp;
-import components.RadiationComp;
 import components.TransformationComp;
-import entityFramework.ComponentMapper;
 import entityFramework.IEntity;
 
 import utils.time.GameTime;
@@ -102,6 +100,9 @@ public class ChangelingAIScript extends Behavior{
 		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
 		
 		List<IEntity> list = this.EntityManager.getEntityGroup(this.targetGroup).asList();
+		if(list.isEmpty())
+			return null;
+		
 		IEntity entity = list.get((int) Math.random()*list.size());
 		if(Vector2.distance(position, entity.getComponent(TransformationComp.class).getPosition()) > this.sightRange){
 			return null;
@@ -115,6 +116,7 @@ public class ChangelingAIScript extends Behavior{
 		this.Entity.getComponent(TransformationComp.class).setScale(Vector2.One);
 		this.Entity.getComponent(TransformationComp.class).setRotation(0f);
 	}
+	
 	private void moveRandomly() {
 
 		double angle = this.physComp.getVelocity().angle() + (MathHelper.Tau / 40 - Math.random() * MathHelper.Tau / 20);

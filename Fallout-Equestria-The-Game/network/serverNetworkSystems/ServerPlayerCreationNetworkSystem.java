@@ -52,7 +52,6 @@ public class ServerPlayerCreationNetworkSystem extends ServerNetworkSystem{
 
 
 	protected void createNewPlayer(NewPlayerMessage message) {	
-		System.out.println("Player Created " + message.senderID);
 
 		IEntityArchetype archetype = contentManager.loadArchetype("Player.archetype");
 		final IEntity entity = this.getEntityManager().createEntity(archetype);

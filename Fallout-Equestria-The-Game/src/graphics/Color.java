@@ -1,6 +1,7 @@
 package graphics;
 
 import math.MathHelper;
+import math.Vector4;
 
 public class Color {
 
@@ -82,6 +83,10 @@ public class Color {
 			B,
 			A
 		};
+	}
+	
+	public Vector4 toVector4() {
+		return new Vector4(R,G,B,A);
 	}
 	
 	public final static Color White		     = 	 new Color(0xFFFFFFFF);

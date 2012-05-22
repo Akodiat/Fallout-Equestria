@@ -149,5 +149,12 @@ public interface IEntityManager {
 	 * gets called.
 	 * @param entity the entity to kill.
 	 */
-	public void killEntity(IEntity entity);	
+	public void killEntity(IEntity entity);
+
+	/**Gets all entitys that has sertan components types.
+	 * 
+	 * @param components the components insde the entities.
+	 * @return 
+	 */
+	public ImmutableSet<IEntity> getAllEntitysContainingComponents(@SuppressWarnings("unchecked") Class<? extends IComponent>... components);	
 }

@@ -55,66 +55,6 @@ public class BehaviourComp implements IComponent {
 		behavior.update(time);
 	}
 
-	/** Delegates to the active behavior, onMouseOver method.
-	 * This is identical to calling getBehaviour.onMouseOver
-	 * @param state the current state of the mouse.
-	 */
-	public void onMouseOver(MouseState state){
-		this.behavior.onMouseOver(state);
-	}
-	
-	/** Delegates to the active behavior, onMouseEnter method.
-	 * This is identical to calling getBehaviour.onMouseEnter
-	 * @param state the current state of the mouse.
-	 */
-	public void onMouseEnter(MouseState state){
-		this.behavior.onMouseEnter(state);
-	}
-	
-	/** Delegates to the active behaviors, onMouseExit method.
-	 * This is identical to calling getBehaviour.onMouseExit
-	 * @param state the current state of the mouse.
-	 */
-	public void onMouseExit(MouseState state){
-		this.behavior.onMouseExit(state);
-	}
-	
-	/** Delegates to the active behaviors, onMouseDown method.
-	 * This is identical to calling getBehaviour.onMouseDown
-	 * @param state the current state of the mouse.
-	 * @param button the button that triggered the event.
-	 */
-	public void onMouseDown(MouseState state, MouseButton button){
-		this.behavior.onMouseDown(state, button);
-	}
-	
-	/** Delegates to the active behaviors, onMouseUp method.
-	 * This is identical to calling getBehaviour.onMouseUp
-	 * @param state the current state of the mouse.
-	 * @param button the button that triggered the event.
-	 */
-	public void onMouseUp(MouseState state, MouseButton button){
-		this.behavior.onMouseUp(state,button);
-	}
-	
-	
-	/** Delegates to the active behaviors, onMouseUpAsButton method.
-	 * This is identical to calling getBehaviour.onMouseUpAsButton
-	 * @param state the current state of the mouse.
-	 * @param button the button that triggered the event.
-	 */
-	public void onMouseUpAsButton(MouseState state, MouseButton button){
-		this.behavior.onMouseUpAsButton(state, button);
-	}
-	
-	/** Delegates to the active behaviors, onMouseDrag method.
-	 * This is identical to calling getBehaviour.onMouseDrag
-	 * @param state the current state of the mouse.
-	 */
-	public void onMouseDrag(MouseState state){
-		this.behavior.onMouseDrag(state);
-	}
-	
 	/** Delegates to the active behavior, onCollisionOver method.
 	 * This is identical to calling getBehaviour.onCollisionOver
 	 * @param the entity colliding with.

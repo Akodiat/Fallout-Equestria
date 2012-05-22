@@ -378,6 +378,10 @@ public class SpriteBatch {
 		glDisable(GL_BLEND);
 		
 		this.betweenBeginAndEnd = false;
+		
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		
 	}
 	
 	/**Adds a sprite to the batch with the specified arguments.

@@ -25,7 +25,6 @@ public class ClientEntityCreationNetworkSystem extends ClientNetworkSystem<Entit
 
 	@Override
 	public void processMessage(EntityCreatedMessage message) {
-		System.out.println("Entity Created: " + message.messageID);
 
 		if(this.IdManager.getEntityFromNetworkID(message.messageID) != null) {
 			this.buffer.add(message);

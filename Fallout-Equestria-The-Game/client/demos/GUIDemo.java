@@ -265,7 +265,6 @@ public class GUIDemo extends Demo {
 			
 			@Override
 			public void onEvent(Object sender, ItemEventArgs<String> e) {
-				System.out.println(e.getItem());
 			}
 		});
 	
