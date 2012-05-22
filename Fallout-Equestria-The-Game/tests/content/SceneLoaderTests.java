@@ -15,6 +15,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 
+import builders.ContentManagerBuilder;
+
 import utils.Rectangle;
 
 public class SceneLoaderTests {
@@ -32,44 +34,25 @@ public class SceneLoaderTests {
 
 	private Scene loadScene(String sceneAsset) throws Exception {
 		InputStream stream = this.getClass().getResourceAsStream(sceneAsset);
-		SceneLoader loader = new SceneLoader(new ContentManager(""), "");
+		SceneLoader loader = new SceneLoader(ContentManagerBuilder.buildStandardContentManager("resources"), "scenes");
 		return loader.loadContent(stream);
 	}
 	
 	
 	@Test
 	public void testIfCanLoadValidMap() throws Exception {
-		Scene scene = loadScene("SimpleScene.xml");
+		Scene scene = loadScene("TestScene.xml");
 		
 		assertNotNull(scene);
 	}
 	
 	@Test
 	public void testIfLoadedSceneHasCorrectDimentions() throws Exception {
-		Scene scene = loadScene("SimpleScene.xml");	
-		assertEquals(32, scene.getBlockSize());
+		Scene scene = loadScene("TestScene.xml");	
+		assertEquals(128, scene.getBlockSize());
 		Rectangle gridBounds = scene.getGridBounds();
-		assertEquals(3, gridBounds.Width);
-		assertEquals(3, gridBounds.Height);
-	}
-	
-	@Test
-	public void testIfCollisionLayerIsCorrect() throws Exception {
-		Scene scene = loadScene("SimpleScene.xml");
-		CollisionLayer layer = scene.getCollisionLayers().get(0);
-		boolean[][] colGrid = layer.getCollisionGrid();
-		int i = 0;
-		for (int row = 0; row < colGrid.length; row++) {
-			for (int column = 0; column < colGrid[0].length; column++) {
-				if(i % 2 == 0) {
-					assertTrue(colGrid[row][column]);
-				} else {
-					assertFalse(colGrid[row][column]);
-				}			
-				i++;
-			}
-		}
-		
+		assertEquals(19, gridBounds.Width);
+		assertEquals(7, gridBounds.Height);
 	}
 	
 	@Test(expected = Exception.class)
@@ -80,22 +63,17 @@ public class SceneLoaderTests {
 
 	@Test
 	public void testIfTileLayerIsCorrect() throws Exception {
-		Scene scene = loadScene("SimpleScene.xml");
+		Scene scene = loadScene("TestScene.xml");
 		TileLayer layer = scene.getTileLayers().get(0);
 		assertEquals(0, layer.getDepth());
 	
 		Tile[][] tiles = layer.getTileGrid();
 		
 		//These values are from the Simple map
-		Texture2D textureA = tiles[0][0].getTexture();
-		Texture2D textureB = tiles[2][0].getTexture();
+		Rectangle sorceRectA = tiles[0][1].getSourceRect();
+		Rectangle sorceRectB = tiles[0][2].getSourceRect();
 	
-		assertNotSame(textureA, textureB);
-		
-		Rectangle sorceRectA = tiles[1][1].getSourceRect();
-		Rectangle sorceRectB = tiles[0][1].getSourceRect();
-		
-		assertNotSame(sorceRectA, sorceRectB);	
+		assertNotSame(sorceRectA, sorceRectB);
 	}
 
 

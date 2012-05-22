@@ -9,6 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 
+import builders.ContentManagerBuilder;
+
 import animation.Animation;
 
 public class AnimationLoadTest {
@@ -28,9 +30,9 @@ public class AnimationLoadTest {
 	
 	@Test
 	public void testIfCanLoadValidAnimation() throws Exception {
-		AnimationLoader loader = new AnimationLoader(new ContentManager(""), "animations");
+		AnimationLoader loader = new AnimationLoader(ContentManagerBuilder.buildStandardContentManager("resources"), "animations");
 		
-		Animation animation = loader.loadContent(this.getClass().getResourceAsStream("test.anim"));
+		Animation animation = loader.loadContent(this.getClass().getResourceAsStream("fireball.anim"));
 		
 		assertNotNull(animation);
 	}
@@ -53,7 +55,7 @@ public class AnimationLoadTest {
 		AnimationLoader loader = new AnimationLoader(new ContentManager(""), "animations");
 		
 		String folderName = loader.getFolder();
-		assertEquals("sounds", folderName);
+		assertEquals("animations", folderName);
 	}
 	
 	@Test

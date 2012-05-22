@@ -10,6 +10,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.lwjgl.opengl.Display;
 
+import builders.ContentManagerBuilder;
+
 import content.TextureFontLoader;
 
 public class TextureFontLoaderTests {
@@ -26,7 +28,7 @@ public class TextureFontLoaderTests {
 	
 	@Test
 	public void testIfCanLoadValidFont() throws Exception {
-		TextureFontLoader loader = new TextureFontLoader(new ContentManager("resources"), "");
+		TextureFontLoader loader = new TextureFontLoader(ContentManagerBuilder.buildStandardContentManager("resources"), "fonts");
 		TextureFont font = loader.loadContent(this.getClass().getResourceAsStream("testFont.font"));
 		
 		assertNotNull(font);	

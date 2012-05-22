@@ -8,13 +8,6 @@
         <rotation>0.0</rotation>
         <mirror>false</mirror>
       </Transformation>
-      <BasicAI/>
-      <Spatial>
-        <bounds>
-          <position>0.0,0.0</position>
-          <radius>10.0</radius>
-        </bounds>
-      </Spatial>
       <Health>
         <maxHealth>50.0</maxHealth>
         <regenSpeed>1.0</regenSpeed>
