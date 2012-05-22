@@ -83,6 +83,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 		
 		this.ScreenManager.removeAllScreens();
 		this.ScreenManager.addScreen("Lobby");
+		this.ScreenManager.addScreen("ChatScreen");
 		this.ScreenManager.addScreen("LobbyGUI");
 	}
 
