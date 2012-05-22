@@ -2,10 +2,11 @@ package utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class StateMachine<T extends State> {
 	protected T activeState; 
-	
+
 	private Map<String, T> stateMap;
 	
 	public StateMachine() {
@@ -30,5 +31,15 @@ public class StateMachine<T extends State> {
 		
 		this.activeState = state;
 		this.activeState.enter();
+	}
+	
+	public String getActiveState() {
+		Set<String> keys = this.stateMap.keySet();
+		String key;
+		for (String string : keys) {
+			if(this.stateMap.get(string).equals(activeState))
+				return string;
+		}
+		throw new RuntimeException("ActiveState not found");
 	}
 }

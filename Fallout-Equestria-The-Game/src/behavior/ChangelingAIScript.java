@@ -1,8 +1,14 @@
 package behavior;
 
+import java.util.List;
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
+
 import ability.BulletAbility;
 import ability.MachineBullet;
 import animation.AnimationPlayer;
+import animation.KeyframeTriggerEventArgs;
 import anotations.Editable;
 import math.Vector2;
 import components.AbilityComp;
@@ -12,6 +18,7 @@ import components.PhysicsComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
 
+import utils.IEventListener;
 import utils.input.Keyboard;
 import utils.input.Keys;
 import utils.input.Mouse;
@@ -31,7 +38,7 @@ public class ChangelingAIScript extends Behavior{
 	private static final String SCANNING_STATE = "SCANNING_STATE";
 
 	private static final float JUMP_VELO = 600f;
-	
+
 	private static final String CLOUD_ARCHETYPE_PATH = "dustcloud.archetype";
 
 	private AnimationComp animComp;
@@ -44,12 +51,14 @@ public class ChangelingAIScript extends Behavior{
 
 	private BulletAbility bulletAbility;
 
+	private boolean mirroring;
+
 	@Editable
 	public float sightRange = 2000f;
 	@Editable
 	public float speed = 50f;
 	@Editable
-	public float minDistance = 150f;
+	public float minDistance = 700f;
 
 	@Editable
 	public String targetGroup = "Players";
@@ -58,6 +67,8 @@ public class ChangelingAIScript extends Behavior{
 	public void start() {
 		this.transComp = this.Entity.getComponent(TransformationComp.class);
 		this.animComp = this.Entity.getComponent(AnimationComp.class);
+
+		this.mirroring = true;
 
 		this.StateMachine.registerState(SCANNING_STATE, new ScanningState());
 		this.StateMachine.registerState(IDLE_STATE, new IdleState());
@@ -89,6 +100,14 @@ public class ChangelingAIScript extends Behavior{
 	@Override
 	public void update(GameTime time) {
 		super.update(time);
+
+		if(Math.random() <0.01)
+			mirroring = !mirroring;
+
+		if(targetEntity == null && !this.StateMachine.getActiveState().equals(FALLING_STATE)){
+			this.StateMachine.changeState(SCANNING_STATE);
+		}
+
 	}
 
 	private IEntity findNearestTarget(){
@@ -107,28 +126,25 @@ public class ChangelingAIScript extends Behavior{
 		}
 		return nearestTarget;
 	}
-//	private IEntity findRandomTarget(){
-//		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
-//
-//		List<IEntity> list = this.EntityManager.getEntityGroup(this.targetGroup).asList();
-//		if(list.isEmpty())
-//			return null;
-//
-//		IEntity entity = list.get((int) Math.random()*list.size());
-//		if(Vector2.distance(position, entity.getComponent(TransformationComp.class).getPosition()) > this.sightRange){
-//			return null;
-//		}
-//		return entity;
-//	}
+	private IEntity findRandomTarget(){
+		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
 
-//	private void moveRandomly() {
-//
-//		double angle = this.physComp.getVelocity().angle() + (MathHelper.Tau / 40 - Math.random() * MathHelper.Tau / 20);
-//
-//		Vector2 rndV = new Vector2(MathHelper.sin(angle),MathHelper.cos(angle));
-//		rndV = Vector2.mul(this.speed, rndV);
-//		this.physComp.setVelocity(rndV);
-//	}
+		ImmutableSet<IEntity> listOfPlayers = EntityManager.getEntityGroup(targetGroup);
+		IEntity entity = listOfPlayers.asList().get((int) Math.random()*listOfPlayers.size());
+		if(Vector2.distance(position, entity.getComponent(TransformationComp.class).getPosition()) > this.sightRange){
+			return null;
+		}
+		return entity;
+	}
+
+	//	private void moveRandomly() {
+	//
+	//		double angle = this.physComp.getVelocity().angle() + (MathHelper.Tau / 40 - Math.random() * MathHelper.Tau / 20);
+	//
+	//		Vector2 rndV = new Vector2(MathHelper.sin(angle),MathHelper.cos(angle));
+	//		rndV = Vector2.mul(this.speed, rndV);
+	//		this.physComp.setVelocity(rndV);
+	//	}
 
 	private void mirrorInput() {
 		Keyboard keyboard = this.inpComp.getKeyboard();
@@ -177,26 +193,21 @@ public class ChangelingAIScript extends Behavior{
 		this.physComp.setHeightVelocity(JUMP_VELO);
 		this.StateMachine.changeState(JUMP_STATE);
 	}
-//
-//	private void moveTowardsTarget(Vector2 target) {
-//		Vector2 position = this.transComp.getPosition();
-//		Vector2 dir = Vector2.subtract(target, position);
-//
-//		if((target.Y - position.Y) <= 0)
-//			dir = Vector2.add(Vector2.norm(dir), Vector2.UnitY);
-//
-//		if(dir.length() < minDistance) {
-//			this.physComp.setVelocity(Vector2.Zero);
-//			this.abComp.startAbility(bulletAbility);
-//		} else {
-//			dir = Vector2.norm(dir);
-//			this.physComp.setVelocity(Vector2.mul(this.speed, dir));
-//			this.abComp.stopActiveAbility();
-//		}
-//		if(this.physComp.getVelocity().X !=0){
-//			this.transComp.setMirror(this.physComp.getVelocity().X > 0);
-//		}
-//	}
+
+	private void moveTowardsTarget() {
+		Vector2 position = this.transComp.getPosition();
+		Vector2 targetPosition = this.targetEntity.getComponent(TransformationComp.class).getPosition();
+		Vector2 dir = Vector2.subtract(targetPosition, position);
+		if(dir.length() != 0)
+			dir= Vector2.norm(dir);
+
+		this.physComp.setVelocity(Vector2.mul(this.speed, dir));
+		this.abComp.startAbility(bulletAbility);
+
+		if(this.physComp.getVelocity().X !=0){
+			this.transComp.setMirror(this.physComp.getVelocity().X > 0);
+		}
+	}
 
 	@Override
 	public Object clone() {
@@ -208,7 +219,7 @@ public class ChangelingAIScript extends Behavior{
 		@Override
 		public void update(GameTime time) {		
 			if(targetEntity == null){
-				IEntity newTarget = findNearestTarget();
+				IEntity newTarget = findRandomTarget();
 				if(newTarget != null) {
 					targetEntity = newTarget;
 					StateMachine.changeState(IDLE_STATE);
@@ -218,7 +229,7 @@ public class ChangelingAIScript extends Behavior{
 			}
 
 		}
-		
+
 		@Override
 		public void exit(){
 			AnimationPlayer animPlayer = targetEntity.getComponent(AnimationComp.class).getAnimationPlayer().clone();
@@ -231,9 +242,16 @@ public class ChangelingAIScript extends Behavior{
 			Entity.addComponent(targetInpComp);
 			inpComp = targetInpComp;
 			Entity.refresh();
-			
-			IEntity cloud = EntityManager.createEntity(ContentManager.loadArchetype(CLOUD_ARCHETYPE_PATH));
+
+			final IEntity cloud = EntityManager.createEntity(ContentManager.loadArchetype(CLOUD_ARCHETYPE_PATH));
 			cloud.getComponent(TransformationComp.class).setPosition(transComp.getPosition());
+			cloud.getComponent(AnimationComp.class).getAnimationPlayer().addKeyframeTriggerListener(new IEventListener<KeyframeTriggerEventArgs>() {
+				@Override
+				public void onEvent(Object sender, KeyframeTriggerEventArgs e) {
+					if (e.triggerString.equals("kill"))
+						cloud.kill();
+				}
+			});
 		}
 	}
 
@@ -244,7 +262,7 @@ public class ChangelingAIScript extends Behavior{
 			StateMachine.changeState(SCANNING_STATE);
 		}
 	}
-	
+
 	private class IdleState extends BehaviourState {
 		@Override
 		public void enter() {
@@ -253,7 +271,12 @@ public class ChangelingAIScript extends Behavior{
 
 		@Override
 		public void update(GameTime time) {
-			mirrorInput();
+			if(mirroring){
+				mirrorInput();
+			}else{
+				if(targetEntity == null)
+					moveTowardsTarget();
+			}
 			Vector2 velocity = physComp.getVelocity();
 			if(!velocity.equals(Vector2.Zero)) {
 				StateMachine.changeState(WALKING_STATE);
@@ -261,7 +284,7 @@ public class ChangelingAIScript extends Behavior{
 		}
 
 	}
-	
+
 	private class WalkState extends BehaviourState {
 		@Override
 		public void enter() {
@@ -270,7 +293,10 @@ public class ChangelingAIScript extends Behavior{
 
 		@Override
 		public void update(GameTime time) {
-			mirrorInput();
+			if(mirroring)
+				mirrorInput();
+			else
+				moveTowardsTarget();
 			Vector2 velocity = physComp.getVelocity();
 			if(velocity.equals(Vector2.Zero)) {
 				System.out.println("idle");
@@ -301,7 +327,12 @@ public class ChangelingAIScript extends Behavior{
 
 		@Override
 		public void update(GameTime time) {
-			mirrorInput();
+			if(mirroring){
+				mirrorInput();
+			}else{
+				if(targetEntity == null)
+					moveTowardsTarget();
+			}
 		}
 	}
 }
