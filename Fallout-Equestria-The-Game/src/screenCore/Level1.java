@@ -1,5 +1,6 @@
 package screenCore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import behavior.PortalBehavior;
@@ -39,16 +40,16 @@ public class Level1 extends Level{
 	}
 
 	private void SpawnOther() {
-		List<SceneNode> nodes = this.scene.getNodes().asList();
+		List<SceneNode> nodes = new ArrayList<>(this.scene.getNodes());
 		this.SpawnTriggers(nodes);
 		this.SpawnPortals(nodes);
 		this.SpawnArchetypes(nodes);
 	}
 
 	private void SpawnArchetypes(List<SceneNode> nodes) {
-		for (int i = nodes.size(); i >= 0; i--) {
+		for (int i = nodes.size() - 1; i >= 0; i--) {
 			SceneNode node = nodes.get(i);
-			if(node.getNodeID().contains("Spawn")) {
+			if(node.getNodeID().contains("Spawn") && !node.getNodeID().contains("Player")) {
 				String[] data = StringHelper.split(node.getNodeID(), '_');
 				String archetypeName = data[1];
 				IEntityArchetype archetype = this.ScreenManager.getContentManager().loadArchetype(archetypeName);
@@ -59,7 +60,7 @@ public class Level1 extends Level{
 
 	private void SpawnPortals(List<SceneNode> nodes) {
 		IEntityArchetype archetype = this.ScreenManager.getContentManager().loadArchetype(portalArchetypeName);
-		for (int i = nodes.size(); i >= 0; i--) {
+		for (int i = nodes.size() - 1; i >= 0; i--) {
 			SceneNode node = nodes.get(i);
 			if(node.getNodeID().contains("Portal")) {
 				IEntity portal = this.World.getEntityManager().createEntity(archetype);
@@ -81,7 +82,7 @@ public class Level1 extends Level{
 
 	private void SpawnTriggers(List<SceneNode> nodes) {
 		IEntityArchetype triggerSpawnArchetype = this.ScreenManager.getContentManager().loadArchetype(triggetSpawnArchetypeName);
-		for (int i = nodes.size(); i >= 0; i--) {
+		for (int i = nodes.size() - 1; i >= 0; i--) {
 			SceneNode node = nodes.get(i);
 			if(node.getNodeID().contains("Trigger")) {
 				String[] data = StringHelper.split(node.getNodeID(), '_');
