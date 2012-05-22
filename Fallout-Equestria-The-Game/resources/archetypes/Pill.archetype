@@ -1,0 +1,46 @@
+<entityFramework.EntityArchetype>
+  <components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements>
+      <Animation>
+      	<animationPlayer>
+          <Asset>pill.animset</Asset>
+        </animationPlayer>
+	<tint>
+	  <Color>1.0,1.0,1.0,1.0</Color>
+	</tint>
+      </Animation>
+      <Behaviour>
+        <behavior class="behavior.PillBehavior">
+          <initialized>false</initialized>
+          <enabled>false</enabled>
+		<cactuarAnimSetName>"cactuar.animset"</cactuarAnimSetName>
+        </behavior>
+      </Behaviour>
+      <Physics>
+        <immovable>false</immovable>
+        <velocity>0.0,0.0</velocity>
+        <mass>0.5</mass>
+        <torque>0.0</torque>
+      </Physics>
+      <Transformation>
+        <position reference="../../Physics/velocity"/>
+        <scale>1.0,1.0</scale>
+        <origin>50.0,50.0</origin>
+        <rotation>0.0</rotation>
+        <mirror>false</mirror>
+      </Transformation>
+      <Spatial>	 
+	   <bounds>
+		 <Max>20,10,20</Max>
+		 <Min>-20,-10,-20</Min>
+        </bounds>
+        <trigger>false</trigger>
+	<collideable>true</collideable>
+      </Spatial>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>

@@ -65,9 +65,13 @@ public class Level1 extends Level{
 			SceneNode node = nodes.get(i);
 			if(node.getNodeID().contains("Spawn") && !node.getNodeID().contains("Player")) {
 				String[] data = StringHelper.split(node.getNodeID(), '_');
-				String archetypeName = data[1];
+				String archetypeName = data[1] + ".archetype";
 				IEntityArchetype archetype = this.ScreenManager.getContentManager().loadArchetype(archetypeName);
-				this.World.getEntityManager().createEntity(archetype);
+				IEntity entity = this.World.getEntityManager().createEntity(archetype);
+				System.out.println("Created node of type " + archetypeName);
+				entity.getComponent(TransformationComp.class).setPosition(node.getPosition());
+				System.out.println(node.getPosition());
+				
 			}
 		}
 	}
@@ -78,6 +82,7 @@ public class Level1 extends Level{
 			SceneNode node = nodes.get(i);
 			if(node.getNodeID().contains("Portal")) {
 				IEntity portal = this.World.getEntityManager().createEntity(archetype);
+				System.out.println("Created portal!");
 				
 				String otherPortalID;
 				if(node.getNodeID().contains("X")) {
@@ -86,8 +91,11 @@ public class Level1 extends Level{
 					otherPortalID = "PortalX" + node.getNodeID().charAt(node.getNodeID().length() - 1);
 				}				
 				
+				System.out.println(otherPortalID);
 				PortalBehavior behavior = new PortalBehavior(node.getNodeID(), otherPortalID);
 				portal.addComponent(new BehaviourComp(behavior));
+				portal.getComponent(TransformationComp.class).setPosition(node.getPosition());
+
 				portal.refresh();
 				nodes.remove(i);
 			}

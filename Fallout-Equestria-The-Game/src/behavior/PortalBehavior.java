@@ -43,6 +43,7 @@ public class PortalBehavior extends Behavior{
 			SpatialComp linkedSpatial = linkedPortal.getComponent(SpatialComp.class);
 			
 			TransformationComp sendTrans = entity.getComponent(TransformationComp.class);
+			sendTrans.setHeight(linkedTransformation.getHeight());
 			SpatialComp sendSpatial = entity.getComponent(SpatialComp.class);
 			
 			Vector2 sendPos = new Vector2(linkedTransformation.getPosition().X,
