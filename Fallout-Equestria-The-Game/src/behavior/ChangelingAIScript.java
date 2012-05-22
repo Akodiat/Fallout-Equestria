@@ -1,8 +1,5 @@
 package behavior;
 
-import java.util.List;
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
 
 import ability.BulletAbility;
@@ -196,6 +193,9 @@ public class ChangelingAIScript extends Behavior{
 
 	private void moveTowardsTarget() {
 		Vector2 position = this.transComp.getPosition();
+		if(this.targetEntity.getComponent(TransformationComp.class)== null){
+			return;
+		}
 		Vector2 targetPosition = this.targetEntity.getComponent(TransformationComp.class).getPosition();
 		Vector2 dir = Vector2.subtract(targetPosition, position);
 		if(dir.length() != 0)
@@ -274,7 +274,7 @@ public class ChangelingAIScript extends Behavior{
 			if(mirroring){
 				mirrorInput();
 			}else{
-				if(targetEntity == null)
+				if(targetEntity != null)
 					moveTowardsTarget();
 			}
 			Vector2 velocity = physComp.getVelocity();
@@ -293,10 +293,12 @@ public class ChangelingAIScript extends Behavior{
 
 		@Override
 		public void update(GameTime time) {
-			if(mirroring)
+			if(mirroring){
 				mirrorInput();
-			else
-				moveTowardsTarget();
+			}else{
+				if(targetEntity != null)
+					moveTowardsTarget();
+			}
 			Vector2 velocity = physComp.getVelocity();
 			if(velocity.equals(Vector2.Zero)) {
 				System.out.println("idle");
@@ -330,7 +332,7 @@ public class ChangelingAIScript extends Behavior{
 			if(mirroring){
 				mirrorInput();
 			}else{
-				if(targetEntity == null)
+				if(targetEntity != null)
 					moveTowardsTarget();
 			}
 		}
