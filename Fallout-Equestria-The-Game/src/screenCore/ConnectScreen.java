@@ -94,6 +94,7 @@ public class ConnectScreen extends TransitioningGUIScreen{
 		this.addresses = addresses;
 		if(addresses.size() > 0) {
 			for(int i = 0; i < addresses.size(); i++) {
+				connectBtn.setEnabled(true);
 				serverListBox.addItem("      " + addresses.get(i).getHostName());
 				infoLabel.setFgColor(Color.Green);
 				infoLabel.setText(addresses.size() + " server(s) online.");
