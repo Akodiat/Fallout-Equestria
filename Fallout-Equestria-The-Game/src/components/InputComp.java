@@ -51,6 +51,9 @@ public class InputComp implements IComponent{
 		this.rightButton = other.rightButton;
 		this.gallopButton = other.gallopButton;
 		this.pipBuckButton = other.pipBuckButton;
+		
+		 this.mouse = other.mouse;
+		 this.keyboard = other.keyboard;
 	}
 
 

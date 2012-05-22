@@ -1,19 +1,21 @@
 package behavior;
 
-import java.util.List;
-
 import ability.BulletAbility;
 import ability.MachineBullet;
 import animation.AnimationPlayer;
 import anotations.Editable;
-import math.MathHelper;
 import math.Vector2;
 import components.AbilityComp;
 import components.AnimationComp;
+import components.InputComp;
 import components.PhysicsComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
 
+import utils.input.Keyboard;
+import utils.input.Keys;
+import utils.input.Mouse;
+import utils.input.MouseButton;
 import utils.time.GameTime;
 /**
  * 
@@ -22,16 +24,28 @@ import utils.time.GameTime;
  */
 @Editable
 public class ChangelingAIScript extends Behavior{
+	private static final String IDLE_STATE = "IDLE_STATE";
+	private static final String WALKING_STATE = "WALKING_STATE";
+	private static final String JUMP_STATE = "JUMP_STATE";
+	private static final String FALLING_STATE = "FALLING_STATE";
+	private static final String SCANNING_STATE = "SCANNING_STATE";
+
+	private static final float JUMP_VELO = 600f;
+	
+	private static final String CLOUD_ARCHETYPE_PATH = "dustcloud.archetype";
 
 	private AnimationComp animComp;
 	private PhysicsComp physComp;
 	private TransformationComp transComp;
 	private AbilityComp abComp;
-	
+	private InputComp inpComp;
+
+	private IEntity targetEntity;
+
 	private BulletAbility bulletAbility;
 
 	@Editable
-	public float sightRange = 300f;
+	public float sightRange = 2000f;
 	@Editable
 	public float speed = 50f;
 	@Editable
@@ -44,6 +58,13 @@ public class ChangelingAIScript extends Behavior{
 	public void start() {
 		this.transComp = this.Entity.getComponent(TransformationComp.class);
 		this.animComp = this.Entity.getComponent(AnimationComp.class);
+
+		this.StateMachine.registerState(SCANNING_STATE, new ScanningState());
+		this.StateMachine.registerState(IDLE_STATE, new IdleState());
+		this.StateMachine.registerState(WALKING_STATE, new WalkState());
+		this.StateMachine.registerState(JUMP_STATE, new JumpState());
+		this.StateMachine.registerState(FALLING_STATE, new FallingState());
+		this.StateMachine.changeState(FALLING_STATE);
 
 		if(animComp == null) {
 			this.animComp = new AnimationComp(); 
@@ -60,27 +81,19 @@ public class ChangelingAIScript extends Behavior{
 			this.abComp = new AbilityComp();
 			this.Entity.addComponent(this.abComp);
 		}
-		
+
 		this.bulletAbility = new MachineBullet(this.ContentManager.loadArchetype("Bullet.archetype"), 1000, 0.3f);
 		this.bulletAbility.initialize(EntityManager, this.Entity);
 	}
 
 	@Override
 	public void update(GameTime time) {
-		IEntity targetEntity = findRandomTarget();
-		if(targetEntity != null) {
-			copyTargetAppearance(targetEntity);
-		}
-		
-		targetEntity = findNearestTarget();
-		if(targetEntity != null) {
-			moveTowardsTarget(targetEntity.getComponent(TransformationComp.class).getPosition());
-		}
+		super.update(time);
 	}
-	
+
 	private IEntity findNearestTarget(){
 		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
-		
+
 		IEntity nearestTarget = null;
 
 		for (IEntity player : this.EntityManager.getEntityGroup(this.targetGroup)) {
@@ -94,59 +107,201 @@ public class ChangelingAIScript extends Behavior{
 		}
 		return nearestTarget;
 	}
-	private IEntity findRandomTarget(){
-		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
-		
-		List<IEntity> list = this.EntityManager.getEntityGroup(this.targetGroup).asList();
-		if(list.isEmpty())
-			return null;
-		
-		IEntity entity = list.get((int) Math.random()*list.size());
-		if(Vector2.distance(position, entity.getComponent(TransformationComp.class).getPosition()) > this.sightRange){
-			return null;
+//	private IEntity findRandomTarget(){
+//		Vector2 position = this.Entity.getComponent(TransformationComp.class).getPosition();
+//
+//		List<IEntity> list = this.EntityManager.getEntityGroup(this.targetGroup).asList();
+//		if(list.isEmpty())
+//			return null;
+//
+//		IEntity entity = list.get((int) Math.random()*list.size());
+//		if(Vector2.distance(position, entity.getComponent(TransformationComp.class).getPosition()) > this.sightRange){
+//			return null;
+//		}
+//		return entity;
+//	}
+
+//	private void moveRandomly() {
+//
+//		double angle = this.physComp.getVelocity().angle() + (MathHelper.Tau / 40 - Math.random() * MathHelper.Tau / 20);
+//
+//		Vector2 rndV = new Vector2(MathHelper.sin(angle),MathHelper.cos(angle));
+//		rndV = Vector2.mul(this.speed, rndV);
+//		this.physComp.setVelocity(rndV);
+//	}
+
+	private void mirrorInput() {
+		Keyboard keyboard = this.inpComp.getKeyboard();
+		Mouse mouse = this.inpComp.getMouse();
+
+		int speedFactor = 200;
+		if(keyboard.isKeyDown(inpComp.getGallopButton())){
+			speedFactor=400;
 		}
-		return entity;
+
+		if(mouse.wasButtonPressed(MouseButton.Left)){
+			this.abComp.startAbility(bulletAbility);			
+		} else if(inpComp.getMouse().wasButtonReleased(MouseButton.Left)){
+			this.abComp.stopAbility(bulletAbility);
+		}	
+
+
+		Vector2 velocity = new Vector2(0,0);
+		if (keyboard.isKeyDown(inpComp.getBackButton())){
+			velocity=Vector2.add(velocity, new Vector2(0,1));
+		}
+		if (keyboard.isKeyDown(inpComp.getForwardButton())){
+			velocity=Vector2.add(velocity, new Vector2(0,-1));
+		}
+		if (keyboard.isKeyDown(inpComp.getRightButton())){
+			velocity=Vector2.add(velocity, new Vector2(-1,0));
+			transComp.setMirror(false);
+		}
+		if (keyboard.isKeyDown(inpComp.getLeftButton())){
+			velocity=Vector2.add(velocity, new Vector2(1,0));
+			transComp.setMirror(true);
+		}
+
+		if(velocity.length()!=0)
+			velocity=Vector2.norm(velocity);
+
+		velocity = Vector2.mul(speedFactor, velocity);
+		physComp.setVelocity(velocity);
+
+		if(keyboard.wasKeyPressed(Keys.Space)) {
+			jump();
+		}
 	}
 
-	private void copyTargetAppearance(IEntity targetEntity) {
-		AnimationPlayer animPlayer = targetEntity.getComponent(AnimationComp.class).getAnimationPlayer().clone();
-		this.Entity.getComponent(AnimationComp.class).setAnimationPlayer(animPlayer);
-		this.Entity.getComponent(TransformationComp.class).setScale(Vector2.One);
-		this.Entity.getComponent(TransformationComp.class).setRotation(0f);
+	private void jump() {
+		this.physComp.setHeightVelocity(JUMP_VELO);
+		this.StateMachine.changeState(JUMP_STATE);
 	}
-	
-	@SuppressWarnings("unused")
-	private void moveRandomly() {
-
-		double angle = this.physComp.getVelocity().angle() + (MathHelper.Tau / 40 - Math.random() * MathHelper.Tau / 20);
-
-		Vector2 rndV = new Vector2(MathHelper.sin(angle),MathHelper.cos(angle));
-		rndV = Vector2.mul(this.speed, rndV);
-		this.physComp.setVelocity(rndV);
-	}
-	
-	private void moveTowardsTarget(Vector2 target) {
-		Vector2 position = this.transComp.getPosition();
-		Vector2 dir = Vector2.subtract(target, position);
-		
-		if((target.Y - position.Y) <= 0)
-			dir = Vector2.add(Vector2.norm(dir), Vector2.UnitY);
-		
-		if(dir.length() < minDistance) {
-			this.physComp.setVelocity(Vector2.Zero);
-			this.abComp.startAbility(bulletAbility);
-		} else {
-			dir = Vector2.norm(dir);
-			this.physComp.setVelocity(Vector2.mul(this.speed, dir));
-			this.abComp.stopActiveAbility();
-		}
-		if(this.physComp.getVelocity().X !=0){
-			this.transComp.setMirror(this.physComp.getVelocity().X > 0);
-		}
-	}
+//
+//	private void moveTowardsTarget(Vector2 target) {
+//		Vector2 position = this.transComp.getPosition();
+//		Vector2 dir = Vector2.subtract(target, position);
+//
+//		if((target.Y - position.Y) <= 0)
+//			dir = Vector2.add(Vector2.norm(dir), Vector2.UnitY);
+//
+//		if(dir.length() < minDistance) {
+//			this.physComp.setVelocity(Vector2.Zero);
+//			this.abComp.startAbility(bulletAbility);
+//		} else {
+//			dir = Vector2.norm(dir);
+//			this.physComp.setVelocity(Vector2.mul(this.speed, dir));
+//			this.abComp.stopActiveAbility();
+//		}
+//		if(this.physComp.getVelocity().X !=0){
+//			this.transComp.setMirror(this.physComp.getVelocity().X > 0);
+//		}
+//	}
 
 	@Override
 	public Object clone() {
 		return new ChangelingAIScript();
+	}
+
+
+	private class ScanningState extends BehaviourState{
+		@Override
+		public void update(GameTime time) {		
+			if(targetEntity == null){
+				IEntity newTarget = findNearestTarget();
+				if(newTarget != null) {
+					targetEntity = newTarget;
+					StateMachine.changeState(IDLE_STATE);
+				}
+			} else {
+				StateMachine.changeState(IDLE_STATE);
+			}
+
+		}
+		
+		@Override
+		public void exit(){
+			AnimationPlayer animPlayer = targetEntity.getComponent(AnimationComp.class).getAnimationPlayer().clone();
+			Entity.getComponent(AnimationComp.class).setAnimationPlayer(animPlayer);
+			TransformationComp targetTransCom = targetEntity.getComponent(TransformationComp.class);
+			transComp.setScale(targetTransCom.getScale());
+			transComp.setRotation(targetTransCom.getRotation());
+			transComp.setOrigin(targetTransCom.getOrigin());
+			InputComp targetInpComp = targetEntity.getComponent(InputComp.class);
+			Entity.addComponent(targetInpComp);
+			inpComp = targetInpComp;
+			Entity.refresh();
+			
+			IEntity cloud = EntityManager.createEntity(ContentManager.loadArchetype(CLOUD_ARCHETYPE_PATH));
+			cloud.getComponent(TransformationComp.class).setPosition(transComp.getPosition());
+		}
+	}
+
+
+	private class FallingState extends BehaviourState{
+		@Override
+		public void onGroundCollision() {
+			StateMachine.changeState(SCANNING_STATE);
+		}
+	}
+	
+	private class IdleState extends BehaviourState {
+		@Override
+		public void enter() {
+			animComp.changeAnimation("idle", false );
+		}
+
+		@Override
+		public void update(GameTime time) {
+			mirrorInput();
+			Vector2 velocity = physComp.getVelocity();
+			if(!velocity.equals(Vector2.Zero)) {
+				StateMachine.changeState(WALKING_STATE);
+			}
+		}
+
+	}
+	
+	private class WalkState extends BehaviourState {
+		@Override
+		public void enter() {
+			animComp.changeAnimation("walk", false);	
+		}
+
+		@Override
+		public void update(GameTime time) {
+			mirrorInput();
+			Vector2 velocity = physComp.getVelocity();
+			if(velocity.equals(Vector2.Zero)) {
+				System.out.println("idle");
+				StateMachine.changeState(IDLE_STATE);
+			}		
+		}
+	}
+
+	private class JumpState extends BehaviourState {
+		@Override
+		public void enter() {
+			animComp.changeAnimation("jump", false);
+		}
+
+		@Override
+		public void onGroundCollision() {
+			StateMachine.changeState(IDLE_STATE);
+		}
+
+		@Override
+		public void onTriggerEnter(IEntity other) {
+			if(physComp.getHeightVelocity() < 0) {
+				SoundManager.playSoundEffect("effects/boing.ogg");
+				animComp.changeAnimation("jump", false);
+				physComp.setHeightVelocity(600.0f);
+			}
+		}
+
+		@Override
+		public void update(GameTime time) {
+			mirrorInput();
+		}
 	}
 }

@@ -12,6 +12,7 @@ import components.PhysicsComp;
 import components.SpecialComp;
 import components.TransformationComp;
 import entityFramework.IEntity;
+import entityFramework.IEntityArchetype;
 
 import utils.input.Keyboard;
 import utils.input.Keys;
@@ -30,13 +31,13 @@ public class PlayerScript extends Behavior{
 	private static final String JUMP_STATE = "JUMP_STATE";
 	private static final float JUMP_VELO = 600f;
 	
-	PhysicsComp	  	        physComp;
-	InputComp 		  	     inpComp;
-	TransformationComp       posComp;
-	SpecialComp			 specialComp;
-	InputComp			   inputComp;
-	AbilityComp 			  apComp;
-	AnimationComp			animComp;
+	private PhysicsComp	  	        physComp;
+	private InputComp 		  	     inpComp;
+	private TransformationComp       posComp;
+	private SpecialComp			 specialComp;
+	private InputComp			   inputComp;
+	private AbilityComp 			  apComp;
+	private AnimationComp			animComp;
 	
 	
 	private BulletAbility bulletAbility;

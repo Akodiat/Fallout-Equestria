@@ -142,41 +142,6 @@ public class PonySelector extends TransitioningGUIScreen{
 		this.exitScreen();
 	}
 	
-//	@Override
-//	public void onTransitionFinished(){
-//		File[] files = characterFolder.listFiles();
-//		if(this.numOfPonies<files.length){
-//			System.out.println("" + this.numOfPonies + "   " + files.length);
-//			
-//			if(numOfPonies == 0){
-//				numOfPonies++;
-//				characters.add(this.manager.load(files[0].getName(), PlayerCharacteristics.class));
-//				addPonyPanel(0);
-//				this.addGuiControl(ponyPanelsList.get(0), new Vector2(-250, 130), new Vector2(150, 130), new Vector2(-250, 130));
-//				this.addGuiControl(ponyBoxesList.get(0), new Vector2(-250, 130), new Vector2(150, 130), new Vector2(-250, 130));
-//				this.addGuiControl(ponyLabelsList.get(0), new Vector2(-250, 390), new Vector2(150, 390), new Vector2(-250, 390));
-//				this.characterFiles.add(files[0]);
-//			}else if(numOfPonies == 1){
-//				System.out.println("TORLLOLOL");
-//				numOfPonies++;
-//				characters.add(this.manager.load(files[1].getName(), PlayerCharacteristics.class));
-//				addPonyPanel(1);
-//				this.addGuiControl(ponyPanelsList.get(1), new Vector2(1366/2-125, -250), new Vector2(1366/2-125, 130), new Vector2(1366/2-125, -250));
-//				this.addGuiControl(ponyBoxesList.get(1), new Vector2(1366/2-125, -250), new Vector2(1366/2-125, 130), new Vector2(1366/2-125, -250));
-//				this.addGuiControl(ponyLabelsList.get(1), new Vector2(1366/2-125, -250), new Vector2(1366/2-125, 390), new Vector2(1366/2-125, -250));
-//				this.characterFiles.add(files[1]);
-//			}else if(numOfPonies == 2){
-//				numOfPonies++;
-//				characters.add(this.manager.load(files[2].getName(), PlayerCharacteristics.class));
-//				addPonyPanel(2);
-//				this.addGuiControl(ponyPanelsList.get(2), new Vector2(1366, 130), new Vector2(966, 130), new Vector2(1366, 130));
-//				this.addGuiControl(ponyBoxesList.get(2), new Vector2(1366, 130), new Vector2(966, 130), new Vector2(1366, 130));
-//				this.addGuiControl(ponyLabelsList.get(2), new Vector2(1366, 390), new Vector2(966, 390), new Vector2(1366, 390));
-//				this.characterFiles.add(files[2]);
-//			}
-//		}
-//	}
-	
 	@Override
 	public void onEnter() {
 		for (AnimationBox animationBox : this.ponyBoxesList) {

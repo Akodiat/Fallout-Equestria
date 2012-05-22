@@ -94,6 +94,12 @@ public class RDAnimDemo extends Demo {
 
 		this.gameWorld = WorldBuilder.buildGameWorld(camera, scene, mouse, keyboard, this.ContentManager,soundManager, spriteBatch, false, "player");
 		gameWorld.initialize();
+		IEntityArchetype archetype2 = ContentManager.loadArchetype("changeling.archetype");
+		IEntity entity2 = gameWorld.getEntityManager().createEntity(archetype2);
+//		entity.addComponent(new BehaviourComp(new PlayerScript()));
+		entity2.addComponent(new ShadowComp());	
+		entity2.getComponent(TransformationComp.class).setPosition(900, 1000);
+		entity2.getComponent(TransformationComp.class).setHeight(1000);
 
 		//ANIMATION UGLY SHIT
 		IEntityArchetype archetype = ContentManager.loadArchetype(playerAsset);
@@ -101,7 +107,8 @@ public class RDAnimDemo extends Demo {
 		entity.addComponent(new BehaviourComp(new PlayerScript()));
 		entity.addComponent(new ShadowComp());	
 		
-		AnimationPlayer player = ContentManager.load("changeling.animset", AnimationPlayer.class);
+		AnimationPlayer player = ContentManager.load("rdset.animset", AnimationPlayer.class);
+		
 		
 ////		player.setBoneTexture(Bones.UPPERMANE, asd);
 ////		player.attachAnimationToBone(Bones.EYE.getValue(), ContentManager.load("monocle.anim", Animation.class));
