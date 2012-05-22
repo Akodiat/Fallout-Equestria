@@ -17,7 +17,9 @@ import content.TextureFontLoaderTests;
 @RunWith(Suite.class)
 @SuiteClasses({ CircleTests.class, AnimationLoadTest.class, EntityArchetypeLoaderTests.class, 
 				TimerTests.class, Vector2Tests.class, RectangleTests.class, Matrix4InvTest.class, ColorTests.class ,
-				SceneLoaderTests.class, ShaderLoaderTests.class, SoundLoaderTests.class, TextureFontLoaderTests.class})
+				SceneLoaderTests.class, ShaderLoaderTests.class, SoundLoaderTests.class, TextureFontLoaderTests.class ,
+				IEntityDatabaseTests.class, IEntityGroupManagerTests.class, IEntityLabelManagerTests.class ,
+				ResizableGridTest.class, IEntityManagerTests.class})
 
 public class AllTests {
 
