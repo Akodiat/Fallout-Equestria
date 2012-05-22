@@ -109,13 +109,16 @@ public class Level1 extends Level{
 			if(node.getNodeID().contains("Trigger")) {
 				String[] data = StringHelper.split(node.getNodeID(), '_');
 				
-				String archetypeName = data[1];
+				String archetypeName = data[1] + ".archetype";
 				int count = Integer.parseInt(data[2]);
-			/*	
+				
 				SpawnBehaviour behaviour = new SpawnBehaviour(archetypeName, count);
 				IEntity entity = this.World.getEntityManager().createEntity(triggerSpawnArchetype);
 				entity.addComponent(new BehaviourComp(behaviour));
-				entity.refresh();*/
+				entity.refresh();
+				
+				
+				entity.getComponent(TransformationComp.class).setPosition(node.getPosition());
 				nodes.remove(i);
 			}
 		}

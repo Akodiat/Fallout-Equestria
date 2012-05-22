@@ -1,0 +1,112 @@
+<entityFramework.EntityArchetype>
+  
+<components class="com.google.common.collect.RegularImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    
+<elements>
+      
+<Behaviour>
+        
+<behavior class="behavior.ChangelingAIScript">
+          
+<initialized>false</initialized>
+          
+<enabled>false</enabled>
+          
+<sightRange>2000.0</sightRange>
+          
+<speed>50.0</speed>
+          
+<minDistance>150.0</minDistance>
+          
+<targetGroup>Players</targetGroup>
+        
+</behavior>
+      
+</Behaviour>
+      
+<Physics>
+        
+<immovable>false</immovable>
+        
+<affectedByGravity>true</affectedByGravity>
+        
+<mass>1.0</mass>
+        
+<velocity>0.0,0.0</velocity>
+        
+<torque>0.0</torque>
+        
+<heightVelocity>0.0</heightVelocity>
+      
+</Physics>
+      
+<Ability>
+        
+<maxAbilityPoints>100.0</maxAbilityPoints>
+        
+<regenerationSpeed>10.0</regenerationSpeed>
+       
+<abilityPoints>100.0</abilityPoints>
+      
+</Ability>
+      
+<Animation>
+        
+<animationPlayer>
+          
+<Asset>changeling.animset</Asset>
+        
+</animationPlayer>
+        
+<tint>
+          
+<Color>1.0,1.0,1.0,1.0</Color>
+        
+</tint>
+      
+</Animation>
+      
+<Transformation>
+        
+<position reference="../../Physics/velocity"/>
+        
+<scale>1.0,1.0</scale>
+        
+<origin reference="../../Physics/velocity"/>
+        
+<rotation>0.0</rotation>
+        
+<mirror>false</mirror>
+        
+<height>0.0</height>
+      
+</Transformation>
+      
+<Health>
+        
+<maxHealth>100.0</maxHealth>
+        
+<regenSpeed>10.0</regenSpeed>
+        
+<healthPoints>100.0</healthPoints>
+     
+</Health>
+      
+<Spatial>
+        
+<bounds>
+		 <Max>40,15,50</Max>
+		 <Min>-40,-15,-50</Min>
+        </bounds>	      
+<trigger>false</trigger>
+        
+<collideable>true</collideable>
+      
+</Spatial>
+    </elements>
+  </components>
+  <groups class="com.google.common.collect.EmptyImmutableSet" resolves-to="com.google.common.collect.ImmutableSet$SerializedForm">
+    <elements/>
+  </groups>
+  <label></label>
+</entityFramework.EntityArchetype>
